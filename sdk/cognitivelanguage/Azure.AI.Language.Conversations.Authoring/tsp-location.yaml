@@ -1,4 +1,4 @@
 directory: specification/cognitiveservices/Language.AnalyzeConversations-authoring
-commit: 1bbb8f628f6e3083b73a2190e15bb0f5911571a3
+commit: c094319638fc8a3390f2c41d6414929c16f53d99
 repo: Azure/azure-rest-api-specs
-
+additionalDirectories: 

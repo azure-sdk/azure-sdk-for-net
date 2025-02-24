@@ -62,7 +62,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectAsync(string,CancellationToken)']/*" />
         public virtual async Task<Response<ProjectMetadata>> GetProjectAsync(string projectName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -77,7 +76,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProject(string,CancellationToken)']/*" />
         public virtual Response<ProjectMetadata> GetProject(string projectName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -108,7 +106,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> GetProjectAsync(string projectName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -148,7 +145,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProject(string,RequestContext)']/*" />
         public virtual Response GetProject(string projectName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -184,7 +180,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CreateProjectAsync(string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> CreateProjectAsync(string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -221,7 +216,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CreateProject(string,RequestContent,RequestContext)']/*" />
         public virtual Response CreateProject(string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -249,7 +243,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProjectAuthorizationAsync(string,ProjectKind,string,bool?,CancellationToken)']/*" />
         public virtual async Task<Response<CopyProjectDetails>> CopyProjectAuthorizationAsync(string projectName, ProjectKind projectKind, string storageInputContainerName = null, bool? allowOverwrite = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -268,7 +261,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProjectAuthorization(string,ProjectKind,string,bool?,CancellationToken)']/*" />
         public virtual Response<CopyProjectDetails> CopyProjectAuthorization(string projectName, ProjectKind projectKind, string storageInputContainerName = null, bool? allowOverwrite = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -301,7 +293,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProjectAuthorizationAsync(string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> CopyProjectAuthorizationAsync(string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -343,7 +334,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProjectAuthorization(string,RequestContent,RequestContext)']/*" />
         public virtual Response CopyProjectAuthorization(string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -369,7 +359,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetCopyProjectStatusAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<CopyProjectJobState>> GetCopyProjectStatusAsync(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -386,7 +375,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetCopyProjectStatus(string,string,CancellationToken)']/*" />
         public virtual Response<CopyProjectJobState> GetCopyProjectStatus(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -419,7 +407,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetCopyProjectStatusAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetCopyProjectStatusAsync(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -461,7 +448,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetCopyProjectStatus(string,string,RequestContext)']/*" />
         public virtual Response GetCopyProjectStatus(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -487,7 +473,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<ProjectDeployment>> GetDeploymentAsync(string projectName, string deploymentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -504,7 +489,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeployment(string,string,CancellationToken)']/*" />
         public virtual Response<ProjectDeployment> GetDeployment(string projectName, string deploymentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -537,7 +521,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetDeploymentAsync(string projectName, string deploymentName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -579,7 +562,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeployment(string,string,RequestContext)']/*" />
         public virtual Response GetDeployment(string projectName, string deploymentName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -606,7 +588,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentDeleteFromResourcesStatusAsync(string,string,string,CancellationToken)']/*" />
         public virtual async Task<Response<DeploymentDeleteFromResourcesJobState>> GetDeploymentDeleteFromResourcesStatusAsync(string projectName, string deploymentName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -625,7 +606,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentDeleteFromResourcesStatus(string,string,string,CancellationToken)']/*" />
         public virtual Response<DeploymentDeleteFromResourcesJobState> GetDeploymentDeleteFromResourcesStatus(string projectName, string deploymentName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -660,7 +640,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentDeleteFromResourcesStatusAsync(string,string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetDeploymentDeleteFromResourcesStatusAsync(string projectName, string deploymentName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -704,7 +683,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentDeleteFromResourcesStatus(string,string,string,RequestContext)']/*" />
         public virtual Response GetDeploymentDeleteFromResourcesStatus(string projectName, string deploymentName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -732,7 +710,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentStatusAsync(string,string,string,CancellationToken)']/*" />
         public virtual async Task<Response<DeploymentJobState>> GetDeploymentStatusAsync(string projectName, string deploymentName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -751,7 +728,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentStatus(string,string,string,CancellationToken)']/*" />
         public virtual Response<DeploymentJobState> GetDeploymentStatus(string projectName, string deploymentName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -786,7 +762,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentStatusAsync(string,string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetDeploymentStatusAsync(string projectName, string deploymentName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -830,7 +805,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentStatus(string,string,string,RequestContext)']/*" />
         public virtual Response GetDeploymentStatus(string projectName, string deploymentName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -857,7 +831,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSwapDeploymentsStatusAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<SwapDeploymentsJobState>> GetSwapDeploymentsStatusAsync(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -874,7 +847,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSwapDeploymentsStatus(string,string,CancellationToken)']/*" />
         public virtual Response<SwapDeploymentsJobState> GetSwapDeploymentsStatus(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -907,7 +879,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSwapDeploymentsStatusAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetSwapDeploymentsStatusAsync(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -949,7 +920,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSwapDeploymentsStatus(string,string,RequestContext)']/*" />
         public virtual Response GetSwapDeploymentsStatus(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -975,7 +945,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportStatusAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<ExportProjectJobState>> GetExportStatusAsync(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -992,7 +961,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportStatus(string,string,CancellationToken)']/*" />
         public virtual Response<ExportProjectJobState> GetExportStatus(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1025,7 +993,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportStatusAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetExportStatusAsync(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1067,7 +1034,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportStatus(string,string,RequestContext)']/*" />
         public virtual Response GetExportStatus(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1093,7 +1059,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<ExportedTrainedModel>> GetExportedModelAsync(string projectName, string exportedModelName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1110,7 +1075,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModel(string,string,CancellationToken)']/*" />
         public virtual Response<ExportedTrainedModel> GetExportedModel(string projectName, string exportedModelName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1143,7 +1107,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetExportedModelAsync(string projectName, string exportedModelName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1185,7 +1148,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModel(string,string,RequestContext)']/*" />
         public virtual Response GetExportedModel(string projectName, string exportedModelName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1212,7 +1174,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelJobStatusAsync(string,string,string,CancellationToken)']/*" />
         public virtual async Task<Response<ExportedModelJobState>> GetExportedModelJobStatusAsync(string projectName, string exportedModelName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1231,7 +1192,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelJobStatus(string,string,string,CancellationToken)']/*" />
         public virtual Response<ExportedModelJobState> GetExportedModelJobStatus(string projectName, string exportedModelName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1266,7 +1226,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelJobStatusAsync(string,string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetExportedModelJobStatusAsync(string projectName, string exportedModelName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1310,7 +1269,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelJobStatus(string,string,string,RequestContext)']/*" />
         public virtual Response GetExportedModelJobStatus(string projectName, string exportedModelName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1337,7 +1295,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelManifestAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<ExportedModelManifest>> GetExportedModelManifestAsync(string projectName, string exportedModelName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1354,7 +1311,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelManifest(string,string,CancellationToken)']/*" />
         public virtual Response<ExportedModelManifest> GetExportedModelManifest(string projectName, string exportedModelName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1387,7 +1343,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelManifestAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetExportedModelManifestAsync(string projectName, string exportedModelName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1429,7 +1384,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelManifest(string,string,RequestContext)']/*" />
         public virtual Response GetExportedModelManifest(string projectName, string exportedModelName, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1455,7 +1409,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetImportStatusAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<ImportProjectJobState>> GetImportStatusAsync(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1472,7 +1425,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetImportStatus(string,string,CancellationToken)']/*" />
         public virtual Response<ImportProjectJobState> GetImportStatus(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1505,7 +1457,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetImportStatusAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetImportStatusAsync(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1547,7 +1498,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetImportStatus(string,string,RequestContext)']/*" />
         public virtual Response GetImportStatus(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1573,7 +1523,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModelAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<ProjectTrainedModel>> GetTrainedModelAsync(string projectName, string trainedModelLabel, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1590,7 +1539,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModel(string,string,CancellationToken)']/*" />
         public virtual Response<ProjectTrainedModel> GetTrainedModel(string projectName, string trainedModelLabel, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1623,7 +1571,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModelAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetTrainedModelAsync(string projectName, string trainedModelLabel, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1665,7 +1612,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModel(string,string,RequestContext)']/*" />
         public virtual Response GetTrainedModel(string projectName, string trainedModelLabel, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1703,7 +1649,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteTrainedModelAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> DeleteTrainedModelAsync(string projectName, string trainedModelLabel, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1741,7 +1686,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteTrainedModel(string,string,RequestContext)']/*" />
         public virtual Response DeleteTrainedModel(string projectName, string trainedModelLabel, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1768,7 +1712,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetEvaluationStatusAsync(string,string,string,CancellationToken)']/*" />
         public virtual async Task<Response<EvaluationJobState>> GetEvaluationStatusAsync(string projectName, string trainedModelLabel, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1787,7 +1730,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetEvaluationStatus(string,string,string,CancellationToken)']/*" />
         public virtual Response<EvaluationJobState> GetEvaluationStatus(string projectName, string trainedModelLabel, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1822,7 +1764,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetEvaluationStatusAsync(string,string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetEvaluationStatusAsync(string projectName, string trainedModelLabel, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1866,7 +1807,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetEvaluationStatus(string,string,string,RequestContext)']/*" />
         public virtual Response GetEvaluationStatus(string projectName, string trainedModelLabel, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1893,7 +1833,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationSummaryAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<EvaluationSummary>> GetModelEvaluationSummaryAsync(string projectName, string trainedModelLabel, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1910,7 +1849,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationSummary(string,string,CancellationToken)']/*" />
         public virtual Response<EvaluationSummary> GetModelEvaluationSummary(string projectName, string trainedModelLabel, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1943,7 +1881,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationSummaryAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetModelEvaluationSummaryAsync(string projectName, string trainedModelLabel, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -1985,7 +1922,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationSummary(string,string,RequestContext)']/*" />
         public virtual Response GetModelEvaluationSummary(string projectName, string trainedModelLabel, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2012,7 +1948,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetLoadSnapshotStatusAsync(string,string,string,CancellationToken)']/*" />
         public virtual async Task<Response<LoadSnapshotJobState>> GetLoadSnapshotStatusAsync(string projectName, string trainedModelLabel, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2031,7 +1966,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetLoadSnapshotStatus(string,string,string,CancellationToken)']/*" />
         public virtual Response<LoadSnapshotJobState> GetLoadSnapshotStatus(string projectName, string trainedModelLabel, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2066,7 +2000,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetLoadSnapshotStatusAsync(string,string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetLoadSnapshotStatusAsync(string projectName, string trainedModelLabel, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2110,7 +2043,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetLoadSnapshotStatus(string,string,string,RequestContext)']/*" />
         public virtual Response GetLoadSnapshotStatus(string projectName, string trainedModelLabel, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2137,7 +2069,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignDeploymentResourcesStatusAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<AssignDeploymentResourcesJobState>> GetAssignDeploymentResourcesStatusAsync(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2154,7 +2085,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignDeploymentResourcesStatus(string,string,CancellationToken)']/*" />
         public virtual Response<AssignDeploymentResourcesJobState> GetAssignDeploymentResourcesStatus(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2187,7 +2117,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignDeploymentResourcesStatusAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetAssignDeploymentResourcesStatusAsync(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2229,7 +2158,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignDeploymentResourcesStatus(string,string,RequestContext)']/*" />
         public virtual Response GetAssignDeploymentResourcesStatus(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2255,7 +2183,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetUnassignDeploymentResourcesStatusAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<UnassignDeploymentResourcesJobState>> GetUnassignDeploymentResourcesStatusAsync(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2272,7 +2199,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetUnassignDeploymentResourcesStatus(string,string,CancellationToken)']/*" />
         public virtual Response<UnassignDeploymentResourcesJobState> GetUnassignDeploymentResourcesStatus(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2305,7 +2231,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetUnassignDeploymentResourcesStatusAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetUnassignDeploymentResourcesStatusAsync(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2347,7 +2272,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetUnassignDeploymentResourcesStatus(string,string,RequestContext)']/*" />
         public virtual Response GetUnassignDeploymentResourcesStatus(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2373,7 +2297,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingStatusAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<TrainingJobState>> GetTrainingStatusAsync(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2390,7 +2313,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingStatus(string,string,CancellationToken)']/*" />
         public virtual Response<TrainingJobState> GetTrainingStatus(string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2423,7 +2345,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingStatusAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> GetTrainingStatusAsync(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2465,7 +2386,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingStatus(string,string,RequestContext)']/*" />
         public virtual Response GetTrainingStatus(string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2490,7 +2410,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectDeletionStatusAsync(string,CancellationToken)']/*" />
         public virtual async Task<Response<ProjectDeletionJobState>> GetProjectDeletionStatusAsync(string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -2505,7 +2424,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectDeletionStatus(string,CancellationToken)']/*" />
         public virtual Response<ProjectDeletionJobState> GetProjectDeletionStatus(string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -2536,7 +2454,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectDeletionStatusAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> GetProjectDeletionStatusAsync(string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -2576,7 +2493,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectDeletionStatus(string,RequestContext)']/*" />
         public virtual Response GetProjectDeletionStatus(string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -2600,7 +2516,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectsAsync(int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<ProjectMetadata> GetProjectsAsync(int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -2614,7 +2529,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjects(int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<ProjectMetadata> GetProjects(int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -2644,7 +2558,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjectsAsync(int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetProjectsAsync(int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetProjectsRequest(maxCount, skip, pageSizeHint, context);
@@ -2673,7 +2586,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetProjects(int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetProjects(int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetProjectsRequest(maxCount, skip, pageSizeHint, context);
@@ -2689,7 +2601,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentsAsync(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<ProjectDeployment> GetDeploymentsAsync(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2708,7 +2619,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeployments(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<ProjectDeployment> GetDeployments(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2743,7 +2653,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentsAsync(string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetDeploymentsAsync(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2777,7 +2686,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeployments(string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetDeployments(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2795,7 +2703,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelsAsync(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<ExportedTrainedModel> GetExportedModelsAsync(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2814,7 +2721,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModels(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<ExportedTrainedModel> GetExportedModels(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2849,7 +2755,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModelsAsync(string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetExportedModelsAsync(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2883,7 +2788,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetExportedModels(string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetExportedModels(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2901,7 +2805,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModelsAsync(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<ProjectTrainedModel> GetTrainedModelsAsync(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2920,7 +2823,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModels(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<ProjectTrainedModel> GetTrainedModels(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2955,7 +2857,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModelsAsync(string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetTrainedModelsAsync(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -2989,7 +2890,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainedModels(string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetTrainedModels(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3009,7 +2909,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationResultsAsync(string,string,StringIndexType,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<DocumentEvaluationResult> GetModelEvaluationResultsAsync(string projectName, string trainedModelLabel, StringIndexType stringIndexType, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3031,7 +2930,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationResults(string,string,StringIndexType,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<DocumentEvaluationResult> GetModelEvaluationResults(string projectName, string trainedModelLabel, StringIndexType stringIndexType, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3069,7 +2967,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationResultsAsync(string,string,string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetModelEvaluationResultsAsync(string projectName, string trainedModelLabel, string stringIndexType, int? maxCount = null, int? skip = null, int? maxpagesize = null, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3107,7 +3004,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetModelEvaluationResults(string,string,string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetModelEvaluationResults(string projectName, string trainedModelLabel, string stringIndexType, int? maxCount = null, int? skip = null, int? maxpagesize = null, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3127,7 +3023,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentResourcesAsync(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<AssignedDeploymentResource> GetDeploymentResourcesAsync(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3146,7 +3041,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentResources(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<AssignedDeploymentResource> GetDeploymentResources(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3181,7 +3075,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentResourcesAsync(string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetDeploymentResourcesAsync(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3215,7 +3108,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetDeploymentResources(string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetDeploymentResources(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3233,7 +3125,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingJobsAsync(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<TrainingJobState> GetTrainingJobsAsync(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3252,7 +3143,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingJobs(string,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<TrainingJobState> GetTrainingJobs(string projectName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3287,7 +3177,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingJobsAsync(string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetTrainingJobsAsync(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3321,7 +3210,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingJobs(string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetTrainingJobs(string projectName, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3336,7 +3224,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignedResourceDeploymentsAsync(int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<AssignedProjectDeploymentsMetadata> GetAssignedResourceDeploymentsAsync(int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3350,7 +3237,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignedResourceDeployments(int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<AssignedProjectDeploymentsMetadata> GetAssignedResourceDeployments(int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3380,7 +3266,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignedResourceDeploymentsAsync(int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetAssignedResourceDeploymentsAsync(int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetAssignedResourceDeploymentsRequest(maxCount, skip, pageSizeHint, context);
@@ -3409,7 +3294,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetAssignedResourceDeployments(int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetAssignedResourceDeployments(int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetAssignedResourceDeploymentsRequest(maxCount, skip, pageSizeHint, context);
@@ -3423,7 +3307,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedLanguagesAsync(ProjectKind?,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<SupportedLanguage> GetSupportedLanguagesAsync(ProjectKind? projectKind = null, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3438,7 +3321,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedLanguages(ProjectKind?,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<SupportedLanguage> GetSupportedLanguages(ProjectKind? projectKind = null, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3469,7 +3351,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedLanguagesAsync(string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetSupportedLanguagesAsync(string projectKind, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetSupportedLanguagesRequest(projectKind, maxCount, skip, pageSizeHint, context);
@@ -3499,7 +3380,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedLanguages(string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetSupportedLanguages(string projectKind, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetSupportedLanguagesRequest(projectKind, maxCount, skip, pageSizeHint, context);
@@ -3509,7 +3389,6 @@ namespace Azure.AI.Language.Text.Authoring
 
         /// <summary> Lists the supported prebuilt entities that can be used while creating composed entities. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedPrebuiltEntitiesAsync(CancellationToken)']/*" />
         public virtual AsyncPageable<PrebuiltEntity> GetSupportedPrebuiltEntitiesAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3520,7 +3399,6 @@ namespace Azure.AI.Language.Text.Authoring
 
         /// <summary> Lists the supported prebuilt entities that can be used while creating composed entities. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedPrebuiltEntities(CancellationToken)']/*" />
         public virtual Pageable<PrebuiltEntity> GetSupportedPrebuiltEntities(CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3547,7 +3425,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedPrebuiltEntitiesAsync(RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetSupportedPrebuiltEntitiesAsync(RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetSupportedPrebuiltEntitiesRequest(context);
@@ -3573,7 +3450,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetSupportedPrebuiltEntities(RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetSupportedPrebuiltEntities(RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetSupportedPrebuiltEntitiesRequest(context);
@@ -3587,7 +3463,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingConfigVersionsAsync(ProjectKind?,int?,int?,int?,CancellationToken)']/*" />
         public virtual AsyncPageable<TrainingConfigVersion> GetTrainingConfigVersionsAsync(ProjectKind? projectKind = null, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3602,7 +3477,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="skip"> The number of result items to skip. </param>
         /// <param name="maxpagesize"> The maximum number of result items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingConfigVersions(ProjectKind?,int?,int?,int?,CancellationToken)']/*" />
         public virtual Pageable<TrainingConfigVersion> GetTrainingConfigVersions(ProjectKind? projectKind = null, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
@@ -3633,7 +3507,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingConfigVersionsAsync(string,int?,int?,int?,RequestContext)']/*" />
         public virtual AsyncPageable<BinaryData> GetTrainingConfigVersionsAsync(string projectKind, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetTrainingConfigVersionsRequest(projectKind, maxCount, skip, pageSizeHint, context);
@@ -3663,7 +3536,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='GetTrainingConfigVersions(string,int?,int?,int?,RequestContext)']/*" />
         public virtual Pageable<BinaryData> GetTrainingConfigVersions(string projectKind, int? maxCount, int? skip, int? maxpagesize, RequestContext context)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetTrainingConfigVersionsRequest(projectKind, maxCount, skip, pageSizeHint, context);
@@ -3689,7 +3561,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteProjectAsync(WaitUntil,string,RequestContext)']/*" />
         public virtual async Task<Operation> DeleteProjectAsync(WaitUntil waitUntil, string projectName, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3726,7 +3597,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteProject(WaitUntil,string,RequestContext)']/*" />
         public virtual Operation DeleteProject(WaitUntil waitUntil, string projectName, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3752,7 +3622,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProjectAsync(WaitUntil,string,CopyProjectDetails,CancellationToken)']/*" />
         public virtual async Task<Operation> CopyProjectAsync(WaitUntil waitUntil, string projectName, CopyProjectDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3770,7 +3639,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProject(WaitUntil,string,CopyProjectDetails,CancellationToken)']/*" />
         public virtual Operation CopyProject(WaitUntil waitUntil, string projectName, CopyProjectDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3804,7 +3672,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProjectAsync(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> CopyProjectAsync(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3847,7 +3714,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CopyProject(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual Operation CopyProject(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3876,7 +3742,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='ExportAsync(WaitUntil,string,StringIndexType,string,string,CancellationToken)']/*" />
         public virtual async Task<Operation> ExportAsync(WaitUntil waitUntil, string projectName, StringIndexType stringIndexType, string assetKind = null, string trainedModelLabel = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3894,7 +3759,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='Export(WaitUntil,string,StringIndexType,string,string,CancellationToken)']/*" />
         public virtual Operation Export(WaitUntil waitUntil, string projectName, StringIndexType stringIndexType, string assetKind = null, string trainedModelLabel = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3928,7 +3792,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='ExportAsync(WaitUntil,string,string,string,string,RequestContext)']/*" />
         public virtual async Task<Operation> ExportAsync(WaitUntil waitUntil, string projectName, string stringIndexType, string assetKind = null, string trainedModelLabel = null, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -3973,7 +3836,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='Export(WaitUntil,string,string,string,string,RequestContext)']/*" />
         public virtual Operation Export(WaitUntil waitUntil, string projectName, string stringIndexType, string assetKind = null, string trainedModelLabel = null, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4001,7 +3863,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='ImportAsync(WaitUntil,string,ExportedProject,string,CancellationToken)']/*" />
         public virtual async Task<Operation> ImportAsync(WaitUntil waitUntil, string projectName, ExportedProject body, string format = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4020,7 +3881,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='Import(WaitUntil,string,ExportedProject,string,CancellationToken)']/*" />
         public virtual Operation Import(WaitUntil waitUntil, string projectName, ExportedProject body, string format = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4055,7 +3915,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='ImportAsync(WaitUntil,string,RequestContent,string,RequestContext)']/*" />
         public virtual async Task<Operation> ImportAsync(WaitUntil waitUntil, string projectName, RequestContent content, string format = null, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4099,7 +3958,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='Import(WaitUntil,string,RequestContent,string,RequestContext)']/*" />
         public virtual Operation Import(WaitUntil waitUntil, string projectName, RequestContent content, string format = null, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4126,7 +3984,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='TrainAsync(WaitUntil,string,TrainingJobDetails,CancellationToken)']/*" />
         public virtual async Task<Operation<TrainingJobResult>> TrainAsync(WaitUntil waitUntil, string projectName, TrainingJobDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4145,7 +4002,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='Train(WaitUntil,string,TrainingJobDetails,CancellationToken)']/*" />
         public virtual Operation<TrainingJobResult> Train(WaitUntil waitUntil, string projectName, TrainingJobDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4180,7 +4036,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='TrainAsync(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation<BinaryData>> TrainAsync(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4223,7 +4078,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='Train(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual Operation<BinaryData> Train(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4251,7 +4105,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeployProjectAsync(WaitUntil,string,string,CreateDeploymentDetails,CancellationToken)']/*" />
         public virtual async Task<Operation> DeployProjectAsync(WaitUntil waitUntil, string projectName, string deploymentName, CreateDeploymentDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4271,7 +4124,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeployProject(WaitUntil,string,string,CreateDeploymentDetails,CancellationToken)']/*" />
         public virtual Operation DeployProject(WaitUntil waitUntil, string projectName, string deploymentName, CreateDeploymentDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4307,7 +4159,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeployProjectAsync(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> DeployProjectAsync(WaitUntil waitUntil, string projectName, string deploymentName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4352,7 +4203,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeployProject(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual Operation DeployProject(WaitUntil waitUntil, string projectName, string deploymentName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4392,7 +4242,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteDeploymentAsync(WaitUntil,string,string,RequestContext)']/*" />
         public virtual async Task<Operation> DeleteDeploymentAsync(WaitUntil waitUntil, string projectName, string deploymentName, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4431,7 +4280,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteDeployment(WaitUntil,string,string,RequestContext)']/*" />
         public virtual Operation DeleteDeployment(WaitUntil waitUntil, string projectName, string deploymentName, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4459,7 +4307,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteDeploymentFromResourcesAsync(WaitUntil,string,string,DeleteDeploymentDetails,CancellationToken)']/*" />
         public virtual async Task<Operation> DeleteDeploymentFromResourcesAsync(WaitUntil waitUntil, string projectName, string deploymentName, DeleteDeploymentDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4479,7 +4326,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteDeploymentFromResources(WaitUntil,string,string,DeleteDeploymentDetails,CancellationToken)']/*" />
         public virtual Operation DeleteDeploymentFromResources(WaitUntil waitUntil, string projectName, string deploymentName, DeleteDeploymentDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4515,7 +4361,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteDeploymentFromResourcesAsync(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> DeleteDeploymentFromResourcesAsync(WaitUntil waitUntil, string projectName, string deploymentName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4560,7 +4405,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteDeploymentFromResources(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual Operation DeleteDeploymentFromResources(WaitUntil waitUntil, string projectName, string deploymentName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4588,7 +4432,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='SwapDeploymentsAsync(WaitUntil,string,SwapDeploymentsDetails,CancellationToken)']/*" />
         public virtual async Task<Operation> SwapDeploymentsAsync(WaitUntil waitUntil, string projectName, SwapDeploymentsDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4606,7 +4449,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='SwapDeployments(WaitUntil,string,SwapDeploymentsDetails,CancellationToken)']/*" />
         public virtual Operation SwapDeployments(WaitUntil waitUntil, string projectName, SwapDeploymentsDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4640,7 +4482,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='SwapDeploymentsAsync(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> SwapDeploymentsAsync(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4683,7 +4524,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='SwapDeployments(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual Operation SwapDeployments(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4711,7 +4551,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CreateOrUpdateExportedModelAsync(WaitUntil,string,string,ExportedModelDetails,CancellationToken)']/*" />
         public virtual async Task<Operation> CreateOrUpdateExportedModelAsync(WaitUntil waitUntil, string projectName, string exportedModelName, ExportedModelDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4731,7 +4570,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="exportedModelName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CreateOrUpdateExportedModel(WaitUntil,string,string,ExportedModelDetails,CancellationToken)']/*" />
         public virtual Operation CreateOrUpdateExportedModel(WaitUntil waitUntil, string projectName, string exportedModelName, ExportedModelDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4767,7 +4605,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CreateOrUpdateExportedModelAsync(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> CreateOrUpdateExportedModelAsync(WaitUntil waitUntil, string projectName, string exportedModelName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4812,7 +4649,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CreateOrUpdateExportedModel(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual Operation CreateOrUpdateExportedModel(WaitUntil waitUntil, string projectName, string exportedModelName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4852,7 +4688,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteExportedModelAsync(WaitUntil,string,string,RequestContext)']/*" />
         public virtual async Task<Operation> DeleteExportedModelAsync(WaitUntil waitUntil, string projectName, string exportedModelName, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4891,7 +4726,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="exportedModelName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='DeleteExportedModel(WaitUntil,string,string,RequestContext)']/*" />
         public virtual Operation DeleteExportedModel(WaitUntil waitUntil, string projectName, string exportedModelName, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4919,7 +4753,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='EvaluateModelAsync(WaitUntil,string,string,EvaluationDetails,CancellationToken)']/*" />
         public virtual async Task<Operation<EvaluationJobResult>> EvaluateModelAsync(WaitUntil waitUntil, string projectName, string trainedModelLabel, EvaluationDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4940,7 +4773,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/>, <paramref name="trainedModelLabel"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='EvaluateModel(WaitUntil,string,string,EvaluationDetails,CancellationToken)']/*" />
         public virtual Operation<EvaluationJobResult> EvaluateModel(WaitUntil waitUntil, string projectName, string trainedModelLabel, EvaluationDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -4977,7 +4809,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='EvaluateModelAsync(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation<BinaryData>> EvaluateModelAsync(WaitUntil waitUntil, string projectName, string trainedModelLabel, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5022,7 +4853,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='EvaluateModel(WaitUntil,string,string,RequestContent,RequestContext)']/*" />
         public virtual Operation<BinaryData> EvaluateModel(WaitUntil waitUntil, string projectName, string trainedModelLabel, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5062,7 +4892,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='LoadSnapshotAsync(WaitUntil,string,string,RequestContext)']/*" />
         public virtual async Task<Operation> LoadSnapshotAsync(WaitUntil waitUntil, string projectName, string trainedModelLabel, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5101,7 +4930,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="trainedModelLabel"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='LoadSnapshot(WaitUntil,string,string,RequestContext)']/*" />
         public virtual Operation LoadSnapshot(WaitUntil waitUntil, string projectName, string trainedModelLabel, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5128,7 +4956,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='AssignDeploymentResourcesAsync(WaitUntil,string,AssignDeploymentResourcesDetails,CancellationToken)']/*" />
         public virtual async Task<Operation> AssignDeploymentResourcesAsync(WaitUntil waitUntil, string projectName, AssignDeploymentResourcesDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5146,7 +4973,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='AssignDeploymentResources(WaitUntil,string,AssignDeploymentResourcesDetails,CancellationToken)']/*" />
         public virtual Operation AssignDeploymentResources(WaitUntil waitUntil, string projectName, AssignDeploymentResourcesDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5180,7 +5006,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='AssignDeploymentResourcesAsync(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> AssignDeploymentResourcesAsync(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5223,7 +5048,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='AssignDeploymentResources(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual Operation AssignDeploymentResources(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5250,7 +5074,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='UnassignDeploymentResourcesAsync(WaitUntil,string,UnassignDeploymentResourcesDetails,CancellationToken)']/*" />
         public virtual async Task<Operation> UnassignDeploymentResourcesAsync(WaitUntil waitUntil, string projectName, UnassignDeploymentResourcesDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5268,7 +5091,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='UnassignDeploymentResources(WaitUntil,string,UnassignDeploymentResourcesDetails,CancellationToken)']/*" />
         public virtual Operation UnassignDeploymentResources(WaitUntil waitUntil, string projectName, UnassignDeploymentResourcesDetails body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5302,7 +5124,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='UnassignDeploymentResourcesAsync(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Operation> UnassignDeploymentResourcesAsync(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5345,7 +5166,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='UnassignDeploymentResources(WaitUntil,string,RequestContent,RequestContext)']/*" />
         public virtual Operation UnassignDeploymentResources(WaitUntil waitUntil, string projectName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5372,7 +5192,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CancelTrainingJobAsync(WaitUntil,string,string,CancellationToken)']/*" />
         public virtual async Task<Operation<TrainingJobResult>> CancelTrainingJobAsync(WaitUntil waitUntil, string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5390,7 +5209,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CancelTrainingJob(WaitUntil,string,string,CancellationToken)']/*" />
         public virtual Operation<TrainingJobResult> CancelTrainingJob(WaitUntil waitUntil, string projectName, string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5424,7 +5242,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CancelTrainingJobAsync(WaitUntil,string,string,RequestContext)']/*" />
         public virtual async Task<Operation<BinaryData>> CancelTrainingJobAsync(WaitUntil waitUntil, string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
@@ -5467,7 +5284,6 @@ namespace Azure.AI.Language.Text.Authoring
         /// <exception cref="ArgumentException"> <paramref name="projectName"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/TextAnalysisAuthoring.xml" path="doc/members/member[@name='CancelTrainingJob(WaitUntil,string,string,RequestContext)']/*" />
         public virtual Operation<BinaryData> CancelTrainingJob(WaitUntil waitUntil, string projectName, string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(projectName, nameof(projectName));
