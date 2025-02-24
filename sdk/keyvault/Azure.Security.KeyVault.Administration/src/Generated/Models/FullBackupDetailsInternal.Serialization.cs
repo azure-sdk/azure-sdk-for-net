@@ -18,9 +18,9 @@ namespace Azure.Security.KeyVault.Administration.Models
             {
                 return null;
             }
-            string status = default;
+            OperationStatus? status = default;
             string statusDetails = default;
-            KeyVaultServiceError error = default;
+            FullBackupOperationError error = default;
             DateTimeOffset? startTime = default;
             DateTimeOffset? endTime = default;
             string jobId = default;
@@ -29,7 +29,11 @@ namespace Azure.Security.KeyVault.Administration.Models
             {
                 if (property.NameEquals("status"u8))
                 {
-                    status = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    status = new OperationStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("statusDetails"u8))
@@ -44,7 +48,7 @@ namespace Azure.Security.KeyVault.Administration.Models
                         error = null;
                         continue;
                     }
-                    error = KeyVaultServiceError.DeserializeKeyVaultServiceError(property.Value);
+                    error = FullBackupOperationError.DeserializeFullBackupOperationError(property.Value);
                     continue;
                 }
                 if (property.NameEquals("startTime"u8))
