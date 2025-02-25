@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Compute
 
         DiskEncryptionSetResource IOperationSource<DiskEncryptionSetResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DiskEncryptionSetData.DeserializeDiskEncryptionSetData(document.RootElement);
+            var data = ModelReaderWriter.Read<DiskEncryptionSetData>(new BinaryData(response.ContentStream));
             return new DiskEncryptionSetResource(_client, data);
         }
 
         async ValueTask<DiskEncryptionSetResource> IOperationSource<DiskEncryptionSetResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DiskEncryptionSetData.DeserializeDiskEncryptionSetData(document.RootElement);
             return new DiskEncryptionSetResource(_client, data);
         }

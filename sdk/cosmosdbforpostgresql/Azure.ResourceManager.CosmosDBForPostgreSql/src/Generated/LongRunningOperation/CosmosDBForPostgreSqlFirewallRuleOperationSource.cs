@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql
 
         CosmosDBForPostgreSqlFirewallRuleResource IOperationSource<CosmosDBForPostgreSqlFirewallRuleResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CosmosDBForPostgreSqlFirewallRuleData.DeserializeCosmosDBForPostgreSqlFirewallRuleData(document.RootElement);
+            var data = ModelReaderWriter.Read<CosmosDBForPostgreSqlFirewallRuleData>(new BinaryData(response.ContentStream));
             return new CosmosDBForPostgreSqlFirewallRuleResource(_client, data);
         }
 
         async ValueTask<CosmosDBForPostgreSqlFirewallRuleResource> IOperationSource<CosmosDBForPostgreSqlFirewallRuleResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CosmosDBForPostgreSqlFirewallRuleData.DeserializeCosmosDBForPostgreSqlFirewallRuleData(document.RootElement);
             return new CosmosDBForPostgreSqlFirewallRuleResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DataBoxEdge
 
         DataBoxEdgeTriggerResource IOperationSource<DataBoxEdgeTriggerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DataBoxEdgeTriggerData.DeserializeDataBoxEdgeTriggerData(document.RootElement);
+            var data = ModelReaderWriter.Read<DataBoxEdgeTriggerData>(new BinaryData(response.ContentStream));
             return new DataBoxEdgeTriggerResource(_client, data);
         }
 
         async ValueTask<DataBoxEdgeTriggerResource> IOperationSource<DataBoxEdgeTriggerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DataBoxEdgeTriggerData.DeserializeDataBoxEdgeTriggerData(document.RootElement);
             return new DataBoxEdgeTriggerResource(_client, data);
         }

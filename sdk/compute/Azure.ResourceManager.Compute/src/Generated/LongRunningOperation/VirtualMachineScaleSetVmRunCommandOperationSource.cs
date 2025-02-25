@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Compute
 
         VirtualMachineScaleSetVmRunCommandResource IOperationSource<VirtualMachineScaleSetVmRunCommandResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = VirtualMachineRunCommandData.DeserializeVirtualMachineRunCommandData(document.RootElement);
+            var data = ModelReaderWriter.Read<VirtualMachineRunCommandData>(new BinaryData(response.ContentStream));
             return new VirtualMachineScaleSetVmRunCommandResource(_client, data);
         }
 
         async ValueTask<VirtualMachineScaleSetVmRunCommandResource> IOperationSource<VirtualMachineScaleSetVmRunCommandResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = VirtualMachineRunCommandData.DeserializeVirtualMachineRunCommandData(document.RootElement);
             return new VirtualMachineScaleSetVmRunCommandResource(_client, data);
         }

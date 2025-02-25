@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Communication
 
         CommunicationServiceResource IOperationSource<CommunicationServiceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CommunicationServiceResourceData.DeserializeCommunicationServiceResourceData(document.RootElement);
+            var data = ModelReaderWriter.Read<CommunicationServiceResourceData>(new BinaryData(response.ContentStream));
             return new CommunicationServiceResource(_client, data);
         }
 
         async ValueTask<CommunicationServiceResource> IOperationSource<CommunicationServiceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CommunicationServiceResourceData.DeserializeCommunicationServiceResourceData(document.RootElement);
             return new CommunicationServiceResource(_client, data);
         }

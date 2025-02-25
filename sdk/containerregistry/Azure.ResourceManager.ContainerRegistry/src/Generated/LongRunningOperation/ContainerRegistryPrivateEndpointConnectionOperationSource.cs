@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ContainerRegistry
 
         ContainerRegistryPrivateEndpointConnectionResource IOperationSource<ContainerRegistryPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ContainerRegistryPrivateEndpointConnectionData.DeserializeContainerRegistryPrivateEndpointConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<ContainerRegistryPrivateEndpointConnectionData>(new BinaryData(response.ContentStream));
             return new ContainerRegistryPrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<ContainerRegistryPrivateEndpointConnectionResource> IOperationSource<ContainerRegistryPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ContainerRegistryPrivateEndpointConnectionData.DeserializeContainerRegistryPrivateEndpointConnectionData(document.RootElement);
             return new ContainerRegistryPrivateEndpointConnectionResource(_client, data);
         }

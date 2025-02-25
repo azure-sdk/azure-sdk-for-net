@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql
 
         CosmosDBForPostgreSqlNodeConfigurationResource IOperationSource<CosmosDBForPostgreSqlNodeConfigurationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CosmosDBForPostgreSqlServerConfigurationData.DeserializeCosmosDBForPostgreSqlServerConfigurationData(document.RootElement);
+            var data = ModelReaderWriter.Read<CosmosDBForPostgreSqlServerConfigurationData>(new BinaryData(response.ContentStream));
             return new CosmosDBForPostgreSqlNodeConfigurationResource(_client, data);
         }
 
         async ValueTask<CosmosDBForPostgreSqlNodeConfigurationResource> IOperationSource<CosmosDBForPostgreSqlNodeConfigurationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CosmosDBForPostgreSqlServerConfigurationData.DeserializeCosmosDBForPostgreSqlServerConfigurationData(document.RootElement);
             return new CosmosDBForPostgreSqlNodeConfigurationResource(_client, data);
         }

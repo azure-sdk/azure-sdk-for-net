@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppContainers
 
         ContainerAppManagedEnvironmentResource IOperationSource<ContainerAppManagedEnvironmentResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ContainerAppManagedEnvironmentData.DeserializeContainerAppManagedEnvironmentData(document.RootElement);
+            var data = ModelReaderWriter.Read<ContainerAppManagedEnvironmentData>(new BinaryData(response.ContentStream));
             return new ContainerAppManagedEnvironmentResource(_client, data);
         }
 
         async ValueTask<ContainerAppManagedEnvironmentResource> IOperationSource<ContainerAppManagedEnvironmentResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ContainerAppManagedEnvironmentData.DeserializeContainerAppManagedEnvironmentData(document.RootElement);
             return new ContainerAppManagedEnvironmentResource(_client, data);
         }

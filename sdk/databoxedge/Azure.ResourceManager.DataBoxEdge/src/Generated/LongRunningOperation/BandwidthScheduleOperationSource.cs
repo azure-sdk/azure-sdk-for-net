@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DataBoxEdge
 
         BandwidthScheduleResource IOperationSource<BandwidthScheduleResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = BandwidthScheduleData.DeserializeBandwidthScheduleData(document.RootElement);
+            var data = ModelReaderWriter.Read<BandwidthScheduleData>(new BinaryData(response.ContentStream));
             return new BandwidthScheduleResource(_client, data);
         }
 
         async ValueTask<BandwidthScheduleResource> IOperationSource<BandwidthScheduleResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = BandwidthScheduleData.DeserializeBandwidthScheduleData(document.RootElement);
             return new BandwidthScheduleResource(_client, data);
         }

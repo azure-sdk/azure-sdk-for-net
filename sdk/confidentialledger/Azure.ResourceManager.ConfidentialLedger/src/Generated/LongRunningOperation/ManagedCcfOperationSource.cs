@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ConfidentialLedger
 
         ManagedCcfResource IOperationSource<ManagedCcfResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ManagedCcfData.DeserializeManagedCcfData(document.RootElement);
+            var data = ModelReaderWriter.Read<ManagedCcfData>(new BinaryData(response.ContentStream));
             return new ManagedCcfResource(_client, data);
         }
 
         async ValueTask<ManagedCcfResource> IOperationSource<ManagedCcfResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ManagedCcfData.DeserializeManagedCcfData(document.RootElement);
             return new ManagedCcfResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DataBoxEdge
 
         DiagnosticRemoteSupportSettingResource IOperationSource<DiagnosticRemoteSupportSettingResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DiagnosticRemoteSupportSettingData.DeserializeDiagnosticRemoteSupportSettingData(document.RootElement);
+            var data = ModelReaderWriter.Read<DiagnosticRemoteSupportSettingData>(new BinaryData(response.ContentStream));
             return new DiagnosticRemoteSupportSettingResource(_client, data);
         }
 
         async ValueTask<DiagnosticRemoteSupportSettingResource> IOperationSource<DiagnosticRemoteSupportSettingResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DiagnosticRemoteSupportSettingData.DeserializeDiagnosticRemoteSupportSettingData(document.RootElement);
             return new DiagnosticRemoteSupportSettingResource(_client, data);
         }

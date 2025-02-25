@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CosmosDB
 
         CassandraViewThroughputSettingResource IOperationSource<CassandraViewThroughputSettingResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ThroughputSettingData.DeserializeThroughputSettingData(document.RootElement);
+            var data = ModelReaderWriter.Read<ThroughputSettingData>(new BinaryData(response.ContentStream));
             return new CassandraViewThroughputSettingResource(_client, data);
         }
 
         async ValueTask<CassandraViewThroughputSettingResource> IOperationSource<CassandraViewThroughputSettingResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ThroughputSettingData.DeserializeThroughputSettingData(document.RootElement);
             return new CassandraViewThroughputSettingResource(_client, data);
         }

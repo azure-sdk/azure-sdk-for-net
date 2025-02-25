@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DataBoxEdge
 
         MonitoringMetricConfigurationResource IOperationSource<MonitoringMetricConfigurationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MonitoringMetricConfigurationData.DeserializeMonitoringMetricConfigurationData(document.RootElement);
+            var data = ModelReaderWriter.Read<MonitoringMetricConfigurationData>(new BinaryData(response.ContentStream));
             return new MonitoringMetricConfigurationResource(_client, data);
         }
 
         async ValueTask<MonitoringMetricConfigurationResource> IOperationSource<MonitoringMetricConfigurationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MonitoringMetricConfigurationData.DeserializeMonitoringMetricConfigurationData(document.RootElement);
             return new MonitoringMetricConfigurationResource(_client, data);
         }

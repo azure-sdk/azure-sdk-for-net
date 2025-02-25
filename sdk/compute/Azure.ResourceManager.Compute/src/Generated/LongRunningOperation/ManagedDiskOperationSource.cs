@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Compute
 
         ManagedDiskResource IOperationSource<ManagedDiskResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ManagedDiskData.DeserializeManagedDiskData(document.RootElement);
+            var data = ModelReaderWriter.Read<ManagedDiskData>(new BinaryData(response.ContentStream));
             return new ManagedDiskResource(_client, data);
         }
 
         async ValueTask<ManagedDiskResource> IOperationSource<ManagedDiskResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ManagedDiskData.DeserializeManagedDiskData(document.RootElement);
             return new ManagedDiskResource(_client, data);
         }

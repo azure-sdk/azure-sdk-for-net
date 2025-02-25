@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CustomerInsights
 
         RelationshipResourceFormatResource IOperationSource<RelationshipResourceFormatResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = RelationshipResourceFormatData.DeserializeRelationshipResourceFormatData(document.RootElement);
+            var data = ModelReaderWriter.Read<RelationshipResourceFormatData>(new BinaryData(response.ContentStream));
             return new RelationshipResourceFormatResource(_client, data);
         }
 
         async ValueTask<RelationshipResourceFormatResource> IOperationSource<RelationshipResourceFormatResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = RelationshipResourceFormatData.DeserializeRelationshipResourceFormatData(document.RootElement);
             return new RelationshipResourceFormatResource(_client, data);
         }

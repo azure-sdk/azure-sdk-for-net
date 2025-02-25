@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
 
         VmInstanceGuestAgentResource IOperationSource<VmInstanceGuestAgentResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = VmInstanceGuestAgentData.DeserializeVmInstanceGuestAgentData(document.RootElement);
+            var data = ModelReaderWriter.Read<VmInstanceGuestAgentData>(new BinaryData(response.ContentStream));
             return new VmInstanceGuestAgentResource(_client, data);
         }
 
         async ValueTask<VmInstanceGuestAgentResource> IOperationSource<VmInstanceGuestAgentResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = VmInstanceGuestAgentData.DeserializeVmInstanceGuestAgentData(document.RootElement);
             return new VmInstanceGuestAgentResource(_client, data);
         }

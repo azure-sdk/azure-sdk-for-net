@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CosmosDB
 
         CosmosDBSqlTriggerResource IOperationSource<CosmosDBSqlTriggerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CosmosDBSqlTriggerData.DeserializeCosmosDBSqlTriggerData(document.RootElement);
+            var data = ModelReaderWriter.Read<CosmosDBSqlTriggerData>(new BinaryData(response.ContentStream));
             return new CosmosDBSqlTriggerResource(_client, data);
         }
 
         async ValueTask<CosmosDBSqlTriggerResource> IOperationSource<CosmosDBSqlTriggerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CosmosDBSqlTriggerData.DeserializeCosmosDBSqlTriggerData(document.RootElement);
             return new CosmosDBSqlTriggerResource(_client, data);
         }

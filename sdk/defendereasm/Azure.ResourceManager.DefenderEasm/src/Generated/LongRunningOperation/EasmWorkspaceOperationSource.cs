@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DefenderEasm
 
         EasmWorkspaceResource IOperationSource<EasmWorkspaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = EasmWorkspaceData.DeserializeEasmWorkspaceData(document.RootElement);
+            var data = ModelReaderWriter.Read<EasmWorkspaceData>(new BinaryData(response.ContentStream));
             return new EasmWorkspaceResource(_client, data);
         }
 
         async ValueTask<EasmWorkspaceResource> IOperationSource<EasmWorkspaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = EasmWorkspaceData.DeserializeEasmWorkspaceData(document.RootElement);
             return new EasmWorkspaceResource(_client, data);
         }

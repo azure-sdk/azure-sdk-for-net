@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Confluent
 
         ConfluentOrganizationResource IOperationSource<ConfluentOrganizationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ConfluentOrganizationData.DeserializeConfluentOrganizationData(document.RootElement);
+            var data = ModelReaderWriter.Read<ConfluentOrganizationData>(new BinaryData(response.ContentStream));
             return new ConfluentOrganizationResource(_client, data);
         }
 
         async ValueTask<ConfluentOrganizationResource> IOperationSource<ConfluentOrganizationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ConfluentOrganizationData.DeserializeConfluentOrganizationData(document.RootElement);
             return new ConfluentOrganizationResource(_client, data);
         }

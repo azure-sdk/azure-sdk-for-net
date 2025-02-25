@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql
 
         CosmosDBForPostgreSqlPrivateEndpointConnectionResource IOperationSource<CosmosDBForPostgreSqlPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CosmosDBForPostgreSqlPrivateEndpointConnectionData.DeserializeCosmosDBForPostgreSqlPrivateEndpointConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<CosmosDBForPostgreSqlPrivateEndpointConnectionData>(new BinaryData(response.ContentStream));
             return new CosmosDBForPostgreSqlPrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<CosmosDBForPostgreSqlPrivateEndpointConnectionResource> IOperationSource<CosmosDBForPostgreSqlPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CosmosDBForPostgreSqlPrivateEndpointConnectionData.DeserializeCosmosDBForPostgreSqlPrivateEndpointConnectionData(document.RootElement);
             return new CosmosDBForPostgreSqlPrivateEndpointConnectionResource(_client, data);
         }

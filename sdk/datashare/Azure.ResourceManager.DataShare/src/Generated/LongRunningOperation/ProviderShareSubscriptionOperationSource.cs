@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DataShare
 
         ProviderShareSubscriptionResource IOperationSource<ProviderShareSubscriptionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ProviderShareSubscriptionData.DeserializeProviderShareSubscriptionData(document.RootElement);
+            var data = ModelReaderWriter.Read<ProviderShareSubscriptionData>(new BinaryData(response.ContentStream));
             return new ProviderShareSubscriptionResource(_client, data);
         }
 
         async ValueTask<ProviderShareSubscriptionResource> IOperationSource<ProviderShareSubscriptionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ProviderShareSubscriptionData.DeserializeProviderShareSubscriptionData(document.RootElement);
             return new ProviderShareSubscriptionResource(_client, data);
         }

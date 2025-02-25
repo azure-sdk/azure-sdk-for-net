@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CosmosDB
 
         MongoDBUserDefinitionResource IOperationSource<MongoDBUserDefinitionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MongoDBUserDefinitionData.DeserializeMongoDBUserDefinitionData(document.RootElement);
+            var data = ModelReaderWriter.Read<MongoDBUserDefinitionData>(new BinaryData(response.ContentStream));
             return new MongoDBUserDefinitionResource(_client, data);
         }
 
         async ValueTask<MongoDBUserDefinitionResource> IOperationSource<MongoDBUserDefinitionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MongoDBUserDefinitionData.DeserializeMongoDBUserDefinitionData(document.RootElement);
             return new MongoDBUserDefinitionResource(_client, data);
         }

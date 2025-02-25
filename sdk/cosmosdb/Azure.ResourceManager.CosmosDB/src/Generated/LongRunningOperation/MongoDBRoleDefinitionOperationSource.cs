@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CosmosDB
 
         MongoDBRoleDefinitionResource IOperationSource<MongoDBRoleDefinitionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MongoDBRoleDefinitionData.DeserializeMongoDBRoleDefinitionData(document.RootElement);
+            var data = ModelReaderWriter.Read<MongoDBRoleDefinitionData>(new BinaryData(response.ContentStream));
             return new MongoDBRoleDefinitionResource(_client, data);
         }
 
         async ValueTask<MongoDBRoleDefinitionResource> IOperationSource<MongoDBRoleDefinitionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MongoDBRoleDefinitionData.DeserializeMongoDBRoleDefinitionData(document.RootElement);
             return new MongoDBRoleDefinitionResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppContainers
 
         ContainerAppSourceControlResource IOperationSource<ContainerAppSourceControlResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ContainerAppSourceControlData.DeserializeContainerAppSourceControlData(document.RootElement);
+            var data = ModelReaderWriter.Read<ContainerAppSourceControlData>(new BinaryData(response.ContentStream));
             return new ContainerAppSourceControlResource(_client, data);
         }
 
         async ValueTask<ContainerAppSourceControlResource> IOperationSource<ContainerAppSourceControlResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ContainerAppSourceControlData.DeserializeContainerAppSourceControlData(document.RootElement);
             return new ContainerAppSourceControlResource(_client, data);
         }

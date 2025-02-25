@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ConfidentialLedger
 
         ConfidentialLedgerResource IOperationSource<ConfidentialLedgerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ConfidentialLedgerData.DeserializeConfidentialLedgerData(document.RootElement);
+            var data = ModelReaderWriter.Read<ConfidentialLedgerData>(new BinaryData(response.ContentStream));
             return new ConfidentialLedgerResource(_client, data);
         }
 
         async ValueTask<ConfidentialLedgerResource> IOperationSource<ConfidentialLedgerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ConfidentialLedgerData.DeserializeConfidentialLedgerData(document.RootElement);
             return new ConfidentialLedgerResource(_client, data);
         }

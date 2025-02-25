@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
 
         VMwareDatastoreResource IOperationSource<VMwareDatastoreResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = VMwareDatastoreData.DeserializeVMwareDatastoreData(document.RootElement);
+            var data = ModelReaderWriter.Read<VMwareDatastoreData>(new BinaryData(response.ContentStream));
             return new VMwareDatastoreResource(_client, data);
         }
 
         async ValueTask<VMwareDatastoreResource> IOperationSource<VMwareDatastoreResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = VMwareDatastoreData.DeserializeVMwareDatastoreData(document.RootElement);
             return new VMwareDatastoreResource(_client, data);
         }

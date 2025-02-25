@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Compute
 
         SnapshotResource IOperationSource<SnapshotResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SnapshotData.DeserializeSnapshotData(document.RootElement);
+            var data = ModelReaderWriter.Read<SnapshotData>(new BinaryData(response.ContentStream));
             return new SnapshotResource(_client, data);
         }
 
         async ValueTask<SnapshotResource> IOperationSource<SnapshotResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SnapshotData.DeserializeSnapshotData(document.RootElement);
             return new SnapshotResource(_client, data);
         }

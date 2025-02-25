@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DataBoxEdge
 
         DataBoxEdgeRoleAddonResource IOperationSource<DataBoxEdgeRoleAddonResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DataBoxEdgeRoleAddonData.DeserializeDataBoxEdgeRoleAddonData(document.RootElement);
+            var data = ModelReaderWriter.Read<DataBoxEdgeRoleAddonData>(new BinaryData(response.ContentStream));
             return new DataBoxEdgeRoleAddonResource(_client, data);
         }
 
         async ValueTask<DataBoxEdgeRoleAddonResource> IOperationSource<DataBoxEdgeRoleAddonResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DataBoxEdgeRoleAddonData.DeserializeDataBoxEdgeRoleAddonData(document.RootElement);
             return new DataBoxEdgeRoleAddonResource(_client, data);
         }
