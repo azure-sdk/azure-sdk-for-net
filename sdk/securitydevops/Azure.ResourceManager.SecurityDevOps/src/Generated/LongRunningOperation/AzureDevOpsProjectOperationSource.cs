@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.SecurityDevOps
 
         AzureDevOpsProjectResource IOperationSource<AzureDevOpsProjectResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AzureDevOpsProjectData.DeserializeAzureDevOpsProjectData(document.RootElement);
+            var data = ModelReaderWriter.Read<AzureDevOpsProjectData>(new BinaryData(response.ContentStream));
             return new AzureDevOpsProjectResource(_client, data);
         }
 
         async ValueTask<AzureDevOpsProjectResource> IOperationSource<AzureDevOpsProjectResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AzureDevOpsProjectData.DeserializeAzureDevOpsProjectData(document.RootElement);
             return new AzureDevOpsProjectResource(_client, data);
         }

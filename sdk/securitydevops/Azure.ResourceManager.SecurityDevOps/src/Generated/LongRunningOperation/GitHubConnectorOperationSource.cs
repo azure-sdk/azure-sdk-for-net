@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.SecurityDevOps
 
         GitHubConnectorResource IOperationSource<GitHubConnectorResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = GitHubConnectorData.DeserializeGitHubConnectorData(document.RootElement);
+            var data = ModelReaderWriter.Read<GitHubConnectorData>(new BinaryData(response.ContentStream));
             return new GitHubConnectorResource(_client, data);
         }
 
         async ValueTask<GitHubConnectorResource> IOperationSource<GitHubConnectorResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = GitHubConnectorData.DeserializeGitHubConnectorData(document.RootElement);
             return new GitHubConnectorResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.SpringAppDiscovery
 
         SpringBootServerResource IOperationSource<SpringBootServerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SpringBootServerData.DeserializeSpringBootServerData(document.RootElement);
+            var data = ModelReaderWriter.Read<SpringBootServerData>(new BinaryData(response.ContentStream));
             return new SpringBootServerResource(_client, data);
         }
 
         async ValueTask<SpringBootServerResource> IOperationSource<SpringBootServerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SpringBootServerData.DeserializeSpringBootServerData(document.RootElement);
             return new SpringBootServerResource(_client, data);
         }

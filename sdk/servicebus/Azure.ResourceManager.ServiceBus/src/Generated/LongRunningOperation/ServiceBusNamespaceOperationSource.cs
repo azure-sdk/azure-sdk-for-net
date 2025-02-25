@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ServiceBus
 
         ServiceBusNamespaceResource IOperationSource<ServiceBusNamespaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ServiceBusNamespaceData.DeserializeServiceBusNamespaceData(document.RootElement);
+            var data = ModelReaderWriter.Read<ServiceBusNamespaceData>(new BinaryData(response.ContentStream));
             return new ServiceBusNamespaceResource(_client, data);
         }
 
         async ValueTask<ServiceBusNamespaceResource> IOperationSource<ServiceBusNamespaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ServiceBusNamespaceData.DeserializeServiceBusNamespaceData(document.RootElement);
             return new ServiceBusNamespaceResource(_client, data);
         }

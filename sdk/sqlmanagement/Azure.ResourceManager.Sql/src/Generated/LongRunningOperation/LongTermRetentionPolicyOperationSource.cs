@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         LongTermRetentionPolicyResource IOperationSource<LongTermRetentionPolicyResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = LongTermRetentionPolicyData.DeserializeLongTermRetentionPolicyData(document.RootElement);
+            var data = ModelReaderWriter.Read<LongTermRetentionPolicyData>(new BinaryData(response.ContentStream));
             return new LongTermRetentionPolicyResource(_client, data);
         }
 
         async ValueTask<LongTermRetentionPolicyResource> IOperationSource<LongTermRetentionPolicyResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = LongTermRetentionPolicyData.DeserializeLongTermRetentionPolicyData(document.RootElement);
             return new LongTermRetentionPolicyResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         SqlServerVirtualNetworkRuleResource IOperationSource<SqlServerVirtualNetworkRuleResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SqlServerVirtualNetworkRuleData.DeserializeSqlServerVirtualNetworkRuleData(document.RootElement);
+            var data = ModelReaderWriter.Read<SqlServerVirtualNetworkRuleData>(new BinaryData(response.ContentStream));
             return new SqlServerVirtualNetworkRuleResource(_client, data);
         }
 
         async ValueTask<SqlServerVirtualNetworkRuleResource> IOperationSource<SqlServerVirtualNetworkRuleResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SqlServerVirtualNetworkRuleData.DeserializeSqlServerVirtualNetworkRuleData(document.RootElement);
             return new SqlServerVirtualNetworkRuleResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         ManagedInstancePrivateEndpointConnectionResource IOperationSource<ManagedInstancePrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ManagedInstancePrivateEndpointConnectionData.DeserializeManagedInstancePrivateEndpointConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<ManagedInstancePrivateEndpointConnectionData>(new BinaryData(response.ContentStream));
             return new ManagedInstancePrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<ManagedInstancePrivateEndpointConnectionResource> IOperationSource<ManagedInstancePrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ManagedInstancePrivateEndpointConnectionData.DeserializeManagedInstancePrivateEndpointConnectionData(document.RootElement);
             return new ManagedInstancePrivateEndpointConnectionResource(_client, data);
         }

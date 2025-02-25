@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         DeletedServerResource IOperationSource<DeletedServerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DeletedServerData.DeserializeDeletedServerData(document.RootElement);
+            var data = ModelReaderWriter.Read<DeletedServerData>(new BinaryData(response.ContentStream));
             return new DeletedServerResource(_client, data);
         }
 
         async ValueTask<DeletedServerResource> IOperationSource<DeletedServerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DeletedServerData.DeserializeDeletedServerData(document.RootElement);
             return new DeletedServerResource(_client, data);
         }

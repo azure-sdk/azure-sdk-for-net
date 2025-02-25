@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         ServerAdvancedThreatProtectionResource IOperationSource<ServerAdvancedThreatProtectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ServerAdvancedThreatProtectionData.DeserializeServerAdvancedThreatProtectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<ServerAdvancedThreatProtectionData>(new BinaryData(response.ContentStream));
             return new ServerAdvancedThreatProtectionResource(_client, data);
         }
 
         async ValueTask<ServerAdvancedThreatProtectionResource> IOperationSource<ServerAdvancedThreatProtectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ServerAdvancedThreatProtectionData.DeserializeServerAdvancedThreatProtectionData(document.RootElement);
             return new ServerAdvancedThreatProtectionResource(_client, data);
         }

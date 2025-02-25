@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ServiceNetworking
 
         ApplicationGatewayForContainersSecurityPolicyResource IOperationSource<ApplicationGatewayForContainersSecurityPolicyResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ApplicationGatewayForContainersSecurityPolicyData.DeserializeApplicationGatewayForContainersSecurityPolicyData(document.RootElement);
+            var data = ModelReaderWriter.Read<ApplicationGatewayForContainersSecurityPolicyData>(new BinaryData(response.ContentStream));
             return new ApplicationGatewayForContainersSecurityPolicyResource(_client, data);
         }
 
         async ValueTask<ApplicationGatewayForContainersSecurityPolicyResource> IOperationSource<ApplicationGatewayForContainersSecurityPolicyResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ApplicationGatewayForContainersSecurityPolicyData.DeserializeApplicationGatewayForContainersSecurityPolicyData(document.RootElement);
             return new ApplicationGatewayForContainersSecurityPolicyResource(_client, data);
         }

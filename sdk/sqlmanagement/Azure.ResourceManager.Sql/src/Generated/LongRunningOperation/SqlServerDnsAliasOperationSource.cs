@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         SqlServerDnsAliasResource IOperationSource<SqlServerDnsAliasResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SqlServerDnsAliasData.DeserializeSqlServerDnsAliasData(document.RootElement);
+            var data = ModelReaderWriter.Read<SqlServerDnsAliasData>(new BinaryData(response.ContentStream));
             return new SqlServerDnsAliasResource(_client, data);
         }
 
         async ValueTask<SqlServerDnsAliasResource> IOperationSource<SqlServerDnsAliasResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SqlServerDnsAliasData.DeserializeSqlServerDnsAliasData(document.RootElement);
             return new SqlServerDnsAliasResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.SecurityDevOps
 
         GitHubOwnerResource IOperationSource<GitHubOwnerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = GitHubOwnerData.DeserializeGitHubOwnerData(document.RootElement);
+            var data = ModelReaderWriter.Read<GitHubOwnerData>(new BinaryData(response.ContentStream));
             return new GitHubOwnerResource(_client, data);
         }
 
         async ValueTask<GitHubOwnerResource> IOperationSource<GitHubOwnerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = GitHubOwnerData.DeserializeGitHubOwnerData(document.RootElement);
             return new GitHubOwnerResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.SelfHelp
 
         SelfHelpSimplifiedSolutionResource IOperationSource<SelfHelpSimplifiedSolutionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SelfHelpSimplifiedSolutionData.DeserializeSelfHelpSimplifiedSolutionData(document.RootElement);
+            var data = ModelReaderWriter.Read<SelfHelpSimplifiedSolutionData>(new BinaryData(response.ContentStream));
             return new SelfHelpSimplifiedSolutionResource(_client, data);
         }
 
         async ValueTask<SelfHelpSimplifiedSolutionResource> IOperationSource<SelfHelpSimplifiedSolutionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SelfHelpSimplifiedSolutionData.DeserializeSelfHelpSimplifiedSolutionData(document.RootElement);
             return new SelfHelpSimplifiedSolutionResource(_client, data);
         }

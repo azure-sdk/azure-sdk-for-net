@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.SecurityCenter
 
         SecurityCenterApiCollectionResource IOperationSource<SecurityCenterApiCollectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SecurityCenterApiCollectionData.DeserializeSecurityCenterApiCollectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<SecurityCenterApiCollectionData>(new BinaryData(response.ContentStream));
             return new SecurityCenterApiCollectionResource(_client, data);
         }
 
         async ValueTask<SecurityCenterApiCollectionResource> IOperationSource<SecurityCenterApiCollectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SecurityCenterApiCollectionData.DeserializeSecurityCenterApiCollectionData(document.RootElement);
             return new SecurityCenterApiCollectionResource(_client, data);
         }

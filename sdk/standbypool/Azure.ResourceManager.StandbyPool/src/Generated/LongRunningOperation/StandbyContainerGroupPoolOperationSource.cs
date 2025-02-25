@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.StandbyPool
 
         StandbyContainerGroupPoolResource IOperationSource<StandbyContainerGroupPoolResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = StandbyContainerGroupPoolData.DeserializeStandbyContainerGroupPoolData(document.RootElement);
+            var data = ModelReaderWriter.Read<StandbyContainerGroupPoolData>(new BinaryData(response.ContentStream));
             return new StandbyContainerGroupPoolResource(_client, data);
         }
 
         async ValueTask<StandbyContainerGroupPoolResource> IOperationSource<StandbyContainerGroupPoolResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = StandbyContainerGroupPoolData.DeserializeStandbyContainerGroupPoolData(document.RootElement);
             return new StandbyContainerGroupPoolResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         ManagedInstanceEncryptionProtectorResource IOperationSource<ManagedInstanceEncryptionProtectorResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ManagedInstanceEncryptionProtectorData.DeserializeManagedInstanceEncryptionProtectorData(document.RootElement);
+            var data = ModelReaderWriter.Read<ManagedInstanceEncryptionProtectorData>(new BinaryData(response.ContentStream));
             return new ManagedInstanceEncryptionProtectorResource(_client, data);
         }
 
         async ValueTask<ManagedInstanceEncryptionProtectorResource> IOperationSource<ManagedInstanceEncryptionProtectorResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ManagedInstanceEncryptionProtectorData.DeserializeManagedInstanceEncryptionProtectorData(document.RootElement);
             return new ManagedInstanceEncryptionProtectorResource(_client, data);
         }

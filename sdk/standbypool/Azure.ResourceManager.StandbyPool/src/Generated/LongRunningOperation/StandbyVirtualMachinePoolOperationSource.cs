@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.StandbyPool
 
         StandbyVirtualMachinePoolResource IOperationSource<StandbyVirtualMachinePoolResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = StandbyVirtualMachinePoolData.DeserializeStandbyVirtualMachinePoolData(document.RootElement);
+            var data = ModelReaderWriter.Read<StandbyVirtualMachinePoolData>(new BinaryData(response.ContentStream));
             return new StandbyVirtualMachinePoolResource(_client, data);
         }
 
         async ValueTask<StandbyVirtualMachinePoolResource> IOperationSource<StandbyVirtualMachinePoolResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = StandbyVirtualMachinePoolData.DeserializeStandbyVirtualMachinePoolData(document.RootElement);
             return new StandbyVirtualMachinePoolResource(_client, data);
         }

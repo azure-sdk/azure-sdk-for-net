@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ServiceBus
 
         MigrationConfigurationResource IOperationSource<MigrationConfigurationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MigrationConfigurationData.DeserializeMigrationConfigurationData(document.RootElement);
+            var data = ModelReaderWriter.Read<MigrationConfigurationData>(new BinaryData(response.ContentStream));
             return new MigrationConfigurationResource(_client, data);
         }
 
         async ValueTask<MigrationConfigurationResource> IOperationSource<MigrationConfigurationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MigrationConfigurationData.DeserializeMigrationConfigurationData(document.RootElement);
             return new MigrationConfigurationResource(_client, data);
         }

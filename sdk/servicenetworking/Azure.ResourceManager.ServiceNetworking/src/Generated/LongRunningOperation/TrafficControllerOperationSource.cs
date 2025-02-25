@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ServiceNetworking
 
         TrafficControllerResource IOperationSource<TrafficControllerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = TrafficControllerData.DeserializeTrafficControllerData(document.RootElement);
+            var data = ModelReaderWriter.Read<TrafficControllerData>(new BinaryData(response.ContentStream));
             return new TrafficControllerResource(_client, data);
         }
 
         async ValueTask<TrafficControllerResource> IOperationSource<TrafficControllerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = TrafficControllerData.DeserializeTrafficControllerData(document.RootElement);
             return new TrafficControllerResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Sql
 
         WorkloadClassifierResource IOperationSource<WorkloadClassifierResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = WorkloadClassifierData.DeserializeWorkloadClassifierData(document.RootElement);
+            var data = ModelReaderWriter.Read<WorkloadClassifierData>(new BinaryData(response.ContentStream));
             return new WorkloadClassifierResource(_client, data);
         }
 
         async ValueTask<WorkloadClassifierResource> IOperationSource<WorkloadClassifierResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = WorkloadClassifierData.DeserializeWorkloadClassifierData(document.RootElement);
             return new WorkloadClassifierResource(_client, data);
         }
