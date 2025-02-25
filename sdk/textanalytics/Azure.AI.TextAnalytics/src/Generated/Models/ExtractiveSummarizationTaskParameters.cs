@@ -8,7 +8,7 @@
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Supported parameters for an Extractive Summarization task. </summary>
-    internal partial class ExtractiveSummarizationTaskParameters : PreBuiltTaskParameters
+    internal partial class ExtractiveSummarizationTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="ExtractiveSummarizationTaskParameters"/>. </summary>
         public ExtractiveSummarizationTaskParameters()
@@ -16,23 +16,29 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ExtractiveSummarizationTaskParameters"/>. </summary>
-        /// <param name="loggingOptOut"></param>
-        /// <param name="modelVersion"></param>
-        /// <param name="sentenceCount"></param>
-        /// <param name="sortBy"> The sorting criteria to use for the results of Extractive Summarization. </param>
-        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </param>
-        internal ExtractiveSummarizationTaskParameters(bool? loggingOptOut, string modelVersion, int? sentenceCount, ExtractiveSummarySentencesOrder? sortBy, StringIndexType? stringIndexType) : base(loggingOptOut, modelVersion)
+        /// <param name="loggingOptOut"> logging opt out. </param>
+        /// <param name="modelVersion"> model version. </param>
+        /// <param name="sentenceCount"> Specifies the number of sentences in the extracted summary. </param>
+        /// <param name="sortBy"> Specifies how to sort the extracted summaries. </param>
+        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets. </param>
+        internal ExtractiveSummarizationTaskParameters(bool? loggingOptOut, string modelVersion, long? sentenceCount, ExtractiveSummarySentencesOrder? sortBy, StringIndexType? stringIndexType)
         {
+            LoggingOptOut = loggingOptOut;
+            ModelVersion = modelVersion;
             SentenceCount = sentenceCount;
             SortBy = sortBy;
             StringIndexType = stringIndexType;
         }
 
-        /// <summary> Gets or sets the sentence count. </summary>
-        public int? SentenceCount { get; set; }
-        /// <summary> The sorting criteria to use for the results of Extractive Summarization. </summary>
+        /// <summary> logging opt out. </summary>
+        public bool? LoggingOptOut { get; set; }
+        /// <summary> model version. </summary>
+        public string ModelVersion { get; set; }
+        /// <summary> Specifies the number of sentences in the extracted summary. </summary>
+        public long? SentenceCount { get; set; }
+        /// <summary> Specifies how to sort the extracted summaries. </summary>
         public ExtractiveSummarySentencesOrder? SortBy { get; set; }
-        /// <summary> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </summary>
+        /// <summary> Specifies the method used to interpret string offsets. </summary>
         public StringIndexType? StringIndexType { get; set; }
     }
 }
