@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.OperationalInsights
 
         OperationalInsightsLinkedServiceResource IOperationSource<OperationalInsightsLinkedServiceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = OperationalInsightsLinkedServiceData.DeserializeOperationalInsightsLinkedServiceData(document.RootElement);
+            var data = ModelReaderWriter.Read<OperationalInsightsLinkedServiceData>(new BinaryData(response.ContentStream));
             return new OperationalInsightsLinkedServiceResource(_client, data);
         }
 
         async ValueTask<OperationalInsightsLinkedServiceResource> IOperationSource<OperationalInsightsLinkedServiceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = OperationalInsightsLinkedServiceData.DeserializeOperationalInsightsLinkedServiceData(document.RootElement);
             return new OperationalInsightsLinkedServiceResource(_client, data);
         }

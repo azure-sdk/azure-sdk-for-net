@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         RouteFilterRuleResource IOperationSource<RouteFilterRuleResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = RouteFilterRuleData.DeserializeRouteFilterRuleData(document.RootElement);
+            var data = ModelReaderWriter.Read<RouteFilterRuleData>(new BinaryData(response.ContentStream));
             return new RouteFilterRuleResource(_client, data);
         }
 
         async ValueTask<RouteFilterRuleResource> IOperationSource<RouteFilterRuleResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = RouteFilterRuleData.DeserializeRouteFilterRuleData(document.RootElement);
             return new RouteFilterRuleResource(_client, data);
         }

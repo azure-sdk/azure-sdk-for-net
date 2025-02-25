@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         VpnGatewayResource IOperationSource<VpnGatewayResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = VpnGatewayData.DeserializeVpnGatewayData(document.RootElement);
+            var data = ModelReaderWriter.Read<VpnGatewayData>(new BinaryData(response.ContentStream));
             return new VpnGatewayResource(_client, data);
         }
 
         async ValueTask<VpnGatewayResource> IOperationSource<VpnGatewayResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = VpnGatewayData.DeserializeVpnGatewayData(document.RootElement);
             return new VpnGatewayResource(_client, data);
         }

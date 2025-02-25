@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         NetworkVirtualApplianceConnectionResource IOperationSource<NetworkVirtualApplianceConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkVirtualApplianceConnectionData.DeserializeNetworkVirtualApplianceConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkVirtualApplianceConnectionData>(new BinaryData(response.ContentStream));
             return new NetworkVirtualApplianceConnectionResource(_client, data);
         }
 
         async ValueTask<NetworkVirtualApplianceConnectionResource> IOperationSource<NetworkVirtualApplianceConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkVirtualApplianceConnectionData.DeserializeNetworkVirtualApplianceConnectionData(document.RootElement);
             return new NetworkVirtualApplianceConnectionResource(_client, data);
         }

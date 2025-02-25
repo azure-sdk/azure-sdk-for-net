@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         PrivateEndpointResource IOperationSource<PrivateEndpointResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = PrivateEndpointData.DeserializePrivateEndpointData(document.RootElement);
+            var data = ModelReaderWriter.Read<PrivateEndpointData>(new BinaryData(response.ContentStream));
             return new PrivateEndpointResource(_client, data);
         }
 
         async ValueTask<PrivateEndpointResource> IOperationSource<PrivateEndpointResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = PrivateEndpointData.DeserializePrivateEndpointData(document.RootElement);
             return new PrivateEndpointResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         ExpressRouteGatewayResource IOperationSource<ExpressRouteGatewayResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ExpressRouteGatewayData.DeserializeExpressRouteGatewayData(document.RootElement);
+            var data = ModelReaderWriter.Read<ExpressRouteGatewayData>(new BinaryData(response.ContentStream));
             return new ExpressRouteGatewayResource(_client, data);
         }
 
         async ValueTask<ExpressRouteGatewayResource> IOperationSource<ExpressRouteGatewayResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ExpressRouteGatewayData.DeserializeExpressRouteGatewayData(document.RootElement);
             return new ExpressRouteGatewayResource(_client, data);
         }

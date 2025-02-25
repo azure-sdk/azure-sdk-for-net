@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         InboundSecurityRuleResource IOperationSource<InboundSecurityRuleResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = InboundSecurityRuleData.DeserializeInboundSecurityRuleData(document.RootElement);
+            var data = ModelReaderWriter.Read<InboundSecurityRuleData>(new BinaryData(response.ContentStream));
             return new InboundSecurityRuleResource(_client, data);
         }
 
         async ValueTask<InboundSecurityRuleResource> IOperationSource<InboundSecurityRuleResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = InboundSecurityRuleData.DeserializeInboundSecurityRuleData(document.RootElement);
             return new InboundSecurityRuleResource(_client, data);
         }

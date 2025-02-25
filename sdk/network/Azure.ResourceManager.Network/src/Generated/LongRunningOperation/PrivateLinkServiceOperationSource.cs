@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         PrivateLinkServiceResource IOperationSource<PrivateLinkServiceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = PrivateLinkServiceData.DeserializePrivateLinkServiceData(document.RootElement);
+            var data = ModelReaderWriter.Read<PrivateLinkServiceData>(new BinaryData(response.ContentStream));
             return new PrivateLinkServiceResource(_client, data);
         }
 
         async ValueTask<PrivateLinkServiceResource> IOperationSource<PrivateLinkServiceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = PrivateLinkServiceData.DeserializePrivateLinkServiceData(document.RootElement);
             return new PrivateLinkServiceResource(_client, data);
         }

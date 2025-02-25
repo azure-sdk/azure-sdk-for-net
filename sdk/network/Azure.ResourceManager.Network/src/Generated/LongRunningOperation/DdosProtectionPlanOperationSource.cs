@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         DdosProtectionPlanResource IOperationSource<DdosProtectionPlanResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DdosProtectionPlanData.DeserializeDdosProtectionPlanData(document.RootElement);
+            var data = ModelReaderWriter.Read<DdosProtectionPlanData>(new BinaryData(response.ContentStream));
             return new DdosProtectionPlanResource(_client, data);
         }
 
         async ValueTask<DdosProtectionPlanResource> IOperationSource<DdosProtectionPlanResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DdosProtectionPlanData.DeserializeDdosProtectionPlanData(document.RootElement);
             return new DdosProtectionPlanResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NotificationHubs
 
         NotificationHubNamespaceResource IOperationSource<NotificationHubNamespaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NotificationHubNamespaceData.DeserializeNotificationHubNamespaceData(document.RootElement);
+            var data = ModelReaderWriter.Read<NotificationHubNamespaceData>(new BinaryData(response.ContentStream));
             return new NotificationHubNamespaceResource(_client, data);
         }
 
         async ValueTask<NotificationHubNamespaceResource> IOperationSource<NotificationHubNamespaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NotificationHubNamespaceData.DeserializeNotificationHubNamespaceData(document.RootElement);
             return new NotificationHubNamespaceResource(_client, data);
         }

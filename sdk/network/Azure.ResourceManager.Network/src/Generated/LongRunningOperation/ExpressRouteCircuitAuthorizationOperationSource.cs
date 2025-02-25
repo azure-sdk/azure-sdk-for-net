@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         ExpressRouteCircuitAuthorizationResource IOperationSource<ExpressRouteCircuitAuthorizationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ExpressRouteCircuitAuthorizationData.DeserializeExpressRouteCircuitAuthorizationData(document.RootElement);
+            var data = ModelReaderWriter.Read<ExpressRouteCircuitAuthorizationData>(new BinaryData(response.ContentStream));
             return new ExpressRouteCircuitAuthorizationResource(_client, data);
         }
 
         async ValueTask<ExpressRouteCircuitAuthorizationResource> IOperationSource<ExpressRouteCircuitAuthorizationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ExpressRouteCircuitAuthorizationData.DeserializeExpressRouteCircuitAuthorizationData(document.RootElement);
             return new ExpressRouteCircuitAuthorizationResource(_client, data);
         }

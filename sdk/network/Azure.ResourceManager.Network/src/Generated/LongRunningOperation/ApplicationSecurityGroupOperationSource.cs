@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         ApplicationSecurityGroupResource IOperationSource<ApplicationSecurityGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ApplicationSecurityGroupData.DeserializeApplicationSecurityGroupData(document.RootElement);
+            var data = ModelReaderWriter.Read<ApplicationSecurityGroupData>(new BinaryData(response.ContentStream));
             return new ApplicationSecurityGroupResource(_client, data);
         }
 
         async ValueTask<ApplicationSecurityGroupResource> IOperationSource<ApplicationSecurityGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ApplicationSecurityGroupData.DeserializeApplicationSecurityGroupData(document.RootElement);
             return new ApplicationSecurityGroupResource(_client, data);
         }

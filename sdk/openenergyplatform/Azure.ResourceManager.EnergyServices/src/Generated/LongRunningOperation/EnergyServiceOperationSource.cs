@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.EnergyServices
 
         EnergyServiceResource IOperationSource<EnergyServiceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = EnergyServiceData.DeserializeEnergyServiceData(document.RootElement);
+            var data = ModelReaderWriter.Read<EnergyServiceData>(new BinaryData(response.ContentStream));
             return new EnergyServiceResource(_client, data);
         }
 
         async ValueTask<EnergyServiceResource> IOperationSource<EnergyServiceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = EnergyServiceData.DeserializeEnergyServiceData(document.RootElement);
             return new EnergyServiceResource(_client, data);
         }

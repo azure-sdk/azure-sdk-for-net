@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NetworkCloud
 
         NetworkCloudKubernetesClusterFeatureResource IOperationSource<NetworkCloudKubernetesClusterFeatureResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkCloudKubernetesClusterFeatureData.DeserializeNetworkCloudKubernetesClusterFeatureData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkCloudKubernetesClusterFeatureData>(new BinaryData(response.ContentStream));
             return new NetworkCloudKubernetesClusterFeatureResource(_client, data);
         }
 
         async ValueTask<NetworkCloudKubernetesClusterFeatureResource> IOperationSource<NetworkCloudKubernetesClusterFeatureResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkCloudKubernetesClusterFeatureData.DeserializeNetworkCloudKubernetesClusterFeatureData(document.RootElement);
             return new NetworkCloudKubernetesClusterFeatureResource(_client, data);
         }

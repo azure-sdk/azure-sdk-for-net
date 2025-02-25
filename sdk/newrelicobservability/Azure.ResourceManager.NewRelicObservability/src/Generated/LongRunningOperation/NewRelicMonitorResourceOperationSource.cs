@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NewRelicObservability
 
         NewRelicMonitorResource IOperationSource<NewRelicMonitorResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NewRelicMonitorResourceData.DeserializeNewRelicMonitorResourceData(document.RootElement);
+            var data = ModelReaderWriter.Read<NewRelicMonitorResourceData>(new BinaryData(response.ContentStream));
             return new NewRelicMonitorResource(_client, data);
         }
 
         async ValueTask<NewRelicMonitorResource> IOperationSource<NewRelicMonitorResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NewRelicMonitorResourceData.DeserializeNewRelicMonitorResourceData(document.RootElement);
             return new NewRelicMonitorResource(_client, data);
         }

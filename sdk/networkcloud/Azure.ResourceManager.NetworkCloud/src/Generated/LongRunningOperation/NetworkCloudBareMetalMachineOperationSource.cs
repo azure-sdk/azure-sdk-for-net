@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NetworkCloud
 
         NetworkCloudBareMetalMachineResource IOperationSource<NetworkCloudBareMetalMachineResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkCloudBareMetalMachineData.DeserializeNetworkCloudBareMetalMachineData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkCloudBareMetalMachineData>(new BinaryData(response.ContentStream));
             return new NetworkCloudBareMetalMachineResource(_client, data);
         }
 
         async ValueTask<NetworkCloudBareMetalMachineResource> IOperationSource<NetworkCloudBareMetalMachineResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkCloudBareMetalMachineData.DeserializeNetworkCloudBareMetalMachineData(document.RootElement);
             return new NetworkCloudBareMetalMachineResource(_client, data);
         }

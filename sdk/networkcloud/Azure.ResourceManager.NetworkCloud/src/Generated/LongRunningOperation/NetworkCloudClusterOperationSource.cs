@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NetworkCloud
 
         NetworkCloudClusterResource IOperationSource<NetworkCloudClusterResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkCloudClusterData.DeserializeNetworkCloudClusterData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkCloudClusterData>(new BinaryData(response.ContentStream));
             return new NetworkCloudClusterResource(_client, data);
         }
 
         async ValueTask<NetworkCloudClusterResource> IOperationSource<NetworkCloudClusterResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkCloudClusterData.DeserializeNetworkCloudClusterData(document.RootElement);
             return new NetworkCloudClusterResource(_client, data);
         }

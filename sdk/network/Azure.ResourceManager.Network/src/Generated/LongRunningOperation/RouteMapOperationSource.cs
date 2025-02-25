@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         RouteMapResource IOperationSource<RouteMapResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = RouteMapData.DeserializeRouteMapData(document.RootElement);
+            var data = ModelReaderWriter.Read<RouteMapData>(new BinaryData(response.ContentStream));
             return new RouteMapResource(_client, data);
         }
 
         async ValueTask<RouteMapResource> IOperationSource<RouteMapResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = RouteMapData.DeserializeRouteMapData(document.RootElement);
             return new RouteMapResource(_client, data);
         }

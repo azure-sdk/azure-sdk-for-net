@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         AzureFirewallResource IOperationSource<AzureFirewallResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AzureFirewallData.DeserializeAzureFirewallData(document.RootElement);
+            var data = ModelReaderWriter.Read<AzureFirewallData>(new BinaryData(response.ContentStream));
             return new AzureFirewallResource(_client, data);
         }
 
         async ValueTask<AzureFirewallResource> IOperationSource<AzureFirewallResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AzureFirewallData.DeserializeAzureFirewallData(document.RootElement);
             return new AzureFirewallResource(_client, data);
         }

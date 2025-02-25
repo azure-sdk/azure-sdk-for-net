@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.OperationalInsights
 
         OperationalInsightsClusterResource IOperationSource<OperationalInsightsClusterResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = OperationalInsightsClusterData.DeserializeOperationalInsightsClusterData(document.RootElement);
+            var data = ModelReaderWriter.Read<OperationalInsightsClusterData>(new BinaryData(response.ContentStream));
             return new OperationalInsightsClusterResource(_client, data);
         }
 
         async ValueTask<OperationalInsightsClusterResource> IOperationSource<OperationalInsightsClusterResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = OperationalInsightsClusterData.DeserializeOperationalInsightsClusterData(document.RootElement);
             return new OperationalInsightsClusterResource(_client, data);
         }

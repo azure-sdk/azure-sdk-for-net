@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         NetworkSecurityPerimeterAssociationResource IOperationSource<NetworkSecurityPerimeterAssociationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkSecurityPerimeterAssociationData.DeserializeNetworkSecurityPerimeterAssociationData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkSecurityPerimeterAssociationData>(new BinaryData(response.ContentStream));
             return new NetworkSecurityPerimeterAssociationResource(_client, data);
         }
 
         async ValueTask<NetworkSecurityPerimeterAssociationResource> IOperationSource<NetworkSecurityPerimeterAssociationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkSecurityPerimeterAssociationData.DeserializeNetworkSecurityPerimeterAssociationData(document.RootElement);
             return new NetworkSecurityPerimeterAssociationResource(_client, data);
         }

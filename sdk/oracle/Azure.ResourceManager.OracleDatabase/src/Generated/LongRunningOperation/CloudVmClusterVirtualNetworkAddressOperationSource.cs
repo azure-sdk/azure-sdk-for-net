@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.OracleDatabase
 
         CloudVmClusterVirtualNetworkAddressResource IOperationSource<CloudVmClusterVirtualNetworkAddressResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CloudVmClusterVirtualNetworkAddressData.DeserializeCloudVmClusterVirtualNetworkAddressData(document.RootElement);
+            var data = ModelReaderWriter.Read<CloudVmClusterVirtualNetworkAddressData>(new BinaryData(response.ContentStream));
             return new CloudVmClusterVirtualNetworkAddressResource(_client, data);
         }
 
         async ValueTask<CloudVmClusterVirtualNetworkAddressResource> IOperationSource<CloudVmClusterVirtualNetworkAddressResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CloudVmClusterVirtualNetworkAddressData.DeserializeCloudVmClusterVirtualNetworkAddressData(document.RootElement);
             return new CloudVmClusterVirtualNetworkAddressResource(_client, data);
         }

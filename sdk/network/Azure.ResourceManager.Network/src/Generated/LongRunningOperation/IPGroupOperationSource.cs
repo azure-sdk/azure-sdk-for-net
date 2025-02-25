@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         IPGroupResource IOperationSource<IPGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = IPGroupData.DeserializeIPGroupData(document.RootElement);
+            var data = ModelReaderWriter.Read<IPGroupData>(new BinaryData(response.ContentStream));
             return new IPGroupResource(_client, data);
         }
 
         async ValueTask<IPGroupResource> IOperationSource<IPGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = IPGroupData.DeserializeIPGroupData(document.RootElement);
             return new IPGroupResource(_client, data);
         }

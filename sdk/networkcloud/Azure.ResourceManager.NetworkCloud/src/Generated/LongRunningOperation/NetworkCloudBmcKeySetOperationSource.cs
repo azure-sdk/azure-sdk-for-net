@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NetworkCloud
 
         NetworkCloudBmcKeySetResource IOperationSource<NetworkCloudBmcKeySetResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkCloudBmcKeySetData.DeserializeNetworkCloudBmcKeySetData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkCloudBmcKeySetData>(new BinaryData(response.ContentStream));
             return new NetworkCloudBmcKeySetResource(_client, data);
         }
 
         async ValueTask<NetworkCloudBmcKeySetResource> IOperationSource<NetworkCloudBmcKeySetResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkCloudBmcKeySetData.DeserializeNetworkCloudBmcKeySetData(document.RootElement);
             return new NetworkCloudBmcKeySetResource(_client, data);
         }

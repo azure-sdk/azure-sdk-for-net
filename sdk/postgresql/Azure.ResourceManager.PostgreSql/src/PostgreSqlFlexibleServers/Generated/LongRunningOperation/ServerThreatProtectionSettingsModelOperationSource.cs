@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers
 
         ServerThreatProtectionSettingsModelResource IOperationSource<ServerThreatProtectionSettingsModelResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ServerThreatProtectionSettingsModelData.DeserializeServerThreatProtectionSettingsModelData(document.RootElement);
+            var data = ModelReaderWriter.Read<ServerThreatProtectionSettingsModelData>(new BinaryData(response.ContentStream));
             return new ServerThreatProtectionSettingsModelResource(_client, data);
         }
 
         async ValueTask<ServerThreatProtectionSettingsModelResource> IOperationSource<ServerThreatProtectionSettingsModelResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ServerThreatProtectionSettingsModelData.DeserializeServerThreatProtectionSettingsModelData(document.RootElement);
             return new ServerThreatProtectionSettingsModelResource(_client, data);
         }

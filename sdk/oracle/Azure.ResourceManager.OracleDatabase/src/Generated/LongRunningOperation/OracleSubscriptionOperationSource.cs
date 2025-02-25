@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.OracleDatabase
 
         OracleSubscriptionResource IOperationSource<OracleSubscriptionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = OracleSubscriptionData.DeserializeOracleSubscriptionData(document.RootElement);
+            var data = ModelReaderWriter.Read<OracleSubscriptionData>(new BinaryData(response.ContentStream));
             return new OracleSubscriptionResource(_client, data);
         }
 
         async ValueTask<OracleSubscriptionResource> IOperationSource<OracleSubscriptionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = OracleSubscriptionData.DeserializeOracleSubscriptionData(document.RootElement);
             return new OracleSubscriptionResource(_client, data);
         }

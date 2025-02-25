@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Network
 
         PacketCaptureResource IOperationSource<PacketCaptureResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = PacketCaptureData.DeserializePacketCaptureData(document.RootElement);
+            var data = ModelReaderWriter.Read<PacketCaptureData>(new BinaryData(response.ContentStream));
             return new PacketCaptureResource(_client, data);
         }
 
         async ValueTask<PacketCaptureResource> IOperationSource<PacketCaptureResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = PacketCaptureData.DeserializePacketCaptureData(document.RootElement);
             return new PacketCaptureResource(_client, data);
         }

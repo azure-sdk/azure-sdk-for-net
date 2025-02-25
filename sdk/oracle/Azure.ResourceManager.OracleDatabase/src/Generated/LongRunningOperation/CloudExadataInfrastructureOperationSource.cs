@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.OracleDatabase
 
         CloudExadataInfrastructureResource IOperationSource<CloudExadataInfrastructureResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CloudExadataInfrastructureData.DeserializeCloudExadataInfrastructureData(document.RootElement);
+            var data = ModelReaderWriter.Read<CloudExadataInfrastructureData>(new BinaryData(response.ContentStream));
             return new CloudExadataInfrastructureResource(_client, data);
         }
 
         async ValueTask<CloudExadataInfrastructureResource> IOperationSource<CloudExadataInfrastructureResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CloudExadataInfrastructureData.DeserializeCloudExadataInfrastructureData(document.RootElement);
             return new CloudExadataInfrastructureResource(_client, data);
         }
