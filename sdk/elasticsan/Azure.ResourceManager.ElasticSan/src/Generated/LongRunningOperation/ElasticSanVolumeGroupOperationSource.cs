@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ElasticSan
 
         ElasticSanVolumeGroupResource IOperationSource<ElasticSanVolumeGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ElasticSanVolumeGroupData.DeserializeElasticSanVolumeGroupData(document.RootElement);
+            var data = ModelReaderWriter.Read<ElasticSanVolumeGroupData>(new BinaryData(response.ContentStream));
             return new ElasticSanVolumeGroupResource(_client, data);
         }
 
         async ValueTask<ElasticSanVolumeGroupResource> IOperationSource<ElasticSanVolumeGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ElasticSanVolumeGroupData.DeserializeElasticSanVolumeGroupData(document.RootElement);
             return new ElasticSanVolumeGroupResource(_client, data);
         }

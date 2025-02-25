@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.EventHubs
 
         EventHubsNamespaceResource IOperationSource<EventHubsNamespaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = EventHubsNamespaceData.DeserializeEventHubsNamespaceData(document.RootElement);
+            var data = ModelReaderWriter.Read<EventHubsNamespaceData>(new BinaryData(response.ContentStream));
             return new EventHubsNamespaceResource(_client, data);
         }
 
         async ValueTask<EventHubsNamespaceResource> IOperationSource<EventHubsNamespaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = EventHubsNamespaceData.DeserializeEventHubsNamespaceData(document.RootElement);
             return new EventHubsNamespaceResource(_client, data);
         }

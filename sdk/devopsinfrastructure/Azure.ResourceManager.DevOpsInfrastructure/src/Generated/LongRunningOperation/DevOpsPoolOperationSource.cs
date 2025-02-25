@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DevOpsInfrastructure
 
         DevOpsPoolResource IOperationSource<DevOpsPoolResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DevOpsPoolData.DeserializeDevOpsPoolData(document.RootElement);
+            var data = ModelReaderWriter.Read<DevOpsPoolData>(new BinaryData(response.ContentStream));
             return new DevOpsPoolResource(_client, data);
         }
 
         async ValueTask<DevOpsPoolResource> IOperationSource<DevOpsPoolResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DevOpsPoolData.DeserializeDevOpsPoolData(document.RootElement);
             return new DevOpsPoolResource(_client, data);
         }

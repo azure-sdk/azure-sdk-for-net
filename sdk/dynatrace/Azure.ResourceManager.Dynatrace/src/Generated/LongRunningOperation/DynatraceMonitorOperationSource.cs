@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Dynatrace
 
         DynatraceMonitorResource IOperationSource<DynatraceMonitorResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DynatraceMonitorData.DeserializeDynatraceMonitorData(document.RootElement);
+            var data = ModelReaderWriter.Read<DynatraceMonitorData>(new BinaryData(response.ContentStream));
             return new DynatraceMonitorResource(_client, data);
         }
 
         async ValueTask<DynatraceMonitorResource> IOperationSource<DynatraceMonitorResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DynatraceMonitorData.DeserializeDynatraceMonitorData(document.RootElement);
             return new DynatraceMonitorResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DeviceUpdate
 
         DeviceUpdatePrivateEndpointConnectionProxyResource IOperationSource<DeviceUpdatePrivateEndpointConnectionProxyResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DeviceUpdatePrivateEndpointConnectionProxyData.DeserializeDeviceUpdatePrivateEndpointConnectionProxyData(document.RootElement);
+            var data = ModelReaderWriter.Read<DeviceUpdatePrivateEndpointConnectionProxyData>(new BinaryData(response.ContentStream));
             return new DeviceUpdatePrivateEndpointConnectionProxyResource(_client, data);
         }
 
         async ValueTask<DeviceUpdatePrivateEndpointConnectionProxyResource> IOperationSource<DeviceUpdatePrivateEndpointConnectionProxyResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DeviceUpdatePrivateEndpointConnectionProxyData.DeserializeDeviceUpdatePrivateEndpointConnectionProxyData(document.RootElement);
             return new DeviceUpdatePrivateEndpointConnectionProxyResource(_client, data);
         }

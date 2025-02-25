@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DnsResolver
 
         DnsResolverDomainListResource IOperationSource<DnsResolverDomainListResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DnsResolverDomainListData.DeserializeDnsResolverDomainListData(document.RootElement);
+            var data = ModelReaderWriter.Read<DnsResolverDomainListData>(new BinaryData(response.ContentStream));
             return new DnsResolverDomainListResource(_client, data);
         }
 
         async ValueTask<DnsResolverDomainListResource> IOperationSource<DnsResolverDomainListResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DnsResolverDomainListData.DeserializeDnsResolverDomainListData(document.RootElement);
             return new DnsResolverDomainListResource(_client, data);
         }

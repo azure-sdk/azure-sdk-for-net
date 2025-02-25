@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DevCenter
 
         DevCenterScheduleResource IOperationSource<DevCenterScheduleResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DevCenterScheduleData.DeserializeDevCenterScheduleData(document.RootElement);
+            var data = ModelReaderWriter.Read<DevCenterScheduleData>(new BinaryData(response.ContentStream));
             return new DevCenterScheduleResource(_client, data);
         }
 
         async ValueTask<DevCenterScheduleResource> IOperationSource<DevCenterScheduleResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DevCenterScheduleData.DeserializeDevCenterScheduleData(document.RootElement);
             return new DevCenterScheduleResource(_client, data);
         }

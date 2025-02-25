@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.EventGrid
 
         PartnerTopicEventSubscriptionResource IOperationSource<PartnerTopicEventSubscriptionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = EventGridSubscriptionData.DeserializeEventGridSubscriptionData(document.RootElement);
+            var data = ModelReaderWriter.Read<EventGridSubscriptionData>(new BinaryData(response.ContentStream));
             return new PartnerTopicEventSubscriptionResource(_client, data);
         }
 
         async ValueTask<PartnerTopicEventSubscriptionResource> IOperationSource<PartnerTopicEventSubscriptionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = EventGridSubscriptionData.DeserializeEventGridSubscriptionData(document.RootElement);
             return new PartnerTopicEventSubscriptionResource(_client, data);
         }

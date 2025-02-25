@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DevCenter
 
         DevCenterGalleryResource IOperationSource<DevCenterGalleryResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DevCenterGalleryData.DeserializeDevCenterGalleryData(document.RootElement);
+            var data = ModelReaderWriter.Read<DevCenterGalleryData>(new BinaryData(response.ContentStream));
             return new DevCenterGalleryResource(_client, data);
         }
 
         async ValueTask<DevCenterGalleryResource> IOperationSource<DevCenterGalleryResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DevCenterGalleryData.DeserializeDevCenterGalleryData(document.RootElement);
             return new DevCenterGalleryResource(_client, data);
         }

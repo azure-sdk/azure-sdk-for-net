@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ExtendedLocations
 
         CustomLocationResource IOperationSource<CustomLocationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CustomLocationData.DeserializeCustomLocationData(document.RootElement);
+            var data = ModelReaderWriter.Read<CustomLocationData>(new BinaryData(response.ContentStream));
             return new CustomLocationResource(_client, data);
         }
 
         async ValueTask<CustomLocationResource> IOperationSource<CustomLocationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CustomLocationData.DeserializeCustomLocationData(document.RootElement);
             return new CustomLocationResource(_client, data);
         }

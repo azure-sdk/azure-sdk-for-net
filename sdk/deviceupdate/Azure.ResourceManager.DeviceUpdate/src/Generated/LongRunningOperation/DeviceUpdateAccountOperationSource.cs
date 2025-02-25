@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DeviceUpdate
 
         DeviceUpdateAccountResource IOperationSource<DeviceUpdateAccountResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DeviceUpdateAccountData.DeserializeDeviceUpdateAccountData(document.RootElement);
+            var data = ModelReaderWriter.Read<DeviceUpdateAccountData>(new BinaryData(response.ContentStream));
             return new DeviceUpdateAccountResource(_client, data);
         }
 
         async ValueTask<DeviceUpdateAccountResource> IOperationSource<DeviceUpdateAccountResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DeviceUpdateAccountData.DeserializeDeviceUpdateAccountData(document.RootElement);
             return new DeviceUpdateAccountResource(_client, data);
         }

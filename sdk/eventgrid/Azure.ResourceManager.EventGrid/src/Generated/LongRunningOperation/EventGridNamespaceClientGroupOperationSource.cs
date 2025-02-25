@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.EventGrid
 
         EventGridNamespaceClientGroupResource IOperationSource<EventGridNamespaceClientGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = EventGridNamespaceClientGroupData.DeserializeEventGridNamespaceClientGroupData(document.RootElement);
+            var data = ModelReaderWriter.Read<EventGridNamespaceClientGroupData>(new BinaryData(response.ContentStream));
             return new EventGridNamespaceClientGroupResource(_client, data);
         }
 
         async ValueTask<EventGridNamespaceClientGroupResource> IOperationSource<EventGridNamespaceClientGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = EventGridNamespaceClientGroupData.DeserializeEventGridNamespaceClientGroupData(document.RootElement);
             return new EventGridNamespaceClientGroupResource(_client, data);
         }

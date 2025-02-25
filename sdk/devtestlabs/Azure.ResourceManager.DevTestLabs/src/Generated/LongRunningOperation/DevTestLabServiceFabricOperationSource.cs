@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DevTestLabs
 
         DevTestLabServiceFabricResource IOperationSource<DevTestLabServiceFabricResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DevTestLabServiceFabricData.DeserializeDevTestLabServiceFabricData(document.RootElement);
+            var data = ModelReaderWriter.Read<DevTestLabServiceFabricData>(new BinaryData(response.ContentStream));
             return new DevTestLabServiceFabricResource(_client, data);
         }
 
         async ValueTask<DevTestLabServiceFabricResource> IOperationSource<DevTestLabServiceFabricResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DevTestLabServiceFabricData.DeserializeDevTestLabServiceFabricData(document.RootElement);
             return new DevTestLabServiceFabricResource(_client, data);
         }

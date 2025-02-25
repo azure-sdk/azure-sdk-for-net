@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.DnsResolver
 
         DnsResolverPolicyVirtualNetworkLinkResource IOperationSource<DnsResolverPolicyVirtualNetworkLinkResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DnsResolverPolicyVirtualNetworkLinkData.DeserializeDnsResolverPolicyVirtualNetworkLinkData(document.RootElement);
+            var data = ModelReaderWriter.Read<DnsResolverPolicyVirtualNetworkLinkData>(new BinaryData(response.ContentStream));
             return new DnsResolverPolicyVirtualNetworkLinkResource(_client, data);
         }
 
         async ValueTask<DnsResolverPolicyVirtualNetworkLinkResource> IOperationSource<DnsResolverPolicyVirtualNetworkLinkResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DnsResolverPolicyVirtualNetworkLinkData.DeserializeDnsResolverPolicyVirtualNetworkLinkData(document.RootElement);
             return new DnsResolverPolicyVirtualNetworkLinkResource(_client, data);
         }
