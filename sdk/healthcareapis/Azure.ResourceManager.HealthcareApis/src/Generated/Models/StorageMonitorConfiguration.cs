@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
-    /// <summary> The configuration of connected storage. </summary>
-    public partial class HealthcareApisServiceStorageConfiguration
+    /// <summary> The configuration for monitoring changes in a connected storage account. </summary>
+    public partial class StorageMonitorConfiguration
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,29 +45,29 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceStorageConfiguration"/>. </summary>
-        public HealthcareApisServiceStorageConfiguration()
+        /// <summary> Initializes a new instance of <see cref="StorageMonitorConfiguration"/>. </summary>
+        public StorageMonitorConfiguration()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceStorageConfiguration"/>. </summary>
-        /// <param name="storageResourceId"> The resource id of connected storage account. </param>
-        /// <param name="fileSystemName"> The filesystem name of connected storage account. </param>
-        /// <param name="storageMonitorConfiguration"> The configuration for monitoring changes in the specified storage account. </param>
+        /// <summary> Initializes a new instance of <see cref="StorageMonitorConfiguration"/>. </summary>
+        /// <param name="systemTopicResourceId"> The resource id of the Azure Event Grid System Topic. </param>
+        /// <param name="messageQueue"> The Azure Storage queue used for storage events. </param>
+        /// <param name="poisonQueue"> The Azure Storage queue used for events that failed to be processed. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceStorageConfiguration(ResourceIdentifier storageResourceId, string fileSystemName, StorageMonitorConfiguration storageMonitorConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StorageMonitorConfiguration(string systemTopicResourceId, StorageMonitorQueue messageQueue, StorageMonitorQueue poisonQueue, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            StorageResourceId = storageResourceId;
-            FileSystemName = fileSystemName;
-            StorageMonitorConfiguration = storageMonitorConfiguration;
+            SystemTopicResourceId = systemTopicResourceId;
+            MessageQueue = messageQueue;
+            PoisonQueue = poisonQueue;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The resource id of connected storage account. </summary>
-        public ResourceIdentifier StorageResourceId { get; set; }
-        /// <summary> The filesystem name of connected storage account. </summary>
-        public string FileSystemName { get; set; }
-        /// <summary> The configuration for monitoring changes in the specified storage account. </summary>
-        public StorageMonitorConfiguration StorageMonitorConfiguration { get; set; }
+        /// <summary> The resource id of the Azure Event Grid System Topic. </summary>
+        public string SystemTopicResourceId { get; set; }
+        /// <summary> The Azure Storage queue used for storage events. </summary>
+        public StorageMonitorQueue MessageQueue { get; set; }
+        /// <summary> The Azure Storage queue used for events that failed to be processed. </summary>
+        public StorageMonitorQueue PoisonQueue { get; set; }
     }
 }

@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
-    /// <summary> The configuration of connected storage. </summary>
-    public partial class HealthcareApisServiceStorageConfiguration
+    /// <summary> An Azure Storage queue used for Data Lake Storage Gen 2 events. </summary>
+    public partial class StorageMonitorQueue
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,29 +45,25 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceStorageConfiguration"/>. </summary>
-        public HealthcareApisServiceStorageConfiguration()
+        /// <summary> Initializes a new instance of <see cref="StorageMonitorQueue"/>. </summary>
+        public StorageMonitorQueue()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceStorageConfiguration"/>. </summary>
-        /// <param name="storageResourceId"> The resource id of connected storage account. </param>
-        /// <param name="fileSystemName"> The filesystem name of connected storage account. </param>
-        /// <param name="storageMonitorConfiguration"> The configuration for monitoring changes in the specified storage account. </param>
+        /// <summary> Initializes a new instance of <see cref="StorageMonitorQueue"/>. </summary>
+        /// <param name="name"> The name of the Azure Storage queue. </param>
+        /// <param name="timeToLiveInSeconds"> The Azure Storage queue message time-to-live in seconds. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceStorageConfiguration(ResourceIdentifier storageResourceId, string fileSystemName, StorageMonitorConfiguration storageMonitorConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal StorageMonitorQueue(string name, long? timeToLiveInSeconds, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            StorageResourceId = storageResourceId;
-            FileSystemName = fileSystemName;
-            StorageMonitorConfiguration = storageMonitorConfiguration;
+            Name = name;
+            TimeToLiveInSeconds = timeToLiveInSeconds;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The resource id of connected storage account. </summary>
-        public ResourceIdentifier StorageResourceId { get; set; }
-        /// <summary> The filesystem name of connected storage account. </summary>
-        public string FileSystemName { get; set; }
-        /// <summary> The configuration for monitoring changes in the specified storage account. </summary>
-        public StorageMonitorConfiguration StorageMonitorConfiguration { get; set; }
+        /// <summary> The name of the Azure Storage queue. </summary>
+        public string Name { get; set; }
+        /// <summary> The Azure Storage queue message time-to-live in seconds. </summary>
+        public long? TimeToLiveInSeconds { get; set; }
     }
 }

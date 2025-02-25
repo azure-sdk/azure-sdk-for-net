@@ -44,6 +44,11 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 writer.WritePropertyName("fileSystemName"u8);
                 writer.WriteStringValue(FileSystemName);
             }
+            if (Optional.IsDefined(StorageMonitorConfiguration))
+            {
+                writer.WritePropertyName("storageMonitorConfiguration"u8);
+                writer.WriteObjectValue(StorageMonitorConfiguration, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,6 +88,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
             }
             ResourceIdentifier storageResourceId = default;
             string fileSystemName = default;
+            StorageMonitorConfiguration storageMonitorConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -101,13 +107,22 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                     fileSystemName = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("storageMonitorConfiguration"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    storageMonitorConfiguration = StorageMonitorConfiguration.DeserializeStorageMonitorConfiguration(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new HealthcareApisServiceStorageConfiguration(storageResourceId, fileSystemName, serializedAdditionalRawData);
+            return new HealthcareApisServiceStorageConfiguration(storageResourceId, fileSystemName, storageMonitorConfiguration, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<HealthcareApisServiceStorageConfiguration>.Write(ModelReaderWriterOptions options)
