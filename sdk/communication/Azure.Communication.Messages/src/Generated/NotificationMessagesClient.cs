@@ -174,30 +174,20 @@ namespace Azure.Communication.Messages
         }
 
         /// <summary> Download the Media payload from a User to Business message. </summary>
-        /// <param name="id"> The stream ID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual async Task<Response<BinaryData>> DownloadMediaInternalAsync(string id, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response<BinaryData>> DownloadMediaInternalAsync(CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(id, nameof(id));
-
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await DownloadMediaInternalAsync(id, context).ConfigureAwait(false);
+            Response response = await DownloadMediaInternalAsync(context).ConfigureAwait(false);
             return Response.FromValue(response.Content, response);
         }
 
         /// <summary> Download the Media payload from a User to Business message. </summary>
-        /// <param name="id"> The stream ID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual Response<BinaryData> DownloadMediaInternal(string id, CancellationToken cancellationToken = default)
+        internal virtual Response<BinaryData> DownloadMediaInternal(CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(id, nameof(id));
-
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = DownloadMediaInternal(id, context);
+            Response response = DownloadMediaInternal(context);
             return Response.FromValue(response.Content, response);
         }
 
@@ -211,26 +201,21 @@ namespace Azure.Communication.Messages
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="DownloadMediaInternalAsync(string,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="DownloadMediaInternalAsync(CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="id"> The stream ID. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        internal virtual async Task<Response> DownloadMediaInternalAsync(string id, RequestContext context)
+        internal virtual async Task<Response> DownloadMediaInternalAsync(RequestContext context)
         {
-            Argument.AssertNotNullOrEmpty(id, nameof(id));
-
             using var scope = ClientDiagnostics.CreateScope("NotificationMessagesClient.DownloadMediaInternal");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateDownloadMediaInternalRequest(id, context);
+                using HttpMessage message = CreateDownloadMediaInternalRequest(context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -250,26 +235,21 @@ namespace Azure.Communication.Messages
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="DownloadMediaInternal(string,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="DownloadMediaInternal(CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="id"> The stream ID. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        internal virtual Response DownloadMediaInternal(string id, RequestContext context)
+        internal virtual Response DownloadMediaInternal(RequestContext context)
         {
-            Argument.AssertNotNullOrEmpty(id, nameof(id));
-
             using var scope = ClientDiagnostics.CreateScope("NotificationMessagesClient.DownloadMediaInternal");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateDownloadMediaInternalRequest(id, context);
+                using HttpMessage message = CreateDownloadMediaInternalRequest(context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -297,15 +277,14 @@ namespace Azure.Communication.Messages
             return message;
         }
 
-        internal HttpMessage CreateDownloadMediaInternalRequest(string id, RequestContext context)
+        internal HttpMessage CreateDownloadMediaInternalRequest(RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/messages/streams/", false);
-            uri.AppendPath(id, true);
+            uri.AppendPath("/", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/octet-stream");
