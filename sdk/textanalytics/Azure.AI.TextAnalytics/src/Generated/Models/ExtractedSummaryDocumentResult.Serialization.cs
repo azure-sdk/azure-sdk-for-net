@@ -7,61 +7,23 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class ExtractedSummaryDocumentResult : IUtf8JsonSerializable
+    internal partial class ExtractedSummaryDocumentResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("sentences"u8);
-            writer.WriteStartArray();
-            foreach (var item in Sentences)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName("id"u8);
-            writer.WriteStringValue(Id);
-            writer.WritePropertyName("warnings"u8);
-            writer.WriteStartArray();
-            foreach (var item in Warnings)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            if (Optional.IsDefined(Statistics))
-            {
-                writer.WritePropertyName("statistics"u8);
-                writer.WriteObjectValue(Statistics);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static ExtractedSummaryDocumentResult DeserializeExtractedSummaryDocumentResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IList<ExtractedSummarySentence> sentences = default;
             string id = default;
-            IList<DocumentWarning> warnings = default;
+            IReadOnlyList<DocumentWarning> warnings = default;
             TextDocumentStatistics? statistics = default;
+            IReadOnlyList<ExtractedSummarySentence> sentences = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sentences"u8))
-                {
-                    List<ExtractedSummarySentence> array = new List<ExtractedSummarySentence>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(ExtractedSummarySentence.DeserializeExtractedSummarySentence(item));
-                    }
-                    sentences = array;
-                    continue;
-                }
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
@@ -86,24 +48,26 @@ namespace Azure.AI.TextAnalytics.Models
                     statistics = TextDocumentStatistics.DeserializeTextDocumentStatistics(property.Value);
                     continue;
                 }
+                if (property.NameEquals("sentences"u8))
+                {
+                    List<ExtractedSummarySentence> array = new List<ExtractedSummarySentence>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(ExtractedSummarySentence.DeserializeExtractedSummarySentence(item));
+                    }
+                    sentences = array;
+                    continue;
+                }
             }
             return new ExtractedSummaryDocumentResult(id, warnings, statistics, sentences);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new ExtractedSummaryDocumentResult FromResponse(Response response)
+        internal static ExtractedSummaryDocumentResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeExtractedSummaryDocumentResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

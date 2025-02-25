@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> Enumeration of supported Text Analysis tasks. </summary>
+    /// <summary> The kind of the analyze-text tasks supported. </summary>
     internal readonly partial struct AnalyzeTextTaskKind : IEquatable<AnalyzeTextTaskKind>
     {
         private readonly string _value;
@@ -29,17 +29,17 @@ namespace Azure.AI.TextAnalytics.Models
         private const string LanguageDetectionValue = "LanguageDetection";
         private const string EntityLinkingValue = "EntityLinking";
 
-        /// <summary> SentimentAnalysis. </summary>
+        /// <summary> Sentiment analysis task. </summary>
         public static AnalyzeTextTaskKind SentimentAnalysis { get; } = new AnalyzeTextTaskKind(SentimentAnalysisValue);
-        /// <summary> EntityRecognition. </summary>
+        /// <summary> Entity recognition task. </summary>
         public static AnalyzeTextTaskKind EntityRecognition { get; } = new AnalyzeTextTaskKind(EntityRecognitionValue);
-        /// <summary> PiiEntityRecognition. </summary>
+        /// <summary> PII entity recognition task. </summary>
         public static AnalyzeTextTaskKind PiiEntityRecognition { get; } = new AnalyzeTextTaskKind(PiiEntityRecognitionValue);
-        /// <summary> KeyPhraseExtraction. </summary>
+        /// <summary> Key phrase extraction task. </summary>
         public static AnalyzeTextTaskKind KeyPhraseExtraction { get; } = new AnalyzeTextTaskKind(KeyPhraseExtractionValue);
-        /// <summary> LanguageDetection. </summary>
+        /// <summary> Language detection task. </summary>
         public static AnalyzeTextTaskKind LanguageDetection { get; } = new AnalyzeTextTaskKind(LanguageDetectionValue);
-        /// <summary> EntityLinking. </summary>
+        /// <summary> Entity linking task. </summary>
         public static AnalyzeTextTaskKind EntityLinking { get; } = new AnalyzeTextTaskKind(EntityLinkingValue);
         /// <summary> Determines if two <see cref="AnalyzeTextTaskKind"/> values are the same. </summary>
         public static bool operator ==(AnalyzeTextTaskKind left, AnalyzeTextTaskKind right) => left.Equals(right);

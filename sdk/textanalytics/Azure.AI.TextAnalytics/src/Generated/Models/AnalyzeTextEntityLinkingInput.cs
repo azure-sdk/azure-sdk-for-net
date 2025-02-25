@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The AnalyzeTextEntityLinkingInput. </summary>
+    /// <summary> Contains the analyze text Entity linking input. </summary>
     internal partial class AnalyzeTextEntityLinkingInput : AnalyzeTextTask
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextEntityLinkingInput"/>. </summary>
@@ -17,9 +17,9 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextEntityLinkingInput"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis tasks. </param>
-        /// <param name="analysisInput"></param>
-        /// <param name="parameters"> Supported parameters for an Entity Linking task. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="analysisInput"> Contains the analysis input to be handled by the service. </param>
+        /// <param name="parameters"> Task parameters. </param>
         internal AnalyzeTextEntityLinkingInput(AnalyzeTextTaskKind kind, MultiLanguageAnalysisInput analysisInput, EntityLinkingTaskParameters parameters) : base(kind)
         {
             AnalysisInput = analysisInput;
@@ -27,9 +27,9 @@ namespace Azure.AI.TextAnalytics.Models
             Kind = kind;
         }
 
-        /// <summary> Gets or sets the analysis input. </summary>
+        /// <summary> Contains the analysis input to be handled by the service. </summary>
         public MultiLanguageAnalysisInput AnalysisInput { get; set; }
-        /// <summary> Supported parameters for an Entity Linking task. </summary>
+        /// <summary> Task parameters. </summary>
         public EntityLinkingTaskParameters Parameters { get; set; }
     }
 }
