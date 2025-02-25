@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ManagementGroups
 
         ManagementGroupResource IOperationSource<ManagementGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ManagementGroupData.DeserializeManagementGroupData(document.RootElement);
+            var data = ModelReaderWriter.Read<ManagementGroupData>(new BinaryData(response.ContentStream));
             return new ManagementGroupResource(_client, data);
         }
 
         async ValueTask<ManagementGroupResource> IOperationSource<ManagementGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ManagementGroupData.DeserializeManagementGroupData(document.RootElement);
             return new ManagementGroupResource(_client, data);
         }

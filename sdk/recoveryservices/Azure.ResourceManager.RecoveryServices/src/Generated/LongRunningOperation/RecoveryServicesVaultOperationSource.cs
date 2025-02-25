@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.RecoveryServices
 
         RecoveryServicesVaultResource IOperationSource<RecoveryServicesVaultResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = RecoveryServicesVaultData.DeserializeRecoveryServicesVaultData(document.RootElement);
+            var data = ModelReaderWriter.Read<RecoveryServicesVaultData>(new BinaryData(response.ContentStream));
             return new RecoveryServicesVaultResource(_client, data);
         }
 
         async ValueTask<RecoveryServicesVaultResource> IOperationSource<RecoveryServicesVaultResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = RecoveryServicesVaultData.DeserializeRecoveryServicesVaultData(document.RootElement);
             return new RecoveryServicesVaultResource(_client, data);
         }

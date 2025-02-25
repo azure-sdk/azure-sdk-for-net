@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery
 
         SiteRecoveryPolicyResource IOperationSource<SiteRecoveryPolicyResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SiteRecoveryPolicyData.DeserializeSiteRecoveryPolicyData(document.RootElement);
+            var data = ModelReaderWriter.Read<SiteRecoveryPolicyData>(new BinaryData(response.ContentStream));
             return new SiteRecoveryPolicyResource(_client, data);
         }
 
         async ValueTask<SiteRecoveryPolicyResource> IOperationSource<SiteRecoveryPolicyResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SiteRecoveryPolicyData.DeserializeSiteRecoveryPolicyData(document.RootElement);
             return new SiteRecoveryPolicyResource(_client, data);
         }

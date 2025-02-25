@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
 
         BackupProtectionContainerResource IOperationSource<BackupProtectionContainerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = BackupProtectionContainerData.DeserializeBackupProtectionContainerData(document.RootElement);
+            var data = ModelReaderWriter.Read<BackupProtectionContainerData>(new BinaryData(response.ContentStream));
             return new BackupProtectionContainerResource(_client, data);
         }
 
         async ValueTask<BackupProtectionContainerResource> IOperationSource<BackupProtectionContainerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = BackupProtectionContainerData.DeserializeBackupProtectionContainerData(document.RootElement);
             return new BackupProtectionContainerResource(_client, data);
         }

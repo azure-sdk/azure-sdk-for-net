@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Relay
 
         RelayNamespaceResource IOperationSource<RelayNamespaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = RelayNamespaceData.DeserializeRelayNamespaceData(document.RootElement);
+            var data = ModelReaderWriter.Read<RelayNamespaceData>(new BinaryData(response.ContentStream));
             return new RelayNamespaceResource(_client, data);
         }
 
         async ValueTask<RelayNamespaceResource> IOperationSource<RelayNamespaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = RelayNamespaceData.DeserializeRelayNamespaceData(document.RootElement);
             return new RelayNamespaceResource(_client, data);
         }

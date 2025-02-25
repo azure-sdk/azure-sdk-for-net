@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Resources
 
         JitRequestResource IOperationSource<JitRequestResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = JitRequestData.DeserializeJitRequestData(document.RootElement);
+            var data = ModelReaderWriter.Read<JitRequestData>(new BinaryData(response.ContentStream));
             return new JitRequestResource(_client, data);
         }
 
         async ValueTask<JitRequestResource> IOperationSource<JitRequestResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = JitRequestData.DeserializeJitRequestData(document.RootElement);
             return new JitRequestResource(_client, data);
         }

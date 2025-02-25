@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery
 
         SiteRecoveryFabricResource IOperationSource<SiteRecoveryFabricResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SiteRecoveryFabricData.DeserializeSiteRecoveryFabricData(document.RootElement);
+            var data = ModelReaderWriter.Read<SiteRecoveryFabricData>(new BinaryData(response.ContentStream));
             return new SiteRecoveryFabricResource(_client, data);
         }
 
         async ValueTask<SiteRecoveryFabricResource> IOperationSource<SiteRecoveryFabricResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SiteRecoveryFabricData.DeserializeSiteRecoveryFabricData(document.RootElement);
             return new SiteRecoveryFabricResource(_client, data);
         }

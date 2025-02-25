@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Redis
 
         RedisPrivateEndpointConnectionResource IOperationSource<RedisPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = RedisPrivateEndpointConnectionData.DeserializeRedisPrivateEndpointConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<RedisPrivateEndpointConnectionData>(new BinaryData(response.ContentStream));
             return new RedisPrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<RedisPrivateEndpointConnectionResource> IOperationSource<RedisPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = RedisPrivateEndpointConnectionData.DeserializeRedisPrivateEndpointConnectionData(document.RootElement);
             return new RedisPrivateEndpointConnectionResource(_client, data);
         }
