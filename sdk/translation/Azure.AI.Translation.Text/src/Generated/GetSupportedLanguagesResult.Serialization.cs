@@ -34,6 +34,10 @@ namespace Azure.AI.Translation.Text
                 throw new FormatException($"The model {nameof(GetSupportedLanguagesResult)} does not support writing '{format}' format.");
             }
 
+            writer.WritePropertyName("requestId"u8);
+            writer.WriteStringValue(RequestId);
+            writer.WritePropertyName("etag"u8);
+            writer.WriteStringValue(Etag);
             if (Optional.IsCollectionDefined(Translation))
             {
                 writer.WritePropertyName("translation"u8);
@@ -104,6 +108,8 @@ namespace Azure.AI.Translation.Text
             {
                 return null;
             }
+            string requestId = default;
+            string etag = default;
             IReadOnlyDictionary<string, TranslationLanguage> translation = default;
             IReadOnlyDictionary<string, TransliterationLanguage> transliteration = default;
             IReadOnlyDictionary<string, SourceDictionaryLanguage> dictionary = default;
@@ -111,6 +117,16 @@ namespace Azure.AI.Translation.Text
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("requestId"u8))
+                {
+                    requestId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("etag"u8))
+                {
+                    etag = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("translation"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -159,7 +175,13 @@ namespace Azure.AI.Translation.Text
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new GetSupportedLanguagesResult(translation ?? new ChangeTrackingDictionary<string, TranslationLanguage>(), transliteration ?? new ChangeTrackingDictionary<string, TransliterationLanguage>(), dictionary ?? new ChangeTrackingDictionary<string, SourceDictionaryLanguage>(), serializedAdditionalRawData);
+            return new GetSupportedLanguagesResult(
+                requestId,
+                etag,
+                translation ?? new ChangeTrackingDictionary<string, TranslationLanguage>(),
+                transliteration ?? new ChangeTrackingDictionary<string, TransliterationLanguage>(),
+                dictionary ?? new ChangeTrackingDictionary<string, SourceDictionaryLanguage>(),
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<GetSupportedLanguagesResult>.Write(ModelReaderWriterOptions options)

@@ -25,7 +25,8 @@ namespace Azure.AI.Translation.Text.Samples
             Response response = client.GetSupportedLanguages("kayfnugjec", "translation,transliteration,dictionary", "en", new ETag("fpnhruttllvc"), null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("requestId").ToString());
+            Console.WriteLine(result.GetProperty("etag").ToString());
         }
 
         [Test]
@@ -38,7 +39,8 @@ namespace Azure.AI.Translation.Text.Samples
             Response response = await client.GetSupportedLanguagesAsync("kayfnugjec", "translation,transliteration,dictionary", "en", new ETag("fpnhruttllvc"), null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("requestId").ToString());
+            Console.WriteLine(result.GetProperty("etag").ToString());
         }
 
         [Test]
@@ -71,7 +73,8 @@ namespace Azure.AI.Translation.Text.Samples
             Response response = client.GetSupportedLanguages(null, null, null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("requestId").ToString());
+            Console.WriteLine(result.GetProperty("etag").ToString());
         }
 
         [Test]
@@ -84,7 +87,8 @@ namespace Azure.AI.Translation.Text.Samples
             Response response = await client.GetSupportedLanguagesAsync(null, null, null, null, null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("requestId").ToString());
+            Console.WriteLine(result.GetProperty("etag").ToString());
         }
 
         [Test]

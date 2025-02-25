@@ -45,7 +45,8 @@ TextTranslationClient client = new TextTranslationClient(endpoint);
 Response response = await client.GetSupportedLanguagesAsync("kayfnugjec", "translation,transliteration,dictionary", "en", new ETag("fpnhruttllvc"), null);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
 ]]></code>
 This sample shows how to call GetSupportedLanguagesAsync and parse the result.
 <code><![CDATA[
@@ -55,7 +56,8 @@ TextTranslationClient client = new TextTranslationClient(endpoint);
 Response response = await client.GetSupportedLanguagesAsync(null, null, null, null, null);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
 ]]></code></example>
     </member>
     <member name="GetSupportedLanguages(string,string,string,ETag?,RequestContext)">
@@ -68,7 +70,8 @@ TextTranslationClient client = new TextTranslationClient(endpoint);
 Response response = client.GetSupportedLanguages("kayfnugjec", "translation,transliteration,dictionary", "en", new ETag("fpnhruttllvc"), null);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
 ]]></code>
 This sample shows how to call GetSupportedLanguages and parse the result.
 <code><![CDATA[
@@ -78,7 +81,8 @@ TextTranslationClient client = new TextTranslationClient(endpoint);
 Response response = client.GetSupportedLanguages(null, null, null, null, null);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
 ]]></code></example>
     </member>
   </members>
