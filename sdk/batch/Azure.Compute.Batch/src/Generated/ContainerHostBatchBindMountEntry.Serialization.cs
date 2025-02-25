@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Compute.Batch
 {
-    public partial class ManagedDisk : IUtf8JsonSerializable, IJsonModel<ManagedDisk>
+    public partial class ContainerHostBatchBindMountEntry : IUtf8JsonSerializable, IJsonModel<ContainerHostBatchBindMountEntry>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ManagedDisk>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ContainerHostBatchBindMountEntry>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ManagedDisk>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ContainerHostBatchBindMountEntry>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,21 +28,21 @@ namespace Azure.Compute.Batch
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ManagedDisk>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ContainerHostBatchBindMountEntry>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ManagedDisk)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ContainerHostBatchBindMountEntry)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(StorageAccountType))
+            if (Optional.IsDefined(Source))
             {
-                writer.WritePropertyName("storageAccountType"u8);
-                writer.WriteStringValue(StorageAccountType.Value.ToString());
+                writer.WritePropertyName("source"u8);
+                writer.WriteStringValue(Source.Value.ToString());
             }
-            if (Optional.IsDefined(SecurityProfile))
+            if (Optional.IsDefined(IsReadOnly))
             {
-                writer.WritePropertyName("securityProfile"u8);
-                writer.WriteObjectValue(SecurityProfile, options);
+                writer.WritePropertyName("isReadOnly"u8);
+                writer.WriteBooleanValue(IsReadOnly.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -61,19 +61,19 @@ namespace Azure.Compute.Batch
             }
         }
 
-        ManagedDisk IJsonModel<ManagedDisk>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ContainerHostBatchBindMountEntry IJsonModel<ContainerHostBatchBindMountEntry>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ManagedDisk>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ContainerHostBatchBindMountEntry>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ManagedDisk)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ContainerHostBatchBindMountEntry)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeManagedDisk(document.RootElement, options);
+            return DeserializeContainerHostBatchBindMountEntry(document.RootElement, options);
         }
 
-        internal static ManagedDisk DeserializeManagedDisk(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ContainerHostBatchBindMountEntry DeserializeContainerHostBatchBindMountEntry(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -81,28 +81,28 @@ namespace Azure.Compute.Batch
             {
                 return null;
             }
-            StorageAccountType? storageAccountType = default;
-            VMDiskSecurityProfile securityProfile = default;
+            ContainerHostDataPath? source = default;
+            bool? isReadOnly = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("storageAccountType"u8))
+                if (property.NameEquals("source"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    storageAccountType = new StorageAccountType(property.Value.GetString());
+                    source = new ContainerHostDataPath(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("securityProfile"u8))
+                if (property.NameEquals("isReadOnly"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    securityProfile = VMDiskSecurityProfile.DeserializeVMDiskSecurityProfile(property.Value, options);
+                    isReadOnly = property.Value.GetBoolean();
                     continue;
                 }
                 if (options.Format != "W")
@@ -111,46 +111,46 @@ namespace Azure.Compute.Batch
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ManagedDisk(storageAccountType, securityProfile, serializedAdditionalRawData);
+            return new ContainerHostBatchBindMountEntry(source, isReadOnly, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ManagedDisk>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ContainerHostBatchBindMountEntry>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ManagedDisk>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ContainerHostBatchBindMountEntry>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ManagedDisk)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ContainerHostBatchBindMountEntry)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ManagedDisk IPersistableModel<ManagedDisk>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ContainerHostBatchBindMountEntry IPersistableModel<ContainerHostBatchBindMountEntry>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ManagedDisk>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ContainerHostBatchBindMountEntry>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeManagedDisk(document.RootElement, options);
+                        return DeserializeContainerHostBatchBindMountEntry(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ManagedDisk)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ContainerHostBatchBindMountEntry)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ManagedDisk>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ContainerHostBatchBindMountEntry>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ManagedDisk FromResponse(Response response)
+        internal static ContainerHostBatchBindMountEntry FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeManagedDisk(document.RootElement);
+            return DeserializeContainerHostBatchBindMountEntry(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
