@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Monitor
 
         MonitorWorkspaceResource IOperationSource<MonitorWorkspaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MonitorWorkspaceResourceData.DeserializeMonitorWorkspaceResourceData(document.RootElement);
+            var data = ModelReaderWriter.Read<MonitorWorkspaceResourceData>(new BinaryData(response.ContentStream));
             return new MonitorWorkspaceResource(_client, data);
         }
 
         async ValueTask<MonitorWorkspaceResource> IOperationSource<MonitorWorkspaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MonitorWorkspaceResourceData.DeserializeMonitorWorkspaceResourceData(document.RootElement);
             return new MonitorWorkspaceResource(_client, data);
         }

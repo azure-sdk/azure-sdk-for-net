@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
 
         NetworkFabricL3IsolationDomainResource IOperationSource<NetworkFabricL3IsolationDomainResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkFabricL3IsolationDomainData.DeserializeNetworkFabricL3IsolationDomainData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkFabricL3IsolationDomainData>(new BinaryData(response.ContentStream));
             return new NetworkFabricL3IsolationDomainResource(_client, data);
         }
 
         async ValueTask<NetworkFabricL3IsolationDomainResource> IOperationSource<NetworkFabricL3IsolationDomainResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkFabricL3IsolationDomainData.DeserializeNetworkFabricL3IsolationDomainData(document.RootElement);
             return new NetworkFabricL3IsolationDomainResource(_client, data);
         }

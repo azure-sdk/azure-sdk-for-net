@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MobileNetwork
 
         MobileNetworkSimPolicyResource IOperationSource<MobileNetworkSimPolicyResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MobileNetworkSimPolicyData.DeserializeMobileNetworkSimPolicyData(document.RootElement);
+            var data = ModelReaderWriter.Read<MobileNetworkSimPolicyData>(new BinaryData(response.ContentStream));
             return new MobileNetworkSimPolicyResource(_client, data);
         }
 
         async ValueTask<MobileNetworkSimPolicyResource> IOperationSource<MobileNetworkSimPolicyResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MobileNetworkSimPolicyData.DeserializeMobileNetworkSimPolicyData(document.RootElement);
             return new MobileNetworkSimPolicyResource(_client, data);
         }

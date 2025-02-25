@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MachineLearningCompute
 
         OperationalizationClusterResource IOperationSource<OperationalizationClusterResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = OperationalizationClusterData.DeserializeOperationalizationClusterData(document.RootElement);
+            var data = ModelReaderWriter.Read<OperationalizationClusterData>(new BinaryData(response.ContentStream));
             return new OperationalizationClusterResource(_client, data);
         }
 
         async ValueTask<OperationalizationClusterResource> IOperationSource<OperationalizationClusterResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = OperationalizationClusterData.DeserializeOperationalizationClusterData(document.RootElement);
             return new OperationalizationClusterResource(_client, data);
         }

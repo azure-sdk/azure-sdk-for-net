@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MachineLearning
 
         MachineLearninRegistryComponentVersionResource IOperationSource<MachineLearninRegistryComponentVersionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MachineLearningComponentVersionData.DeserializeMachineLearningComponentVersionData(document.RootElement);
+            var data = ModelReaderWriter.Read<MachineLearningComponentVersionData>(new BinaryData(response.ContentStream));
             return new MachineLearninRegistryComponentVersionResource(_client, data);
         }
 
         async ValueTask<MachineLearninRegistryComponentVersionResource> IOperationSource<MachineLearninRegistryComponentVersionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MachineLearningComponentVersionData.DeserializeMachineLearningComponentVersionData(document.RootElement);
             return new MachineLearninRegistryComponentVersionResource(_client, data);
         }

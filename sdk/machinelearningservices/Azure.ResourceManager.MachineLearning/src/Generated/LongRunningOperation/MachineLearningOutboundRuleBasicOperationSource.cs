@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MachineLearning
 
         MachineLearningOutboundRuleBasicResource IOperationSource<MachineLearningOutboundRuleBasicResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MachineLearningOutboundRuleBasicData.DeserializeMachineLearningOutboundRuleBasicData(document.RootElement);
+            var data = ModelReaderWriter.Read<MachineLearningOutboundRuleBasicData>(new BinaryData(response.ContentStream));
             return new MachineLearningOutboundRuleBasicResource(_client, data);
         }
 
         async ValueTask<MachineLearningOutboundRuleBasicResource> IOperationSource<MachineLearningOutboundRuleBasicResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MachineLearningOutboundRuleBasicData.DeserializeMachineLearningOutboundRuleBasicData(document.RootElement);
             return new MachineLearningOutboundRuleBasicResource(_client, data);
         }

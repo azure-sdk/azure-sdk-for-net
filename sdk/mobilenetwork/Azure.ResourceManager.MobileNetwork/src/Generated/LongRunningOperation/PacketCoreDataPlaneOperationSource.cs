@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MobileNetwork
 
         PacketCoreDataPlaneResource IOperationSource<PacketCoreDataPlaneResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = PacketCoreDataPlaneData.DeserializePacketCoreDataPlaneData(document.RootElement);
+            var data = ModelReaderWriter.Read<PacketCoreDataPlaneData>(new BinaryData(response.ContentStream));
             return new PacketCoreDataPlaneResource(_client, data);
         }
 
         async ValueTask<PacketCoreDataPlaneResource> IOperationSource<PacketCoreDataPlaneResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = PacketCoreDataPlaneData.DeserializePacketCoreDataPlaneData(document.RootElement);
             return new PacketCoreDataPlaneResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
 
         NetworkFabricRoutePolicyResource IOperationSource<NetworkFabricRoutePolicyResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkFabricRoutePolicyData.DeserializeNetworkFabricRoutePolicyData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkFabricRoutePolicyData>(new BinaryData(response.ContentStream));
             return new NetworkFabricRoutePolicyResource(_client, data);
         }
 
         async ValueTask<NetworkFabricRoutePolicyResource> IOperationSource<NetworkFabricRoutePolicyResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkFabricRoutePolicyData.DeserializeNetworkFabricRoutePolicyData(document.RootElement);
             return new NetworkFabricRoutePolicyResource(_client, data);
         }

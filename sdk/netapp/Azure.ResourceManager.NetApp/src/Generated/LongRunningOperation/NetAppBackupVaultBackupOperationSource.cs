@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NetApp
 
         NetAppBackupVaultBackupResource IOperationSource<NetAppBackupVaultBackupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetAppBackupData.DeserializeNetAppBackupData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetAppBackupData>(new BinaryData(response.ContentStream));
             return new NetAppBackupVaultBackupResource(_client, data);
         }
 
         async ValueTask<NetAppBackupVaultBackupResource> IOperationSource<NetAppBackupVaultBackupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetAppBackupData.DeserializeNetAppBackupData(document.RootElement);
             return new NetAppBackupVaultBackupResource(_client, data);
         }

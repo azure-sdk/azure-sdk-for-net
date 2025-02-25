@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MachineLearning
 
         MachineLearningBatchEndpointResource IOperationSource<MachineLearningBatchEndpointResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MachineLearningBatchEndpointData.DeserializeMachineLearningBatchEndpointData(document.RootElement);
+            var data = ModelReaderWriter.Read<MachineLearningBatchEndpointData>(new BinaryData(response.ContentStream));
             return new MachineLearningBatchEndpointResource(_client, data);
         }
 
         async ValueTask<MachineLearningBatchEndpointResource> IOperationSource<MachineLearningBatchEndpointResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MachineLearningBatchEndpointData.DeserializeMachineLearningBatchEndpointData(document.RootElement);
             return new MachineLearningBatchEndpointResource(_client, data);
         }

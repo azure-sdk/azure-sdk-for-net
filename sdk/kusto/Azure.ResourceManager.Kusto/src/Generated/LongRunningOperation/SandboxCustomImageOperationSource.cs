@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Kusto
 
         SandboxCustomImageResource IOperationSource<SandboxCustomImageResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SandboxCustomImageData.DeserializeSandboxCustomImageData(document.RootElement);
+            var data = ModelReaderWriter.Read<SandboxCustomImageData>(new BinaryData(response.ContentStream));
             return new SandboxCustomImageResource(_client, data);
         }
 
         async ValueTask<SandboxCustomImageResource> IOperationSource<SandboxCustomImageResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SandboxCustomImageData.DeserializeSandboxCustomImageData(document.RootElement);
             return new SandboxCustomImageResource(_client, data);
         }

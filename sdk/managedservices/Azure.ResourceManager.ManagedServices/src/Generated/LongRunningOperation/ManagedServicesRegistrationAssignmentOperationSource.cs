@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ManagedServices
 
         ManagedServicesRegistrationAssignmentResource IOperationSource<ManagedServicesRegistrationAssignmentResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ManagedServicesRegistrationAssignmentData.DeserializeManagedServicesRegistrationAssignmentData(document.RootElement);
+            var data = ModelReaderWriter.Read<ManagedServicesRegistrationAssignmentData>(new BinaryData(response.ContentStream));
             return new ManagedServicesRegistrationAssignmentResource(_client, data);
         }
 
         async ValueTask<ManagedServicesRegistrationAssignmentResource> IOperationSource<ManagedServicesRegistrationAssignmentResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ManagedServicesRegistrationAssignmentData.DeserializeManagedServicesRegistrationAssignmentData(document.RootElement);
             return new ManagedServicesRegistrationAssignmentResource(_client, data);
         }

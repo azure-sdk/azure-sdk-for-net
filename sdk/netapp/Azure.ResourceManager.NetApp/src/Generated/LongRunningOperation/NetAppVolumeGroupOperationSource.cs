@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.NetApp
 
         NetAppVolumeGroupResource IOperationSource<NetAppVolumeGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetAppVolumeGroupData.DeserializeNetAppVolumeGroupData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetAppVolumeGroupData>(new BinaryData(response.ContentStream));
             return new NetAppVolumeGroupResource(_client, data);
         }
 
         async ValueTask<NetAppVolumeGroupResource> IOperationSource<NetAppVolumeGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetAppVolumeGroupData.DeserializeNetAppVolumeGroupData(document.RootElement);
             return new NetAppVolumeGroupResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
 
         NetworkFabricAccessControlListResource IOperationSource<NetworkFabricAccessControlListResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkFabricAccessControlListData.DeserializeNetworkFabricAccessControlListData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkFabricAccessControlListData>(new BinaryData(response.ContentStream));
             return new NetworkFabricAccessControlListResource(_client, data);
         }
 
         async ValueTask<NetworkFabricAccessControlListResource> IOperationSource<NetworkFabricAccessControlListResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkFabricAccessControlListData.DeserializeNetworkFabricAccessControlListData(document.RootElement);
             return new NetworkFabricAccessControlListResource(_client, data);
         }

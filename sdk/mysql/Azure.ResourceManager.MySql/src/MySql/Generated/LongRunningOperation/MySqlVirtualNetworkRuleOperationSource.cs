@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MySql
 
         MySqlVirtualNetworkRuleResource IOperationSource<MySqlVirtualNetworkRuleResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MySqlVirtualNetworkRuleData.DeserializeMySqlVirtualNetworkRuleData(document.RootElement);
+            var data = ModelReaderWriter.Read<MySqlVirtualNetworkRuleData>(new BinaryData(response.ContentStream));
             return new MySqlVirtualNetworkRuleResource(_client, data);
         }
 
         async ValueTask<MySqlVirtualNetworkRuleResource> IOperationSource<MySqlVirtualNetworkRuleResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MySqlVirtualNetworkRuleData.DeserializeMySqlVirtualNetworkRuleData(document.RootElement);
             return new MySqlVirtualNetworkRuleResource(_client, data);
         }

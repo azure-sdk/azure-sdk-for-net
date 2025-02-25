@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Media
 
         MediaAssetTrackResource IOperationSource<MediaAssetTrackResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MediaAssetTrackData.DeserializeMediaAssetTrackData(document.RootElement);
+            var data = ModelReaderWriter.Read<MediaAssetTrackData>(new BinaryData(response.ContentStream));
             return new MediaAssetTrackResource(_client, data);
         }
 
         async ValueTask<MediaAssetTrackResource> IOperationSource<MediaAssetTrackResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MediaAssetTrackData.DeserializeMediaAssetTrackData(document.RootElement);
             return new MediaAssetTrackResource(_client, data);
         }

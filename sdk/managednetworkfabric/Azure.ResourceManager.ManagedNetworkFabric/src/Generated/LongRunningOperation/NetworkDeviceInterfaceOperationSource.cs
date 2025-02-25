@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
 
         NetworkDeviceInterfaceResource IOperationSource<NetworkDeviceInterfaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkDeviceInterfaceData.DeserializeNetworkDeviceInterfaceData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkDeviceInterfaceData>(new BinaryData(response.ContentStream));
             return new NetworkDeviceInterfaceResource(_client, data);
         }
 
         async ValueTask<NetworkDeviceInterfaceResource> IOperationSource<NetworkDeviceInterfaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkDeviceInterfaceData.DeserializeNetworkDeviceInterfaceData(document.RootElement);
             return new NetworkDeviceInterfaceResource(_client, data);
         }

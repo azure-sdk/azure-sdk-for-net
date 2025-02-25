@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
 
         NetworkFabricIPExtendedCommunityResource IOperationSource<NetworkFabricIPExtendedCommunityResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = NetworkFabricIPExtendedCommunityData.DeserializeNetworkFabricIPExtendedCommunityData(document.RootElement);
+            var data = ModelReaderWriter.Read<NetworkFabricIPExtendedCommunityData>(new BinaryData(response.ContentStream));
             return new NetworkFabricIPExtendedCommunityResource(_client, data);
         }
 
         async ValueTask<NetworkFabricIPExtendedCommunityResource> IOperationSource<NetworkFabricIPExtendedCommunityResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = NetworkFabricIPExtendedCommunityData.DeserializeNetworkFabricIPExtendedCommunityData(document.RootElement);
             return new NetworkFabricIPExtendedCommunityResource(_client, data);
         }

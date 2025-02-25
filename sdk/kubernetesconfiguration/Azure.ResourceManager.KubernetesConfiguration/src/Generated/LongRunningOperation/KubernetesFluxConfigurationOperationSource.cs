@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.KubernetesConfiguration
 
         KubernetesFluxConfigurationResource IOperationSource<KubernetesFluxConfigurationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = KubernetesFluxConfigurationData.DeserializeKubernetesFluxConfigurationData(document.RootElement);
+            var data = ModelReaderWriter.Read<KubernetesFluxConfigurationData>(new BinaryData(response.ContentStream));
             return new KubernetesFluxConfigurationResource(_client, data);
         }
 
         async ValueTask<KubernetesFluxConfigurationResource> IOperationSource<KubernetesFluxConfigurationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = KubernetesFluxConfigurationData.DeserializeKubernetesFluxConfigurationData(document.RootElement);
             return new KubernetesFluxConfigurationResource(_client, data);
         }

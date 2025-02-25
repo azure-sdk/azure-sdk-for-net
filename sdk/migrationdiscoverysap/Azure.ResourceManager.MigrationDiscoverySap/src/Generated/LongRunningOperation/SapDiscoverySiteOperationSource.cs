@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MigrationDiscoverySap
 
         SapDiscoverySiteResource IOperationSource<SapDiscoverySiteResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SapDiscoverySiteData.DeserializeSapDiscoverySiteData(document.RootElement);
+            var data = ModelReaderWriter.Read<SapDiscoverySiteData>(new BinaryData(response.ContentStream));
             return new SapDiscoverySiteResource(_client, data);
         }
 
         async ValueTask<SapDiscoverySiteResource> IOperationSource<SapDiscoverySiteResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SapDiscoverySiteData.DeserializeSapDiscoverySiteData(document.RootElement);
             return new SapDiscoverySiteResource(_client, data);
         }

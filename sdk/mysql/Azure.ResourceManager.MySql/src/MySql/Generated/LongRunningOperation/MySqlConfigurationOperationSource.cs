@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.MySql
 
         MySqlConfigurationResource IOperationSource<MySqlConfigurationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = MySqlConfigurationData.DeserializeMySqlConfigurationData(document.RootElement);
+            var data = ModelReaderWriter.Read<MySqlConfigurationData>(new BinaryData(response.ContentStream));
             return new MySqlConfigurationResource(_client, data);
         }
 
         async ValueTask<MySqlConfigurationResource> IOperationSource<MySqlConfigurationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = MySqlConfigurationData.DeserializeMySqlConfigurationData(document.RootElement);
             return new MySqlConfigurationResource(_client, data);
         }
