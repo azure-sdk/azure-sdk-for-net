@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.StorageSync
 
         StorageSyncPrivateEndpointConnectionResource IOperationSource<StorageSyncPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = StorageSyncPrivateEndpointConnectionData.DeserializeStorageSyncPrivateEndpointConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<StorageSyncPrivateEndpointConnectionData>(new BinaryData(response.ContentStream));
             return new StorageSyncPrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<StorageSyncPrivateEndpointConnectionResource> IOperationSource<StorageSyncPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = StorageSyncPrivateEndpointConnectionData.DeserializeStorageSyncPrivateEndpointConnectionData(document.RootElement);
             return new StorageSyncPrivateEndpointConnectionResource(_client, data);
         }

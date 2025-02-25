@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppService
 
         AppCertificateResource IOperationSource<AppCertificateResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppCertificateData.DeserializeAppCertificateData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppCertificateData>(new BinaryData(response.ContentStream));
             return new AppCertificateResource(_client, data);
         }
 
         async ValueTask<AppCertificateResource> IOperationSource<AppCertificateResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppCertificateData.DeserializeAppCertificateData(document.RootElement);
             return new AppCertificateResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.StoragePool
 
         DiskPoolResource IOperationSource<DiskPoolResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DiskPoolData.DeserializeDiskPoolData(document.RootElement);
+            var data = ModelReaderWriter.Read<DiskPoolData>(new BinaryData(response.ContentStream));
             return new DiskPoolResource(_client, data);
         }
 
         async ValueTask<DiskPoolResource> IOperationSource<DiskPoolResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DiskPoolData.DeserializeDiskPoolData(document.RootElement);
             return new DiskPoolResource(_client, data);
         }

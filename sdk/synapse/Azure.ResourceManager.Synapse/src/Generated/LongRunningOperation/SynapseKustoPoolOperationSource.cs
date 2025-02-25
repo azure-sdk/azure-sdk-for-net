@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Synapse
 
         SynapseKustoPoolResource IOperationSource<SynapseKustoPoolResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SynapseKustoPoolData.DeserializeSynapseKustoPoolData(document.RootElement);
+            var data = ModelReaderWriter.Read<SynapseKustoPoolData>(new BinaryData(response.ContentStream));
             return new SynapseKustoPoolResource(_client, data);
         }
 
         async ValueTask<SynapseKustoPoolResource> IOperationSource<SynapseKustoPoolResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SynapseKustoPoolData.DeserializeSynapseKustoPoolData(document.RootElement);
             return new SynapseKustoPoolResource(_client, data);
         }

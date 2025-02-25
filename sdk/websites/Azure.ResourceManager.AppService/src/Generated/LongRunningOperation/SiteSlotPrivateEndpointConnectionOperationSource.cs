@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppService
 
         SiteSlotPrivateEndpointConnectionResource IOperationSource<SiteSlotPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = RemotePrivateEndpointConnectionARMResourceData.DeserializeRemotePrivateEndpointConnectionARMResourceData(document.RootElement);
+            var data = ModelReaderWriter.Read<RemotePrivateEndpointConnectionARMResourceData>(new BinaryData(response.ContentStream));
             return new SiteSlotPrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<SiteSlotPrivateEndpointConnectionResource> IOperationSource<SiteSlotPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = RemotePrivateEndpointConnectionARMResourceData.DeserializeRemotePrivateEndpointConnectionARMResourceData(document.RootElement);
             return new SiteSlotPrivateEndpointConnectionResource(_client, data);
         }

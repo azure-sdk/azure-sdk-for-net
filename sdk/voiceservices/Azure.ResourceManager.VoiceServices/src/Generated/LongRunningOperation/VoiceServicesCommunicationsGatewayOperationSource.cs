@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.VoiceServices
 
         VoiceServicesCommunicationsGatewayResource IOperationSource<VoiceServicesCommunicationsGatewayResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = VoiceServicesCommunicationsGatewayData.DeserializeVoiceServicesCommunicationsGatewayData(document.RootElement);
+            var data = ModelReaderWriter.Read<VoiceServicesCommunicationsGatewayData>(new BinaryData(response.ContentStream));
             return new VoiceServicesCommunicationsGatewayResource(_client, data);
         }
 
         async ValueTask<VoiceServicesCommunicationsGatewayResource> IOperationSource<VoiceServicesCommunicationsGatewayResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = VoiceServicesCommunicationsGatewayData.DeserializeVoiceServicesCommunicationsGatewayData(document.RootElement);
             return new VoiceServicesCommunicationsGatewayResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Synapse
 
         SynapseWorkspaceSqlAdministratorResource IOperationSource<SynapseWorkspaceSqlAdministratorResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SynapseWorkspaceAadAdminInfoData.DeserializeSynapseWorkspaceAadAdminInfoData(document.RootElement);
+            var data = ModelReaderWriter.Read<SynapseWorkspaceAadAdminInfoData>(new BinaryData(response.ContentStream));
             return new SynapseWorkspaceSqlAdministratorResource(_client, data);
         }
 
         async ValueTask<SynapseWorkspaceSqlAdministratorResource> IOperationSource<SynapseWorkspaceSqlAdministratorResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SynapseWorkspaceAadAdminInfoData.DeserializeSynapseWorkspaceAadAdminInfoData(document.RootElement);
             return new SynapseWorkspaceSqlAdministratorResource(_client, data);
         }

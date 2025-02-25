@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Synapse
 
         SynapseDataConnectionResource IOperationSource<SynapseDataConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SynapseDataConnectionData.DeserializeSynapseDataConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<SynapseDataConnectionData>(new BinaryData(response.ContentStream));
             return new SynapseDataConnectionResource(_client, data);
         }
 
         async ValueTask<SynapseDataConnectionResource> IOperationSource<SynapseDataConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SynapseDataConnectionData.DeserializeSynapseDataConnectionData(document.RootElement);
             return new SynapseDataConnectionResource(_client, data);
         }

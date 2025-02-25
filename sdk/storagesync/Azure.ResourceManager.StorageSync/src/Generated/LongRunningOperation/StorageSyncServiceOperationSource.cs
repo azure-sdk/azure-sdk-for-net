@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.StorageSync
 
         StorageSyncServiceResource IOperationSource<StorageSyncServiceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = StorageSyncServiceData.DeserializeStorageSyncServiceData(document.RootElement);
+            var data = ModelReaderWriter.Read<StorageSyncServiceData>(new BinaryData(response.ContentStream));
             return new StorageSyncServiceResource(_client, data);
         }
 
         async ValueTask<StorageSyncServiceResource> IOperationSource<StorageSyncServiceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = StorageSyncServiceData.DeserializeStorageSyncServiceData(document.RootElement);
             return new StorageSyncServiceResource(_client, data);
         }

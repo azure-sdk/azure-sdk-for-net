@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppService
 
         SiteSlotFunctionResource IOperationSource<SiteSlotFunctionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = FunctionEnvelopeData.DeserializeFunctionEnvelopeData(document.RootElement);
+            var data = ModelReaderWriter.Read<FunctionEnvelopeData>(new BinaryData(response.ContentStream));
             return new SiteSlotFunctionResource(_client, data);
         }
 
         async ValueTask<SiteSlotFunctionResource> IOperationSource<SiteSlotFunctionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = FunctionEnvelopeData.DeserializeFunctionEnvelopeData(document.RootElement);
             return new SiteSlotFunctionResource(_client, data);
         }

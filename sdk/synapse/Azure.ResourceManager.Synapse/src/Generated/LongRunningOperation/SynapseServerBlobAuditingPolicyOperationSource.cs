@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Synapse
 
         SynapseServerBlobAuditingPolicyResource IOperationSource<SynapseServerBlobAuditingPolicyResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SynapseServerBlobAuditingPolicyData.DeserializeSynapseServerBlobAuditingPolicyData(document.RootElement);
+            var data = ModelReaderWriter.Read<SynapseServerBlobAuditingPolicyData>(new BinaryData(response.ContentStream));
             return new SynapseServerBlobAuditingPolicyResource(_client, data);
         }
 
         async ValueTask<SynapseServerBlobAuditingPolicyResource> IOperationSource<SynapseServerBlobAuditingPolicyResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = SynapseServerBlobAuditingPolicyData.DeserializeSynapseServerBlobAuditingPolicyData(document.RootElement);
             return new SynapseServerBlobAuditingPolicyResource(_client, data);
         }
