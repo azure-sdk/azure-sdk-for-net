@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Avs
 
         WorkloadNetworkDhcpResource IOperationSource<WorkloadNetworkDhcpResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = WorkloadNetworkDhcpData.DeserializeWorkloadNetworkDhcpData(document.RootElement);
+            var data = ModelReaderWriter.Read<WorkloadNetworkDhcpData>(new BinaryData(response.ContentStream));
             return new WorkloadNetworkDhcpResource(_client, data);
         }
 
         async ValueTask<WorkloadNetworkDhcpResource> IOperationSource<WorkloadNetworkDhcpResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = WorkloadNetworkDhcpData.DeserializeWorkloadNetworkDhcpData(document.RootElement);
             return new WorkloadNetworkDhcpResource(_client, data);
         }

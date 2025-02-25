@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Cdn
 
         ProfileResource IOperationSource<ProfileResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ProfileData.DeserializeProfileData(document.RootElement);
+            var data = ModelReaderWriter.Read<ProfileData>(new BinaryData(response.ContentStream));
             return new ProfileResource(_client, data);
         }
 
         async ValueTask<ProfileResource> IOperationSource<ProfileResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ProfileData.DeserializeProfileData(document.RootElement);
             return new ProfileResource(_client, data);
         }

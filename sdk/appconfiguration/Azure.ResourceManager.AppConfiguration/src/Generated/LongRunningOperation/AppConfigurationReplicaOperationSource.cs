@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppConfiguration
 
         AppConfigurationReplicaResource IOperationSource<AppConfigurationReplicaResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppConfigurationReplicaData.DeserializeAppConfigurationReplicaData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppConfigurationReplicaData>(new BinaryData(response.ContentStream));
             return new AppConfigurationReplicaResource(_client, data);
         }
 
         async ValueTask<AppConfigurationReplicaResource> IOperationSource<AppConfigurationReplicaResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppConfigurationReplicaData.DeserializeAppConfigurationReplicaData(document.RootElement);
             return new AppConfigurationReplicaResource(_client, data);
         }

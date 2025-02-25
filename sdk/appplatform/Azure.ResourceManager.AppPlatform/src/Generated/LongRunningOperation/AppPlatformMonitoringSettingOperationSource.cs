@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppPlatform
 
         AppPlatformMonitoringSettingResource IOperationSource<AppPlatformMonitoringSettingResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppPlatformMonitoringSettingData.DeserializeAppPlatformMonitoringSettingData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppPlatformMonitoringSettingData>(new BinaryData(response.ContentStream));
             return new AppPlatformMonitoringSettingResource(_client, data);
         }
 
         async ValueTask<AppPlatformMonitoringSettingResource> IOperationSource<AppPlatformMonitoringSettingResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppPlatformMonitoringSettingData.DeserializeAppPlatformMonitoringSettingData(document.RootElement);
             return new AppPlatformMonitoringSettingResource(_client, data);
         }

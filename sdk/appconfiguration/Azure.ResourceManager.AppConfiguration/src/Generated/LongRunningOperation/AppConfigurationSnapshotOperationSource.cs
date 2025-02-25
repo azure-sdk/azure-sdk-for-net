@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppConfiguration
 
         AppConfigurationSnapshotResource IOperationSource<AppConfigurationSnapshotResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppConfigurationSnapshotData.DeserializeAppConfigurationSnapshotData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppConfigurationSnapshotData>(new BinaryData(response.ContentStream));
             return new AppConfigurationSnapshotResource(_client, data);
         }
 
         async ValueTask<AppConfigurationSnapshotResource> IOperationSource<AppConfigurationSnapshotResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppConfigurationSnapshotData.DeserializeAppConfigurationSnapshotData(document.RootElement);
             return new AppConfigurationSnapshotResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Avs
 
         WorkloadNetworkVmGroupResource IOperationSource<WorkloadNetworkVmGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = WorkloadNetworkVmGroupData.DeserializeWorkloadNetworkVmGroupData(document.RootElement);
+            var data = ModelReaderWriter.Read<WorkloadNetworkVmGroupData>(new BinaryData(response.ContentStream));
             return new WorkloadNetworkVmGroupResource(_client, data);
         }
 
         async ValueTask<WorkloadNetworkVmGroupResource> IOperationSource<WorkloadNetworkVmGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = WorkloadNetworkVmGroupData.DeserializeWorkloadNetworkVmGroupData(document.RootElement);
             return new WorkloadNetworkVmGroupResource(_client, data);
         }

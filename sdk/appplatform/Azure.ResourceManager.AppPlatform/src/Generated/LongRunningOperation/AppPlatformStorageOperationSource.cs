@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppPlatform
 
         AppPlatformStorageResource IOperationSource<AppPlatformStorageResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppPlatformStorageData.DeserializeAppPlatformStorageData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppPlatformStorageData>(new BinaryData(response.ContentStream));
             return new AppPlatformStorageResource(_client, data);
         }
 
         async ValueTask<AppPlatformStorageResource> IOperationSource<AppPlatformStorageResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppPlatformStorageData.DeserializeAppPlatformStorageData(document.RootElement);
             return new AppPlatformStorageResource(_client, data);
         }

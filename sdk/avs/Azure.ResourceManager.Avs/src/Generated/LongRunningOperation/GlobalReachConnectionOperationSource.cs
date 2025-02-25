@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Avs
 
         GlobalReachConnectionResource IOperationSource<GlobalReachConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = GlobalReachConnectionData.DeserializeGlobalReachConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<GlobalReachConnectionData>(new BinaryData(response.ContentStream));
             return new GlobalReachConnectionResource(_client, data);
         }
 
         async ValueTask<GlobalReachConnectionResource> IOperationSource<GlobalReachConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = GlobalReachConnectionData.DeserializeGlobalReachConnectionData(document.RootElement);
             return new GlobalReachConnectionResource(_client, data);
         }

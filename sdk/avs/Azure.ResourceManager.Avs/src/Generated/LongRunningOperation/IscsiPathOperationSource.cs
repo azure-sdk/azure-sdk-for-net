@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Avs
 
         IscsiPathResource IOperationSource<IscsiPathResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = IscsiPathData.DeserializeIscsiPathData(document.RootElement);
+            var data = ModelReaderWriter.Read<IscsiPathData>(new BinaryData(response.ContentStream));
             return new IscsiPathResource(_client, data);
         }
 
         async ValueTask<IscsiPathResource> IOperationSource<IscsiPathResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = IscsiPathData.DeserializeIscsiPathData(document.RootElement);
             return new IscsiPathResource(_client, data);
         }

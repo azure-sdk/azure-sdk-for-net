@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Cdn
 
         FrontDoorSecretResource IOperationSource<FrontDoorSecretResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = FrontDoorSecretData.DeserializeFrontDoorSecretData(document.RootElement);
+            var data = ModelReaderWriter.Read<FrontDoorSecretData>(new BinaryData(response.ContentStream));
             return new FrontDoorSecretResource(_client, data);
         }
 
         async ValueTask<FrontDoorSecretResource> IOperationSource<FrontDoorSecretResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = FrontDoorSecretData.DeserializeFrontDoorSecretData(document.RootElement);
             return new FrontDoorSecretResource(_client, data);
         }

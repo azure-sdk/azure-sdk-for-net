@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Hci
 
         HciEdgeDeviceResource IOperationSource<HciEdgeDeviceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = HciEdgeDeviceData.DeserializeHciEdgeDeviceData(document.RootElement);
+            var data = ModelReaderWriter.Read<HciEdgeDeviceData>(new BinaryData(response.ContentStream));
             return new HciEdgeDeviceResource(_client, data);
         }
 
         async ValueTask<HciEdgeDeviceResource> IOperationSource<HciEdgeDeviceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = HciEdgeDeviceData.DeserializeHciEdgeDeviceData(document.RootElement);
             return new HciEdgeDeviceResource(_client, data);
         }

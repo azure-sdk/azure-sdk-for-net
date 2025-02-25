@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppPlatform
 
         AppPlatformApiPortalCustomDomainResource IOperationSource<AppPlatformApiPortalCustomDomainResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppPlatformApiPortalCustomDomainData.DeserializeAppPlatformApiPortalCustomDomainData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppPlatformApiPortalCustomDomainData>(new BinaryData(response.ContentStream));
             return new AppPlatformApiPortalCustomDomainResource(_client, data);
         }
 
         async ValueTask<AppPlatformApiPortalCustomDomainResource> IOperationSource<AppPlatformApiPortalCustomDomainResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppPlatformApiPortalCustomDomainData.DeserializeAppPlatformApiPortalCustomDomainData(document.RootElement);
             return new AppPlatformApiPortalCustomDomainResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Batch
 
         BatchAccountResource IOperationSource<BatchAccountResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = BatchAccountData.DeserializeBatchAccountData(document.RootElement);
+            var data = ModelReaderWriter.Read<BatchAccountData>(new BinaryData(response.ContentStream));
             return new BatchAccountResource(_client, data);
         }
 
         async ValueTask<BatchAccountResource> IOperationSource<BatchAccountResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = BatchAccountData.DeserializeBatchAccountData(document.RootElement);
             return new BatchAccountResource(_client, data);
         }

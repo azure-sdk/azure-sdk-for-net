@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Analysis
 
         AnalysisServerResource IOperationSource<AnalysisServerResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AnalysisServerData.DeserializeAnalysisServerData(document.RootElement);
+            var data = ModelReaderWriter.Read<AnalysisServerData>(new BinaryData(response.ContentStream));
             return new AnalysisServerResource(_client, data);
         }
 
         async ValueTask<AnalysisServerResource> IOperationSource<AnalysisServerResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AnalysisServerData.DeserializeAnalysisServerData(document.RootElement);
             return new AnalysisServerResource(_client, data);
         }

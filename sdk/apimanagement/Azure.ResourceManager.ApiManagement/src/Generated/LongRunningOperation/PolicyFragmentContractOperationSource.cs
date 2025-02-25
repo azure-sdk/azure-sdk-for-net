@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ApiManagement
 
         PolicyFragmentContractResource IOperationSource<PolicyFragmentContractResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = PolicyFragmentContractData.DeserializePolicyFragmentContractData(document.RootElement);
+            var data = ModelReaderWriter.Read<PolicyFragmentContractData>(new BinaryData(response.ContentStream));
             return new PolicyFragmentContractResource(_client, data);
         }
 
         async ValueTask<PolicyFragmentContractResource> IOperationSource<PolicyFragmentContractResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = PolicyFragmentContractData.DeserializePolicyFragmentContractData(document.RootElement);
             return new PolicyFragmentContractResource(_client, data);
         }

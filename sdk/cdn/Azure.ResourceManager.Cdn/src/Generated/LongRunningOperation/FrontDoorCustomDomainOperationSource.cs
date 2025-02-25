@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Cdn
 
         FrontDoorCustomDomainResource IOperationSource<FrontDoorCustomDomainResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = FrontDoorCustomDomainData.DeserializeFrontDoorCustomDomainData(document.RootElement);
+            var data = ModelReaderWriter.Read<FrontDoorCustomDomainData>(new BinaryData(response.ContentStream));
             return new FrontDoorCustomDomainResource(_client, data);
         }
 
         async ValueTask<FrontDoorCustomDomainResource> IOperationSource<FrontDoorCustomDomainResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = FrontDoorCustomDomainData.DeserializeFrontDoorCustomDomainData(document.RootElement);
             return new FrontDoorCustomDomainResource(_client, data);
         }

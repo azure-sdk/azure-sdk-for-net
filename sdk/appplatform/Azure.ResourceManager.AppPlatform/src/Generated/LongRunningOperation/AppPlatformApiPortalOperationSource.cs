@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppPlatform
 
         AppPlatformApiPortalResource IOperationSource<AppPlatformApiPortalResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppPlatformApiPortalData.DeserializeAppPlatformApiPortalData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppPlatformApiPortalData>(new BinaryData(response.ContentStream));
             return new AppPlatformApiPortalResource(_client, data);
         }
 
         async ValueTask<AppPlatformApiPortalResource> IOperationSource<AppPlatformApiPortalResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppPlatformApiPortalData.DeserializeAppPlatformApiPortalData(document.RootElement);
             return new AppPlatformApiPortalResource(_client, data);
         }

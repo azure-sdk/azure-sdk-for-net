@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Hci
 
         HciClusterSecuritySettingResource IOperationSource<HciClusterSecuritySettingResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = HciClusterSecuritySettingData.DeserializeHciClusterSecuritySettingData(document.RootElement);
+            var data = ModelReaderWriter.Read<HciClusterSecuritySettingData>(new BinaryData(response.ContentStream));
             return new HciClusterSecuritySettingResource(_client, data);
         }
 
         async ValueTask<HciClusterSecuritySettingResource> IOperationSource<HciClusterSecuritySettingResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = HciClusterSecuritySettingData.DeserializeHciClusterSecuritySettingData(document.RootElement);
             return new HciClusterSecuritySettingResource(_client, data);
         }

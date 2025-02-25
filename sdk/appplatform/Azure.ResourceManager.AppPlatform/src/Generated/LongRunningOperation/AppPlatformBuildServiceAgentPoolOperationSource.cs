@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.AppPlatform
 
         AppPlatformBuildServiceAgentPoolResource IOperationSource<AppPlatformBuildServiceAgentPoolResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AppPlatformBuildServiceAgentPoolData.DeserializeAppPlatformBuildServiceAgentPoolData(document.RootElement);
+            var data = ModelReaderWriter.Read<AppPlatformBuildServiceAgentPoolData>(new BinaryData(response.ContentStream));
             return new AppPlatformBuildServiceAgentPoolResource(_client, data);
         }
 
         async ValueTask<AppPlatformBuildServiceAgentPoolResource> IOperationSource<AppPlatformBuildServiceAgentPoolResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AppPlatformBuildServiceAgentPoolData.DeserializeAppPlatformBuildServiceAgentPoolData(document.RootElement);
             return new AppPlatformBuildServiceAgentPoolResource(_client, data);
         }

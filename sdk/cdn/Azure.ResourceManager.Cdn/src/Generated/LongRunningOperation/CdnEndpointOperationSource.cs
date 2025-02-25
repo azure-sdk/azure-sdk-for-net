@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;
@@ -31,14 +33,13 @@ namespace Azure.ResourceManager.Cdn
 
         CdnEndpointResource IOperationSource<CdnEndpointResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ScrubId(CdnEndpointData.DeserializeCdnEndpointData(document.RootElement));
+            var data = ScrubId(ModelReaderWriter.Read<CdnEndpointData>(new BinaryData(response.ContentStream)));
             return new CdnEndpointResource(_client, data);
         }
 
         async ValueTask<CdnEndpointResource> IOperationSource<CdnEndpointResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ScrubId(CdnEndpointData.DeserializeCdnEndpointData(document.RootElement));
             return new CdnEndpointResource(_client, data);
         }

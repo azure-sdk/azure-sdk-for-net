@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ApiManagement
 
         ApiManagementPrivateEndpointConnectionResource IOperationSource<ApiManagementPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ApiManagementPrivateEndpointConnectionData.DeserializeApiManagementPrivateEndpointConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<ApiManagementPrivateEndpointConnectionData>(new BinaryData(response.ContentStream));
             return new ApiManagementPrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<ApiManagementPrivateEndpointConnectionResource> IOperationSource<ApiManagementPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ApiManagementPrivateEndpointConnectionData.DeserializeApiManagementPrivateEndpointConnectionData(document.RootElement);
             return new ApiManagementPrivateEndpointConnectionResource(_client, data);
         }

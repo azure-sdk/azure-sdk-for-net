@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Avs
 
         WorkloadNetworkPublicIPResource IOperationSource<WorkloadNetworkPublicIPResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = WorkloadNetworkPublicIPData.DeserializeWorkloadNetworkPublicIPData(document.RootElement);
+            var data = ModelReaderWriter.Read<WorkloadNetworkPublicIPData>(new BinaryData(response.ContentStream));
             return new WorkloadNetworkPublicIPResource(_client, data);
         }
 
         async ValueTask<WorkloadNetworkPublicIPResource> IOperationSource<WorkloadNetworkPublicIPResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = WorkloadNetworkPublicIPData.DeserializeWorkloadNetworkPublicIPData(document.RootElement);
             return new WorkloadNetworkPublicIPResource(_client, data);
         }

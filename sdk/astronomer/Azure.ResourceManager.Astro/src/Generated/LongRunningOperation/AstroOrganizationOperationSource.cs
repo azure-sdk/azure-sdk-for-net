@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.Astro
 
         AstroOrganizationResource IOperationSource<AstroOrganizationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AstroOrganizationData.DeserializeAstroOrganizationData(document.RootElement);
+            var data = ModelReaderWriter.Read<AstroOrganizationData>(new BinaryData(response.ContentStream));
             return new AstroOrganizationResource(_client, data);
         }
 
         async ValueTask<AstroOrganizationResource> IOperationSource<AstroOrganizationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AstroOrganizationData.DeserializeAstroOrganizationData(document.RootElement);
             return new AstroOrganizationResource(_client, data);
         }
