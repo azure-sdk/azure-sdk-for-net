@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.CognitiveServices
 
         CognitiveServicesCommitmentPlanResource IOperationSource<CognitiveServicesCommitmentPlanResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = CommitmentPlanData.DeserializeCommitmentPlanData(document.RootElement);
+            var data = ModelReaderWriter.Read<CommitmentPlanData>(new BinaryData(response.ContentStream));
             return new CognitiveServicesCommitmentPlanResource(_client, data);
         }
 
         async ValueTask<CognitiveServicesCommitmentPlanResource> IOperationSource<CognitiveServicesCommitmentPlanResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = CommitmentPlanData.DeserializeCommitmentPlanData(document.RootElement);
             return new CognitiveServicesCommitmentPlanResource(_client, data);
         }
