@@ -8,7 +8,7 @@
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary>
-    /// The AnalyzeTextTask.
+    /// Collection of documents to analyze and a single task to execute.
     /// Please note <see cref="AnalyzeTextTask"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
     /// The available derived classes include <see cref="AnalyzeTextEntityLinkingInput"/>, <see cref="AnalyzeTextEntityRecognitionInput"/>, <see cref="AnalyzeTextKeyPhraseExtractionInput"/>, <see cref="AnalyzeTextLanguageDetectionInput"/>, <see cref="AnalyzeTextPiiEntitiesRecognitionInput"/> and <see cref="AnalyzeTextSentimentAnalysisInput"/>.
     /// </summary>
@@ -20,13 +20,13 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextTask"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis tasks. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
         internal AnalyzeTextTask(AnalyzeTextTaskKind kind)
         {
             Kind = kind;
         }
 
-        /// <summary> Enumeration of supported Text Analysis tasks. </summary>
+        /// <summary> The kind of task to perform. </summary>
         internal AnalyzeTextTaskKind Kind { get; set; }
     }
 }
