@@ -7,22 +7,25 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The LanguageDetectionDocumentResult. </summary>
-    internal partial class LanguageDetectionDocumentResult : DocumentResult
+    /// <summary> Contains the language detection for a document. </summary>
+    internal partial class LanguageDetectionDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="LanguageDetectionDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="detectedLanguage"> Detected Language. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/> or <paramref name="warnings"/> is null. </exception>
-        public LanguageDetectionDocumentResult(string id, IEnumerable<DocumentWarning> warnings, DetectedLanguageInternal detectedLanguage) : base(id, warnings)
+        internal LanguageDetectionDocumentResult(string id, IEnumerable<DocumentWarning> warnings, DetectedLanguageInternal detectedLanguage)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
 
+            Id = id;
+            Warnings = warnings.ToList();
             DetectedLanguage = detectedLanguage;
         }
 
@@ -31,12 +34,21 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
         /// <param name="detectedLanguage"> Detected Language. </param>
-        internal LanguageDetectionDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, DetectedLanguageInternal detectedLanguage) : base(id, warnings, statistics)
+        internal LanguageDetectionDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, DetectedLanguageInternal detectedLanguage)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             DetectedLanguage = detectedLanguage;
         }
 
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
         /// <summary> Detected Language. </summary>
-        public DetectedLanguageInternal DetectedLanguage { get; set; }
+        public DetectedLanguageInternal DetectedLanguage { get; }
     }
 }

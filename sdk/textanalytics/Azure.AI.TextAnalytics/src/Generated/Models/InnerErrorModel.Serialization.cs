@@ -7,43 +7,11 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class InnerErrorModel : IUtf8JsonSerializable
+    internal partial class InnerErrorModel
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("code"u8);
-            writer.WriteStringValue(Code.ToString());
-            writer.WritePropertyName("message"u8);
-            writer.WriteStringValue(Message);
-            if (Optional.IsCollectionDefined(Details))
-            {
-                writer.WritePropertyName("details"u8);
-                writer.WriteStartObject();
-                foreach (var item in Details)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            if (Optional.IsDefined(Target))
-            {
-                writer.WritePropertyName("target"u8);
-                writer.WriteStringValue(Target);
-            }
-            if (Optional.IsDefined(Innererror))
-            {
-                writer.WritePropertyName("innererror"u8);
-                writer.WriteObjectValue(Innererror);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static InnerErrorModel DeserializeInnerErrorModel(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -52,7 +20,7 @@ namespace Azure.AI.TextAnalytics.Models
             }
             InnerErrorCode code = default;
             string message = default;
-            IDictionary<string, string> details = default;
+            IReadOnlyDictionary<string, string> details = default;
             string target = default;
             InnerErrorModel innererror = default;
             foreach (var property in element.EnumerateObject())
@@ -105,14 +73,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeInnerErrorModel(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
