@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Batch.Models
         /// <param name="storageAccountId"> The resource ID of the storage account to be used for auto-storage account. </param>
         /// <param name="lastKeySyncedOn"> The UTC time at which storage keys were last synchronized with the Batch account. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="storageAccountId"/> is null. </exception>
-        public BatchAccountAutoStorageConfiguration(ResourceIdentifier storageAccountId, DateTimeOffset lastKeySyncedOn) : base(storageAccountId)
+        internal BatchAccountAutoStorageConfiguration(ResourceIdentifier storageAccountId, DateTimeOffset lastKeySyncedOn) : base(storageAccountId)
         {
             Argument.AssertNotNull(storageAccountId, nameof(storageAccountId));
 
@@ -42,6 +42,6 @@ namespace Azure.ResourceManager.Batch.Models
         }
 
         /// <summary> The UTC time at which storage keys were last synchronized with the Batch account. </summary>
-        public DateTimeOffset LastKeySyncedOn { get; set; }
+        public DateTimeOffset LastKeySyncedOn { get; }
     }
 }

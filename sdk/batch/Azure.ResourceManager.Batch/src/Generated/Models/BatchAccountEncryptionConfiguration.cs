@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Batch.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="BatchAccountEncryptionConfiguration"/>. </summary>
-        public BatchAccountEncryptionConfiguration()
+        internal BatchAccountEncryptionConfiguration()
         {
         }
 
@@ -62,9 +62,9 @@ namespace Azure.ResourceManager.Batch.Models
         }
 
         /// <summary> Type of the key source. </summary>
-        public BatchAccountKeySource? KeySource { get; set; }
+        public BatchAccountKeySource? KeySource { get; }
         /// <summary> Additional details when using Microsoft.KeyVault. </summary>
-        internal KeyVaultProperties KeyVaultProperties { get; set; }
+        internal KeyVaultProperties KeyVaultProperties { get; }
         /// <summary>
         /// Full path to the secret with or without version. Example https://mykeyvault.vault.azure.net/keys/testkey/6e34a81fef704045975661e297a4c053. or https://mykeyvault.vault.azure.net/keys/testkey. To be usable the following prerequisites must be met:
         ///
@@ -74,13 +74,7 @@ namespace Azure.ResourceManager.Batch.Models
         /// </summary>
         public Uri KeyIdentifier
         {
-            get => KeyVaultProperties is null ? default : KeyVaultProperties.KeyIdentifier;
-            set
-            {
-                if (KeyVaultProperties is null)
-                    KeyVaultProperties = new KeyVaultProperties();
-                KeyVaultProperties.KeyIdentifier = value;
-            }
+            get => KeyVaultProperties?.KeyIdentifier;
         }
     }
 }
