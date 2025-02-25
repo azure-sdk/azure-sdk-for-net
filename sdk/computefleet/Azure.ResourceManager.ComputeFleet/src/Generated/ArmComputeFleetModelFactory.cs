@@ -281,17 +281,23 @@ namespace Azure.ResourceManager.ComputeFleet.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ComputeFleetVmss"/>. </summary>
-        /// <param name="id">
-        /// The compute RP resource id of the virtualMachineScaleSet
-        /// "subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}"
-        /// </param>
-        /// <param name="type"> Type of the virtualMachineScaleSet. </param>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
         /// <param name="operationStatus"> This represents the operationStatus of the VMSS in response to the last operation that was performed on it by Azure Fleet resource. </param>
         /// <param name="error"> Error Information when `operationStatus` is `Failed`. </param>
         /// <returns> A new <see cref="Models.ComputeFleetVmss"/> instance for mocking. </returns>
-        public static ComputeFleetVmss ComputeFleetVmss(ResourceIdentifier id = null, string type = null, ComputeFleetProvisioningState operationStatus = default, ComputeFleetApiError error = null)
+        public static ComputeFleetVmss ComputeFleetVmss(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ComputeFleetProvisioningState operationStatus = default, ComputeFleetApiError error = null)
         {
-            return new ComputeFleetVmss(id, type, operationStatus, error, serializedAdditionalRawData: null);
+            return new ComputeFleetVmss(
+                id,
+                name,
+                resourceType,
+                systemData,
+                operationStatus,
+                error,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ComputeFleetApiError"/>. </summary>
