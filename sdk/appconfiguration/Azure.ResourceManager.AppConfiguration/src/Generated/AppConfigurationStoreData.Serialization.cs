@@ -100,6 +100,11 @@ namespace Azure.ResourceManager.AppConfiguration
                 writer.WritePropertyName("softDeleteRetentionInDays"u8);
                 writer.WriteNumberValue(SoftDeleteRetentionInDays.Value);
             }
+            if (Optional.IsDefined(RevisionRetentionPeriodInSeconds))
+            {
+                writer.WritePropertyName("revisionRetentionPeriodInSeconds"u8);
+                writer.WriteNumberValue(RevisionRetentionPeriodInSeconds.Value);
+            }
             if (Optional.IsDefined(EnablePurgeProtection))
             {
                 writer.WritePropertyName("enablePurgeProtection"u8);
@@ -154,6 +159,7 @@ namespace Azure.ResourceManager.AppConfiguration
             AppConfigurationPublicNetworkAccess? publicNetworkAccess = default;
             bool? disableLocalAuth = default;
             int? softDeleteRetentionInDays = default;
+            long? revisionRetentionPeriodInSeconds = default;
             bool? enablePurgeProtection = default;
             AppConfigurationDataPlaneProxyProperties dataPlaneProxy = default;
             AppConfigurationCreateMode? createMode = default;
@@ -301,6 +307,15 @@ namespace Azure.ResourceManager.AppConfiguration
                             softDeleteRetentionInDays = property0.Value.GetInt32();
                             continue;
                         }
+                        if (property0.NameEquals("revisionRetentionPeriodInSeconds"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            revisionRetentionPeriodInSeconds = property0.Value.GetInt64();
+                            continue;
+                        }
                         if (property0.NameEquals("enablePurgeProtection"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -354,6 +369,7 @@ namespace Azure.ResourceManager.AppConfiguration
                 publicNetworkAccess,
                 disableLocalAuth,
                 softDeleteRetentionInDays,
+                revisionRetentionPeriodInSeconds,
                 enablePurgeProtection,
                 dataPlaneProxy,
                 createMode,
@@ -648,6 +664,21 @@ namespace Azure.ResourceManager.AppConfiguration
                 {
                     builder.Append("    softDeleteRetentionInDays: ");
                     builder.AppendLine($"{SoftDeleteRetentionInDays.Value}");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RevisionRetentionPeriodInSeconds), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    revisionRetentionPeriodInSeconds: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(RevisionRetentionPeriodInSeconds))
+                {
+                    builder.Append("    revisionRetentionPeriodInSeconds: ");
+                    builder.AppendLine($"'{RevisionRetentionPeriodInSeconds.Value.ToString()}'");
                 }
             }
 
