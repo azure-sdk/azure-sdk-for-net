@@ -34,6 +34,8 @@ namespace Azure.AI.OpenAI.Assistants
                 throw new FormatException($"The model {nameof(UpdateAssistantOptions)} does not support writing '{format}' format.");
             }
 
+            writer.WritePropertyName("assistantId"u8);
+            writer.WriteStringValue(AssistantId);
             if (Optional.IsDefined(Model))
             {
                 writer.WritePropertyName("model"u8);
@@ -150,6 +152,7 @@ namespace Azure.AI.OpenAI.Assistants
             {
                 return null;
             }
+            string assistantId = default;
             string model = default;
             string name = default;
             string description = default;
@@ -161,6 +164,11 @@ namespace Azure.AI.OpenAI.Assistants
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("assistantId"u8))
+                {
+                    assistantId = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("model"u8))
                 {
                     model = property.Value.GetString();
@@ -245,6 +253,7 @@ namespace Azure.AI.OpenAI.Assistants
             }
             serializedAdditionalRawData = rawDataDictionary;
             return new UpdateAssistantOptions(
+                assistantId,
                 model,
                 name,
                 description,

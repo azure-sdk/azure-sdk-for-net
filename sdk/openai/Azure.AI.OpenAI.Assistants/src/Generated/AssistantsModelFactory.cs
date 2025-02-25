@@ -43,6 +43,38 @@ namespace Azure.AI.OpenAI.Assistants
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Assistants.UpdateAssistantOptions"/>. </summary>
+        /// <param name="assistantId"> The ID of the assistant to modify. </param>
+        /// <param name="model"> The ID of the model to use. </param>
+        /// <param name="name"> The modified name for the assistant to use. </param>
+        /// <param name="description"> The modified description for the assistant to use. </param>
+        /// <param name="instructions"> The modified system instructions for the new assistant to use. </param>
+        /// <param name="tools">
+        /// The modified collection of tools to enable for the assistant.
+        /// Please note <see cref="ToolDefinition"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="CodeInterpreterToolDefinition"/>, <see cref="FunctionToolDefinition"/> and <see cref="RetrievalToolDefinition"/>.
+        /// </param>
+        /// <param name="fileIds"> The modified list of previously uploaded fileIDs to attach to the assistant. </param>
+        /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
+        /// <returns> A new <see cref="Assistants.UpdateAssistantOptions"/> instance for mocking. </returns>
+        public static UpdateAssistantOptions UpdateAssistantOptions(string assistantId = null, string model = null, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, IEnumerable<string> fileIds = null, IDictionary<string, string> metadata = null)
+        {
+            tools ??= new List<ToolDefinition>();
+            fileIds ??= new List<string>();
+            metadata ??= new Dictionary<string, string>();
+
+            return new UpdateAssistantOptions(
+                assistantId,
+                model,
+                name,
+                description,
+                instructions,
+                tools?.ToList(),
+                fileIds?.ToList(),
+                metadata,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Assistants.ThreadInitializationMessage"/>. </summary>
         /// <param name="role"> The role associated with the assistant thread message. Currently, only 'user' is supported when providing initial messages to a new thread. </param>
         /// <param name="content"> The textual content of the initial message. Currently, robust input including images and annotated text may only be provided via a separate call to the create message API. </param>
