@@ -4850,30 +4850,64 @@
        "name": "nextLink"
       }
      }
+    },
+    {
+     "$id": "611",
+     "kind": "property",
+     "name": "clientRequestId",
+     "serializedName": "clientRequestId",
+     "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+     "type": {
+      "$id": "612",
+      "kind": "string",
+      "name": "uuid",
+      "crossLanguageDefinitionId": "Azure.Core.uuid",
+      "baseType": {
+       "$id": "613",
+       "kind": "string",
+       "name": "string",
+       "crossLanguageDefinitionId": "TypeSpec.string",
+       "decorators": []
+      },
+      "decorators": []
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.Foundations.CustomPage.clientRequestId",
+     "serializationOptions": {
+      "$id": "614",
+      "json": {
+       "$id": "615",
+       "name": "clientRequestId"
+      }
+     }
     }
    ]
   }
  ],
  "Clients": [
   {
-   "$id": "611",
+   "$id": "616",
    "Name": "NotificationMessagesClient",
    "ClientNamespace": "ClientForAcsMessages",
    "Operations": [
     {
-     "$id": "612",
+     "$id": "617",
      "Name": "send",
      "ResourceName": "NotificationMessagesClient",
      "Doc": "Sends a notification message from Business to User.",
      "Accessibility": "public",
      "Parameters": [
       {
-       "$id": "613",
+       "$id": "618",
        "Name": "apiVersion",
        "NameInRequest": "api-version",
        "Doc": "The API version to use for this operation.",
        "Type": {
-        "$id": "614",
+        "$id": "619",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
@@ -4887,9 +4921,9 @@
        "IsRequired": true,
        "Kind": "Client",
        "DefaultValue": {
-        "$id": "615",
+        "$id": "620",
         "Type": {
-         "$id": "616",
+         "$id": "621",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string"
@@ -4900,12 +4934,12 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "617",
+       "$id": "622",
        "Name": "repeatabilityRequestId",
        "NameInRequest": "Repeatability-Request-ID",
        "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
        "Type": {
-        "$id": "618",
+        "$id": "623",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
@@ -4922,17 +4956,17 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "619",
+       "$id": "624",
        "Name": "repeatabilityFirstSent",
        "NameInRequest": "Repeatability-First-Sent",
        "Doc": "Specifies the date and time at which the request was first created.",
        "Type": {
-        "$id": "620",
+        "$id": "625",
         "kind": "utcDateTime",
         "name": "utcDateTime",
         "encode": "rfc7231",
         "wireType": {
-         "$id": "621",
+         "$id": "626",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -4952,17 +4986,17 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "622",
+       "$id": "627",
        "Name": "clientRequestId",
        "NameInRequest": "x-ms-client-request-id",
        "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
        "Type": {
-        "$id": "623",
+        "$id": "628",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "624",
+         "$id": "629",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -4981,15 +5015,15 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "625",
+       "$id": "630",
        "Name": "contentType",
        "NameInRequest": "Content-Type",
        "Doc": "Body parameter's content type. Known values are application/json",
        "Type": {
-        "$id": "626",
+        "$id": "631",
         "kind": "constant",
         "valueType": {
-         "$id": "627",
+         "$id": "632",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5009,14 +5043,14 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "628",
+       "$id": "633",
        "Name": "accept",
        "NameInRequest": "Accept",
        "Type": {
-        "$id": "629",
+        "$id": "634",
         "kind": "constant",
         "valueType": {
-         "$id": "630",
+         "$id": "635",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5036,7 +5070,7 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "631",
+       "$id": "636",
        "Name": "notificationContent",
        "NameInRequest": "notificationContent",
        "Doc": "Details of the message to send.",
@@ -5056,7 +5090,7 @@
      ],
      "Responses": [
       {
-       "$id": "632",
+       "$id": "637",
        "StatusCodes": [
         202
        ],
@@ -5066,7 +5100,7 @@
        "BodyMediaType": "Json",
        "Headers": [
         {
-         "$id": "633",
+         "$id": "638",
          "Name": "repeatabilityResult",
          "NameInResponse": "Repeatability-Result",
          "Doc": "Indicates whether the repeatable request was accepted or rejected.",
@@ -5075,17 +5109,17 @@
          }
         },
         {
-         "$id": "634",
+         "$id": "639",
          "Name": "clientRequestId",
          "NameInResponse": "x-ms-client-request-id",
          "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
          "Type": {
-          "$id": "635",
+          "$id": "640",
           "kind": "string",
           "name": "uuid",
           "crossLanguageDefinitionId": "Azure.Core.uuid",
           "baseType": {
-           "$id": "636",
+           "$id": "641",
            "kind": "string",
            "name": "string",
            "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5115,19 +5149,19 @@
      "Decorators": []
     },
     {
-     "$id": "637",
+     "$id": "642",
      "Name": "downloadMediaInternal",
      "ResourceName": "MessageDataStream",
      "Doc": "Download the Media payload from a User to Business message.",
      "Accessibility": "internal",
      "Parameters": [
       {
-       "$id": "638",
+       "$id": "643",
        "Name": "apiVersion",
        "NameInRequest": "api-version",
        "Doc": "The API version to use for this operation.",
        "Type": {
-        "$id": "639",
+        "$id": "644",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5141,9 +5175,9 @@
        "IsRequired": true,
        "Kind": "Client",
        "DefaultValue": {
-        "$id": "640",
+        "$id": "645",
         "Type": {
-         "$id": "641",
+         "$id": "646",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string"
@@ -5154,12 +5188,12 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "642",
+       "$id": "647",
        "Name": "id",
        "NameInRequest": "id",
        "Doc": "The stream ID.",
        "Type": {
-        "$id": "643",
+        "$id": "648",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5176,17 +5210,17 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "644",
+       "$id": "649",
        "Name": "clientRequestId",
        "NameInRequest": "x-ms-client-request-id",
        "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
        "Type": {
-        "$id": "645",
+        "$id": "650",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "646",
+         "$id": "651",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5205,14 +5239,14 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "647",
+       "$id": "652",
        "Name": "accept",
        "NameInRequest": "Accept",
        "Type": {
-        "$id": "648",
+        "$id": "653",
         "kind": "constant",
         "valueType": {
-         "$id": "649",
+         "$id": "654",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5234,12 +5268,12 @@
      ],
      "Responses": [
       {
-       "$id": "650",
+       "$id": "655",
        "StatusCodes": [
         200
        ],
        "BodyType": {
-        "$id": "651",
+        "$id": "656",
         "kind": "bytes",
         "name": "bytes",
         "crossLanguageDefinitionId": "TypeSpec.bytes",
@@ -5248,17 +5282,17 @@
        "BodyMediaType": "Json",
        "Headers": [
         {
-         "$id": "652",
+         "$id": "657",
          "Name": "clientRequestId",
          "NameInResponse": "x-ms-client-request-id",
          "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
          "Type": {
-          "$id": "653",
+          "$id": "658",
           "kind": "string",
           "name": "uuid",
           "crossLanguageDefinitionId": "Azure.Core.uuid",
           "baseType": {
-           "$id": "654",
+           "$id": "659",
            "kind": "string",
            "name": "string",
            "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5268,15 +5302,15 @@
          }
         },
         {
-         "$id": "655",
+         "$id": "660",
          "Name": "contentType",
          "NameInResponse": "content-type",
          "Doc": "The stream content type.",
          "Type": {
-          "$id": "656",
+          "$id": "661",
           "kind": "constant",
           "valueType": {
-           "$id": "657",
+           "$id": "662",
            "kind": "string",
            "name": "string",
            "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5304,36 +5338,36 @@
      "Decorators": [],
      "Examples": [
       {
-       "$id": "658",
+       "$id": "663",
        "kind": "http",
        "name": "Download media",
        "description": "Download media",
        "filePath": "2025-01-15-preview/Stream_GetMedia.json",
        "parameters": [
         {
-         "$id": "659",
+         "$id": "664",
          "parameter": {
-          "$ref": "638"
+          "$ref": "643"
          },
          "value": {
-          "$id": "660",
+          "$id": "665",
           "kind": "string",
           "type": {
-           "$ref": "639"
+           "$ref": "644"
           },
           "value": "2025-01-15-preview"
          }
         },
         {
-         "$id": "661",
+         "$id": "666",
          "parameter": {
-          "$ref": "642"
+          "$ref": "647"
          },
          "value": {
-          "$id": "662",
+          "$id": "667",
           "kind": "string",
           "type": {
-           "$ref": "643"
+           "$ref": "648"
           },
           "value": "d19e68ec-bdd6-4a50-8dfb-cbb1642df6ab"
          }
@@ -5341,16 +5375,16 @@
        ],
        "responses": [
         {
-         "$id": "663",
+         "$id": "668",
          "response": {
-          "$ref": "650"
+          "$ref": "655"
          },
          "statusCode": 200,
          "bodyValue": {
-          "$id": "664",
+          "$id": "669",
           "kind": "string",
           "type": {
-           "$ref": "651"
+           "$ref": "656"
           },
           "value": "<binary_media_data>"
          }
@@ -5361,16 +5395,16 @@
     }
    ],
    "Protocol": {
-    "$id": "665"
+    "$id": "670"
    },
    "Parameters": [
     {
-     "$id": "666",
+     "$id": "671",
      "Name": "endpoint",
      "NameInRequest": "endpoint",
      "Doc": "The communication resource, for example https://my-resource.communication.azure.com",
      "Type": {
-      "$id": "667",
+      "$id": "672",
       "kind": "url",
       "name": "url",
       "crossLanguageDefinitionId": "TypeSpec.url"
@@ -5389,24 +5423,24 @@
    "Decorators": []
   },
   {
-   "$id": "668",
+   "$id": "673",
    "Name": "MessageTemplateClient",
    "ClientNamespace": "ClientForAcsMessages",
    "Operations": [
     {
-     "$id": "669",
+     "$id": "674",
      "Name": "getTemplates",
      "ResourceName": "MessageTemplateItem",
      "Doc": "List all templates for given Azure Communication Services channel",
      "Accessibility": "public",
      "Parameters": [
       {
-       "$id": "670",
+       "$id": "675",
        "Name": "apiVersion",
        "NameInRequest": "api-version",
        "Doc": "The API version to use for this operation.",
        "Type": {
-        "$id": "671",
+        "$id": "676",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5420,9 +5454,9 @@
        "IsRequired": true,
        "Kind": "Client",
        "DefaultValue": {
-        "$id": "672",
+        "$id": "677",
         "Type": {
-         "$id": "673",
+         "$id": "678",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string"
@@ -5433,17 +5467,17 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "674",
+       "$id": "679",
        "Name": "channelId",
        "NameInRequest": "channelId",
        "Doc": "The registration ID of the channel.",
        "Type": {
-        "$id": "675",
+        "$id": "680",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "676",
+         "$id": "681",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5462,12 +5496,12 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "677",
+       "$id": "682",
        "Name": "maxpagesize",
        "NameInRequest": "maxpagesize",
        "Doc": "Number of objects to return per page.",
        "Type": {
-        "$id": "678",
+        "$id": "683",
         "kind": "int32",
         "name": "int32",
         "crossLanguageDefinitionId": "TypeSpec.int32",
@@ -5484,17 +5518,17 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "679",
+       "$id": "684",
        "Name": "clientRequestId",
        "NameInRequest": "x-ms-client-request-id",
        "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
        "Type": {
-        "$id": "680",
+        "$id": "685",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "681",
+         "$id": "686",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5513,14 +5547,14 @@
        "SkipUrlEncoding": false
       },
       {
-       "$id": "682",
+       "$id": "687",
        "Name": "accept",
        "NameInRequest": "Accept",
        "Type": {
-        "$id": "683",
+        "$id": "688",
         "kind": "constant",
         "valueType": {
-         "$id": "684",
+         "$id": "689",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5542,7 +5576,7 @@
      ],
      "Responses": [
       {
-       "$id": "685",
+       "$id": "690",
        "StatusCodes": [
         200
        ],
@@ -5552,17 +5586,17 @@
        "BodyMediaType": "Json",
        "Headers": [
         {
-         "$id": "686",
+         "$id": "691",
          "Name": "clientRequestId",
          "NameInResponse": "x-ms-client-request-id",
          "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
          "Type": {
-          "$id": "687",
+          "$id": "692",
           "kind": "string",
           "name": "uuid",
           "crossLanguageDefinitionId": "Azure.Core.uuid",
           "baseType": {
-           "$id": "688",
+           "$id": "693",
            "kind": "string",
            "name": "string",
            "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5584,7 +5618,7 @@
      "Path": "/messages/channels/{channelId}/templates",
      "BufferResponse": true,
      "Paging": {
-      "$id": "689",
+      "$id": "694",
       "ItemName": "value",
       "NextLinkName": "nextLink"
      },
@@ -5595,16 +5629,16 @@
     }
    ],
    "Protocol": {
-    "$id": "690"
+    "$id": "695"
    },
    "Parameters": [
     {
-     "$id": "691",
+     "$id": "696",
      "Name": "endpoint",
      "NameInRequest": "endpoint",
      "Doc": "The communication resource, for example https://my-resource.communication.azure.com",
      "Type": {
-      "$id": "692",
+      "$id": "697",
       "kind": "url",
       "name": "url",
       "crossLanguageDefinitionId": "TypeSpec.url"
@@ -5624,15 +5658,15 @@
   }
  ],
  "Auth": {
-  "$id": "693",
+  "$id": "698",
   "OAuth2": {
-   "$id": "694",
+   "$id": "699",
    "Scopes": [
     "https://communication.azure.com/.default"
    ]
   },
   "ApiKey": {
-   "$id": "695",
+   "$id": "700",
    "Name": "Authorization",
    "In": "header"
   }
