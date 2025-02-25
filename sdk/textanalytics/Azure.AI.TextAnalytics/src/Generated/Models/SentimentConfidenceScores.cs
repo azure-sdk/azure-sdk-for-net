@@ -5,10 +5,27 @@
 
 #nullable disable
 
-namespace Azure.AI.TextAnalytics
+namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Represents the confidence scores between 0 and 1 across all sentiment classes: positive, neutral, negative. </summary>
-    public partial class SentimentConfidenceScores
+    internal partial class SentimentConfidenceScores
     {
+        /// <summary> Initializes a new instance of <see cref="SentimentConfidenceScores"/>. </summary>
+        /// <param name="positive"> Confidence score for positive sentiment. </param>
+        /// <param name="neutral"> Confidence score for neutral sentiment. </param>
+        /// <param name="negative"> Confidence score for negative sentiment. </param>
+        internal SentimentConfidenceScores(double positive, double neutral, double negative)
+        {
+            Positive = positive;
+            Neutral = neutral;
+            Negative = negative;
+        }
+
+        /// <summary> Confidence score for positive sentiment. </summary>
+        public double Positive { get; }
+        /// <summary> Confidence score for neutral sentiment. </summary>
+        public double Neutral { get; }
+        /// <summary> Confidence score for negative sentiment. </summary>
+        public double Negative { get; }
     }
 }
