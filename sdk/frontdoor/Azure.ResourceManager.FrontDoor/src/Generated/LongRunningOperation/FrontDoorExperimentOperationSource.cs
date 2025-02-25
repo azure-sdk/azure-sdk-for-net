@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.FrontDoor
 
         FrontDoorExperimentResource IOperationSource<FrontDoorExperimentResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = FrontDoorExperimentData.DeserializeFrontDoorExperimentData(document.RootElement);
+            var data = ModelReaderWriter.Read<FrontDoorExperimentData>(new BinaryData(response.ContentStream));
             return new FrontDoorExperimentResource(_client, data);
         }
 
         async ValueTask<FrontDoorExperimentResource> IOperationSource<FrontDoorExperimentResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = FrontDoorExperimentData.DeserializeFrontDoorExperimentData(document.RootElement);
             return new FrontDoorExperimentResource(_client, data);
         }

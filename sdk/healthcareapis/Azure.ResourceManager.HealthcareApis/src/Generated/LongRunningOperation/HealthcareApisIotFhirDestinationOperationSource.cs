@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.HealthcareApis
 
         HealthcareApisIotFhirDestinationResource IOperationSource<HealthcareApisIotFhirDestinationResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = HealthcareApisIotFhirDestinationData.DeserializeHealthcareApisIotFhirDestinationData(document.RootElement);
+            var data = ModelReaderWriter.Read<HealthcareApisIotFhirDestinationData>(new BinaryData(response.ContentStream));
             return new HealthcareApisIotFhirDestinationResource(_client, data);
         }
 
         async ValueTask<HealthcareApisIotFhirDestinationResource> IOperationSource<HealthcareApisIotFhirDestinationResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = HealthcareApisIotFhirDestinationData.DeserializeHealthcareApisIotFhirDestinationData(document.RootElement);
             return new HealthcareApisIotFhirDestinationResource(_client, data);
         }

@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.HealthcareApis
 
         HealthcareApisWorkspaceResource IOperationSource<HealthcareApisWorkspaceResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = HealthcareApisWorkspaceData.DeserializeHealthcareApisWorkspaceData(document.RootElement);
+            var data = ModelReaderWriter.Read<HealthcareApisWorkspaceData>(new BinaryData(response.ContentStream));
             return new HealthcareApisWorkspaceResource(_client, data);
         }
 
         async ValueTask<HealthcareApisWorkspaceResource> IOperationSource<HealthcareApisWorkspaceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = HealthcareApisWorkspaceData.DeserializeHealthcareApisWorkspaceData(document.RootElement);
             return new HealthcareApisWorkspaceResource(_client, data);
         }

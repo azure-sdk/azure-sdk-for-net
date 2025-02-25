@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.HDInsight
 
         HDInsightPrivateEndpointConnectionResource IOperationSource<HDInsightPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = HDInsightPrivateEndpointConnectionData.DeserializeHDInsightPrivateEndpointConnectionData(document.RootElement);
+            var data = ModelReaderWriter.Read<HDInsightPrivateEndpointConnectionData>(new BinaryData(response.ContentStream));
             return new HDInsightPrivateEndpointConnectionResource(_client, data);
         }
 
         async ValueTask<HDInsightPrivateEndpointConnectionResource> IOperationSource<HDInsightPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = HDInsightPrivateEndpointConnectionData.DeserializeHDInsightPrivateEndpointConnectionData(document.RootElement);
             return new HDInsightPrivateEndpointConnectionResource(_client, data);
         }

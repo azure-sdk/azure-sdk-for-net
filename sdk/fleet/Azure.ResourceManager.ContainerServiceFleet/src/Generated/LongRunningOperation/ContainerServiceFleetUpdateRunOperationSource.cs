@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ContainerServiceFleet
 
         ContainerServiceFleetUpdateRunResource IOperationSource<ContainerServiceFleetUpdateRunResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = ContainerServiceFleetUpdateRunData.DeserializeContainerServiceFleetUpdateRunData(document.RootElement);
+            var data = ModelReaderWriter.Read<ContainerServiceFleetUpdateRunData>(new BinaryData(response.ContentStream));
             return new ContainerServiceFleetUpdateRunResource(_client, data);
         }
 
         async ValueTask<ContainerServiceFleetUpdateRunResource> IOperationSource<ContainerServiceFleetUpdateRunResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = ContainerServiceFleetUpdateRunData.DeserializeContainerServiceFleetUpdateRunData(document.RootElement);
             return new ContainerServiceFleetUpdateRunResource(_client, data);
         }

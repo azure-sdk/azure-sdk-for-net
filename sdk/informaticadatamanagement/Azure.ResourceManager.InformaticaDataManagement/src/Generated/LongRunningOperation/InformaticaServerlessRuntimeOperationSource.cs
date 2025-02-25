@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.InformaticaDataManagement
 
         InformaticaServerlessRuntimeResource IOperationSource<InformaticaServerlessRuntimeResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = InformaticaServerlessRuntimeData.DeserializeInformaticaServerlessRuntimeData(document.RootElement);
+            var data = ModelReaderWriter.Read<InformaticaServerlessRuntimeData>(new BinaryData(response.ContentStream));
             return new InformaticaServerlessRuntimeResource(_client, data);
         }
 
         async ValueTask<InformaticaServerlessRuntimeResource> IOperationSource<InformaticaServerlessRuntimeResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = InformaticaServerlessRuntimeData.DeserializeInformaticaServerlessRuntimeData(document.RootElement);
             return new InformaticaServerlessRuntimeResource(_client, data);
         }

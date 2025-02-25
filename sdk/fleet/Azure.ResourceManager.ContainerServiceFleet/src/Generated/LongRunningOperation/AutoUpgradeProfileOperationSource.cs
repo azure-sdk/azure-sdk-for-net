@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.ContainerServiceFleet
 
         AutoUpgradeProfileResource IOperationSource<AutoUpgradeProfileResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = AutoUpgradeProfileData.DeserializeAutoUpgradeProfileData(document.RootElement);
+            var data = ModelReaderWriter.Read<AutoUpgradeProfileData>(new BinaryData(response.ContentStream));
             return new AutoUpgradeProfileResource(_client, data);
         }
 
         async ValueTask<AutoUpgradeProfileResource> IOperationSource<AutoUpgradeProfileResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = AutoUpgradeProfileData.DeserializeAutoUpgradeProfileData(document.RootElement);
             return new AutoUpgradeProfileResource(_client, data);
         }

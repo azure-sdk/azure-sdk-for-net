@@ -5,6 +5,8 @@
 
 #nullable disable
 
+using System;
+using System.ClientModel.Primitives;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,14 +25,13 @@ namespace Azure.ResourceManager.HardwareSecurityModules
 
         DedicatedHsmResource IOperationSource<DedicatedHsmResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = JsonDocument.Parse(response.ContentStream);
-            var data = DedicatedHsmData.DeserializeDedicatedHsmData(document.RootElement);
+            var data = ModelReaderWriter.Read<DedicatedHsmData>(new BinaryData(response.ContentStream));
             return new DedicatedHsmResource(_client, data);
         }
 
         async ValueTask<DedicatedHsmResource> IOperationSource<DedicatedHsmResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
             var data = DedicatedHsmData.DeserializeDedicatedHsmData(document.RootElement);
             return new DedicatedHsmResource(_client, data);
         }
