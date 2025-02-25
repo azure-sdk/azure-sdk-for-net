@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.ContainerService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterUsingAnAgentPoolSnapshot()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_Snapshot.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_Snapshot.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -115,7 +115,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithAKSManagedNATGatewayAsOutboundType()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_ManagedNATGateway.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_ManagedNATGateway.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -203,7 +203,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithAzureKeyVaultSecretsProviderAddon()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_AzureKeyvaultSecretsProvider.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_AzureKeyvaultSecretsProvider.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -304,7 +304,7 @@ Config =
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithCapacityReservationGroup()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_CRG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_CRG.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -396,7 +396,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithDedicatedHostGroup()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_DedicatedHostGroup.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_DedicatedHostGroup.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -487,7 +487,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithEncryptionAtHostEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_EnableEncryptionAtHost.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_EnableEncryptionAtHost.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -579,7 +579,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithFIPSEnabledOS()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_EnabledFIPS.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_EnabledFIPS.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -671,7 +671,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithGPUMIG()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_GPUMIG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_GPUMIG.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -770,7 +770,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithHTTPProxyConfigured()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_HTTPProxy.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_HTTPProxy.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -868,7 +868,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithLongTermSupport()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_Premium.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_Premium.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -964,7 +964,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithNodePublicIPPrefix()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_NodePublicIPPrefix.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_NodePublicIPPrefix.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1056,7 +1056,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithOSSKU()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_OSSKU.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_OSSKU.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1155,7 +1155,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithPPG()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PPG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_PPG.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1247,7 +1247,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithPodIdentityEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PodIdentity.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_PodIdentity.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1343,7 +1343,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithRunCommandDisabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_DisableRunCommand.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_DisableRunCommand.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1438,7 +1438,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithSecurityProfileConfigured()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_SecurityProfile.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_SecurityProfile.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1521,7 +1521,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithUltraSSDEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_EnableUltraSSD.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_EnableUltraSSD.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1611,9 +1611,88 @@ new ContainerServiceSshPublicKey("keydata")
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateManagedClusterWithWebAppRoutingIngressProfileConfigured()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_IngressProfile_WebAppRouting.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+EnableNodePublicIP = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                IngressWebAppRouting = new ManagedClusterIngressProfileWebAppRouting
+                {
+                    Enabled = true,
+                    DnsZoneResourceIds = { new ResourceIdentifier("/subscriptions/SUB_ID/resourceGroups/RG_NAME/providers/Microsoft.Network/dnszones/DNS_ZONE_NAME") },
+                },
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithUserAssignedNATGatewayAsOutboundType()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UserAssignedNATGateway.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_UserAssignedNATGateway.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1697,7 +1776,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedPrivateClusterWithPublicFQDNSpecified()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PrivateClusterPublicFQDN.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_PrivateClusterPublicFQDN.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1793,7 +1872,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedPrivateClusterWithFqdnSubdomainSpecified()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PrivateClusterFQDNSubdomain.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_PrivateClusterFQDNSubdomain.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1889,7 +1968,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateAADManagedClusterWithEnableAzureRBAC()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UpdateWithEnableAzureRBAC.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_UpdateWithEnableAzureRBAC.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1986,7 +2065,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_Update.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_Update.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2097,7 +2176,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithAzureServiceMesh()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_AzureServiceMesh.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_AzureServiceMesh.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2185,13 +2264,7 @@ Config =
                         Components = new IstioComponents
                         {
                             IngressGateways = { new IstioIngressGateway(IstioIngressGatewayMode.Internal, true) },
-                            EgressGateways = {new IstioEgressGateway(true)
-{
-NodeSelector =
-{
-["istio"] = "egress"
-},
-}},
+                            EgressGateways = { new IstioEgressGateway(true) },
                         },
                         CertificateAuthorityPlugin = new IstioPluginCertificateAuthority
                         {
@@ -2223,7 +2296,7 @@ NodeSelector =
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithEnableAHUB()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UpdateWithAHUB.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_UpdateWithAHUB.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2324,7 +2397,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithWindowsGMSAEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UpdateWindowsGmsa.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_UpdateWindowsGmsa.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2428,7 +2501,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithDualStackNetworking()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_DualStackNetworking.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersCreate_DualStackNetworking.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2535,7 +2608,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersGet.json
             // this example is just showing the usage of "ManagedClusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2568,7 +2641,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_GetManagedClustersByResourceGroup()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersListByResourceGroup.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersListByResourceGroup.json
             // this example is just showing the usage of "ManagedClusters_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2603,7 +2676,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersGet.json
             // this example is just showing the usage of "ManagedClusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2632,7 +2705,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2025-01-01/examples/ManagedClustersGet.json
             // this example is just showing the usage of "ManagedClusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
