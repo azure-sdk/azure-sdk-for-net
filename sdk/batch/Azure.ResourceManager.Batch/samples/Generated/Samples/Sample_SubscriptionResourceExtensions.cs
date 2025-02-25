@@ -36,13 +36,9 @@ namespace Azure.ResourceManager.Batch.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (BatchAccountResource item in subscriptionResource.GetBatchAccountsAsync())
+            await foreach (BatchAccount item in subscriptionResource.GetBatchAccountsAsync())
             {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                BatchAccountData resourceData = item.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+                Console.WriteLine($"Succeeded: {item}");
             }
 
             Console.WriteLine("Succeeded");
