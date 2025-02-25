@@ -74,6 +74,110 @@ namespace Azure.AI.Inference
         }
 
         /// <summary>
+        /// Return the embedding vectors for given text prompts.
+        /// The method makes a REST API call to the `/embeddings` route on the given endpoint.
+        /// </summary>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
+        /// <param name="input">
+        /// Input text to embed, encoded as a string or array of tokens.
+        /// To embed multiple inputs in a single request, pass an array
+        /// of strings or array of token arrays.
+        /// </param>
+        /// <param name="dimensions">
+        /// Optional. The number of dimensions the resulting output embeddings should have.
+        /// Passing null causes the model to use its default value.
+        /// Returns a 422 error if the model doesn't support the value or parameter.
+        /// </param>
+        /// <param name="encodingFormat"> Optional. The desired format for the returned embeddings. </param>
+        /// <param name="inputType">
+        /// Optional. The type of the input.
+        /// Returns a 422 error if the model doesn't support the value or parameter.
+        /// </param>
+        /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apiVersion"/> or <paramref name="input"/> is null. </exception>
+        internal virtual async Task<Response<EmbeddingsResult>> EmbedAsync(string apiVersion, IEnumerable<string> input, int? dimensions = null, EmbeddingEncodingFormat? encodingFormat = null, EmbeddingInputType? inputType = null, string model = null, ExtraParameters? extraParams = null, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(apiVersion, nameof(apiVersion));
+            Argument.AssertNotNull(input, nameof(input));
+
+            EmbedRequest embedRequest = new EmbedRequest(
+                apiVersion,
+                input.ToList(),
+                dimensions,
+                encodingFormat,
+                inputType,
+                model,
+                extraParams,
+                (IReadOnlyDictionary<string, BinaryData>)null);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await EmbedAsync(embedRequest.ToRequestContent(), extraParams?.ToString(), context).ConfigureAwait(false);
+            return Response.FromValue(EmbeddingsResult.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// Return the embedding vectors for given text prompts.
+        /// The method makes a REST API call to the `/embeddings` route on the given endpoint.
+        /// </summary>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
+        /// <param name="input">
+        /// Input text to embed, encoded as a string or array of tokens.
+        /// To embed multiple inputs in a single request, pass an array
+        /// of strings or array of token arrays.
+        /// </param>
+        /// <param name="dimensions">
+        /// Optional. The number of dimensions the resulting output embeddings should have.
+        /// Passing null causes the model to use its default value.
+        /// Returns a 422 error if the model doesn't support the value or parameter.
+        /// </param>
+        /// <param name="encodingFormat"> Optional. The desired format for the returned embeddings. </param>
+        /// <param name="inputType">
+        /// Optional. The type of the input.
+        /// Returns a 422 error if the model doesn't support the value or parameter.
+        /// </param>
+        /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apiVersion"/> or <paramref name="input"/> is null. </exception>
+        internal virtual Response<EmbeddingsResult> Embed(string apiVersion, IEnumerable<string> input, int? dimensions = null, EmbeddingEncodingFormat? encodingFormat = null, EmbeddingInputType? inputType = null, string model = null, ExtraParameters? extraParams = null, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(apiVersion, nameof(apiVersion));
+            Argument.AssertNotNull(input, nameof(input));
+
+            EmbedRequest embedRequest = new EmbedRequest(
+                apiVersion,
+                input.ToList(),
+                dimensions,
+                encodingFormat,
+                inputType,
+                model,
+                extraParams,
+                (IReadOnlyDictionary<string, BinaryData>)null);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = Embed(embedRequest.ToRequestContent(), extraParams?.ToString(), context);
+            return Response.FromValue(EmbeddingsResult.FromResponse(response), response);
+        }
+
+        /// <summary>
         /// Returns information about the AI model.
         /// The method makes a REST API call to the `/info` route on the given endpoint.
         /// This method will only work when using Serverless API or Managed Compute endpoint.

@@ -34,6 +34,8 @@ namespace Azure.AI.Inference
                 throw new FormatException($"The model {nameof(EmbedRequest1)} does not support writing '{format}' format.");
             }
 
+            writer.WritePropertyName("apiVersion"u8);
+            writer.WriteStringValue(ApiVersion);
             writer.WritePropertyName("input"u8);
             writer.WriteStartArray();
             foreach (var item in Input)
@@ -60,6 +62,11 @@ namespace Azure.AI.Inference
             {
                 writer.WritePropertyName("model"u8);
                 writer.WriteStringValue(Model);
+            }
+            if (Optional.IsDefined(ExtraParams))
+            {
+                writer.WritePropertyName("extra_params"u8);
+                writer.WriteStringValue(ExtraParams.Value.ToString());
             }
             foreach (var item in AdditionalProperties)
             {
@@ -95,15 +102,22 @@ namespace Azure.AI.Inference
             {
                 return null;
             }
+            string apiVersion = default;
             IReadOnlyList<ImageEmbeddingInput> input = default;
             int? dimensions = default;
             EmbeddingEncodingFormat? encodingFormat = default;
             EmbeddingInputType? inputType = default;
             string model = default;
+            ExtraParameters? extraParams = default;
             IReadOnlyDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("apiVersion"u8))
+                {
+                    apiVersion = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("input"u8))
                 {
                     List<ImageEmbeddingInput> array = new List<ImageEmbeddingInput>();
@@ -146,15 +160,26 @@ namespace Azure.AI.Inference
                     model = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("extra_params"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    extraParams = new ExtraParameters(property.Value.GetString());
+                    continue;
+                }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
             return new EmbedRequest1(
+                apiVersion,
                 input,
                 dimensions,
                 encodingFormat,
                 inputType,
                 model,
+                extraParams,
                 additionalProperties);
         }
 

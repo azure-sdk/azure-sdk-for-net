@@ -15,6 +15,7 @@ namespace Azure.AI.Inference
     internal partial class CompleteRequest
     {
         /// <summary> Initializes a new instance of <see cref="CompleteRequest"/>. </summary>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <param name="messages">
         /// The collection of context messages associated with this chat completions request.
         /// Typical usage begins with a chat message for the System role that provides instructions for
@@ -23,11 +24,13 @@ namespace Azure.AI.Inference
         /// Please note <see cref="ChatRequestMessage"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="ChatRequestAssistantMessage"/>, <see cref="ChatRequestDeveloperMessage"/>, <see cref="ChatRequestSystemMessage"/>, <see cref="ChatRequestToolMessage"/> and <see cref="ChatRequestUserMessage"/>.
         /// </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
-        internal CompleteRequest(IEnumerable<ChatRequestMessage> messages)
+        /// <exception cref="ArgumentNullException"> <paramref name="apiVersion"/> or <paramref name="messages"/> is null. </exception>
+        internal CompleteRequest(string apiVersion, IEnumerable<ChatRequestMessage> messages)
         {
+            Argument.AssertNotNull(apiVersion, nameof(apiVersion));
             Argument.AssertNotNull(messages, nameof(messages));
 
+            ApiVersion = apiVersion;
             Messages = messages.ToList();
             StopSequences = new ChangeTrackingList<string>();
             Tools = new ChangeTrackingList<ChatCompletionsToolDefinition>();
@@ -35,6 +38,7 @@ namespace Azure.AI.Inference
         }
 
         /// <summary> Initializes a new instance of <see cref="CompleteRequest"/>. </summary>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <param name="messages">
         /// The collection of context messages associated with this chat completions request.
         /// Typical usage begins with a chat message for the System role that provides instructions for
@@ -98,9 +102,15 @@ namespace Azure.AI.Inference
         /// same seed and parameters should return the same result. Determinism is not guaranteed.
         /// </param>
         /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
-        internal CompleteRequest(IReadOnlyList<ChatRequestMessage> messages, float? frequencyPenalty, bool? internalShouldStreamResponse, float? presencePenalty, float? temperature, float? nucleusSamplingFactor, int? maxTokens, ChatCompletionsResponseFormat responseFormat, IReadOnlyList<string> stopSequences, IReadOnlyList<ChatCompletionsToolDefinition> tools, BinaryData toolChoice, long? seed, string model, IReadOnlyDictionary<string, BinaryData> additionalProperties)
+        internal CompleteRequest(string apiVersion, IReadOnlyList<ChatRequestMessage> messages, float? frequencyPenalty, bool? internalShouldStreamResponse, float? presencePenalty, float? temperature, float? nucleusSamplingFactor, int? maxTokens, ChatCompletionsResponseFormat responseFormat, IReadOnlyList<string> stopSequences, IReadOnlyList<ChatCompletionsToolDefinition> tools, BinaryData toolChoice, long? seed, string model, ExtraParameters? extraParams, IReadOnlyDictionary<string, BinaryData> additionalProperties)
         {
+            ApiVersion = apiVersion;
             Messages = messages;
             FrequencyPenalty = frequencyPenalty;
             InternalShouldStreamResponse = internalShouldStreamResponse;
@@ -114,6 +124,7 @@ namespace Azure.AI.Inference
             ToolChoice = toolChoice;
             Seed = seed;
             Model = model;
+            ExtraParams = extraParams;
             AdditionalProperties = additionalProperties;
         }
 
@@ -122,6 +133,8 @@ namespace Azure.AI.Inference
         {
         }
 
+        /// <summary> The API version to use for this operation. </summary>
+        public string ApiVersion { get; }
         /// <summary>
         /// The collection of context messages associated with this chat completions request.
         /// Typical usage begins with a chat message for the System role that provides instructions for
@@ -238,6 +251,12 @@ namespace Azure.AI.Inference
         public long? Seed { get; }
         /// <summary> ID of the specific AI model to use, if more than one model is available on the endpoint. </summary>
         public string Model { get; }
+        /// <summary>
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </summary>
+        public ExtraParameters? ExtraParams { get; }
         /// <summary>
         /// Additional Properties
         /// <para>

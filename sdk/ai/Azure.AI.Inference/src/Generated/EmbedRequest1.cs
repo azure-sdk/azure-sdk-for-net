@@ -15,20 +15,24 @@ namespace Azure.AI.Inference
     internal partial class EmbedRequest1
     {
         /// <summary> Initializes a new instance of <see cref="EmbedRequest1"/>. </summary>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <param name="input">
         /// Input image to embed. To embed multiple inputs in a single request, pass an array.
         /// The input must not exceed the max input tokens for the model.
         /// </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="input"/> is null. </exception>
-        internal EmbedRequest1(IEnumerable<ImageEmbeddingInput> input)
+        /// <exception cref="ArgumentNullException"> <paramref name="apiVersion"/> or <paramref name="input"/> is null. </exception>
+        internal EmbedRequest1(string apiVersion, IEnumerable<ImageEmbeddingInput> input)
         {
+            Argument.AssertNotNull(apiVersion, nameof(apiVersion));
             Argument.AssertNotNull(input, nameof(input));
 
+            ApiVersion = apiVersion;
             Input = input.ToList();
             AdditionalProperties = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="EmbedRequest1"/>. </summary>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <param name="input">
         /// Input image to embed. To embed multiple inputs in a single request, pass an array.
         /// The input must not exceed the max input tokens for the model.
@@ -48,14 +52,21 @@ namespace Azure.AI.Inference
         /// Returns a 422 error if the model doesn't support the value or parameter.
         /// </param>
         /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
-        internal EmbedRequest1(IReadOnlyList<ImageEmbeddingInput> input, int? dimensions, EmbeddingEncodingFormat? encodingFormat, EmbeddingInputType? inputType, string model, IReadOnlyDictionary<string, BinaryData> additionalProperties)
+        internal EmbedRequest1(string apiVersion, IReadOnlyList<ImageEmbeddingInput> input, int? dimensions, EmbeddingEncodingFormat? encodingFormat, EmbeddingInputType? inputType, string model, ExtraParameters? extraParams, IReadOnlyDictionary<string, BinaryData> additionalProperties)
         {
+            ApiVersion = apiVersion;
             Input = input;
             Dimensions = dimensions;
             EncodingFormat = encodingFormat;
             InputType = inputType;
             Model = model;
+            ExtraParams = extraParams;
             AdditionalProperties = additionalProperties;
         }
 
@@ -64,6 +75,8 @@ namespace Azure.AI.Inference
         {
         }
 
+        /// <summary> The API version to use for this operation. </summary>
+        public string ApiVersion { get; }
         /// <summary>
         /// Input image to embed. To embed multiple inputs in a single request, pass an array.
         /// The input must not exceed the max input tokens for the model.
@@ -88,6 +101,12 @@ namespace Azure.AI.Inference
         public EmbeddingInputType? InputType { get; }
         /// <summary> ID of the specific AI model to use, if more than one model is available on the endpoint. </summary>
         public string Model { get; }
+        /// <summary>
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </summary>
+        public ExtraParameters? ExtraParams { get; }
         /// <summary>
         /// Additional Properties
         /// <para>
