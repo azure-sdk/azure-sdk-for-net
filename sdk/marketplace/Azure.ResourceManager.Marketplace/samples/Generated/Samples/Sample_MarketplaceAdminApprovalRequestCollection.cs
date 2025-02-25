@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_UpdateAdminRequestApproval()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/UpdateAdminRequestApproval.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/UpdateAdminRequestApproval.json
             // this example is just showing the usage of "PrivateStore_UpdateAdminRequestApproval" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetAdminRequestApproval()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetAdminRequestApproval.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetAdminRequestApproval.json
             // this example is just showing the usage of "PrivateStore_GetAdminRequestApproval" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_AdminRequestApprovalsList()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/AdminRequestApprovalsList.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/AdminRequestApprovalsList.json
             // this example is just showing the usage of "PrivateStore_AdminRequestApprovalsList" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetAdminRequestApproval()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetAdminRequestApproval.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetAdminRequestApproval.json
             // this example is just showing the usage of "PrivateStore_GetAdminRequestApproval" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.Marketplace.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetAdminRequestApproval()
         {
-            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2023-01-01/examples/GetAdminRequestApproval.json
+            // Generated from example definition: specification/marketplace/resource-manager/Microsoft.Marketplace/stable/2025-01-01/examples/GetAdminRequestApproval.json
             // this example is just showing the usage of "PrivateStore_GetAdminRequestApproval" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
