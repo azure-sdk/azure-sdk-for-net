@@ -12,6 +12,7 @@ using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager.Batch.Models;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Batch.Samples
@@ -30,16 +31,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -73,16 +74,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -158,16 +159,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -211,16 +212,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -262,16 +263,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -314,16 +315,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -373,16 +374,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -439,16 +440,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -498,16 +499,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -576,16 +577,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -637,16 +638,16 @@ SourcePortRanges = {"*"},
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -703,16 +704,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -768,16 +769,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -833,16 +834,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -892,16 +893,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -926,16 +927,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -960,16 +961,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -994,16 +995,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1028,16 +1029,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1062,16 +1063,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1096,16 +1097,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1130,16 +1131,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation and iterate over the result
             await foreach (BatchAccountPoolResource item in collection.GetAllAsync())
@@ -1166,16 +1167,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation and iterate over the result
             string select = "properties/allocationState,properties/provisioningStateTransitionTime,properties/currentDedicatedNodes,properties/currentLowPriorityNodes";
@@ -1204,16 +1205,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1234,16 +1235,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1264,16 +1265,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1294,16 +1295,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1324,16 +1325,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1354,16 +1355,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1384,16 +1385,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1414,16 +1415,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1456,16 +1457,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1498,16 +1499,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1540,16 +1541,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1582,16 +1583,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1624,16 +1625,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
@@ -1666,16 +1667,16 @@ secretsManagementSettingsKey = "secretsManagementSettingsValue",
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountPoolResource
-            BatchAccountPoolCollection collection = batchAccount.GetBatchAccountPools();
+            string accountName = "sampleacct";
+            BatchAccountPoolCollection collection = resourceGroupResource.GetBatchAccountPools(accountName);
 
             // invoke the operation
             string poolName = "testpool";
