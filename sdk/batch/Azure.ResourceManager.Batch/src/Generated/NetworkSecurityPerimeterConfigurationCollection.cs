@@ -14,18 +14,20 @@ using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
     /// <summary>
     /// A class representing a collection of <see cref="NetworkSecurityPerimeterConfigurationResource"/> and their operations.
-    /// Each <see cref="NetworkSecurityPerimeterConfigurationResource"/> in the collection will belong to the same instance of <see cref="BatchAccountResource"/>.
-    /// To get a <see cref="NetworkSecurityPerimeterConfigurationCollection"/> instance call the GetNetworkSecurityPerimeterConfigurations method from an instance of <see cref="BatchAccountResource"/>.
+    /// Each <see cref="NetworkSecurityPerimeterConfigurationResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="NetworkSecurityPerimeterConfigurationCollection"/> instance call the GetNetworkSecurityPerimeterConfigurations method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class NetworkSecurityPerimeterConfigurationCollection : ArmCollection, IEnumerable<NetworkSecurityPerimeterConfigurationResource>, IAsyncEnumerable<NetworkSecurityPerimeterConfigurationResource>
     {
         private readonly ClientDiagnostics _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterClientDiagnostics;
         private readonly NetworkSecurityPerimeterRestOperations _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient;
+        private readonly string _accountName;
 
         /// <summary> Initializes a new instance of the <see cref="NetworkSecurityPerimeterConfigurationCollection"/> class for mocking. </summary>
         protected NetworkSecurityPerimeterConfigurationCollection()
@@ -35,8 +37,12 @@ namespace Azure.ResourceManager.Batch
         /// <summary> Initializes a new instance of the <see cref="NetworkSecurityPerimeterConfigurationCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal NetworkSecurityPerimeterConfigurationCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal NetworkSecurityPerimeterConfigurationCollection(ArmClient client, ResourceIdentifier id, string accountName) : base(client, id)
         {
+            _accountName = accountName;
             _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Batch", NetworkSecurityPerimeterConfigurationResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(NetworkSecurityPerimeterConfigurationResource.ResourceType, out string networkSecurityPerimeterConfigurationNetworkSecurityPerimeterApiVersion);
             _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient = new NetworkSecurityPerimeterRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, networkSecurityPerimeterConfigurationNetworkSecurityPerimeterApiVersion);
@@ -47,8 +53,8 @@ namespace Azure.ResourceManager.Batch
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != BatchAccountResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, BatchAccountResource.ResourceType), nameof(id));
+            if (id.ResourceType != ResourceGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -84,7 +90,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, networkSecurityPerimeterConfigurationName, cancellationToken).ConfigureAwait(false);
+                var response = await _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, networkSecurityPerimeterConfigurationName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new NetworkSecurityPerimeterConfigurationResource(Client, response.Value), response.GetRawResponse());
@@ -129,7 +135,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, networkSecurityPerimeterConfigurationName, cancellationToken);
+                var response = _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfiguration(Id.SubscriptionId, Id.ResourceGroupName, _accountName, networkSecurityPerimeterConfigurationName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new NetworkSecurityPerimeterConfigurationResource(Client, response.Value), response.GetRawResponse());
@@ -166,8 +172,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> An async collection of <see cref="NetworkSecurityPerimeterConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<NetworkSecurityPerimeterConfigurationResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new NetworkSecurityPerimeterConfigurationResource(Client, NetworkSecurityPerimeterConfigurationData.DeserializeNetworkSecurityPerimeterConfigurationData(e)), _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterClientDiagnostics, Pipeline, "NetworkSecurityPerimeterConfigurationCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -196,8 +202,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> A collection of <see cref="NetworkSecurityPerimeterConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<NetworkSecurityPerimeterConfigurationResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.CreateListConfigurationsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new NetworkSecurityPerimeterConfigurationResource(Client, NetworkSecurityPerimeterConfigurationData.DeserializeNetworkSecurityPerimeterConfigurationData(e)), _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterClientDiagnostics, Pipeline, "NetworkSecurityPerimeterConfigurationCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -234,7 +240,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -277,7 +283,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken);
+                var response = _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfiguration(Id.SubscriptionId, Id.ResourceGroupName, _accountName, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -320,7 +326,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<NetworkSecurityPerimeterConfigurationResource>(response.GetRawResponse());
                 return Response.FromValue(new NetworkSecurityPerimeterConfigurationResource(Client, response.Value), response.GetRawResponse());
@@ -365,7 +371,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken);
+                var response = _networkSecurityPerimeterConfigurationNetworkSecurityPerimeterRestClient.GetConfiguration(Id.SubscriptionId, Id.ResourceGroupName, _accountName, networkSecurityPerimeterConfigurationName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<NetworkSecurityPerimeterConfigurationResource>(response.GetRawResponse());
                 return Response.FromValue(new NetworkSecurityPerimeterConfigurationResource(Client, response.Value), response.GetRawResponse());
