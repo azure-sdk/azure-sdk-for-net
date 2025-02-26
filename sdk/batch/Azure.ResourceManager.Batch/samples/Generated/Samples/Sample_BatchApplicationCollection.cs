@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Batch.Samples
@@ -27,16 +28,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchApplicationResource
-            BatchApplicationCollection collection = batchAccount.GetBatchApplications();
+            string accountName = "sampleacct";
+            BatchApplicationCollection collection = resourceGroupResource.GetBatchApplications(accountName);
 
             // invoke the operation
             string applicationName = "app1";
@@ -67,16 +68,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchApplicationResource
-            BatchApplicationCollection collection = batchAccount.GetBatchApplications();
+            string accountName = "sampleacct";
+            BatchApplicationCollection collection = resourceGroupResource.GetBatchApplications(accountName);
 
             // invoke the operation
             string applicationName = "app1";
@@ -101,16 +102,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchApplicationResource
-            BatchApplicationCollection collection = batchAccount.GetBatchApplications();
+            string accountName = "sampleacct";
+            BatchApplicationCollection collection = resourceGroupResource.GetBatchApplications(accountName);
 
             // invoke the operation and iterate over the result
             await foreach (BatchApplicationResource item in collection.GetAllAsync())
@@ -137,16 +138,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchApplicationResource
-            BatchApplicationCollection collection = batchAccount.GetBatchApplications();
+            string accountName = "sampleacct";
+            BatchApplicationCollection collection = resourceGroupResource.GetBatchApplications(accountName);
 
             // invoke the operation
             string applicationName = "app1";
@@ -167,16 +168,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchApplicationResource
-            BatchApplicationCollection collection = batchAccount.GetBatchApplications();
+            string accountName = "sampleacct";
+            BatchApplicationCollection collection = resourceGroupResource.GetBatchApplications(accountName);
 
             // invoke the operation
             string applicationName = "app1";

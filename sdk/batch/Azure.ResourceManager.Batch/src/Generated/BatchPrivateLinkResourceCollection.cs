@@ -14,18 +14,20 @@ using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
     /// <summary>
     /// A class representing a collection of <see cref="BatchPrivateLinkResource"/> and their operations.
-    /// Each <see cref="BatchPrivateLinkResource"/> in the collection will belong to the same instance of <see cref="BatchAccountResource"/>.
-    /// To get a <see cref="BatchPrivateLinkResourceCollection"/> instance call the GetBatchPrivateLinkResources method from an instance of <see cref="BatchAccountResource"/>.
+    /// Each <see cref="BatchPrivateLinkResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="BatchPrivateLinkResourceCollection"/> instance call the GetBatchPrivateLinkResources method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class BatchPrivateLinkResourceCollection : ArmCollection, IEnumerable<BatchPrivateLinkResource>, IAsyncEnumerable<BatchPrivateLinkResource>
     {
         private readonly ClientDiagnostics _batchPrivateLinkResourcePrivateLinkResourceClientDiagnostics;
         private readonly PrivateLinkResourceRestOperations _batchPrivateLinkResourcePrivateLinkResourceRestClient;
+        private readonly string _accountName;
 
         /// <summary> Initializes a new instance of the <see cref="BatchPrivateLinkResourceCollection"/> class for mocking. </summary>
         protected BatchPrivateLinkResourceCollection()
@@ -35,8 +37,12 @@ namespace Azure.ResourceManager.Batch
         /// <summary> Initializes a new instance of the <see cref="BatchPrivateLinkResourceCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal BatchPrivateLinkResourceCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal BatchPrivateLinkResourceCollection(ArmClient client, ResourceIdentifier id, string accountName) : base(client, id)
         {
+            _accountName = accountName;
             _batchPrivateLinkResourcePrivateLinkResourceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Batch", BatchPrivateLinkResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(BatchPrivateLinkResource.ResourceType, out string batchPrivateLinkResourcePrivateLinkResourceApiVersion);
             _batchPrivateLinkResourcePrivateLinkResourceRestClient = new PrivateLinkResourceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, batchPrivateLinkResourcePrivateLinkResourceApiVersion);
@@ -47,8 +53,8 @@ namespace Azure.ResourceManager.Batch
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != BatchAccountResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, BatchAccountResource.ResourceType), nameof(id));
+            if (id.ResourceType != ResourceGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -84,7 +90,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchPrivateLinkResourcePrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkResourceName, cancellationToken).ConfigureAwait(false);
+                var response = await _batchPrivateLinkResourcePrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateLinkResourceName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateLinkResource(Client, response.Value), response.GetRawResponse());
@@ -129,7 +135,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchPrivateLinkResourcePrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkResourceName, cancellationToken);
+                var response = _batchPrivateLinkResourcePrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateLinkResourceName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateLinkResource(Client, response.Value), response.GetRawResponse());
@@ -167,8 +173,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> An async collection of <see cref="BatchPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<BatchPrivateLinkResource> GetAllAsync(int? maxresults = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new BatchPrivateLinkResource(Client, BatchPrivateLinkResourceData.DeserializeBatchPrivateLinkResourceData(e)), _batchPrivateLinkResourcePrivateLinkResourceClientDiagnostics, Pipeline, "BatchPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -198,8 +204,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> A collection of <see cref="BatchPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<BatchPrivateLinkResource> GetAll(int? maxresults = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateLinkResourcePrivateLinkResourceRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new BatchPrivateLinkResource(Client, BatchPrivateLinkResourceData.DeserializeBatchPrivateLinkResourceData(e)), _batchPrivateLinkResourcePrivateLinkResourceClientDiagnostics, Pipeline, "BatchPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -236,7 +242,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchPrivateLinkResourcePrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchPrivateLinkResourcePrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -279,7 +285,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchPrivateLinkResourcePrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkResourceName, cancellationToken: cancellationToken);
+                var response = _batchPrivateLinkResourcePrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateLinkResourceName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -322,7 +328,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchPrivateLinkResourcePrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchPrivateLinkResourcePrivateLinkResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateLinkResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<BatchPrivateLinkResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateLinkResource(Client, response.Value), response.GetRawResponse());
@@ -367,7 +373,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchPrivateLinkResourcePrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkResourceName, cancellationToken: cancellationToken);
+                var response = _batchPrivateLinkResourcePrivateLinkResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateLinkResourceName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<BatchPrivateLinkResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateLinkResource(Client, response.Value), response.GetRawResponse());

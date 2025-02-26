@@ -8,13 +8,19 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure.Core;
+using Azure.Core.Pipeline;
+using Azure.ResourceManager.Batch.Models;
 
 namespace Azure.ResourceManager.Batch.Mocking
 {
     /// <summary> A class to add extension methods to ResourceGroupResource. </summary>
     public partial class MockableBatchResourceGroupResource : ArmResource
     {
+        private ClientDiagnostics _batchAccountDetectorBatchAccountClientDiagnostics;
+        private BatchAccountRestOperations _batchAccountDetectorBatchAccountRestClient;
+
         /// <summary> Initializes a new instance of the <see cref="MockableBatchResourceGroupResource"/> class for mocking. </summary>
         protected MockableBatchResourceGroupResource()
         {
@@ -27,29 +33,35 @@ namespace Azure.ResourceManager.Batch.Mocking
         {
         }
 
+        private ClientDiagnostics BatchAccountDetectorBatchAccountClientDiagnostics => _batchAccountDetectorBatchAccountClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Batch", BatchAccountDetectorResource.ResourceType.Namespace, Diagnostics);
+        private BatchAccountRestOperations BatchAccountDetectorBatchAccountRestClient => _batchAccountDetectorBatchAccountRestClient ??= new BatchAccountRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(BatchAccountDetectorResource.ResourceType));
+
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of BatchAccountResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of BatchAccountResources and their operations over a BatchAccountResource. </returns>
-        public virtual BatchAccountCollection GetBatchAccounts()
+        /// <summary> Gets a collection of BatchAccountDetectorResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of BatchAccountDetectorResources and their operations over a BatchAccountDetectorResource. </returns>
+        public virtual BatchAccountDetectorCollection GetBatchAccountDetectors(string accountName)
         {
-            return GetCachedClient(client => new BatchAccountCollection(client, Id));
+            return new BatchAccountDetectorCollection(Client, Id, accountName);
         }
 
         /// <summary>
-        /// Gets information about the specified Batch account.
+        /// Gets information about the given detector for a given Batch account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/detectors/{detectorId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BatchAccount_Get</description>
+        /// <description>BatchAccount_GetDetector</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -57,30 +69,31 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="BatchAccountResource"/></description>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="detectorId"> The name of the detector. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="detectorId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="detectorId"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<BatchAccountResource>> GetBatchAccountAsync(string accountName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<BatchAccountDetectorResource>> GetBatchAccountDetectorAsync(string accountName, string detectorId, CancellationToken cancellationToken = default)
         {
-            return await GetBatchAccounts().GetAsync(accountName, cancellationToken).ConfigureAwait(false);
+            return await GetBatchAccountDetectors(accountName).GetAsync(detectorId, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets information about the specified Batch account.
+        /// Gets information about the given detector for a given Batch account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/detectors/{detectorId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BatchAccount_Get</description>
+        /// <description>BatchAccount_GetDetector</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -88,18 +101,819 @@ namespace Azure.ResourceManager.Batch.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="BatchAccountResource"/></description>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="detectorId"> The name of the detector. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="detectorId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="detectorId"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<BatchAccountDetectorResource> GetBatchAccountDetector(string accountName, string detectorId, CancellationToken cancellationToken = default)
+        {
+            return GetBatchAccountDetectors(accountName).Get(detectorId, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of BatchApplicationResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<BatchAccountResource> GetBatchAccount(string accountName, CancellationToken cancellationToken = default)
+        /// <returns> An object representing collection of BatchApplicationResources and their operations over a BatchApplicationResource. </returns>
+        public virtual BatchApplicationCollection GetBatchApplications(string accountName)
         {
-            return GetBatchAccounts().Get(accountName, cancellationToken);
+            return new BatchApplicationCollection(Client, Id, accountName);
+        }
+
+        /// <summary>
+        /// Gets information about the specified application.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/applications/{applicationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Application_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchApplicationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="applicationName"> The name of the application. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="applicationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="applicationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<BatchApplicationResource>> GetBatchApplicationAsync(string accountName, string applicationName, CancellationToken cancellationToken = default)
+        {
+            return await GetBatchApplications(accountName).GetAsync(applicationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets information about the specified application.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/applications/{applicationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Application_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchApplicationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="applicationName"> The name of the application. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="applicationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="applicationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<BatchApplicationResource> GetBatchApplication(string accountName, string applicationName, CancellationToken cancellationToken = default)
+        {
+            return GetBatchApplications(accountName).Get(applicationName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of BatchAccountCertificateResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of BatchAccountCertificateResources and their operations over a BatchAccountCertificateResource. </returns>
+        public virtual BatchAccountCertificateCollection GetBatchAccountCertificates(string accountName)
+        {
+            return new BatchAccountCertificateCollection(Client, Id, accountName);
+        }
+
+        /// <summary>
+        /// Warning: This operation is deprecated and will be removed after February, 2024. Please use the [Azure KeyVault Extension](https://learn.microsoft.com/azure/batch/batch-certificate-migration-guide) instead.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/certificates/{certificateName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Certificate_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountCertificateResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="certificateName"> The identifier for the certificate. This must be made up of algorithm and thumbprint separated by a dash, and must match the certificate data in the request. For example SHA1-a3d1c5. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="certificateName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<BatchAccountCertificateResource>> GetBatchAccountCertificateAsync(string accountName, string certificateName, CancellationToken cancellationToken = default)
+        {
+            return await GetBatchAccountCertificates(accountName).GetAsync(certificateName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Warning: This operation is deprecated and will be removed after February, 2024. Please use the [Azure KeyVault Extension](https://learn.microsoft.com/azure/batch/batch-certificate-migration-guide) instead.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/certificates/{certificateName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Certificate_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountCertificateResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="certificateName"> The identifier for the certificate. This must be made up of algorithm and thumbprint separated by a dash, and must match the certificate data in the request. For example SHA1-a3d1c5. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="certificateName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<BatchAccountCertificateResource> GetBatchAccountCertificate(string accountName, string certificateName, CancellationToken cancellationToken = default)
+        {
+            return GetBatchAccountCertificates(accountName).Get(certificateName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of BatchPrivateLinkResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of BatchPrivateLinkResources and their operations over a BatchPrivateLinkResource. </returns>
+        public virtual BatchPrivateLinkResourceCollection GetBatchPrivateLinkResources(string accountName)
+        {
+            return new BatchPrivateLinkResourceCollection(Client, Id, accountName);
+        }
+
+        /// <summary>
+        /// Gets information about the specified private link resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/privateLinkResources/{privateLinkResourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateLinkResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchPrivateLinkResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="privateLinkResourceName"> The private link resource name. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="privateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<BatchPrivateLinkResource>> GetBatchPrivateLinkResourceAsync(string accountName, string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            return await GetBatchPrivateLinkResources(accountName).GetAsync(privateLinkResourceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets information about the specified private link resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/privateLinkResources/{privateLinkResourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateLinkResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchPrivateLinkResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="privateLinkResourceName"> The private link resource name. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="privateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<BatchPrivateLinkResource> GetBatchPrivateLinkResource(string accountName, string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            return GetBatchPrivateLinkResources(accountName).Get(privateLinkResourceName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of BatchPrivateEndpointConnectionResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of BatchPrivateEndpointConnectionResources and their operations over a BatchPrivateEndpointConnectionResource. </returns>
+        public virtual BatchPrivateEndpointConnectionCollection GetBatchPrivateEndpointConnections(string accountName)
+        {
+            return new BatchPrivateEndpointConnectionCollection(Client, Id, accountName);
+        }
+
+        /// <summary>
+        /// Gets information about the specified private endpoint connection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/privateEndpointConnections/{privateEndpointConnectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateEndpointConnection_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchPrivateEndpointConnectionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="privateEndpointConnectionName"> The private endpoint connection name. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<BatchPrivateEndpointConnectionResource>> GetBatchPrivateEndpointConnectionAsync(string accountName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            return await GetBatchPrivateEndpointConnections(accountName).GetAsync(privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets information about the specified private endpoint connection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/privateEndpointConnections/{privateEndpointConnectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateEndpointConnection_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchPrivateEndpointConnectionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="privateEndpointConnectionName"> The private endpoint connection name. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<BatchPrivateEndpointConnectionResource> GetBatchPrivateEndpointConnection(string accountName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            return GetBatchPrivateEndpointConnections(accountName).Get(privateEndpointConnectionName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of BatchAccountPoolResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of BatchAccountPoolResources and their operations over a BatchAccountPoolResource. </returns>
+        public virtual BatchAccountPoolCollection GetBatchAccountPools(string accountName)
+        {
+            return new BatchAccountPoolCollection(Client, Id, accountName);
+        }
+
+        /// <summary>
+        /// Gets information about the specified pool.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/pools/{poolName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Pool_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountPoolResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="poolName"> The pool name. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="poolName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="poolName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<BatchAccountPoolResource>> GetBatchAccountPoolAsync(string accountName, string poolName, CancellationToken cancellationToken = default)
+        {
+            return await GetBatchAccountPools(accountName).GetAsync(poolName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets information about the specified pool.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/pools/{poolName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Pool_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountPoolResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="poolName"> The pool name. This must be unique within the account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="poolName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="poolName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<BatchAccountPoolResource> GetBatchAccountPool(string accountName, string poolName, CancellationToken cancellationToken = default)
+        {
+            return GetBatchAccountPools(accountName).Get(poolName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of NetworkSecurityPerimeterConfigurationResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of NetworkSecurityPerimeterConfigurationResources and their operations over a NetworkSecurityPerimeterConfigurationResource. </returns>
+        public virtual NetworkSecurityPerimeterConfigurationCollection GetNetworkSecurityPerimeterConfigurations(string accountName)
+        {
+            return new NetworkSecurityPerimeterConfigurationCollection(Client, Id, accountName);
+        }
+
+        /// <summary>
+        /// Gets information about the specified NSP configuration.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/networkSecurityPerimeterConfigurations/{networkSecurityPerimeterConfigurationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkSecurityPerimeter_GetConfiguration</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="NetworkSecurityPerimeterConfigurationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="networkSecurityPerimeterConfigurationName"> The name for Network Security Perimeter configuration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="networkSecurityPerimeterConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="networkSecurityPerimeterConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<NetworkSecurityPerimeterConfigurationResource>> GetNetworkSecurityPerimeterConfigurationAsync(string accountName, string networkSecurityPerimeterConfigurationName, CancellationToken cancellationToken = default)
+        {
+            return await GetNetworkSecurityPerimeterConfigurations(accountName).GetAsync(networkSecurityPerimeterConfigurationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets information about the specified NSP configuration.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/networkSecurityPerimeterConfigurations/{networkSecurityPerimeterConfigurationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkSecurityPerimeter_GetConfiguration</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="NetworkSecurityPerimeterConfigurationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <param name="networkSecurityPerimeterConfigurationName"> The name for Network Security Perimeter configuration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> or <paramref name="networkSecurityPerimeterConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> or <paramref name="networkSecurityPerimeterConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<NetworkSecurityPerimeterConfigurationResource> GetNetworkSecurityPerimeterConfiguration(string accountName, string networkSecurityPerimeterConfigurationName, CancellationToken cancellationToken = default)
+        {
+            return GetNetworkSecurityPerimeterConfigurations(accountName).Get(networkSecurityPerimeterConfigurationName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about the Batch accounts associated with the specified resource group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_ListByResourceGroup</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="BatchAccount"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<BatchAccount> GetBatchAccountsByResourceGroupAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => BatchAccountDetectorBatchAccountRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => BatchAccountDetectorBatchAccountRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BatchAccount.DeserializeBatchAccount(e), BatchAccountDetectorBatchAccountClientDiagnostics, Pipeline, "MockableBatchResourceGroupResource.GetBatchAccountsByResourceGroup", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about the Batch accounts associated with the specified resource group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_ListByResourceGroup</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="BatchAccount"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<BatchAccount> GetBatchAccountsByResourceGroup(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => BatchAccountDetectorBatchAccountRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => BatchAccountDetectorBatchAccountRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BatchAccount.DeserializeBatchAccount(e), BatchAccountDetectorBatchAccountClientDiagnostics, Pipeline, "MockableBatchResourceGroupResource.GetBatchAccountsByResourceGroup", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Synchronizes access keys for the auto-storage account configured for the specified Batch account, only if storage key authentication is being used.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/syncAutoStorageKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_SynchronizeAutoStorageKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> SynchronizeAutoStorageKeysBatchAccountAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = BatchAccountDetectorBatchAccountClientDiagnostics.CreateScope("MockableBatchResourceGroupResource.SynchronizeAutoStorageKeysBatchAccount");
+            scope.Start();
+            try
+            {
+                var response = await BatchAccountDetectorBatchAccountRestClient.SynchronizeAutoStorageKeysAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Synchronizes access keys for the auto-storage account configured for the specified Batch account, only if storage key authentication is being used.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/syncAutoStorageKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_SynchronizeAutoStorageKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response SynchronizeAutoStorageKeysBatchAccount(CancellationToken cancellationToken = default)
+        {
+            using var scope = BatchAccountDetectorBatchAccountClientDiagnostics.CreateScope("MockableBatchResourceGroupResource.SynchronizeAutoStorageKeysBatchAccount");
+            scope.Start();
+            try
+            {
+                var response = BatchAccountDetectorBatchAccountRestClient.SynchronizeAutoStorageKeys(Id.SubscriptionId, Id.ResourceGroupName, _accountName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// This operation applies only to Batch accounts with allowedAuthenticationModes containing 'SharedKey'. If the Batch account doesn't contain 'SharedKey' in its allowedAuthenticationMode, clients cannot use shared keys to authenticate, and must use another allowedAuthenticationModes instead. In this case, regenerating the keys will fail.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/regenerateKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_RegenerateKey</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The type of key to regenerate. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response<BatchAccountKeys>> RegenerateKeyBatchAccountAsync(BatchAccountRegenerateKeyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = BatchAccountDetectorBatchAccountClientDiagnostics.CreateScope("MockableBatchResourceGroupResource.RegenerateKeyBatchAccount");
+            scope.Start();
+            try
+            {
+                var response = await BatchAccountDetectorBatchAccountRestClient.RegenerateKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// This operation applies only to Batch accounts with allowedAuthenticationModes containing 'SharedKey'. If the Batch account doesn't contain 'SharedKey' in its allowedAuthenticationMode, clients cannot use shared keys to authenticate, and must use another allowedAuthenticationModes instead. In this case, regenerating the keys will fail.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/regenerateKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_RegenerateKey</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The type of key to regenerate. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response<BatchAccountKeys> RegenerateKeyBatchAccount(BatchAccountRegenerateKeyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = BatchAccountDetectorBatchAccountClientDiagnostics.CreateScope("MockableBatchResourceGroupResource.RegenerateKeyBatchAccount");
+            scope.Start();
+            try
+            {
+                var response = BatchAccountDetectorBatchAccountRestClient.RegenerateKey(Id.SubscriptionId, Id.ResourceGroupName, _accountName, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// This operation applies only to Batch accounts with allowedAuthenticationModes containing 'SharedKey'. If the Batch account doesn't contain 'SharedKey' in its allowedAuthenticationMode, clients cannot use shared keys to authenticate, and must use another allowedAuthenticationModes instead. In this case, getting the keys will fail.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/listKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_GetKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<BatchAccountKeys>> GetKeysBatchAccountAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = BatchAccountDetectorBatchAccountClientDiagnostics.CreateScope("MockableBatchResourceGroupResource.GetKeysBatchAccount");
+            scope.Start();
+            try
+            {
+                var response = await BatchAccountDetectorBatchAccountRestClient.GetKeysAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// This operation applies only to Batch accounts with allowedAuthenticationModes containing 'SharedKey'. If the Batch account doesn't contain 'SharedKey' in its allowedAuthenticationMode, clients cannot use shared keys to authenticate, and must use another allowedAuthenticationModes instead. In this case, getting the keys will fail.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/listKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_GetKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<BatchAccountKeys> GetKeysBatchAccount(CancellationToken cancellationToken = default)
+        {
+            using var scope = BatchAccountDetectorBatchAccountClientDiagnostics.CreateScope("MockableBatchResourceGroupResource.GetKeysBatchAccount");
+            scope.Start();
+            try
+            {
+                var response = BatchAccountDetectorBatchAccountRestClient.GetKeys(Id.SubscriptionId, Id.ResourceGroupName, _accountName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Lists the endpoints that a Batch Compute Node under this Batch Account may call as part of Batch service administration. If you are deploying a Pool inside of a virtual network that you specify, you must make sure your network allows outbound access to these endpoints. Failure to allow access to these endpoints may cause Batch to mark the affected nodes as unusable. For more information about creating a pool inside of a virtual network, see https://learn.microsoft.com/azure/batch/batch-virtual-network.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/outboundNetworkDependenciesEndpoints</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_ListOutboundNetworkDependenciesEndpoints</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="BatchAccountOutboundEnvironmentEndpoint"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<BatchAccountOutboundEnvironmentEndpoint> GetOutboundNetworkDependenciesEndpointsBatchAccountsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => BatchAccountDetectorBatchAccountRestClient.CreateListOutboundNetworkDependenciesEndpointsRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => BatchAccountDetectorBatchAccountRestClient.CreateListOutboundNetworkDependenciesEndpointsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BatchAccountOutboundEnvironmentEndpoint.DeserializeBatchAccountOutboundEnvironmentEndpoint(e), BatchAccountDetectorBatchAccountClientDiagnostics, Pipeline, "MockableBatchResourceGroupResource.GetOutboundNetworkDependenciesEndpointsBatchAccounts", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists the endpoints that a Batch Compute Node under this Batch Account may call as part of Batch service administration. If you are deploying a Pool inside of a virtual network that you specify, you must make sure your network allows outbound access to these endpoints. Failure to allow access to these endpoints may cause Batch to mark the affected nodes as unusable. For more information about creating a pool inside of a virtual network, see https://learn.microsoft.com/azure/batch/batch-virtual-network.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}/outboundNetworkDependenciesEndpoints</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BatchAccount_ListOutboundNetworkDependenciesEndpoints</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="BatchAccountDetectorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="BatchAccountOutboundEnvironmentEndpoint"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<BatchAccountOutboundEnvironmentEndpoint> GetOutboundNetworkDependenciesEndpointsBatchAccounts(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => BatchAccountDetectorBatchAccountRestClient.CreateListOutboundNetworkDependenciesEndpointsRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => BatchAccountDetectorBatchAccountRestClient.CreateListOutboundNetworkDependenciesEndpointsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BatchAccountOutboundEnvironmentEndpoint.DeserializeBatchAccountOutboundEnvironmentEndpoint(e), BatchAccountDetectorBatchAccountClientDiagnostics, Pipeline, "MockableBatchResourceGroupResource.GetOutboundNetworkDependenciesEndpointsBatchAccounts", "value", "nextLink", cancellationToken);
         }
     }
 }

@@ -48,14 +48,14 @@ namespace Azure.ResourceManager.Batch.Models
         /// <summary> Initializes a new instance of <see cref="BatchAccountListResult"/>. </summary>
         internal BatchAccountListResult()
         {
-            Value = new ChangeTrackingList<BatchAccountData>();
+            Value = new ChangeTrackingList<BatchAccount>();
         }
 
         /// <summary> Initializes a new instance of <see cref="BatchAccountListResult"/>. </summary>
         /// <param name="value"> The collection of Batch accounts returned by the listing operation. </param>
         /// <param name="nextLink"> The continuation token. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BatchAccountListResult(IReadOnlyList<BatchAccountData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BatchAccountListResult(IReadOnlyList<BatchAccount> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Batch.Models
         }
 
         /// <summary> The collection of Batch accounts returned by the listing operation. </summary>
-        public IReadOnlyList<BatchAccountData> Value { get; }
+        public IReadOnlyList<BatchAccount> Value { get; }
         /// <summary> The continuation token. </summary>
         public string NextLink { get; }
     }
