@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetConnectionsInGroupsAsync(string,string,int?,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetConnectionsInGroupsAsync and parse the result.
+<code><![CDATA[
+WebPubSubClient client = new WebPubSubClient("<Endpoint>");
+
+await foreach (BinaryData item in client.GetConnectionsInGroupsAsync("<hub>", "<group>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("connectionId").ToString());
+}
+]]></code>
+This sample shows how to call GetConnectionsInGroupsAsync with all parameters and parse the result.
+<code><![CDATA[
+WebPubSubClient client = new WebPubSubClient("<Endpoint>");
+
+await foreach (BinaryData item in client.GetConnectionsInGroupsAsync("<hub>", "<group>", maxpagesize: 1234, maxCount: 1234, continuationToken: "<continuationToken>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("connectionId").ToString());
+    Console.WriteLine(result.GetProperty("userId").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetConnectionsInGroups(string,string,int?,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetConnectionsInGroups and parse the result.
+<code><![CDATA[
+WebPubSubClient client = new WebPubSubClient("<Endpoint>");
+
+foreach (BinaryData item in client.GetConnectionsInGroups("<hub>", "<group>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("connectionId").ToString());
+}
+]]></code>
+This sample shows how to call GetConnectionsInGroups with all parameters and parse the result.
+<code><![CDATA[
+WebPubSubClient client = new WebPubSubClient("<Endpoint>");
+
+foreach (BinaryData item in client.GetConnectionsInGroups("<hub>", "<group>", maxpagesize: 1234, maxCount: 1234, continuationToken: "<continuationToken>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("connectionId").ToString());
+    Console.WriteLine(result.GetProperty("userId").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
