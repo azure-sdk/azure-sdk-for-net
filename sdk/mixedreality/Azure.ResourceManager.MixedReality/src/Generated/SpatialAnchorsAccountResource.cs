@@ -91,7 +91,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Retrieve a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -131,7 +138,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Retrieve a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Retrieve a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -171,7 +185,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Delete a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Delete a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -215,7 +236,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Delete a Spatial Anchors Account.
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Delete a Spatial Anchors Account.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -259,7 +287,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Updating a Spatial Anchors Account
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Updating a Spatial Anchors Account
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -301,7 +336,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Updating a Spatial Anchors Account
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Updating a Spatial Anchors Account
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -343,7 +385,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// List Both of the 2 Keys of a Spatial Anchors Account
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Both of the 2 Keys of a Spatial Anchors Account
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -381,7 +430,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// List Both of the 2 Keys of a Spatial Anchors Account
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  List Both of the 2 Keys of a Spatial Anchors Account
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -419,7 +475,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Regenerate specified Key of a Spatial Anchors Account
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Regenerate specified Key of a Spatial Anchors Account
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -461,7 +524,14 @@ namespace Azure.ResourceManager.MixedReality
         }
 
         /// <summary>
-        /// Regenerate specified Key of a Spatial Anchors Account
+        ///
+        /// &gt; [!NOTE]
+        /// &gt;
+        /// &gt; **Mixed Reality retirement**
+        /// &gt;
+        /// &gt; The Mixed Reality service is now deprecated and will be retired.
+        ///
+        ///  Regenerate specified Key of a Spatial Anchors Account
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
