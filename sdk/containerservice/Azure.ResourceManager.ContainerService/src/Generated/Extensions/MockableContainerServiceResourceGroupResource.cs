@@ -33,142 +33,73 @@ namespace Azure.ResourceManager.ContainerService.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of ContainerServiceManagedClusterResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ContainerServiceManagedClusterResources and their operations over a ContainerServiceManagedClusterResource. </returns>
-        public virtual ContainerServiceManagedClusterCollection GetContainerServiceManagedClusters()
+        /// <summary> Gets a collection of FleetResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of FleetResources and their operations over a FleetResource. </returns>
+        public virtual FleetCollection GetFleets()
         {
-            return GetCachedClient(client => new ContainerServiceManagedClusterCollection(client, Id));
+            return GetCachedClient(client => new FleetCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets a managed cluster.
+        /// Gets a Fleet.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/fleets/{fleetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedClusters_Get</description>
+        /// <description>Fleets_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
+        /// <description>2025-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ContainerServiceManagedClusterResource"/></description>
+        /// <description><see cref="FleetResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="resourceName"> The name of the managed cluster resource. </param>
+        /// <param name="fleetName"> The name of the Fleet resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="fleetName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="fleetName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<ContainerServiceManagedClusterResource>> GetContainerServiceManagedClusterAsync(string resourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<FleetResource>> GetFleetAsync(string fleetName, CancellationToken cancellationToken = default)
         {
-            return await GetContainerServiceManagedClusters().GetAsync(resourceName, cancellationToken).ConfigureAwait(false);
+            return await GetFleets().GetAsync(fleetName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets a managed cluster.
+        /// Gets a Fleet.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/fleets/{fleetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ManagedClusters_Get</description>
+        /// <description>Fleets_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
+        /// <description>2025-03-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ContainerServiceManagedClusterResource"/></description>
+        /// <description><see cref="FleetResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="resourceName"> The name of the managed cluster resource. </param>
+        /// <param name="fleetName"> The name of the Fleet resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="fleetName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="fleetName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<ContainerServiceManagedClusterResource> GetContainerServiceManagedCluster(string resourceName, CancellationToken cancellationToken = default)
+        public virtual Response<FleetResource> GetFleet(string fleetName, CancellationToken cancellationToken = default)
         {
-            return GetContainerServiceManagedClusters().Get(resourceName, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of AgentPoolSnapshotResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of AgentPoolSnapshotResources and their operations over a AgentPoolSnapshotResource. </returns>
-        public virtual AgentPoolSnapshotCollection GetAgentPoolSnapshots()
-        {
-            return GetCachedClient(client => new AgentPoolSnapshotCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets a snapshot.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/snapshots/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Snapshots_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AgentPoolSnapshotResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceName"> The name of the managed cluster resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<AgentPoolSnapshotResource>> GetAgentPoolSnapshotAsync(string resourceName, CancellationToken cancellationToken = default)
-        {
-            return await GetAgentPoolSnapshots().GetAsync(resourceName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a snapshot.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/snapshots/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Snapshots_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="AgentPoolSnapshotResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceName"> The name of the managed cluster resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<AgentPoolSnapshotResource> GetAgentPoolSnapshot(string resourceName, CancellationToken cancellationToken = default)
-        {
-            return GetAgentPoolSnapshots().Get(resourceName, cancellationToken);
+            return GetFleets().Get(fleetName, cancellationToken);
         }
     }
 }
