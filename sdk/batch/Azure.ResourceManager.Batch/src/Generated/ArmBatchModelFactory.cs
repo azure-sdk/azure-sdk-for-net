@@ -17,47 +17,7 @@ namespace Azure.ResourceManager.Batch.Models
     /// <summary> Model factory for models. </summary>
     public static partial class ArmBatchModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="Models.BatchAccountCreateOrUpdateContent"/>. </summary>
-        /// <param name="location"> The region in which to create the account. </param>
-        /// <param name="tags"> The user-specified tags associated with the account. </param>
-        /// <param name="identity"> The identity of the Batch account. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
-        /// <param name="autoStorage"> The properties related to the auto-storage account. </param>
-        /// <param name="poolAllocationMode"> The pool allocation mode also affects how clients may authenticate to the Batch Service API. If the mode is BatchService, clients may authenticate using access keys or Microsoft Entra ID. If the mode is UserSubscription, clients must use Microsoft Entra ID. The default is BatchService. </param>
-        /// <param name="keyVaultReference"> A reference to the Azure key vault associated with the Batch account. </param>
-        /// <param name="publicNetworkAccess"> If not specified, the default value is 'enabled'. </param>
-        /// <param name="networkProfile"> The network profile only takes effect when publicNetworkAccess is enabled. </param>
-        /// <param name="encryption"> Configures how customer data is encrypted inside the Batch account. By default, accounts are encrypted using a Microsoft managed key. For additional control, a customer-managed key can be used instead. </param>
-        /// <param name="allowedAuthenticationModes"> List of allowed authentication modes for the Batch account that can be used to authenticate with the data plane. This does not affect authentication with the control plane. </param>
-        /// <returns> A new <see cref="Models.BatchAccountCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static BatchAccountCreateOrUpdateContent BatchAccountCreateOrUpdateContent(AzureLocation location = default, IDictionary<string, string> tags = null, ManagedServiceIdentity identity = null, BatchAccountAutoStorageBaseConfiguration autoStorage = null, BatchAccountPoolAllocationMode? poolAllocationMode = null, BatchKeyVaultReference keyVaultReference = null, BatchPublicNetworkAccess? publicNetworkAccess = null, BatchNetworkProfile networkProfile = null, BatchAccountEncryptionConfiguration encryption = null, IEnumerable<BatchAuthenticationMode> allowedAuthenticationModes = null)
-        {
-            tags ??= new Dictionary<string, string>();
-            allowedAuthenticationModes ??= new List<BatchAuthenticationMode>();
-
-            return new BatchAccountCreateOrUpdateContent(
-                location,
-                tags,
-                identity,
-                autoStorage,
-                poolAllocationMode,
-                keyVaultReference,
-                publicNetworkAccess,
-                networkProfile,
-                encryption,
-                allowedAuthenticationModes?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.BatchIPRule"/>. </summary>
-        /// <param name="action"> Action when client IP address is matched. </param>
-        /// <param name="value"> IPv4 address, or IPv4 address range in CIDR format. </param>
-        /// <returns> A new <see cref="Models.BatchIPRule"/> instance for mocking. </returns>
-        public static BatchIPRule BatchIPRule(BatchIPRuleAction action = default, string value = null)
-        {
-            return new BatchIPRule(action, value, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Batch.BatchAccountData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.BatchAccount"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -82,15 +42,15 @@ namespace Azure.ResourceManager.Batch.Models
         /// <param name="allowedAuthenticationModes"> List of allowed authentication modes for the Batch account that can be used to authenticate with the data plane. This does not affect authentication with the control plane. </param>
         /// <param name="location"> The location of the resource. </param>
         /// <param name="tags"> The tags of the resource. </param>
-        /// <returns> A new <see cref="Batch.BatchAccountData"/> instance for mocking. </returns>
-        public static BatchAccountData BatchAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ManagedServiceIdentity identity = null, string accountEndpoint = null, string nodeManagementEndpoint = null, BatchProvisioningState? provisioningState = null, BatchAccountPoolAllocationMode? poolAllocationMode = null, BatchKeyVaultReference keyVaultReference = null, BatchPublicNetworkAccess? publicNetworkAccess = null, BatchNetworkProfile networkProfile = null, IEnumerable<BatchPrivateEndpointConnectionData> privateEndpointConnections = null, BatchAccountAutoStorageConfiguration autoStorage = null, BatchAccountEncryptionConfiguration encryption = null, int? dedicatedCoreQuota = null, int? lowPriorityCoreQuota = null, IEnumerable<BatchVmFamilyCoreQuota> dedicatedCoreQuotaPerVmFamily = null, bool? isDedicatedCoreQuotaPerVmFamilyEnforced = null, int? poolQuota = null, int? activeJobAndJobScheduleQuota = null, IEnumerable<BatchAuthenticationMode> allowedAuthenticationModes = null, AzureLocation? location = null, IReadOnlyDictionary<string, string> tags = null)
+        /// <returns> A new <see cref="Models.BatchAccount"/> instance for mocking. </returns>
+        public static BatchAccount BatchAccount(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ManagedServiceIdentity identity = null, string accountEndpoint = null, string nodeManagementEndpoint = null, BatchProvisioningState? provisioningState = null, BatchAccountPoolAllocationMode? poolAllocationMode = null, BatchKeyVaultReference keyVaultReference = null, BatchPublicNetworkAccess? publicNetworkAccess = null, BatchNetworkProfile networkProfile = null, IEnumerable<BatchPrivateEndpointConnectionData> privateEndpointConnections = null, BatchAccountAutoStorageConfiguration autoStorage = null, BatchAccountEncryptionConfiguration encryption = null, int? dedicatedCoreQuota = null, int? lowPriorityCoreQuota = null, IEnumerable<BatchVmFamilyCoreQuota> dedicatedCoreQuotaPerVmFamily = null, bool? isDedicatedCoreQuotaPerVmFamilyEnforced = null, int? poolQuota = null, int? activeJobAndJobScheduleQuota = null, IEnumerable<BatchAuthenticationMode> allowedAuthenticationModes = null, AzureLocation? location = null, IReadOnlyDictionary<string, string> tags = null)
         {
             privateEndpointConnections ??= new List<BatchPrivateEndpointConnectionData>();
             dedicatedCoreQuotaPerVmFamily ??= new List<BatchVmFamilyCoreQuota>();
             allowedAuthenticationModes ??= new List<BatchAuthenticationMode>();
             tags ??= new Dictionary<string, string>();
 
-            return new BatchAccountData(
+            return new BatchAccount(
                 id,
                 name,
                 resourceType,
@@ -116,6 +76,24 @@ namespace Azure.ResourceManager.Batch.Models
                 location,
                 tags,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BatchKeyVaultReference"/>. </summary>
+        /// <param name="id"> The resource ID of the Azure key vault associated with the Batch account. </param>
+        /// <param name="uri"> The URL of the Azure key vault associated with the Batch account. </param>
+        /// <returns> A new <see cref="Models.BatchKeyVaultReference"/> instance for mocking. </returns>
+        public static BatchKeyVaultReference BatchKeyVaultReference(ResourceIdentifier id = null, Uri uri = null)
+        {
+            return new BatchKeyVaultReference(id, uri, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BatchIPRule"/>. </summary>
+        /// <param name="action"> Action when client IP address is matched. </param>
+        /// <param name="value"> IPv4 address, or IPv4 address range in CIDR format. </param>
+        /// <returns> A new <see cref="Models.BatchIPRule"/> instance for mocking. </returns>
+        public static BatchIPRule BatchIPRule(BatchIPRuleAction action = default, string value = null)
+        {
+            return new BatchIPRule(action, value, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Batch.BatchPrivateEndpointConnectionData"/>. </summary>
@@ -157,6 +135,36 @@ namespace Azure.ResourceManager.Batch.Models
         public static BatchPrivateLinkServiceConnectionState BatchPrivateLinkServiceConnectionState(BatchPrivateLinkServiceConnectionStatus status = default, string description = null, string actionRequired = null)
         {
             return new BatchPrivateLinkServiceConnectionState(status, description, actionRequired, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BatchAccountAutoStorageConfiguration"/>. </summary>
+        /// <param name="storageAccountId"> The resource ID of the storage account to be used for auto-storage account. </param>
+        /// <param name="authenticationMode"> The authentication mode which the Batch service will use to manage the auto-storage account. </param>
+        /// <param name="nodeIdentityResourceId"> The identity referenced here must be assigned to pools which have compute nodes that need access to auto-storage. </param>
+        /// <param name="lastKeySyncedOn"> The UTC time at which storage keys were last synchronized with the Batch account. </param>
+        /// <returns> A new <see cref="Models.BatchAccountAutoStorageConfiguration"/> instance for mocking. </returns>
+        public static BatchAccountAutoStorageConfiguration BatchAccountAutoStorageConfiguration(ResourceIdentifier storageAccountId = null, BatchAutoStorageAuthenticationMode? authenticationMode = null, ResourceIdentifier nodeIdentityResourceId = null, DateTimeOffset lastKeySyncedOn = default)
+        {
+            return new BatchAccountAutoStorageConfiguration(storageAccountId, authenticationMode, nodeIdentityResourceId != null ? new ComputeNodeIdentityReference(nodeIdentityResourceId, serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null, lastKeySyncedOn);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BatchAccountAutoStorageBaseConfiguration"/>. </summary>
+        /// <param name="storageAccountId"> The resource ID of the storage account to be used for auto-storage account. </param>
+        /// <param name="authenticationMode"> The authentication mode which the Batch service will use to manage the auto-storage account. </param>
+        /// <param name="nodeIdentityResourceId"> The identity referenced here must be assigned to pools which have compute nodes that need access to auto-storage. </param>
+        /// <returns> A new <see cref="Models.BatchAccountAutoStorageBaseConfiguration"/> instance for mocking. </returns>
+        public static BatchAccountAutoStorageBaseConfiguration BatchAccountAutoStorageBaseConfiguration(ResourceIdentifier storageAccountId = null, BatchAutoStorageAuthenticationMode? authenticationMode = null, ResourceIdentifier nodeIdentityResourceId = null)
+        {
+            return new BatchAccountAutoStorageBaseConfiguration(storageAccountId, authenticationMode, nodeIdentityResourceId != null ? new ComputeNodeIdentityReference(nodeIdentityResourceId, serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BatchAccountEncryptionConfiguration"/>. </summary>
+        /// <param name="keySource"> Type of the key source. </param>
+        /// <param name="keyIdentifier"> Additional details when using Microsoft.KeyVault. </param>
+        /// <returns> A new <see cref="Models.BatchAccountEncryptionConfiguration"/> instance for mocking. </returns>
+        public static BatchAccountEncryptionConfiguration BatchAccountEncryptionConfiguration(BatchAccountKeySource? keySource = null, Uri keyIdentifier = null)
+        {
+            return new BatchAccountEncryptionConfiguration(keySource, keyIdentifier != null ? new KeyVaultProperties(keyIdentifier, serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.BatchVmFamilyCoreQuota"/>. </summary>
@@ -426,7 +434,7 @@ namespace Azure.ResourceManager.Batch.Models
         /// <param name="provisioningStateTransitOn"> The time at which the pool entered its current state. </param>
         /// <param name="allocationState"> Whether the pool is resizing. </param>
         /// <param name="allocationStateTransitionOn"> The time at which the pool entered its current allocation state. </param>
-        /// <param name="vmSize"> For information about available VM sizes, see Sizes for Virtual Machines (Linux) (https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/) or Sizes for Virtual Machines (Windows) (https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/). Batch supports all Azure VM sizes except STANDARD_A0 and those with premium storage (STANDARD_GS, STANDARD_DS, and STANDARD_DSV2 series). </param>
+        /// <param name="vmSize"> For information about available VM sizes, see Sizes for Virtual Machines in Azure (https://learn.microsoft.com/azure/virtual-machines/sizes/overview). Batch supports all Azure VM sizes except STANDARD_A0 and those with premium storage (STANDARD_GS, STANDARD_DS, and STANDARD_DSV2 series). </param>
         /// <param name="deploymentVmConfiguration"> Deployment configuration properties. </param>
         /// <param name="currentDedicatedNodes"> The number of dedicated compute nodes currently in the pool. </param>
         /// <param name="currentLowPriorityNodes"> The number of Spot/low-priority compute nodes currently in the pool. </param>

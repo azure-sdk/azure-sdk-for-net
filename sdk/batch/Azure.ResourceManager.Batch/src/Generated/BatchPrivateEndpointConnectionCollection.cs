@@ -14,18 +14,20 @@ using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
     /// <summary>
     /// A class representing a collection of <see cref="BatchPrivateEndpointConnectionResource"/> and their operations.
-    /// Each <see cref="BatchPrivateEndpointConnectionResource"/> in the collection will belong to the same instance of <see cref="BatchAccountResource"/>.
-    /// To get a <see cref="BatchPrivateEndpointConnectionCollection"/> instance call the GetBatchPrivateEndpointConnections method from an instance of <see cref="BatchAccountResource"/>.
+    /// Each <see cref="BatchPrivateEndpointConnectionResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="BatchPrivateEndpointConnectionCollection"/> instance call the GetBatchPrivateEndpointConnections method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class BatchPrivateEndpointConnectionCollection : ArmCollection, IEnumerable<BatchPrivateEndpointConnectionResource>, IAsyncEnumerable<BatchPrivateEndpointConnectionResource>
     {
         private readonly ClientDiagnostics _batchPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics;
         private readonly PrivateEndpointConnectionRestOperations _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient;
+        private readonly string _accountName;
 
         /// <summary> Initializes a new instance of the <see cref="BatchPrivateEndpointConnectionCollection"/> class for mocking. </summary>
         protected BatchPrivateEndpointConnectionCollection()
@@ -35,8 +37,12 @@ namespace Azure.ResourceManager.Batch
         /// <summary> Initializes a new instance of the <see cref="BatchPrivateEndpointConnectionCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal BatchPrivateEndpointConnectionCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal BatchPrivateEndpointConnectionCollection(ArmClient client, ResourceIdentifier id, string accountName) : base(client, id)
         {
+            _accountName = accountName;
             _batchPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Batch", BatchPrivateEndpointConnectionResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(BatchPrivateEndpointConnectionResource.ResourceType, out string batchPrivateEndpointConnectionPrivateEndpointConnectionApiVersion);
             _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient = new PrivateEndpointConnectionRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, batchPrivateEndpointConnectionPrivateEndpointConnectionApiVersion);
@@ -47,8 +53,8 @@ namespace Azure.ResourceManager.Batch
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != BatchAccountResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, BatchAccountResource.ResourceType), nameof(id));
+            if (id.ResourceType != ResourceGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -84,7 +90,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+                var response = await _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
@@ -129,7 +135,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken);
+                var response = _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateEndpointConnectionName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
@@ -167,8 +173,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> An async collection of <see cref="BatchPrivateEndpointConnectionResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<BatchPrivateEndpointConnectionResource> GetAllAsync(int? maxresults = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new BatchPrivateEndpointConnectionResource(Client, BatchPrivateEndpointConnectionData.DeserializeBatchPrivateEndpointConnectionData(e)), _batchPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, "BatchPrivateEndpointConnectionCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -198,8 +204,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> A collection of <see cref="BatchPrivateEndpointConnectionResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<BatchPrivateEndpointConnectionResource> GetAll(int? maxresults = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new BatchPrivateEndpointConnectionResource(Client, BatchPrivateEndpointConnectionData.DeserializeBatchPrivateEndpointConnectionData(e)), _batchPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, "BatchPrivateEndpointConnectionCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -236,7 +242,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateEndpointConnectionName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -279,7 +285,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken);
+                var response = _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateEndpointConnectionName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -322,7 +328,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateEndpointConnectionName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<BatchPrivateEndpointConnectionResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
@@ -367,7 +373,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken);
+                var response = _batchPrivateEndpointConnectionPrivateEndpointConnectionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, privateEndpointConnectionName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<BatchPrivateEndpointConnectionResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());

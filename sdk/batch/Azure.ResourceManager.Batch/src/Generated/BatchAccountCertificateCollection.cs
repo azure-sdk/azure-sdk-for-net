@@ -15,18 +15,20 @@ using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Batch.Models;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
     /// <summary>
     /// A class representing a collection of <see cref="BatchAccountCertificateResource"/> and their operations.
-    /// Each <see cref="BatchAccountCertificateResource"/> in the collection will belong to the same instance of <see cref="BatchAccountResource"/>.
-    /// To get a <see cref="BatchAccountCertificateCollection"/> instance call the GetBatchAccountCertificates method from an instance of <see cref="BatchAccountResource"/>.
+    /// Each <see cref="BatchAccountCertificateResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="BatchAccountCertificateCollection"/> instance call the GetBatchAccountCertificates method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class BatchAccountCertificateCollection : ArmCollection, IEnumerable<BatchAccountCertificateResource>, IAsyncEnumerable<BatchAccountCertificateResource>
     {
         private readonly ClientDiagnostics _batchAccountCertificateCertificateClientDiagnostics;
         private readonly CertificateRestOperations _batchAccountCertificateCertificateRestClient;
+        private readonly string _accountName;
 
         /// <summary> Initializes a new instance of the <see cref="BatchAccountCertificateCollection"/> class for mocking. </summary>
         protected BatchAccountCertificateCollection()
@@ -36,8 +38,12 @@ namespace Azure.ResourceManager.Batch
         /// <summary> Initializes a new instance of the <see cref="BatchAccountCertificateCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal BatchAccountCertificateCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal BatchAccountCertificateCollection(ArmClient client, ResourceIdentifier id, string accountName) : base(client, id)
         {
+            _accountName = accountName;
             _batchAccountCertificateCertificateClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Batch", BatchAccountCertificateResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(BatchAccountCertificateResource.ResourceType, out string batchAccountCertificateCertificateApiVersion);
             _batchAccountCertificateCertificateRestClient = new CertificateRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, batchAccountCertificateCertificateApiVersion);
@@ -48,8 +54,8 @@ namespace Azure.ResourceManager.Batch
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != BatchAccountResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, BatchAccountResource.ResourceType), nameof(id));
+            if (id.ResourceType != ResourceGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -90,8 +96,8 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountCertificateCertificateRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, content, ifMatch, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                var uri = _batchAccountCertificateCertificateRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, content, ifMatch, ifNoneMatch);
+                var response = await _batchAccountCertificateCertificateRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, content, ifMatch, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+                var uri = _batchAccountCertificateCertificateRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, content, ifMatch, ifNoneMatch);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new BatchArmOperation<BatchAccountCertificateResource>(Response.FromValue(new BatchAccountCertificateResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -143,8 +149,8 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountCertificateCertificateRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, content, ifMatch, ifNoneMatch, cancellationToken);
-                var uri = _batchAccountCertificateCertificateRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, content, ifMatch, ifNoneMatch);
+                var response = _batchAccountCertificateCertificateRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, content, ifMatch, ifNoneMatch, cancellationToken);
+                var uri = _batchAccountCertificateCertificateRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, content, ifMatch, ifNoneMatch);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new BatchArmOperation<BatchAccountCertificateResource>(Response.FromValue(new BatchAccountCertificateResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -191,7 +197,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountCertificateCertificateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountCertificateCertificateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountCertificateResource(Client, response.Value), response.GetRawResponse());
@@ -236,7 +242,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountCertificateCertificateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, cancellationToken);
+                var response = _batchAccountCertificateCertificateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountCertificateResource(Client, response.Value), response.GetRawResponse());
@@ -276,8 +282,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> An async collection of <see cref="BatchAccountCertificateResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<BatchAccountCertificateResource> GetAllAsync(int? maxresults = null, string select = null, string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new BatchAccountCertificateResource(Client, BatchAccountCertificateData.DeserializeBatchAccountCertificateData(e)), _batchAccountCertificateCertificateClientDiagnostics, Pipeline, "BatchAccountCertificateCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -309,8 +315,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> A collection of <see cref="BatchAccountCertificateResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<BatchAccountCertificateResource> GetAll(int? maxresults = null, string select = null, string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountCertificateCertificateRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new BatchAccountCertificateResource(Client, BatchAccountCertificateData.DeserializeBatchAccountCertificateData(e)), _batchAccountCertificateCertificateClientDiagnostics, Pipeline, "BatchAccountCertificateCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -347,7 +353,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountCertificateCertificateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountCertificateCertificateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -390,7 +396,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountCertificateCertificateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, cancellationToken: cancellationToken);
+                var response = _batchAccountCertificateCertificateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -433,7 +439,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountCertificateCertificateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountCertificateCertificateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<BatchAccountCertificateResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountCertificateResource(Client, response.Value), response.GetRawResponse());
@@ -478,7 +484,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountCertificateCertificateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, certificateName, cancellationToken: cancellationToken);
+                var response = _batchAccountCertificateCertificateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, certificateName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<BatchAccountCertificateResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountCertificateResource(Client, response.Value), response.GetRawResponse());

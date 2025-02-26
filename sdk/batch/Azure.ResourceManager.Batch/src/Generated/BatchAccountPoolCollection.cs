@@ -14,18 +14,20 @@ using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
     /// <summary>
     /// A class representing a collection of <see cref="BatchAccountPoolResource"/> and their operations.
-    /// Each <see cref="BatchAccountPoolResource"/> in the collection will belong to the same instance of <see cref="BatchAccountResource"/>.
-    /// To get a <see cref="BatchAccountPoolCollection"/> instance call the GetBatchAccountPools method from an instance of <see cref="BatchAccountResource"/>.
+    /// Each <see cref="BatchAccountPoolResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="BatchAccountPoolCollection"/> instance call the GetBatchAccountPools method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class BatchAccountPoolCollection : ArmCollection, IEnumerable<BatchAccountPoolResource>, IAsyncEnumerable<BatchAccountPoolResource>
     {
         private readonly ClientDiagnostics _batchAccountPoolPoolClientDiagnostics;
         private readonly PoolRestOperations _batchAccountPoolPoolRestClient;
+        private readonly string _accountName;
 
         /// <summary> Initializes a new instance of the <see cref="BatchAccountPoolCollection"/> class for mocking. </summary>
         protected BatchAccountPoolCollection()
@@ -35,8 +37,12 @@ namespace Azure.ResourceManager.Batch
         /// <summary> Initializes a new instance of the <see cref="BatchAccountPoolCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal BatchAccountPoolCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal BatchAccountPoolCollection(ArmClient client, ResourceIdentifier id, string accountName) : base(client, id)
         {
+            _accountName = accountName;
             _batchAccountPoolPoolClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Batch", BatchAccountPoolResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(BatchAccountPoolResource.ResourceType, out string batchAccountPoolPoolApiVersion);
             _batchAccountPoolPoolRestClient = new PoolRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, batchAccountPoolPoolApiVersion);
@@ -47,8 +53,8 @@ namespace Azure.ResourceManager.Batch
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != BatchAccountResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, BatchAccountResource.ResourceType), nameof(id));
+            if (id.ResourceType != ResourceGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -89,8 +95,8 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountPoolPoolRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, data, ifMatch, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                var uri = _batchAccountPoolPoolRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, data, ifMatch, ifNoneMatch);
+                var response = await _batchAccountPoolPoolRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, data, ifMatch, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+                var uri = _batchAccountPoolPoolRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, data, ifMatch, ifNoneMatch);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new BatchArmOperation<BatchAccountPoolResource>(Response.FromValue(new BatchAccountPoolResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -142,8 +148,8 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountPoolPoolRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, data, ifMatch, ifNoneMatch, cancellationToken);
-                var uri = _batchAccountPoolPoolRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, data, ifMatch, ifNoneMatch);
+                var response = _batchAccountPoolPoolRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, data, ifMatch, ifNoneMatch, cancellationToken);
+                var uri = _batchAccountPoolPoolRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, data, ifMatch, ifNoneMatch);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new BatchArmOperation<BatchAccountPoolResource>(Response.FromValue(new BatchAccountPoolResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -190,7 +196,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountPoolPoolRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountPoolPoolRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountPoolResource(Client, response.Value), response.GetRawResponse());
@@ -235,7 +241,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountPoolPoolRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, cancellationToken);
+                var response = _batchAccountPoolPoolRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountPoolResource(Client, response.Value), response.GetRawResponse());
@@ -289,8 +295,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> An async collection of <see cref="BatchAccountPoolResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<BatchAccountPoolResource> GetAllAsync(int? maxresults = null, string select = null, string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new BatchAccountPoolResource(Client, BatchAccountPoolData.DeserializeBatchAccountPoolData(e)), _batchAccountPoolPoolClientDiagnostics, Pipeline, "BatchAccountPoolCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -336,8 +342,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> A collection of <see cref="BatchAccountPoolResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<BatchAccountPoolResource> GetAll(int? maxresults = null, string select = null, string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, maxresults, select, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountPoolPoolRestClient.CreateListByBatchAccountNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName, maxresults, select, filter);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new BatchAccountPoolResource(Client, BatchAccountPoolData.DeserializeBatchAccountPoolData(e)), _batchAccountPoolPoolClientDiagnostics, Pipeline, "BatchAccountPoolCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -374,7 +380,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountPoolPoolRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountPoolPoolRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -417,7 +423,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountPoolPoolRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, cancellationToken: cancellationToken);
+                var response = _batchAccountPoolPoolRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -460,7 +466,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountPoolPoolRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountPoolPoolRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<BatchAccountPoolResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountPoolResource(Client, response.Value), response.GetRawResponse());
@@ -505,7 +511,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountPoolPoolRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, poolName, cancellationToken: cancellationToken);
+                var response = _batchAccountPoolPoolRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, _accountName, poolName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<BatchAccountPoolResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountPoolResource(Client, response.Value), response.GetRawResponse());
