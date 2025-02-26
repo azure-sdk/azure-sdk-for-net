@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Batch.Models
             {
                 return null;
             }
-            IReadOnlyList<BatchAccountData> value = default;
+            IReadOnlyList<BatchAccount> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -98,10 +98,10 @@ namespace Azure.ResourceManager.Batch.Models
                     {
                         continue;
                     }
-                    List<BatchAccountData> array = new List<BatchAccountData>();
+                    List<BatchAccount> array = new List<BatchAccount>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(BatchAccountData.DeserializeBatchAccountData(item, options));
+                        array.Add(BatchAccount.DeserializeBatchAccount(item, options));
                     }
                     value = array;
                     continue;
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.Batch.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new BatchAccountListResult(value ?? new ChangeTrackingList<BatchAccountData>(), nextLink, serializedAdditionalRawData);
+            return new BatchAccountListResult(value ?? new ChangeTrackingList<BatchAccount>(), nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<BatchAccountListResult>.Write(ModelReaderWriterOptions options)

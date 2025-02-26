@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager.Batch.Models;
+using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Batch.Samples
@@ -28,16 +29,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -71,16 +72,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -111,16 +112,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -151,16 +152,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -185,16 +186,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -219,16 +220,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation and iterate over the result
             await foreach (BatchAccountCertificateResource item in collection.GetAllAsync())
@@ -255,16 +256,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation and iterate over the result
             string select = "properties/format,properties/provisioningState";
@@ -293,16 +294,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -323,16 +324,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -353,16 +354,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";
@@ -395,16 +396,16 @@ namespace Azure.ResourceManager.Batch.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this BatchAccountResource created on azure
-            // for more information of creating BatchAccountResource, please refer to the document of BatchAccountResource
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "subid";
             string resourceGroupName = "default-azurebatch-japaneast";
-            string accountName = "sampleacct";
-            ResourceIdentifier batchAccountResourceId = BatchAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            BatchAccountResource batchAccount = client.GetBatchAccountResource(batchAccountResourceId);
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // get the collection of this BatchAccountCertificateResource
-            BatchAccountCertificateCollection collection = batchAccount.GetBatchAccountCertificates();
+            string accountName = "sampleacct";
+            BatchAccountCertificateCollection collection = resourceGroupResource.GetBatchAccountCertificates(accountName);
 
             // invoke the operation
             string certificateName = "sha1-0a0e4f50d51beadeac1d35afc5116098e7902e6e";

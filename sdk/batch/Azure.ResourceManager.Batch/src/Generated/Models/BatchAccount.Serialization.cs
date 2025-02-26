@@ -10,16 +10,15 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Batch.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.Batch
+namespace Azure.ResourceManager.Batch.Models
 {
-    public partial class BatchAccountData : IUtf8JsonSerializable, IJsonModel<BatchAccountData>
+    public partial class BatchAccount : IUtf8JsonSerializable, IJsonModel<BatchAccount>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchAccountData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchAccount>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BatchAccountData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<BatchAccount>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -30,10 +29,10 @@ namespace Azure.ResourceManager.Batch
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchAccountData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchAccount>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BatchAccountData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(BatchAccount)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
@@ -212,19 +211,19 @@ namespace Azure.ResourceManager.Batch
             writer.WriteEndObject();
         }
 
-        BatchAccountData IJsonModel<BatchAccountData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        BatchAccount IJsonModel<BatchAccount>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchAccountData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchAccount>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BatchAccountData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(BatchAccount)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBatchAccountData(document.RootElement, options);
+            return DeserializeBatchAccount(document.RootElement, options);
         }
 
-        internal static BatchAccountData DeserializeBatchAccountData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static BatchAccount DeserializeBatchAccount(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -501,7 +500,7 @@ namespace Azure.ResourceManager.Batch
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new BatchAccountData(
+            return new BatchAccount(
                 id,
                 name,
                 type,
@@ -529,35 +528,35 @@ namespace Azure.ResourceManager.Batch
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BatchAccountData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<BatchAccount>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchAccountData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchAccount>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(BatchAccountData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BatchAccount)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BatchAccountData IPersistableModel<BatchAccountData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        BatchAccount IPersistableModel<BatchAccount>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchAccountData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchAccount>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeBatchAccountData(document.RootElement, options);
+                        return DeserializeBatchAccount(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BatchAccountData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BatchAccount)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BatchAccountData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<BatchAccount>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

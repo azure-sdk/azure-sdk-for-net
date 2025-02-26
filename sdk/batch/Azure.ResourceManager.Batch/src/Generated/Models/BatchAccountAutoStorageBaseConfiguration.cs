@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Batch.Models
         /// <summary> Initializes a new instance of <see cref="BatchAccountAutoStorageBaseConfiguration"/>. </summary>
         /// <param name="storageAccountId"> The resource ID of the storage account to be used for auto-storage account. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="storageAccountId"/> is null. </exception>
-        public BatchAccountAutoStorageBaseConfiguration(ResourceIdentifier storageAccountId)
+        internal BatchAccountAutoStorageBaseConfiguration(ResourceIdentifier storageAccountId)
         {
             Argument.AssertNotNull(storageAccountId, nameof(storageAccountId));
 
@@ -75,21 +75,15 @@ namespace Azure.ResourceManager.Batch.Models
         }
 
         /// <summary> The resource ID of the storage account to be used for auto-storage account. </summary>
-        public ResourceIdentifier StorageAccountId { get; set; }
+        public ResourceIdentifier StorageAccountId { get; }
         /// <summary> The authentication mode which the Batch service will use to manage the auto-storage account. </summary>
-        public BatchAutoStorageAuthenticationMode? AuthenticationMode { get; set; }
+        public BatchAutoStorageAuthenticationMode? AuthenticationMode { get; }
         /// <summary> The identity referenced here must be assigned to pools which have compute nodes that need access to auto-storage. </summary>
-        internal ComputeNodeIdentityReference NodeIdentity { get; set; }
+        internal ComputeNodeIdentityReference NodeIdentity { get; }
         /// <summary> The ARM resource id of the user assigned identity. </summary>
         public ResourceIdentifier NodeIdentityResourceId
         {
-            get => NodeIdentity is null ? default : NodeIdentity.ResourceId;
-            set
-            {
-                if (NodeIdentity is null)
-                    NodeIdentity = new ComputeNodeIdentityReference();
-                NodeIdentity.ResourceId = value;
-            }
+            get => NodeIdentity?.ResourceId;
         }
     }
 }

@@ -14,18 +14,20 @@ using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
     /// <summary>
     /// A class representing a collection of <see cref="BatchAccountDetectorResource"/> and their operations.
-    /// Each <see cref="BatchAccountDetectorResource"/> in the collection will belong to the same instance of <see cref="BatchAccountResource"/>.
-    /// To get a <see cref="BatchAccountDetectorCollection"/> instance call the GetBatchAccountDetectors method from an instance of <see cref="BatchAccountResource"/>.
+    /// Each <see cref="BatchAccountDetectorResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
+    /// To get a <see cref="BatchAccountDetectorCollection"/> instance call the GetBatchAccountDetectors method from an instance of <see cref="ResourceGroupResource"/>.
     /// </summary>
     public partial class BatchAccountDetectorCollection : ArmCollection, IEnumerable<BatchAccountDetectorResource>, IAsyncEnumerable<BatchAccountDetectorResource>
     {
         private readonly ClientDiagnostics _batchAccountDetectorBatchAccountClientDiagnostics;
         private readonly BatchAccountRestOperations _batchAccountDetectorBatchAccountRestClient;
+        private readonly string _accountName;
 
         /// <summary> Initializes a new instance of the <see cref="BatchAccountDetectorCollection"/> class for mocking. </summary>
         protected BatchAccountDetectorCollection()
@@ -35,8 +37,12 @@ namespace Azure.ResourceManager.Batch
         /// <summary> Initializes a new instance of the <see cref="BatchAccountDetectorCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal BatchAccountDetectorCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="accountName"> The name of the Batch account. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="accountName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="accountName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal BatchAccountDetectorCollection(ArmClient client, ResourceIdentifier id, string accountName) : base(client, id)
         {
+            _accountName = accountName;
             _batchAccountDetectorBatchAccountClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Batch", BatchAccountDetectorResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(BatchAccountDetectorResource.ResourceType, out string batchAccountDetectorBatchAccountApiVersion);
             _batchAccountDetectorBatchAccountRestClient = new BatchAccountRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, batchAccountDetectorBatchAccountApiVersion);
@@ -47,8 +53,8 @@ namespace Azure.ResourceManager.Batch
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != BatchAccountResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, BatchAccountResource.ResourceType), nameof(id));
+            if (id.ResourceType != ResourceGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -84,7 +90,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountDetectorBatchAccountRestClient.GetDetectorAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, detectorId, cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountDetectorBatchAccountRestClient.GetDetectorAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, detectorId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountDetectorResource(Client, response.Value), response.GetRawResponse());
@@ -129,7 +135,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountDetectorBatchAccountRestClient.GetDetector(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, detectorId, cancellationToken);
+                var response = _batchAccountDetectorBatchAccountRestClient.GetDetector(Id.SubscriptionId, Id.ResourceGroupName, _accountName, detectorId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountDetectorResource(Client, response.Value), response.GetRawResponse());
@@ -166,8 +172,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> An async collection of <see cref="BatchAccountDetectorResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<BatchAccountDetectorResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new BatchAccountDetectorResource(Client, BatchAccountDetectorData.DeserializeBatchAccountDetectorData(e)), _batchAccountDetectorBatchAccountClientDiagnostics, Pipeline, "BatchAccountDetectorCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -196,8 +202,8 @@ namespace Azure.ResourceManager.Batch
         /// <returns> A collection of <see cref="BatchAccountDetectorResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<BatchAccountDetectorResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsRequest(Id.SubscriptionId, Id.ResourceGroupName, _accountName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _batchAccountDetectorBatchAccountRestClient.CreateListDetectorsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _accountName);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new BatchAccountDetectorResource(Client, BatchAccountDetectorData.DeserializeBatchAccountDetectorData(e)), _batchAccountDetectorBatchAccountClientDiagnostics, Pipeline, "BatchAccountDetectorCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -234,7 +240,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountDetectorBatchAccountRestClient.GetDetectorAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, detectorId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountDetectorBatchAccountRestClient.GetDetectorAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, detectorId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -277,7 +283,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountDetectorBatchAccountRestClient.GetDetector(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, detectorId, cancellationToken: cancellationToken);
+                var response = _batchAccountDetectorBatchAccountRestClient.GetDetector(Id.SubscriptionId, Id.ResourceGroupName, _accountName, detectorId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -320,7 +326,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = await _batchAccountDetectorBatchAccountRestClient.GetDetectorAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, detectorId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _batchAccountDetectorBatchAccountRestClient.GetDetectorAsync(Id.SubscriptionId, Id.ResourceGroupName, _accountName, detectorId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<BatchAccountDetectorResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountDetectorResource(Client, response.Value), response.GetRawResponse());
@@ -365,7 +371,7 @@ namespace Azure.ResourceManager.Batch
             scope.Start();
             try
             {
-                var response = _batchAccountDetectorBatchAccountRestClient.GetDetector(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, detectorId, cancellationToken: cancellationToken);
+                var response = _batchAccountDetectorBatchAccountRestClient.GetDetector(Id.SubscriptionId, Id.ResourceGroupName, _accountName, detectorId, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<BatchAccountDetectorResource>(response.GetRawResponse());
                 return Response.FromValue(new BatchAccountDetectorResource(Client, response.Value), response.GetRawResponse());
