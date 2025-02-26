@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Batch.Models;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
@@ -20,7 +21,7 @@ namespace Azure.ResourceManager.Batch
     /// A Class representing a BatchAccountCertificate along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="BatchAccountCertificateResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetBatchAccountCertificateResource method.
-    /// Otherwise you can get one from its parent resource <see cref="BatchAccountResource"/> using the GetBatchAccountCertificate method.
+    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource"/> using the GetBatchAccountCertificate method.
     /// </summary>
     public partial class BatchAccountCertificateResource : ArmResource
     {
