@@ -9,19 +9,20 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Batch.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Batch.Samples
 {
-    public partial class Sample_BatchAccountDetectorCollection
+    public partial class Sample_ResourceGroupResourceExtensions
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_GetDetector()
+        public async Task GetBatchAccountsByResourceGroup_BatchAccountListByResourceGroup()
         {
-            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/DetectorGet.json
-            // this example is just showing the usage of "BatchAccount_GetDetector" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/BatchAccountListByResourceGroup.json
+            // this example is just showing the usage of "BatchAccount_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -34,53 +35,11 @@ namespace Azure.ResourceManager.Batch.Samples
             string resourceGroupName = "default-azurebatch-japaneast";
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // get the collection of this BatchAccountDetectorResource
-            string accountName = "sampleacct";
-            BatchAccountDetectorCollection collection = resourceGroupResource.GetBatchAccountDetectors(accountName);
-
-            // invoke the operation
-            string detectorId = "poolsAndNodes";
-            BatchAccountDetectorResource result = await collection.GetAsync(detectorId);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            BatchAccountDetectorData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetAll_ListDetectors()
-        {
-            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/DetectorList.json
-            // this example is just showing the usage of "BatchAccount_ListDetectors" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "subid";
-            string resourceGroupName = "default-azurebatch-japaneast";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // get the collection of this BatchAccountDetectorResource
-            string accountName = "sampleacct";
-            BatchAccountDetectorCollection collection = resourceGroupResource.GetBatchAccountDetectors(accountName);
 
             // invoke the operation and iterate over the result
-            await foreach (BatchAccountDetectorResource item in collection.GetAllAsync())
+            await foreach (BatchAccount item in resourceGroupResource.GetBatchAccountsByResourceGroupAsync())
             {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                BatchAccountDetectorData resourceData = item.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+                Console.WriteLine($"Succeeded: {item}");
             }
 
             Console.WriteLine("Succeeded");
@@ -88,10 +47,10 @@ namespace Azure.ResourceManager.Batch.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_GetDetector()
+        public async Task SynchronizeAutoStorageKeysBatchAccount_BatchAccountSynchronizeAutoStorageKeys()
         {
-            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/DetectorGet.json
-            // this example is just showing the usage of "BatchAccount_GetDetector" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/BatchAccountSynchronizeAutoStorageKeys.json
+            // this example is just showing the usage of "BatchAccount_SynchronizeAutoStorageKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -105,23 +64,44 @@ namespace Azure.ResourceManager.Batch.Samples
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
-            // get the collection of this BatchAccountDetectorResource
-            string accountName = "sampleacct";
-            BatchAccountDetectorCollection collection = resourceGroupResource.GetBatchAccountDetectors(accountName);
+            // invoke the operation
+            await resourceGroupResource.SynchronizeAutoStorageKeysBatchAccountAsync();
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task RegenerateKeyBatchAccount_BatchAccountRegenerateKey()
+        {
+            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/BatchAccountRegenerateKey.json
+            // this example is just showing the usage of "BatchAccount_RegenerateKey" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "default-azurebatch-japaneast";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // invoke the operation
-            string detectorId = "poolsAndNodes";
-            bool result = await collection.ExistsAsync(detectorId);
+            BatchAccountRegenerateKeyContent content = new BatchAccountRegenerateKeyContent(BatchAccountKeyType.Primary);
+            BatchAccountKeys result = await resourceGroupResource.RegenerateKeyBatchAccountAsync(content);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_GetDetector()
+        public async Task GetKeysBatchAccount_BatchAccountGetKeys()
         {
-            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/DetectorGet.json
-            // this example is just showing the usage of "BatchAccount_GetDetector" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/BatchAccountGetKeys.json
+            // this example is just showing the usage of "BatchAccount_GetKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -135,27 +115,38 @@ namespace Azure.ResourceManager.Batch.Samples
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
-            // get the collection of this BatchAccountDetectorResource
-            string accountName = "sampleacct";
-            BatchAccountDetectorCollection collection = resourceGroupResource.GetBatchAccountDetectors(accountName);
-
             // invoke the operation
-            string detectorId = "poolsAndNodes";
-            NullableResponse<BatchAccountDetectorResource> response = await collection.GetIfExistsAsync(detectorId);
-            BatchAccountDetectorResource result = response.HasValue ? response.Value : null;
+            BatchAccountKeys result = await resourceGroupResource.GetKeysBatchAccountAsync();
 
-            if (result == null)
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetOutboundNetworkDependenciesEndpointsBatchAccounts_ListOutboundNetworkDependencies()
+        {
+            // Generated from example definition: specification/batch/resource-manager/Microsoft.Batch/stable/2024-07-01/examples/BatchAccountListOutboundNetworkDependenciesEndpoints.json
+            // this example is just showing the usage of "BatchAccount_ListOutboundNetworkDependenciesEndpoints" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "default-azurebatch-japaneast";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (BatchAccountOutboundEnvironmentEndpoint item in resourceGroupResource.GetOutboundNetworkDependenciesEndpointsBatchAccountsAsync())
             {
-                Console.WriteLine("Succeeded with null as result");
+                Console.WriteLine($"Succeeded: {item}");
             }
-            else
-            {
-                // the variable result is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                BatchAccountDetectorData resourceData = result.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-            }
+
+            Console.WriteLine("Succeeded");
         }
     }
 }
