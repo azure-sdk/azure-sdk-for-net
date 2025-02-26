@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Batch
 {
@@ -19,7 +20,7 @@ namespace Azure.ResourceManager.Batch
     /// A Class representing a BatchPrivateEndpointConnection along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="BatchPrivateEndpointConnectionResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetBatchPrivateEndpointConnectionResource method.
-    /// Otherwise you can get one from its parent resource <see cref="BatchAccountResource"/> using the GetBatchPrivateEndpointConnection method.
+    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource"/> using the GetBatchPrivateEndpointConnection method.
     /// </summary>
     public partial class BatchPrivateEndpointConnectionResource : ArmResource
     {

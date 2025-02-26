@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Batch.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="KeyVaultProperties"/>. </summary>
-        public KeyVaultProperties()
+        internal KeyVaultProperties()
         {
         }
 
@@ -72,6 +72,6 @@ namespace Azure.ResourceManager.Batch.Models
         ///  The account identity has been granted Key/Get, Key/Unwrap and Key/Wrap permissions
         ///  The KeyVault has soft-delete and purge protection enabled
         /// </summary>
-        public Uri KeyIdentifier { get; set; }
+        public Uri KeyIdentifier { get; }
     }
 }
