@@ -9,6 +9,7 @@ using System;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Marketplace.Models;
@@ -35,6 +36,8 @@ namespace Azure.ResourceManager.Marketplace
 
         private readonly ClientDiagnostics _privateStoreOfferPrivateStoreCollectionOfferClientDiagnostics;
         private readonly PrivateStoreCollectionOfferRestOperations _privateStoreOfferPrivateStoreCollectionOfferRestClient;
+        private readonly ClientDiagnostics _defaultClientDiagnostics;
+        private readonly MarketplaceRPServiceRestOperations _defaultRestClient;
         private readonly PrivateStoreOfferData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -62,6 +65,8 @@ namespace Azure.ResourceManager.Marketplace
             _privateStoreOfferPrivateStoreCollectionOfferClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Marketplace", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string privateStoreOfferPrivateStoreCollectionOfferApiVersion);
             _privateStoreOfferPrivateStoreCollectionOfferRestClient = new PrivateStoreCollectionOfferRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, privateStoreOfferPrivateStoreCollectionOfferApiVersion);
+            _defaultClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Marketplace", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _defaultRestClient = new MarketplaceRPServiceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -101,7 +106,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -141,7 +146,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -181,7 +186,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -225,7 +230,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -269,7 +274,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -317,7 +322,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -353,6 +358,58 @@ namespace Azure.ResourceManager.Marketplace
         }
 
         /// <summary>
+        /// Get a list of offer plans for given collection, considering the provided contexts.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Marketplace/privateStores/{privateStoreId}/collections/{collectionId}/offers/{offerId}/plans</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateStoreCollectionOfferPlansList</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-01-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="payload"> The <see cref="CollectionOffersByAllContextsPayload"/> to use. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="PrivateStorePlan"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<PrivateStorePlan> PrivateStoreCollectionOfferPlansListAsync(CollectionOffersByAllContextsPayload payload = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _defaultRestClient.CreatePrivateStoreCollectionOfferPlansListRequest(Guid.Parse(Id.Parent.Parent.Name), Guid.Parse(Id.Parent.Name), Id.Name, payload);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => PrivateStorePlan.DeserializePrivateStorePlan(e), _defaultClientDiagnostics, Pipeline, "PrivateStoreOfferResource.PrivateStoreCollectionOfferPlansList", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a list of offer plans for given collection, considering the provided contexts.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Marketplace/privateStores/{privateStoreId}/collections/{collectionId}/offers/{offerId}/plans</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateStoreCollectionOfferPlansList</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-01-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="payload"> The <see cref="CollectionOffersByAllContextsPayload"/> to use. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="PrivateStorePlan"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<PrivateStorePlan> PrivateStoreCollectionOfferPlansList(CollectionOffersByAllContextsPayload payload = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _defaultRestClient.CreatePrivateStoreCollectionOfferPlansListRequest(Guid.Parse(Id.Parent.Parent.Name), Guid.Parse(Id.Parent.Name), Id.Name, payload);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => PrivateStorePlan.DeserializePrivateStorePlan(e), _defaultClientDiagnostics, Pipeline, "PrivateStoreOfferResource.PrivateStoreCollectionOfferPlansList", "value", null, cancellationToken);
+        }
+
+        /// <summary>
         /// Upsert an offer with multiple context details.
         /// <list type="bullet">
         /// <item>
@@ -365,7 +422,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -404,7 +461,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -443,7 +500,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -482,7 +539,7 @@ namespace Azure.ResourceManager.Marketplace
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
+        /// <description>2025-01-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
