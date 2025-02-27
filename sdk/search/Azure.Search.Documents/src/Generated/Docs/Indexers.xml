@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="ResetAsync(string,RequestContext)">
+      <example>
+This sample shows how to call ResetAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = await client.ResetAsync("myindexer");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Reset(string,RequestContext)">
+      <example>
+This sample shows how to call Reset.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = client.Reset("myindexer");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="ResetDocsAsync(string,ResetDocumentOptions,bool?,CancellationToken)">
+      <example>
+This sample shows how to call ResetDocsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = await client.ResetDocsAsync("myindexer");
+]]></code></example>
+    </member>
+    <member name="ResetDocs(string,ResetDocumentOptions,bool?,CancellationToken)">
+      <example>
+This sample shows how to call ResetDocs.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = client.ResetDocs("myindexer");
+]]></code></example>
+    </member>
+    <member name="ResetDocsAsync(string,RequestContent,bool?,RequestContext)">
+      <example>
+This sample shows how to call ResetDocsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    documentKeys = new object[]
+    {
+        "1",
+        "2",
+        "3"
+    },
+});
+Response response = await client.ResetDocsAsync("myindexer", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="ResetDocs(string,RequestContent,bool?,RequestContext)">
+      <example>
+This sample shows how to call ResetDocs.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    documentKeys = new object[]
+    {
+        "1",
+        "2",
+        "3"
+    },
+});
+Response response = client.ResetDocs("myindexer", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="RunAsync(string,RequestContext)">
+      <example>
+This sample shows how to call RunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = await client.RunAsync("myindexer");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Run(string,RequestContext)">
+      <example>
+This sample shows how to call Run.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = client.Run("myindexer");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,SearchIndexer,bool?,bool?,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+SearchIndexer indexer = new SearchIndexer("myindexer", "mydocdbdatasource", "preview-test")
+{
+    Description = "Description of the indexer",
+    SkillsetName = "myskillset",
+    Schedule = new IndexingSchedule(XmlConvert.ToTimeSpan("P1D")),
+    Parameters = new IndexingParameters
+    {
+        MaxFailedItems = 10,
+        MaxFailedItemsPerBatch = 5,
+        Configuration = new IndexingParametersConfiguration
+        {
+            ParsingMode = BlobIndexerParsingMode.Markdown,
+            MarkdownParsingSubmode = MarkdownParsingSubmode.OneToOne,
+        },
+    },
+    FieldMappings = { },
+    OutputFieldMappings = { },
+    IsDisabled = false,
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<SearchIndexer> response = await client.CreateOrUpdateAsync("myindexer", indexer);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,SearchIndexer,bool?,bool?,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdate.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+SearchIndexer indexer = new SearchIndexer("myindexer", "mydocdbdatasource", "preview-test")
+{
+    Description = "Description of the indexer",
+    SkillsetName = "myskillset",
+    Schedule = new IndexingSchedule(XmlConvert.ToTimeSpan("P1D")),
+    Parameters = new IndexingParameters
+    {
+        MaxFailedItems = 10,
+        MaxFailedItemsPerBatch = 5,
+        Configuration = new IndexingParametersConfiguration
+        {
+            ParsingMode = BlobIndexerParsingMode.Markdown,
+            MarkdownParsingSubmode = MarkdownParsingSubmode.OneToOne,
+        },
+    },
+    FieldMappings = { },
+    OutputFieldMappings = { },
+    IsDisabled = false,
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<SearchIndexer> response = client.CreateOrUpdate("myindexer", indexer);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,RequestContent,bool?,bool?,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "myindexer",
+    description = "Description of the indexer",
+    dataSourceName = "mydocdbdatasource",
+    skillsetName = "myskillset",
+    targetIndexName = "preview-test",
+    schedule = new
+    {
+        interval = "P1D",
+    },
+    parameters = new
+    {
+        maxFailedItems = 10,
+        maxFailedItemsPerBatch = 5,
+        configuration = new
+        {
+            parsingMode = "markdown",
+            markdownParsingSubmode = "oneToOne",
+        },
+    },
+    fieldMappings = Array.Empty<object>(),
+    outputFieldMappings = Array.Empty<object>(),
+    disabled = false,
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = await client.CreateOrUpdateAsync("myindexer", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,RequestContent,bool?,bool?,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "myindexer",
+    description = "Description of the indexer",
+    dataSourceName = "mydocdbdatasource",
+    skillsetName = "myskillset",
+    targetIndexName = "preview-test",
+    schedule = new
+    {
+        interval = "P1D",
+    },
+    parameters = new
+    {
+        maxFailedItems = 10,
+        maxFailedItemsPerBatch = 5,
+        configuration = new
+        {
+            parsingMode = "markdown",
+            markdownParsingSubmode = "oneToOne",
+        },
+    },
+    fieldMappings = Array.Empty<object>(),
+    outputFieldMappings = Array.Empty<object>(),
+    disabled = false,
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = client.CreateOrUpdate("myindexer", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = await client.DeleteAsync("tempindexer");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = client.Delete("tempindexer");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetIndexerAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndexerAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response<SearchIndexer> response = await client.GetIndexerAsync("myindexer");
+]]></code></example>
+    </member>
+    <member name="GetIndexer(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndexer.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response<SearchIndexer> response = client.GetIndexer("myindexer");
+]]></code></example>
+    </member>
+    <member name="GetIndexerAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndexerAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = await client.GetIndexerAsync("myindexer", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="GetIndexer(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndexer and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = client.GetIndexer("myindexer", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="GetIndexersAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndexersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response<ListIndexersResult> response = await client.GetIndexersAsync();
+]]></code></example>
+    </member>
+    <member name="GetIndexers(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndexers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response<ListIndexersResult> response = client.GetIndexers();
+]]></code></example>
+    </member>
+    <member name="GetIndexersAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndexersAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = await client.GetIndexersAsync("*", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="GetIndexers(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndexers and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = client.GetIndexers("*", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateAsync(SearchIndexer,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+SearchIndexer indexer = new SearchIndexer("myindexer", "mydocdbdatasource", "preview-test")
+{
+    Description = "Description of the indexer",
+    SkillsetName = "myskillset",
+    Schedule = new IndexingSchedule(XmlConvert.ToTimeSpan("P1D")),
+    Parameters = new IndexingParameters
+    {
+        MaxFailedItems = 10,
+        MaxFailedItemsPerBatch = 5,
+        Configuration = new IndexingParametersConfiguration
+        {
+            ParsingMode = BlobIndexerParsingMode.Markdown,
+            MarkdownParsingSubmode = MarkdownParsingSubmode.OneToMany,
+        },
+    },
+    FieldMappings = { },
+    OutputFieldMappings = { },
+    IsDisabled = false,
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<SearchIndexer> response = await client.CreateAsync(indexer);
+]]></code></example>
+    </member>
+    <member name="Create(SearchIndexer,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+SearchIndexer indexer = new SearchIndexer("myindexer", "mydocdbdatasource", "preview-test")
+{
+    Description = "Description of the indexer",
+    SkillsetName = "myskillset",
+    Schedule = new IndexingSchedule(XmlConvert.ToTimeSpan("P1D")),
+    Parameters = new IndexingParameters
+    {
+        MaxFailedItems = 10,
+        MaxFailedItemsPerBatch = 5,
+        Configuration = new IndexingParametersConfiguration
+        {
+            ParsingMode = BlobIndexerParsingMode.Markdown,
+            MarkdownParsingSubmode = MarkdownParsingSubmode.OneToMany,
+        },
+    },
+    FieldMappings = { },
+    OutputFieldMappings = { },
+    IsDisabled = false,
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<SearchIndexer> response = client.Create(indexer);
+]]></code></example>
+    </member>
+    <member name="CreateAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "myindexer",
+    description = "Description of the indexer",
+    dataSourceName = "mydocdbdatasource",
+    skillsetName = "myskillset",
+    targetIndexName = "preview-test",
+    schedule = new
+    {
+        interval = "P1D",
+    },
+    parameters = new
+    {
+        maxFailedItems = 10,
+        maxFailedItemsPerBatch = 5,
+        configuration = new
+        {
+            parsingMode = "markdown",
+            markdownParsingSubmode = "oneToMany",
+        },
+    },
+    fieldMappings = Array.Empty<object>(),
+    outputFieldMappings = Array.Empty<object>(),
+    disabled = false,
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = await client.CreateAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="Create(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "myindexer",
+    description = "Description of the indexer",
+    dataSourceName = "mydocdbdatasource",
+    skillsetName = "myskillset",
+    targetIndexName = "preview-test",
+    schedule = new
+    {
+        interval = "P1D",
+    },
+    parameters = new
+    {
+        maxFailedItems = 10,
+        maxFailedItemsPerBatch = 5,
+        configuration = new
+        {
+            parsingMode = "markdown",
+            markdownParsingSubmode = "oneToMany",
+        },
+    },
+    fieldMappings = Array.Empty<object>(),
+    outputFieldMappings = Array.Empty<object>(),
+    disabled = false,
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = client.Create(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("dataSourceName").ToString());
+Console.WriteLine(result.GetProperty("targetIndexName").ToString());
+]]></code></example>
+    </member>
+    <member name="GetStatusAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response<SearchIndexerStatus> response = await client.GetStatusAsync("myindexer");
+]]></code></example>
+    </member>
+    <member name="GetStatus(string,CancellationToken)">
+      <example>
+This sample shows how to call GetStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response<SearchIndexerStatus> response = client.GetStatus("myindexer");
+]]></code></example>
+    </member>
+    <member name="GetStatusAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = await client.GetStatusAsync("myindexer", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("errors")[0].GetProperty("errorMessage").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("errors")[0].GetProperty("statusCode").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("warnings")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("itemsProcessed").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("itemsFailed").ToString());
+Console.WriteLine(result.GetProperty("limits").ToString());
+]]></code></example>
+    </member>
+    <member name="GetStatus(string,RequestContext)">
+      <example>
+This sample shows how to call GetStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexers client = new SearchClient(endpoint, credential).GetIndexersClient();
+
+Response response = client.GetStatus("myindexer", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("errors")[0].GetProperty("errorMessage").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("errors")[0].GetProperty("statusCode").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("warnings")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("itemsProcessed").ToString());
+Console.WriteLine(result.GetProperty("executionHistory")[0].GetProperty("itemsFailed").ToString());
+Console.WriteLine(result.GetProperty("limits").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

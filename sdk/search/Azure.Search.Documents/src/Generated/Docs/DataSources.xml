@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateAsync(string,SearchIndexerDataSourceConnection,bool?,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection dataSource = new Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection("tempdatasource", SearchIndexerDataSourceType.AzureBlob, new DataSourceCredentials
+{
+    ConnectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+}, new SearchIndexerDataContainer("doc-extraction-skillset")
+{
+    Query = "E2E_Dsat",
+})
+{
+    Description = "My Azure Blob data source.",
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection> response = await client.CreateOrUpdateAsync("tempdatasource", dataSource);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,SearchIndexerDataSourceConnection,bool?,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdate.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection dataSource = new Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection("tempdatasource", SearchIndexerDataSourceType.AzureBlob, new DataSourceCredentials
+{
+    ConnectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+}, new SearchIndexerDataContainer("doc-extraction-skillset")
+{
+    Query = "E2E_Dsat",
+})
+{
+    Description = "My Azure Blob data source.",
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection> response = client.CreateOrUpdate("tempdatasource", dataSource);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,RequestContent,bool?,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "tempdatasource",
+    description = "My Azure Blob data source.",
+    type = "azureblob",
+    credentials = new
+    {
+        connectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+    },
+    container = new
+    {
+        name = "doc-extraction-skillset",
+        query = "E2E_Dsat",
+    },
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = await client.CreateOrUpdateAsync("tempdatasource", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,RequestContent,bool?,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "tempdatasource",
+    description = "My Azure Blob data source.",
+    type = "azureblob",
+    credentials = new
+    {
+        connectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+    },
+    container = new
+    {
+        name = "doc-extraction-skillset",
+        query = "E2E_Dsat",
+    },
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = client.CreateOrUpdate("tempdatasource", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response response = await client.DeleteAsync("tempdatasource");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response response = client.Delete("tempdatasource");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetDataSourceAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetDataSourceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection> response = await client.GetDataSourceAsync("mydocdbdatasource");
+]]></code></example>
+    </member>
+    <member name="GetDataSource(string,CancellationToken)">
+      <example>
+This sample shows how to call GetDataSource.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection> response = client.GetDataSource("mydocdbdatasource");
+]]></code></example>
+    </member>
+    <member name="GetDataSourceAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetDataSourceAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response response = await client.GetDataSourceAsync("mydocdbdatasource", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDataSource(string,RequestContext)">
+      <example>
+This sample shows how to call GetDataSource and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response response = client.GetDataSource("mydocdbdatasource", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDataSourcesAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetDataSourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response<ListDataSourcesResult> response = await client.GetDataSourcesAsync();
+]]></code></example>
+    </member>
+    <member name="GetDataSources(string,CancellationToken)">
+      <example>
+This sample shows how to call GetDataSources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response<ListDataSourcesResult> response = client.GetDataSources();
+]]></code></example>
+    </member>
+    <member name="GetDataSourcesAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetDataSourcesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response response = await client.GetDataSourcesAsync(null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDataSources(string,RequestContext)">
+      <example>
+This sample shows how to call GetDataSources and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Response response = client.GetDataSources(null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateAsync(SearchIndexerDataSourceConnection,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection dataSource = new Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection("tempdatasource", SearchIndexerDataSourceType.AzureBlob, new DataSourceCredentials
+{
+    ConnectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+}, new SearchIndexerDataContainer("doc-extraction-skillset")
+{
+    Query = "E2E_Dsat",
+})
+{
+    Description = "My Azure Blob data source.",
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection> response = await client.CreateAsync(dataSource);
+]]></code></example>
+    </member>
+    <member name="Create(SearchIndexerDataSourceConnection,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection dataSource = new Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection("tempdatasource", SearchIndexerDataSourceType.AzureBlob, new DataSourceCredentials
+{
+    ConnectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+}, new SearchIndexerDataContainer("doc-extraction-skillset")
+{
+    Query = "E2E_Dsat",
+})
+{
+    Description = "My Azure Blob data source.",
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "myKeyVersion-32charAlphaNumericString", "https://myKeyVault.vault.azure.net")
+    {
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+};
+Response<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection> response = client.Create(dataSource);
+]]></code></example>
+    </member>
+    <member name="CreateAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "tempdatasource",
+    description = "My Azure Blob data source.",
+    type = "azureblob",
+    credentials = new
+    {
+        connectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+    },
+    container = new
+    {
+        name = "doc-extraction-skillset",
+        query = "E2E_Dsat",
+    },
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = await client.CreateAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="Create(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+DataSources client = new SearchClient(endpoint, credential).GetDataSourcesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "tempdatasource",
+    description = "My Azure Blob data source.",
+    type = "azureblob",
+    credentials = new
+    {
+        connectionString = "DefaultEndpointsProtocol=https;AccountName=myAccountName;AccountKey=myAccountKey;EndpointSuffix=core.windows.net ",
+    },
+    container = new
+    {
+        name = "doc-extraction-skillset",
+        query = "E2E_Dsat",
+    },
+    encryptionKey = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+});
+Response response = client.Create(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("credentials").ToString());
+Console.WriteLine(result.GetProperty("container").GetProperty("name").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

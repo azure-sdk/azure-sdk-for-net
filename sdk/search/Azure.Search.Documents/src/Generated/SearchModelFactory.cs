@@ -15,179 +15,396 @@ namespace Azure.Search.Documents.Models
     /// <summary> Model factory for models. </summary>
     public static partial class SearchModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="Models.FacetResult"/>. </summary>
-        /// <param name="count"> The approximate count of documents falling within the bucket described by this facet. </param>
-        /// <param name="facets"> The nested facet query results for the search operation, organized as a collection of buckets for each faceted field; null if the query did not contain any nested facets. </param>
-        /// <param name="additionalProperties"> Additional Properties. </param>
-        /// <returns> A new <see cref="Models.FacetResult"/> instance for mocking. </returns>
-        public static FacetResult FacetResult(long? count = null, IReadOnlyDictionary<string, IList<FacetResult>> facets = null, IReadOnlyDictionary<string, object> additionalProperties = null)
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.SearchServiceCounters"/>. </summary>
+        /// <param name="aliasCounter"> Total number of aliases. </param>
+        /// <param name="documentCounter"> Total number of documents across all indexes in the service. </param>
+        /// <param name="indexCounter"> Total number of indexes. </param>
+        /// <param name="indexerCounter"> Total number of indexers. </param>
+        /// <param name="dataSourceCounter"> Total number of data sources. </param>
+        /// <param name="storageSizeCounter"> Total size of used storage in bytes. </param>
+        /// <param name="synonymMapCounter"> Total number of synonym maps. </param>
+        /// <param name="skillsetCounter"> Total number of skillsets. </param>
+        /// <param name="vectorIndexSizeCounter"> Total memory consumption of all vector indexes within the service, in bytes. </param>
+        /// <returns> A new <see cref="Search.Documents.SearchServiceCounters"/> instance for mocking. </returns>
+        public static SearchServiceCounters SearchServiceCounters(Search.Documents.Indexes.Models.SearchResourceCounter aliasCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter documentCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter indexCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter indexerCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter dataSourceCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter storageSizeCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter synonymMapCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter skillsetCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null, Search.Documents.Indexes.Models.SearchResourceCounter vectorIndexSizeCounter = (Search.Documents.Indexes.Models.SearchResourceCounter)null)
         {
-            facets ??= new Dictionary<string, IList<FacetResult>>();
-            additionalProperties ??= new Dictionary<string, object>();
-
-            return new FacetResult(count, facets, additionalProperties);
+            return new SearchServiceCounters(
+                aliasCounter,
+                documentCounter,
+                indexCounter,
+                indexerCounter,
+                dataSourceCounter,
+                storageSizeCounter,
+                synonymMapCounter,
+                skillsetCounter,
+                vectorIndexSizeCounter,
+                serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.QueryAnswerResult"/>. </summary>
-        /// <param name="score"> The score value represents how relevant the answer is to the query relative to other answers returned for the query. </param>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.SearchServiceLimits"/>. </summary>
+        /// <param name="maxFieldsPerIndex"> The maximum allowed fields per index. </param>
+        /// <param name="maxFieldNestingDepthPerIndex">
+        /// The maximum depth which you can nest sub-fields in an index, including the
+        /// top-level complex field. For example, a/b/c has a nesting depth of 3.
+        /// </param>
+        /// <param name="maxComplexCollectionFieldsPerIndex">
+        /// The maximum number of fields of type Collection(Edm.ComplexType) allowed in an
+        /// index.
+        /// </param>
+        /// <param name="maxComplexObjectsInCollectionsPerDocument"> The maximum number of objects in complex collections allowed per document. </param>
+        /// <param name="maxStoragePerIndexInBytes"> The maximum amount of storage in bytes allowed per index. </param>
+        /// <returns> A new <see cref="Search.Documents.SearchServiceLimits"/> instance for mocking. </returns>
+        public static SearchServiceLimits SearchServiceLimits(int? maxFieldsPerIndex = null, int? maxFieldNestingDepthPerIndex = null, int? maxComplexCollectionFieldsPerIndex = null, int? maxComplexObjectsInCollectionsPerDocument = null, long? maxStoragePerIndexInBytes = null)
+        {
+            return new SearchServiceLimits(
+                maxFieldsPerIndex,
+                maxFieldNestingDepthPerIndex,
+                maxComplexCollectionFieldsPerIndex,
+                maxComplexObjectsInCollectionsPerDocument,
+                maxStoragePerIndexInBytes,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.QueryAnswerResult"/>. </summary>
+        /// <param name="score">
+        /// The score value represents how relevant the answer is to the query relative to
+        /// other answers returned for the query.
+        /// </param>
         /// <param name="key"> The key of the document the answer was extracted from. </param>
         /// <param name="text"> The text passage extracted from the document contents as the answer. </param>
-        /// <param name="highlights"> Same text passage as in the Text property with highlighted text phrases most relevant to the query. </param>
+        /// <param name="highlights">
+        /// Same text passage as in the Text property with highlighted text phrases most
+        /// relevant to the query.
+        /// </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
-        /// <returns> A new <see cref="Models.QueryAnswerResult"/> instance for mocking. </returns>
-        public static QueryAnswerResult QueryAnswerResult(double? score = null, string key = null, string text = null, string highlights = null, IReadOnlyDictionary<string, object> additionalProperties = null)
+        /// <returns> A new <see cref="Search.Documents.QueryAnswerResult"/> instance for mocking. </returns>
+        public static QueryAnswerResult QueryAnswerResult(double? score = null, string key = null, string text = null, string highlights = null, IReadOnlyDictionary<string, BinaryData> additionalProperties = null)
         {
-            additionalProperties ??= new Dictionary<string, object>();
+            additionalProperties ??= new Dictionary<string, BinaryData>();
 
             return new QueryAnswerResult(score, key, text, highlights, additionalProperties);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.QueryCaptionResult"/>. </summary>
-        /// <param name="text"> A representative text passage extracted from the document most relevant to the search query. </param>
-        /// <param name="highlights"> Same text passage as in the Text property with highlighted phrases most relevant to the query. </param>
-        /// <param name="additionalProperties"> Additional Properties. </param>
-        /// <returns> A new <see cref="Models.QueryCaptionResult"/> instance for mocking. </returns>
-        public static QueryCaptionResult QueryCaptionResult(string text = null, string highlights = null, IReadOnlyDictionary<string, object> additionalProperties = null)
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.DebugInfo"/>. </summary>
+        /// <param name="queryRewrites"> Contains debugging information specific to query rewrites. </param>
+        /// <returns> A new <see cref="Search.Documents.DebugInfo"/> instance for mocking. </returns>
+        public static DebugInfo DebugInfo(QueryRewritesDebugInfo queryRewrites = null)
         {
-            additionalProperties ??= new Dictionary<string, object>();
+            return new DebugInfo(queryRewrites, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.QueryRewritesDebugInfo"/>. </summary>
+        /// <param name="text"> List of query rewrites generated for the text query. </param>
+        /// <param name="vectors"> List of query rewrites generated for the vectorizable text queries. </param>
+        /// <returns> A new <see cref="Search.Documents.QueryRewritesDebugInfo"/> instance for mocking. </returns>
+        public static QueryRewritesDebugInfo QueryRewritesDebugInfo(QueryRewritesValuesDebugInfo text = null, IEnumerable<QueryRewritesValuesDebugInfo> vectors = null)
+        {
+            vectors ??= new List<QueryRewritesValuesDebugInfo>();
+
+            return new QueryRewritesDebugInfo(text, vectors?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.QueryRewritesValuesDebugInfo"/>. </summary>
+        /// <param name="inputQuery">
+        /// The input text to the generative query rewriting model. There may be cases
+        /// where the user query and the input to the generative model are not identical.
+        /// </param>
+        /// <param name="rewrites"> List of query rewrites. </param>
+        /// <returns> A new <see cref="Search.Documents.QueryRewritesValuesDebugInfo"/> instance for mocking. </returns>
+        public static QueryRewritesValuesDebugInfo QueryRewritesValuesDebugInfo(string inputQuery = null, IEnumerable<string> rewrites = null)
+        {
+            rewrites ??= new List<string>();
+
+            return new QueryRewritesValuesDebugInfo(inputQuery, rewrites?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.QueryCaptionResult"/>. </summary>
+        /// <param name="text">
+        /// A representative text passage extracted from the document most relevant to the
+        /// search query.
+        /// </param>
+        /// <param name="highlights">
+        /// Same text passage as in the Text property with highlighted phrases most
+        /// relevant to the query.
+        /// </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        /// <returns> A new <see cref="Search.Documents.QueryCaptionResult"/> instance for mocking. </returns>
+        public static QueryCaptionResult QueryCaptionResult(string text = null, string highlights = null, IReadOnlyDictionary<string, BinaryData> additionalProperties = null)
+        {
+            additionalProperties ??= new Dictionary<string, BinaryData>();
 
             return new QueryCaptionResult(text, highlights, additionalProperties);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DocumentDebugInfo"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.DocumentDebugInfo"/>. </summary>
         /// <param name="semantic"> Contains debugging information specific to semantic ranking requests. </param>
         /// <param name="vectors"> Contains debugging information specific to vector and hybrid search. </param>
-        /// <returns> A new <see cref="Models.DocumentDebugInfo"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="Search.Documents.DocumentDebugInfo"/> instance for mocking. </returns>
         public static DocumentDebugInfo DocumentDebugInfo(SemanticDebugInfo semantic = null, VectorsDebugInfo vectors = null)
         {
-            return new DocumentDebugInfo(semantic, vectors);
+            return new DocumentDebugInfo(semantic, vectors, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SemanticDebugInfo"/>. </summary>
-        /// <param name="titleField"> The title field that was sent to the semantic enrichment process, as well as how it was used. </param>
-        /// <param name="contentFields"> The content fields that were sent to the semantic enrichment process, as well as how they were used. </param>
-        /// <param name="keywordFields"> The keyword fields that were sent to the semantic enrichment process, as well as how they were used. </param>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.SemanticDebugInfo"/>. </summary>
+        /// <param name="titleField">
+        /// The title field that was sent to the semantic enrichment process, as well as
+        /// how it was used
+        /// </param>
+        /// <param name="contentFields">
+        /// The content fields that were sent to the semantic enrichment process, as well
+        /// as how they were used
+        /// </param>
+        /// <param name="keywordFields">
+        /// The keyword fields that were sent to the semantic enrichment process, as well
+        /// as how they were used
+        /// </param>
         /// <param name="rerankerInput"> The raw concatenated strings that were sent to the semantic enrichment process. </param>
-        /// <returns> A new <see cref="Models.SemanticDebugInfo"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="Search.Documents.SemanticDebugInfo"/> instance for mocking. </returns>
         public static SemanticDebugInfo SemanticDebugInfo(QueryResultDocumentSemanticField titleField = null, IEnumerable<QueryResultDocumentSemanticField> contentFields = null, IEnumerable<QueryResultDocumentSemanticField> keywordFields = null, QueryResultDocumentRerankerInput rerankerInput = null)
         {
             contentFields ??= new List<QueryResultDocumentSemanticField>();
             keywordFields ??= new List<QueryResultDocumentSemanticField>();
 
-            return new SemanticDebugInfo(titleField, contentFields?.ToList(), keywordFields?.ToList(), rerankerInput);
+            return new SemanticDebugInfo(titleField, contentFields?.ToList(), keywordFields?.ToList(), rerankerInput, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.QueryResultDocumentSemanticField"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.QueryResultDocumentSemanticField"/>. </summary>
         /// <param name="name"> The name of the field that was sent to the semantic enrichment process. </param>
-        /// <param name="state"> The way the field was used for the semantic enrichment process (fully used, partially used, or unused). </param>
-        /// <returns> A new <see cref="Models.QueryResultDocumentSemanticField"/> instance for mocking. </returns>
+        /// <param name="state">
+        /// The way the field was used for the semantic enrichment process (fully used,
+        /// partially used, or unused)
+        /// </param>
+        /// <returns> A new <see cref="Search.Documents.QueryResultDocumentSemanticField"/> instance for mocking. </returns>
         public static QueryResultDocumentSemanticField QueryResultDocumentSemanticField(string name = null, SemanticFieldState? state = null)
         {
-            return new QueryResultDocumentSemanticField(name, state);
+            return new QueryResultDocumentSemanticField(name, state, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.QueryResultDocumentRerankerInput"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.QueryResultDocumentRerankerInput"/>. </summary>
         /// <param name="title"> The raw string for the title field that was used for semantic enrichment. </param>
-        /// <param name="content"> The raw concatenated strings for the content fields that were used for semantic enrichment. </param>
-        /// <param name="keywords"> The raw concatenated strings for the keyword fields that were used for semantic enrichment. </param>
-        /// <returns> A new <see cref="Models.QueryResultDocumentRerankerInput"/> instance for mocking. </returns>
+        /// <param name="content">
+        /// The raw concatenated strings for the content fields that were used for semantic
+        /// enrichment.
+        /// </param>
+        /// <param name="keywords">
+        /// The raw concatenated strings for the keyword fields that were used for semantic
+        /// enrichment.
+        /// </param>
+        /// <returns> A new <see cref="Search.Documents.QueryResultDocumentRerankerInput"/> instance for mocking. </returns>
         public static QueryResultDocumentRerankerInput QueryResultDocumentRerankerInput(string title = null, string content = null, string keywords = null)
         {
-            return new QueryResultDocumentRerankerInput(title, content, keywords);
+            return new QueryResultDocumentRerankerInput(title, content, keywords, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.VectorsDebugInfo"/>. </summary>
-        /// <param name="subscores"> The breakdown of subscores of the document prior to the chosen result set fusion/combination method such as RRF. </param>
-        /// <returns> A new <see cref="Models.VectorsDebugInfo"/> instance for mocking. </returns>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.VectorsDebugInfo"/>. </summary>
+        /// <param name="subscores">
+        /// The breakdown of subscores of the document prior to the chosen result set
+        /// fusion/combination method such as RRF.
+        /// </param>
+        /// <returns> A new <see cref="Search.Documents.VectorsDebugInfo"/> instance for mocking. </returns>
         public static VectorsDebugInfo VectorsDebugInfo(QueryResultDocumentSubscores subscores = null)
         {
-            return new VectorsDebugInfo(subscores);
+            return new VectorsDebugInfo(subscores, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.QueryResultDocumentSubscores"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.QueryResultDocumentSubscores"/>. </summary>
         /// <param name="text"> The BM25 or Classic score for the text portion of the query. </param>
         /// <param name="vectors"> The vector similarity and @search.score values for each vector query. </param>
         /// <param name="documentBoost"> The BM25 or Classic score for the text portion of the query. </param>
-        /// <returns> A new <see cref="Models.QueryResultDocumentSubscores"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="Search.Documents.QueryResultDocumentSubscores"/> instance for mocking. </returns>
         public static QueryResultDocumentSubscores QueryResultDocumentSubscores(TextResult text = null, IEnumerable<IDictionary<string, SingleVectorFieldResult>> vectors = null, double? documentBoost = null)
         {
             vectors ??= new List<IDictionary<string, SingleVectorFieldResult>>();
 
-            return new QueryResultDocumentSubscores(text, vectors?.ToList(), documentBoost);
+            return new QueryResultDocumentSubscores(text, vectors?.ToList(), documentBoost, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.TextResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.TextResult"/>. </summary>
         /// <param name="searchScore"> The BM25 or Classic score for the text portion of the query. </param>
-        /// <returns> A new <see cref="Models.TextResult"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="Search.Documents.TextResult"/> instance for mocking. </returns>
         public static TextResult TextResult(double? searchScore = null)
         {
-            return new TextResult(searchScore);
+            return new TextResult(searchScore, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SingleVectorFieldResult"/>. </summary>
-        /// <param name="searchScore"> The @search.score value that is calculated from the vector similarity score. This is the score that's visible in a pure single-field single-vector query. </param>
-        /// <param name="vectorSimilarity"> The vector similarity score for this document. Note this is the canonical definition of similarity metric, not the 'distance' version. For example, cosine similarity instead of cosine distance. </param>
-        /// <returns> A new <see cref="Models.SingleVectorFieldResult"/> instance for mocking. </returns>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.SingleVectorFieldResult"/>. </summary>
+        /// <param name="searchScore">
+        /// The @search.score value that is calculated from the vector similarity score.
+        /// This is the score that's visible in a pure single-field single-vector query.
+        /// </param>
+        /// <param name="vectorSimilarity">
+        /// The vector similarity score for this document. Note this is the canonical
+        /// definition of similarity metric, not the 'distance' version. For example,
+        /// cosine similarity instead of cosine distance.
+        /// </param>
+        /// <returns> A new <see cref="Search.Documents.SingleVectorFieldResult"/> instance for mocking. </returns>
         public static SingleVectorFieldResult SingleVectorFieldResult(double? searchScore = null, double? vectorSimilarity = null)
         {
-            return new SingleVectorFieldResult(searchScore, vectorSimilarity);
+            return new SingleVectorFieldResult(searchScore, vectorSimilarity, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DebugInfo"/>. </summary>
-        /// <param name="queryRewrites"> Contains debugging information specific to query rewrites. </param>
-        /// <returns> A new <see cref="Models.DebugInfo"/> instance for mocking. </returns>
-        public static DebugInfo DebugInfo(QueryRewritesDebugInfo queryRewrites = null)
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.LookupDocument"/>. </summary>
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        /// <returns> A new <see cref="Search.Documents.LookupDocument"/> instance for mocking. </returns>
+        public static LookupDocument LookupDocument(IReadOnlyDictionary<string, BinaryData> additionalProperties = null)
         {
-            return new DebugInfo(queryRewrites);
-        }
+            additionalProperties ??= new Dictionary<string, BinaryData>();
 
-        /// <summary> Initializes a new instance of <see cref="Models.QueryRewritesDebugInfo"/>. </summary>
-        /// <param name="text"> List of query rewrites generated for the text query. </param>
-        /// <param name="vectors"> List of query rewrites generated for the vectorizable text queries. </param>
-        /// <returns> A new <see cref="Models.QueryRewritesDebugInfo"/> instance for mocking. </returns>
-        public static QueryRewritesDebugInfo QueryRewritesDebugInfo(QueryRewritesValuesDebugInfo text = null, IEnumerable<QueryRewritesValuesDebugInfo> vectors = null)
-        {
-            vectors ??= new List<QueryRewritesValuesDebugInfo>();
-
-            return new QueryRewritesDebugInfo(text, vectors?.ToList());
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.QueryRewritesValuesDebugInfo"/>. </summary>
-        /// <param name="inputQuery"> The input text to the generative query rewriting model. There may be cases where the user query and the input to the generative model are not identical. </param>
-        /// <param name="rewrites"> List of query rewrites. </param>
-        /// <returns> A new <see cref="Models.QueryRewritesValuesDebugInfo"/> instance for mocking. </returns>
-        public static QueryRewritesValuesDebugInfo QueryRewritesValuesDebugInfo(string inputQuery = null, IEnumerable<string> rewrites = null)
-        {
-            rewrites ??= new List<string>();
-
-            return new QueryRewritesValuesDebugInfo(inputQuery, rewrites?.ToList());
+            return new LookupDocument(additionalProperties);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.AutocompleteResults"/>. </summary>
-        /// <param name="coverage"> A value indicating the percentage of the index that was considered by the autocomplete request, or null if minimumCoverage was not specified in the request. </param>
+        /// <param name="coverage">
+        /// A value indicating the percentage of the index that was considered by the
+        /// autocomplete request, or null if minimumCoverage was not specified in the
+        /// request.
+        /// </param>
         /// <param name="results"> The list of returned Autocompleted items. </param>
         /// <returns> A new <see cref="Models.AutocompleteResults"/> instance for mocking. </returns>
         public static AutocompleteResults AutocompleteResults(double? coverage = null, IEnumerable<AutocompleteItem> results = null)
         {
             results ??= new List<AutocompleteItem>();
 
-            return new AutocompleteResults(coverage, results?.ToList());
+            return new AutocompleteResults(coverage, results?.ToList(), serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Indexes.Models.SearchIndexerStatus"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.SearchSuggester"/>. </summary>
+        /// <param name="name"> The name of the suggester. </param>
+        /// <param name="searchMode"> A value indicating the capabilities of the suggester. </param>
+        /// <param name="sourceFields">
+        /// The list of field names to which the suggester applies. Each field must be
+        /// searchable.
+        /// </param>
+        /// <returns> A new <see cref="Search.Documents.SearchSuggester"/> instance for mocking. </returns>
+        public static SearchSuggester SearchSuggester(string name = null, SearchSuggesterSearchMode searchMode = default, IEnumerable<string> sourceFields = null)
+        {
+            sourceFields ??= new List<string>();
+
+            return new SearchSuggester(name, searchMode, sourceFields?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Documents.Indexes.Models.SearchIndexStatistics"/>. </summary>
+        /// <param name="documentCount"> The number of documents in the index. </param>
+        /// <param name="storageSize"> The amount of storage in bytes consumed by the index. </param>
+        /// <param name="vectorIndexSize"> The amount of memory in bytes consumed by vectors in the index. </param>
+        /// <returns> A new <see cref="Documents.Indexes.Models.SearchIndexStatistics"/> instance for mocking. </returns>
+        public static Search.Documents.Indexes.Models.SearchIndexStatistics SearchIndexStatistics(long documentCount = default, long storageSize = default, long vectorIndexSize = default)
+        {
+            return new Search.Documents.Indexes.Models.SearchIndexStatistics(documentCount, storageSize, vectorIndexSize, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Documents.Indexes.Models.AnalyzeTextOptions"/>. </summary>
+        /// <param name="text"> The text to break into tokens. </param>
+        /// <param name="analyzerName">
+        /// The name of the analyzer to use to break the given text. If this parameter is
+        /// not specified, you must specify a tokenizer instead. The tokenizer and analyzer
+        /// parameters are mutually exclusive.
+        /// </param>
+        /// <param name="tokenizerName">
+        /// The name of the tokenizer to use to break the given text. If this parameter is
+        /// not specified, you must specify an analyzer instead. The tokenizer and analyzer
+        /// parameters are mutually exclusive.
+        /// </param>
+        /// <param name="normalizerName"> The name of the normalizer to use to normalize the given text. </param>
+        /// <param name="tokenFilters">
+        /// An optional list of token filters to use when breaking the given text. This
+        /// parameter can only be set when using the tokenizer parameter.
+        /// </param>
+        /// <param name="charFilters">
+        /// An optional list of character filters to use when breaking the given text. This
+        /// parameter can only be set when using the tokenizer parameter.
+        /// </param>
+        /// <returns> A new <see cref="Documents.Indexes.Models.AnalyzeTextOptions"/> instance for mocking. </returns>
+        public static Search.Documents.Indexes.Models.AnalyzeTextOptions AnalyzeTextOptions(string text = null, LexicalAnalyzerName? analyzerName = null, LexicalTokenizerName? tokenizerName = null, LexicalNormalizerName? normalizerName = null, IEnumerable<TokenFilterName> tokenFilters = null, IEnumerable<string> charFilters = null)
+        {
+            tokenFilters ??= new List<TokenFilterName>();
+            charFilters ??= new List<string>();
+
+            return new Search.Documents.Indexes.Models.AnalyzeTextOptions(
+                text,
+                analyzerName,
+                tokenizerName,
+                normalizerName,
+                tokenFilters?.ToList(),
+                charFilters?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.SynonymMap"/>. </summary>
+        /// <param name="name"> The name of the synonym map. </param>
+        /// <param name="format"> The format of the synonym map. Only the 'solr' format is currently supported. </param>
+        /// <param name="synonyms">
+        /// A series of synonym rules in the specified synonym map format. The rules must
+        /// be separated by newlines.
+        /// </param>
+        /// <param name="encryptionKey">
+        /// A description of an encryption key that you create in Azure Key Vault. This key
+        /// is used to provide an additional level of encryption-at-rest for your data when
+        /// you want full assurance that no one, not even Microsoft, can decrypt your data.
+        /// Once you have encrypted your data, it will always remain encrypted. The search
+        /// service will ignore attempts to set this property to null. You can change this
+        /// property as needed if you want to rotate your encryption key; Your data will be
+        /// unaffected. Encryption with customer-managed keys is not available for free
+        /// search services, and is only available for paid services created on or after
+        /// January 1, 2019.
+        /// </param>
+        /// <param name="eTag"> The ETag of the synonym map. </param>
+        /// <returns> A new <see cref="Search.Documents.SynonymMap"/> instance for mocking. </returns>
+        public static SynonymMap SynonymMap(string name = null, SynonymMapFormat format = default, string synonyms = null, SearchResourceEncryptionKey encryptionKey = null, string eTag = null)
+        {
+            return new SynonymMap(
+                name,
+                format,
+                synonyms,
+                encryptionKey,
+                eTag,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.ListSynonymMapsResult"/>. </summary>
+        /// <param name="synonymMaps"> The synonym maps in the Search service. </param>
+        /// <returns> A new <see cref="Search.Documents.ListSynonymMapsResult"/> instance for mocking. </returns>
+        public static ListSynonymMapsResult ListSynonymMapsResult(IEnumerable<SynonymMap> synonymMaps = null)
+        {
+            synonymMaps ??= new List<SynonymMap>();
+
+            return new ListSynonymMapsResult(synonymMaps?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.ListSkillsetsResult"/>. </summary>
+        /// <param name="skillsets"> The skillsets defined in the Search service. </param>
+        /// <returns> A new <see cref="Search.Documents.ListSkillsetsResult"/> instance for mocking. </returns>
+        public static ListSkillsetsResult ListSkillsetsResult(IEnumerable<SearchIndexerSkillset> skillsets = null)
+        {
+            skillsets ??= new List<SearchIndexerSkillset>();
+
+            return new ListSkillsetsResult(skillsets?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.ListIndexersResult"/>. </summary>
+        /// <param name="indexers"> The indexers in the Search service. </param>
+        /// <returns> A new <see cref="Search.Documents.ListIndexersResult"/> instance for mocking. </returns>
+        public static ListIndexersResult ListIndexersResult(IEnumerable<SearchIndexer> indexers = null)
+        {
+            indexers ??= new List<SearchIndexer>();
+
+            return new ListIndexersResult(indexers?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.SearchIndexerStatus"/>. </summary>
         /// <param name="status"> Overall indexer status. </param>
         /// <param name="lastResult"> The result of the most recent or an in-progress indexer execution. </param>
         /// <param name="executionHistory"> History of the recent indexer executions, sorted in reverse chronological order. </param>
         /// <param name="limits"> The execution limits for the indexer. </param>
-        /// <returns> A new <see cref="Indexes.Models.SearchIndexerStatus"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="Search.Documents.SearchIndexerStatus"/> instance for mocking. </returns>
         public static SearchIndexerStatus SearchIndexerStatus(IndexerStatus status = default, IndexerExecutionResult lastResult = null, IEnumerable<IndexerExecutionResult> executionHistory = null, SearchIndexerLimits limits = null)
         {
             executionHistory ??= new List<IndexerExecutionResult>();
 
-            return new SearchIndexerStatus(status, lastResult, executionHistory?.ToList(), limits);
+            return new SearchIndexerStatus(status, lastResult, executionHistory?.ToList(), limits, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Indexes.Models.IndexerExecutionResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.IndexerExecutionResult"/>. </summary>
         /// <param name="status"> The outcome of this indexer execution. </param>
         /// <param name="statusDetail"> The outcome of this indexer execution. </param>
         /// <param name="currentState"> All of the state that defines and dictates the indexer's current execution. </param>
@@ -196,12 +413,16 @@ namespace Azure.Search.Documents.Models
         /// <param name="endTime"> The end time of this indexer execution, if the execution has already completed. </param>
         /// <param name="errors"> The item-level indexing errors. </param>
         /// <param name="warnings"> The item-level indexing warnings. </param>
-        /// <param name="itemCount"> The number of items that were processed during this indexer execution. This includes both successfully processed items and items where indexing was attempted but failed. </param>
+        /// <param name="itemCount">
+        /// The number of items that were processed during this indexer execution. This
+        /// includes both successfully processed items and items where indexing was
+        /// attempted but failed.
+        /// </param>
         /// <param name="failedItemCount"> The number of items that failed to be indexed during this indexer execution. </param>
         /// <param name="initialTrackingState"> Change tracking state with which an indexer execution started. </param>
         /// <param name="finalTrackingState"> Change tracking state with which an indexer execution finished. </param>
-        /// <returns> A new <see cref="Indexes.Models.IndexerExecutionResult"/> instance for mocking. </returns>
-        public static IndexerExecutionResult IndexerExecutionResult(IndexerExecutionStatus status = default, IndexerExecutionStatusDetail? statusDetail = null, IndexerState currentState = null, string errorMessage = null, DateTimeOffset? startTime = null, DateTimeOffset? endTime = null, IEnumerable<SearchIndexerError> errors = null, IEnumerable<SearchIndexerWarning> warnings = null, int itemCount = default, int failedItemCount = default, string initialTrackingState = null, string finalTrackingState = null)
+        /// <returns> A new <see cref="Search.Documents.IndexerExecutionResult"/> instance for mocking. </returns>
+        public static IndexerExecutionResult IndexerExecutionResult(IndexerExecutionStatus status = default, IndexerExecutionStatusDetail? statusDetail = null, Search.Documents.Indexes.Models.IndexerState currentState = (Search.Documents.Indexes.Models.IndexerState)null, string errorMessage = null, DateTimeOffset? startTime = null, DateTimeOffset? endTime = null, IEnumerable<SearchIndexerError> errors = null, IEnumerable<SearchIndexerWarning> warnings = null, int itemCount = default, int failedItemCount = default, string initialTrackingState = null, string finalTrackingState = null)
         {
             errors ??= new List<SearchIndexerError>();
             warnings ??= new List<SearchIndexerWarning>();
@@ -218,92 +439,18 @@ namespace Azure.Search.Documents.Models
                 itemCount,
                 failedItemCount,
                 initialTrackingState,
-                finalTrackingState);
+                finalTrackingState,
+                serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Indexes.Models.SearchIndexStatistics"/>. </summary>
-        /// <param name="documentCount"> The number of documents in the index. </param>
-        /// <param name="storageSize"> The amount of storage in bytes consumed by the index. </param>
-        /// <param name="vectorIndexSize"> The amount of memory in bytes consumed by vectors in the index. </param>
-        /// <returns> A new <see cref="Indexes.Models.SearchIndexStatistics"/> instance for mocking. </returns>
-        public static SearchIndexStatistics SearchIndexStatistics(long documentCount = default, long storageSize = default, long vectorIndexSize = default)
+        /// <summary> Initializes a new instance of <see cref="Search.Documents.ListDataSourcesResult"/>. </summary>
+        /// <param name="dataSources"> The datasources in the Search service. </param>
+        /// <returns> A new <see cref="Search.Documents.ListDataSourcesResult"/> instance for mocking. </returns>
+        public static ListDataSourcesResult ListDataSourcesResult(IEnumerable<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection> dataSources = null)
         {
-            return new SearchIndexStatistics(documentCount, storageSize, vectorIndexSize);
-        }
+            dataSources ??= new List<Search.Documents.Indexes.Models.SearchIndexerDataSourceConnection>();
 
-        /// <summary> Initializes a new instance of <see cref="Indexes.Models.SearchServiceCounters"/>. </summary>
-        /// <param name="aliasCounter"> Total number of aliases. </param>
-        /// <param name="documentCounter"> Total number of documents across all indexes in the service. </param>
-        /// <param name="indexCounter"> Total number of indexes. </param>
-        /// <param name="indexerCounter"> Total number of indexers. </param>
-        /// <param name="dataSourceCounter"> Total number of data sources. </param>
-        /// <param name="storageSizeCounter"> Total size of used storage in bytes. </param>
-        /// <param name="synonymMapCounter"> Total number of synonym maps. </param>
-        /// <param name="skillsetCounter"> Total number of skillsets. </param>
-        /// <param name="vectorIndexSizeCounter"> Total memory consumption of all vector indexes within the service, in bytes. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="aliasCounter"/>, <paramref name="documentCounter"/>, <paramref name="indexCounter"/>, <paramref name="indexerCounter"/>, <paramref name="dataSourceCounter"/>, <paramref name="storageSizeCounter"/>, <paramref name="synonymMapCounter"/>, <paramref name="skillsetCounter"/> or <paramref name="vectorIndexSizeCounter"/> is null. </exception>
-        /// <returns> A new <see cref="Indexes.Models.SearchServiceCounters"/> instance for mocking. </returns>
-        public static SearchServiceCounters SearchServiceCounters(SearchResourceCounter aliasCounter = null, SearchResourceCounter documentCounter = null, SearchResourceCounter indexCounter = null, SearchResourceCounter indexerCounter = null, SearchResourceCounter dataSourceCounter = null, SearchResourceCounter storageSizeCounter = null, SearchResourceCounter synonymMapCounter = null, SearchResourceCounter skillsetCounter = null, SearchResourceCounter vectorIndexSizeCounter = null)
-        {
-            if (aliasCounter == null)
-            {
-                throw new ArgumentNullException(nameof(aliasCounter));
-            }
-            if (documentCounter == null)
-            {
-                throw new ArgumentNullException(nameof(documentCounter));
-            }
-            if (indexCounter == null)
-            {
-                throw new ArgumentNullException(nameof(indexCounter));
-            }
-            if (indexerCounter == null)
-            {
-                throw new ArgumentNullException(nameof(indexerCounter));
-            }
-            if (dataSourceCounter == null)
-            {
-                throw new ArgumentNullException(nameof(dataSourceCounter));
-            }
-            if (storageSizeCounter == null)
-            {
-                throw new ArgumentNullException(nameof(storageSizeCounter));
-            }
-            if (synonymMapCounter == null)
-            {
-                throw new ArgumentNullException(nameof(synonymMapCounter));
-            }
-            if (skillsetCounter == null)
-            {
-                throw new ArgumentNullException(nameof(skillsetCounter));
-            }
-            if (vectorIndexSizeCounter == null)
-            {
-                throw new ArgumentNullException(nameof(vectorIndexSizeCounter));
-            }
-
-            return new SearchServiceCounters(
-                aliasCounter,
-                documentCounter,
-                indexCounter,
-                indexerCounter,
-                dataSourceCounter,
-                storageSizeCounter,
-                synonymMapCounter,
-                skillsetCounter,
-                vectorIndexSizeCounter);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Indexes.Models.SearchServiceLimits"/>. </summary>
-        /// <param name="maxFieldsPerIndex"> The maximum allowed fields per index. </param>
-        /// <param name="maxFieldNestingDepthPerIndex"> The maximum depth which you can nest sub-fields in an index, including the top-level complex field. For example, a/b/c has a nesting depth of 3. </param>
-        /// <param name="maxComplexCollectionFieldsPerIndex"> The maximum number of fields of type Collection(Edm.ComplexType) allowed in an index. </param>
-        /// <param name="maxComplexObjectsInCollectionsPerDocument"> The maximum number of objects in complex collections allowed per document. </param>
-        /// <param name="maxStoragePerIndexInBytes"> The maximum amount of storage in bytes allowed per index. </param>
-        /// <returns> A new <see cref="Indexes.Models.SearchServiceLimits"/> instance for mocking. </returns>
-        public static SearchServiceLimits SearchServiceLimits(int? maxFieldsPerIndex = null, int? maxFieldNestingDepthPerIndex = null, int? maxComplexCollectionFieldsPerIndex = null, int? maxComplexObjectsInCollectionsPerDocument = null, long? maxStoragePerIndexInBytes = null)
-        {
-            return new SearchServiceLimits(maxFieldsPerIndex, maxFieldNestingDepthPerIndex, maxComplexCollectionFieldsPerIndex, maxComplexObjectsInCollectionsPerDocument, maxStoragePerIndexInBytes);
+            return new ListDataSourcesResult(dataSources?.ToList(), serializedAdditionalRawData: null);
         }
     }
 }
