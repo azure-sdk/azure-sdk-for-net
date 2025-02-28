@@ -115,6 +115,16 @@ namespace Azure.ResourceManager.AppConfiguration
                 writer.WritePropertyName("createMode"u8);
                 writer.WriteStringValue(CreateMode.Value.ToSerialString());
             }
+            if (Optional.IsDefined(Telemetry))
+            {
+                writer.WritePropertyName("telemetry"u8);
+                writer.WriteObjectValue(Telemetry, options);
+            }
+            if (options.Format != "W" && Optional.IsDefined(ManagedOnBehalfOfConfiguration))
+            {
+                writer.WritePropertyName("managedOnBehalfOfConfiguration"u8);
+                writer.WriteObjectValue(ManagedOnBehalfOfConfiguration, options);
+            }
             writer.WriteEndObject();
         }
 
@@ -157,6 +167,8 @@ namespace Azure.ResourceManager.AppConfiguration
             bool? enablePurgeProtection = default;
             AppConfigurationDataPlaneProxyProperties dataPlaneProxy = default;
             AppConfigurationCreateMode? createMode = default;
+            TelemetryProperties telemetry = default;
+            ManagedOnBehalfOfConfiguration managedOnBehalfOfConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -328,6 +340,24 @@ namespace Azure.ResourceManager.AppConfiguration
                             createMode = property0.Value.GetString().ToAppConfigurationCreateMode();
                             continue;
                         }
+                        if (property0.NameEquals("telemetry"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            telemetry = TelemetryProperties.DeserializeTelemetryProperties(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("managedOnBehalfOfConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managedOnBehalfOfConfiguration = ManagedOnBehalfOfConfiguration.DeserializeManagedOnBehalfOfConfiguration(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -357,6 +387,8 @@ namespace Azure.ResourceManager.AppConfiguration
                 enablePurgeProtection,
                 dataPlaneProxy,
                 createMode,
+                telemetry,
+                managedOnBehalfOfConfiguration,
                 serializedAdditionalRawData);
         }
 
@@ -694,6 +726,46 @@ namespace Azure.ResourceManager.AppConfiguration
                 {
                     builder.Append("    createMode: ");
                     builder.AppendLine($"'{CreateMode.Value.ToSerialString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("TelemetryResourceId", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    telemetry: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      telemetry: {");
+                builder.Append("        resourceId: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
+            }
+            else
+            {
+                if (Optional.IsDefined(Telemetry))
+                {
+                    builder.Append("    telemetry: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Telemetry, options, 4, false, "    telemetry: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("ManagedOnBehalfOfMoboBrokerResources", out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    managedOnBehalfOfConfiguration: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      managedOnBehalfOfConfiguration: {");
+                builder.Append("        moboBrokerResources: ");
+                builder.AppendLine(propertyOverride);
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
+            }
+            else
+            {
+                if (Optional.IsDefined(ManagedOnBehalfOfConfiguration))
+                {
+                    builder.Append("    managedOnBehalfOfConfiguration: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, ManagedOnBehalfOfConfiguration, options, 4, false, "    managedOnBehalfOfConfiguration: ");
                 }
             }
 
