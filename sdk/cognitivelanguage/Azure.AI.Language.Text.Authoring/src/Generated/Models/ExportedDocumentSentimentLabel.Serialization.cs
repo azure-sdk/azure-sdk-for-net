@@ -86,7 +86,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
             {
                 return null;
             }
-            TextAnalysisAuthoringSentiment? category = default;
+            TextAuthoringSentiment? category = default;
             int? offset = default;
             int? length = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -99,7 +99,7 @@ namespace Azure.AI.Language.Text.Authoring.Models
                     {
                         continue;
                     }
-                    category = new TextAnalysisAuthoringSentiment(property.Value.GetString());
+                    category = new TextAuthoringSentiment(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("offset"u8))
