@@ -1,0 +1,35 @@
+# NOTE: Please refer to https://aka.ms/azsdk/engsys/ci-yaml before editing this file.
+
+trigger:
+  branches:
+    include:
+    - main
+    - hotfix/*
+    - release/*
+  paths:
+    include:
+    - sdk/microsoft.app
+    - sdk/microsoft.app/ci.yml
+    - sdk/microsoft.app/Azure.Microsoft.App.DynamicSessions
+
+pr:
+  branches:
+    include:
+    - main
+    - feature/*
+    - hotfix/*
+    - release/*
+  paths:
+    include:
+    - sdk/microsoft.app
+    - sdk/microsoft.app/ci.yml
+    - sdk/microsoft.app/Azure.Microsoft.App.DynamicSessions
+
+extends:
+  template: /eng/pipelines/templates/stages/archetype-sdk-client.yml
+  parameters:
+    ServiceDirectory: microsoft.app
+    ArtifactName: packages
+    Artifacts:
+    - name: Azure.Microsoft.App.DynamicSessions
+      safeName: AzureMicrosoftAppDynamicSessions
