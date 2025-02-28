@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.AppConfiguration.Models;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.AppConfiguration
 {
@@ -83,8 +84,10 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <param name="enablePurgeProtection"> Property specifying whether protection against purge is enabled for this configuration store. </param>
         /// <param name="dataPlaneProxy"> Property specifying the configuration of data plane proxy for Azure Resource Manager (ARM). </param>
         /// <param name="createMode"> Indicates whether the configuration store need to be recovered. </param>
+        /// <param name="telemetry"> Property specifying the configuration of telemetry for this configuration store. </param>
+        /// <param name="managedOnBehalfOfConfiguration"> Managed On Behalf Of Configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppConfigurationStoreData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, AppConfigurationSku sku, AppConfigurationProvisioningState? provisioningState, DateTimeOffset? createdOn, string endpoint, AppConfigurationStoreEncryptionProperties encryption, IReadOnlyList<AppConfigurationPrivateEndpointConnectionReference> privateEndpointConnections, AppConfigurationPublicNetworkAccess? publicNetworkAccess, bool? disableLocalAuth, int? softDeleteRetentionInDays, bool? enablePurgeProtection, AppConfigurationDataPlaneProxyProperties dataPlaneProxy, AppConfigurationCreateMode? createMode, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal AppConfigurationStoreData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, AppConfigurationSku sku, AppConfigurationProvisioningState? provisioningState, DateTimeOffset? createdOn, string endpoint, AppConfigurationStoreEncryptionProperties encryption, IReadOnlyList<AppConfigurationPrivateEndpointConnectionReference> privateEndpointConnections, AppConfigurationPublicNetworkAccess? publicNetworkAccess, bool? disableLocalAuth, int? softDeleteRetentionInDays, bool? enablePurgeProtection, AppConfigurationDataPlaneProxyProperties dataPlaneProxy, AppConfigurationCreateMode? createMode, TelemetryProperties telemetry, ManagedOnBehalfOfConfiguration managedOnBehalfOfConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Sku = sku;
@@ -99,6 +102,8 @@ namespace Azure.ResourceManager.AppConfiguration
             EnablePurgeProtection = enablePurgeProtection;
             DataPlaneProxy = dataPlaneProxy;
             CreateMode = createMode;
+            Telemetry = telemetry;
+            ManagedOnBehalfOfConfiguration = managedOnBehalfOfConfiguration;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -165,5 +170,28 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <summary> Indicates whether the configuration store need to be recovered. </summary>
         [WirePath("properties.createMode")]
         public AppConfigurationCreateMode? CreateMode { get; set; }
+        /// <summary> Property specifying the configuration of telemetry for this configuration store. </summary>
+        internal TelemetryProperties Telemetry { get; set; }
+        /// <summary> Resource ID of a resource enabling telemetry collection. </summary>
+        [WirePath("properties.telemetry.resourceId")]
+        public ResourceIdentifier TelemetryResourceId
+        {
+            get => Telemetry is null ? default : Telemetry.ResourceId;
+            set
+            {
+                if (Telemetry is null)
+                    Telemetry = new TelemetryProperties();
+                Telemetry.ResourceId = value;
+            }
+        }
+
+        /// <summary> Managed On Behalf Of Configuration. </summary>
+        internal ManagedOnBehalfOfConfiguration ManagedOnBehalfOfConfiguration { get; }
+        /// <summary> Managed-On-Behalf-Of broker resources. </summary>
+        [WirePath("properties.managedOnBehalfOfConfiguration.moboBrokerResources")]
+        public IReadOnlyList<SubResource> ManagedOnBehalfOfMoboBrokerResources
+        {
+            get => ManagedOnBehalfOfConfiguration?.MoboBrokerResources;
+        }
     }
 }

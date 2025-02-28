@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.AppConfiguration.Models
 {
-    /// <summary> The data plane proxy settings for a configuration store. </summary>
-    public partial class AppConfigurationDataPlaneProxyProperties
+    /// <summary> Telemetry settings. </summary>
+    internal partial class TelemetryProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,27 +46,22 @@ namespace Azure.ResourceManager.AppConfiguration.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AppConfigurationDataPlaneProxyProperties"/>. </summary>
-        public AppConfigurationDataPlaneProxyProperties()
+        /// <summary> Initializes a new instance of <see cref="TelemetryProperties"/>. </summary>
+        public TelemetryProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="AppConfigurationDataPlaneProxyProperties"/>. </summary>
-        /// <param name="authenticationMode"> The data plane proxy authentication mode. This property manages the authentication mode of request to the data plane resources. </param>
-        /// <param name="privateLinkDelegation"> The data plane proxy private link delegation. This property manages if a request from delegated ARM private link is allowed when the data plane resource requires private link. </param>
+        /// <summary> Initializes a new instance of <see cref="TelemetryProperties"/>. </summary>
+        /// <param name="resourceId"> Resource ID of a resource enabling telemetry collection. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppConfigurationDataPlaneProxyProperties(DataPlaneProxyAuthenticationMode? authenticationMode, DataPlaneProxyPrivateLinkDelegation? privateLinkDelegation, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TelemetryProperties(ResourceIdentifier resourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            AuthenticationMode = authenticationMode;
-            PrivateLinkDelegation = privateLinkDelegation;
+            ResourceId = resourceId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The data plane proxy authentication mode. This property manages the authentication mode of request to the data plane resources. </summary>
-        [WirePath("authenticationMode")]
-        public DataPlaneProxyAuthenticationMode? AuthenticationMode { get; set; }
-        /// <summary> The data plane proxy private link delegation. This property manages if a request from delegated ARM private link is allowed when the data plane resource requires private link. </summary>
-        [WirePath("privateLinkDelegation")]
-        public DataPlaneProxyPrivateLinkDelegation? PrivateLinkDelegation { get; set; }
+        /// <summary> Resource ID of a resource enabling telemetry collection. </summary>
+        [WirePath("resourceId")]
+        public ResourceIdentifier ResourceId { get; set; }
     }
 }
