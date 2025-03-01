@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
         /// <param name="extendedLocationOptionsType"></param>
         /// <param name="supportedPolicy"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ProviderHubExtendedLocationOptions(string extendedLocationOptionsType, string supportedPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ProviderHubExtendedLocationOptions(string extendedLocationOptionsType, ResourceTypeExtendedLocationPolicy? supportedPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ExtendedLocationOptionsType = extendedLocationOptionsType;
             SupportedPolicy = supportedPolicy;
@@ -64,6 +64,6 @@ namespace Azure.ResourceManager.ProviderHub.Models
         /// <summary> Gets or sets the extended location options type. </summary>
         public string ExtendedLocationOptionsType { get; set; }
         /// <summary> Gets or sets the supported policy. </summary>
-        public string SupportedPolicy { get; set; }
+        public ResourceTypeExtendedLocationPolicy? SupportedPolicy { get; set; }
     }
 }

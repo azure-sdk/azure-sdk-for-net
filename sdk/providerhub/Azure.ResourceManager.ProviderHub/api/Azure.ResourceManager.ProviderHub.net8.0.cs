@@ -992,7 +992,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
     {
         public ProviderHubExtendedLocationOptions() { }
         public string ExtendedLocationOptionsType { get { throw null; } set { } }
-        public string SupportedPolicy { get { throw null; } set { } }
+        public Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy? SupportedPolicy { get { throw null; } set { } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.ProviderHub.Models.ProviderHubExtendedLocationOptions System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ProviderHub.Models.ProviderHubExtendedLocationOptions>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ProviderHub.Models.ProviderHubExtendedLocationOptions>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -1382,6 +1382,24 @@ namespace Azure.ResourceManager.ProviderHub.Models
         Azure.ResourceManager.ProviderHub.Models.ResourceTypeEndpoint System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ProviderHub.Models.ResourceTypeEndpoint>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ProviderHub.Models.ResourceTypeEndpoint>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ProviderHub.Models.ResourceTypeEndpoint>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ResourceTypeExtendedLocationPolicy : System.IEquatable<Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ResourceTypeExtendedLocationPolicy(string value) { throw null; }
+        public static Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy All { get { throw null; } }
+        public static Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy NotSpecified { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy left, Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy right) { throw null; }
+        public static implicit operator Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy left, Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtendedLocationPolicy right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class ResourceTypeExtension : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtension>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ProviderHub.Models.ResourceTypeExtension>
     {

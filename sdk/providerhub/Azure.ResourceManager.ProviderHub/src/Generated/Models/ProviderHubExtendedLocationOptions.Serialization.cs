@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
             if (Optional.IsDefined(SupportedPolicy))
             {
                 writer.WritePropertyName("supportedPolicy"u8);
-                writer.WriteStringValue(SupportedPolicy);
+                writer.WriteStringValue(SupportedPolicy.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 return null;
             }
             string type = default;
-            string supportedPolicy = default;
+            ResourceTypeExtendedLocationPolicy? supportedPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,7 +94,11 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 }
                 if (property.NameEquals("supportedPolicy"u8))
                 {
-                    supportedPolicy = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    supportedPolicy = new ResourceTypeExtendedLocationPolicy(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
