@@ -7,19 +7,19 @@
 
 namespace Azure.Security.KeyVault.Administration.Models
 {
-    /// <summary> The key vault server error. </summary>
-    internal partial class KeyVaultServiceError
+    /// <summary> The KeyVaultErrorError. </summary>
+    internal partial class KeyVaultErrorError
     {
-        /// <summary> Initializes a new instance of <see cref="KeyVaultServiceError"/>. </summary>
-        internal KeyVaultServiceError()
+        /// <summary> Initializes a new instance of <see cref="KeyVaultErrorError"/>. </summary>
+        internal KeyVaultErrorError()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="KeyVaultServiceError"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="KeyVaultErrorError"/>. </summary>
         /// <param name="code"> The error code. </param>
         /// <param name="message"> The error message. </param>
         /// <param name="innerError"> The key vault server error. </param>
-        internal KeyVaultServiceError(string code, string message, KeyVaultServiceError innerError)
+        internal KeyVaultErrorError(string code, string message, KeyVaultErrorError innerError)
         {
             Code = code;
             Message = message;
@@ -31,6 +31,6 @@ namespace Azure.Security.KeyVault.Administration.Models
         /// <summary> The error message. </summary>
         public string Message { get; }
         /// <summary> The key vault server error. </summary>
-        public KeyVaultServiceError InnerError { get; }
+        public KeyVaultErrorError InnerError { get; }
     }
 }

@@ -9,9 +9,9 @@ using System.Text.Json;
 
 namespace Azure.Security.KeyVault.Administration.Models
 {
-    internal partial class KeyVaultServiceError
+    internal partial class KeyVaultErrorError
     {
-        internal static KeyVaultServiceError DeserializeKeyVaultServiceError(JsonElement element)
+        internal static KeyVaultErrorError DeserializeKeyVaultErrorError(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -19,7 +19,7 @@ namespace Azure.Security.KeyVault.Administration.Models
             }
             string code = default;
             string message = default;
-            KeyVaultServiceError innererror = default;
+            KeyVaultErrorError innererror = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("code"u8))
@@ -39,19 +39,19 @@ namespace Azure.Security.KeyVault.Administration.Models
                         innererror = null;
                         continue;
                     }
-                    innererror = DeserializeKeyVaultServiceError(property.Value);
+                    innererror = DeserializeKeyVaultErrorError(property.Value);
                     continue;
                 }
             }
-            return new KeyVaultServiceError(code, message, innererror);
+            return new KeyVaultErrorError(code, message, innererror);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static KeyVaultServiceError FromResponse(Response response)
+        internal static KeyVaultErrorError FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeKeyVaultServiceError(document.RootElement);
+            return DeserializeKeyVaultErrorError(document.RootElement);
         }
     }
 }
