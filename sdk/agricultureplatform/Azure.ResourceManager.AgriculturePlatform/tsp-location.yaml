@@ -1,4 +1,4 @@
-directory: specification/informatica/Informatica.DataManagement.Management
+directory: specification/agricultureplatform/AgriculturePlatform.Management
 commit: 8d85a5e6c2b019e2e12e92ef11ebee35f0db0d97
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
