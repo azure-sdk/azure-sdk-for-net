@@ -49,12 +49,13 @@ namespace Azure.ResourceManager.MongoCluster.Models
         /// <param name="shardingShardCount"> The sharding properties of the mongo cluster. </param>
         /// <param name="computeTier"> The compute properties of the mongo cluster. </param>
         /// <param name="backupEarliestRestoreTime"> The backup properties of the mongo cluster. </param>
+        /// <param name="dataApiMode"> The Data API properties of the mongo cluster. </param>
         /// <param name="privateEndpointConnections"> List of private endpoint connections. </param>
         /// <param name="previewFeatures"> List of private endpoint connections. </param>
         /// <param name="replica"> The replication properties for the mongo cluster. </param>
         /// <param name="infrastructureVersion"> The infrastructure version the cluster is provisioned on. </param>
         /// <returns> A new <see cref="Models.MongoClusterProperties"/> instance for mocking. </returns>
-        public static MongoClusterProperties MongoClusterProperties(MongoClusterCreateMode? createMode = null, MongoClusterRestoreContent restoreParameters = null, MongoClusterReplicaContent replicaParameters = null, MongoClusterAdministratorProperties administrator = null, string serverVersion = null, string connectionString = null, MongoClusterProvisioningState? provisioningState = null, MongoClusterStatus? clusterStatus = null, MongoClusterPublicNetworkAccess? publicNetworkAccess = null, HighAvailabilityMode? highAvailabilityTargetMode = null, long? storageSizeGb = null, int? shardingShardCount = null, string computeTier = null, string backupEarliestRestoreTime = null, IEnumerable<MongoClusterPrivateEndpointConnection> privateEndpointConnections = null, IEnumerable<MongoClusterPreviewFeature> previewFeatures = null, MongoClusterReplicationProperties replica = null, string infrastructureVersion = null)
+        public static MongoClusterProperties MongoClusterProperties(MongoClusterCreateMode? createMode = null, MongoClusterRestoreContent restoreParameters = null, MongoClusterReplicaContent replicaParameters = null, MongoClusterAdministratorProperties administrator = null, string serverVersion = null, string connectionString = null, MongoClusterProvisioningState? provisioningState = null, MongoClusterStatus? clusterStatus = null, MongoClusterPublicNetworkAccess? publicNetworkAccess = null, HighAvailabilityMode? highAvailabilityTargetMode = null, long? storageSizeGb = null, int? shardingShardCount = null, string computeTier = null, string backupEarliestRestoreTime = null, DataApiMode? dataApiMode = null, IEnumerable<MongoClusterPrivateEndpointConnection> privateEndpointConnections = null, IEnumerable<MongoClusterPreviewFeature> previewFeatures = null, MongoClusterReplicationProperties replica = null, string infrastructureVersion = null)
         {
             privateEndpointConnections ??= new List<MongoClusterPrivateEndpointConnection>();
             previewFeatures ??= new List<MongoClusterPreviewFeature>();
@@ -74,6 +75,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
                 shardingShardCount != null ? new ShardingProperties(shardingShardCount, serializedAdditionalRawData: null) : null,
                 computeTier != null ? new ComputeProperties(computeTier, serializedAdditionalRawData: null) : null,
                 backupEarliestRestoreTime != null ? new BackupProperties(backupEarliestRestoreTime, serializedAdditionalRawData: null) : null,
+                dataApiMode != null ? new DataApiProperties(dataApiMode, serializedAdditionalRawData: null) : null,
                 privateEndpointConnections?.ToList(),
                 previewFeatures?.ToList(),
                 replica,
