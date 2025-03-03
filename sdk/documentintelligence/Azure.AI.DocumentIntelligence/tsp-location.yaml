@@ -1,3 +1,4 @@
 directory: specification/ai/DocumentIntelligence
-commit: 28a0baf2c401a0b9bf839688c4d235398868835e
+commit: c42804d2563feb068280fc99b43f3f96deda85a9
 repo: Azure/azure-rest-api-specs
+additionalDirectories: 
