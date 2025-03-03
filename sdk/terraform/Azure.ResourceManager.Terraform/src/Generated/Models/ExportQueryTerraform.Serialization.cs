@@ -47,6 +47,16 @@ namespace Azure.ResourceManager.Terraform.Models
                 writer.WritePropertyName("recursive"u8);
                 writer.WriteBooleanValue(IsRecursive.Value);
             }
+            if (Optional.IsDefined(Table))
+            {
+                writer.WritePropertyName("table"u8);
+                writer.WriteStringValue(Table);
+            }
+            if (Optional.IsDefined(AuthorizationScopeFilter))
+            {
+                writer.WritePropertyName("authorizationScopeFilter"u8);
+                writer.WriteStringValue(AuthorizationScopeFilter.Value.ToString());
+            }
         }
 
         ExportQueryTerraform IJsonModel<ExportQueryTerraform>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -72,6 +82,8 @@ namespace Azure.ResourceManager.Terraform.Models
             string query = default;
             string namePattern = default;
             bool? recursive = default;
+            string table = default;
+            AuthorizationScopeFilter? authorizationScopeFilter = default;
             CommonExportType type = default;
             TargetTerraformProvider? targetProvider = default;
             bool? fullProperties = default;
@@ -97,6 +109,20 @@ namespace Azure.ResourceManager.Terraform.Models
                         continue;
                     }
                     recursive = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("table"u8))
+                {
+                    table = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("authorizationScopeFilter"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    authorizationScopeFilter = new AuthorizationScopeFilter(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("type"u8))
@@ -145,7 +171,9 @@ namespace Azure.ResourceManager.Terraform.Models
                 serializedAdditionalRawData,
                 query,
                 namePattern,
-                recursive);
+                recursive,
+                table,
+                authorizationScopeFilter);
         }
 
         BinaryData IPersistableModel<ExportQueryTerraform>.Write(ModelReaderWriterOptions options)
