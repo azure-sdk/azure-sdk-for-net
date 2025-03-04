@@ -1,0 +1,4 @@
+directory: specification/agricultureplatform/AgriculturePlatform.Management
+commit: f20dc20723a53b68e11e1bea9958f0aebbf828b7
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
