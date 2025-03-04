@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetServiceStatisticsAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetServiceStatisticsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response<SearchServiceStatistics> response = await client.GetServiceStatisticsAsync();
+]]></code></example>
+    </member>
+    <member name="GetServiceStatistics(CancellationToken)">
+      <example>
+This sample shows how to call GetServiceStatistics.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response<SearchServiceStatistics> response = client.GetServiceStatistics();
+]]></code></example>
+    </member>
+    <member name="GetServiceStatisticsAsync(RequestContext)">
+      <example>
+This sample shows how to call GetServiceStatisticsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response response = await client.GetServiceStatisticsAsync(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("counters").GetProperty("aliasesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("documentCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexersCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("dataSourcesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("storageSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("synonymMaps").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("skillsetCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("vectorIndexSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("limits").ToString());
+]]></code></example>
+    </member>
+    <member name="GetServiceStatistics(RequestContext)">
+      <example>
+This sample shows how to call GetServiceStatistics and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response response = client.GetServiceStatistics(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("counters").GetProperty("aliasesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("documentCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexersCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("dataSourcesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("storageSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("synonymMaps").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("skillsetCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("vectorIndexSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("limits").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
