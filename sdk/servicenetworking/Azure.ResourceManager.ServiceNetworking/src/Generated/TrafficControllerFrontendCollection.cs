@@ -18,28 +18,28 @@ using Azure.Core.Pipeline;
 namespace Azure.ResourceManager.ServiceNetworking
 {
     /// <summary>
-    /// A class representing a collection of <see cref="FrontendResource"/> and their operations.
-    /// Each <see cref="FrontendResource"/> in the collection will belong to the same instance of <see cref="TrafficControllerResource"/>.
-    /// To get a <see cref="FrontendCollection"/> instance call the GetFrontends method from an instance of <see cref="TrafficControllerResource"/>.
+    /// A class representing a collection of <see cref="TrafficControllerFrontendResource"/> and their operations.
+    /// Each <see cref="TrafficControllerFrontendResource"/> in the collection will belong to the same instance of <see cref="TrafficControllerResource"/>.
+    /// To get a <see cref="TrafficControllerFrontendCollection"/> instance call the GetTrafficControllerFrontends method from an instance of <see cref="TrafficControllerResource"/>.
     /// </summary>
-    public partial class FrontendCollection : ArmCollection, IEnumerable<FrontendResource>, IAsyncEnumerable<FrontendResource>
+    public partial class TrafficControllerFrontendCollection : ArmCollection, IEnumerable<TrafficControllerFrontendResource>, IAsyncEnumerable<TrafficControllerFrontendResource>
     {
-        private readonly ClientDiagnostics _frontendFrontendsInterfaceClientDiagnostics;
-        private readonly FrontendsInterfaceRestOperations _frontendFrontendsInterfaceRestClient;
+        private readonly ClientDiagnostics _trafficControllerFrontendFrontendsInterfaceClientDiagnostics;
+        private readonly FrontendsInterfaceRestOperations _trafficControllerFrontendFrontendsInterfaceRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="FrontendCollection"/> class for mocking. </summary>
-        protected FrontendCollection()
+        /// <summary> Initializes a new instance of the <see cref="TrafficControllerFrontendCollection"/> class for mocking. </summary>
+        protected TrafficControllerFrontendCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="FrontendCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="TrafficControllerFrontendCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal FrontendCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal TrafficControllerFrontendCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _frontendFrontendsInterfaceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ServiceNetworking", FrontendResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(FrontendResource.ResourceType, out string frontendFrontendsInterfaceApiVersion);
-            _frontendFrontendsInterfaceRestClient = new FrontendsInterfaceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, frontendFrontendsInterfaceApiVersion);
+            _trafficControllerFrontendFrontendsInterfaceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ServiceNetworking", TrafficControllerFrontendResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(TrafficControllerFrontendResource.ResourceType, out string trafficControllerFrontendFrontendsInterfaceApiVersion);
+            _trafficControllerFrontendFrontendsInterfaceRestClient = new FrontendsInterfaceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, trafficControllerFrontendFrontendsInterfaceApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -60,15 +60,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_CreateOrUpdate</description>
+        /// <description>Frontend_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -78,17 +78,17 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="frontendName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="frontendName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<FrontendResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string frontendName, FrontendData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<TrafficControllerFrontendResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string frontendName, TrafficControllerFrontendData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.CreateOrUpdate");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _frontendFrontendsInterfaceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ServiceNetworkingArmOperation<FrontendResource>(new FrontendOperationSource(Client), _frontendFrontendsInterfaceClientDiagnostics, Pipeline, _frontendFrontendsInterfaceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _trafficControllerFrontendFrontendsInterfaceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new ServiceNetworkingArmOperation<TrafficControllerFrontendResource>(new TrafficControllerFrontendOperationSource(Client), _trafficControllerFrontendFrontendsInterfaceClientDiagnostics, Pipeline, _trafficControllerFrontendFrontendsInterfaceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -109,15 +109,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_CreateOrUpdate</description>
+        /// <description>Frontend_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -127,17 +127,17 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="frontendName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="frontendName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<FrontendResource> CreateOrUpdate(WaitUntil waitUntil, string frontendName, FrontendData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<TrafficControllerFrontendResource> CreateOrUpdate(WaitUntil waitUntil, string frontendName, TrafficControllerFrontendData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.CreateOrUpdate");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _frontendFrontendsInterfaceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data, cancellationToken);
-                var operation = new ServiceNetworkingArmOperation<FrontendResource>(new FrontendOperationSource(Client), _frontendFrontendsInterfaceClientDiagnostics, Pipeline, _frontendFrontendsInterfaceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _trafficControllerFrontendFrontendsInterfaceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data, cancellationToken);
+                var operation = new ServiceNetworkingArmOperation<TrafficControllerFrontendResource>(new TrafficControllerFrontendOperationSource(Client), _trafficControllerFrontendFrontendsInterfaceClientDiagnostics, Pipeline, _trafficControllerFrontendFrontendsInterfaceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -158,15 +158,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Frontend_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -174,18 +174,18 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="frontendName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="frontendName"/> is null. </exception>
-        public virtual async Task<Response<FrontendResource>> GetAsync(string frontendName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TrafficControllerFrontendResource>> GetAsync(string frontendName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.Get");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.Get");
             scope.Start();
             try
             {
-                var response = await _frontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken).ConfigureAwait(false);
+                var response = await _trafficControllerFrontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new TrafficControllerFrontendResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -203,15 +203,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Frontend_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -219,18 +219,18 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="frontendName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="frontendName"/> is null. </exception>
-        public virtual Response<FrontendResource> Get(string frontendName, CancellationToken cancellationToken = default)
+        public virtual Response<TrafficControllerFrontendResource> Get(string frontendName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.Get");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.Get");
             scope.Start();
             try
             {
-                var response = _frontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken);
+                var response = _trafficControllerFrontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new TrafficControllerFrontendResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -248,25 +248,25 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_ListByTrafficController</description>
+        /// <description>Frontend_ListByTrafficController</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="FrontendResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<FrontendResource> GetAllAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="TrafficControllerFrontendResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<TrafficControllerFrontendResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _frontendFrontendsInterfaceRestClient.CreateListByTrafficControllerRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _frontendFrontendsInterfaceRestClient.CreateListByTrafficControllerNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new FrontendResource(Client, FrontendData.DeserializeFrontendData(e)), _frontendFrontendsInterfaceClientDiagnostics, Pipeline, "FrontendCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _trafficControllerFrontendFrontendsInterfaceRestClient.CreateListByTrafficControllerRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _trafficControllerFrontendFrontendsInterfaceRestClient.CreateListByTrafficControllerNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new TrafficControllerFrontendResource(Client, TrafficControllerFrontendData.DeserializeTrafficControllerFrontendData(e)), _trafficControllerFrontendFrontendsInterfaceClientDiagnostics, Pipeline, "TrafficControllerFrontendCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -278,25 +278,25 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_ListByTrafficController</description>
+        /// <description>Frontend_ListByTrafficController</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="FrontendResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<FrontendResource> GetAll(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="TrafficControllerFrontendResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<TrafficControllerFrontendResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _frontendFrontendsInterfaceRestClient.CreateListByTrafficControllerRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _frontendFrontendsInterfaceRestClient.CreateListByTrafficControllerNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new FrontendResource(Client, FrontendData.DeserializeFrontendData(e)), _frontendFrontendsInterfaceClientDiagnostics, Pipeline, "FrontendCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _trafficControllerFrontendFrontendsInterfaceRestClient.CreateListByTrafficControllerRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _trafficControllerFrontendFrontendsInterfaceRestClient.CreateListByTrafficControllerNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new TrafficControllerFrontendResource(Client, TrafficControllerFrontendData.DeserializeTrafficControllerFrontendData(e)), _trafficControllerFrontendFrontendsInterfaceClientDiagnostics, Pipeline, "TrafficControllerFrontendCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -308,15 +308,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Frontend_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -328,11 +328,11 @@ namespace Azure.ResourceManager.ServiceNetworking
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.Exists");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _frontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _trafficControllerFrontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -351,15 +351,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Frontend_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -371,11 +371,11 @@ namespace Azure.ResourceManager.ServiceNetworking
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.Exists");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.Exists");
             scope.Start();
             try
             {
-                var response = _frontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken);
+                var response = _trafficControllerFrontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -394,15 +394,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Frontend_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -410,18 +410,18 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="frontendName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="frontendName"/> is null. </exception>
-        public virtual async Task<NullableResponse<FrontendResource>> GetIfExistsAsync(string frontendName, CancellationToken cancellationToken = default)
+        public virtual async Task<NullableResponse<TrafficControllerFrontendResource>> GetIfExistsAsync(string frontendName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.GetIfExists");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _frontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _trafficControllerFrontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
-                    return new NoValueResponse<FrontendResource>(response.GetRawResponse());
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                    return new NoValueResponse<TrafficControllerFrontendResource>(response.GetRawResponse());
+                return Response.FromValue(new TrafficControllerFrontendResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -439,15 +439,15 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Frontend_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerFrontendResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -455,18 +455,18 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="frontendName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="frontendName"/> is null. </exception>
-        public virtual NullableResponse<FrontendResource> GetIfExists(string frontendName, CancellationToken cancellationToken = default)
+        public virtual NullableResponse<TrafficControllerFrontendResource> GetIfExists(string frontendName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(frontendName, nameof(frontendName));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendCollection.GetIfExists");
+            using var scope = _trafficControllerFrontendFrontendsInterfaceClientDiagnostics.CreateScope("TrafficControllerFrontendCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _frontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken);
+                var response = _trafficControllerFrontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, frontendName, cancellationToken: cancellationToken);
                 if (response.Value == null)
-                    return new NoValueResponse<FrontendResource>(response.GetRawResponse());
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                    return new NoValueResponse<TrafficControllerFrontendResource>(response.GetRawResponse());
+                return Response.FromValue(new TrafficControllerFrontendResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -475,7 +475,7 @@ namespace Azure.ResourceManager.ServiceNetworking
             }
         }
 
-        IEnumerator<FrontendResource> IEnumerable<FrontendResource>.GetEnumerator()
+        IEnumerator<TrafficControllerFrontendResource> IEnumerable<TrafficControllerFrontendResource>.GetEnumerator()
         {
             return GetAll().GetEnumerator();
         }
@@ -485,7 +485,7 @@ namespace Azure.ResourceManager.ServiceNetworking
             return GetAll().GetEnumerator();
         }
 
-        IAsyncEnumerator<FrontendResource> IAsyncEnumerable<FrontendResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
+        IAsyncEnumerator<TrafficControllerFrontendResource> IAsyncEnumerable<TrafficControllerFrontendResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }

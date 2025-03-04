@@ -17,53 +17,53 @@ using Azure.ResourceManager.ServiceNetworking.Models;
 namespace Azure.ResourceManager.ServiceNetworking
 {
     /// <summary>
-    /// A Class representing a Frontend along with the instance operations that can be performed on it.
-    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="FrontendResource"/>
-    /// from an instance of <see cref="ArmClient"/> using the GetFrontendResource method.
-    /// Otherwise you can get one from its parent resource <see cref="TrafficControllerResource"/> using the GetFrontend method.
+    /// A Class representing a TrafficControllerAssociation along with the instance operations that can be performed on it.
+    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="TrafficControllerAssociationResource"/>
+    /// from an instance of <see cref="ArmClient"/> using the GetTrafficControllerAssociationResource method.
+    /// Otherwise you can get one from its parent resource <see cref="TrafficControllerResource"/> using the GetTrafficControllerAssociation method.
     /// </summary>
-    public partial class FrontendResource : ArmResource
+    public partial class TrafficControllerAssociationResource : ArmResource
     {
-        /// <summary> Generate the resource identifier of a <see cref="FrontendResource"/> instance. </summary>
+        /// <summary> Generate the resource identifier of a <see cref="TrafficControllerAssociationResource"/> instance. </summary>
         /// <param name="subscriptionId"> The subscriptionId. </param>
         /// <param name="resourceGroupName"> The resourceGroupName. </param>
         /// <param name="trafficControllerName"> The trafficControllerName. </param>
-        /// <param name="frontendName"> The frontendName. </param>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string trafficControllerName, string frontendName)
+        /// <param name="associationName"> The associationName. </param>
+        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string trafficControllerName, string associationName)
         {
-            var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}";
+            var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}";
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _frontendFrontendsInterfaceClientDiagnostics;
-        private readonly FrontendsInterfaceRestOperations _frontendFrontendsInterfaceRestClient;
-        private readonly FrontendData _data;
+        private readonly ClientDiagnostics _trafficControllerAssociationAssociationsInterfaceClientDiagnostics;
+        private readonly AssociationsInterfaceRestOperations _trafficControllerAssociationAssociationsInterfaceRestClient;
+        private readonly TrafficControllerAssociationData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
-        public static readonly ResourceType ResourceType = "Microsoft.ServiceNetworking/trafficControllers/frontends";
+        public static readonly ResourceType ResourceType = "Microsoft.ServiceNetworking/trafficControllers/associations";
 
-        /// <summary> Initializes a new instance of the <see cref="FrontendResource"/> class for mocking. </summary>
-        protected FrontendResource()
+        /// <summary> Initializes a new instance of the <see cref="TrafficControllerAssociationResource"/> class for mocking. </summary>
+        protected TrafficControllerAssociationResource()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="FrontendResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="TrafficControllerAssociationResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal FrontendResource(ArmClient client, FrontendData data) : this(client, data.Id)
+        internal TrafficControllerAssociationResource(ArmClient client, TrafficControllerAssociationData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
         }
 
-        /// <summary> Initializes a new instance of the <see cref="FrontendResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="TrafficControllerAssociationResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal FrontendResource(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal TrafficControllerAssociationResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _frontendFrontendsInterfaceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ServiceNetworking", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string frontendFrontendsInterfaceApiVersion);
-            _frontendFrontendsInterfaceRestClient = new FrontendsInterfaceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, frontendFrontendsInterfaceApiVersion);
+            _trafficControllerAssociationAssociationsInterfaceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ServiceNetworking", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string trafficControllerAssociationAssociationsInterfaceApiVersion);
+            _trafficControllerAssociationAssociationsInterfaceRestClient = new AssociationsInterfaceRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, trafficControllerAssociationAssociationsInterfaceApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.ServiceNetworking
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual FrontendData Data
+        public virtual TrafficControllerAssociationData Data
         {
             get
             {
@@ -91,37 +91,37 @@ namespace Azure.ResourceManager.ServiceNetworking
         }
 
         /// <summary>
-        /// Get a Frontend
+        /// Get a Association
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<FrontendResource>> GetAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TrafficControllerAssociationResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.Get");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.Get");
             scope.Start();
             try
             {
-                var response = await _frontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _trafficControllerAssociationAssociationsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new TrafficControllerAssociationResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -131,37 +131,37 @@ namespace Azure.ResourceManager.ServiceNetworking
         }
 
         /// <summary>
-        /// Get a Frontend
+        /// Get a Association
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<FrontendResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<TrafficControllerAssociationResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.Get");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.Get");
             scope.Start();
             try
             {
-                var response = _frontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _trafficControllerAssociationAssociationsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new TrafficControllerAssociationResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -171,23 +171,23 @@ namespace Azure.ResourceManager.ServiceNetworking
         }
 
         /// <summary>
-        /// Delete a Frontend
+        /// Delete a Association
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Delete</description>
+        /// <description>Association_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -195,12 +195,12 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.Delete");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.Delete");
             scope.Start();
             try
             {
-                var response = await _frontendFrontendsInterfaceRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new ServiceNetworkingArmOperation(_frontendFrontendsInterfaceClientDiagnostics, Pipeline, _frontendFrontendsInterfaceRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = await _trafficControllerAssociationAssociationsInterfaceRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new ServiceNetworkingArmOperation(_trafficControllerAssociationAssociationsInterfaceClientDiagnostics, Pipeline, _trafficControllerAssociationAssociationsInterfaceRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -213,23 +213,23 @@ namespace Azure.ResourceManager.ServiceNetworking
         }
 
         /// <summary>
-        /// Delete a Frontend
+        /// Delete a Association
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Delete</description>
+        /// <description>Association_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -237,12 +237,12 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.Delete");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.Delete");
             scope.Start();
             try
             {
-                var response = _frontendFrontendsInterfaceRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                var operation = new ServiceNetworkingArmOperation(_frontendFrontendsInterfaceClientDiagnostics, Pipeline, _frontendFrontendsInterfaceRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = _trafficControllerAssociationAssociationsInterfaceRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var operation = new ServiceNetworkingArmOperation(_trafficControllerAssociationAssociationsInterfaceClientDiagnostics, Pipeline, _trafficControllerAssociationAssociationsInterfaceRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -255,39 +255,39 @@ namespace Azure.ResourceManager.ServiceNetworking
         }
 
         /// <summary>
-        /// Update a Frontend
+        /// Update a Association
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Update</description>
+        /// <description>Association_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<Response<FrontendResource>> UpdateAsync(FrontendPatch patch, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TrafficControllerAssociationResource>> UpdateAsync(TrafficControllerAssociationPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.Update");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.Update");
             scope.Start();
             try
             {
-                var response = await _frontendFrontendsInterfaceRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                var response = await _trafficControllerAssociationAssociationsInterfaceRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                return Response.FromValue(new TrafficControllerAssociationResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -297,39 +297,39 @@ namespace Azure.ResourceManager.ServiceNetworking
         }
 
         /// <summary>
-        /// Update a Frontend
+        /// Update a Association
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Update</description>
+        /// <description>Association_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual Response<FrontendResource> Update(FrontendPatch patch, CancellationToken cancellationToken = default)
+        public virtual Response<TrafficControllerAssociationResource> Update(TrafficControllerAssociationPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.Update");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.Update");
             scope.Start();
             try
             {
-                var response = _frontendFrontendsInterfaceRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken);
-                return Response.FromValue(new FrontendResource(Client, response.Value), response.GetRawResponse());
+                var response = _trafficControllerAssociationAssociationsInterfaceRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken);
+                return Response.FromValue(new TrafficControllerAssociationResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -343,19 +343,19 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -363,12 +363,12 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="value"> The value for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> or <paramref name="value"/> is null. </exception>
-        public virtual async Task<Response<FrontendResource>> AddTagAsync(string key, string value, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TrafficControllerAssociationResource>> AddTagAsync(string key, string value, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.AddTag");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.AddTag");
             scope.Start();
             try
             {
@@ -377,13 +377,13 @@ namespace Azure.ResourceManager.ServiceNetworking
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _frontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(new FrontendResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = await _trafficControllerAssociationAssociationsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                    return Response.FromValue(new TrafficControllerAssociationResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new FrontendPatch();
+                    var patch = new TrafficControllerAssociationPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -405,19 +405,19 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -425,12 +425,12 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="value"> The value for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> or <paramref name="value"/> is null. </exception>
-        public virtual Response<FrontendResource> AddTag(string key, string value, CancellationToken cancellationToken = default)
+        public virtual Response<TrafficControllerAssociationResource> AddTag(string key, string value, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.AddTag");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.AddTag");
             scope.Start();
             try
             {
@@ -439,13 +439,13 @@ namespace Azure.ResourceManager.ServiceNetworking
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _frontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                    return Response.FromValue(new FrontendResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = _trafficControllerAssociationAssociationsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                    return Response.FromValue(new TrafficControllerAssociationResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new FrontendPatch();
+                    var patch = new TrafficControllerAssociationPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -467,30 +467,30 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="tags"> The set of tags to use as replacement. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tags"/> is null. </exception>
-        public virtual async Task<Response<FrontendResource>> SetTagsAsync(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TrafficControllerAssociationResource>> SetTagsAsync(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.SetTags");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.SetTags");
             scope.Start();
             try
             {
@@ -500,13 +500,13 @@ namespace Azure.ResourceManager.ServiceNetworking
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _frontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(new FrontendResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = await _trafficControllerAssociationAssociationsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                    return Response.FromValue(new TrafficControllerAssociationResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new FrontendPatch();
+                    var patch = new TrafficControllerAssociationPatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return result;
@@ -524,30 +524,30 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="tags"> The set of tags to use as replacement. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tags"/> is null. </exception>
-        public virtual Response<FrontendResource> SetTags(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
+        public virtual Response<TrafficControllerAssociationResource> SetTags(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.SetTags");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.SetTags");
             scope.Start();
             try
             {
@@ -557,13 +557,13 @@ namespace Azure.ResourceManager.ServiceNetworking
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _frontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                    return Response.FromValue(new FrontendResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = _trafficControllerAssociationAssociationsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                    return Response.FromValue(new TrafficControllerAssociationResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new FrontendPatch();
+                    var patch = new TrafficControllerAssociationPatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(patch, cancellationToken: cancellationToken);
                     return result;
@@ -581,30 +581,30 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="key"> The key for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> is null. </exception>
-        public virtual async Task<Response<FrontendResource>> RemoveTagAsync(string key, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TrafficControllerAssociationResource>> RemoveTagAsync(string key, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.RemoveTag");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.RemoveTag");
             scope.Start();
             try
             {
@@ -613,13 +613,13 @@ namespace Azure.ResourceManager.ServiceNetworking
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _frontendFrontendsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(new FrontendResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = await _trafficControllerAssociationAssociationsInterfaceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                    return Response.FromValue(new TrafficControllerAssociationResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new FrontendPatch();
+                    var patch = new TrafficControllerAssociationPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -641,30 +641,30 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/frontends/{frontendName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/{trafficControllerName}/associations/{associationName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>FrontendsInterface_Get</description>
+        /// <description>Association_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-01-01</description>
+        /// <description>2025-03-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="FrontendResource"/></description>
+        /// <description><see cref="TrafficControllerAssociationResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="key"> The key for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> is null. </exception>
-        public virtual Response<FrontendResource> RemoveTag(string key, CancellationToken cancellationToken = default)
+        public virtual Response<TrafficControllerAssociationResource> RemoveTag(string key, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _frontendFrontendsInterfaceClientDiagnostics.CreateScope("FrontendResource.RemoveTag");
+            using var scope = _trafficControllerAssociationAssociationsInterfaceClientDiagnostics.CreateScope("TrafficControllerAssociationResource.RemoveTag");
             scope.Start();
             try
             {
@@ -673,13 +673,13 @@ namespace Azure.ResourceManager.ServiceNetworking
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _frontendFrontendsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                    return Response.FromValue(new FrontendResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = _trafficControllerAssociationAssociationsInterfaceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                    return Response.FromValue(new TrafficControllerAssociationResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new FrontendPatch();
+                    var patch = new TrafficControllerAssociationPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);

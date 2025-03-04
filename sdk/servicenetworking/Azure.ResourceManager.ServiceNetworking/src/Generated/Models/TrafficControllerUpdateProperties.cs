@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ServiceNetworking.Models
 {
-    /// <summary> The type used for update operations of the Frontend. </summary>
-    public partial class FrontendPatch
+    /// <summary> The updatable properties of the TrafficController. </summary>
+    internal partial class TrafficControllerUpdateProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,22 +45,21 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="FrontendPatch"/>. </summary>
-        public FrontendPatch()
+        /// <summary> Initializes a new instance of <see cref="TrafficControllerUpdateProperties"/>. </summary>
+        public TrafficControllerUpdateProperties()
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="FrontendPatch"/>. </summary>
-        /// <param name="tags"> Resource tags. </param>
+        /// <summary> Initializes a new instance of <see cref="TrafficControllerUpdateProperties"/>. </summary>
+        /// <param name="securityPolicyConfigurations"> Security Policy Configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal FrontendPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TrafficControllerUpdateProperties(SecurityPolicyConfigurations securityPolicyConfigurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Tags = tags;
+            SecurityPolicyConfigurations = securityPolicyConfigurations;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Resource tags. </summary>
-        public IDictionary<string, string> Tags { get; }
+        /// <summary> Security Policy Configuration. </summary>
+        public SecurityPolicyConfigurations SecurityPolicyConfigurations { get; set; }
     }
 }
