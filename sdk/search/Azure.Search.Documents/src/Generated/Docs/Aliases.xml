@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateAsync(SearchAlias,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+SearchAlias @alias = new SearchAlias("tempalias", new string[] { "preview-test" })
+{
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchAlias> response = await client.CreateAsync(@alias);
+]]></code></example>
+    </member>
+    <member name="Create(SearchAlias,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+SearchAlias @alias = new SearchAlias("tempalias", new string[] { "preview-test" })
+{
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchAlias> response = client.Create(@alias);
+]]></code></example>
+    </member>
+    <member name="CreateAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "tempalias",
+    ["indexes"] = new object[]
+    {
+        "preview-test"
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = await client.CreateAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="Create(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "tempalias",
+    ["indexes"] = new object[]
+    {
+        "preview-test"
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = client.Create(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,SearchAlias,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+SearchAlias @alias = new SearchAlias("myalias", new string[] { "preview-test" })
+{
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchAlias> response = await client.CreateOrUpdateAsync("myalias", @alias);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,SearchAlias,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdate.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+SearchAlias @alias = new SearchAlias("myalias", new string[] { "preview-test" })
+{
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchAlias> response = client.CreateOrUpdate("myalias", @alias);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,RequestContent,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "myalias",
+    ["indexes"] = new object[]
+    {
+        "preview-test"
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = await client.CreateOrUpdateAsync("myalias", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,RequestContent,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "myalias",
+    ["indexes"] = new object[]
+    {
+        "preview-test"
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = client.CreateOrUpdate("myalias", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+Response response = await client.DeleteAsync("tempalias");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+Response response = client.Delete("tempalias");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetAliasAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAliasAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+Response<SearchAlias> response = await client.GetAliasAsync("myalias");
+]]></code></example>
+    </member>
+    <member name="GetAlias(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAlias.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+Response<SearchAlias> response = client.GetAlias("myalias");
+]]></code></example>
+    </member>
+    <member name="GetAliasAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetAliasAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+Response response = await client.GetAliasAsync("myalias", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetAlias(string,RequestContext)">
+      <example>
+This sample shows how to call GetAlias and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+Response response = client.GetAlias("myalias", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetAliasesAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetAliasesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+await foreach (SearchAlias item in client.GetAliasesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAliases(CancellationToken)">
+      <example>
+This sample shows how to call GetAliases.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+foreach (SearchAlias item in client.GetAliases())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAliasesAsync(RequestContext)">
+      <example>
+This sample shows how to call GetAliasesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+await foreach (BinaryData item in client.GetAliasesAsync(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetAliases(RequestContext)">
+      <example>
+This sample shows how to call GetAliases and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Aliases client = new SearchClient(endpoint, credential).GetAliasesClient();
+
+foreach (BinaryData item in client.GetAliases(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("indexes")[0].ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
