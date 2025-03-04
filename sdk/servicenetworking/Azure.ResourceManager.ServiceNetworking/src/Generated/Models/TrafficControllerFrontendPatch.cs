@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ServiceNetworking.Models
 {
-    /// <summary> The type used for update operations of the SecurityPolicy. </summary>
-    public partial class ApplicationGatewayForContainersSecurityPolicyPatch
+    /// <summary> The type used for update operations of the Frontend. </summary>
+    public partial class TrafficControllerFrontendPatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,17 +45,17 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ApplicationGatewayForContainersSecurityPolicyPatch"/>. </summary>
-        public ApplicationGatewayForContainersSecurityPolicyPatch()
+        /// <summary> Initializes a new instance of <see cref="TrafficControllerFrontendPatch"/>. </summary>
+        public TrafficControllerFrontendPatch()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ApplicationGatewayForContainersSecurityPolicyPatch"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="TrafficControllerFrontendPatch"/>. </summary>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ApplicationGatewayForContainersSecurityPolicyPatch(IDictionary<string, string> tags, SecurityPolicyUpdateProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TrafficControllerFrontendPatch(IDictionary<string, string> tags, FrontendUpdateProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Tags = tags;
             Properties = properties;
@@ -65,6 +65,17 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
         /// <summary> The resource-specific properties for this resource. </summary>
-        public SecurityPolicyUpdateProperties Properties { get; set; }
+        internal FrontendUpdateProperties Properties { get; set; }
+        /// <summary> Frontend Security Policy Configuration. </summary>
+        public SecurityPolicyConfigurations FrontendUpdateSecurityPolicyConfigurations
+        {
+            get => Properties is null ? default : Properties.SecurityPolicyConfigurations;
+            set
+            {
+                if (Properties is null)
+                    Properties = new FrontendUpdateProperties();
+                Properties.SecurityPolicyConfigurations = value;
+            }
+        }
     }
 }

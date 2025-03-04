@@ -7,13 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.ServiceNetworking.Models
 {
-    /// <summary> The type used for update operations of the Association. </summary>
-    public partial class AssociationPatch
+    /// <summary> The updatable properties of the Frontend. </summary>
+    internal partial class FrontendUpdateProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,41 +45,21 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AssociationPatch"/>. </summary>
-        public AssociationPatch()
+        /// <summary> Initializes a new instance of <see cref="FrontendUpdateProperties"/>. </summary>
+        public FrontendUpdateProperties()
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AssociationPatch"/>. </summary>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="associationType"> Association Type. </param>
-        /// <param name="subnet"> Association Subnet. </param>
+        /// <summary> Initializes a new instance of <see cref="FrontendUpdateProperties"/>. </summary>
+        /// <param name="securityPolicyConfigurations"> Frontend Security Policy Configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AssociationPatch(IDictionary<string, string> tags, AssociationType? associationType, WritableSubResource subnet, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FrontendUpdateProperties(SecurityPolicyConfigurations securityPolicyConfigurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Tags = tags;
-            AssociationType = associationType;
-            Subnet = subnet;
+            SecurityPolicyConfigurations = securityPolicyConfigurations;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Resource tags. </summary>
-        public IDictionary<string, string> Tags { get; }
-        /// <summary> Association Type. </summary>
-        public AssociationType? AssociationType { get; set; }
-        /// <summary> Association Subnet. </summary>
-        internal WritableSubResource Subnet { get; set; }
-        /// <summary> Gets or sets Id. </summary>
-        public ResourceIdentifier SubnetId
-        {
-            get => Subnet is null ? default : Subnet.Id;
-            set
-            {
-                if (Subnet is null)
-                    Subnet = new WritableSubResource();
-                Subnet.Id = value;
-            }
-        }
+        /// <summary> Frontend Security Policy Configuration. </summary>
+        public SecurityPolicyConfigurations SecurityPolicyConfigurations { get; set; }
     }
 }

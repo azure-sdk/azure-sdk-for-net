@@ -13,14 +13,14 @@ using NUnit.Framework;
 
 namespace Azure.ResourceManager.ServiceNetworking.Samples
 {
-    public partial class Sample_ApplicationGatewayForContainersSecurityPolicyCollection
+    public partial class Sample_TrafficControllerFrontendCollection
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_PutIpAccessRulesSecurityPolicy()
+        public async Task CreateOrUpdate_PutFrontend()
         {
-            // Generated from example definition: 2025-03-01-preview/IpAccessRulesSecurityPolicyPut.json
-            // this example is just showing the usage of "SecurityPolicy_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2025-03-01-preview/FrontendPut.json
+            // this example is just showing the usage of "Frontend_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -35,28 +35,28 @@ namespace Azure.ResourceManager.ServiceNetworking.Samples
             ResourceIdentifier trafficControllerResourceId = TrafficControllerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, trafficControllerName);
             TrafficControllerResource trafficController = client.GetTrafficControllerResource(trafficControllerResourceId);
 
-            // get the collection of this ApplicationGatewayForContainersSecurityPolicyResource
-            ApplicationGatewayForContainersSecurityPolicyCollection collection = trafficController.GetApplicationGatewayForContainersSecurityPolicies();
+            // get the collection of this TrafficControllerFrontendResource
+            TrafficControllerFrontendCollection collection = trafficController.GetTrafficControllerFrontends();
 
             // invoke the operation
-            string securityPolicyName = "sp1";
-            ApplicationGatewayForContainersSecurityPolicyData data = new ApplicationGatewayForContainersSecurityPolicyData(new AzureLocation("NorthCentralUS"));
-            ArmOperation<ApplicationGatewayForContainersSecurityPolicyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, securityPolicyName, data);
-            ApplicationGatewayForContainersSecurityPolicyResource result = lro.Value;
+            string frontendName = "fe1";
+            TrafficControllerFrontendData data = new TrafficControllerFrontendData(new AzureLocation("NorthCentralUS"));
+            ArmOperation<TrafficControllerFrontendResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, frontendName, data);
+            TrafficControllerFrontendResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            ApplicationGatewayForContainersSecurityPolicyData resourceData = result.Data;
+            TrafficControllerFrontendData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_PutWAFSecurityPolicy()
+        public async Task Get_GetFrontend()
         {
-            // Generated from example definition: 2025-03-01-preview/WafSecurityPolicyPut.json
-            // this example is just showing the usage of "SecurityPolicy_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2025-03-01-preview/FrontendGet.json
+            // this example is just showing the usage of "Frontend_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -71,28 +71,26 @@ namespace Azure.ResourceManager.ServiceNetworking.Samples
             ResourceIdentifier trafficControllerResourceId = TrafficControllerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, trafficControllerName);
             TrafficControllerResource trafficController = client.GetTrafficControllerResource(trafficControllerResourceId);
 
-            // get the collection of this ApplicationGatewayForContainersSecurityPolicyResource
-            ApplicationGatewayForContainersSecurityPolicyCollection collection = trafficController.GetApplicationGatewayForContainersSecurityPolicies();
+            // get the collection of this TrafficControllerFrontendResource
+            TrafficControllerFrontendCollection collection = trafficController.GetTrafficControllerFrontends();
 
             // invoke the operation
-            string securityPolicyName = "sp1";
-            ApplicationGatewayForContainersSecurityPolicyData data = new ApplicationGatewayForContainersSecurityPolicyData(new AzureLocation("NorthCentralUS"));
-            ArmOperation<ApplicationGatewayForContainersSecurityPolicyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, securityPolicyName, data);
-            ApplicationGatewayForContainersSecurityPolicyResource result = lro.Value;
+            string frontendName = "fe1";
+            TrafficControllerFrontendResource result = await collection.GetAsync(frontendName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            ApplicationGatewayForContainersSecurityPolicyData resourceData = result.Data;
+            TrafficControllerFrontendData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_GetSecurityPolicy()
+        public async Task GetAll_GetFrontends()
         {
-            // Generated from example definition: 2025-03-01-preview/SecurityPolicyGet.json
-            // this example is just showing the usage of "SecurityPolicy_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2025-03-01-preview/FrontendsGet.json
+            // this example is just showing the usage of "Frontend_ListByTrafficController" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -107,49 +105,15 @@ namespace Azure.ResourceManager.ServiceNetworking.Samples
             ResourceIdentifier trafficControllerResourceId = TrafficControllerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, trafficControllerName);
             TrafficControllerResource trafficController = client.GetTrafficControllerResource(trafficControllerResourceId);
 
-            // get the collection of this ApplicationGatewayForContainersSecurityPolicyResource
-            ApplicationGatewayForContainersSecurityPolicyCollection collection = trafficController.GetApplicationGatewayForContainersSecurityPolicies();
-
-            // invoke the operation
-            string securityPolicyName = "sp1";
-            ApplicationGatewayForContainersSecurityPolicyResource result = await collection.GetAsync(securityPolicyName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            ApplicationGatewayForContainersSecurityPolicyData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetAll_GetSecurityPolicies()
-        {
-            // Generated from example definition: 2025-03-01-preview/SecurityPoliciesGetList.json
-            // this example is just showing the usage of "SecurityPolicy_ListByTrafficController" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this TrafficControllerResource created on azure
-            // for more information of creating TrafficControllerResource, please refer to the document of TrafficControllerResource
-            string subscriptionId = "subid";
-            string resourceGroupName = "rg1";
-            string trafficControllerName = "tc1";
-            ResourceIdentifier trafficControllerResourceId = TrafficControllerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, trafficControllerName);
-            TrafficControllerResource trafficController = client.GetTrafficControllerResource(trafficControllerResourceId);
-
-            // get the collection of this ApplicationGatewayForContainersSecurityPolicyResource
-            ApplicationGatewayForContainersSecurityPolicyCollection collection = trafficController.GetApplicationGatewayForContainersSecurityPolicies();
+            // get the collection of this TrafficControllerFrontendResource
+            TrafficControllerFrontendCollection collection = trafficController.GetTrafficControllerFrontends();
 
             // invoke the operation and iterate over the result
-            await foreach (ApplicationGatewayForContainersSecurityPolicyResource item in collection.GetAllAsync())
+            await foreach (TrafficControllerFrontendResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                ApplicationGatewayForContainersSecurityPolicyData resourceData = item.Data;
+                TrafficControllerFrontendData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -159,10 +123,10 @@ namespace Azure.ResourceManager.ServiceNetworking.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_GetSecurityPolicy()
+        public async Task Exists_GetFrontend()
         {
-            // Generated from example definition: 2025-03-01-preview/SecurityPolicyGet.json
-            // this example is just showing the usage of "SecurityPolicy_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2025-03-01-preview/FrontendGet.json
+            // this example is just showing the usage of "Frontend_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -177,22 +141,22 @@ namespace Azure.ResourceManager.ServiceNetworking.Samples
             ResourceIdentifier trafficControllerResourceId = TrafficControllerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, trafficControllerName);
             TrafficControllerResource trafficController = client.GetTrafficControllerResource(trafficControllerResourceId);
 
-            // get the collection of this ApplicationGatewayForContainersSecurityPolicyResource
-            ApplicationGatewayForContainersSecurityPolicyCollection collection = trafficController.GetApplicationGatewayForContainersSecurityPolicies();
+            // get the collection of this TrafficControllerFrontendResource
+            TrafficControllerFrontendCollection collection = trafficController.GetTrafficControllerFrontends();
 
             // invoke the operation
-            string securityPolicyName = "sp1";
-            bool result = await collection.ExistsAsync(securityPolicyName);
+            string frontendName = "fe1";
+            bool result = await collection.ExistsAsync(frontendName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_GetSecurityPolicy()
+        public async Task GetIfExists_GetFrontend()
         {
-            // Generated from example definition: 2025-03-01-preview/SecurityPolicyGet.json
-            // this example is just showing the usage of "SecurityPolicy_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2025-03-01-preview/FrontendGet.json
+            // this example is just showing the usage of "Frontend_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -207,13 +171,13 @@ namespace Azure.ResourceManager.ServiceNetworking.Samples
             ResourceIdentifier trafficControllerResourceId = TrafficControllerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, trafficControllerName);
             TrafficControllerResource trafficController = client.GetTrafficControllerResource(trafficControllerResourceId);
 
-            // get the collection of this ApplicationGatewayForContainersSecurityPolicyResource
-            ApplicationGatewayForContainersSecurityPolicyCollection collection = trafficController.GetApplicationGatewayForContainersSecurityPolicies();
+            // get the collection of this TrafficControllerFrontendResource
+            TrafficControllerFrontendCollection collection = trafficController.GetTrafficControllerFrontends();
 
             // invoke the operation
-            string securityPolicyName = "sp1";
-            NullableResponse<ApplicationGatewayForContainersSecurityPolicyResource> response = await collection.GetIfExistsAsync(securityPolicyName);
-            ApplicationGatewayForContainersSecurityPolicyResource result = response.HasValue ? response.Value : null;
+            string frontendName = "fe1";
+            NullableResponse<TrafficControllerFrontendResource> response = await collection.GetIfExistsAsync(frontendName);
+            TrafficControllerFrontendResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -223,7 +187,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                ApplicationGatewayForContainersSecurityPolicyData resourceData = result.Data;
+                TrafficControllerFrontendData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }

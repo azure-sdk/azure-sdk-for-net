@@ -14,11 +14,11 @@ using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.ServiceNetworking.Models
 {
-    public partial class AssociationPatch : IUtf8JsonSerializable, IJsonModel<AssociationPatch>
+    public partial class TrafficControllerAssociationPatch : IUtf8JsonSerializable, IJsonModel<TrafficControllerAssociationPatch>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AssociationPatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TrafficControllerAssociationPatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AssociationPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<TrafficControllerAssociationPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -29,10 +29,10 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerAssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AssociationPatch)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(TrafficControllerAssociationPatch)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsCollectionDefined(Tags))
@@ -76,19 +76,19 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
             }
         }
 
-        AssociationPatch IJsonModel<AssociationPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        TrafficControllerAssociationPatch IJsonModel<TrafficControllerAssociationPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerAssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AssociationPatch)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(TrafficControllerAssociationPatch)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAssociationPatch(document.RootElement, options);
+            return DeserializeTrafficControllerAssociationPatch(document.RootElement, options);
         }
 
-        internal static AssociationPatch DeserializeAssociationPatch(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static TrafficControllerAssociationPatch DeserializeTrafficControllerAssociationPatch(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 return null;
             }
             IDictionary<string, string> tags = default;
-            AssociationType? associationType = default;
+            TrafficControllerAssociationType? associationType = default;
             WritableSubResource subnet = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -132,7 +132,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                             {
                                 continue;
                             }
-                            associationType = new AssociationType(property0.Value.GetString());
+                            associationType = new TrafficControllerAssociationType(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("subnet"u8))
@@ -153,38 +153,38 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AssociationPatch(tags ?? new ChangeTrackingDictionary<string, string>(), associationType, subnet, serializedAdditionalRawData);
+            return new TrafficControllerAssociationPatch(tags ?? new ChangeTrackingDictionary<string, string>(), associationType, subnet, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AssociationPatch>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<TrafficControllerAssociationPatch>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerAssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AssociationPatch)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TrafficControllerAssociationPatch)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AssociationPatch IPersistableModel<AssociationPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
+        TrafficControllerAssociationPatch IPersistableModel<TrafficControllerAssociationPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerAssociationPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAssociationPatch(document.RootElement, options);
+                        return DeserializeTrafficControllerAssociationPatch(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AssociationPatch)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TrafficControllerAssociationPatch)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AssociationPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<TrafficControllerAssociationPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

@@ -8,17 +8,12 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
-using Azure.ResourceManager.ServiceNetworking.Models;
 
-namespace Azure.ResourceManager.ServiceNetworking
+namespace Azure.ResourceManager.ServiceNetworking.Models
 {
-    /// <summary>
-    /// A class representing the ApplicationGatewayForContainersSecurityPolicy data model.
-    /// SecurityPolicy Subresource of Traffic Controller.
-    /// </summary>
-    public partial class ApplicationGatewayForContainersSecurityPolicyData : TrackedResourceData
+    /// <summary> The updatable properties of the SecurityPolicy. </summary>
+    public partial class SecurityPolicyUpdateProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -52,40 +47,22 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ApplicationGatewayForContainersSecurityPolicyData"/>. </summary>
-        /// <param name="location"> The location. </param>
-        public ApplicationGatewayForContainersSecurityPolicyData(AzureLocation location) : base(location)
+        /// <summary> Initializes a new instance of <see cref="SecurityPolicyUpdateProperties"/>. </summary>
+        public SecurityPolicyUpdateProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ApplicationGatewayForContainersSecurityPolicyData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="policyType"> Type of the Traffic Controller Security Policy. </param>
+        /// <summary> Initializes a new instance of <see cref="SecurityPolicyUpdateProperties"/>. </summary>
         /// <param name="wafPolicy"> Web Application Firewall Policy of the Traffic Controller Security Policy. If this property is set then ipAccessRulesPolicy property cannot be set. </param>
         /// <param name="ipAccessRulesPolicy"> Ip Access Policy of the Traffic Controller Security Policy. If this property is set then wafPolicy property cannot be set. </param>
-        /// <param name="provisioningState"> Provisioning State of Traffic Controller SecurityPolicy Resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ApplicationGatewayForContainersSecurityPolicyData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ApplicationGatewayForContainersSecurityPolicyType? policyType, WritableSubResource wafPolicy, IPAccessRulesPolicy ipAccessRulesPolicy, ServiceNetworkingProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal SecurityPolicyUpdateProperties(WritableSubResource wafPolicy, IPAccessRulesPolicy ipAccessRulesPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            PolicyType = policyType;
             WafPolicy = wafPolicy;
             IPAccessRulesPolicy = ipAccessRulesPolicy;
-            ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ApplicationGatewayForContainersSecurityPolicyData"/> for deserialization. </summary>
-        internal ApplicationGatewayForContainersSecurityPolicyData()
-        {
-        }
-
-        /// <summary> Type of the Traffic Controller Security Policy. </summary>
-        public ApplicationGatewayForContainersSecurityPolicyType? PolicyType { get; }
         /// <summary> Web Application Firewall Policy of the Traffic Controller Security Policy. If this property is set then ipAccessRulesPolicy property cannot be set. </summary>
         internal WritableSubResource WafPolicy { get; set; }
         /// <summary> Gets or sets Id. </summary>
@@ -112,8 +89,5 @@ namespace Azure.ResourceManager.ServiceNetworking
                 return IPAccessRulesPolicy.Rules;
             }
         }
-
-        /// <summary> Provisioning State of Traffic Controller SecurityPolicy Resource. </summary>
-        public ServiceNetworkingProvisioningState? ProvisioningState { get; }
     }
 }

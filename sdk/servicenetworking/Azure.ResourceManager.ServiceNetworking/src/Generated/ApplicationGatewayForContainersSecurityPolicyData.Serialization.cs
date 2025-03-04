@@ -50,6 +50,11 @@ namespace Azure.ResourceManager.ServiceNetworking
                 writer.WritePropertyName("wafPolicy"u8);
                 JsonSerializer.Serialize(writer, WafPolicy);
             }
+            if (Optional.IsDefined(IPAccessRulesPolicy))
+            {
+                writer.WritePropertyName("ipAccessRulesPolicy"u8);
+                writer.WriteObjectValue(IPAccessRulesPolicy, options);
+            }
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
@@ -84,9 +89,10 @@ namespace Azure.ResourceManager.ServiceNetworking
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            Models.PolicyType? policyType = default;
+            ApplicationGatewayForContainersSecurityPolicyType? policyType = default;
             WritableSubResource wafPolicy = default;
-            ProvisioningState? provisioningState = default;
+            IPAccessRulesPolicy ipAccessRulesPolicy = default;
+            ServiceNetworkingProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -149,7 +155,7 @@ namespace Azure.ResourceManager.ServiceNetworking
                             {
                                 continue;
                             }
-                            policyType = new Models.PolicyType(property0.Value.GetString());
+                            policyType = new ApplicationGatewayForContainersSecurityPolicyType(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("wafPolicy"u8))
@@ -161,13 +167,22 @@ namespace Azure.ResourceManager.ServiceNetworking
                             wafPolicy = JsonSerializer.Deserialize<WritableSubResource>(property0.Value.GetRawText());
                             continue;
                         }
+                        if (property0.NameEquals("ipAccessRulesPolicy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            ipAccessRulesPolicy = IPAccessRulesPolicy.DeserializeIPAccessRulesPolicy(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("provisioningState"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            provisioningState = new ProvisioningState(property0.Value.GetString());
+                            provisioningState = new ServiceNetworkingProvisioningState(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -188,6 +203,7 @@ namespace Azure.ResourceManager.ServiceNetworking
                 location,
                 policyType,
                 wafPolicy,
+                ipAccessRulesPolicy,
                 provisioningState,
                 serializedAdditionalRawData);
         }

@@ -7,13 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.ServiceNetworking.Models
 {
-    /// <summary> SecurityPolicyConfigurations Subresource of Traffic Controller. </summary>
-    internal partial class SecurityPolicyConfigurationsUpdate
+    /// <summary> Ip Access Policy. </summary>
+    internal partial class IPAccessRulesPolicy
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,32 +45,22 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SecurityPolicyConfigurationsUpdate"/>. </summary>
-        public SecurityPolicyConfigurationsUpdate()
+        /// <summary> Initializes a new instance of <see cref="IPAccessRulesPolicy"/>. </summary>
+        public IPAccessRulesPolicy()
         {
+            Rules = new ChangeTrackingList<IPAccessRule>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SecurityPolicyConfigurationsUpdate"/>. </summary>
-        /// <param name="wafSecurityPolicy"> Contains reference to a WAF-type security policy that is applied at the Traffic Controller level. </param>
+        /// <summary> Initializes a new instance of <see cref="IPAccessRulesPolicy"/>. </summary>
+        /// <param name="rules"> Ip Access Policy Rules List. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SecurityPolicyConfigurationsUpdate(WritableSubResource wafSecurityPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IPAccessRulesPolicy(IList<IPAccessRule> rules, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            WafSecurityPolicy = wafSecurityPolicy;
+            Rules = rules;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Contains reference to a WAF-type security policy that is applied at the Traffic Controller level. </summary>
-        internal WritableSubResource WafSecurityPolicy { get; set; }
-        /// <summary> Gets or sets Id. </summary>
-        public ResourceIdentifier WafSecurityPolicyId
-        {
-            get => WafSecurityPolicy is null ? default : WafSecurityPolicy.Id;
-            set
-            {
-                if (WafSecurityPolicy is null)
-                    WafSecurityPolicy = new WritableSubResource();
-                WafSecurityPolicy.Id = value;
-            }
-        }
+        /// <summary> Ip Access Policy Rules List. </summary>
+        public IList<IPAccessRule> Rules { get; }
     }
 }

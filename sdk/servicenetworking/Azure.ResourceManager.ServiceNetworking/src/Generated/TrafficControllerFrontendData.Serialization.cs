@@ -15,11 +15,11 @@ using Azure.ResourceManager.ServiceNetworking.Models;
 
 namespace Azure.ResourceManager.ServiceNetworking
 {
-    public partial class FrontendData : IUtf8JsonSerializable, IJsonModel<FrontendData>
+    public partial class TrafficControllerFrontendData : IUtf8JsonSerializable, IJsonModel<TrafficControllerFrontendData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<FrontendData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TrafficControllerFrontendData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<FrontendData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<TrafficControllerFrontendData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -30,10 +30,10 @@ namespace Azure.ResourceManager.ServiceNetworking
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<FrontendData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerFrontendData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(FrontendData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(TrafficControllerFrontendData)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
@@ -44,6 +44,11 @@ namespace Azure.ResourceManager.ServiceNetworking
                 writer.WritePropertyName("fqdn"u8);
                 writer.WriteStringValue(Fqdn);
             }
+            if (Optional.IsDefined(SecurityPolicyConfigurations))
+            {
+                writer.WritePropertyName("securityPolicyConfigurations"u8);
+                writer.WriteObjectValue(SecurityPolicyConfigurations, options);
+            }
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
@@ -52,19 +57,19 @@ namespace Azure.ResourceManager.ServiceNetworking
             writer.WriteEndObject();
         }
 
-        FrontendData IJsonModel<FrontendData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        TrafficControllerFrontendData IJsonModel<TrafficControllerFrontendData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<FrontendData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerFrontendData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(FrontendData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(TrafficControllerFrontendData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeFrontendData(document.RootElement, options);
+            return DeserializeTrafficControllerFrontendData(document.RootElement, options);
         }
 
-        internal static FrontendData DeserializeFrontendData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static TrafficControllerFrontendData DeserializeTrafficControllerFrontendData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -79,7 +84,8 @@ namespace Azure.ResourceManager.ServiceNetworking
             ResourceType type = default;
             SystemData systemData = default;
             string fqdn = default;
-            ProvisioningState? provisioningState = default;
+            SecurityPolicyConfigurations securityPolicyConfigurations = default;
+            ServiceNetworkingProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -141,13 +147,22 @@ namespace Azure.ResourceManager.ServiceNetworking
                             fqdn = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("securityPolicyConfigurations"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            securityPolicyConfigurations = SecurityPolicyConfigurations.DeserializeSecurityPolicyConfigurations(property0.Value, options);
+                            continue;
+                        }
                         if (property0.NameEquals("provisioningState"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            provisioningState = new ProvisioningState(property0.Value.GetString());
+                            provisioningState = new ServiceNetworkingProvisioningState(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -159,7 +174,7 @@ namespace Azure.ResourceManager.ServiceNetworking
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new FrontendData(
+            return new TrafficControllerFrontendData(
                 id,
                 name,
                 type,
@@ -167,39 +182,40 @@ namespace Azure.ResourceManager.ServiceNetworking
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
                 fqdn,
+                securityPolicyConfigurations,
                 provisioningState,
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<FrontendData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<TrafficControllerFrontendData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<FrontendData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerFrontendData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(FrontendData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TrafficControllerFrontendData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        FrontendData IPersistableModel<FrontendData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        TrafficControllerFrontendData IPersistableModel<TrafficControllerFrontendData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<FrontendData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrafficControllerFrontendData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeFrontendData(document.RootElement, options);
+                        return DeserializeTrafficControllerFrontendData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(FrontendData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TrafficControllerFrontendData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<FrontendData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<TrafficControllerFrontendData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
