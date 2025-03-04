@@ -19,7 +19,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
     /// be located in a particular fault domain, which in geo-distributed scenarios usually aligns with regional
     /// or datacenter boundaries. Note that since this is an optimization it is possible that the Primary replica
     /// may not end up located in this domain due to failures, capacity limits, or other constraints.
-    ///
     /// </summary>
     public partial class ServicePlacementPreferPrimaryDomainPolicy : ManagedServicePlacementPolicy
     {
