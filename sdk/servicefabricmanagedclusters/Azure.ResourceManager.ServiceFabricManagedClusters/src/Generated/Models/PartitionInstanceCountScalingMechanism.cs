@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="PartitionInstanceCountScalingMechanism"/>. </summary>
-        /// <param name="kind"> Specifies the mechanism associated with this scaling policy. </param>
+        /// <param name="kind"> Enumerates the ways that a service can be partitioned. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="minInstanceCount"> Minimum number of instances of the partition. </param>
         /// <param name="maxInstanceCount"> Maximum number of instances of the partition. </param>

@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ManagedServicePartitionScheme"/>. </summary>
-        /// <param name="partitionScheme"> Specifies how the service is partitioned. </param>
+        /// <param name="partitionScheme"> Enumerates the ways that a service can be partitioned. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal ManagedServicePartitionScheme(PartitionScheme partitionScheme, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Specifies how the service is partitioned. </summary>
+        /// <summary> Enumerates the ways that a service can be partitioned. </summary>
         internal PartitionScheme PartitionScheme { get; set; }
     }
 }
