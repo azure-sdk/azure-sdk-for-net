@@ -100,6 +100,11 @@ namespace Azure.ResourceManager.Marketplace.Models
                 }
                 writer.WriteEndObject();
             }
+            if (options.Format != "W" && Optional.IsDefined(IsStopSell))
+            {
+                writer.WritePropertyName("isStopSell"u8);
+                writer.WriteBooleanValue(IsStopSell.Value);
+            }
             if (Optional.IsCollectionDefined(Plans))
             {
                 writer.WritePropertyName("plans"u8);
@@ -157,6 +162,7 @@ namespace Azure.ResourceManager.Marketplace.Models
             IReadOnlyList<string> specificPlanIdsLimitation = default;
             bool? updateSuppressedDueIdempotence = default;
             IReadOnlyDictionary<string, Uri> iconFileUris = default;
+            bool? isStopSell = default;
             IReadOnlyList<PrivateStorePlan> plans = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -257,6 +263,15 @@ namespace Azure.ResourceManager.Marketplace.Models
                     iconFileUris = dictionary;
                     continue;
                 }
+                if (property.NameEquals("isStopSell"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    isStopSell = property.Value.GetBoolean();
+                    continue;
+                }
                 if (property.NameEquals("plans"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -288,6 +303,7 @@ namespace Azure.ResourceManager.Marketplace.Models
                 specificPlanIdsLimitation ?? new ChangeTrackingList<string>(),
                 updateSuppressedDueIdempotence,
                 iconFileUris ?? new ChangeTrackingDictionary<string, Uri>(),
+                isStopSell,
                 plans ?? new ChangeTrackingList<PrivateStorePlan>(),
                 serializedAdditionalRawData);
         }
