@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
 {
@@ -71,7 +72,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
         /// <param name="replica"> Replica properties of a server. These Replica properties are required to be passed only in case you want to Promote a server. </param>
         /// <param name="network"> Network properties of a server. These are required to be passed only in case if server is a private access server. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PostgreSqlFlexibleServerPatch(PostgreSqlFlexibleServerSku sku, PostgreSqlFlexibleServerUserAssignedIdentity identity, IDictionary<string, string> tags, AzureLocation? location, string administratorLogin, string administratorLoginPassword, PostgreSqlFlexibleServerVersion? version, PostgreSqlFlexibleServerStorage storage, PostgreSqlFlexibleServerBackupProperties backup, PostgreSqlFlexibleServerHighAvailability highAvailability, PostgreSqlFlexibleServerMaintenanceWindow maintenanceWindow, PostgreSqlFlexibleServerAuthConfig authConfig, PostgreSqlFlexibleServerDataEncryption dataEncryption, PostgreSqlFlexibleServerCreateModeForUpdate? createMode, PostgreSqlFlexibleServerReplicationRole? replicationRole, PostgreSqlFlexibleServersReplica replica, PostgreSqlFlexibleServerNetwork network, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PostgreSqlFlexibleServerPatch(PostgreSqlFlexibleServerSku sku, ManagedServiceIdentity identity, IDictionary<string, string> tags, AzureLocation? location, string administratorLogin, string administratorLoginPassword, PostgreSqlFlexibleServerVersion? version, PostgreSqlFlexibleServerStorage storage, PostgreSqlFlexibleServerBackupProperties backup, PostgreSqlFlexibleServerHighAvailability highAvailability, PostgreSqlFlexibleServerMaintenanceWindow maintenanceWindow, PostgreSqlFlexibleServerAuthConfig authConfig, PostgreSqlFlexibleServerDataEncryption dataEncryption, PostgreSqlFlexibleServerCreateModeForUpdate? createMode, PostgreSqlFlexibleServerReplicationRole? replicationRole, PostgreSqlFlexibleServersReplica replica, PostgreSqlFlexibleServerNetwork network, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Sku = sku;
             Identity = identity;
@@ -98,7 +99,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
         public PostgreSqlFlexibleServerSku Sku { get; set; }
         /// <summary> Describes the identity of the application. </summary>
         [WirePath("identity")]
-        public PostgreSqlFlexibleServerUserAssignedIdentity Identity { get; set; }
+        public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Application-specific metadata in the form of key-value pairs. </summary>
         [WirePath("tags")]
         public IDictionary<string, string> Tags { get; }
