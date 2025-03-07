@@ -59,6 +59,18 @@ namespace Azure.ResourceManager.CognitiveServices.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="AccountProjectResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AccountProjectResource.CreateResourceIdentifier" /> to create an <see cref="AccountProjectResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AccountProjectResource"/> object. </returns>
+        public virtual AccountProjectResource GetAccountProjectResource(ResourceIdentifier id)
+        {
+            AccountProjectResource.ValidateResourceId(id);
+            return new AccountProjectResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="CognitiveServicesPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="CognitiveServicesPrivateEndpointConnectionResource.CreateResourceIdentifier" /> to create a <see cref="CognitiveServicesPrivateEndpointConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -200,6 +212,54 @@ namespace Azure.ResourceManager.CognitiveServices.Mocking
         {
             DefenderForAISettingResource.ValidateResourceId(id);
             return new DefenderForAISettingResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AccountConnectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AccountConnectionResource.CreateResourceIdentifier" /> to create an <see cref="AccountConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AccountConnectionResource"/> object. </returns>
+        public virtual AccountConnectionResource GetAccountConnectionResource(ResourceIdentifier id)
+        {
+            AccountConnectionResource.ValidateResourceId(id);
+            return new AccountConnectionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AccountProjectConnectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AccountProjectConnectionResource.CreateResourceIdentifier" /> to create an <see cref="AccountProjectConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AccountProjectConnectionResource"/> object. </returns>
+        public virtual AccountProjectConnectionResource GetAccountProjectConnectionResource(ResourceIdentifier id)
+        {
+            AccountProjectConnectionResource.ValidateResourceId(id);
+            return new AccountProjectConnectionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AccountCapabilityHostResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AccountCapabilityHostResource.CreateResourceIdentifier" /> to create an <see cref="AccountCapabilityHostResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AccountCapabilityHostResource"/> object. </returns>
+        public virtual AccountCapabilityHostResource GetAccountCapabilityHostResource(ResourceIdentifier id)
+        {
+            AccountCapabilityHostResource.ValidateResourceId(id);
+            return new AccountCapabilityHostResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="AccountProjectCapabilityHostResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AccountProjectCapabilityHostResource.CreateResourceIdentifier" /> to create an <see cref="AccountProjectCapabilityHostResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AccountProjectCapabilityHostResource"/> object. </returns>
+        public virtual AccountProjectCapabilityHostResource GetAccountProjectCapabilityHostResource(ResourceIdentifier id)
+        {
+            AccountProjectCapabilityHostResource.ValidateResourceId(id);
+            return new AccountProjectCapabilityHostResource(Client, id);
         }
     }
 }

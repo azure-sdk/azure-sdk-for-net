@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         /// <param name="networkAcls"> A collection of rules governing the accessibility from specific network locations. </param>
         /// <param name="encryption"> The encryption properties for this resource. </param>
         /// <param name="userOwnedStorage"> The storage accounts for this resource. </param>
-        /// <param name="amlWorkspace"> The user owned AML workspace properties. </param>
+        /// <param name="amlWorkspace"> The user owned AML account properties. </param>
         /// <param name="privateEndpointConnections"> The private endpoint connection associated with the Cognitive Services account. </param>
         /// <param name="publicNetworkAccess"> Whether or not public endpoint access is allowed for this account. </param>
         /// <param name="apiProperties"> The api properties for special APIs. </param>
@@ -821,7 +821,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.RaiPolicyProperties"/>. </summary>
         /// <param name="policyType"> Content Filters policy type. </param>
-        /// <param name="mode"> Rai policy mode. The enum value mapping is as below: Default = 0, Deferred=1, Blocking=2, Asynchronous_filter =3. Please use 'Asynchronous_filter' after 2024-10-01. It is the same as 'Deferred' in previous version. </param>
+        /// <param name="mode"> Rai policy mode. The enum value mapping is as below: Default = 0, Deferred=1, Blocking=2, Asynchronous_filter =3. Please use 'Asynchronous_filter' after 2025-04-01-preview. It is the same as 'Deferred' in previous version. </param>
         /// <param name="basePolicyName"> Name of Rai policy. </param>
         /// <param name="contentFilters"> The list of Content Filters. </param>
         /// <param name="customBlocklists"> The list of custom Blocklist. </param>
@@ -989,6 +989,571 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 etag,
                 tags,
                 state,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CognitiveServices.ConnectionPropertiesV2BasicResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties">
+        /// Connection property base schema.
+        /// Please note <see cref="Models.ConnectionPropertiesV2"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="Models.AADAuthTypeConnectionProperties"/>, <see cref="Models.AccessKeyAuthTypeConnectionProperties"/>, <see cref="Models.AccountKeyAuthTypeConnectionProperties"/>, <see cref="Models.ApiKeyAuthConnectionProperties"/>, <see cref="Models.CustomKeysConnectionProperties"/>, <see cref="Models.ManagedIdentityAuthTypeConnectionProperties"/>, <see cref="Models.NoneAuthTypeConnectionProperties"/>, <see cref="Models.OAuth2AuthTypeConnectionProperties"/>, <see cref="Models.PATAuthTypeConnectionProperties"/>, <see cref="Models.SASAuthTypeConnectionProperties"/>, <see cref="Models.ServicePrincipalAuthTypeConnectionProperties"/> and <see cref="Models.UsernamePasswordAuthTypeConnectionProperties"/>.
+        /// </param>
+        /// <returns> A new <see cref="CognitiveServices.ConnectionPropertiesV2BasicResourceData"/> instance for mocking. </returns>
+        public static ConnectionPropertiesV2BasicResourceData ConnectionPropertiesV2BasicResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ConnectionPropertiesV2 properties = null)
+        {
+            return new ConnectionPropertiesV2BasicResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ConnectionPropertiesV2"/>. </summary>
+        /// <param name="authType"> Authentication type of the connection target. </param>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <returns> A new <see cref="Models.ConnectionPropertiesV2"/> instance for mocking. </returns>
+        public static ConnectionPropertiesV2 ConnectionPropertiesV2(string authType = null, ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new UnknownConnectionPropertiesV2(
+                authType == null ? default : new ConnectionAuthType(authType),
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CognitiveServices.CapabilityHostData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> [Required] Additional attributes of the entity. </param>
+        /// <returns> A new <see cref="CognitiveServices.CapabilityHostData"/> instance for mocking. </returns>
+        public static CapabilityHostData CapabilityHostData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CapabilityHostProperties properties = null)
+        {
+            return new CapabilityHostData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CapabilityHostProperties"/>. </summary>
+        /// <param name="description"> The asset description text. </param>
+        /// <param name="tags"> Tag dictionary. Tags can be added, removed, and updated. </param>
+        /// <param name="aiServicesConnections"> List of AI services connections. </param>
+        /// <param name="capabilityHostKind"> Kind of this capability host. </param>
+        /// <param name="customerSubnet"> Customer subnet info to help set up this capability host. </param>
+        /// <param name="provisioningState"> Provisioning state for the CapabilityHost. </param>
+        /// <param name="storageConnections"> List of Storage connections. </param>
+        /// <param name="threadStorageConnections"> List of Thread storage connections. </param>
+        /// <param name="vectorStoreConnections"> List of VectorStore connections. </param>
+        /// <returns> A new <see cref="Models.CapabilityHostProperties"/> instance for mocking. </returns>
+        public static CapabilityHostProperties CapabilityHostProperties(string description = null, IDictionary<string, string> tags = null, IEnumerable<string> aiServicesConnections = null, CapabilityHostKind? capabilityHostKind = null, string customerSubnet = null, CapabilityHostProvisioningState? provisioningState = null, IEnumerable<string> storageConnections = null, IEnumerable<string> threadStorageConnections = null, IEnumerable<string> vectorStoreConnections = null)
+        {
+            tags ??= new Dictionary<string, string>();
+            aiServicesConnections ??= new List<string>();
+            storageConnections ??= new List<string>();
+            threadStorageConnections ??= new List<string>();
+            vectorStoreConnections ??= new List<string>();
+
+            return new CapabilityHostProperties(
+                description,
+                tags,
+                serializedAdditionalRawData: null,
+                aiServicesConnections?.ToList(),
+                capabilityHostKind,
+                customerSubnet,
+                provisioningState,
+                storageConnections?.ToList(),
+                threadStorageConnections?.ToList(),
+                vectorStoreConnections?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.PATAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentialsPat"></param>
+        /// <returns> A new <see cref="Models.PATAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static PATAuthTypeConnectionProperties PATAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, string credentialsPat = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new PATAuthTypeConnectionProperties(
+                ConnectionAuthType.PAT,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentialsPat != null ? new ConnectionPersonalAccessToken(credentialsPat, serializedAdditionalRawData: null) : null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ManagedIdentityAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentials"></param>
+        /// <returns> A new <see cref="Models.ManagedIdentityAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static ManagedIdentityAuthTypeConnectionProperties ManagedIdentityAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, ConnectionManagedIdentity credentials = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new ManagedIdentityAuthTypeConnectionProperties(
+                ConnectionAuthType.ManagedIdentity,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentials);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UsernamePasswordAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentials"></param>
+        /// <returns> A new <see cref="Models.UsernamePasswordAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static UsernamePasswordAuthTypeConnectionProperties UsernamePasswordAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, ConnectionUsernamePassword credentials = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new UsernamePasswordAuthTypeConnectionProperties(
+                ConnectionAuthType.UsernamePassword,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentials);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.NoneAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <returns> A new <see cref="Models.NoneAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static NoneAuthTypeConnectionProperties NoneAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new NoneAuthTypeConnectionProperties(
+                ConnectionAuthType.None,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SASAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentialsSas"></param>
+        /// <returns> A new <see cref="Models.SASAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static SASAuthTypeConnectionProperties SASAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, string credentialsSas = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new SASAuthTypeConnectionProperties(
+                ConnectionAuthType.SAS,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentialsSas != null ? new ConnectionSharedAccessSignature(credentialsSas, serializedAdditionalRawData: null) : null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AccountKeyAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentialsKey"> Account key object for connection credential. </param>
+        /// <returns> A new <see cref="Models.AccountKeyAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static AccountKeyAuthTypeConnectionProperties AccountKeyAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, string credentialsKey = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new AccountKeyAuthTypeConnectionProperties(
+                ConnectionAuthType.AccountKey,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentialsKey != null ? new ConnectionAccountKey(credentialsKey, serializedAdditionalRawData: null) : null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ServicePrincipalAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentials"></param>
+        /// <returns> A new <see cref="Models.ServicePrincipalAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static ServicePrincipalAuthTypeConnectionProperties ServicePrincipalAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, ConnectionServicePrincipal credentials = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new ServicePrincipalAuthTypeConnectionProperties(
+                ConnectionAuthType.ServicePrincipal,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentials);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AccessKeyAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentials"></param>
+        /// <returns> A new <see cref="Models.AccessKeyAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static AccessKeyAuthTypeConnectionProperties AccessKeyAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, ConnectionAccessKey credentials = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new AccessKeyAuthTypeConnectionProperties(
+                ConnectionAuthType.AccessKey,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentials);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ApiKeyAuthConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentialsKey"> Api key object for connection credential. </param>
+        /// <returns> A new <see cref="Models.ApiKeyAuthConnectionProperties"/> instance for mocking. </returns>
+        public static ApiKeyAuthConnectionProperties ApiKeyAuthConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, string credentialsKey = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new ApiKeyAuthConnectionProperties(
+                ConnectionAuthType.ApiKey,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentialsKey != null ? new ConnectionApiKey(credentialsKey, serializedAdditionalRawData: null) : null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CustomKeysConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentialsKeys"> Custom Keys credential object. </param>
+        /// <returns> A new <see cref="Models.CustomKeysConnectionProperties"/> instance for mocking. </returns>
+        public static CustomKeysConnectionProperties CustomKeysConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, IDictionary<string, string> credentialsKeys = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+            credentialsKeys ??= new Dictionary<string, string>();
+
+            return new CustomKeysConnectionProperties(
+                ConnectionAuthType.CustomKeys,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentialsKeys != null ? new CustomKeys(credentialsKeys, serializedAdditionalRawData: null) : null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.OAuth2AuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <param name="credentials">
+        /// ClientId and ClientSecret are required. Other properties are optional
+        /// depending on each OAuth2 provider's implementation.
+        /// </param>
+        /// <returns> A new <see cref="Models.OAuth2AuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static OAuth2AuthTypeConnectionProperties OAuth2AuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null, ConnectionOAuth2 credentials = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new OAuth2AuthTypeConnectionProperties(
+                ConnectionAuthType.OAuth2,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
+                serializedAdditionalRawData: null,
+                credentials);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AADAuthTypeConnectionProperties"/>. </summary>
+        /// <param name="category"> Category of the connection. </param>
+        /// <param name="createdByWorkspaceArmId"></param>
+        /// <param name="error"></param>
+        /// <param name="expiryOn"></param>
+        /// <param name="group"> Group based on connection category. </param>
+        /// <param name="isSharedToAll"></param>
+        /// <param name="metadata"> Store user metadata for this connection. </param>
+        /// <param name="peRequirement"></param>
+        /// <param name="peStatus"></param>
+        /// <param name="sharedUserList"></param>
+        /// <param name="target"></param>
+        /// <param name="useWorkspaceManagedIdentity"></param>
+        /// <returns> A new <see cref="Models.AADAuthTypeConnectionProperties"/> instance for mocking. </returns>
+        public static AADAuthTypeConnectionProperties AADAuthTypeConnectionProperties(ConnectionCategory? category = null, ResourceIdentifier createdByWorkspaceArmId = null, string error = null, DateTimeOffset? expiryOn = null, ConnectionGroup? group = null, bool? isSharedToAll = null, IDictionary<string, string> metadata = null, ManagedPERequirement? peRequirement = null, ManagedPEStatus? peStatus = null, IEnumerable<string> sharedUserList = null, string target = null, bool? useWorkspaceManagedIdentity = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+            sharedUserList ??= new List<string>();
+
+            return new AADAuthTypeConnectionProperties(
+                ConnectionAuthType.AAD,
+                category,
+                createdByWorkspaceArmId,
+                error,
+                expiryOn,
+                group,
+                isSharedToAll,
+                metadata,
+                peRequirement,
+                peStatus,
+                sharedUserList?.ToList(),
+                target,
+                useWorkspaceManagedIdentity,
                 serializedAdditionalRawData: null);
         }
 
