@@ -33,11 +33,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-09-01-preview";
+            _apiVersion = apiVersion ?? "2024-11-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, AzureLocation location, string clusterVersion)
+        internal RequestUriBuilder CreateListByEnvironmentRequestUri(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -45,13 +45,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/providers/Microsoft.ServiceFabric/locations/", false);
             uri.AppendPath(location, true);
-            uri.AppendPath("/managedClusterVersions/", false);
-            uri.AppendPath(clusterVersion, true);
+            uri.AppendPath("/environments/", false);
+            uri.AppendPath(environment.ToString(), true);
+            uri.AppendPath("/managedClusterVersions", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, AzureLocation location, string clusterVersion)
+        internal HttpMessage CreateListByEnvironmentRequest(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -62,8 +63,9 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/providers/Microsoft.ServiceFabric/locations/", false);
             uri.AppendPath(location, true);
-            uri.AppendPath("/managedClusterVersions/", false);
-            uri.AppendPath(clusterVersion, true);
+            uri.AppendPath("/environments/", false);
+            uri.AppendPath(environment.ToString(), true);
+            uri.AppendPath("/managedClusterVersions", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -71,27 +73,31 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             return message;
         }
 
-        /// <summary> Gets information about an available Service Fabric managed cluster code version. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <summary> Gets all available code versions for Service Fabric cluster resources by environment. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
-        /// <param name="clusterVersion"> The cluster code version. </param>
+        /// <param name="environment"> The operating system of the cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ServiceFabricManagedClusterVersion>> GetAsync(string subscriptionId, AzureLocation location, string clusterVersion, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<IReadOnlyList<ServiceFabricManagedClusterVersion>>> ListByEnvironmentAsync(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(clusterVersion, nameof(clusterVersion));
 
-            using var message = CreateGetRequest(subscriptionId, location, clusterVersion);
+            using var message = CreateListByEnvironmentRequest(subscriptionId, location, environment);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        ServiceFabricManagedClusterVersion value = default;
+                        IReadOnlyList<ServiceFabricManagedClusterVersion> value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(document.RootElement);
+                        List<ServiceFabricManagedClusterVersion> array = new List<ServiceFabricManagedClusterVersion>();
+                        foreach (var item in document.RootElement.EnumerateArray())
+                        {
+                            array.Add(ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(item));
+                        }
+                        value = array;
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -99,27 +105,31 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             }
         }
 
-        /// <summary> Gets information about an available Service Fabric managed cluster code version. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <summary> Gets all available code versions for Service Fabric cluster resources by environment. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
-        /// <param name="clusterVersion"> The cluster code version. </param>
+        /// <param name="environment"> The operating system of the cluster. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ServiceFabricManagedClusterVersion> Get(string subscriptionId, AzureLocation location, string clusterVersion, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<IReadOnlyList<ServiceFabricManagedClusterVersion>> ListByEnvironment(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(clusterVersion, nameof(clusterVersion));
 
-            using var message = CreateGetRequest(subscriptionId, location, clusterVersion);
+            using var message = CreateListByEnvironmentRequest(subscriptionId, location, environment);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        ServiceFabricManagedClusterVersion value = default;
+                        IReadOnlyList<ServiceFabricManagedClusterVersion> value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(document.RootElement);
+                        List<ServiceFabricManagedClusterVersion> array = new List<ServiceFabricManagedClusterVersion>();
+                        foreach (var item in document.RootElement.EnumerateArray())
+                        {
+                            array.Add(ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(item));
+                        }
+                        value = array;
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -166,9 +176,9 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary> Gets information about an available Service Fabric cluster code version by environment. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
-        /// <param name="environment"> The operating system of the cluster. The default means all. </param>
+        /// <param name="environment"> The operating system of the cluster. </param>
         /// <param name="clusterVersion"> The cluster code version. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is null. </exception>
@@ -195,9 +205,9 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary> Gets information about an available Service Fabric cluster code version by environment. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
-        /// <param name="environment"> The operating system of the cluster. The default means all. </param>
+        /// <param name="environment"> The operating system of the cluster. </param>
         /// <param name="clusterVersion"> The cluster code version. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is null. </exception>
@@ -256,7 +266,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary> Gets all available code versions for Service Fabric cluster resources by location. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -287,7 +297,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary> Gets all available code versions for Service Fabric cluster resources by location. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -317,7 +327,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             }
         }
 
-        internal RequestUriBuilder CreateListByEnvironmentRequestUri(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment)
+        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, AzureLocation location, string clusterVersion)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -325,14 +335,13 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/providers/Microsoft.ServiceFabric/locations/", false);
             uri.AppendPath(location, true);
-            uri.AppendPath("/environments/", false);
-            uri.AppendPath(environment.ToString(), true);
-            uri.AppendPath("/managedClusterVersions", false);
+            uri.AppendPath("/managedClusterVersions/", false);
+            uri.AppendPath(clusterVersion, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateListByEnvironmentRequest(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment)
+        internal HttpMessage CreateGetRequest(string subscriptionId, AzureLocation location, string clusterVersion)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -343,9 +352,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/providers/Microsoft.ServiceFabric/locations/", false);
             uri.AppendPath(location, true);
-            uri.AppendPath("/environments/", false);
-            uri.AppendPath(environment.ToString(), true);
-            uri.AppendPath("/managedClusterVersions", false);
+            uri.AppendPath("/managedClusterVersions/", false);
+            uri.AppendPath(clusterVersion, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -353,31 +361,27 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             return message;
         }
 
-        /// <summary> Gets all available code versions for Service Fabric cluster resources by environment. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <summary> Gets information about an available Service Fabric managed cluster code version. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
-        /// <param name="environment"> The operating system of the cluster. The default means all. </param>
+        /// <param name="clusterVersion"> The cluster code version. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IReadOnlyList<ServiceFabricManagedClusterVersion>>> ListByEnvironmentAsync(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ServiceFabricManagedClusterVersion>> GetAsync(string subscriptionId, AzureLocation location, string clusterVersion, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(clusterVersion, nameof(clusterVersion));
 
-            using var message = CreateListByEnvironmentRequest(subscriptionId, location, environment);
+            using var message = CreateGetRequest(subscriptionId, location, clusterVersion);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        IReadOnlyList<ServiceFabricManagedClusterVersion> value = default;
+                        ServiceFabricManagedClusterVersion value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        List<ServiceFabricManagedClusterVersion> array = new List<ServiceFabricManagedClusterVersion>();
-                        foreach (var item in document.RootElement.EnumerateArray())
-                        {
-                            array.Add(ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(item));
-                        }
-                        value = array;
+                        value = ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -385,31 +389,27 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             }
         }
 
-        /// <summary> Gets all available code versions for Service Fabric cluster resources by environment. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
+        /// <summary> Gets information about an available Service Fabric managed cluster code version. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> The location for the cluster code versions. This is different from cluster location. </param>
-        /// <param name="environment"> The operating system of the cluster. The default means all. </param>
+        /// <param name="clusterVersion"> The cluster code version. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IReadOnlyList<ServiceFabricManagedClusterVersion>> ListByEnvironment(string subscriptionId, AzureLocation location, ManagedClusterVersionEnvironment environment, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="clusterVersion"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ServiceFabricManagedClusterVersion> Get(string subscriptionId, AzureLocation location, string clusterVersion, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(clusterVersion, nameof(clusterVersion));
 
-            using var message = CreateListByEnvironmentRequest(subscriptionId, location, environment);
+            using var message = CreateGetRequest(subscriptionId, location, clusterVersion);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        IReadOnlyList<ServiceFabricManagedClusterVersion> value = default;
+                        ServiceFabricManagedClusterVersion value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        List<ServiceFabricManagedClusterVersion> array = new List<ServiceFabricManagedClusterVersion>();
-                        foreach (var item in document.RootElement.EnumerateArray())
-                        {
-                            array.Add(ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(item));
-                        }
-                        value = array;
+                        value = ServiceFabricManagedClusterVersion.DeserializeServiceFabricManagedClusterVersion(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

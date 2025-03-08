@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
     internal partial class UnknownPartition : ManagedServicePartitionScheme
     {
         /// <summary> Initializes a new instance of <see cref="UnknownPartition"/>. </summary>
-        /// <param name="partitionScheme"> Specifies how the service is partitioned. </param>
+        /// <param name="partitionScheme"> Enumerates the ways that a service can be partitioned. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal UnknownPartition(PartitionScheme partitionScheme, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(partitionScheme, serializedAdditionalRawData)
         {
