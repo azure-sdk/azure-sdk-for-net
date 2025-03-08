@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             IList<WritableSubResource> loadBalancerInboundNatPools = default;
             WritableSubResource subnet = default;
             ServiceFabricManagedClusterPrivateIPAddressVersion? privateIPAddressVersion = default;
-            ServiceFabricManagedClusterPublicIPAddressConfiguration publicIPAddressConfiguration = default;
+            PublicIPAddressConfiguration publicIPAddressConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -201,7 +201,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                     {
                         continue;
                     }
-                    publicIPAddressConfiguration = ServiceFabricManagedClusterPublicIPAddressConfiguration.DeserializeServiceFabricManagedClusterPublicIPAddressConfiguration(property.Value, options);
+                    publicIPAddressConfiguration = PublicIPAddressConfiguration.DeserializePublicIPAddressConfiguration(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

@@ -10,10 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 {
-    /// <summary>
-    /// The IP address type.
-    ///
-    /// </summary>
+    /// <summary> The IP address type of this frontend configuration. If omitted the default value is IPv4. </summary>
     public readonly partial struct NodeTypeFrontendConfigurationIPAddressType : IEquatable<NodeTypeFrontendConfigurationIPAddressType>
     {
         private readonly string _value;

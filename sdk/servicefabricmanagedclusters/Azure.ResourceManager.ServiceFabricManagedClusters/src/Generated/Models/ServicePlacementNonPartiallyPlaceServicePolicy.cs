@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 {
-    /// <summary> ServicePlacementNonPartiallyPlaceServicePolicy. </summary>
+    /// <summary> The type of placement policy for a service fabric service. Following are the possible values. </summary>
     public partial class ServicePlacementNonPartiallyPlaceServicePolicy : ManagedServicePlacementPolicy
     {
         /// <summary> Initializes a new instance of <see cref="ServicePlacementNonPartiallyPlaceServicePolicy"/>. </summary>
