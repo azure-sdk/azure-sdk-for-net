@@ -6,8 +6,6 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -43,7 +41,7 @@ namespace Azure.AI.Inference
         /// <param name="endpoint"> Service host. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ChatCompletionsClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new AzureAIInferenceClientOptions())
+        public ChatCompletionsClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new ChatCompletionsClientOptions())
         {
         }
 
@@ -51,7 +49,7 @@ namespace Azure.AI.Inference
         /// <param name="endpoint"> Service host. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ChatCompletionsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new AzureAIInferenceClientOptions())
+        public ChatCompletionsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new ChatCompletionsClientOptions())
         {
         }
 
@@ -60,17 +58,83 @@ namespace Azure.AI.Inference
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ChatCompletionsClient(Uri endpoint, TokenCredential credential, AzureAIInferenceClientOptions options)
+        public ChatCompletionsClient(Uri endpoint, AzureKeyCredential credential, ChatCompletionsClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new AzureAIInferenceClientOptions();
+            options ??= new ChatCompletionsClientOptions();
+
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+            _keyCredential = credential;
+            _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new AzureKeyCredentialPolicy(_keyCredential, AuthorizationHeader, AuthorizationApiKeyPrefix) }, new ResponseClassifier());
+            _endpoint = endpoint;
+            _apiVersion = options.Version;
+        }
+
+        /// <summary> Initializes a new instance of ChatCompletionsClient. </summary>
+        /// <param name="endpoint"> Service host. </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public ChatCompletionsClient(Uri endpoint, TokenCredential credential, ChatCompletionsClientOptions options)
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNull(credential, nameof(credential));
+            options ??= new ChatCompletionsClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options, true);
             _tokenCredential = credential;
             _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
             _endpoint = endpoint;
             _apiVersion = options.Version;
+        }
+
+        /// <summary>
+        /// Gets chat completions for the provided chat messages.
+        /// Completions support a wide variety of tasks and generate text that continues from or "completes"
+        /// provided prompt data. The method makes a REST API call to the `/chat/completions` route
+        /// on the given endpoint.
+        /// </summary>
+        /// <param name="body"> The options for chat completions. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        internal virtual async Task<Response<ChatCompletions>> CompleteAsync(ChatCompletionsOptions body, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using RequestContent content = body.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await CompleteAsync(content, extraParams?.ToString(), context).ConfigureAwait(false);
+            return Response.FromValue(ChatCompletions.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// Gets chat completions for the provided chat messages.
+        /// Completions support a wide variety of tasks and generate text that continues from or "completes"
+        /// provided prompt data. The method makes a REST API call to the `/chat/completions` route
+        /// on the given endpoint.
+        /// </summary>
+        /// <param name="body"> The options for chat completions. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        internal virtual Response<ChatCompletions> Complete(ChatCompletionsOptions body, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using RequestContent content = body.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = Complete(content, extraParams?.ToString(), context);
+            return Response.FromValue(ChatCompletions.FromResponse(response), response);
         }
 
         /// <summary>
