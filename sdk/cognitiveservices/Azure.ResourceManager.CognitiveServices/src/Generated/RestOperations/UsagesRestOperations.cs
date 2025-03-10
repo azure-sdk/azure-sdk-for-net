@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.CognitiveServices
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateListRequestUri(string subscriptionId, AzureLocation location, string filter)
+        internal RequestUriBuilder CreateListRequestUri(string subscriptionId, AzureLocation location)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -46,14 +46,10 @@ namespace Azure.ResourceManager.CognitiveServices
             uri.AppendPath(location, true);
             uri.AppendPath("/usages", false);
             uri.AppendQuery("api-version", _apiVersion, true);
-            if (filter != null)
-            {
-                uri.AppendQuery("$filter", filter, true);
-            }
             return uri;
         }
 
-        internal HttpMessage CreateListRequest(string subscriptionId, AzureLocation location, string filter)
+        internal HttpMessage CreateListRequest(string subscriptionId, AzureLocation location)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -66,10 +62,6 @@ namespace Azure.ResourceManager.CognitiveServices
             uri.AppendPath(location, true);
             uri.AppendPath("/usages", false);
             uri.AppendQuery("api-version", _apiVersion, true);
-            if (filter != null)
-            {
-                uri.AppendQuery("$filter", filter, true);
-            }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
@@ -79,15 +71,14 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <summary> Get usages for the requested subscription. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> Resource location. </param>
-        /// <param name="filter"> An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of the metric, can have an or of multiple names). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ServiceAccountUsageListResult>> ListAsync(string subscriptionId, AzureLocation location, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ServiceAccountUsageListResult>> ListAsync(string subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
-            using var message = CreateListRequest(subscriptionId, location, filter);
+            using var message = CreateListRequest(subscriptionId, location);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -106,15 +97,14 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <summary> Get usages for the requested subscription. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> Resource location. </param>
-        /// <param name="filter"> An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of the metric, can have an or of multiple names). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ServiceAccountUsageListResult> List(string subscriptionId, AzureLocation location, string filter = null, CancellationToken cancellationToken = default)
+        public Response<ServiceAccountUsageListResult> List(string subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
-            using var message = CreateListRequest(subscriptionId, location, filter);
+            using var message = CreateListRequest(subscriptionId, location);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -130,7 +120,7 @@ namespace Azure.ResourceManager.CognitiveServices
             }
         }
 
-        internal RequestUriBuilder CreateListNextPageRequestUri(string nextLink, string subscriptionId, AzureLocation location, string filter)
+        internal RequestUriBuilder CreateListNextPageRequestUri(string nextLink, string subscriptionId, AzureLocation location)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -138,7 +128,7 @@ namespace Azure.ResourceManager.CognitiveServices
             return uri;
         }
 
-        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, AzureLocation location, string filter)
+        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, AzureLocation location)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -156,16 +146,15 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> Resource location. </param>
-        /// <param name="filter"> An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of the metric, can have an or of multiple names). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ServiceAccountUsageListResult>> ListNextPageAsync(string nextLink, string subscriptionId, AzureLocation location, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ServiceAccountUsageListResult>> ListNextPageAsync(string nextLink, string subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, location, filter);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, location);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -185,16 +174,15 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="location"> Resource location. </param>
-        /// <param name="filter"> An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of the metric, can have an or of multiple names). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ServiceAccountUsageListResult> ListNextPage(string nextLink, string subscriptionId, AzureLocation location, string filter = null, CancellationToken cancellationToken = default)
+        public Response<ServiceAccountUsageListResult> ListNextPage(string nextLink, string subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, location, filter);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, location);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
