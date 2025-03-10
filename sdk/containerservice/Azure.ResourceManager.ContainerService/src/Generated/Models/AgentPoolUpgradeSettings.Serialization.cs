@@ -45,6 +45,11 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("drainTimeoutInMinutes"u8);
                 writer.WriteNumberValue(DrainTimeoutInMinutes.Value);
             }
+            if (Optional.IsDefined(NodeSoakDurationInMinutes))
+            {
+                writer.WritePropertyName("nodeSoakDurationInMinutes"u8);
+                writer.WriteNumberValue(NodeSoakDurationInMinutes.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -84,6 +89,7 @@ namespace Azure.ResourceManager.ContainerService.Models
             }
             string maxSurge = default;
             int? drainTimeoutInMinutes = default;
+            int? nodeSoakDurationInMinutes = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -102,13 +108,22 @@ namespace Azure.ResourceManager.ContainerService.Models
                     drainTimeoutInMinutes = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("nodeSoakDurationInMinutes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nodeSoakDurationInMinutes = property.Value.GetInt32();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AgentPoolUpgradeSettings(maxSurge, drainTimeoutInMinutes, serializedAdditionalRawData);
+            return new AgentPoolUpgradeSettings(maxSurge, drainTimeoutInMinutes, nodeSoakDurationInMinutes, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -157,6 +172,21 @@ namespace Azure.ResourceManager.ContainerService.Models
                 {
                     builder.Append("  drainTimeoutInMinutes: ");
                     builder.AppendLine($"{DrainTimeoutInMinutes.Value}");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(NodeSoakDurationInMinutes), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  nodeSoakDurationInMinutes: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(NodeSoakDurationInMinutes))
+                {
+                    builder.Append("  nodeSoakDurationInMinutes: ");
+                    builder.AppendLine($"{NodeSoakDurationInMinutes.Value}");
                 }
             }
 
