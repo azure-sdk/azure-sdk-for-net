@@ -413,13 +413,12 @@ namespace Azure.ResourceManager.CognitiveServices.Mocking
         /// </list>
         /// </summary>
         /// <param name="location"> Resource location. </param>
-        /// <param name="filter"> An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of the metric, can have an or of multiple names). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="ServiceAccountUsage"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ServiceAccountUsage> GetUsagesAsync(AzureLocation location, string filter = null, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ServiceAccountUsage> GetUsagesAsync(AzureLocation location, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => UsagesRestClient.CreateListRequest(Id.SubscriptionId, location, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => UsagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, location, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => UsagesRestClient.CreateListRequest(Id.SubscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => UsagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, location);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => ServiceAccountUsage.DeserializeServiceAccountUsage(e), UsagesClientDiagnostics, Pipeline, "MockableCognitiveServicesSubscriptionResource.GetUsages", "value", "nextLink", cancellationToken);
         }
 
@@ -441,13 +440,12 @@ namespace Azure.ResourceManager.CognitiveServices.Mocking
         /// </list>
         /// </summary>
         /// <param name="location"> Resource location. </param>
-        /// <param name="filter"> An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of the metric, can have an or of multiple names). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="ServiceAccountUsage"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ServiceAccountUsage> GetUsages(AzureLocation location, string filter = null, CancellationToken cancellationToken = default)
+        public virtual Pageable<ServiceAccountUsage> GetUsages(AzureLocation location, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => UsagesRestClient.CreateListRequest(Id.SubscriptionId, location, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => UsagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, location, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => UsagesRestClient.CreateListRequest(Id.SubscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => UsagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, location);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => ServiceAccountUsage.DeserializeServiceAccountUsage(e), UsagesClientDiagnostics, Pipeline, "MockableCognitiveServicesSubscriptionResource.GetUsages", "value", "nextLink", cancellationToken);
         }
 
