@@ -42,6 +42,11 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("linkedInfo"u8);
                 writer.WriteObjectValue(LinkedInfo, options);
             }
+            if (Optional.IsDefined(SelfContainedInteractiveAuthoringEnabled))
+            {
+                writer.WritePropertyName("selfContainedInteractiveAuthoringEnabled"u8);
+                writer.WriteStringValue(SelfContainedInteractiveAuthoringEnabled.Value.ToSerialBoolean());
+            }
             writer.WriteEndObject();
             foreach (var item in AdditionalProperties)
             {
@@ -80,6 +85,7 @@ namespace Azure.ResourceManager.Synapse.Models
             IntegrationRuntimeType type = default;
             string description = default;
             SynapseLinkedIntegrationRuntimeType linkedInfo = default;
+            SelfContainedInteractiveAuthoringState? selfContainedInteractiveAuthoringEnabled = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -112,13 +118,22 @@ namespace Azure.ResourceManager.Synapse.Models
                             linkedInfo = SynapseLinkedIntegrationRuntimeType.DeserializeSynapseLinkedIntegrationRuntimeType(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("selfContainedInteractiveAuthoringEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            selfContainedInteractiveAuthoringEnabled = property0.Value.GetBoolean().ToSelfContainedInteractiveAuthoringState();
+                            continue;
+                        }
                     }
                     continue;
                 }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new SynapseSelfHostedIntegrationRuntime(type, description, additionalProperties, linkedInfo);
+            return new SynapseSelfHostedIntegrationRuntime(type, description, additionalProperties, linkedInfo, selfContainedInteractiveAuthoringEnabled);
         }
 
         BinaryData IPersistableModel<SynapseSelfHostedIntegrationRuntime>.Write(ModelReaderWriterOptions options)
