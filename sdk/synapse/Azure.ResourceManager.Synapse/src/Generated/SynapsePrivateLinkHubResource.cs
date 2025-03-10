@@ -338,7 +338,7 @@ namespace Azure.ResourceManager.Synapse
             try
             {
                 var response = await _synapsePrivateLinkHubPrivateLinkHubsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new SynapseArmOperation(_synapsePrivateLinkHubPrivateLinkHubsClientDiagnostics, Pipeline, _synapsePrivateLinkHubPrivateLinkHubsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var operation = new SynapseArmOperation(_synapsePrivateLinkHubPrivateLinkHubsClientDiagnostics, Pipeline, _synapsePrivateLinkHubPrivateLinkHubsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -380,7 +380,7 @@ namespace Azure.ResourceManager.Synapse
             try
             {
                 var response = _synapsePrivateLinkHubPrivateLinkHubsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new SynapseArmOperation(_synapsePrivateLinkHubPrivateLinkHubsClientDiagnostics, Pipeline, _synapsePrivateLinkHubPrivateLinkHubsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var operation = new SynapseArmOperation(_synapsePrivateLinkHubPrivateLinkHubsClientDiagnostics, Pipeline, _synapsePrivateLinkHubPrivateLinkHubsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
