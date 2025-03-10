@@ -14,7 +14,7 @@ namespace Azure.AI.Inference
     /// Defines the response format for chat completions as JSON with a given schema.
     /// The AI model will need to adhere to this schema when generating completions.
     /// </summary>
-    internal partial class ChatCompletionsResponseFormatJsonSchemaDefinition
+    public partial class ChatCompletionsResponseFormatJsonSchemaDefinition
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.

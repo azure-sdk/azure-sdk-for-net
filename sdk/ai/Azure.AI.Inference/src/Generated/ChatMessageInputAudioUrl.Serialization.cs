@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.AI.Inference
 {
-    internal partial class ChatMessageInputAudioUrl : IUtf8JsonSerializable, IJsonModel<ChatMessageInputAudioUrl>
+    public partial class ChatMessageInputAudioUrl : IUtf8JsonSerializable, IJsonModel<ChatMessageInputAudioUrl>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatMessageInputAudioUrl>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
