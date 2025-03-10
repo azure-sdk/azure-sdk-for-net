@@ -58,12 +58,12 @@ namespace Azure.ResourceManager.Search.Models
             if (Optional.IsDefined(SharedPrivateLinkResourceStatus))
             {
                 writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(SharedPrivateLinkResourceStatus.Value.ToString());
+                writer.WriteStringValue(SharedPrivateLinkResourceStatus.Value.ToSerialString());
             }
             if (Optional.IsDefined(SharedPrivateLinkResourceProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(SharedPrivateLinkResourceProvisioningState.Value.ToString());
+                writer.WriteStringValue(SharedPrivateLinkResourceProvisioningState.Value.ToSerialString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.Search.Models
                     {
                         continue;
                     }
-                    status = new SearchServiceSharedPrivateLinkResourceStatus(property.Value.GetString());
+                    status = property.Value.GetString().ToSearchServiceSharedPrivateLinkResourceStatus();
                     continue;
                 }
                 if (property.NameEquals("provisioningState"u8))
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.Search.Models
                     {
                         continue;
                     }
-                    provisioningState = new SearchServiceSharedPrivateLinkResourceProvisioningState(property.Value.GetString());
+                    provisioningState = property.Value.GetString().ToSearchServiceSharedPrivateLinkResourceProvisioningState();
                     continue;
                 }
                 if (options.Format != "W")
@@ -272,7 +272,7 @@ namespace Azure.ResourceManager.Search.Models
                 if (Optional.IsDefined(SharedPrivateLinkResourceStatus))
                 {
                     builder.Append("  status: ");
-                    builder.AppendLine($"'{SharedPrivateLinkResourceStatus.Value.ToString()}'");
+                    builder.AppendLine($"'{SharedPrivateLinkResourceStatus.Value.ToSerialString()}'");
                 }
             }
 
@@ -287,7 +287,7 @@ namespace Azure.ResourceManager.Search.Models
                 if (Optional.IsDefined(SharedPrivateLinkResourceProvisioningState))
                 {
                     builder.Append("  provisioningState: ");
-                    builder.AppendLine($"'{SharedPrivateLinkResourceProvisioningState.Value.ToString()}'");
+                    builder.AppendLine($"'{SharedPrivateLinkResourceProvisioningState.Value.ToSerialString()}'");
                 }
             }
 
