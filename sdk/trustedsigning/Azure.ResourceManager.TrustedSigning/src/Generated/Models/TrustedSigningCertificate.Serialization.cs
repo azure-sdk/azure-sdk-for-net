@@ -39,6 +39,11 @@ namespace Azure.ResourceManager.TrustedSigning.Models
                 writer.WritePropertyName("serialNumber"u8);
                 writer.WriteStringValue(SerialNumber);
             }
+            if (Optional.IsDefined(EnhancedKeyUsage))
+            {
+                writer.WritePropertyName("enhancedKeyUsage"u8);
+                writer.WriteStringValue(EnhancedKeyUsage);
+            }
             if (Optional.IsDefined(SubjectName))
             {
                 writer.WritePropertyName("subjectName"u8);
@@ -135,6 +140,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
                 return null;
             }
             string serialNumber = default;
+            string enhancedKeyUsage = default;
             string subjectName = default;
             string thumbprint = default;
             DateTimeOffset? createdDate = default;
@@ -153,6 +159,11 @@ namespace Azure.ResourceManager.TrustedSigning.Models
                 if (property.NameEquals("serialNumber"u8))
                 {
                     serialNumber = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("enhancedKeyUsage"u8))
+                {
+                    enhancedKeyUsage = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("subjectName"u8))
@@ -254,6 +265,7 @@ namespace Azure.ResourceManager.TrustedSigning.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new TrustedSigningCertificate(
                 serialNumber,
+                enhancedKeyUsage,
                 subjectName,
                 thumbprint,
                 createdDate,
