@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("virtualNetworkProfile"u8);
                 writer.WriteObjectValue(VirtualNetworkProfile, options);
             }
-            if (Optional.IsCollectionDefined(ConnectivityEndpoints))
+            if (options.Format != "W" && Optional.IsCollectionDefined(ConnectivityEndpoints))
             {
                 writer.WritePropertyName("connectivityEndpoints"u8);
                 writer.WriteStartObject();
@@ -111,28 +111,17 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("workspaceUID"u8);
                 writer.WriteStringValue(WorkspaceUid.Value);
             }
-            if (options.Format != "W" && Optional.IsCollectionDefined(ExtraProperties))
+            if (options.Format != "W" && Optional.IsDefined(ExtraProperties))
             {
                 writer.WritePropertyName("extraProperties"u8);
-                writer.WriteStartObject();
-                foreach (var item in ExtraProperties)
-                {
-                    writer.WritePropertyName(item.Key);
-                    if (item.Value == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
+				writer.WriteRawValue(ExtraProperties);
 #else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        JsonSerializer.Serialize(writer, document.RootElement);
-                    }
-#endif
+                using (JsonDocument document = JsonDocument.Parse(ExtraProperties, ModelSerializationExtensions.JsonDocumentOptions))
+                {
+                    JsonSerializer.Serialize(writer, document.RootElement);
                 }
-                writer.WriteEndObject();
+#endif
             }
             if (Optional.IsDefined(ManagedVirtualNetworkSettings))
             {
@@ -233,12 +222,12 @@ namespace Azure.ResourceManager.Synapse
             string provisioningState = default;
             string sqlAdministratorLogin = default;
             VirtualNetworkProfile virtualNetworkProfile = default;
-            IDictionary<string, string> connectivityEndpoints = default;
+            IReadOnlyDictionary<string, string> connectivityEndpoints = default;
             string managedVirtualNetwork = default;
             IList<SynapsePrivateEndpointConnectionData> privateEndpointConnections = default;
             SynapseEncryptionDetails encryption = default;
             Guid? workspaceUID = default;
-            IReadOnlyDictionary<string, BinaryData> extraProperties = default;
+            BinaryData extraProperties = default;
             SynapseManagedVirtualNetworkSettings managedVirtualNetworkSettings = default;
             SynapseWorkspaceRepositoryConfiguration workspaceRepositoryConfiguration = default;
             PurviewConfiguration purviewConfiguration = default;
@@ -409,19 +398,7 @@ namespace Azure.ResourceManager.Synapse
                             {
                                 continue;
                             }
-                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                if (property1.Value.ValueKind == JsonValueKind.Null)
-                                {
-                                    dictionary.Add(property1.Name, null);
-                                }
-                                else
-                                {
-                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
-                                }
-                            }
-                            extraProperties = dictionary;
+                            extraProperties = BinaryData.FromString(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("managedVirtualNetworkSettings"u8))
@@ -545,7 +522,7 @@ namespace Azure.ResourceManager.Synapse
                 privateEndpointConnections ?? new ChangeTrackingList<SynapsePrivateEndpointConnectionData>(),
                 encryption,
                 workspaceUID,
-                extraProperties ?? new ChangeTrackingDictionary<string, BinaryData>(),
+                extraProperties,
                 managedVirtualNetworkSettings,
                 workspaceRepositoryConfiguration,
                 purviewConfiguration,

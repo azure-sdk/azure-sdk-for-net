@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using Azure.Core;
@@ -1657,12 +1658,11 @@ namespace Azure.ResourceManager.Synapse.Models
         /// <param name="isAadOnlyAuthenticationEnabled"> Enable or Disable AzureADOnlyAuthentication on All Workspace subresource. </param>
         /// <param name="isTrustedServiceBypassEnabled"> Is trustedServiceBypassEnabled for the workspace. </param>
         /// <returns> A new <see cref="Synapse.SynapseWorkspaceData"/> instance for mocking. </returns>
-        public static SynapseWorkspaceData SynapseWorkspaceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, SynapseDataLakeStorageAccountDetails defaultDataLakeStorage = null, string sqlAdministratorLoginPassword = null, string managedResourceGroupName = null, string provisioningState = null, string sqlAdministratorLogin = null, string virtualNetworkComputeSubnetId = null, IDictionary<string, string> connectivityEndpoints = null, string managedVirtualNetwork = null, IEnumerable<SynapsePrivateEndpointConnectionData> privateEndpointConnections = null, SynapseEncryptionDetails encryption = null, Guid? workspaceUid = null, IReadOnlyDictionary<string, BinaryData> extraProperties = null, SynapseManagedVirtualNetworkSettings managedVirtualNetworkSettings = null, SynapseWorkspaceRepositoryConfiguration workspaceRepositoryConfiguration = null, ResourceIdentifier purviewResourceId = null, ResourceIdentifier adlaResourceId = null, WorkspacePublicNetworkAccess? publicNetworkAccess = null, Guid? initialWorkspaceAdminObjectId = null, IReadOnlyDictionary<string, BinaryData> settings = null, bool? isAadOnlyAuthenticationEnabled = null, bool? isTrustedServiceBypassEnabled = null)
+        public static SynapseWorkspaceData SynapseWorkspaceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, SynapseDataLakeStorageAccountDetails defaultDataLakeStorage = null, string sqlAdministratorLoginPassword = null, string managedResourceGroupName = null, string provisioningState = null, string sqlAdministratorLogin = null, string virtualNetworkComputeSubnetId = null, IReadOnlyDictionary<string, string> connectivityEndpoints = null, string managedVirtualNetwork = null, IEnumerable<SynapsePrivateEndpointConnectionData> privateEndpointConnections = null, SynapseEncryptionDetails encryption = null, Guid? workspaceUid = null, BinaryData extraProperties = null, SynapseManagedVirtualNetworkSettings managedVirtualNetworkSettings = null, SynapseWorkspaceRepositoryConfiguration workspaceRepositoryConfiguration = null, ResourceIdentifier purviewResourceId = null, ResourceIdentifier adlaResourceId = null, WorkspacePublicNetworkAccess? publicNetworkAccess = null, Guid? initialWorkspaceAdminObjectId = null, IReadOnlyDictionary<string, BinaryData> settings = null, bool? isAadOnlyAuthenticationEnabled = null, bool? isTrustedServiceBypassEnabled = null)
         {
             tags ??= new Dictionary<string, string>();
             connectivityEndpoints ??= new Dictionary<string, string>();
             privateEndpointConnections ??= new List<SynapsePrivateEndpointConnectionData>();
-            extraProperties ??= new Dictionary<string, BinaryData>();
             settings ??= new Dictionary<string, BinaryData>();
 
             return new SynapseWorkspaceData(
@@ -2741,8 +2741,11 @@ namespace Azure.ResourceManager.Synapse.Models
         /// <param name="autoUpdateEta"> The estimated time when the self-hosted integration runtime will be updated. </param>
         /// <param name="serviceRegion"> The service region of the integration runtime. </param>
         /// <param name="newerVersions"> The newer versions on download center. </param>
+        /// <param name="osType"></param>
+        /// <param name="targetFramework"></param>
+        /// <param name="selfContainedInteractiveAuthoringEnabled"> An alternative option to ensure interactive authoring function when your self-hosted integration runtime is unable to establish a connection with Azure Relay. </param>
         /// <returns> A new <see cref="Models.SynapseSelfHostedIntegrationRuntimeStatus"/> instance for mocking. </returns>
-        public static SynapseSelfHostedIntegrationRuntimeStatus SynapseSelfHostedIntegrationRuntimeStatus(string dataFactoryName = null, SynapseIntegrationRuntimeState? state = null, IReadOnlyDictionary<string, BinaryData> additionalProperties = null, DateTimeOffset? createOn = null, string taskQueueId = null, string nodeCommunicationChannelEncryptionMode = null, SynapseIntegrationRuntimeInternalChannelEncryptionMode? internalChannelEncryption = null, string version = null, IEnumerable<SynapseSelfHostedIntegrationRuntimeNode> nodes = null, DateTimeOffset? scheduledUpdateOn = null, string updateDelayOffset = null, string localTimeZoneOffset = null, IReadOnlyDictionary<string, string> capabilities = null, IEnumerable<string> serviceUrls = null, SynapseIntegrationRuntimeAutoUpdate? autoUpdate = null, string versionStatus = null, IEnumerable<SynapseLinkedIntegrationRuntime> links = null, string pushedVersion = null, string latestVersion = null, DateTimeOffset? autoUpdateEta = null, string serviceRegion = null, IEnumerable<string> newerVersions = null)
+        public static SynapseSelfHostedIntegrationRuntimeStatus SynapseSelfHostedIntegrationRuntimeStatus(string dataFactoryName = null, SynapseIntegrationRuntimeState? state = null, IReadOnlyDictionary<string, BinaryData> additionalProperties = null, DateTimeOffset? createOn = null, string taskQueueId = null, string nodeCommunicationChannelEncryptionMode = null, SynapseIntegrationRuntimeInternalChannelEncryptionMode? internalChannelEncryption = null, string version = null, IEnumerable<SynapseSelfHostedIntegrationRuntimeNode> nodes = null, DateTimeOffset? scheduledUpdateOn = null, string updateDelayOffset = null, string localTimeZoneOffset = null, IReadOnlyDictionary<string, string> capabilities = null, IEnumerable<string> serviceUrls = null, SynapseIntegrationRuntimeAutoUpdate? autoUpdate = null, string versionStatus = null, IEnumerable<SynapseLinkedIntegrationRuntime> links = null, string pushedVersion = null, string latestVersion = null, DateTimeOffset? autoUpdateEta = null, string serviceRegion = null, IEnumerable<string> newerVersions = null, int? osType = null, int? targetFramework = null, SelfContainedInteractiveAuthoringState? selfContainedInteractiveAuthoringEnabled = null)
         {
             additionalProperties ??= new Dictionary<string, BinaryData>();
             nodes ??= new List<SynapseSelfHostedIntegrationRuntimeNode>();
@@ -2774,7 +2777,10 @@ namespace Azure.ResourceManager.Synapse.Models
                 latestVersion,
                 autoUpdateEta,
                 serviceRegion,
-                newerVersions?.ToList());
+                newerVersions?.ToList(),
+                osType,
+                targetFramework,
+                selfContainedInteractiveAuthoringEnabled);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.SynapseLinkedIntegrationRuntime"/>. </summary>
@@ -3115,6 +3121,36 @@ namespace Azure.ResourceManager.Synapse.Models
                 ignoreFirstRecord,
                 blobStorageEventType,
                 provisioningState);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Synapse.Models.SynapseSelfHostedIntegrationRuntimeStatus" />. </summary>
+        /// <param name="dataFactoryName"> The workspace name which the integration runtime belong to. </param>
+        /// <param name="state"> The state of integration runtime. </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
+        /// <param name="createOn"> The time at which the integration runtime was created, in ISO8601 format. </param>
+        /// <param name="taskQueueId"> The task queue id of the integration runtime. </param>
+        /// <param name="nodeCommunicationChannelEncryptionMode"> The node communication Channel encryption mode. </param>
+        /// <param name="internalChannelEncryption"> It is used to set the encryption mode for node-node communication channel (when more than 2 self-hosted integration runtime nodes exist). </param>
+        /// <param name="version"> Version of the integration runtime. </param>
+        /// <param name="nodes"> The list of nodes for this integration runtime. </param>
+        /// <param name="scheduledUpdateOn"> The date at which the integration runtime will be scheduled to update, in ISO8601 format. </param>
+        /// <param name="updateDelayOffset"> The time in the date scheduled by service to update the integration runtime, e.g., PT03H is 3 hours. </param>
+        /// <param name="localTimeZoneOffset"> The local time zone offset in hours. </param>
+        /// <param name="capabilities"> Object with additional information about integration runtime capabilities. </param>
+        /// <param name="serviceUrls"> The URLs for the services used in integration runtime backend service. </param>
+        /// <param name="autoUpdate"> Whether Self-hosted integration runtime auto update has been turned on. </param>
+        /// <param name="versionStatus"> Status of the integration runtime version. </param>
+        /// <param name="links"> The list of linked integration runtimes that are created to share with this integration runtime. </param>
+        /// <param name="pushedVersion"> The version that the integration runtime is going to update to. </param>
+        /// <param name="latestVersion"> The latest version on download center. </param>
+        /// <param name="autoUpdateEta"> The estimated time when the self-hosted integration runtime will be updated. </param>
+        /// <param name="serviceRegion"> The service region of the integration runtime. </param>
+        /// <param name="newerVersions"> The newer versions on download center. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Synapse.Models.SynapseSelfHostedIntegrationRuntimeStatus" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static SynapseSelfHostedIntegrationRuntimeStatus SynapseSelfHostedIntegrationRuntimeStatus(string dataFactoryName, SynapseIntegrationRuntimeState? state, IReadOnlyDictionary<string, BinaryData> additionalProperties, DateTimeOffset? createOn, string taskQueueId, string nodeCommunicationChannelEncryptionMode, SynapseIntegrationRuntimeInternalChannelEncryptionMode? internalChannelEncryption, string version, IEnumerable<SynapseSelfHostedIntegrationRuntimeNode> nodes, DateTimeOffset? scheduledUpdateOn, string updateDelayOffset, string localTimeZoneOffset, IReadOnlyDictionary<string, string> capabilities, IEnumerable<string> serviceUrls, SynapseIntegrationRuntimeAutoUpdate? autoUpdate, string versionStatus, IEnumerable<SynapseLinkedIntegrationRuntime> links, string pushedVersion, string latestVersion, DateTimeOffset? autoUpdateEta, string serviceRegion, IEnumerable<string> newerVersions)
+        {
+            return SynapseSelfHostedIntegrationRuntimeStatus(dataFactoryName: dataFactoryName, state: state, additionalProperties: additionalProperties, createOn: createOn, taskQueueId: taskQueueId, nodeCommunicationChannelEncryptionMode: nodeCommunicationChannelEncryptionMode, internalChannelEncryption: internalChannelEncryption, version: version, nodes: nodes, scheduledUpdateOn: scheduledUpdateOn, updateDelayOffset: updateDelayOffset, localTimeZoneOffset: localTimeZoneOffset, capabilities: capabilities, serviceUrls: serviceUrls, autoUpdate: autoUpdate, versionStatus: versionStatus, links: links, pushedVersion: pushedVersion, latestVersion: latestVersion, autoUpdateEta: autoUpdateEta, serviceRegion: serviceRegion, newerVersions: newerVersions, osType: default, targetFramework: default, selfContainedInteractiveAuthoringEnabled: default);
         }
     }
 }
