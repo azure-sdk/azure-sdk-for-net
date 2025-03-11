@@ -48,6 +48,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowResponse"/>. </summary>
         public LogicWorkflowResponse()
         {
+            Headers = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowResponse"/>. </summary>
@@ -55,7 +56,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="statusCode"> The status code of the response. </param>
         /// <param name="bodyLink"> Details on the location of the body content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowResponse(BinaryData headers, int? statusCode, LogicContentLink bodyLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicWorkflowResponse(IDictionary<string, BinaryData> headers, int? statusCode, LogicContentLink bodyLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Headers = headers;
             StatusCode = statusCode;
@@ -66,7 +67,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// A list of all the headers attached to the response.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -93,7 +94,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Headers { get; set; }
+        public IDictionary<string, BinaryData> Headers { get; }
         /// <summary> The status code of the response. </summary>
         public int? StatusCode { get; set; }
         /// <summary> Details on the location of the body content. </summary>

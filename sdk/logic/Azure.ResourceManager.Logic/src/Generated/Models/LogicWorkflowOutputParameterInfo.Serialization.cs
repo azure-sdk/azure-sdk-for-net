@@ -35,17 +35,28 @@ namespace Azure.ResourceManager.Logic.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (options.Format != "W" && Optional.IsDefined(Error))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Error))
             {
                 writer.WritePropertyName("error"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Error);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Error, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Error)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
         }
 
@@ -69,10 +80,10 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 return null;
             }
-            BinaryData error = default;
+            IReadOnlyDictionary<string, BinaryData> error = default;
             LogicWorkflowParameterType? type = default;
-            BinaryData value = default;
-            BinaryData metadata = default;
+            IDictionary<string, BinaryData> value = default;
+            IDictionary<string, BinaryData> metadata = default;
             string description = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -84,7 +95,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    error = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    error = dictionary;
                     continue;
                 }
                 if (property.NameEquals("type"u8))
@@ -102,7 +125,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    value = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    value = dictionary;
                     continue;
                 }
                 if (property.NameEquals("metadata"u8))
@@ -111,7 +146,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    metadata = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    metadata = dictionary;
                     continue;
                 }
                 if (property.NameEquals("description"u8))
@@ -127,11 +174,11 @@ namespace Azure.ResourceManager.Logic.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new LogicWorkflowOutputParameterInfo(
                 type,
-                value,
-                metadata,
+                value ?? new ChangeTrackingDictionary<string, BinaryData>(),
+                metadata ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 description,
                 serializedAdditionalRawData,
-                error);
+                error ?? new ChangeTrackingDictionary<string, BinaryData>());
         }
 
         BinaryData IPersistableModel<LogicWorkflowOutputParameterInfo>.Write(ModelReaderWriterOptions options)

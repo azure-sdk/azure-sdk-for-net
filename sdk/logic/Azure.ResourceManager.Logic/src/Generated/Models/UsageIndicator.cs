@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Logic.Models
         private const string InformationValue = "Information";
         private const string ProductionValue = "Production";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static UsageIndicator NotSpecified { get; } = new UsageIndicator(NotSpecifiedValue);
-        /// <summary> Test. </summary>
+        /// <summary> Represents a test usage indicator. </summary>
         public static UsageIndicator Test { get; } = new UsageIndicator(TestValue);
-        /// <summary> Information. </summary>
+        /// <summary> Represents an information usage indicator. </summary>
         public static UsageIndicator Information { get; } = new UsageIndicator(InformationValue);
-        /// <summary> Production. </summary>
+        /// <summary> Represents a production usage indicator. </summary>
         public static UsageIndicator Production { get; } = new UsageIndicator(ProductionValue);
         /// <summary> Determines if two <see cref="UsageIndicator"/> values are the same. </summary>
         public static bool operator ==(UsageIndicator left, UsageIndicator right) => left.Equals(right);

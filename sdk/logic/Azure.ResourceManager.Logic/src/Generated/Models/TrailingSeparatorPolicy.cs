@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Logic.Models
         private const string OptionalValue = "Optional";
         private const string MandatoryValue = "Mandatory";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static TrailingSeparatorPolicy NotSpecified { get; } = new TrailingSeparatorPolicy(NotSpecifiedValue);
-        /// <summary> NotAllowed. </summary>
+        /// <summary> Represents a policy where trailing separators are not allowed. </summary>
         public static TrailingSeparatorPolicy NotAllowed { get; } = new TrailingSeparatorPolicy(NotAllowedValue);
-        /// <summary> Optional. </summary>
+        /// <summary> Represents a policy where trailing separators are optional. </summary>
         public static TrailingSeparatorPolicy Optional { get; } = new TrailingSeparatorPolicy(OptionalValue);
-        /// <summary> Mandatory. </summary>
+        /// <summary> Represents a policy where trailing separators are mandatory. </summary>
         public static TrailingSeparatorPolicy Mandatory { get; } = new TrailingSeparatorPolicy(MandatoryValue);
         /// <summary> Determines if two <see cref="TrailingSeparatorPolicy"/> values are the same. </summary>
         public static bool operator ==(TrailingSeparatorPolicy left, TrailingSeparatorPolicy right) => left.Equals(right);

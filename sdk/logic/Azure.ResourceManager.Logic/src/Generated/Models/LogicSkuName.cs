@@ -29,17 +29,17 @@ namespace Azure.ResourceManager.Logic.Models
         private const string StandardValue = "Standard";
         private const string PremiumValue = "Premium";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicSkuName NotSpecified { get; } = new LogicSkuName(NotSpecifiedValue);
-        /// <summary> Free. </summary>
+        /// <summary> Represents a free SKU. </summary>
         public static LogicSkuName Free { get; } = new LogicSkuName(FreeValue);
-        /// <summary> Shared. </summary>
+        /// <summary> Represents a shared SKU. </summary>
         public static LogicSkuName Shared { get; } = new LogicSkuName(SharedValue);
-        /// <summary> Basic. </summary>
+        /// <summary> Represents a basic SKU. </summary>
         public static LogicSkuName Basic { get; } = new LogicSkuName(BasicValue);
-        /// <summary> Standard. </summary>
+        /// <summary> Represents a standard SKU. </summary>
         public static LogicSkuName Standard { get; } = new LogicSkuName(StandardValue);
-        /// <summary> Premium. </summary>
+        /// <summary> Represents a premium SKU. </summary>
         public static LogicSkuName Premium { get; } = new LogicSkuName(PremiumValue);
         /// <summary> Determines if two <see cref="LogicSkuName"/> values are the same. </summary>
         public static bool operator ==(LogicSkuName left, LogicSkuName right) => left.Equals(right);

@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.Logic
                 writer.WritePropertyName("correlation"u8);
                 writer.WriteObjectValue(Correlation, options);
             }
-            if (Optional.IsDefined(Status))
+            if (options.Format != "W" && Optional.IsDefined(Status))
             {
                 writer.WritePropertyName("status"u8);
                 writer.WriteStringValue(Status.Value.ToString());
@@ -81,51 +81,84 @@ namespace Azure.ResourceManager.Logic
                 writer.WritePropertyName("trackingId"u8);
                 writer.WriteStringValue(TrackingId.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(Inputs))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Inputs))
             {
                 writer.WritePropertyName("inputs"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Inputs);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Inputs, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Inputs)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && Optional.IsDefined(InputsLink))
             {
                 writer.WritePropertyName("inputsLink"u8);
                 writer.WriteObjectValue(InputsLink, options);
             }
-            if (options.Format != "W" && Optional.IsDefined(Outputs))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Outputs))
             {
                 writer.WritePropertyName("outputs"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Outputs);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Outputs, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Outputs)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && Optional.IsDefined(OutputsLink))
             {
                 writer.WritePropertyName("outputsLink"u8);
                 writer.WriteObjectValue(OutputsLink, options);
             }
-            if (options.Format != "W" && Optional.IsDefined(TrackedProperties))
+            if (options.Format != "W" && Optional.IsCollectionDefined(TrackedProperties))
             {
                 writer.WritePropertyName("trackedProperties"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(TrackedProperties);
-#else
-                using (JsonDocument document = JsonDocument.Parse(TrackedProperties, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in TrackedProperties)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsCollectionDefined(RetryHistory))
             {
@@ -188,11 +221,11 @@ namespace Azure.ResourceManager.Logic
             string code = default;
             BinaryData error = default;
             Guid? trackingId = default;
-            BinaryData inputs = default;
+            IReadOnlyDictionary<string, BinaryData> inputs = default;
             LogicContentLink inputsLink = default;
-            BinaryData outputs = default;
+            IReadOnlyDictionary<string, BinaryData> outputs = default;
             LogicContentLink outputsLink = default;
-            BinaryData trackedProperties = default;
+            IReadOnlyDictionary<string, BinaryData> trackedProperties = default;
             IList<LogicWorkRetryHistory> retryHistory = default;
             int? iterationCount = default;
             IList<LogicWorkflowRepetitionIndex> repetitionIndexes = default;
@@ -317,7 +350,19 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            inputs = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            inputs = dictionary;
                             continue;
                         }
                         if (property0.NameEquals("inputsLink"u8))
@@ -335,7 +380,19 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            outputs = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            outputs = dictionary;
                             continue;
                         }
                         if (property0.NameEquals("outputsLink"u8))
@@ -353,7 +410,19 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            trackedProperties = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            trackedProperties = dictionary;
                             continue;
                         }
                         if (property0.NameEquals("retryHistory"u8))
@@ -416,11 +485,11 @@ namespace Azure.ResourceManager.Logic
                 code,
                 error,
                 trackingId,
-                inputs,
+                inputs ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 inputsLink,
-                outputs,
+                outputs ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 outputsLink,
-                trackedProperties,
+                trackedProperties ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 retryHistory ?? new ChangeTrackingList<LogicWorkRetryHistory>(),
                 iterationCount,
                 repetitionIndexes ?? new ChangeTrackingList<LogicWorkflowRepetitionIndex>(),

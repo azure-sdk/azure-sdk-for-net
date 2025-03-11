@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Logic.Samples
             LogicWorkflowTriggerHistoryResource logicWorkflowTriggerHistory = client.GetLogicWorkflowTriggerHistoryResource(logicWorkflowTriggerHistoryResourceId);
 
             // invoke the operation
-            await logicWorkflowTriggerHistory.ResubmitAsync();
+            await logicWorkflowTriggerHistory.ResubmitAsync(WaitUntil.Completed);
 
             Console.WriteLine("Succeeded");
         }

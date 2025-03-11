@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Logic.Models
         private const string ExtendedValue = "Extended";
         private const string Utf8Value = "UTF8";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static X12CharacterSet NotSpecified { get; } = new X12CharacterSet(NotSpecifiedValue);
-        /// <summary> Basic. </summary>
+        /// <summary> Represents the basic X12 character set. </summary>
         public static X12CharacterSet Basic { get; } = new X12CharacterSet(BasicValue);
-        /// <summary> Extended. </summary>
+        /// <summary> Represents the extended X12 character set. </summary>
         public static X12CharacterSet Extended { get; } = new X12CharacterSet(ExtendedValue);
-        /// <summary> UTF8. </summary>
+        /// <summary> Represents the UTF-8 X12 character set. </summary>
         public static X12CharacterSet Utf8 { get; } = new X12CharacterSet(Utf8Value);
         /// <summary> Determines if two <see cref="X12CharacterSet"/> values are the same. </summary>
         public static bool operator ==(X12CharacterSet left, X12CharacterSet right) => left.Equals(right);

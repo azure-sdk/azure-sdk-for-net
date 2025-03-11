@@ -38,7 +38,69 @@ namespace Azure.ResourceManager.Logic
 
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("properties"u8);
-            writer.WriteObjectValue(Properties, options);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(CreatedOn))
+            {
+                writer.WritePropertyName("createdTime"u8);
+                writer.WriteStringValue(CreatedOn.Value, "O");
+            }
+            if (Optional.IsDefined(ChangedOn))
+            {
+                writer.WritePropertyName("changedTime"u8);
+                writer.WriteStringValue(ChangedOn.Value, "O");
+            }
+            if (Optional.IsDefined(Metadata))
+            {
+                writer.WritePropertyName("metadata"u8);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(Metadata);
+#else
+                using (JsonDocument document = JsonDocument.Parse(Metadata, ModelSerializationExtensions.JsonDocumentOptions))
+                {
+                    JsonSerializer.Serialize(writer, document.RootElement);
+                }
+#endif
+            }
+            if (Optional.IsDefined(Content))
+            {
+                writer.WritePropertyName("content"u8);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(Content);
+#else
+                using (JsonDocument document = JsonDocument.Parse(Content, ModelSerializationExtensions.JsonDocumentOptions))
+                {
+                    JsonSerializer.Serialize(writer, document.RootElement);
+                }
+#endif
+            }
+            if (Optional.IsDefined(ContentType))
+            {
+                writer.WritePropertyName("contentType"u8);
+                writer.WriteStringValue(ContentType.Value.ToString());
+            }
+            if (Optional.IsDefined(ContentLink))
+            {
+                writer.WritePropertyName("contentLink"u8);
+                writer.WriteObjectValue(ContentLink, options);
+            }
+            writer.WritePropertyName("assemblyName"u8);
+            writer.WriteStringValue(AssemblyName);
+            if (Optional.IsDefined(AssemblyVersion))
+            {
+                writer.WritePropertyName("assemblyVersion"u8);
+                writer.WriteStringValue(AssemblyVersion);
+            }
+            if (Optional.IsDefined(AssemblyCulture))
+            {
+                writer.WritePropertyName("assemblyCulture"u8);
+                writer.WriteStringValue(AssemblyCulture);
+            }
+            if (Optional.IsDefined(AssemblyPublicKeyToken))
+            {
+                writer.WritePropertyName("assemblyPublicKeyToken"u8);
+                writer.WriteStringValue(AssemblyPublicKeyToken);
+            }
+            writer.WriteEndObject();
         }
 
         IntegrationAccountAssemblyDefinitionData IJsonModel<IntegrationAccountAssemblyDefinitionData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -61,22 +123,26 @@ namespace Azure.ResourceManager.Logic
             {
                 return null;
             }
-            IntegrationAccountAssemblyProperties properties = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            DateTimeOffset? createdTime = default;
+            DateTimeOffset? changedTime = default;
+            BinaryData metadata = default;
+            BinaryData content = default;
+            ContentType? contentType = default;
+            LogicContentLink contentLink = default;
+            string assemblyName = default;
+            string assemblyVersion = default;
+            string assemblyCulture = default;
+            string assemblyPublicKeyToken = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("properties"u8))
-                {
-                    properties = IntegrationAccountAssemblyProperties.DeserializeIntegrationAccountAssemblyProperties(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -120,6 +186,92 @@ namespace Azure.ResourceManager.Logic
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("createdTime"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            createdTime = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("changedTime"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            changedTime = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("metadata"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            metadata = BinaryData.FromString(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("content"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            content = BinaryData.FromString(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("contentType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            contentType = new ContentType(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("contentLink"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            contentLink = LogicContentLink.DeserializeLogicContentLink(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("assemblyName"u8))
+                        {
+                            assemblyName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("assemblyVersion"u8))
+                        {
+                            assemblyVersion = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("assemblyCulture"u8))
+                        {
+                            assemblyCulture = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("assemblyPublicKeyToken"u8))
+                        {
+                            assemblyPublicKeyToken = property0.Value.GetString();
+                            continue;
+                        }
+                    }
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -133,7 +285,16 @@ namespace Azure.ResourceManager.Logic
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                properties,
+                createdTime,
+                changedTime,
+                metadata,
+                content,
+                contentType,
+                contentLink,
+                assemblyName,
+                assemblyVersion,
+                assemblyCulture,
+                assemblyPublicKeyToken,
                 serializedAdditionalRawData);
         }
 

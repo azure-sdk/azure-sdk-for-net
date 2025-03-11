@@ -45,49 +45,49 @@ namespace Azure.ResourceManager.Logic.Models
         private const string WaitingValue = "Waiting";
         private const string InProgressValue = "InProgress";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicWorkflowProvisioningState NotSpecified { get; } = new LogicWorkflowProvisioningState(NotSpecifiedValue);
-        /// <summary> Accepted. </summary>
+        /// <summary> Represents a state where the workflow is accepted. </summary>
         public static LogicWorkflowProvisioningState Accepted { get; } = new LogicWorkflowProvisioningState(AcceptedValue);
-        /// <summary> Running. </summary>
+        /// <summary> Represents a state where the workflow is running. </summary>
         public static LogicWorkflowProvisioningState Running { get; } = new LogicWorkflowProvisioningState(RunningValue);
-        /// <summary> Ready. </summary>
+        /// <summary> Represents a state where the workflow is ready. </summary>
         public static LogicWorkflowProvisioningState Ready { get; } = new LogicWorkflowProvisioningState(ReadyValue);
-        /// <summary> Creating. </summary>
+        /// <summary> Represents a state where the workflow is creating. </summary>
         public static LogicWorkflowProvisioningState Creating { get; } = new LogicWorkflowProvisioningState(CreatingValue);
-        /// <summary> Created. </summary>
+        /// <summary> Represents a state where the workflow is created. </summary>
         public static LogicWorkflowProvisioningState Created { get; } = new LogicWorkflowProvisioningState(CreatedValue);
-        /// <summary> Deleting. </summary>
+        /// <summary> Represents a state where the workflow is deleting. </summary>
         public static LogicWorkflowProvisioningState Deleting { get; } = new LogicWorkflowProvisioningState(DeletingValue);
-        /// <summary> Deleted. </summary>
+        /// <summary> Represents a state where the workflow is deleted. </summary>
         public static LogicWorkflowProvisioningState Deleted { get; } = new LogicWorkflowProvisioningState(DeletedValue);
-        /// <summary> Canceled. </summary>
+        /// <summary> Represents a state where the workflow is canceled. </summary>
         public static LogicWorkflowProvisioningState Canceled { get; } = new LogicWorkflowProvisioningState(CanceledValue);
-        /// <summary> Failed. </summary>
+        /// <summary> Represents a state where the workflow is failed. </summary>
         public static LogicWorkflowProvisioningState Failed { get; } = new LogicWorkflowProvisioningState(FailedValue);
-        /// <summary> Succeeded. </summary>
+        /// <summary> Represents a state where the workflow is succeeded. </summary>
         public static LogicWorkflowProvisioningState Succeeded { get; } = new LogicWorkflowProvisioningState(SucceededValue);
-        /// <summary> Moving. </summary>
+        /// <summary> Represents a state where the workflow is moving. </summary>
         public static LogicWorkflowProvisioningState Moving { get; } = new LogicWorkflowProvisioningState(MovingValue);
-        /// <summary> Updating. </summary>
+        /// <summary> Represents a state where the workflow is updating. </summary>
         public static LogicWorkflowProvisioningState Updating { get; } = new LogicWorkflowProvisioningState(UpdatingValue);
-        /// <summary> Registering. </summary>
+        /// <summary> Represents a state where the workflow is registering. </summary>
         public static LogicWorkflowProvisioningState Registering { get; } = new LogicWorkflowProvisioningState(RegisteringValue);
-        /// <summary> Registered. </summary>
+        /// <summary> Represents a state where the workflow is registered. </summary>
         public static LogicWorkflowProvisioningState Registered { get; } = new LogicWorkflowProvisioningState(RegisteredValue);
-        /// <summary> Unregistering. </summary>
+        /// <summary> Represents a state where the workflow is unregistering. </summary>
         public static LogicWorkflowProvisioningState Unregistering { get; } = new LogicWorkflowProvisioningState(UnregisteringValue);
-        /// <summary> Unregistered. </summary>
+        /// <summary> Represents a state where the workflow is unregistered. </summary>
         public static LogicWorkflowProvisioningState Unregistered { get; } = new LogicWorkflowProvisioningState(UnregisteredValue);
-        /// <summary> Completed. </summary>
+        /// <summary> Represents a state where the workflow is completed. </summary>
         public static LogicWorkflowProvisioningState Completed { get; } = new LogicWorkflowProvisioningState(CompletedValue);
-        /// <summary> Renewing. </summary>
+        /// <summary> Represents a state where the workflow is renewing. </summary>
         public static LogicWorkflowProvisioningState Renewing { get; } = new LogicWorkflowProvisioningState(RenewingValue);
-        /// <summary> Pending. </summary>
+        /// <summary> Represents a state where the workflow is pending. </summary>
         public static LogicWorkflowProvisioningState Pending { get; } = new LogicWorkflowProvisioningState(PendingValue);
-        /// <summary> Waiting. </summary>
+        /// <summary> Represents a state where the workflow is waiting. </summary>
         public static LogicWorkflowProvisioningState Waiting { get; } = new LogicWorkflowProvisioningState(WaitingValue);
-        /// <summary> InProgress. </summary>
+        /// <summary> Represents a state where the workflow is in progress. </summary>
         public static LogicWorkflowProvisioningState InProgress { get; } = new LogicWorkflowProvisioningState(InProgressValue);
         /// <summary> Determines if two <see cref="LogicWorkflowProvisioningState"/> values are the same. </summary>
         public static bool operator ==(LogicWorkflowProvisioningState left, LogicWorkflowProvisioningState right) => left.Equals(right);

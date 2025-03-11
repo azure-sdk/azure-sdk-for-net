@@ -7,10 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The list of integration account partners. </summary>
+    /// <summary> The response of a IntegrationAccountPartner list operation. </summary>
     internal partial class IntegrationAccountPartnerListResult
     {
         /// <summary>
@@ -46,25 +47,34 @@ namespace Azure.ResourceManager.Logic.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountPartnerListResult"/>. </summary>
-        internal IntegrationAccountPartnerListResult()
+        /// <param name="value"> The IntegrationAccountPartner items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal IntegrationAccountPartnerListResult(IEnumerable<IntegrationAccountPartnerData> value)
         {
-            Value = new ChangeTrackingList<IntegrationAccountPartnerData>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountPartnerListResult"/>. </summary>
-        /// <param name="value"> The list of integration account partners. </param>
-        /// <param name="nextLink"> The URL to get the next set of results. </param>
+        /// <param name="value"> The IntegrationAccountPartner items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountPartnerListResult(IReadOnlyList<IntegrationAccountPartnerData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IntegrationAccountPartnerListResult(IReadOnlyList<IntegrationAccountPartnerData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The list of integration account partners. </summary>
+        /// <summary> Initializes a new instance of <see cref="IntegrationAccountPartnerListResult"/> for deserialization. </summary>
+        internal IntegrationAccountPartnerListResult()
+        {
+        }
+
+        /// <summary> The IntegrationAccountPartner items on this page. </summary>
         public IReadOnlyList<IntegrationAccountPartnerData> Value { get; }
-        /// <summary> The URL to get the next set of results. </summary>
-        public string NextLink { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }

@@ -39,24 +39,11 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("kid"u8);
                 writer.WriteStringValue(KeyId.AbsoluteUri);
             }
-            writer.WritePropertyName("attributes"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(IsEnabled))
+            if (Optional.IsDefined(Attributes))
             {
-                writer.WritePropertyName("enabled"u8);
-                writer.WriteBooleanValue(IsEnabled.Value);
+                writer.WritePropertyName("attributes"u8);
+                writer.WriteObjectValue(Attributes, options);
             }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("created"u8);
-                writer.WriteNumberValue(CreatedOn.Value, "U");
-            }
-            if (Optional.IsDefined(UpdatedOn))
-            {
-                writer.WritePropertyName("updated"u8);
-                writer.WriteNumberValue(UpdatedOn.Value, "U");
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -95,9 +82,7 @@ namespace Azure.ResourceManager.Logic.Models
                 return null;
             }
             Uri kid = default;
-            bool? enabled = default;
-            DateTimeOffset? created = default;
-            DateTimeOffset? updated = default;
+            KeyVaultKeyAttributes attributes = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -115,39 +100,9 @@ namespace Azure.ResourceManager.Logic.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("enabled"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            enabled = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("created"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            created = DateTimeOffset.FromUnixTimeSeconds(property0.Value.GetInt64());
-                            continue;
-                        }
-                        if (property0.NameEquals("updated"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            updated = DateTimeOffset.FromUnixTimeSeconds(property0.Value.GetInt64());
-                            continue;
-                        }
-                    }
+                    attributes = KeyVaultKeyAttributes.DeserializeKeyVaultKeyAttributes(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -156,7 +111,7 @@ namespace Azure.ResourceManager.Logic.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new IntegrationAccountKeyVaultKey(kid, enabled, created, updated, serializedAdditionalRawData);
+            return new IntegrationAccountKeyVaultKey(kid, attributes, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<IntegrationAccountKeyVaultKey>.Write(ModelReaderWriterOptions options)

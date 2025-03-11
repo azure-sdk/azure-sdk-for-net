@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.Logic.Models
         private const string NoneValue = "None";
         private const string DisableSourceInfoEnrichValue = "DisableSourceInfoEnrich";
 
-        /// <summary> None. </summary>
+        /// <summary> Represents no track events operation options. </summary>
         public static IntegrationAccountTrackEventOperationOption None { get; } = new IntegrationAccountTrackEventOperationOption(NoneValue);
-        /// <summary> DisableSourceInfoEnrich. </summary>
+        /// <summary> Represents disabling source info enrichment for track events operation. </summary>
         public static IntegrationAccountTrackEventOperationOption DisableSourceInfoEnrich { get; } = new IntegrationAccountTrackEventOperationOption(DisableSourceInfoEnrichValue);
         /// <summary> Determines if two <see cref="IntegrationAccountTrackEventOperationOption"/> values are the same. </summary>
         public static bool operator ==(IntegrationAccountTrackEventOperationOption left, IntegrationAccountTrackEventOperationOption right) => left.Equals(right);

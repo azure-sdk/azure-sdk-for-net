@@ -59,17 +59,28 @@ namespace Azure.ResourceManager.Logic
                 writer.WritePropertyName("code"u8);
                 writer.WriteStringValue(Code);
             }
-            if (options.Format != "W" && Optional.IsDefined(Error))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Error))
             {
                 writer.WritePropertyName("error"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Error);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Error, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Error)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && Optional.IsDefined(TrackingId))
             {
@@ -91,17 +102,28 @@ namespace Azure.ResourceManager.Logic
                 writer.WritePropertyName("outputsLink"u8);
                 writer.WriteObjectValue(OutputsLink, options);
             }
-            if (options.Format != "W" && Optional.IsDefined(TrackedProperties))
+            if (options.Format != "W" && Optional.IsCollectionDefined(TrackedProperties))
             {
                 writer.WritePropertyName("trackedProperties"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(TrackedProperties);
-#else
-                using (JsonDocument document = JsonDocument.Parse(TrackedProperties, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in TrackedProperties)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsCollectionDefined(RetryHistory))
             {
@@ -144,13 +166,13 @@ namespace Azure.ResourceManager.Logic
             DateTimeOffset? endTime = default;
             LogicWorkflowStatus? status = default;
             string code = default;
-            BinaryData error = default;
+            IReadOnlyDictionary<string, BinaryData> error = default;
             Guid? trackingId = default;
             LogicWorkflowRunActionCorrelation correlation = default;
             LogicContentLink inputsLink = default;
             LogicContentLink outputsLink = default;
-            BinaryData trackedProperties = default;
-            IReadOnlyList<LogicWorkRetryHistory> retryHistory = default;
+            IReadOnlyDictionary<string, BinaryData> trackedProperties = default;
+            IList<LogicWorkRetryHistory> retryHistory = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -226,7 +248,19 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            error = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            error = dictionary;
                             continue;
                         }
                         if (property0.NameEquals("trackingId"u8))
@@ -271,7 +305,19 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            trackedProperties = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            trackedProperties = dictionary;
                             continue;
                         }
                         if (property0.NameEquals("retryHistory"u8))
@@ -306,12 +352,12 @@ namespace Azure.ResourceManager.Logic
                 endTime,
                 status,
                 code,
-                error,
+                error ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 trackingId,
                 correlation,
                 inputsLink,
                 outputsLink,
-                trackedProperties,
+                trackedProperties ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 retryHistory ?? new ChangeTrackingList<LogicWorkRetryHistory>(),
                 serializedAdditionalRawData);
         }

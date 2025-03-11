@@ -51,15 +51,15 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ListOperationCallbackUri"/>. </summary>
-        /// <param name="uri"> The URL value. </param>
+        /// <param name="value"> The URL value. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ListOperationCallbackUri(Uri uri, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ListOperationCallbackUri(string value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Uri = uri;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> The URL value. </summary>
-        public Uri Uri { get; }
+        public string Value { get; }
     }
 }

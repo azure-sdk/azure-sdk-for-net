@@ -7,10 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The list of managed API operations. </summary>
+    /// <summary> The response of a ApiOperation list operation. </summary>
     internal partial class LogicApiOperationListResult
     {
         /// <summary>
@@ -46,25 +47,34 @@ namespace Azure.ResourceManager.Logic.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="LogicApiOperationListResult"/>. </summary>
-        internal LogicApiOperationListResult()
+        /// <param name="value"> The ApiOperation items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal LogicApiOperationListResult(IEnumerable<LogicApiOperationInfo> value)
         {
-            Value = new ChangeTrackingList<LogicApiOperationInfo>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicApiOperationListResult"/>. </summary>
-        /// <param name="value"> The api operation definitions for an API. </param>
-        /// <param name="nextLink"> The URL to get the next set of results. </param>
+        /// <param name="value"> The ApiOperation items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicApiOperationListResult(IReadOnlyList<LogicApiOperationInfo> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicApiOperationListResult(IReadOnlyList<LogicApiOperationInfo> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The api operation definitions for an API. </summary>
+        /// <summary> Initializes a new instance of <see cref="LogicApiOperationListResult"/> for deserialization. </summary>
+        internal LogicApiOperationListResult()
+        {
+        }
+
+        /// <summary> The ApiOperation items on this page. </summary>
         public IReadOnlyList<LogicApiOperationInfo> Value { get; }
-        /// <summary> The URL to get the next set of results. </summary>
-        public string NextLink { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }

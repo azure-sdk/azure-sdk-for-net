@@ -64,11 +64,17 @@ namespace Azure.ResourceManager.Logic
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> The request history properties. </param>
+        /// <param name="startOn"> The time the request started. </param>
+        /// <param name="endOn"> The time the request ended. </param>
+        /// <param name="request"> The request. </param>
+        /// <param name="response"> The response. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowRequestHistoryData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, LogicWorkflowRequestHistoryProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal LogicWorkflowRequestHistoryData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowRequest request, LogicWorkflowResponse response, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Properties = properties;
+            StartOn = startOn;
+            EndOn = endOn;
+            Request = request;
+            Response = response;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -77,7 +83,13 @@ namespace Azure.ResourceManager.Logic
         {
         }
 
-        /// <summary> The request history properties. </summary>
-        public LogicWorkflowRequestHistoryProperties Properties { get; set; }
+        /// <summary> The time the request started. </summary>
+        public DateTimeOffset? StartOn { get; set; }
+        /// <summary> The time the request ended. </summary>
+        public DateTimeOffset? EndOn { get; set; }
+        /// <summary> The request. </summary>
+        public LogicWorkflowRequest Request { get; set; }
+        /// <summary> The response. </summary>
+        public LogicWorkflowResponse Response { get; set; }
     }
 }

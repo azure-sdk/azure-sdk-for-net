@@ -23,11 +23,11 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         private const string NotSpecifiedValue = "NotSpecified";
-        private const string B2BValue = "B2B";
+        private const string B2BValue = "B2b";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationAccountPartnerType NotSpecified { get; } = new IntegrationAccountPartnerType(NotSpecifiedValue);
-        /// <summary> B2B. </summary>
+        /// <summary> Represents a B2b partner type. </summary>
         public static IntegrationAccountPartnerType B2B { get; } = new IntegrationAccountPartnerType(B2BValue);
         /// <summary> Determines if two <see cref="IntegrationAccountPartnerType"/> values are the same. </summary>
         public static bool operator ==(IntegrationAccountPartnerType left, IntegrationAccountPartnerType right) => left.Equals(right);

@@ -6,8 +6,6 @@
 #nullable disable
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +20,7 @@ namespace Azure.ResourceManager.Logic
     /// Each <see cref="LogicWorkflowRunResource"/> in the collection will belong to the same instance of <see cref="LogicWorkflowResource"/>.
     /// To get a <see cref="LogicWorkflowRunCollection"/> instance call the GetLogicWorkflowRuns method from an instance of <see cref="LogicWorkflowResource"/>.
     /// </summary>
-    public partial class LogicWorkflowRunCollection : ArmCollection, IEnumerable<LogicWorkflowRunResource>, IAsyncEnumerable<LogicWorkflowRunResource>
+    public partial class LogicWorkflowRunCollection : ArmCollection
     {
         private readonly ClientDiagnostics _logicWorkflowRunWorkflowRunsClientDiagnostics;
         private readonly WorkflowRunsRestOperations _logicWorkflowRunWorkflowRunsRestClient;
@@ -72,7 +70,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
@@ -117,7 +115,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
@@ -146,7 +144,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/runs</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -162,14 +160,19 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: Status, StartTime, and ClientTrackingId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
         /// <returns> An async collection of <see cref="LogicWorkflowRunResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<LogicWorkflowRunResource> GetAllAsync(int? top = null, string filter = null, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<LogicWorkflowRunResource> GetAllAsync(string runName, int? top = null, string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunWorkflowRunsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _logicWorkflowRunWorkflowRunsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, filter);
+            Argument.AssertNotNullOrEmpty(runName, nameof(runName));
+
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunWorkflowRunsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, runName, top, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _logicWorkflowRunWorkflowRunsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, runName, top, filter);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new LogicWorkflowRunResource(Client, LogicWorkflowRunData.DeserializeLogicWorkflowRunData(e)), _logicWorkflowRunWorkflowRunsClientDiagnostics, Pipeline, "LogicWorkflowRunCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -178,7 +181,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/runs</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -194,14 +197,19 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: Status, StartTime, and ClientTrackingId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
         /// <returns> A collection of <see cref="LogicWorkflowRunResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<LogicWorkflowRunResource> GetAll(int? top = null, string filter = null, CancellationToken cancellationToken = default)
+        public virtual Pageable<LogicWorkflowRunResource> GetAll(string runName, int? top = null, string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunWorkflowRunsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _logicWorkflowRunWorkflowRunsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, filter);
+            Argument.AssertNotNullOrEmpty(runName, nameof(runName));
+
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunWorkflowRunsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, runName, top, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _logicWorkflowRunWorkflowRunsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, runName, top, filter);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new LogicWorkflowRunResource(Client, LogicWorkflowRunData.DeserializeLogicWorkflowRunData(e)), _logicWorkflowRunWorkflowRunsClientDiagnostics, Pipeline, "LogicWorkflowRunCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -226,7 +234,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
@@ -269,7 +277,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
@@ -312,7 +320,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
@@ -357,7 +365,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
@@ -379,21 +387,6 @@ namespace Azure.ResourceManager.Logic
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        IEnumerator<LogicWorkflowRunResource> IEnumerable<LogicWorkflowRunResource>.GetEnumerator()
-        {
-            return GetAll().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetAll().GetEnumerator();
-        }
-
-        IAsyncEnumerator<LogicWorkflowRunResource> IAsyncEnumerable<LogicWorkflowRunResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
-        {
-            return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }
     }
 }

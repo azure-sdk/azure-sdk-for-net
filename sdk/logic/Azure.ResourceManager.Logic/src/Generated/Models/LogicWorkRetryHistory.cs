@@ -80,6 +80,17 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Gets the service request Id. </summary>
         public string ServiceRequestId { get; set; }
         /// <summary> Gets the error response. </summary>
-        public LogicErrorResponse Error { get; set; }
+        internal LogicErrorResponse Error { get; set; }
+        /// <summary> The error object. </summary>
+        public ResponseError Error
+        {
+            get => Error is null ? default(ResponseError) : Error.Error;
+            set
+            {
+                if (Error is null)
+                    Error = new LogicErrorResponse();
+                Error.Error = value;
+            }
+        }
     }
 }

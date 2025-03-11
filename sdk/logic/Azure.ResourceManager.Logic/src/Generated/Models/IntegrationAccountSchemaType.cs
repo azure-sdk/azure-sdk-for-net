@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.Logic.Models
         private const string NotSpecifiedValue = "NotSpecified";
         private const string XmlValue = "Xml";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationAccountSchemaType NotSpecified { get; } = new IntegrationAccountSchemaType(NotSpecifiedValue);
-        /// <summary> Xml. </summary>
+        /// <summary> Represents an XML schema type. </summary>
         public static IntegrationAccountSchemaType Xml { get; } = new IntegrationAccountSchemaType(XmlValue);
         /// <summary> Determines if two <see cref="IntegrationAccountSchemaType"/> values are the same. </summary>
         public static bool operator ==(IntegrationAccountSchemaType left, IntegrationAccountSchemaType right) => left.Equals(right);

@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WriteStartArray();
                 foreach (var item in WeekDays)
                 {
-                    writer.WriteStringValue(item.ToSerialString());
+                    writer.WriteStringValue(item.ToString());
                 }
                 writer.WriteEndArray();
             }
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.Logic.Models
             }
             IList<int> minutes = default;
             IList<int> hours = default;
-            IList<LogicWorkflowDayOfWeek> weekDays = default;
+            IList<DaysOfWeek> weekDays = default;
             IList<int> monthDays = default;
             IList<LogicWorkflowRecurrenceScheduleOccurrence> monthlyOccurrences = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -164,10 +164,10 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    List<LogicWorkflowDayOfWeek> array = new List<LogicWorkflowDayOfWeek>();
+                    List<DaysOfWeek> array = new List<DaysOfWeek>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString().ToLogicWorkflowDayOfWeek());
+                        array.Add(new DaysOfWeek(item.GetString()));
                     }
                     weekDays = array;
                     continue;
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.Logic.Models
             return new LogicWorkflowRecurrenceSchedule(
                 minutes ?? new ChangeTrackingList<int>(),
                 hours ?? new ChangeTrackingList<int>(),
-                weekDays ?? new ChangeTrackingList<LogicWorkflowDayOfWeek>(),
+                weekDays ?? new ChangeTrackingList<DaysOfWeek>(),
                 monthDays ?? new ChangeTrackingList<int>(),
                 monthlyOccurrences ?? new ChangeTrackingList<LogicWorkflowRecurrenceScheduleOccurrence>(),
                 serializedAdditionalRawData);

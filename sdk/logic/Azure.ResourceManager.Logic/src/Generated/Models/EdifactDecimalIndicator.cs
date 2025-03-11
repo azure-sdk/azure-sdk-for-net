@@ -5,16 +5,50 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
+
 namespace Azure.ResourceManager.Logic.Models
 {
     /// <summary> The edifact decimal indicator. </summary>
-    public enum EdifactDecimalIndicator
+    public readonly partial struct EdifactDecimalIndicator : IEquatable<EdifactDecimalIndicator>
     {
-        /// <summary> NotSpecified. </summary>
-        NotSpecified,
-        /// <summary> Comma. </summary>
-        Comma,
-        /// <summary> Decimal. </summary>
-        Decimal
+        private readonly string _value;
+
+        /// <summary> Initializes a new instance of <see cref="EdifactDecimalIndicator"/>. </summary>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public EdifactDecimalIndicator(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        private const string NotSpecifiedValue = "NotSpecified";
+        private const string CommaValue = "Comma";
+        private const string DecimalValue = "Decimal";
+
+        /// <summary> Represents a not specified edifact decimal indicator. </summary>
+        public static EdifactDecimalIndicator NotSpecified { get; } = new EdifactDecimalIndicator(NotSpecifiedValue);
+        /// <summary> Represents a comma edifact decimal indicator. </summary>
+        public static EdifactDecimalIndicator Comma { get; } = new EdifactDecimalIndicator(CommaValue);
+        /// <summary> Represents a decimal edifact decimal indicator. </summary>
+        public static EdifactDecimalIndicator Decimal { get; } = new EdifactDecimalIndicator(DecimalValue);
+        /// <summary> Determines if two <see cref="EdifactDecimalIndicator"/> values are the same. </summary>
+        public static bool operator ==(EdifactDecimalIndicator left, EdifactDecimalIndicator right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="EdifactDecimalIndicator"/> values are not the same. </summary>
+        public static bool operator !=(EdifactDecimalIndicator left, EdifactDecimalIndicator right) => !left.Equals(right);
+        /// <summary> Converts a <see cref="string"/> to a <see cref="EdifactDecimalIndicator"/>. </summary>
+        public static implicit operator EdifactDecimalIndicator(string value) => new EdifactDecimalIndicator(value);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => obj is EdifactDecimalIndicator other && Equals(other);
+        /// <inheritdoc />
+        public bool Equals(EdifactDecimalIndicator other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
+        /// <inheritdoc />
+        public override string ToString() => _value;
     }
 }

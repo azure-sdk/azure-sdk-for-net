@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string DefaultValue = "Default";
         private const string InternalValue = "Internal";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicApiDeploymentParameterVisibility NotSpecified { get; } = new LogicApiDeploymentParameterVisibility(NotSpecifiedValue);
-        /// <summary> Default. </summary>
+        /// <summary> Represents a default API deployment parameter visibility. </summary>
         public static LogicApiDeploymentParameterVisibility Default { get; } = new LogicApiDeploymentParameterVisibility(DefaultValue);
-        /// <summary> Internal. </summary>
+        /// <summary> Represents an internal API deployment parameter visibility. </summary>
         public static LogicApiDeploymentParameterVisibility Internal { get; } = new LogicApiDeploymentParameterVisibility(InternalValue);
         /// <summary> Determines if two <see cref="LogicApiDeploymentParameterVisibility"/> values are the same. </summary>
         public static bool operator ==(LogicApiDeploymentParameterVisibility left, LogicApiDeploymentParameterVisibility right) => left.Equals(right);

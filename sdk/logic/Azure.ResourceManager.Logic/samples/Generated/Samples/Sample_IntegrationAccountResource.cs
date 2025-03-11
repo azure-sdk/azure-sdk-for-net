@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
@@ -93,10 +94,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountResource integrationAccount = client.GetIntegrationAccountResource(integrationAccountResourceId);
 
             // invoke the operation
-            IntegrationAccountData data = new IntegrationAccountData(new AzureLocation("westus"))
-            {
-                SkuName = IntegrationAccountSkuName.Standard,
-            };
+            IntegrationAccountData data = new IntegrationAccountData(default);
             IntegrationAccountResource result = await integrationAccount.UpdateAsync(data);
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -127,11 +125,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountResource integrationAccount = client.GetIntegrationAccountResource(integrationAccountResourceId);
 
             // invoke the operation
-            ListOperationCallbackUrlParameterInfo info = new ListOperationCallbackUrlParameterInfo
-            {
-                NotAfter = DateTimeOffset.Parse("2017-03-05T08:00:00Z"),
-                KeyType = LogicKeyType.Primary,
-            };
+            ListOperationCallbackUrlParameterInfo info = new ListOperationCallbackUrlParameterInfo();
             ListOperationCallbackUri result = await integrationAccount.GetCallbackUrlAsync(info);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -158,13 +152,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountResource integrationAccount = client.GetIntegrationAccountResource(integrationAccountResourceId);
 
             // invoke the operation and iterate over the result
-            IntegrationAccountListKeyVaultKeyContent content = new IntegrationAccountListKeyVaultKeyContent(new IntegrationAccountKeyVaultNameReference
-            {
-                Id = new ResourceIdentifier("subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/testResourceGroup/providers/Microsoft.KeyVault/vaults/testKeyVault"),
-            })
-            {
-                SkipToken = "testSkipToken",
-            };
+            IntegrationAccountListKeyVaultKeyContent content = new IntegrationAccountListKeyVaultKeyContent(null);
             await foreach (IntegrationAccountKeyVaultKey item in integrationAccount.GetKeyVaultKeysAsync(content))
             {
                 Console.WriteLine($"Succeeded: {item}");
@@ -194,43 +182,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountResource integrationAccount = client.GetIntegrationAccountResource(integrationAccountResourceId);
 
             // invoke the operation
-            IntegrationAccountTrackingEventsContent content = new IntegrationAccountTrackingEventsContent("Microsoft.Logic/workflows", new IntegrationAccountTrackingEvent[]
-            {
-new IntegrationAccountTrackingEvent(IntegrationAccountEventLevel.Informational, DateTimeOffset.Parse("2016-08-05T01:54:49.505567Z"), IntegrationAccountTrackingRecordType.AS2Message)
-{
-Record = BinaryData.FromObjectAsJson(new
-{
-agreementProperties = new
-{
-agreementName = "testAgreement",
-as2From = "testas2from",
-as2To = "testas2to",
-receiverPartnerName = "testPartner2",
-senderPartnerName = "testPartner1",
-},
-messageProperties = new
-{
-IsMessageEncrypted = "false",
-IsMessageSigned = "false",
-correlationMessageId = "Unique message identifier",
-direction = "Receive",
-dispositionType = "received-success",
-fileName = "test",
-isMdnExpected = "true",
-isMessageCompressed = "false",
-isMessageFailed = "false",
-isNrrEnabled = "true",
-mdnType = "Async",
-messageId = "12345",
-},
-}),
-Error = new IntegrationAccountTrackingEventErrorInfo
-{
-Message = "Some error occurred",
-Code = "NotFound",
-},
-}
-            });
+            IntegrationAccountTrackingEventsContent content = new IntegrationAccountTrackingEventsContent(null, null);
             await integrationAccount.LogTrackingEventsAsync(content);
 
             Console.WriteLine("Succeeded");
@@ -257,10 +209,7 @@ Code = "NotFound",
             IntegrationAccountResource integrationAccount = client.GetIntegrationAccountResource(integrationAccountResourceId);
 
             // invoke the operation
-            LogicWorkflowRegenerateActionContent content = new LogicWorkflowRegenerateActionContent
-            {
-                KeyType = LogicKeyType.Primary,
-            };
+            LogicWorkflowRegenerateActionContent content = new LogicWorkflowRegenerateActionContent();
             IntegrationAccountResource result = await integrationAccount.RegenerateAccessKeyAsync(content);
 
             // the variable result is a resource, you could call other operations on this instance as well

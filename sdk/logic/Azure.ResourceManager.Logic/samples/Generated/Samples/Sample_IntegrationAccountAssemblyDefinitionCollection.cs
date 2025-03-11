@@ -9,7 +9,6 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.Logic.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Logic.Samples
@@ -41,11 +40,7 @@ namespace Azure.ResourceManager.Logic.Samples
 
             // invoke the operation
             string assemblyArtifactName = "testAssembly";
-            IntegrationAccountAssemblyDefinitionData data = new IntegrationAccountAssemblyDefinitionData(new AzureLocation("westus"), new IntegrationAccountAssemblyProperties("System.IdentityModel.Tokens.Jwt")
-            {
-                Content = BinaryData.FromObjectAsJson("Base64 encoded Assembly Content"),
-                Metadata = BinaryData.FromObjectAsJson(new object()),
-            });
+            IntegrationAccountAssemblyDefinitionData data = new IntegrationAccountAssemblyDefinitionData(default, null);
             ArmOperation<IntegrationAccountAssemblyDefinitionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, assemblyArtifactName, data);
             IntegrationAccountAssemblyDefinitionResource result = lro.Value;
 

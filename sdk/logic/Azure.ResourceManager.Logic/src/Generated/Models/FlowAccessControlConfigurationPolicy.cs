@@ -67,13 +67,13 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> The authentication policies for workflow. </summary>
         internal OpenAuthenticationAccessPolicies OpenAuthenticationPolicies { get; set; }
         /// <summary> Open authentication policies. </summary>
-        public IDictionary<string, OpenAuthenticationAccessPolicy> AccessPolicies
+        public IDictionary<string, OpenAuthenticationAccessPolicy> OpenAuthenticationPolicies
         {
             get
             {
                 if (OpenAuthenticationPolicies is null)
                     OpenAuthenticationPolicies = new OpenAuthenticationAccessPolicies();
-                return OpenAuthenticationPolicies.AccessPolicies;
+                return OpenAuthenticationPolicies.Policies;
             }
         }
     }

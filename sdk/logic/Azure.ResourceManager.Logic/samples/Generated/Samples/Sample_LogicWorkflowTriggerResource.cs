@@ -49,6 +49,60 @@ namespace Azure.ResourceManager.Logic.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task GetSchemaJson_GetTriggerSchema()
+        {
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/WorkflowTriggers_GetSchemaJson.json
+            // this example is just showing the usage of "WorkflowTriggers_GetSchemaJson" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this LogicWorkflowTriggerResource created on azure
+            // for more information of creating LogicWorkflowTriggerResource, please refer to the document of LogicWorkflowTriggerResource
+            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
+            string resourceGroupName = "testResourceGroup";
+            string workflowName = "testWorkflow";
+            string triggerName = "testTrigger";
+            ResourceIdentifier logicWorkflowTriggerResourceId = LogicWorkflowTriggerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workflowName, triggerName);
+            LogicWorkflowTriggerResource logicWorkflowTrigger = client.GetLogicWorkflowTriggerResource(logicWorkflowTriggerResourceId);
+
+            // invoke the operation
+            LogicJsonSchema result = await logicWorkflowTrigger.GetSchemaJsonAsync();
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetCallbackUrl_GetTheCallbackURLForATrigger()
+        {
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/WorkflowTriggers_ListCallbackUrl.json
+            // this example is just showing the usage of "WorkflowTriggers_ListCallbackUrl" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this LogicWorkflowTriggerResource created on azure
+            // for more information of creating LogicWorkflowTriggerResource, please refer to the document of LogicWorkflowTriggerResource
+            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
+            string resourceGroupName = "test-resource-group";
+            string workflowName = "test-workflow";
+            string triggerName = "manual";
+            ResourceIdentifier logicWorkflowTriggerResourceId = LogicWorkflowTriggerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workflowName, triggerName);
+            LogicWorkflowTriggerResource logicWorkflowTrigger = client.GetLogicWorkflowTriggerResource(logicWorkflowTriggerResourceId);
+
+            // invoke the operation
+            LogicWorkflowTriggerCallbackUri result = await logicWorkflowTrigger.GetCallbackUrlAsync();
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task Reset_ResetTrigger()
         {
             // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/WorkflowTriggers_Reset.json
@@ -96,36 +150,9 @@ namespace Azure.ResourceManager.Logic.Samples
             LogicWorkflowTriggerResource logicWorkflowTrigger = client.GetLogicWorkflowTriggerResource(logicWorkflowTriggerResourceId);
 
             // invoke the operation
-            await logicWorkflowTrigger.RunAsync();
+            await logicWorkflowTrigger.RunAsync(WaitUntil.Completed);
 
             Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetSchemaJson_GetTriggerSchema()
-        {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/WorkflowTriggers_GetSchemaJson.json
-            // this example is just showing the usage of "WorkflowTriggers_GetSchemaJson" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this LogicWorkflowTriggerResource created on azure
-            // for more information of creating LogicWorkflowTriggerResource, please refer to the document of LogicWorkflowTriggerResource
-            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
-            string resourceGroupName = "testResourceGroup";
-            string workflowName = "testWorkflow";
-            string triggerName = "testTrigger";
-            ResourceIdentifier logicWorkflowTriggerResourceId = LogicWorkflowTriggerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workflowName, triggerName);
-            LogicWorkflowTriggerResource logicWorkflowTrigger = client.GetLogicWorkflowTriggerResource(logicWorkflowTriggerResourceId);
-
-            // invoke the operation
-            LogicJsonSchema result = await logicWorkflowTrigger.GetSchemaJsonAsync();
-
-            Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
@@ -150,40 +177,10 @@ namespace Azure.ResourceManager.Logic.Samples
             LogicWorkflowTriggerResource logicWorkflowTrigger = client.GetLogicWorkflowTriggerResource(logicWorkflowTriggerResourceId);
 
             // invoke the operation
-            LogicWorkflowTriggerStateActionContent content = new LogicWorkflowTriggerStateActionContent(new LogicWorkflowTriggerReference
-            {
-                Id = new ResourceIdentifier("subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/sourceResGroup/providers/Microsoft.Logic/workflows/sourceWorkflow/triggers/sourceTrigger"),
-            });
+            LogicWorkflowTriggerStateActionContent content = new LogicWorkflowTriggerStateActionContent(null);
             await logicWorkflowTrigger.SetStateAsync(content);
 
             Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetCallbackUrl_GetTheCallbackURLForATrigger()
-        {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/WorkflowTriggers_ListCallbackUrl.json
-            // this example is just showing the usage of "WorkflowTriggers_ListCallbackUrl" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this LogicWorkflowTriggerResource created on azure
-            // for more information of creating LogicWorkflowTriggerResource, please refer to the document of LogicWorkflowTriggerResource
-            string subscriptionId = "34adfa4f-cedf-4dc0-ba29-b6d1a69ab345";
-            string resourceGroupName = "test-resource-group";
-            string workflowName = "test-workflow";
-            string triggerName = "manual";
-            ResourceIdentifier logicWorkflowTriggerResourceId = LogicWorkflowTriggerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workflowName, triggerName);
-            LogicWorkflowTriggerResource logicWorkflowTrigger = client.GetLogicWorkflowTriggerResource(logicWorkflowTriggerResourceId);
-
-            // invoke the operation
-            LogicWorkflowTriggerCallbackUri result = await logicWorkflowTrigger.GetCallbackUrlAsync();
-
-            Console.WriteLine($"Succeeded: {result}");
         }
     }
 }

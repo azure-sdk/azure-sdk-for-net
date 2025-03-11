@@ -28,15 +28,15 @@ namespace Azure.ResourceManager.Logic.Models
         private const string Xslt30Value = "Xslt30";
         private const string LiquidValue = "Liquid";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationAccountMapType NotSpecified { get; } = new IntegrationAccountMapType(NotSpecifiedValue);
-        /// <summary> Xslt. </summary>
+        /// <summary> Represents an XSLT map type. </summary>
         public static IntegrationAccountMapType Xslt { get; } = new IntegrationAccountMapType(XsltValue);
-        /// <summary> Xslt20. </summary>
+        /// <summary> Represents an XSLT 2.0 map type. </summary>
         public static IntegrationAccountMapType Xslt20 { get; } = new IntegrationAccountMapType(Xslt20Value);
-        /// <summary> Xslt30. </summary>
+        /// <summary> Represents an XSLT 3.0 map type. </summary>
         public static IntegrationAccountMapType Xslt30 { get; } = new IntegrationAccountMapType(Xslt30Value);
-        /// <summary> Liquid. </summary>
+        /// <summary> Represents a Liquid map type. </summary>
         public static IntegrationAccountMapType Liquid { get; } = new IntegrationAccountMapType(LiquidValue);
         /// <summary> Determines if two <see cref="IntegrationAccountMapType"/> values are the same. </summary>
         public static bool operator ==(IntegrationAccountMapType left, IntegrationAccountMapType right) => left.Equals(right);

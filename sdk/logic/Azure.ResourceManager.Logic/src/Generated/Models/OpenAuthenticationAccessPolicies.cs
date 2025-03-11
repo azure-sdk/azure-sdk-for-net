@@ -48,19 +48,19 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="OpenAuthenticationAccessPolicies"/>. </summary>
         public OpenAuthenticationAccessPolicies()
         {
-            AccessPolicies = new ChangeTrackingDictionary<string, OpenAuthenticationAccessPolicy>();
+            Policies = new ChangeTrackingDictionary<string, OpenAuthenticationAccessPolicy>();
         }
 
         /// <summary> Initializes a new instance of <see cref="OpenAuthenticationAccessPolicies"/>. </summary>
-        /// <param name="accessPolicies"> Open authentication policies. </param>
+        /// <param name="policies"> Open authentication policies. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OpenAuthenticationAccessPolicies(IDictionary<string, OpenAuthenticationAccessPolicy> accessPolicies, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OpenAuthenticationAccessPolicies(IDictionary<string, OpenAuthenticationAccessPolicy> policies, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            AccessPolicies = accessPolicies;
+            Policies = policies;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Open authentication policies. </summary>
-        public IDictionary<string, OpenAuthenticationAccessPolicy> AccessPolicies { get; }
+        public IDictionary<string, OpenAuthenticationAccessPolicy> Policies { get; }
     }
 }

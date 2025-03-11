@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    internal partial class ExpressionTraces : IUtf8JsonSerializable, IJsonModel<ExpressionTraces>
+    public partial class ExpressionTraces : IUtf8JsonSerializable, IJsonModel<ExpressionTraces>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ExpressionTraces>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 

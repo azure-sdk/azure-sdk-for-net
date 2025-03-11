@@ -5,22 +5,59 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
+
 namespace Azure.ResourceManager.Logic.Models
 {
     /// <summary> The event level. </summary>
-    public enum IntegrationAccountEventLevel
+    public readonly partial struct IntegrationAccountEventLevel : IEquatable<IntegrationAccountEventLevel>
     {
-        /// <summary> LogAlways. </summary>
-        LogAlways,
-        /// <summary> Critical. </summary>
-        Critical,
-        /// <summary> Error. </summary>
-        Error,
-        /// <summary> Warning. </summary>
-        Warning,
-        /// <summary> Informational. </summary>
-        Informational,
-        /// <summary> Verbose. </summary>
-        Verbose
+        private readonly string _value;
+
+        /// <summary> Initializes a new instance of <see cref="IntegrationAccountEventLevel"/>. </summary>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public IntegrationAccountEventLevel(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        private const string LogAlwaysValue = "LogAlways";
+        private const string CriticalValue = "Critical";
+        private const string ErrorValue = "Error";
+        private const string WarningValue = "Warning";
+        private const string InformationalValue = "Informational";
+        private const string VerboseValue = "Verbose";
+
+        /// <summary> Represents a log always event level. </summary>
+        public static IntegrationAccountEventLevel LogAlways { get; } = new IntegrationAccountEventLevel(LogAlwaysValue);
+        /// <summary> Represents a critical event level. </summary>
+        public static IntegrationAccountEventLevel Critical { get; } = new IntegrationAccountEventLevel(CriticalValue);
+        /// <summary> Represents an error event level. </summary>
+        public static IntegrationAccountEventLevel Error { get; } = new IntegrationAccountEventLevel(ErrorValue);
+        /// <summary> Represents a warning event level. </summary>
+        public static IntegrationAccountEventLevel Warning { get; } = new IntegrationAccountEventLevel(WarningValue);
+        /// <summary> Represents an information event level. </summary>
+        public static IntegrationAccountEventLevel Informational { get; } = new IntegrationAccountEventLevel(InformationalValue);
+        /// <summary> Represents a verbose event level. </summary>
+        public static IntegrationAccountEventLevel Verbose { get; } = new IntegrationAccountEventLevel(VerboseValue);
+        /// <summary> Determines if two <see cref="IntegrationAccountEventLevel"/> values are the same. </summary>
+        public static bool operator ==(IntegrationAccountEventLevel left, IntegrationAccountEventLevel right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="IntegrationAccountEventLevel"/> values are not the same. </summary>
+        public static bool operator !=(IntegrationAccountEventLevel left, IntegrationAccountEventLevel right) => !left.Equals(right);
+        /// <summary> Converts a <see cref="string"/> to a <see cref="IntegrationAccountEventLevel"/>. </summary>
+        public static implicit operator IntegrationAccountEventLevel(string value) => new IntegrationAccountEventLevel(value);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => obj is IntegrationAccountEventLevel other && Equals(other);
+        /// <inheritdoc />
+        public bool Equals(IntegrationAccountEventLevel other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
+        /// <inheritdoc />
+        public override string ToString() => _value;
     }
 }

@@ -64,15 +64,25 @@ namespace Azure.ResourceManager.Logic
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> The integration service environment properties. </param>
         /// <param name="sku"> The sku. </param>
-        /// <param name="identity"> Managed service identity properties. Current supported identity types: SystemAssigned, UserAssigned, None. </param>
+        /// <param name="identity"> Managed service identity properties. </param>
+        /// <param name="provisioningState"> Gets the provisioning state. </param>
+        /// <param name="state"> The integration service environment state. </param>
+        /// <param name="integrationServiceEnvironmentId"> Gets the tracking id. </param>
+        /// <param name="endpointsConfiguration"> The endpoints configuration. </param>
+        /// <param name="networkConfiguration"> The network configuration. </param>
+        /// <param name="encryptionConfiguration"> The encryption configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationServiceEnvironmentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationServiceEnvironmentProperties properties, IntegrationServiceEnvironmentSku sku, ManagedServiceIdentity identity, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationServiceEnvironmentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationServiceEnvironmentSku sku, ManagedServiceIdentity identity, LogicWorkflowProvisioningState? provisioningState, LogicWorkflowState? state, string integrationServiceEnvironmentId, FlowEndpointsConfiguration endpointsConfiguration, IntegrationServiceNetworkConfiguration networkConfiguration, IntegrationServiceEnvironmenEncryptionConfiguration encryptionConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Properties = properties;
             Sku = sku;
             Identity = identity;
+            ProvisioningState = provisioningState;
+            State = state;
+            IntegrationServiceEnvironmentId = integrationServiceEnvironmentId;
+            EndpointsConfiguration = endpointsConfiguration;
+            NetworkConfiguration = networkConfiguration;
+            EncryptionConfiguration = encryptionConfiguration;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -81,11 +91,32 @@ namespace Azure.ResourceManager.Logic
         {
         }
 
-        /// <summary> The integration service environment properties. </summary>
-        public IntegrationServiceEnvironmentProperties Properties { get; set; }
         /// <summary> The sku. </summary>
         public IntegrationServiceEnvironmentSku Sku { get; set; }
-        /// <summary> Managed service identity properties. Current supported identity types: SystemAssigned, UserAssigned, None. </summary>
+        /// <summary> Managed service identity properties. </summary>
         public ManagedServiceIdentity Identity { get; set; }
+        /// <summary> Gets the provisioning state. </summary>
+        public LogicWorkflowProvisioningState? ProvisioningState { get; }
+        /// <summary> The integration service environment state. </summary>
+        public LogicWorkflowState? State { get; set; }
+        /// <summary> Gets the tracking id. </summary>
+        public string IntegrationServiceEnvironmentId { get; set; }
+        /// <summary> The endpoints configuration. </summary>
+        public FlowEndpointsConfiguration EndpointsConfiguration { get; set; }
+        /// <summary> The network configuration. </summary>
+        public IntegrationServiceNetworkConfiguration NetworkConfiguration { get; set; }
+        /// <summary> The encryption configuration. </summary>
+        internal IntegrationServiceEnvironmenEncryptionConfiguration EncryptionConfiguration { get; set; }
+        /// <summary> The encryption key reference. </summary>
+        public IntegrationServiceEnvironmenEncryptionKeyReference EncryptionKeyReference
+        {
+            get => EncryptionConfiguration is null ? default : EncryptionConfiguration.EncryptionKeyReference;
+            set
+            {
+                if (EncryptionConfiguration is null)
+                    EncryptionConfiguration = new IntegrationServiceEnvironmenEncryptionConfiguration();
+                EncryptionConfiguration.EncryptionKeyReference = value;
+            }
+        }
     }
 }

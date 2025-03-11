@@ -58,9 +58,9 @@ namespace Azure.ResourceManager.Logic.Models
             writer.WritePropertyName("repetitionSeparator"u8);
             writer.WriteNumberValue(RepetitionSeparator);
             writer.WritePropertyName("segmentTerminatorSuffix"u8);
-            writer.WriteStringValue(SegmentTerminatorSuffix.ToSerialString());
+            writer.WriteStringValue(SegmentTerminatorSuffix.ToString());
             writer.WritePropertyName("decimalPointIndicator"u8);
-            writer.WriteStringValue(DecimalPointIndicator.ToSerialString());
+            writer.WriteStringValue(DecimalPointIndicator.ToString());
             writer.WritePropertyName("releaseIndicator"u8);
             writer.WriteNumberValue(ReleaseIndicator);
             if (Optional.IsDefined(MessageAssociationAssignedCode))
@@ -163,12 +163,12 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 if (property.NameEquals("segmentTerminatorSuffix"u8))
                 {
-                    segmentTerminatorSuffix = property.Value.GetString().ToSegmentTerminatorSuffix();
+                    segmentTerminatorSuffix = new SegmentTerminatorSuffix(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("decimalPointIndicator"u8))
                 {
-                    decimalPointIndicator = property.Value.GetString().ToEdifactDecimalIndicator();
+                    decimalPointIndicator = new EdifactDecimalIndicator(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("releaseIndicator"u8))

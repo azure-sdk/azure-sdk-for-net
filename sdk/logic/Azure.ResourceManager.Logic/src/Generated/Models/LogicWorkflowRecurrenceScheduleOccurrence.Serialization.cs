@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Logic.Models
             if (Optional.IsDefined(Day))
             {
                 writer.WritePropertyName("day"u8);
-                writer.WriteStringValue(Day.Value.ToSerialString());
+                writer.WriteStringValue(Day.Value.ToString());
             }
             if (Optional.IsDefined(Occurrence))
             {
@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    day = property.Value.GetString().ToLogicWorkflowDayOfWeek();
+                    day = new LogicWorkflowDayOfWeek(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("occurrence"u8))

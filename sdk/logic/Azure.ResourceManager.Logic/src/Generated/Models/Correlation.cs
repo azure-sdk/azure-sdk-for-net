@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Logic.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="Correlation"/>. </summary>
-        internal Correlation()
+        public Correlation()
         {
         }
 
@@ -60,6 +60,6 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         /// <summary> The client tracking id. </summary>
-        public string ClientTrackingId { get; }
+        public string ClientTrackingId { get; set; }
     }
 }

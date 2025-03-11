@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.Logic
 {
     /// <summary>
     /// A class representing a collection of <see cref="IntegrationServiceEnvironmentResource"/> and their operations.
-    /// Each <see cref="IntegrationServiceEnvironmentResource"/> in the collection will belong to the same instance of <see cref="ResourceGroupResource"/>.
-    /// To get an <see cref="IntegrationServiceEnvironmentCollection"/> instance call the GetIntegrationServiceEnvironments method from an instance of <see cref="ResourceGroupResource"/>.
+    /// Each <see cref="IntegrationServiceEnvironmentResource"/> in the collection will belong to the same instance of <see cref="SubscriptionResource"/>.
+    /// To get an <see cref="IntegrationServiceEnvironmentCollection"/> instance call the GetIntegrationServiceEnvironments method from an instance of <see cref="SubscriptionResource"/>.
     /// </summary>
     public partial class IntegrationServiceEnvironmentCollection : ArmCollection, IEnumerable<IntegrationServiceEnvironmentResource>, IAsyncEnumerable<IntegrationServiceEnvironmentResource>
     {
@@ -48,8 +48,8 @@ namespace Azure.ResourceManager.Logic
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ResourceGroupResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
+            if (id.ResourceType != SubscriptionResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SubscriptionResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -88,8 +88,8 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = await _integrationServiceEnvironmentRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new LogicArmOperation<IntegrationServiceEnvironmentResource>(new IntegrationServiceEnvironmentOperationSource(Client), _integrationServiceEnvironmentClientDiagnostics, Pipeline, _integrationServiceEnvironmentRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _integrationServiceEnvironmentRestClient.CreateOrUpdateAsync(Id.SubscriptionId, integrationServiceEnvironmentName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new LogicArmOperation<IntegrationServiceEnvironmentResource>(new IntegrationServiceEnvironmentOperationSource(Client), _integrationServiceEnvironmentClientDiagnostics, Pipeline, _integrationServiceEnvironmentRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, integrationServiceEnvironmentName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -106,7 +106,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -137,8 +137,8 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = _integrationServiceEnvironmentRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, data, cancellationToken);
-                var operation = new LogicArmOperation<IntegrationServiceEnvironmentResource>(new IntegrationServiceEnvironmentOperationSource(Client), _integrationServiceEnvironmentClientDiagnostics, Pipeline, _integrationServiceEnvironmentRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, data).Request, response, OperationFinalStateVia.Location);
+                var response = _integrationServiceEnvironmentRestClient.CreateOrUpdate(Id.SubscriptionId, integrationServiceEnvironmentName, data, cancellationToken);
+                var operation = new LogicArmOperation<IntegrationServiceEnvironmentResource>(new IntegrationServiceEnvironmentOperationSource(Client), _integrationServiceEnvironmentClientDiagnostics, Pipeline, _integrationServiceEnvironmentRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, integrationServiceEnvironmentName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = await _integrationServiceEnvironmentRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, cancellationToken).ConfigureAwait(false);
+                var response = await _integrationServiceEnvironmentRestClient.GetAsync(Id.SubscriptionId, integrationServiceEnvironmentName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new IntegrationServiceEnvironmentResource(Client, response.Value), response.GetRawResponse());
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = _integrationServiceEnvironmentRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, cancellationToken);
+                var response = _integrationServiceEnvironmentRestClient.Get(Id.SubscriptionId, integrationServiceEnvironmentName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new IntegrationServiceEnvironmentResource(Client, response.Value), response.GetRawResponse());
@@ -241,15 +241,15 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Gets a list of integration service environments by resource group.
+        /// Gets a list of integration service environments by subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_ListByResourceGroup</description>
+        /// <description>IntegrationServiceEnvironments_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -266,21 +266,21 @@ namespace Azure.ResourceManager.Logic
         /// <returns> An async collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<IntegrationServiceEnvironmentResource> GetAllAsync(int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _integrationServiceEnvironmentRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, top);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _integrationServiceEnvironmentRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, top);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _integrationServiceEnvironmentRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _integrationServiceEnvironmentRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, top);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new IntegrationServiceEnvironmentResource(Client, IntegrationServiceEnvironmentData.DeserializeIntegrationServiceEnvironmentData(e)), _integrationServiceEnvironmentClientDiagnostics, Pipeline, "IntegrationServiceEnvironmentCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Gets a list of integration service environments by resource group.
+        /// Gets a list of integration service environments by subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_ListByResourceGroup</description>
+        /// <description>IntegrationServiceEnvironments_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -297,8 +297,8 @@ namespace Azure.ResourceManager.Logic
         /// <returns> A collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<IntegrationServiceEnvironmentResource> GetAll(int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _integrationServiceEnvironmentRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, top);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _integrationServiceEnvironmentRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, top);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _integrationServiceEnvironmentRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _integrationServiceEnvironmentRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, top);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new IntegrationServiceEnvironmentResource(Client, IntegrationServiceEnvironmentData.DeserializeIntegrationServiceEnvironmentData(e)), _integrationServiceEnvironmentClientDiagnostics, Pipeline, "IntegrationServiceEnvironmentCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -307,7 +307,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -335,7 +335,7 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = await _integrationServiceEnvironmentRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _integrationServiceEnvironmentRestClient.GetAsync(Id.SubscriptionId, integrationServiceEnvironmentName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -350,7 +350,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -378,7 +378,7 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = _integrationServiceEnvironmentRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, cancellationToken: cancellationToken);
+                var response = _integrationServiceEnvironmentRestClient.Get(Id.SubscriptionId, integrationServiceEnvironmentName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -393,7 +393,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -421,7 +421,7 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = await _integrationServiceEnvironmentRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _integrationServiceEnvironmentRestClient.GetAsync(Id.SubscriptionId, integrationServiceEnvironmentName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<IntegrationServiceEnvironmentResource>(response.GetRawResponse());
                 return Response.FromValue(new IntegrationServiceEnvironmentResource(Client, response.Value), response.GetRawResponse());
@@ -438,7 +438,7 @@ namespace Azure.ResourceManager.Logic
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -466,7 +466,7 @@ namespace Azure.ResourceManager.Logic
             scope.Start();
             try
             {
-                var response = _integrationServiceEnvironmentRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, integrationServiceEnvironmentName, cancellationToken: cancellationToken);
+                var response = _integrationServiceEnvironmentRestClient.Get(Id.SubscriptionId, integrationServiceEnvironmentName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<IntegrationServiceEnvironmentResource>(response.GetRawResponse());
                 return Response.FromValue(new IntegrationServiceEnvironmentResource(Client, response.Value), response.GetRawResponse());

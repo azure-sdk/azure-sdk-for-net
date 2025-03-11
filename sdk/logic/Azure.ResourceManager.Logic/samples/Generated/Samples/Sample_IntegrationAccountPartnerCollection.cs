@@ -41,14 +41,7 @@ namespace Azure.ResourceManager.Logic.Samples
 
             // invoke the operation
             string partnerName = "testPartner";
-            IntegrationAccountPartnerData data = new IntegrationAccountPartnerData(new AzureLocation("westus"), IntegrationAccountPartnerType.B2B, new IntegrationAccountPartnerContent
-            {
-                B2BBusinessIdentities = { new IntegrationAccountBusinessIdentity("AA", "ZZ") },
-            })
-            {
-                Metadata = BinaryData.FromObjectAsJson(new object()),
-                Tags = { },
-            };
+            IntegrationAccountPartnerData data = new IntegrationAccountPartnerData(default, default, null);
             ArmOperation<IntegrationAccountPartnerResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, partnerName, data);
             IntegrationAccountPartnerResource result = lro.Value;
 

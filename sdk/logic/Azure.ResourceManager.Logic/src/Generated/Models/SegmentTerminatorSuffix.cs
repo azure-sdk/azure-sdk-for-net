@@ -5,20 +5,56 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
+
 namespace Azure.ResourceManager.Logic.Models
 {
     /// <summary> The segment terminator suffix. </summary>
-    public enum SegmentTerminatorSuffix
+    public readonly partial struct SegmentTerminatorSuffix : IEquatable<SegmentTerminatorSuffix>
     {
-        /// <summary> None. </summary>
-        None,
-        /// <summary> NotSpecified. </summary>
-        NotSpecified,
-        /// <summary> CR. </summary>
-        CR,
-        /// <summary> LF. </summary>
-        LF,
-        /// <summary> CRLF. </summary>
-        Crlf
+        private readonly string _value;
+
+        /// <summary> Initializes a new instance of <see cref="SegmentTerminatorSuffix"/>. </summary>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public SegmentTerminatorSuffix(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        private const string NotSpecifiedValue = "NotSpecified";
+        private const string NoneValue = "None";
+        private const string CRValue = "CR";
+        private const string LFValue = "LF";
+        private const string CrlfValue = "CRLF";
+
+        /// <summary> Represents a not specified segment terminator suffix. </summary>
+        public static SegmentTerminatorSuffix NotSpecified { get; } = new SegmentTerminatorSuffix(NotSpecifiedValue);
+        /// <summary> Represents a none segment terminator suffix. </summary>
+        public static SegmentTerminatorSuffix None { get; } = new SegmentTerminatorSuffix(NoneValue);
+        /// <summary> Represents a CR segment terminator suffix. </summary>
+        public static SegmentTerminatorSuffix CR { get; } = new SegmentTerminatorSuffix(CRValue);
+        /// <summary> Represents a LF segment terminator suffix. </summary>
+        public static SegmentTerminatorSuffix LF { get; } = new SegmentTerminatorSuffix(LFValue);
+        /// <summary> Represents a CRLF segment terminator suffix. </summary>
+        public static SegmentTerminatorSuffix Crlf { get; } = new SegmentTerminatorSuffix(CrlfValue);
+        /// <summary> Determines if two <see cref="SegmentTerminatorSuffix"/> values are the same. </summary>
+        public static bool operator ==(SegmentTerminatorSuffix left, SegmentTerminatorSuffix right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="SegmentTerminatorSuffix"/> values are not the same. </summary>
+        public static bool operator !=(SegmentTerminatorSuffix left, SegmentTerminatorSuffix right) => !left.Equals(right);
+        /// <summary> Converts a <see cref="string"/> to a <see cref="SegmentTerminatorSuffix"/>. </summary>
+        public static implicit operator SegmentTerminatorSuffix(string value) => new SegmentTerminatorSuffix(value);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => obj is SegmentTerminatorSuffix other && Equals(other);
+        /// <inheritdoc />
+        public bool Equals(SegmentTerminatorSuffix other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
+        /// <inheritdoc />
+        public override string ToString() => _value;
     }
 }

@@ -6,11 +6,9 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.Logic.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -42,75 +40,7 @@ namespace Azure.ResourceManager.Logic.Samples
 
             // invoke the operation
             string workflowName = "test-workflow";
-            LogicWorkflowData data = new LogicWorkflowData(new AzureLocation("brazilsouth"))
-            {
-                IntegrationAccount = new LogicResourceReference
-                {
-                    Id = new ResourceIdentifier("/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/test-resource-group/providers/Microsoft.Logic/integrationAccounts/test-integration-account"),
-                },
-                Definition = BinaryData.FromObjectAsJson(new Dictionary<string, object>
-                {
-                    ["$schema"] = "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                    ["actions"] = new
-                    {
-                        Find_pet_by_ID = new
-                        {
-                            type = "ApiConnection",
-                            inputs = new
-                            {
-                                path = "/pet/@{encodeURIComponent('1')}",
-                                method = "get",
-                                host = new
-                                {
-                                    connection = new
-                                    {
-                                        name = "@parameters('$connections')['test-custom-connector']['connectionId']",
-                                    },
-                                },
-                            },
-                            runAfter = new object(),
-                        },
-                    },
-                    ["contentVersion"] = "1.0.0.0",
-                    ["outputs"] = new object(),
-                    ["parameters"] = new Dictionary<string, object>
-                    {
-                        ["$connections"] = new
-                        {
-                            type = "Object",
-                            defaultValue = new object(),
-                        }
-                    },
-                    ["triggers"] = new
-                    {
-                        manual = new
-                        {
-                            type = "Request",
-                            inputs = new
-                            {
-                                schema = new object(),
-                            },
-                            kind = "Http",
-                        },
-                    }
-                }),
-                Parameters =
-{
-["$connections"] = new LogicWorkflowParameterInfo
-{
-Value = BinaryData.FromObjectAsJson(new Dictionary<string, object>
-{
-["test-custom-connector"] = new
-{
-connectionId = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/test-resource-group/providers/Microsoft.Web/connections/test-custom-connector",
-connectionName = "test-custom-connector",
-id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.Web/locations/brazilsouth/managedApis/test-custom-connector",
-}
-}),
-}
-},
-                Tags = { },
-            };
+            LogicWorkflowData data = new LogicWorkflowData(default);
             ArmOperation<LogicWorkflowResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, workflowName, data);
             LogicWorkflowResource result = lro.Value;
 

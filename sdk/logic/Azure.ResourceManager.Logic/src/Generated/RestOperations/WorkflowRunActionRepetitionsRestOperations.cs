@@ -36,116 +36,6 @@ namespace Azure.ResourceManager.Logic
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateListRequestUri(string subscriptionId, string resourceGroupName, string workflowName, string runName, string actionName)
-        {
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.Logic/workflows/", false);
-            uri.AppendPath(workflowName, true);
-            uri.AppendPath("/runs/", false);
-            uri.AppendPath(runName, true);
-            uri.AppendPath("/actions/", false);
-            uri.AppendPath(actionName, true);
-            uri.AppendPath("/repetitions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            return uri;
-        }
-
-        internal HttpMessage CreateListRequest(string subscriptionId, string resourceGroupName, string workflowName, string runName, string actionName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Get;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.Logic/workflows/", false);
-            uri.AppendPath(workflowName, true);
-            uri.AppendPath("/runs/", false);
-            uri.AppendPath(runName, true);
-            uri.AppendPath("/actions/", false);
-            uri.AppendPath(actionName, true);
-            uri.AppendPath("/repetitions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Get all of a workflow run action repetitions. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<LogicWorkflowRunActionRepetitionDefinitionList>> ListAsync(string subscriptionId, string resourceGroupName, string workflowName, string runName, string actionName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(workflowName, nameof(workflowName));
-            Argument.AssertNotNullOrEmpty(runName, nameof(runName));
-            Argument.AssertNotNullOrEmpty(actionName, nameof(actionName));
-
-            using var message = CreateListRequest(subscriptionId, resourceGroupName, workflowName, runName, actionName);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        LogicWorkflowRunActionRepetitionDefinitionList value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = LogicWorkflowRunActionRepetitionDefinitionList.DeserializeLogicWorkflowRunActionRepetitionDefinitionList(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Get all of a workflow run action repetitions. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<LogicWorkflowRunActionRepetitionDefinitionList> List(string subscriptionId, string resourceGroupName, string workflowName, string runName, string actionName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(workflowName, nameof(workflowName));
-            Argument.AssertNotNullOrEmpty(runName, nameof(runName));
-            Argument.AssertNotNullOrEmpty(actionName, nameof(actionName));
-
-            using var message = CreateListRequest(subscriptionId, resourceGroupName, workflowName, runName, actionName);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        LogicWorkflowRunActionRepetitionDefinitionList value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = LogicWorkflowRunActionRepetitionDefinitionList.DeserializeLogicWorkflowRunActionRepetitionDefinitionList(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
         internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string resourceGroupName, string workflowName, string runName, string actionName, string repetitionName)
         {
             var uri = new RawRequestUriBuilder();
@@ -193,12 +83,12 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get a workflow run action repetition. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -230,12 +120,12 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get a workflow run action repetition. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -315,12 +205,12 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Lists a workflow run expression trace. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -350,12 +240,12 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Lists a workflow run expression trace. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>

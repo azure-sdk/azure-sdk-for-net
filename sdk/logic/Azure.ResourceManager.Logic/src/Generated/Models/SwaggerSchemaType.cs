@@ -31,21 +31,21 @@ namespace Azure.ResourceManager.Logic.Models
         private const string ObjectValue = "Object";
         private const string NullValue = "Null";
 
-        /// <summary> String. </summary>
+        /// <summary> Represents a string schema type. </summary>
         public static SwaggerSchemaType String { get; } = new SwaggerSchemaType(StringValue);
-        /// <summary> Number. </summary>
+        /// <summary> Represents a number schema type. </summary>
         public static SwaggerSchemaType Number { get; } = new SwaggerSchemaType(NumberValue);
-        /// <summary> Integer. </summary>
+        /// <summary> Represents an integer schema type. </summary>
         public static SwaggerSchemaType Integer { get; } = new SwaggerSchemaType(IntegerValue);
-        /// <summary> Boolean. </summary>
+        /// <summary> Represents a boolean schema type. </summary>
         public static SwaggerSchemaType Boolean { get; } = new SwaggerSchemaType(BooleanValue);
-        /// <summary> Array. </summary>
+        /// <summary> Represents an array schema type. </summary>
         public static SwaggerSchemaType Array { get; } = new SwaggerSchemaType(ArrayValue);
-        /// <summary> File. </summary>
+        /// <summary> Represents a file schema type. </summary>
         public static SwaggerSchemaType File { get; } = new SwaggerSchemaType(FileValue);
-        /// <summary> Object. </summary>
+        /// <summary> Represents an object schema type. </summary>
         public static SwaggerSchemaType Object { get; } = new SwaggerSchemaType(ObjectValue);
-        /// <summary> Null. </summary>
+        /// <summary> Represents a null schema type. </summary>
         public static SwaggerSchemaType Null { get; } = new SwaggerSchemaType(NullValue);
         /// <summary> Determines if two <see cref="SwaggerSchemaType"/> values are the same. </summary>
         public static bool operator ==(SwaggerSchemaType left, SwaggerSchemaType right) => left.Equals(right);

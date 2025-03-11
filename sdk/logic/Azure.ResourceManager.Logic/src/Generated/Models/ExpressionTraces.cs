@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.Logic.Models
 {
     /// <summary> The expression traces. </summary>
-    internal partial class ExpressionTraces
+    public partial class ExpressionTraces
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.

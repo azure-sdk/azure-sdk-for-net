@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string PrimaryValue = "Primary";
         private const string SecondaryValue = "Secondary";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicKeyType NotSpecified { get; } = new LogicKeyType(NotSpecifiedValue);
-        /// <summary> Primary. </summary>
+        /// <summary> Represents a primary key type. </summary>
         public static LogicKeyType Primary { get; } = new LogicKeyType(PrimaryValue);
-        /// <summary> Secondary. </summary>
+        /// <summary> Represents a secondary key type. </summary>
         public static LogicKeyType Secondary { get; } = new LogicKeyType(SecondaryValue);
         /// <summary> Determines if two <see cref="LogicKeyType"/> values are the same. </summary>
         public static bool operator ==(LogicKeyType left, LogicKeyType right) => left.Equals(right);

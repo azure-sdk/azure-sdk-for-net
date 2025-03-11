@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The integration service environment subnet network health. </summary>
-    public partial class IntegrationServiceEnvironmentNetworkDependencyHealth
+    /// <summary> The key attributes. </summary>
+    public partial class KeyVaultKeyAttributes
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,29 @@ namespace Azure.ResourceManager.Logic.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="IntegrationServiceEnvironmentNetworkDependencyHealth"/>. </summary>
-        internal IntegrationServiceEnvironmentNetworkDependencyHealth()
+        /// <summary> Initializes a new instance of <see cref="KeyVaultKeyAttributes"/>. </summary>
+        internal KeyVaultKeyAttributes()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="IntegrationServiceEnvironmentNetworkDependencyHealth"/>. </summary>
-        /// <param name="error"> The error if any occurred during the operation. </param>
-        /// <param name="state"> The network dependency health state. </param>
+        /// <summary> Initializes a new instance of <see cref="KeyVaultKeyAttributes"/>. </summary>
+        /// <param name="enabled"> Whether the key is enabled or not. </param>
+        /// <param name="created"> When the key was created. </param>
+        /// <param name="updated"> When the key was updated. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationServiceEnvironmentNetworkDependencyHealth(IntegrationServiceErrorInfo error, IntegrationServiceEnvironmentNetworkDependencyHealthState? state, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal KeyVaultKeyAttributes(bool? enabled, long? created, long? updated, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Error = error;
-            State = state;
+            Enabled = enabled;
+            Created = created;
+            Updated = updated;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The error if any occurred during the operation. </summary>
-        public IntegrationServiceErrorInfo Error { get; }
-        /// <summary> The network dependency health state. </summary>
-        public IntegrationServiceEnvironmentNetworkDependencyHealthState? State { get; }
+        /// <summary> Whether the key is enabled or not. </summary>
+        public bool? Enabled { get; }
+        /// <summary> When the key was created. </summary>
+        public long? Created { get; }
+        /// <summary> When the key was updated. </summary>
+        public long? Updated { get; }
     }
 }

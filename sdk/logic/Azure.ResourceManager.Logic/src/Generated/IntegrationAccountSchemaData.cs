@@ -57,6 +57,7 @@ namespace Azure.ResourceManager.Logic
         public IntegrationAccountSchemaData(AzureLocation location, IntegrationAccountSchemaType schemaType) : base(location)
         {
             SchemaType = schemaType;
+            Metadata = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountSchemaData"/>. </summary>
@@ -77,7 +78,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="contentType"> The content type. </param>
         /// <param name="contentLink"> The content link. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountSchemaData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationAccountSchemaType schemaType, string targetNamespace, string documentName, string fileName, DateTimeOffset? createdOn, DateTimeOffset? changedOn, BinaryData metadata, BinaryData content, ContentType? contentType, LogicContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationAccountSchemaData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationAccountSchemaType schemaType, string targetNamespace, string documentName, string fileName, DateTimeOffset? createdOn, DateTimeOffset? changedOn, IDictionary<string, BinaryData> metadata, BinaryData content, ContentType? contentType, LogicContentLink contentLink, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             SchemaType = schemaType;
             TargetNamespace = targetNamespace;
@@ -112,7 +113,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// The metadata.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -139,7 +140,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Metadata { get; set; }
+        public IDictionary<string, BinaryData> Metadata { get; }
         /// <summary>
         /// The content.
         /// <para>

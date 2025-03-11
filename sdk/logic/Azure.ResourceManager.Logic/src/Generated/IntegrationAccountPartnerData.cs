@@ -61,6 +61,7 @@ namespace Azure.ResourceManager.Logic
             Argument.AssertNotNull(content, nameof(content));
 
             PartnerType = partnerType;
+            Metadata = new ChangeTrackingDictionary<string, BinaryData>();
             Content = content;
         }
 
@@ -77,7 +78,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="metadata"> The metadata. </param>
         /// <param name="content"> The partner content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountPartnerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationAccountPartnerType partnerType, DateTimeOffset? createdOn, DateTimeOffset? changedOn, BinaryData metadata, IntegrationAccountPartnerContent content, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationAccountPartnerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationAccountPartnerType partnerType, DateTimeOffset? createdOn, DateTimeOffset? changedOn, IDictionary<string, BinaryData> metadata, IntegrationAccountPartnerContent content, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             PartnerType = partnerType;
             CreatedOn = createdOn;
@@ -101,7 +102,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// The metadata.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -128,7 +129,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Metadata { get; set; }
+        public IDictionary<string, BinaryData> Metadata { get; }
         /// <summary> The partner content. </summary>
         internal IntegrationAccountPartnerContent Content { get; set; }
         /// <summary> The list of partner business identities. </summary>

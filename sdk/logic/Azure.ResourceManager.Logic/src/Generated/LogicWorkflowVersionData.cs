@@ -55,6 +55,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="location"> The location. </param>
         public LogicWorkflowVersionData(AzureLocation location) : base(location)
         {
+            Definition = new ChangeTrackingDictionary<string, BinaryData>();
             Parameters = new ChangeTrackingDictionary<string, LogicWorkflowParameterInfo>();
         }
 
@@ -78,7 +79,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="definition"> The definition. </param>
         /// <param name="parameters"> The parameters. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowVersionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, LogicWorkflowProvisioningState? provisioningState, DateTimeOffset? createdOn, DateTimeOffset? changedOn, LogicWorkflowState? state, string version, string accessEndpoint, FlowEndpointsConfiguration endpointsConfiguration, FlowAccessControlConfiguration accessControl, LogicSku sku, LogicResourceReference integrationAccount, BinaryData definition, IDictionary<string, LogicWorkflowParameterInfo> parameters, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal LogicWorkflowVersionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, LogicWorkflowProvisioningState? provisioningState, DateTimeOffset? createdOn, DateTimeOffset? changedOn, LogicWorkflowState? state, string version, string accessEndpoint, FlowEndpointsConfiguration endpointsConfiguration, FlowAccessControlConfiguration accessControl, LogicSku sku, LogicResourceReference integrationAccount, IDictionary<string, BinaryData> definition, IDictionary<string, LogicWorkflowParameterInfo> parameters, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             ProvisioningState = provisioningState;
             CreatedOn = createdOn;
@@ -123,7 +124,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// The definition.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -150,7 +151,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Definition { get; set; }
+        public IDictionary<string, BinaryData> Definition { get; }
         /// <summary> The parameters. </summary>
         public IDictionary<string, LogicWorkflowParameterInfo> Parameters { get; }
     }

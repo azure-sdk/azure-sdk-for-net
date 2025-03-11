@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Logic.Models
         private const string BasicValue = "Basic";
         private const string StandardValue = "Standard";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationAccountSkuName NotSpecified { get; } = new IntegrationAccountSkuName(NotSpecifiedValue);
-        /// <summary> Free. </summary>
+        /// <summary> Represents a free integration account SKU. </summary>
         public static IntegrationAccountSkuName Free { get; } = new IntegrationAccountSkuName(FreeValue);
-        /// <summary> Basic. </summary>
+        /// <summary> Represents a basic integration account SKU. </summary>
         public static IntegrationAccountSkuName Basic { get; } = new IntegrationAccountSkuName(BasicValue);
-        /// <summary> Standard. </summary>
+        /// <summary> Represents a standard integration account SKU. </summary>
         public static IntegrationAccountSkuName Standard { get; } = new IntegrationAccountSkuName(StandardValue);
         /// <summary> Determines if two <see cref="IntegrationAccountSkuName"/> values are the same. </summary>
         public static bool operator ==(IntegrationAccountSkuName left, IntegrationAccountSkuName right) => left.Equals(right);

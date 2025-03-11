@@ -6,12 +6,9 @@
 #nullable disable
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
@@ -22,7 +19,7 @@ namespace Azure.ResourceManager.Logic
     /// Each <see cref="LogicWorkflowRunActionScopeRepetitionResource"/> in the collection will belong to the same instance of <see cref="LogicWorkflowRunActionResource"/>.
     /// To get a <see cref="LogicWorkflowRunActionScopeRepetitionCollection"/> instance call the GetLogicWorkflowRunActionScopeRepetitions method from an instance of <see cref="LogicWorkflowRunActionResource"/>.
     /// </summary>
-    public partial class LogicWorkflowRunActionScopeRepetitionCollection : ArmCollection, IEnumerable<LogicWorkflowRunActionScopeRepetitionResource>, IAsyncEnumerable<LogicWorkflowRunActionScopeRepetitionResource>
+    public partial class LogicWorkflowRunActionScopeRepetitionCollection : ArmCollection
     {
         private readonly ClientDiagnostics _logicWorkflowRunActionScopeRepetitionWorkflowRunActionScopeRepetitionsClientDiagnostics;
         private readonly WorkflowRunActionScopeRepetitionsRestOperations _logicWorkflowRunActionScopeRepetitionWorkflowRunActionScopeRepetitionsRestClient;
@@ -72,7 +69,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -117,7 +114,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -142,64 +139,6 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// List the workflow run action scoped repetitions.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions/{actionName}/scopeRepetitions</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkflowRunActionScopeRepetitions_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowRunActionScopeRepetitionResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="LogicWorkflowRunActionScopeRepetitionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<LogicWorkflowRunActionScopeRepetitionResource> GetAllAsync(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionScopeRepetitionWorkflowRunActionScopeRepetitionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new LogicWorkflowRunActionScopeRepetitionResource(Client, LogicWorkflowRunActionRepetitionDefinitionData.DeserializeLogicWorkflowRunActionRepetitionDefinitionData(e)), _logicWorkflowRunActionScopeRepetitionWorkflowRunActionScopeRepetitionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionScopeRepetitionCollection.GetAll", "value", null, cancellationToken);
-        }
-
-        /// <summary>
-        /// List the workflow run action scoped repetitions.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions/{actionName}/scopeRepetitions</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkflowRunActionScopeRepetitions_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowRunActionScopeRepetitionResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="LogicWorkflowRunActionScopeRepetitionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<LogicWorkflowRunActionScopeRepetitionResource> GetAll(CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionScopeRepetitionWorkflowRunActionScopeRepetitionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new LogicWorkflowRunActionScopeRepetitionResource(Client, LogicWorkflowRunActionRepetitionDefinitionData.DeserializeLogicWorkflowRunActionRepetitionDefinitionData(e)), _logicWorkflowRunActionScopeRepetitionWorkflowRunActionScopeRepetitionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionScopeRepetitionCollection.GetAll", "value", null, cancellationToken);
-        }
-
-        /// <summary>
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
@@ -220,7 +159,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -263,7 +202,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -306,7 +245,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -351,7 +290,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -373,21 +312,6 @@ namespace Azure.ResourceManager.Logic
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        IEnumerator<LogicWorkflowRunActionScopeRepetitionResource> IEnumerable<LogicWorkflowRunActionScopeRepetitionResource>.GetEnumerator()
-        {
-            return GetAll().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetAll().GetEnumerator();
-        }
-
-        IAsyncEnumerator<LogicWorkflowRunActionScopeRepetitionResource> IAsyncEnumerable<LogicWorkflowRunActionScopeRepetitionResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
-        {
-            return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }
     }
 }

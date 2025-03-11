@@ -52,8 +52,9 @@ namespace Azure.ResourceManager.Logic
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowRunData"/>. </summary>
-        internal LogicWorkflowRunData()
+        public LogicWorkflowRunData()
         {
+            Error = new ChangeTrackingDictionary<string, BinaryData>();
             Outputs = new ChangeTrackingDictionary<string, LogicWorkflowOutputParameterInfo>();
         }
 
@@ -75,7 +76,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="outputs"> Gets the outputs. </param>
         /// <param name="response"> Gets the response of the flow run. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowRunData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? waitEndOn, DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowStatus? status, string code, BinaryData error, string correlationId, Correlation correlation, LogicResourceReference workflow, LogicWorkflowRunTrigger trigger, IReadOnlyDictionary<string, LogicWorkflowOutputParameterInfo> outputs, LogicWorkflowRunTrigger response, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal LogicWorkflowRunData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? waitEndOn, DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowStatus? status, string code, IReadOnlyDictionary<string, BinaryData> error, string correlationId, Correlation correlation, LogicResourceReference workflow, LogicWorkflowRunTrigger trigger, IReadOnlyDictionary<string, LogicWorkflowOutputParameterInfo> outputs, LogicWorkflowRunTrigger response, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             WaitEndOn = waitEndOn;
             StartOn = startOn;
@@ -105,7 +106,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// Gets the error.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -132,15 +133,21 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Error { get; }
+        public IReadOnlyDictionary<string, BinaryData> Error { get; }
         /// <summary> Gets the correlation id. </summary>
         public string CorrelationId { get; }
         /// <summary> The run correlation. </summary>
-        internal Correlation Correlation { get; }
+        internal Correlation Correlation { get; set; }
         /// <summary> The client tracking id. </summary>
         public string CorrelationClientTrackingId
         {
-            get => Correlation?.ClientTrackingId;
+            get => Correlation is null ? default : Correlation.ClientTrackingId;
+            set
+            {
+                if (Correlation is null)
+                    Correlation = new Correlation();
+                Correlation.ClientTrackingId = value;
+            }
         }
 
         /// <summary> Gets the reference to workflow version. </summary>

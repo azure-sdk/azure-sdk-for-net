@@ -29,17 +29,17 @@ namespace Azure.ResourceManager.Logic.Models
         private const string Sha2384Value = "SHA2384";
         private const string Sha2512Value = "SHA2512";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static AS2SigningAlgorithm NotSpecified { get; } = new AS2SigningAlgorithm(NotSpecifiedValue);
-        /// <summary> Default. </summary>
+        /// <summary> Represents the default signing algorithm. </summary>
         public static AS2SigningAlgorithm Default { get; } = new AS2SigningAlgorithm(DefaultValue);
-        /// <summary> SHA1. </summary>
+        /// <summary> Represents the SHA1 signing algorithm. </summary>
         public static AS2SigningAlgorithm Sha1 { get; } = new AS2SigningAlgorithm(Sha1Value);
-        /// <summary> SHA2256. </summary>
+        /// <summary> Represents the SHA2-256 signing algorithm. </summary>
         public static AS2SigningAlgorithm Sha2256 { get; } = new AS2SigningAlgorithm(Sha2256Value);
-        /// <summary> SHA2384. </summary>
+        /// <summary> Represents the SHA2-384 signing algorithm. </summary>
         public static AS2SigningAlgorithm Sha2384 { get; } = new AS2SigningAlgorithm(Sha2384Value);
-        /// <summary> SHA2512. </summary>
+        /// <summary> Represents the SHA2-512 signing algorithm. </summary>
         public static AS2SigningAlgorithm Sha2512 { get; } = new AS2SigningAlgorithm(Sha2512Value);
         /// <summary> Determines if two <see cref="AS2SigningAlgorithm"/> values are the same. </summary>
         public static bool operator ==(AS2SigningAlgorithm left, AS2SigningAlgorithm right) => left.Equals(right);

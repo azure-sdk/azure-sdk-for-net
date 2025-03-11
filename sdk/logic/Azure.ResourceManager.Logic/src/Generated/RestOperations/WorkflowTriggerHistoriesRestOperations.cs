@@ -93,8 +93,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflow trigger histories. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -126,8 +126,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflow trigger histories. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -201,8 +201,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow trigger history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="historyName"> The workflow trigger history name. Corresponds to the run name for triggers that resulted in a run. </param>
@@ -236,8 +236,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow trigger history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="historyName"> The workflow trigger history name. Corresponds to the run name for triggers that resulted in a run. </param>
@@ -315,8 +315,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Resubmits a workflow run based on the trigger history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="historyName"> The workflow trigger history name. Corresponds to the run name for triggers that resulted in a run. </param>
@@ -343,8 +343,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Resubmits a workflow run based on the trigger history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="historyName"> The workflow trigger history name. Corresponds to the run name for triggers that resulted in a run. </param>
@@ -394,8 +394,8 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflow trigger histories. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -429,8 +429,8 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflow trigger histories. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>

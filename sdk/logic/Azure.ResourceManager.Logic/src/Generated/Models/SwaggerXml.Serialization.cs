@@ -71,14 +71,25 @@ namespace Azure.ResourceManager.Logic.Models
                         writer.WriteNullValue();
                         continue;
                     }
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
-#else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    writer.WriteStartObject();
+                    foreach (var item0 in item.Value)
                     {
-                        JsonSerializer.Serialize(writer, document.RootElement);
-                    }
+                        writer.WritePropertyName(item0.Key);
+                        if (item0.Value == null)
+                        {
+                            writer.WriteNullValue();
+                            continue;
+                        }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item0.Value);
+#else
+                        using (JsonDocument document = JsonDocument.Parse(item0.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                        {
+                            JsonSerializer.Serialize(writer, document.RootElement);
+                        }
 #endif
+                    }
+                    writer.WriteEndObject();
                 }
                 writer.WriteEndObject();
             }
@@ -124,7 +135,7 @@ namespace Azure.ResourceManager.Logic.Models
             string prefix = default;
             bool? attribute = default;
             bool? wrapped = default;
-            IDictionary<string, BinaryData> extensions = default;
+            IDictionary<string, IDictionary<string, BinaryData>> extensions = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -168,7 +179,7 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    Dictionary<string, IDictionary<string, BinaryData>> dictionary = new Dictionary<string, IDictionary<string, BinaryData>>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
                         if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -177,7 +188,19 @@ namespace Azure.ResourceManager.Logic.Models
                         }
                         else
                         {
-                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                            Dictionary<string, BinaryData> dictionary0 = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary0.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary0.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            dictionary.Add(property0.Name, dictionary0);
                         }
                     }
                     extensions = dictionary;
@@ -195,7 +218,7 @@ namespace Azure.ResourceManager.Logic.Models
                 prefix,
                 attribute,
                 wrapped,
-                extensions ?? new ChangeTrackingDictionary<string, BinaryData>(),
+                extensions ?? new ChangeTrackingDictionary<string, IDictionary<string, BinaryData>>(),
                 serializedAdditionalRawData);
         }
 

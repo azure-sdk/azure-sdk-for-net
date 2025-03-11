@@ -48,6 +48,10 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowRunTrigger"/>. </summary>
         internal LogicWorkflowRunTrigger()
         {
+            Inputs = new ChangeTrackingDictionary<string, BinaryData>();
+            Outputs = new ChangeTrackingDictionary<string, BinaryData>();
+            Error = new ChangeTrackingDictionary<string, BinaryData>();
+            TrackedProperties = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowRunTrigger"/>. </summary>
@@ -66,7 +70,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="error"> Gets the error. </param>
         /// <param name="trackedProperties"> Gets the tracked properties. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowRunTrigger(string name, BinaryData inputs, LogicContentLink inputsLink, BinaryData outputs, LogicContentLink outputsLink, DateTimeOffset? scheduledOn, DateTimeOffset? startOn, DateTimeOffset? endOn, Guid? trackingId, Correlation correlation, string code, LogicWorkflowStatus? status, BinaryData error, BinaryData trackedProperties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicWorkflowRunTrigger(string name, IReadOnlyDictionary<string, BinaryData> inputs, LogicContentLink inputsLink, IReadOnlyDictionary<string, BinaryData> outputs, LogicContentLink outputsLink, DateTimeOffset? scheduledOn, DateTimeOffset? startOn, DateTimeOffset? endOn, Guid? trackingId, Correlation correlation, string code, LogicWorkflowStatus? status, IReadOnlyDictionary<string, BinaryData> error, IReadOnlyDictionary<string, BinaryData> trackedProperties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             Inputs = inputs;
@@ -90,7 +94,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// Gets the inputs.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -117,13 +121,13 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Inputs { get; }
+        public IReadOnlyDictionary<string, BinaryData> Inputs { get; }
         /// <summary> Gets the link to inputs. </summary>
         public LogicContentLink InputsLink { get; }
         /// <summary>
         /// Gets the outputs.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -150,7 +154,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Outputs { get; }
+        public IReadOnlyDictionary<string, BinaryData> Outputs { get; }
         /// <summary> Gets the link to outputs. </summary>
         public LogicContentLink OutputsLink { get; }
         /// <summary> Gets the scheduled time. </summary>
@@ -176,7 +180,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// Gets the error.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -203,11 +207,11 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Error { get; }
+        public IReadOnlyDictionary<string, BinaryData> Error { get; }
         /// <summary>
         /// Gets the tracked properties.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -234,6 +238,6 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData TrackedProperties { get; }
+        public IReadOnlyDictionary<string, BinaryData> TrackedProperties { get; }
     }
 }

@@ -29,17 +29,17 @@ namespace Azure.ResourceManager.Logic.Models
         private const string DeletedValue = "Deleted";
         private const string SuspendedValue = "Suspended";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicWorkflowState NotSpecified { get; } = new LogicWorkflowState(NotSpecifiedValue);
-        /// <summary> Completed. </summary>
+        /// <summary> Represents a state where the workflow is completed. </summary>
         public static LogicWorkflowState Completed { get; } = new LogicWorkflowState(CompletedValue);
-        /// <summary> Enabled. </summary>
+        /// <summary> Represents a state where the workflow is enabled. </summary>
         public static LogicWorkflowState Enabled { get; } = new LogicWorkflowState(EnabledValue);
-        /// <summary> Disabled. </summary>
+        /// <summary> Represents a state where the workflow is disabled. </summary>
         public static LogicWorkflowState Disabled { get; } = new LogicWorkflowState(DisabledValue);
-        /// <summary> Deleted. </summary>
+        /// <summary> Represents a state where the workflow is deleted. </summary>
         public static LogicWorkflowState Deleted { get; } = new LogicWorkflowState(DeletedValue);
-        /// <summary> Suspended. </summary>
+        /// <summary> Represents a state where the workflow is suspended. </summary>
         public static LogicWorkflowState Suspended { get; } = new LogicWorkflowState(SuspendedValue);
         /// <summary> Determines if two <see cref="LogicWorkflowState"/> values are the same. </summary>
         public static bool operator ==(LogicWorkflowState left, LogicWorkflowState right) => left.Equals(right);

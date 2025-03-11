@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Logic.Models
         private const string AvailableValue = "Available";
         private const string NotAvailableValue = "NotAvailable";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationServiceEnvironmentNetworkEndPointAccessibilityState NotSpecified { get; } = new IntegrationServiceEnvironmentNetworkEndPointAccessibilityState(NotSpecifiedValue);
-        /// <summary> Unknown. </summary>
+        /// <summary> Represents an unknown network endpoint accessibility state. </summary>
         public static IntegrationServiceEnvironmentNetworkEndPointAccessibilityState Unknown { get; } = new IntegrationServiceEnvironmentNetworkEndPointAccessibilityState(UnknownValue);
-        /// <summary> Available. </summary>
+        /// <summary> Represents an available network endpoint accessibility state. </summary>
         public static IntegrationServiceEnvironmentNetworkEndPointAccessibilityState Available { get; } = new IntegrationServiceEnvironmentNetworkEndPointAccessibilityState(AvailableValue);
-        /// <summary> NotAvailable. </summary>
+        /// <summary> Represents a not available network endpoint accessibility state. </summary>
         public static IntegrationServiceEnvironmentNetworkEndPointAccessibilityState NotAvailable { get; } = new IntegrationServiceEnvironmentNetworkEndPointAccessibilityState(NotAvailableValue);
         /// <summary> Determines if two <see cref="IntegrationServiceEnvironmentNetworkEndPointAccessibilityState"/> values are the same. </summary>
         public static bool operator ==(IntegrationServiceEnvironmentNetworkEndPointAccessibilityState left, IntegrationServiceEnvironmentNetworkEndPointAccessibilityState right) => left.Equals(right);

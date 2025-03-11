@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountPartnerContent"/>. </summary>
-        /// <param name="b2b"> The B2B partner content. </param>
+        /// <param name="b2b"> The B2b partner content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal IntegrationAccountPartnerContent(B2BPartnerContent b2b, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.Logic.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The B2B partner content. </summary>
+        /// <summary> The B2b partner content. </summary>
         internal B2BPartnerContent B2B { get; set; }
         /// <summary> The list of partner business identities. </summary>
         public IList<IntegrationAccountBusinessIdentity> B2BBusinessIdentities

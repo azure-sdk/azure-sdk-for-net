@@ -65,17 +65,28 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 writer.WriteEndObject();
             }
-            if (Optional.IsDefined(AdditionalProperties))
+            if (Optional.IsCollectionDefined(AdditionalProperties))
             {
                 writer.WritePropertyName("additionalProperties"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(AdditionalProperties);
-#else
-                using (JsonDocument document = JsonDocument.Parse(AdditionalProperties, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in AdditionalProperties)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsCollectionDefined(RequiredProperties))
             {
@@ -127,17 +138,28 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("externalDocs"u8);
                 writer.WriteObjectValue(ExternalDocs, options);
             }
-            if (Optional.IsDefined(Example))
+            if (Optional.IsCollectionDefined(Example))
             {
                 writer.WritePropertyName("example"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Example);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Example, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Example)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsDefined(IsNotificationUrlExtension))
             {
@@ -206,7 +228,7 @@ namespace Azure.ResourceManager.Logic.Models
             string title = default;
             SwaggerSchema items = default;
             IDictionary<string, SwaggerSchema> properties = default;
-            BinaryData additionalProperties = default;
+            IDictionary<string, BinaryData> additionalProperties = default;
             IList<string> required = default;
             int? maxProperties = default;
             int? minProperties = default;
@@ -215,7 +237,7 @@ namespace Azure.ResourceManager.Logic.Models
             bool? readOnly = default;
             SwaggerXml xml = default;
             SwaggerExternalDocumentation externalDocs = default;
-            BinaryData example = default;
+            IDictionary<string, BinaryData> example = default;
             bool? notificationUrlExtension = default;
             SwaggerCustomDynamicSchema dynamicSchemaOld = default;
             SwaggerCustomDynamicProperties dynamicSchemaNew = default;
@@ -273,7 +295,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    additionalProperties = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    additionalProperties = dictionary;
                     continue;
                 }
                 if (property.NameEquals("required"u8))
@@ -360,7 +394,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    example = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    example = dictionary;
                     continue;
                 }
                 if (property.NameEquals("notificationUrlExtension"u8))
@@ -420,7 +466,7 @@ namespace Azure.ResourceManager.Logic.Models
                 title,
                 items,
                 properties ?? new ChangeTrackingDictionary<string, SwaggerSchema>(),
-                additionalProperties,
+                additionalProperties ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 required ?? new ChangeTrackingList<string>(),
                 maxProperties,
                 minProperties,
@@ -429,7 +475,7 @@ namespace Azure.ResourceManager.Logic.Models
                 readOnly,
                 xml,
                 externalDocs,
-                example,
+                example ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 notificationUrlExtension,
                 dynamicSchemaOld,
                 dynamicSchemaNew,

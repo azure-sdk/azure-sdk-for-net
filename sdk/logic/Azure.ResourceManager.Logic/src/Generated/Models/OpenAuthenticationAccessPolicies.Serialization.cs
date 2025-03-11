@@ -34,11 +34,11 @@ namespace Azure.ResourceManager.Logic.Models
                 throw new FormatException($"The model {nameof(OpenAuthenticationAccessPolicies)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsCollectionDefined(AccessPolicies))
+            if (Optional.IsCollectionDefined(Policies))
             {
                 writer.WritePropertyName("policies"u8);
                 writer.WriteStartObject();
-                foreach (var item in AccessPolicies)
+                foreach (var item in Policies)
                 {
                     writer.WritePropertyName(item.Key);
                     writer.WriteObjectValue(item.Value, options);

@@ -52,26 +52,18 @@ namespace Azure.ResourceManager.Logic.Models
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountKeyVaultKey"/>. </summary>
         /// <param name="keyId"> The key id. </param>
-        /// <param name="isEnabled"> Whether the key is enabled or not. </param>
-        /// <param name="createdOn"> When the key was created. </param>
-        /// <param name="updatedOn"> When the key was updated. </param>
+        /// <param name="attributes"> The key attributes. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountKeyVaultKey(Uri keyId, bool? isEnabled, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IntegrationAccountKeyVaultKey(Uri keyId, KeyVaultKeyAttributes attributes, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             KeyId = keyId;
-            IsEnabled = isEnabled;
-            CreatedOn = createdOn;
-            UpdatedOn = updatedOn;
+            Attributes = attributes;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> The key id. </summary>
         public Uri KeyId { get; }
-        /// <summary> Whether the key is enabled or not. </summary>
-        public bool? IsEnabled { get; }
-        /// <summary> When the key was created. </summary>
-        public DateTimeOffset? CreatedOn { get; }
-        /// <summary> When the key was updated. </summary>
-        public DateTimeOffset? UpdatedOn { get; }
+        /// <summary> The key attributes. </summary>
+        public KeyVaultKeyAttributes Attributes { get; }
     }
 }

@@ -36,11 +36,75 @@ namespace Azure.ResourceManager.Logic.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(Properties))
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Summary))
             {
-                writer.WritePropertyName("properties"u8);
-                writer.WriteObjectValue(Properties, options);
+                writer.WritePropertyName("summary"u8);
+                writer.WriteStringValue(Summary);
             }
+            if (Optional.IsDefined(Description))
+            {
+                writer.WritePropertyName("description"u8);
+                writer.WriteStringValue(Description);
+            }
+            if (Optional.IsDefined(Visibility))
+            {
+                writer.WritePropertyName("visibility"u8);
+                writer.WriteStringValue(Visibility);
+            }
+            if (Optional.IsDefined(Trigger))
+            {
+                writer.WritePropertyName("trigger"u8);
+                writer.WriteStringValue(Trigger);
+            }
+            if (Optional.IsDefined(TriggerHint))
+            {
+                writer.WritePropertyName("triggerHint"u8);
+                writer.WriteStringValue(TriggerHint);
+            }
+            if (Optional.IsDefined(Pageable))
+            {
+                writer.WritePropertyName("pageable"u8);
+                writer.WriteBooleanValue(Pageable.Value);
+            }
+            if (Optional.IsDefined(Annotation))
+            {
+                writer.WritePropertyName("annotation"u8);
+                writer.WriteObjectValue(Annotation, options);
+            }
+            if (Optional.IsDefined(Api))
+            {
+                writer.WritePropertyName("api"u8);
+                writer.WriteObjectValue(Api, options);
+            }
+            if (Optional.IsDefined(InputsDefinition))
+            {
+                writer.WritePropertyName("inputsDefinition"u8);
+                writer.WriteObjectValue(InputsDefinition, options);
+            }
+            if (Optional.IsCollectionDefined(ResponsesDefinition))
+            {
+                writer.WritePropertyName("responsesDefinition"u8);
+                writer.WriteStartObject();
+                foreach (var item in ResponsesDefinition)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteObjectValue(item.Value, options);
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(IsWebhook))
+            {
+                writer.WritePropertyName("isWebhook"u8);
+                writer.WriteBooleanValue(IsWebhook.Value);
+            }
+            if (Optional.IsDefined(IsNotification))
+            {
+                writer.WritePropertyName("isNotification"u8);
+                writer.WriteBooleanValue(IsNotification.Value);
+            }
+            writer.WriteEndObject();
         }
 
         LogicApiOperationInfo IJsonModel<LogicApiOperationInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -63,45 +127,26 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 return null;
             }
-            LogicApiOperationProperties properties = default;
-            IDictionary<string, string> tags = default;
-            AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            string summary = default;
+            string description = default;
+            string visibility = default;
+            string trigger = default;
+            string triggerHint = default;
+            bool? pageable = default;
+            LogicApiOperationAnnotation annotation = default;
+            LogicApiReference api = default;
+            SwaggerSchema inputsDefinition = default;
+            IDictionary<string, SwaggerSchema> responsesDefinition = default;
+            bool? isWebhook = default;
+            bool? isNotification = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    properties = LogicApiOperationProperties.DeserializeLogicApiOperationProperties(property.Value, options);
-                    continue;
-                }
-                if (property.NameEquals("tags"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        dictionary.Add(property0.Name, property0.Value.GetString());
-                    }
-                    tags = dictionary;
-                    continue;
-                }
-                if (property.NameEquals("location"u8))
-                {
-                    location = new AzureLocation(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -126,6 +171,111 @@ namespace Azure.ResourceManager.Logic.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("summary"u8))
+                        {
+                            summary = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("description"u8))
+                        {
+                            description = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("visibility"u8))
+                        {
+                            visibility = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("trigger"u8))
+                        {
+                            trigger = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("triggerHint"u8))
+                        {
+                            triggerHint = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("pageable"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            pageable = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("annotation"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            annotation = LogicApiOperationAnnotation.DeserializeLogicApiOperationAnnotation(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("api"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            api = LogicApiReference.DeserializeLogicApiReference(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("inputsDefinition"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            inputsDefinition = SwaggerSchema.DeserializeSwaggerSchema(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("responsesDefinition"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            Dictionary<string, SwaggerSchema> dictionary = new Dictionary<string, SwaggerSchema>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, SwaggerSchema.DeserializeSwaggerSchema(property1.Value, options));
+                            }
+                            responsesDefinition = dictionary;
+                            continue;
+                        }
+                        if (property0.NameEquals("isWebhook"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            isWebhook = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("isNotification"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            isNotification = property0.Value.GetBoolean();
+                            continue;
+                        }
+                    }
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -137,9 +287,18 @@ namespace Azure.ResourceManager.Logic.Models
                 name,
                 type,
                 systemData,
-                tags ?? new ChangeTrackingDictionary<string, string>(),
-                location,
-                properties,
+                summary,
+                description,
+                visibility,
+                trigger,
+                triggerHint,
+                pageable,
+                annotation,
+                api,
+                inputsDefinition,
+                responsesDefinition ?? new ChangeTrackingDictionary<string, SwaggerSchema>(),
+                isWebhook,
+                isNotification,
                 serializedAdditionalRawData);
         }
 

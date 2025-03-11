@@ -16,6 +16,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowOutputParameterInfo"/>. </summary>
         public LogicWorkflowOutputParameterInfo()
         {
+            Error = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowOutputParameterInfo"/>. </summary>
@@ -25,7 +26,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="description"> The description. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="error"> Gets the error. </param>
-        internal LogicWorkflowOutputParameterInfo(LogicWorkflowParameterType? parameterType, BinaryData value, BinaryData metadata, string description, IDictionary<string, BinaryData> serializedAdditionalRawData, BinaryData error) : base(parameterType, value, metadata, description, serializedAdditionalRawData)
+        internal LogicWorkflowOutputParameterInfo(LogicWorkflowParameterType? parameterType, IDictionary<string, BinaryData> value, IDictionary<string, BinaryData> metadata, string description, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyDictionary<string, BinaryData> error) : base(parameterType, value, metadata, description, serializedAdditionalRawData)
         {
             Error = error;
         }
@@ -33,7 +34,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// Gets the error.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -60,6 +61,6 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Error { get; }
+        public IReadOnlyDictionary<string, BinaryData> Error { get; }
     }
 }

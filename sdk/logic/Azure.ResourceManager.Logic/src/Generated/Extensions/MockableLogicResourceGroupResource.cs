@@ -8,6 +8,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
@@ -16,6 +17,8 @@ namespace Azure.ResourceManager.Logic.Mocking
     /// <summary> A class to add extension methods to ResourceGroupResource. </summary>
     public partial class MockableLogicResourceGroupResource : ArmResource
     {
+        private ClientDiagnostics _integrationServiceEnvironmentClientDiagnostics;
+        private IntegrationServiceEnvironmentsRestOperations _integrationServiceEnvironmentRestClient;
         private ClientDiagnostics _logicWorkflowWorkflowsClientDiagnostics;
         private WorkflowsRestOperations _logicWorkflowWorkflowsRestClient;
 
@@ -31,6 +34,8 @@ namespace Azure.ResourceManager.Logic.Mocking
         {
         }
 
+        private ClientDiagnostics IntegrationServiceEnvironmentClientDiagnostics => _integrationServiceEnvironmentClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Logic", IntegrationServiceEnvironmentResource.ResourceType.Namespace, Diagnostics);
+        private IntegrationServiceEnvironmentsRestOperations IntegrationServiceEnvironmentRestClient => _integrationServiceEnvironmentRestClient ??= new IntegrationServiceEnvironmentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(IntegrationServiceEnvironmentResource.ResourceType));
         private ClientDiagnostics LogicWorkflowWorkflowsClientDiagnostics => _logicWorkflowWorkflowsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Logic", LogicWorkflowResource.ResourceType.Namespace, Diagnostics);
         private WorkflowsRestOperations LogicWorkflowWorkflowsRestClient => _logicWorkflowWorkflowsRestClient ??= new WorkflowsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(LogicWorkflowResource.ResourceType));
 
@@ -38,75 +43,6 @@ namespace Azure.ResourceManager.Logic.Mocking
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
-        }
-
-        /// <summary> Gets a collection of LogicWorkflowResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of LogicWorkflowResources and their operations over a LogicWorkflowResource. </returns>
-        public virtual LogicWorkflowCollection GetLogicWorkflows()
-        {
-            return GetCachedClient(client => new LogicWorkflowCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets a workflow.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Workflows_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<LogicWorkflowResource>> GetLogicWorkflowAsync(string workflowName, CancellationToken cancellationToken = default)
-        {
-            return await GetLogicWorkflows().GetAsync(workflowName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a workflow.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Workflows_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<LogicWorkflowResource> GetLogicWorkflow(string workflowName, CancellationToken cancellationToken = default)
-        {
-            return GetLogicWorkflows().Get(workflowName, cancellationToken);
         }
 
         /// <summary> Gets a collection of IntegrationAccountResources in the ResourceGroupResource. </summary>
@@ -178,23 +114,85 @@ namespace Azure.ResourceManager.Logic.Mocking
             return GetIntegrationAccounts().Get(integrationAccountName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of IntegrationServiceEnvironmentResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of IntegrationServiceEnvironmentResources and their operations over a IntegrationServiceEnvironmentResource. </returns>
-        public virtual IntegrationServiceEnvironmentCollection GetIntegrationServiceEnvironments()
+        /// <summary> Gets a collection of LogicWorkflowResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of LogicWorkflowResources and their operations over a LogicWorkflowResource. </returns>
+        public virtual LogicWorkflowCollection GetLogicWorkflows()
         {
-            return GetCachedClient(client => new IntegrationServiceEnvironmentCollection(client, Id));
+            return GetCachedClient(client => new LogicWorkflowCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets an integration service environment.
+        /// Gets a workflow.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_Get</description>
+        /// <description>Workflows_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="LogicWorkflowResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<LogicWorkflowResource>> GetLogicWorkflowAsync(string workflowName, CancellationToken cancellationToken = default)
+        {
+            return await GetLogicWorkflows().GetAsync(workflowName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a workflow.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workflows_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="LogicWorkflowResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<LogicWorkflowResource> GetLogicWorkflow(string workflowName, CancellationToken cancellationToken = default)
+        {
+            return GetLogicWorkflows().Get(workflowName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a list of integration service environments by resource group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>IntegrationServiceEnvironments_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -206,26 +204,26 @@ namespace Azure.ResourceManager.Logic.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
+        /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<IntegrationServiceEnvironmentResource>> GetIntegrationServiceEnvironmentAsync(string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironmentsAsync(int? top = null, CancellationToken cancellationToken = default)
         {
-            return await GetIntegrationServiceEnvironments().GetAsync(integrationServiceEnvironmentName, cancellationToken).ConfigureAwait(false);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => IntegrationServiceEnvironmentRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => IntegrationServiceEnvironmentRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, top);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new IntegrationServiceEnvironmentResource(Client, IntegrationServiceEnvironmentData.DeserializeIntegrationServiceEnvironmentData(e)), IntegrationServiceEnvironmentClientDiagnostics, Pipeline, "MockableLogicResourceGroupResource.GetIntegrationServiceEnvironments", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Gets an integration service environment.
+        /// Gets a list of integration service environments by resource group.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_Get</description>
+        /// <description>IntegrationServiceEnvironments_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -237,14 +235,14 @@ namespace Azure.ResourceManager.Logic.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
+        /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironment(string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironments(int? top = null, CancellationToken cancellationToken = default)
         {
-            return GetIntegrationServiceEnvironments().Get(integrationServiceEnvironmentName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => IntegrationServiceEnvironmentRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => IntegrationServiceEnvironmentRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, top);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new IntegrationServiceEnvironmentResource(Client, IntegrationServiceEnvironmentData.DeserializeIntegrationServiceEnvironmentData(e)), IntegrationServiceEnvironmentClientDiagnostics, Pipeline, "MockableLogicResourceGroupResource.GetIntegrationServiceEnvironments", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -268,7 +266,7 @@ namespace Azure.ResourceManager.Logic.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The workflow location. </param>
+        /// <param name="location"> The name of Azure region. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -314,7 +312,7 @@ namespace Azure.ResourceManager.Logic.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The workflow location. </param>
+        /// <param name="location"> The name of Azure region. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

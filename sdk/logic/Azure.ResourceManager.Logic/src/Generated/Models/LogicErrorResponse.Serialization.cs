@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    public partial class LogicErrorResponse : IUtf8JsonSerializable, IJsonModel<LogicErrorResponse>
+    internal partial class LogicErrorResponse : IUtf8JsonSerializable, IJsonModel<LogicErrorResponse>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<LogicErrorResponse>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -34,19 +34,11 @@ namespace Azure.ResourceManager.Logic.Models
                 throw new FormatException($"The model {nameof(LogicErrorResponse)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("error"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Code))
+            if (Optional.IsDefined(Error))
             {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
+                writer.WritePropertyName("error"u8);
+                JsonSerializer.Serialize(writer, Error);
             }
-            if (Optional.IsDefined(Message))
-            {
-                writer.WritePropertyName("message"u8);
-                writer.WriteStringValue(Message);
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -84,8 +76,7 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 return null;
             }
-            string code = default;
-            string message = default;
+            ResponseError error = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,22 +85,9 @@ namespace Azure.ResourceManager.Logic.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("code"u8))
-                        {
-                            code = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("message"u8))
-                        {
-                            message = property0.Value.GetString();
-                            continue;
-                        }
-                    }
+                    error = JsonSerializer.Deserialize<ResponseError>(property.Value.GetRawText());
                     continue;
                 }
                 if (options.Format != "W")
@@ -118,7 +96,7 @@ namespace Azure.ResourceManager.Logic.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new LogicErrorResponse(code, message, serializedAdditionalRawData);
+            return new LogicErrorResponse(error, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<LogicErrorResponse>.Write(ModelReaderWriterOptions options)

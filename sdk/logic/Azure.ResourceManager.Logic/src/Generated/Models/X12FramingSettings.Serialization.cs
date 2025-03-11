@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Logic.Models
             writer.WritePropertyName("characterSet"u8);
             writer.WriteStringValue(CharacterSet.ToString());
             writer.WritePropertyName("segmentTerminatorSuffix"u8);
-            writer.WriteStringValue(SegmentTerminatorSuffix.ToSerialString());
+            writer.WriteStringValue(SegmentTerminatorSuffix.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 if (property.NameEquals("segmentTerminatorSuffix"u8))
                 {
-                    segmentTerminatorSuffix = property.Value.GetString().ToSegmentTerminatorSuffix();
+                    segmentTerminatorSuffix = new SegmentTerminatorSuffix(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

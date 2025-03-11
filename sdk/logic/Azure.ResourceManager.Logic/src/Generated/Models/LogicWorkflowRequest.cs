@@ -48,6 +48,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowRequest"/>. </summary>
         public LogicWorkflowRequest()
         {
+            Headers = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowRequest"/>. </summary>
@@ -55,7 +56,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="uri"> The destination for the request. </param>
         /// <param name="method"> The HTTP method used for the request. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowRequest(BinaryData headers, Uri uri, string method, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicWorkflowRequest(IDictionary<string, BinaryData> headers, Uri uri, string method, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Headers = headers;
             Uri = uri;
@@ -66,7 +67,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// A list of all the headers attached to the request.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -93,7 +94,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Headers { get; set; }
+        public IDictionary<string, BinaryData> Headers { get; }
         /// <summary> The destination for the request. </summary>
         public Uri Uri { get; set; }
         /// <summary> The HTTP method used for the request. </summary>

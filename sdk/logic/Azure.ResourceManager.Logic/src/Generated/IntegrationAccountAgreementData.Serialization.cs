@@ -49,20 +49,31 @@ namespace Azure.ResourceManager.Logic
                 writer.WritePropertyName("changedTime"u8);
                 writer.WriteStringValue(ChangedOn.Value, "O");
             }
-            if (Optional.IsDefined(Metadata))
+            if (Optional.IsCollectionDefined(Metadata))
             {
                 writer.WritePropertyName("metadata"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Metadata);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Metadata, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Metadata)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             writer.WritePropertyName("agreementType"u8);
-            writer.WriteStringValue(AgreementType.ToSerialString());
+            writer.WriteStringValue(AgreementType.ToString());
             writer.WritePropertyName("hostPartner"u8);
             writer.WriteStringValue(HostPartner);
             writer.WritePropertyName("guestPartner"u8);
@@ -104,7 +115,7 @@ namespace Azure.ResourceManager.Logic
             SystemData systemData = default;
             DateTimeOffset? createdTime = default;
             DateTimeOffset? changedTime = default;
-            BinaryData metadata = default;
+            IDictionary<string, BinaryData> metadata = default;
             IntegrationAccountAgreementType agreementType = default;
             string hostPartner = default;
             string guestPartner = default;
@@ -191,12 +202,24 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            metadata = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            metadata = dictionary;
                             continue;
                         }
                         if (property0.NameEquals("agreementType"u8))
                         {
-                            agreementType = property0.Value.GetString().ToIntegrationAccountAgreementType();
+                            agreementType = new IntegrationAccountAgreementType(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("hostPartner"u8))
@@ -242,7 +265,7 @@ namespace Azure.ResourceManager.Logic
                 location,
                 createdTime,
                 changedTime,
-                metadata,
+                metadata ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 agreementType,
                 hostPartner,
                 guestPartner,

@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 return null;
             }
-            AS2AgreementContent aS2 = default;
+            As2AgreementContent aS2 = default;
             X12AgreementContent x12 = default;
             EdifactAgreementContent edifact = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -99,7 +99,7 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    aS2 = AS2AgreementContent.DeserializeAS2AgreementContent(property.Value, options);
+                    aS2 = As2AgreementContent.DeserializeAs2AgreementContent(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("x12"u8))

@@ -52,8 +52,10 @@ namespace Azure.ResourceManager.Logic
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowRunActionData"/>. </summary>
-        internal LogicWorkflowRunActionData()
+        public LogicWorkflowRunActionData()
         {
+            Error = new ChangeTrackingDictionary<string, BinaryData>();
+            TrackedProperties = new ChangeTrackingDictionary<string, BinaryData>();
             RetryHistory = new ChangeTrackingList<LogicWorkRetryHistory>();
         }
 
@@ -74,7 +76,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="trackedProperties"> Gets the tracked properties. </param>
         /// <param name="retryHistory"> Gets the retry histories. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowRunActionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowStatus? status, string code, BinaryData error, Guid? trackingId, LogicWorkflowRunActionCorrelation correlation, LogicContentLink inputsLink, LogicContentLink outputsLink, BinaryData trackedProperties, IReadOnlyList<LogicWorkRetryHistory> retryHistory, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal LogicWorkflowRunActionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowStatus? status, string code, IReadOnlyDictionary<string, BinaryData> error, Guid? trackingId, LogicWorkflowRunActionCorrelation correlation, LogicContentLink inputsLink, LogicContentLink outputsLink, IReadOnlyDictionary<string, BinaryData> trackedProperties, IList<LogicWorkRetryHistory> retryHistory, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             StartOn = startOn;
             EndOn = endOn;
@@ -101,7 +103,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// Gets the error.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -128,11 +130,11 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Error { get; }
+        public IReadOnlyDictionary<string, BinaryData> Error { get; }
         /// <summary> Gets the tracking id. </summary>
         public Guid? TrackingId { get; }
         /// <summary> The correlation properties. </summary>
-        public LogicWorkflowRunActionCorrelation Correlation { get; }
+        public LogicWorkflowRunActionCorrelation Correlation { get; set; }
         /// <summary> Gets the link to inputs. </summary>
         public LogicContentLink InputsLink { get; }
         /// <summary> Gets the link to outputs. </summary>
@@ -140,7 +142,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// Gets the tracked properties.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -167,8 +169,8 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData TrackedProperties { get; }
+        public IReadOnlyDictionary<string, BinaryData> TrackedProperties { get; }
         /// <summary> Gets the retry histories. </summary>
-        public IReadOnlyList<LogicWorkRetryHistory> RetryHistory { get; }
+        public IList<LogicWorkRetryHistory> RetryHistory { get; }
     }
 }

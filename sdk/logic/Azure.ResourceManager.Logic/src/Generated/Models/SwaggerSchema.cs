@@ -49,8 +49,10 @@ namespace Azure.ResourceManager.Logic.Models
         public SwaggerSchema()
         {
             Properties = new ChangeTrackingDictionary<string, SwaggerSchema>();
+            AdditionalProperties = new ChangeTrackingDictionary<string, BinaryData>();
             RequiredProperties = new ChangeTrackingList<string>();
             AllOf = new ChangeTrackingList<SwaggerSchema>();
+            Example = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SwaggerSchema"/>. </summary>
@@ -75,7 +77,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="dynamicListNew"> The dynamic list. </param>
         /// <param name="dynamicTree"> The dynamic values tree configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SwaggerSchema(string reference, SwaggerSchemaType? schemaType, string title, SwaggerSchema items, IDictionary<string, SwaggerSchema> properties, BinaryData additionalProperties, IList<string> requiredProperties, int? maxProperties, int? minProperties, IList<SwaggerSchema> allOf, string discriminator, bool? isReadOnly, SwaggerXml xml, SwaggerExternalDocumentation externalDocs, BinaryData example, bool? isNotificationUrlExtension, SwaggerCustomDynamicSchema dynamicSchemaOld, SwaggerCustomDynamicProperties dynamicSchemaNew, SwaggerCustomDynamicList dynamicListNew, SwaggerCustomDynamicTree dynamicTree, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SwaggerSchema(string reference, SwaggerSchemaType? schemaType, string title, SwaggerSchema items, IDictionary<string, SwaggerSchema> properties, IDictionary<string, BinaryData> additionalProperties, IList<string> requiredProperties, int? maxProperties, int? minProperties, IList<SwaggerSchema> allOf, string discriminator, bool? isReadOnly, SwaggerXml xml, SwaggerExternalDocumentation externalDocs, IDictionary<string, BinaryData> example, bool? isNotificationUrlExtension, SwaggerCustomDynamicSchema dynamicSchemaOld, SwaggerCustomDynamicProperties dynamicSchemaNew, SwaggerCustomDynamicList dynamicListNew, SwaggerCustomDynamicTree dynamicTree, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Reference = reference;
             SchemaType = schemaType;
@@ -113,7 +115,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// The additional properties.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -140,7 +142,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData AdditionalProperties { get; set; }
+        public IDictionary<string, BinaryData> AdditionalProperties { get; }
         /// <summary> The object required properties. </summary>
         public IList<string> RequiredProperties { get; }
         /// <summary> The maximum number of allowed properties. </summary>
@@ -160,7 +162,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// The example value.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -187,7 +189,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Example { get; set; }
+        public IDictionary<string, BinaryData> Example { get; }
         /// <summary> Indicates the notification url extension. If this is set, the property's value should be a callback url for a webhook. </summary>
         public bool? IsNotificationUrlExtension { get; set; }
         /// <summary> The dynamic schema configuration. </summary>

@@ -53,13 +53,16 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountBatchConfigurationData"/>. </summary>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> The batch configuration properties. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
-        public IntegrationAccountBatchConfigurationData(AzureLocation location, IntegrationAccountBatchConfigurationProperties properties) : base(location)
+        /// <param name="batchGroupName"> The name of the batch group. </param>
+        /// <param name="releaseCriteria"> The batch release criteria. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="batchGroupName"/> or <paramref name="releaseCriteria"/> is null. </exception>
+        public IntegrationAccountBatchConfigurationData(AzureLocation location, string batchGroupName, IntegrationAccountBatchReleaseCriteria releaseCriteria) : base(location)
         {
-            Argument.AssertNotNull(properties, nameof(properties));
+            Argument.AssertNotNull(batchGroupName, nameof(batchGroupName));
+            Argument.AssertNotNull(releaseCriteria, nameof(releaseCriteria));
 
-            Properties = properties;
+            BatchGroupName = batchGroupName;
+            ReleaseCriteria = releaseCriteria;
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountBatchConfigurationData"/>. </summary>
@@ -69,11 +72,19 @@ namespace Azure.ResourceManager.Logic
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> The batch configuration properties. </param>
+        /// <param name="createdOn"> The artifact creation time. </param>
+        /// <param name="changedOn"> The artifact changed time. </param>
+        /// <param name="metadata"> Anything. </param>
+        /// <param name="batchGroupName"> The name of the batch group. </param>
+        /// <param name="releaseCriteria"> The batch release criteria. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountBatchConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationAccountBatchConfigurationProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationAccountBatchConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, BinaryData metadata, string batchGroupName, IntegrationAccountBatchReleaseCriteria releaseCriteria, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Properties = properties;
+            CreatedOn = createdOn;
+            ChangedOn = changedOn;
+            Metadata = metadata;
+            BatchGroupName = batchGroupName;
+            ReleaseCriteria = releaseCriteria;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -82,7 +93,44 @@ namespace Azure.ResourceManager.Logic
         {
         }
 
-        /// <summary> The batch configuration properties. </summary>
-        public IntegrationAccountBatchConfigurationProperties Properties { get; set; }
+        /// <summary> The artifact creation time. </summary>
+        public DateTimeOffset? CreatedOn { get; set; }
+        /// <summary> The artifact changed time. </summary>
+        public DateTimeOffset? ChangedOn { get; set; }
+        /// <summary>
+        /// Anything
+        /// <para>
+        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public BinaryData Metadata { get; set; }
+        /// <summary> The name of the batch group. </summary>
+        public string BatchGroupName { get; set; }
+        /// <summary> The batch release criteria. </summary>
+        public IntegrationAccountBatchReleaseCriteria ReleaseCriteria { get; set; }
     }
 }

@@ -55,6 +55,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="location"> The location. </param>
         public LogicWorkflowData(AzureLocation location) : base(location)
         {
+            Definition = new ChangeTrackingDictionary<string, BinaryData>();
             Parameters = new ChangeTrackingDictionary<string, LogicWorkflowParameterInfo>();
         }
 
@@ -65,7 +66,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="identity"> Managed service identity properties. Current supported identity types: SystemAssigned, UserAssigned, None. </param>
+        /// <param name="identity"> Managed service identity properties. </param>
         /// <param name="provisioningState"> Gets the provisioning state. </param>
         /// <param name="createdOn"> Gets the created time. </param>
         /// <param name="changedOn"> Gets the changed time. </param>
@@ -80,7 +81,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="definition"> The definition. </param>
         /// <param name="parameters"> The parameters. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, LogicWorkflowProvisioningState? provisioningState, DateTimeOffset? createdOn, DateTimeOffset? changedOn, LogicWorkflowState? state, string version, string accessEndpoint, FlowEndpointsConfiguration endpointsConfiguration, FlowAccessControlConfiguration accessControl, LogicSku sku, LogicResourceReference integrationAccount, LogicResourceReference integrationServiceEnvironment, BinaryData definition, IDictionary<string, LogicWorkflowParameterInfo> parameters, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal LogicWorkflowData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, LogicWorkflowProvisioningState? provisioningState, DateTimeOffset? createdOn, DateTimeOffset? changedOn, LogicWorkflowState? state, string version, string accessEndpoint, FlowEndpointsConfiguration endpointsConfiguration, FlowAccessControlConfiguration accessControl, LogicSku sku, LogicResourceReference integrationAccount, LogicResourceReference integrationServiceEnvironment, IDictionary<string, BinaryData> definition, IDictionary<string, LogicWorkflowParameterInfo> parameters, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             ProvisioningState = provisioningState;
@@ -104,7 +105,7 @@ namespace Azure.ResourceManager.Logic
         {
         }
 
-        /// <summary> Managed service identity properties. Current supported identity types: SystemAssigned, UserAssigned, None. </summary>
+        /// <summary> Managed service identity properties. </summary>
         public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Gets the provisioning state. </summary>
         public LogicWorkflowProvisioningState? ProvisioningState { get; }
@@ -131,7 +132,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// The definition.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -158,7 +159,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Definition { get; set; }
+        public IDictionary<string, BinaryData> Definition { get; }
         /// <summary> The parameters. </summary>
         public IDictionary<string, LogicWorkflowParameterInfo> Parameters { get; }
     }

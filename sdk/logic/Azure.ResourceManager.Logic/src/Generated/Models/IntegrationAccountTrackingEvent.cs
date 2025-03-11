@@ -54,6 +54,7 @@ namespace Azure.ResourceManager.Logic.Models
             EventLevel = eventLevel;
             EventOn = eventOn;
             RecordType = recordType;
+            Record = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountTrackingEvent"/>. </summary>
@@ -63,7 +64,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="record"> The record. </param>
         /// <param name="error"> The error. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountTrackingEvent(IntegrationAccountEventLevel eventLevel, DateTimeOffset eventOn, IntegrationAccountTrackingRecordType recordType, BinaryData record, IntegrationAccountTrackingEventErrorInfo error, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IntegrationAccountTrackingEvent(IntegrationAccountEventLevel eventLevel, DateTimeOffset eventOn, IntegrationAccountTrackingRecordType recordType, IDictionary<string, BinaryData> record, IntegrationAccountTrackingEventErrorInfo error, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             EventLevel = eventLevel;
             EventOn = eventOn;
@@ -87,7 +88,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// The record.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -114,7 +115,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Record { get; set; }
+        public IDictionary<string, BinaryData> Record { get; }
         /// <summary> The error. </summary>
         public IntegrationAccountTrackingEventErrorInfo Error { get; set; }
     }

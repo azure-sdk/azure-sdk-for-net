@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="SwaggerExternalDocumentation"/>. </summary>
         public SwaggerExternalDocumentation()
         {
-            Extensions = new ChangeTrackingDictionary<string, BinaryData>();
+            Extensions = new ChangeTrackingDictionary<string, IDictionary<string, BinaryData>>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SwaggerExternalDocumentation"/>. </summary>
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="uri"> The documentation Uri. </param>
         /// <param name="extensions"> The vendor extensions. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SwaggerExternalDocumentation(string description, Uri uri, IDictionary<string, BinaryData> extensions, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SwaggerExternalDocumentation(string description, Uri uri, IDictionary<string, IDictionary<string, BinaryData>> extensions, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Description = description;
             Uri = uri;
@@ -98,6 +98,6 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public IDictionary<string, BinaryData> Extensions { get; }
+        public IDictionary<string, IDictionary<string, BinaryData>> Extensions { get; }
     }
 }

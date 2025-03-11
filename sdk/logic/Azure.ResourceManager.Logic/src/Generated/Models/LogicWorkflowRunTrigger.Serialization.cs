@@ -39,34 +39,56 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
             }
-            if (options.Format != "W" && Optional.IsDefined(Inputs))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Inputs))
             {
                 writer.WritePropertyName("inputs"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Inputs);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Inputs, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Inputs)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && Optional.IsDefined(InputsLink))
             {
                 writer.WritePropertyName("inputsLink"u8);
                 writer.WriteObjectValue(InputsLink, options);
             }
-            if (options.Format != "W" && Optional.IsDefined(Outputs))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Outputs))
             {
                 writer.WritePropertyName("outputs"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Outputs);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Outputs, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Outputs)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && Optional.IsDefined(OutputsLink))
             {
@@ -108,29 +130,51 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("status"u8);
                 writer.WriteStringValue(Status.Value.ToString());
             }
-            if (options.Format != "W" && Optional.IsDefined(Error))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Error))
             {
                 writer.WritePropertyName("error"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Error);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Error, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Error)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
-            if (options.Format != "W" && Optional.IsDefined(TrackedProperties))
+            if (options.Format != "W" && Optional.IsCollectionDefined(TrackedProperties))
             {
                 writer.WritePropertyName("trackedProperties"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(TrackedProperties);
-#else
-                using (JsonDocument document = JsonDocument.Parse(TrackedProperties, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in TrackedProperties)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -170,9 +214,9 @@ namespace Azure.ResourceManager.Logic.Models
                 return null;
             }
             string name = default;
-            BinaryData inputs = default;
+            IReadOnlyDictionary<string, BinaryData> inputs = default;
             LogicContentLink inputsLink = default;
-            BinaryData outputs = default;
+            IReadOnlyDictionary<string, BinaryData> outputs = default;
             LogicContentLink outputsLink = default;
             DateTimeOffset? scheduledTime = default;
             DateTimeOffset? startTime = default;
@@ -181,8 +225,8 @@ namespace Azure.ResourceManager.Logic.Models
             Correlation correlation = default;
             string code = default;
             LogicWorkflowStatus? status = default;
-            BinaryData error = default;
-            BinaryData trackedProperties = default;
+            IReadOnlyDictionary<string, BinaryData> error = default;
+            IReadOnlyDictionary<string, BinaryData> trackedProperties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -198,7 +242,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    inputs = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    inputs = dictionary;
                     continue;
                 }
                 if (property.NameEquals("inputsLink"u8))
@@ -216,7 +272,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    outputs = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    outputs = dictionary;
                     continue;
                 }
                 if (property.NameEquals("outputsLink"u8))
@@ -293,7 +361,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    error = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    error = dictionary;
                     continue;
                 }
                 if (property.NameEquals("trackedProperties"u8))
@@ -302,7 +382,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    trackedProperties = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    trackedProperties = dictionary;
                     continue;
                 }
                 if (options.Format != "W")
@@ -313,9 +405,9 @@ namespace Azure.ResourceManager.Logic.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new LogicWorkflowRunTrigger(
                 name,
-                inputs,
+                inputs ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 inputsLink,
-                outputs,
+                outputs ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 outputsLink,
                 scheduledTime,
                 startTime,
@@ -324,8 +416,8 @@ namespace Azure.ResourceManager.Logic.Models
                 correlation,
                 code,
                 status,
-                error,
-                trackedProperties,
+                error ?? new ChangeTrackingDictionary<string, BinaryData>(),
+                trackedProperties ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 serializedAdditionalRawData);
         }
 

@@ -68,6 +68,7 @@ namespace Azure.ResourceManager.Logic
             Argument.AssertNotNull(guestIdentity, nameof(guestIdentity));
             Argument.AssertNotNull(content, nameof(content));
 
+            Metadata = new ChangeTrackingDictionary<string, BinaryData>();
             AgreementType = agreementType;
             HostPartner = hostPartner;
             GuestPartner = guestPartner;
@@ -93,7 +94,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="guestIdentity"> The business identity of the guest partner. </param>
         /// <param name="content"> The agreement content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountAgreementData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, BinaryData metadata, IntegrationAccountAgreementType agreementType, string hostPartner, string guestPartner, IntegrationAccountBusinessIdentity hostIdentity, IntegrationAccountBusinessIdentity guestIdentity, IntegrationAccountAgreementContent content, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationAccountAgreementData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, IDictionary<string, BinaryData> metadata, IntegrationAccountAgreementType agreementType, string hostPartner, string guestPartner, IntegrationAccountBusinessIdentity hostIdentity, IntegrationAccountBusinessIdentity guestIdentity, IntegrationAccountAgreementContent content, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             CreatedOn = createdOn;
             ChangedOn = changedOn;
@@ -119,7 +120,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// The metadata.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -146,7 +147,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Metadata { get; set; }
+        public IDictionary<string, BinaryData> Metadata { get; }
         /// <summary> The agreement type. </summary>
         public IntegrationAccountAgreementType AgreementType { get; set; }
         /// <summary> The integration account partner that is set as host partner for this agreement. </summary>

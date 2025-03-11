@@ -59,9 +59,9 @@ namespace Azure.ResourceManager.Logic.Models
             writer.WritePropertyName("characterSet"u8);
             writer.WriteStringValue(CharacterSet.ToString());
             writer.WritePropertyName("decimalPointIndicator"u8);
-            writer.WriteStringValue(DecimalPointIndicator.ToSerialString());
+            writer.WriteStringValue(DecimalPointIndicator.ToString());
             writer.WritePropertyName("segmentTerminatorSuffix"u8);
-            writer.WriteStringValue(SegmentTerminatorSuffix.ToSerialString());
+            writer.WriteStringValue(SegmentTerminatorSuffix.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -161,12 +161,12 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 if (property.NameEquals("decimalPointIndicator"u8))
                 {
-                    decimalPointIndicator = property.Value.GetString().ToEdifactDecimalIndicator();
+                    decimalPointIndicator = new EdifactDecimalIndicator(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("segmentTerminatorSuffix"u8))
                 {
-                    segmentTerminatorSuffix = property.Value.GetString().ToSegmentTerminatorSuffix();
+                    segmentTerminatorSuffix = new SegmentTerminatorSuffix(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

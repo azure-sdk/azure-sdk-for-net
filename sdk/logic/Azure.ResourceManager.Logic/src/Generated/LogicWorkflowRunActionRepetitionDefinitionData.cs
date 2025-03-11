@@ -55,6 +55,9 @@ namespace Azure.ResourceManager.Logic
         /// <param name="location"> The location. </param>
         public LogicWorkflowRunActionRepetitionDefinitionData(AzureLocation location) : base(location)
         {
+            Inputs = new ChangeTrackingDictionary<string, BinaryData>();
+            Outputs = new ChangeTrackingDictionary<string, BinaryData>();
+            TrackedProperties = new ChangeTrackingDictionary<string, BinaryData>();
             RetryHistory = new ChangeTrackingList<LogicWorkRetryHistory>();
             RepetitionIndexes = new ChangeTrackingList<LogicWorkflowRepetitionIndex>();
         }
@@ -82,7 +85,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="iterationCount"></param>
         /// <param name="repetitionIndexes"> The repetition indexes. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowRunActionRepetitionDefinitionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowRunActionCorrelation correlation, LogicWorkflowStatus? status, string code, BinaryData error, Guid? trackingId, BinaryData inputs, LogicContentLink inputsLink, BinaryData outputs, LogicContentLink outputsLink, BinaryData trackedProperties, IList<LogicWorkRetryHistory> retryHistory, int? iterationCount, IList<LogicWorkflowRepetitionIndex> repetitionIndexes, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal LogicWorkflowRunActionRepetitionDefinitionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowRunActionCorrelation correlation, LogicWorkflowStatus? status, string code, BinaryData error, Guid? trackingId, IReadOnlyDictionary<string, BinaryData> inputs, LogicContentLink inputsLink, IReadOnlyDictionary<string, BinaryData> outputs, LogicContentLink outputsLink, IReadOnlyDictionary<string, BinaryData> trackedProperties, IList<LogicWorkRetryHistory> retryHistory, int? iterationCount, IList<LogicWorkflowRepetitionIndex> repetitionIndexes, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             StartOn = startOn;
             EndOn = endOn;
@@ -114,7 +117,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary> The correlation properties. </summary>
         public LogicWorkflowRunActionCorrelation Correlation { get; set; }
         /// <summary> The status of the workflow scope repetition. </summary>
-        public LogicWorkflowStatus? Status { get; set; }
+        public LogicWorkflowStatus? Status { get; }
         /// <summary> The workflow scope repetition code. </summary>
         public string Code { get; set; }
         /// <summary>
@@ -153,7 +156,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// Gets the inputs.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -180,13 +183,13 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Inputs { get; }
+        public IReadOnlyDictionary<string, BinaryData> Inputs { get; }
         /// <summary> Gets the link to inputs. </summary>
         public LogicContentLink InputsLink { get; }
         /// <summary>
         /// Gets the outputs.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -213,13 +216,13 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Outputs { get; }
+        public IReadOnlyDictionary<string, BinaryData> Outputs { get; }
         /// <summary> Gets the link to outputs. </summary>
         public LogicContentLink OutputsLink { get; }
         /// <summary>
         /// Gets the tracked properties.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -246,7 +249,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData TrackedProperties { get; }
+        public IReadOnlyDictionary<string, BinaryData> TrackedProperties { get; }
         /// <summary> Gets the retry histories. </summary>
         public IList<LogicWorkRetryHistory> RetryHistory { get; }
         /// <summary> Gets or sets the iteration count. </summary>

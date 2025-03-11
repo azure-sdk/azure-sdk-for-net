@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Logic.Models
         private const string StandardValue = "Standard";
         private const string PremiumValue = "Premium";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicApiTier NotSpecified { get; } = new LogicApiTier(NotSpecifiedValue);
-        /// <summary> Enterprise. </summary>
+        /// <summary> Represents an enterprise API tier. </summary>
         public static LogicApiTier Enterprise { get; } = new LogicApiTier(EnterpriseValue);
-        /// <summary> Standard. </summary>
+        /// <summary> Represents a standard API tier. </summary>
         public static LogicApiTier Standard { get; } = new LogicApiTier(StandardValue);
-        /// <summary> Premium. </summary>
+        /// <summary> Represents a premium API tier. </summary>
         public static LogicApiTier Premium { get; } = new LogicApiTier(PremiumValue);
         /// <summary> Determines if two <see cref="LogicApiTier"/> values are the same. </summary>
         public static bool operator ==(LogicApiTier left, LogicApiTier right) => left.Equals(right);
