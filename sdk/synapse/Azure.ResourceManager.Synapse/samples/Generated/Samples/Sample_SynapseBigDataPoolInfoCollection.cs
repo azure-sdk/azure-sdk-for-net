@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.Synapse.Samples
                     Content = "",
                     Filename = "requirements.txt",
                 },
-                SparkVersion = "2.4",
+                SparkVersion = "3.3",
                 DefaultSparkLogFolder = "/logs",
                 NodeSize = BigDataPoolNodeSize.Medium,
                 NodeSizeFamily = BigDataPoolNodeSizeFamily.MemoryOptimized,
