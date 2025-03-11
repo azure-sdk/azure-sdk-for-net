@@ -1,0 +1,35 @@
+# NOTE: Please refer to https://aka.ms/azsdk/engsys/ci-yaml before editing this file.
+
+trigger:
+  branches:
+    include:
+    - main
+    - hotfix/*
+    - release/*
+  paths:
+    include:
+    - sdk/azure.analytics.experimentation
+    - sdk/azure.analytics.experimentation/ci.yml
+    - sdk/azure.analytics.experimentation/Azure.Analytics.Experimentation
+
+pr:
+  branches:
+    include:
+    - main
+    - feature/*
+    - hotfix/*
+    - release/*
+  paths:
+    include:
+    - sdk/azure.analytics.experimentation
+    - sdk/azure.analytics.experimentation/ci.yml
+    - sdk/azure.analytics.experimentation/Azure.Analytics.Experimentation
+
+extends:
+  template: /eng/pipelines/templates/stages/archetype-sdk-client.yml
+  parameters:
+    ServiceDirectory: azure.analytics.experimentation
+    ArtifactName: packages
+    Artifacts:
+    - name: Azure.Analytics.Experimentation
+      safeName: AzureAnalyticsExperimentation
