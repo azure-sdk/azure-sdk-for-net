@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="operationId"> The workflow operation id. </param>
+        /// <param name="operationId"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -147,7 +147,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="operationId"> The workflow operation id. </param>
+        /// <param name="operationId"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>

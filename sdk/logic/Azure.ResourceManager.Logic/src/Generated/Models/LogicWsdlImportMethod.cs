@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string SoapToRestValue = "SoapToRest";
         private const string SoapPassThroughValue = "SoapPassThrough";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicWsdlImportMethod NotSpecified { get; } = new LogicWsdlImportMethod(NotSpecifiedValue);
-        /// <summary> SoapToRest. </summary>
+        /// <summary> Represents a SOAP to REST WSDL import method. </summary>
         public static LogicWsdlImportMethod SoapToRest { get; } = new LogicWsdlImportMethod(SoapToRestValue);
-        /// <summary> SoapPassThrough. </summary>
+        /// <summary> Represents a SOAP Pass Through WSDL import method. </summary>
         public static LogicWsdlImportMethod SoapPassThrough { get; } = new LogicWsdlImportMethod(SoapPassThroughValue);
         /// <summary> Determines if two <see cref="LogicWsdlImportMethod"/> values are the same. </summary>
         public static bool operator ==(LogicWsdlImportMethod left, LogicWsdlImportMethod right) => left.Equals(right);

@@ -93,8 +93,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflow run actions. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -126,8 +126,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflow run actions. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -201,8 +201,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow run action. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="actionName"> The workflow action name. </param>
@@ -236,8 +236,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow run action. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="actionName"> The workflow action name. </param>
@@ -315,8 +315,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Lists a workflow run expression trace. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="actionName"> The workflow action name. </param>
@@ -348,8 +348,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Lists a workflow run expression trace. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="actionName"> The workflow action name. </param>
@@ -404,8 +404,8 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflow run actions. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -439,8 +439,8 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflow run actions. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="runName"> The workflow run name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>

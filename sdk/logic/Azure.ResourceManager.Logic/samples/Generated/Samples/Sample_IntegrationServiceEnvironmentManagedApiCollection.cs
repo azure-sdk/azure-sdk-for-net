@@ -30,9 +30,8 @@ namespace Azure.ResourceManager.Logic.Samples
             // this example assumes you already have this IntegrationServiceEnvironmentResource created on azure
             // for more information of creating IntegrationServiceEnvironmentResource, please refer to the document of IntegrationServiceEnvironmentResource
             string subscriptionId = "f34b22a3-2202-4fb1-b040-1332bd928c84";
-            string resourceGroup = "testResourceGroup";
             string integrationServiceEnvironmentName = "testIntegrationServiceEnvironment";
-            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, integrationServiceEnvironmentName);
             IntegrationServiceEnvironmentResource integrationServiceEnvironment = client.GetIntegrationServiceEnvironmentResource(integrationServiceEnvironmentResourceId);
 
             // get the collection of this IntegrationServiceEnvironmentManagedApiResource
@@ -40,7 +39,7 @@ namespace Azure.ResourceManager.Logic.Samples
 
             // invoke the operation
             string apiName = "servicebus";
-            IntegrationServiceEnvironmentManagedApiData data = new IntegrationServiceEnvironmentManagedApiData(new AzureLocation("brazilsouth"));
+            IntegrationServiceEnvironmentManagedApiData data = new IntegrationServiceEnvironmentManagedApiData(default);
             ArmOperation<IntegrationServiceEnvironmentManagedApiResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, apiName, data);
             IntegrationServiceEnvironmentManagedApiResource result = lro.Value;
 
@@ -66,9 +65,8 @@ namespace Azure.ResourceManager.Logic.Samples
             // this example assumes you already have this IntegrationServiceEnvironmentResource created on azure
             // for more information of creating IntegrationServiceEnvironmentResource, please refer to the document of IntegrationServiceEnvironmentResource
             string subscriptionId = "f34b22a3-2202-4fb1-b040-1332bd928c84";
-            string resourceGroup = "testResourceGroup";
             string integrationServiceEnvironmentName = "testIntegrationServiceEnvironment";
-            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, integrationServiceEnvironmentName);
             IntegrationServiceEnvironmentResource integrationServiceEnvironment = client.GetIntegrationServiceEnvironmentResource(integrationServiceEnvironmentResourceId);
 
             // get the collection of this IntegrationServiceEnvironmentManagedApiResource
@@ -100,9 +98,8 @@ namespace Azure.ResourceManager.Logic.Samples
             // this example assumes you already have this IntegrationServiceEnvironmentResource created on azure
             // for more information of creating IntegrationServiceEnvironmentResource, please refer to the document of IntegrationServiceEnvironmentResource
             string subscriptionId = "f34b22a3-2202-4fb1-b040-1332bd928c84";
-            string resourceGroup = "testResourceGroup";
             string integrationServiceEnvironmentName = "testIntegrationServiceEnvironment";
-            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, integrationServiceEnvironmentName);
             IntegrationServiceEnvironmentResource integrationServiceEnvironment = client.GetIntegrationServiceEnvironmentResource(integrationServiceEnvironmentResourceId);
 
             // get the collection of this IntegrationServiceEnvironmentManagedApiResource
@@ -136,9 +133,8 @@ namespace Azure.ResourceManager.Logic.Samples
             // this example assumes you already have this IntegrationServiceEnvironmentResource created on azure
             // for more information of creating IntegrationServiceEnvironmentResource, please refer to the document of IntegrationServiceEnvironmentResource
             string subscriptionId = "f34b22a3-2202-4fb1-b040-1332bd928c84";
-            string resourceGroup = "testResourceGroup";
             string integrationServiceEnvironmentName = "testIntegrationServiceEnvironment";
-            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, integrationServiceEnvironmentName);
             IntegrationServiceEnvironmentResource integrationServiceEnvironment = client.GetIntegrationServiceEnvironmentResource(integrationServiceEnvironmentResourceId);
 
             // get the collection of this IntegrationServiceEnvironmentManagedApiResource
@@ -166,9 +162,8 @@ namespace Azure.ResourceManager.Logic.Samples
             // this example assumes you already have this IntegrationServiceEnvironmentResource created on azure
             // for more information of creating IntegrationServiceEnvironmentResource, please refer to the document of IntegrationServiceEnvironmentResource
             string subscriptionId = "f34b22a3-2202-4fb1-b040-1332bd928c84";
-            string resourceGroup = "testResourceGroup";
             string integrationServiceEnvironmentName = "testIntegrationServiceEnvironment";
-            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            ResourceIdentifier integrationServiceEnvironmentResourceId = IntegrationServiceEnvironmentResource.CreateResourceIdentifier(subscriptionId, integrationServiceEnvironmentName);
             IntegrationServiceEnvironmentResource integrationServiceEnvironment = client.GetIntegrationServiceEnvironmentResource(integrationServiceEnvironmentResourceId);
 
             // get the collection of this IntegrationServiceEnvironmentManagedApiResource

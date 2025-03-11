@@ -34,17 +34,28 @@ namespace Azure.ResourceManager.Logic.Models
                 throw new FormatException($"The model {nameof(LogicWorkflowRequest)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(Headers))
+            if (Optional.IsCollectionDefined(Headers))
             {
                 writer.WritePropertyName("headers"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Headers);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Headers, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Headers)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsDefined(Uri))
             {
@@ -93,7 +104,7 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 return null;
             }
-            BinaryData headers = default;
+            IDictionary<string, BinaryData> headers = default;
             Uri uri = default;
             string method = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -106,7 +117,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    headers = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    headers = dictionary;
                     continue;
                 }
                 if (property.NameEquals("uri"u8))
@@ -129,7 +152,7 @@ namespace Azure.ResourceManager.Logic.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new LogicWorkflowRequest(headers, uri, method, serializedAdditionalRawData);
+            return new LogicWorkflowRequest(headers ?? new ChangeTrackingDictionary<string, BinaryData>(), uri, method, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<LogicWorkflowRequest>.Write(ModelReaderWriterOptions options)

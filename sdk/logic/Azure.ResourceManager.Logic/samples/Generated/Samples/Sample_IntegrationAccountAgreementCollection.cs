@@ -42,91 +42,13 @@ namespace Azure.ResourceManager.Logic.Samples
             // invoke the operation
             string agreementName = "testAgreement";
             IntegrationAccountAgreementData data = new IntegrationAccountAgreementData(
-                new AzureLocation("westus"),
-                IntegrationAccountAgreementType.AS2,
-                "HostPartner",
-                "GuestPartner",
-                new IntegrationAccountBusinessIdentity("ZZ", "ZZ"),
-                new IntegrationAccountBusinessIdentity("AA", "AA"),
-                new IntegrationAccountAgreementContent
-                {
-                    AS2 = new AS2AgreementContent(new AS2OneWayAgreement(new IntegrationAccountBusinessIdentity("AA", "AA"), new IntegrationAccountBusinessIdentity("ZZ", "ZZ"), new AS2ProtocolSettings(
-                new AS2MessageConnectionSettings(true, true, true, true),
-                new AS2AcknowledgementConnectionSettings(true, true, true, true),
-                new AS2MdnSettings(
-                true,
-                true,
-                true,
-                true,
-                true,
-                AS2HashingAlgorithm.Sha1)
-                {
-                    ReceiptDeliveryUri = new Uri("http://tempuri.org"),
-                    DispositionNotificationTo = "http://tempuri.org",
-                    MdnText = "Sample",
-                },
-                new AS2SecuritySettings(
-                false,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true),
-                new AS2ValidationSettings(
-                true,
-                false,
-                false,
-                true,
-                true,
-                100,
-                true,
-                true,
-                AS2EncryptionAlgorithm.Aes128),
-                new AS2EnvelopeSettings(new ContentType("text/plain"), true, "Test", true, true),
-                new AS2ErrorSettings(true, true))), new AS2OneWayAgreement(new IntegrationAccountBusinessIdentity("ZZ", "ZZ"), new IntegrationAccountBusinessIdentity("AA", "AA"), new AS2ProtocolSettings(
-                new AS2MessageConnectionSettings(true, true, true, true),
-                new AS2AcknowledgementConnectionSettings(true, true, true, true),
-                new AS2MdnSettings(
-                true,
-                true,
-                true,
-                true,
-                true,
-                AS2HashingAlgorithm.Sha1)
-                {
-                    ReceiptDeliveryUri = new Uri("http://tempuri.org"),
-                    DispositionNotificationTo = "http://tempuri.org",
-                    MdnText = "Sample",
-                },
-                new AS2SecuritySettings(
-                false,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true),
-                new AS2ValidationSettings(
-                true,
-                false,
-                false,
-                true,
-                true,
-                100,
-                true,
-                true,
-                AS2EncryptionAlgorithm.Aes128),
-                new AS2EnvelopeSettings(new ContentType("text/plain"), true, "Test", true, true),
-                new AS2ErrorSettings(true, true)))),
-                })
-            {
-                Metadata = BinaryData.FromObjectAsJson(new object()),
-                Tags =
-{
-["IntegrationAccountAgreement"] = "<IntegrationAccountAgreementName>"
-},
-            };
+                default,
+                default,
+                null,
+                null,
+                null,
+                null,
+                null);
             ArmOperation<IntegrationAccountAgreementResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, agreementName, data);
             IntegrationAccountAgreementResource result = lro.Value;
 

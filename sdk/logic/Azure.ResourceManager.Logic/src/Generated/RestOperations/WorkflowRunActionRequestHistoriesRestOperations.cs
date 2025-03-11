@@ -81,11 +81,11 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> List a workflow run request history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -114,11 +114,11 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> List a workflow run request history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -193,12 +193,12 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow run request history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="requestHistoryName"> The request history name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
+        /// <param name="requestHistoryName"> The name of the RequestHistory. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="requestHistoryName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="requestHistoryName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -230,12 +230,12 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow run request history. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
-        /// <param name="requestHistoryName"> The request history name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
+        /// <param name="requestHistoryName"> The name of the RequestHistory. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="requestHistoryName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/>, <paramref name="actionName"/> or <paramref name="requestHistoryName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -290,11 +290,11 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> List a workflow run request history. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -325,11 +325,11 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> List a workflow run request history. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="runName"> The workflow run name. </param>
-        /// <param name="actionName"> The workflow action name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workflowName"> The name of the Workflow. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
+        /// <param name="actionName"> The name of the WorkflowRunAction. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workflowName"/>, <paramref name="runName"/> or <paramref name="actionName"/> is an empty string, and was expected to be non-empty. </exception>

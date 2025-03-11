@@ -36,14 +36,12 @@ namespace Azure.ResourceManager.Logic
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateListRequestUri(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName)
+        internal RequestUriBuilder CreateListRequestUri(string subscriptionId, string integrationServiceEnvironmentName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis", false);
@@ -51,7 +49,7 @@ namespace Azure.ResourceManager.Logic
             return uri;
         }
 
-        internal HttpMessage CreateListRequest(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName)
+        internal HttpMessage CreateListRequest(string subscriptionId, string integrationServiceEnvironmentName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -60,8 +58,6 @@ namespace Azure.ResourceManager.Logic
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis", false);
@@ -73,19 +69,17 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the integration service environment managed Apis. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IntegrationServiceEnvironmentManagedApiListResult>> ListAsync(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<IntegrationServiceEnvironmentManagedApiListResult>> ListAsync(string subscriptionId, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
 
-            using var message = CreateListRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            using var message = CreateListRequest(subscriptionId, integrationServiceEnvironmentName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -102,19 +96,17 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the integration service environment managed Apis. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IntegrationServiceEnvironmentManagedApiListResult> List(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<IntegrationServiceEnvironmentManagedApiListResult> List(string subscriptionId, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
 
-            using var message = CreateListRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            using var message = CreateListRequest(subscriptionId, integrationServiceEnvironmentName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -130,14 +122,12 @@ namespace Azure.ResourceManager.Logic
             }
         }
 
-        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName)
+        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string integrationServiceEnvironmentName, string apiName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis/", false);
@@ -146,7 +136,7 @@ namespace Azure.ResourceManager.Logic
             return uri;
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string integrationServiceEnvironmentName, string apiName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -155,8 +145,6 @@ namespace Azure.ResourceManager.Logic
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis/", false);
@@ -169,21 +157,19 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the integration service environment managed Api. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IntegrationServiceEnvironmentManagedApiData>> GetAsync(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<IntegrationServiceEnvironmentManagedApiData>> GetAsync(string subscriptionId, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
             Argument.AssertNotNullOrEmpty(apiName, nameof(apiName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName, apiName);
+            using var message = CreateGetRequest(subscriptionId, integrationServiceEnvironmentName, apiName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -202,21 +188,19 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the integration service environment managed Api. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IntegrationServiceEnvironmentManagedApiData> Get(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<IntegrationServiceEnvironmentManagedApiData> Get(string subscriptionId, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
             Argument.AssertNotNullOrEmpty(apiName, nameof(apiName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName, apiName);
+            using var message = CreateGetRequest(subscriptionId, integrationServiceEnvironmentName, apiName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -234,14 +218,12 @@ namespace Azure.ResourceManager.Logic
             }
         }
 
-        internal RequestUriBuilder CreatePutRequestUri(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data)
+        internal RequestUriBuilder CreatePutRequestUri(string subscriptionId, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis/", false);
@@ -250,7 +232,7 @@ namespace Azure.ResourceManager.Logic
             return uri;
         }
 
-        internal HttpMessage CreatePutRequest(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data)
+        internal HttpMessage CreatePutRequest(string subscriptionId, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -259,8 +241,6 @@ namespace Azure.ResourceManager.Logic
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis/", false);
@@ -277,23 +257,21 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Puts the integration service environment managed Api. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
         /// <param name="data"> The integration service environment managed api. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/>, <paramref name="apiName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> PutAsync(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/>, <paramref name="apiName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> PutAsync(string subscriptionId, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
             Argument.AssertNotNullOrEmpty(apiName, nameof(apiName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreatePutRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName, apiName, data);
+            using var message = CreatePutRequest(subscriptionId, integrationServiceEnvironmentName, apiName, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -306,23 +284,21 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Puts the integration service environment managed Api. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
         /// <param name="data"> The integration service environment managed api. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/>, <paramref name="apiName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Put(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/>, <paramref name="apiName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Put(string subscriptionId, string integrationServiceEnvironmentName, string apiName, IntegrationServiceEnvironmentManagedApiData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
             Argument.AssertNotNullOrEmpty(apiName, nameof(apiName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreatePutRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName, apiName, data);
+            using var message = CreatePutRequest(subscriptionId, integrationServiceEnvironmentName, apiName, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -334,14 +310,12 @@ namespace Azure.ResourceManager.Logic
             }
         }
 
-        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName)
+        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string integrationServiceEnvironmentName, string apiName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis/", false);
@@ -350,7 +324,7 @@ namespace Azure.ResourceManager.Logic
             return uri;
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string integrationServiceEnvironmentName, string apiName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -359,8 +333,6 @@ namespace Azure.ResourceManager.Logic
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
             uri.AppendPath("/managedApis/", false);
@@ -373,21 +345,19 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes the integration service environment managed Api. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(string subscriptionId, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
             Argument.AssertNotNullOrEmpty(apiName, nameof(apiName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName, apiName);
+            using var message = CreateDeleteRequest(subscriptionId, integrationServiceEnvironmentName, apiName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -400,21 +370,19 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes the integration service environment managed Api. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="integrationServiceEnvironmentName"/> or <paramref name="apiName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(string subscriptionId, string integrationServiceEnvironmentName, string apiName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
             Argument.AssertNotNullOrEmpty(apiName, nameof(apiName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName, apiName);
+            using var message = CreateDeleteRequest(subscriptionId, integrationServiceEnvironmentName, apiName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -426,7 +394,7 @@ namespace Azure.ResourceManager.Logic
             }
         }
 
-        internal RequestUriBuilder CreateListNextPageRequestUri(string nextLink, string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName)
+        internal RequestUriBuilder CreateListNextPageRequestUri(string nextLink, string subscriptionId, string integrationServiceEnvironmentName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -434,7 +402,7 @@ namespace Azure.ResourceManager.Logic
             return uri;
         }
 
-        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName)
+        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, string integrationServiceEnvironmentName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -450,20 +418,18 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets the integration service environment managed Apis. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IntegrationServiceEnvironmentManagedApiListResult>> ListNextPageAsync(string nextLink, string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<IntegrationServiceEnvironmentManagedApiListResult>> ListNextPageAsync(string nextLink, string subscriptionId, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, integrationServiceEnvironmentName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -481,20 +447,18 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets the integration service environment managed Apis. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IntegrationServiceEnvironmentManagedApiListResult> ListNextPage(string nextLink, string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<IntegrationServiceEnvironmentManagedApiListResult> ListNextPage(string nextLink, string subscriptionId, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, integrationServiceEnvironmentName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {

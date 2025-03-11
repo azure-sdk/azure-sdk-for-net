@@ -96,18 +96,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountBatchConfigurationResource integrationAccountBatchConfiguration = client.GetIntegrationAccountBatchConfigurationResource(integrationAccountBatchConfigurationResourceId);
 
             // invoke the operation
-            IntegrationAccountBatchConfigurationData data = new IntegrationAccountBatchConfigurationData(new AzureLocation("westus"), new IntegrationAccountBatchConfigurationProperties("DEFAULT", new IntegrationAccountBatchReleaseCriteria
-            {
-                MessageCount = 10,
-                BatchSize = 234567,
-                Recurrence = new LogicWorkflowTriggerRecurrence
-                {
-                    Frequency = LogicWorkflowRecurrenceFrequency.Minute,
-                    Interval = 1,
-                    StartOn = DateTimeOffset.Parse("2017-03-24T11:43:00"),
-                    TimeZone = "India Standard Time",
-                },
-            }));
+            IntegrationAccountBatchConfigurationData data = new IntegrationAccountBatchConfigurationData(default, null, null);
             ArmOperation<IntegrationAccountBatchConfigurationResource> lro = await integrationAccountBatchConfiguration.UpdateAsync(WaitUntil.Completed, data);
             IntegrationAccountBatchConfigurationResource result = lro.Value;
 

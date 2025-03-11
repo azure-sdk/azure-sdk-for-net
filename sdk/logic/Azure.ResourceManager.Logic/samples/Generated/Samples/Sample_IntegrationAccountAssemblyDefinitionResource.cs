@@ -96,11 +96,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountAssemblyDefinitionResource integrationAccountAssemblyDefinition = client.GetIntegrationAccountAssemblyDefinitionResource(integrationAccountAssemblyDefinitionResourceId);
 
             // invoke the operation
-            IntegrationAccountAssemblyDefinitionData data = new IntegrationAccountAssemblyDefinitionData(new AzureLocation("westus"), new IntegrationAccountAssemblyProperties("System.IdentityModel.Tokens.Jwt")
-            {
-                Content = BinaryData.FromObjectAsJson("Base64 encoded Assembly Content"),
-                Metadata = BinaryData.FromObjectAsJson(new object()),
-            });
+            IntegrationAccountAssemblyDefinitionData data = new IntegrationAccountAssemblyDefinitionData(default, null);
             ArmOperation<IntegrationAccountAssemblyDefinitionResource> lro = await integrationAccountAssemblyDefinition.UpdateAsync(WaitUntil.Completed, data);
             IntegrationAccountAssemblyDefinitionResource result = lro.Value;
 

@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string PremiumValue = "Premium";
         private const string DeveloperValue = "Developer";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationServiceEnvironmentSkuName NotSpecified { get; } = new IntegrationServiceEnvironmentSkuName(NotSpecifiedValue);
-        /// <summary> Premium. </summary>
+        /// <summary> Represents a premium integration service environment SKU. </summary>
         public static IntegrationServiceEnvironmentSkuName Premium { get; } = new IntegrationServiceEnvironmentSkuName(PremiumValue);
-        /// <summary> Developer. </summary>
+        /// <summary> Represents a developer integration service environment SKU. </summary>
         public static IntegrationServiceEnvironmentSkuName Developer { get; } = new IntegrationServiceEnvironmentSkuName(DeveloperValue);
         /// <summary> Determines if two <see cref="IntegrationServiceEnvironmentSkuName"/> values are the same. </summary>
         public static bool operator ==(IntegrationServiceEnvironmentSkuName left, IntegrationServiceEnvironmentSkuName right) => left.Equals(right);

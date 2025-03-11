@@ -73,8 +73,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> List the assemblies for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="integrationAccountName"/> is null. </exception>
@@ -102,8 +102,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> List the assemblies for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="integrationAccountName"/> is null. </exception>
@@ -169,8 +169,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get an assembly for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -202,8 +202,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get an assembly for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -277,8 +277,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Create or update an assembly for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="data"> The assembly artifact. </param>
@@ -311,8 +311,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Create or update an assembly for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="data"> The assembly artifact. </param>
@@ -383,8 +383,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Delete an assembly for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -410,8 +410,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Delete an assembly for an integration account. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -477,8 +477,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the content callback url for an integration account assembly. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -508,8 +508,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the content callback url for an integration account assembly. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="assemblyArtifactName"> The assembly artifact name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

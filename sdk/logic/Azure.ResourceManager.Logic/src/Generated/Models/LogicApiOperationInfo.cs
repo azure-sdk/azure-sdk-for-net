@@ -12,8 +12,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The api operation. </summary>
-    public partial class LogicApiOperationInfo : TrackedResourceData
+    /// <summary> The integration service environment managed api's api operations. </summary>
+    public partial class LogicApiOperationInfo : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -48,9 +48,9 @@ namespace Azure.ResourceManager.Logic.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="LogicApiOperationInfo"/>. </summary>
-        /// <param name="location"> The location. </param>
-        public LogicApiOperationInfo(AzureLocation location) : base(location)
+        public LogicApiOperationInfo()
         {
+            ResponsesDefinition = new ChangeTrackingDictionary<string, SwaggerSchema>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicApiOperationInfo"/>. </summary>
@@ -58,22 +58,59 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="properties"> The api operations properties. </param>
+        /// <param name="summary"> The summary of the api operation. </param>
+        /// <param name="description"> The description of the api operation. </param>
+        /// <param name="visibility"> The visibility of the api operation. </param>
+        /// <param name="trigger"> The trigger type of api operation. </param>
+        /// <param name="triggerHint"> The trigger hint for the api operation. </param>
+        /// <param name="pageable"> Indicates whether the api operation is pageable. </param>
+        /// <param name="annotation"> The annotation of api operation. </param>
+        /// <param name="api"> The api reference. </param>
+        /// <param name="inputsDefinition"> The operation inputs definition schema. </param>
+        /// <param name="responsesDefinition"> The operation responses definition schemas. </param>
+        /// <param name="isWebhook"> Indicates whether the API operation is webhook or not. </param>
+        /// <param name="isNotification"> Indicates whether the API operation is notification or not. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicApiOperationInfo(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, LogicApiOperationProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal LogicApiOperationInfo(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string summary, string description, string visibility, string trigger, string triggerHint, bool? pageable, LogicApiOperationAnnotation annotation, LogicApiReference api, SwaggerSchema inputsDefinition, IDictionary<string, SwaggerSchema> responsesDefinition, bool? isWebhook, bool? isNotification, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            Properties = properties;
+            Summary = summary;
+            Description = description;
+            Visibility = visibility;
+            Trigger = trigger;
+            TriggerHint = triggerHint;
+            Pageable = pageable;
+            Annotation = annotation;
+            Api = api;
+            InputsDefinition = inputsDefinition;
+            ResponsesDefinition = responsesDefinition;
+            IsWebhook = isWebhook;
+            IsNotification = isNotification;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="LogicApiOperationInfo"/> for deserialization. </summary>
-        internal LogicApiOperationInfo()
-        {
-        }
-
-        /// <summary> The api operations properties. </summary>
-        public LogicApiOperationProperties Properties { get; set; }
+        /// <summary> The summary of the api operation. </summary>
+        public string Summary { get; set; }
+        /// <summary> The description of the api operation. </summary>
+        public string Description { get; set; }
+        /// <summary> The visibility of the api operation. </summary>
+        public string Visibility { get; set; }
+        /// <summary> The trigger type of api operation. </summary>
+        public string Trigger { get; set; }
+        /// <summary> The trigger hint for the api operation. </summary>
+        public string TriggerHint { get; set; }
+        /// <summary> Indicates whether the api operation is pageable. </summary>
+        public bool? Pageable { get; set; }
+        /// <summary> The annotation of api operation. </summary>
+        public LogicApiOperationAnnotation Annotation { get; set; }
+        /// <summary> The api reference. </summary>
+        public LogicApiReference Api { get; set; }
+        /// <summary> The operation inputs definition schema. </summary>
+        public SwaggerSchema InputsDefinition { get; set; }
+        /// <summary> The operation responses definition schemas. </summary>
+        public IDictionary<string, SwaggerSchema> ResponsesDefinition { get; }
+        /// <summary> Indicates whether the API operation is webhook or not. </summary>
+        public bool? IsWebhook { get; set; }
+        /// <summary> Indicates whether the API operation is notification or not. </summary>
+        public bool? IsNotification { get; set; }
     }
 }

@@ -90,23 +90,23 @@ namespace Azure.ResourceManager.Logic
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of LogicWorkflowVersionResources in the LogicWorkflow. </summary>
-        /// <returns> An object representing collection of LogicWorkflowVersionResources and their operations over a LogicWorkflowVersionResource. </returns>
-        public virtual LogicWorkflowVersionCollection GetLogicWorkflowVersions()
+        /// <summary> Gets a collection of LogicWorkflowRunResources in the LogicWorkflow. </summary>
+        /// <returns> An object representing collection of LogicWorkflowRunResources and their operations over a LogicWorkflowRunResource. </returns>
+        public virtual LogicWorkflowRunCollection GetLogicWorkflowRuns()
         {
-            return GetCachedClient(client => new LogicWorkflowVersionCollection(client, Id));
+            return GetCachedClient(client => new LogicWorkflowRunCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets a workflow version.
+        /// Gets a workflow run.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions/{versionId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkflowVersions_Get</description>
+        /// <description>WorkflowRuns_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -114,30 +114,30 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowVersionResource"/></description>
+        /// <description><see cref="LogicWorkflowRunResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="versionId"> The workflow versionId. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="versionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="versionId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<LogicWorkflowVersionResource>> GetLogicWorkflowVersionAsync(string versionId, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<LogicWorkflowRunResource>> GetLogicWorkflowRunAsync(string runName, CancellationToken cancellationToken = default)
         {
-            return await GetLogicWorkflowVersions().GetAsync(versionId, cancellationToken).ConfigureAwait(false);
+            return await GetLogicWorkflowRuns().GetAsync(runName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets a workflow version.
+        /// Gets a workflow run.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions/{versionId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkflowVersions_Get</description>
+        /// <description>WorkflowRuns_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -145,18 +145,18 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowVersionResource"/></description>
+        /// <description><see cref="LogicWorkflowRunResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="versionId"> The workflow versionId. </param>
+        /// <param name="runName"> The name of the WorkflowRun. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="versionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="versionId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<LogicWorkflowVersionResource> GetLogicWorkflowVersion(string versionId, CancellationToken cancellationToken = default)
+        public virtual Response<LogicWorkflowRunResource> GetLogicWorkflowRun(string runName, CancellationToken cancellationToken = default)
         {
-            return GetLogicWorkflowVersions().Get(versionId, cancellationToken);
+            return GetLogicWorkflowRuns().Get(runName, cancellationToken);
         }
 
         /// <summary> Gets a collection of LogicWorkflowTriggerResources in the LogicWorkflow. </summary>
@@ -228,23 +228,23 @@ namespace Azure.ResourceManager.Logic
             return GetLogicWorkflowTriggers().Get(triggerName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of LogicWorkflowRunResources in the LogicWorkflow. </summary>
-        /// <returns> An object representing collection of LogicWorkflowRunResources and their operations over a LogicWorkflowRunResource. </returns>
-        public virtual LogicWorkflowRunCollection GetLogicWorkflowRuns()
+        /// <summary> Gets a collection of LogicWorkflowVersionResources in the LogicWorkflow. </summary>
+        /// <returns> An object representing collection of LogicWorkflowVersionResources and their operations over a LogicWorkflowVersionResource. </returns>
+        public virtual LogicWorkflowVersionCollection GetLogicWorkflowVersions()
         {
-            return GetCachedClient(client => new LogicWorkflowRunCollection(client, Id));
+            return GetCachedClient(client => new LogicWorkflowVersionCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets a workflow run.
+        /// Gets a workflow version.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions/{versionId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkflowRuns_Get</description>
+        /// <description>WorkflowVersions_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -252,30 +252,30 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowRunResource"/></description>
+        /// <description><see cref="LogicWorkflowVersionResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="versionId"> The workflow versionId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="versionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="versionId"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<LogicWorkflowRunResource>> GetLogicWorkflowRunAsync(string runName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<LogicWorkflowVersionResource>> GetLogicWorkflowVersionAsync(string versionId, CancellationToken cancellationToken = default)
         {
-            return await GetLogicWorkflowRuns().GetAsync(runName, cancellationToken).ConfigureAwait(false);
+            return await GetLogicWorkflowVersions().GetAsync(versionId, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets a workflow run.
+        /// Gets a workflow version.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions/{versionId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkflowRuns_Get</description>
+        /// <description>WorkflowVersions_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -283,18 +283,18 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowRunResource"/></description>
+        /// <description><see cref="LogicWorkflowVersionResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="versionId"> The workflow versionId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="runName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="versionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="versionId"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<LogicWorkflowRunResource> GetLogicWorkflowRun(string runName, CancellationToken cancellationToken = default)
+        public virtual Response<LogicWorkflowVersionResource> GetLogicWorkflowVersion(string versionId, CancellationToken cancellationToken = default)
         {
-            return GetLogicWorkflowRuns().Get(runName, cancellationToken);
+            return GetLogicWorkflowVersions().Get(versionId, cancellationToken);
         }
 
         /// <summary>
@@ -737,7 +737,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="content"> Parameters for generating an upgraded definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<Response<BinaryData>> GenerateUpgradedDefinitionAsync(GenerateUpgradedDefinitionContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<IReadOnlyDictionary<string, BinaryData>>> GenerateUpgradedDefinitionAsync(GenerateUpgradedDefinitionContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -779,7 +779,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="content"> Parameters for generating an upgraded definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual Response<BinaryData> GenerateUpgradedDefinition(GenerateUpgradedDefinitionContent content, CancellationToken cancellationToken = default)
+        public virtual Response<IReadOnlyDictionary<string, BinaryData>> GenerateUpgradedDefinition(GenerateUpgradedDefinitionContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -903,7 +903,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<BinaryData>> GetSwaggerAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<IReadOnlyDictionary<string, BinaryData>>> GetSwaggerAsync(CancellationToken cancellationToken = default)
         {
             using var scope = _logicWorkflowWorkflowsClientDiagnostics.CreateScope("LogicWorkflowResource.GetSwagger");
             scope.Start();
@@ -941,7 +941,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<BinaryData> GetSwagger(CancellationToken cancellationToken = default)
+        public virtual Response<IReadOnlyDictionary<string, BinaryData>> GetSwagger(CancellationToken cancellationToken = default)
         {
             using var scope = _logicWorkflowWorkflowsClientDiagnostics.CreateScope("LogicWorkflowResource.GetSwagger");
             scope.Start();
@@ -979,19 +979,19 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="move"> The workflow to move. </param>
+        /// <param name="body"> The workflow to move. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="move"/> is null. </exception>
-        public virtual async Task<ArmOperation> MoveAsync(WaitUntil waitUntil, LogicWorkflowReference move, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<ArmOperation> MoveAsync(WaitUntil waitUntil, LogicWorkflowReference body, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(move, nameof(move));
+            Argument.AssertNotNull(body, nameof(body));
 
             using var scope = _logicWorkflowWorkflowsClientDiagnostics.CreateScope("LogicWorkflowResource.Move");
             scope.Start();
             try
             {
-                var response = await _logicWorkflowWorkflowsRestClient.MoveAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, move, cancellationToken).ConfigureAwait(false);
-                var operation = new LogicArmOperation(_logicWorkflowWorkflowsClientDiagnostics, Pipeline, _logicWorkflowWorkflowsRestClient.CreateMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, move).Request, response, OperationFinalStateVia.Location);
+                var response = await _logicWorkflowWorkflowsRestClient.MoveAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                var operation = new LogicArmOperation(_logicWorkflowWorkflowsClientDiagnostics, Pipeline, _logicWorkflowWorkflowsRestClient.CreateMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -1025,19 +1025,19 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="move"> The workflow to move. </param>
+        /// <param name="body"> The workflow to move. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="move"/> is null. </exception>
-        public virtual ArmOperation Move(WaitUntil waitUntil, LogicWorkflowReference move, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual ArmOperation Move(WaitUntil waitUntil, LogicWorkflowReference body, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(move, nameof(move));
+            Argument.AssertNotNull(body, nameof(body));
 
             using var scope = _logicWorkflowWorkflowsClientDiagnostics.CreateScope("LogicWorkflowResource.Move");
             scope.Start();
             try
             {
-                var response = _logicWorkflowWorkflowsRestClient.Move(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, move, cancellationToken);
-                var operation = new LogicArmOperation(_logicWorkflowWorkflowsClientDiagnostics, Pipeline, _logicWorkflowWorkflowsRestClient.CreateMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, move).Request, response, OperationFinalStateVia.Location);
+                var response = _logicWorkflowWorkflowsRestClient.Move(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                var operation = new LogicArmOperation(_logicWorkflowWorkflowsClientDiagnostics, Pipeline, _logicWorkflowWorkflowsRestClient.CreateMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;

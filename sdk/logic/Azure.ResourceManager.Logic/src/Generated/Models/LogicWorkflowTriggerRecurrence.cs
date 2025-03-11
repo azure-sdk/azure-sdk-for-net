@@ -53,17 +53,17 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowTriggerRecurrence"/>. </summary>
         /// <param name="frequency"> The frequency. </param>
         /// <param name="interval"> The interval. </param>
-        /// <param name="startOn"> The start time. </param>
-        /// <param name="endOn"> The end time. </param>
+        /// <param name="startTime"> The start time. </param>
+        /// <param name="endTime"> The end time. </param>
         /// <param name="timeZone"> The time zone. </param>
         /// <param name="schedule"> The recurrence schedule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowTriggerRecurrence(LogicWorkflowRecurrenceFrequency? frequency, int? interval, DateTimeOffset? startOn, DateTimeOffset? endOn, string timeZone, LogicWorkflowRecurrenceSchedule schedule, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicWorkflowTriggerRecurrence(LogicWorkflowRecurrenceFrequency? frequency, int? interval, string startTime, string endTime, string timeZone, LogicWorkflowRecurrenceSchedule schedule, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Frequency = frequency;
             Interval = interval;
-            StartOn = startOn;
-            EndOn = endOn;
+            StartTime = startTime;
+            EndTime = endTime;
             TimeZone = timeZone;
             Schedule = schedule;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -74,9 +74,9 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> The interval. </summary>
         public int? Interval { get; set; }
         /// <summary> The start time. </summary>
-        public DateTimeOffset? StartOn { get; set; }
+        public string StartTime { get; set; }
         /// <summary> The end time. </summary>
-        public DateTimeOffset? EndOn { get; set; }
+        public string EndTime { get; set; }
         /// <summary> The time zone. </summary>
         public string TimeZone { get; set; }
         /// <summary> The recurrence schedule. </summary>

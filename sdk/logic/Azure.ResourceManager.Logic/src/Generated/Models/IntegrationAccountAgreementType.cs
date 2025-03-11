@@ -5,18 +5,53 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
+
 namespace Azure.ResourceManager.Logic.Models
 {
     /// <summary> The agreement type. </summary>
-    public enum IntegrationAccountAgreementType
+    public readonly partial struct IntegrationAccountAgreementType : IEquatable<IntegrationAccountAgreementType>
     {
-        /// <summary> NotSpecified. </summary>
-        NotSpecified,
-        /// <summary> AS2. </summary>
-        AS2,
-        /// <summary> X12. </summary>
-        X12,
-        /// <summary> Edifact. </summary>
-        Edifact
+        private readonly string _value;
+
+        /// <summary> Initializes a new instance of <see cref="IntegrationAccountAgreementType"/>. </summary>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public IntegrationAccountAgreementType(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        private const string NotSpecifiedValue = "NotSpecified";
+        private const string AS2Value = "AS2";
+        private const string X12Value = "X12";
+        private const string EdifactValue = "Edifact";
+
+        /// <summary> Represents a not specified agreement type. </summary>
+        public static IntegrationAccountAgreementType NotSpecified { get; } = new IntegrationAccountAgreementType(NotSpecifiedValue);
+        /// <summary> Represents an AS2 agreement type. </summary>
+        public static IntegrationAccountAgreementType AS2 { get; } = new IntegrationAccountAgreementType(AS2Value);
+        /// <summary> Represents an X12 agreement type. </summary>
+        public static IntegrationAccountAgreementType X12 { get; } = new IntegrationAccountAgreementType(X12Value);
+        /// <summary> Represents an Edifact agreement type. </summary>
+        public static IntegrationAccountAgreementType Edifact { get; } = new IntegrationAccountAgreementType(EdifactValue);
+        /// <summary> Determines if two <see cref="IntegrationAccountAgreementType"/> values are the same. </summary>
+        public static bool operator ==(IntegrationAccountAgreementType left, IntegrationAccountAgreementType right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="IntegrationAccountAgreementType"/> values are not the same. </summary>
+        public static bool operator !=(IntegrationAccountAgreementType left, IntegrationAccountAgreementType right) => !left.Equals(right);
+        /// <summary> Converts a <see cref="string"/> to a <see cref="IntegrationAccountAgreementType"/>. </summary>
+        public static implicit operator IntegrationAccountAgreementType(string value) => new IntegrationAccountAgreementType(value);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => obj is IntegrationAccountAgreementType other && Equals(other);
+        /// <inheritdoc />
+        public bool Equals(IntegrationAccountAgreementType other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
+        /// <inheritdoc />
+        public override string ToString() => _value;
     }
 }

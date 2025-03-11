@@ -48,17 +48,28 @@ namespace Azure.ResourceManager.Logic
                 writer.WritePropertyName("changedTime"u8);
                 writer.WriteStringValue(ChangedOn.Value, "O");
             }
-            if (Optional.IsDefined(Content))
+            if (Optional.IsCollectionDefined(Content))
             {
                 writer.WritePropertyName("content"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Content);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Content, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Content)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             writer.WriteEndObject();
         }
@@ -91,7 +102,7 @@ namespace Azure.ResourceManager.Logic
             SystemData systemData = default;
             DateTimeOffset? createdTime = default;
             DateTimeOffset? changedTime = default;
-            BinaryData content = default;
+            IDictionary<string, BinaryData> content = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -172,7 +183,19 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            content = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            content = dictionary;
                             continue;
                         }
                     }
@@ -193,7 +216,7 @@ namespace Azure.ResourceManager.Logic
                 location,
                 createdTime,
                 changedTime,
-                content,
+                content ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 serializedAdditionalRawData);
         }
 

@@ -89,8 +89,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of integration account maps. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: MapType. </param>
@@ -120,8 +120,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of integration account maps. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: MapType. </param>
@@ -189,8 +189,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets an integration account map. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -222,8 +222,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets an integration account map. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -297,8 +297,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Creates or updates an integration account map. If the map is larger than 4 MB, you need to store the map in an Azure blob and use the blob's Shared Access Signature (SAS) URL as the 'contentLink' property value. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="data"> The integration account map. </param>
@@ -331,8 +331,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Creates or updates an integration account map. If the map is larger than 4 MB, you need to store the map in an Azure blob and use the blob's Shared Access Signature (SAS) URL as the 'contentLink' property value. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="data"> The integration account map. </param>
@@ -403,8 +403,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes an integration account map. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -430,8 +430,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes an integration account map. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -501,8 +501,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the content callback url. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="info"> The <see cref="ListOperationCallbackUrlParameterInfo"/> to use. </param>
@@ -534,8 +534,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the content callback url. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="mapName"> The integration account map name. </param>
         /// <param name="info"> The <see cref="ListOperationCallbackUrlParameterInfo"/> to use. </param>
@@ -590,8 +590,8 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of integration account maps. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: MapType. </param>
@@ -623,8 +623,8 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of integration account maps. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: MapType. </param>

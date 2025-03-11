@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Logic.Models
             if (Optional.IsDefined(ResourceType))
             {
                 writer.WritePropertyName("resourceType"u8);
-                writer.WriteStringValue(ResourceType.Value);
+                writer.WriteStringValue(ResourceType);
             }
             if (Optional.IsDefined(Sku))
             {
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 return null;
             }
-            ResourceType? resourceType = default;
+            string resourceType = default;
             IntegrationServiceEnvironmentSkuDefinitionSku sku = default;
             IntegrationServiceEnvironmentSkuCapacity capacity = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -95,11 +95,7 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 if (property.NameEquals("resourceType"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    resourceType = new ResourceType(property.Value.GetString());
+                    resourceType = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("sku"u8))

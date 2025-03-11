@@ -5,24 +5,62 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
+
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The LogicWorkflowDayOfWeek. </summary>
-    public enum LogicWorkflowDayOfWeek
+    /// <summary> The day of the week. </summary>
+    public readonly partial struct LogicWorkflowDayOfWeek : IEquatable<LogicWorkflowDayOfWeek>
     {
-        /// <summary> Sunday. </summary>
-        Sunday,
-        /// <summary> Monday. </summary>
-        Monday,
-        /// <summary> Tuesday. </summary>
-        Tuesday,
-        /// <summary> Wednesday. </summary>
-        Wednesday,
-        /// <summary> Thursday. </summary>
-        Thursday,
-        /// <summary> Friday. </summary>
-        Friday,
-        /// <summary> Saturday. </summary>
-        Saturday
+        private readonly string _value;
+
+        /// <summary> Initializes a new instance of <see cref="LogicWorkflowDayOfWeek"/>. </summary>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public LogicWorkflowDayOfWeek(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        private const string SundayValue = "Sunday";
+        private const string MondayValue = "Monday";
+        private const string TuesdayValue = "Tuesday";
+        private const string WednesdayValue = "Wednesday";
+        private const string ThursdayValue = "Thursday";
+        private const string FridayValue = "Friday";
+        private const string SaturdayValue = "Saturday";
+
+        /// <summary> Represents day of a week Sunday. </summary>
+        public static LogicWorkflowDayOfWeek Sunday { get; } = new LogicWorkflowDayOfWeek(SundayValue);
+        /// <summary> Represents day of a week Monday. </summary>
+        public static LogicWorkflowDayOfWeek Monday { get; } = new LogicWorkflowDayOfWeek(MondayValue);
+        /// <summary> Represents day of a week Tuesday. </summary>
+        public static LogicWorkflowDayOfWeek Tuesday { get; } = new LogicWorkflowDayOfWeek(TuesdayValue);
+        /// <summary> Represents day of a week Wednesday. </summary>
+        public static LogicWorkflowDayOfWeek Wednesday { get; } = new LogicWorkflowDayOfWeek(WednesdayValue);
+        /// <summary> Represents day of a week Thursday. </summary>
+        public static LogicWorkflowDayOfWeek Thursday { get; } = new LogicWorkflowDayOfWeek(ThursdayValue);
+        /// <summary> Represents day of a week Friday. </summary>
+        public static LogicWorkflowDayOfWeek Friday { get; } = new LogicWorkflowDayOfWeek(FridayValue);
+        /// <summary> Represents day of a week Saturday. </summary>
+        public static LogicWorkflowDayOfWeek Saturday { get; } = new LogicWorkflowDayOfWeek(SaturdayValue);
+        /// <summary> Determines if two <see cref="LogicWorkflowDayOfWeek"/> values are the same. </summary>
+        public static bool operator ==(LogicWorkflowDayOfWeek left, LogicWorkflowDayOfWeek right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="LogicWorkflowDayOfWeek"/> values are not the same. </summary>
+        public static bool operator !=(LogicWorkflowDayOfWeek left, LogicWorkflowDayOfWeek right) => !left.Equals(right);
+        /// <summary> Converts a <see cref="string"/> to a <see cref="LogicWorkflowDayOfWeek"/>. </summary>
+        public static implicit operator LogicWorkflowDayOfWeek(string value) => new LogicWorkflowDayOfWeek(value);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => obj is LogicWorkflowDayOfWeek other && Equals(other);
+        /// <inheritdoc />
+        public bool Equals(LogicWorkflowDayOfWeek other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
+        /// <inheritdoc />
+        public override string ToString() => _value;
     }
 }

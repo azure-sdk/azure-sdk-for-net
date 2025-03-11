@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The request history. </summary>
-    public partial class LogicWorkflowRequestHistoryProperties
+    /// <summary> The integration service environment network health. </summary>
+    public partial class IntegrationServiceEnvironmentNetworkHealth
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,33 +45,22 @@ namespace Azure.ResourceManager.Logic.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="LogicWorkflowRequestHistoryProperties"/>. </summary>
-        public LogicWorkflowRequestHistoryProperties()
+        /// <summary> Initializes a new instance of <see cref="IntegrationServiceEnvironmentNetworkHealth"/>. </summary>
+        internal IntegrationServiceEnvironmentNetworkHealth()
         {
+            OutboundNetworkDependencies = new ChangeTrackingList<IntegrationServiceEnvironmentNetworkDependency>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="LogicWorkflowRequestHistoryProperties"/>. </summary>
-        /// <param name="startOn"> The time the request started. </param>
-        /// <param name="endOn"> The time the request ended. </param>
-        /// <param name="request"> The request. </param>
-        /// <param name="response"> The response. </param>
+        /// <summary> Initializes a new instance of <see cref="IntegrationServiceEnvironmentNetworkHealth"/>. </summary>
+        /// <param name="outboundNetworkDependencies"> The outbound network dependencies. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicWorkflowRequestHistoryProperties(DateTimeOffset? startOn, DateTimeOffset? endOn, LogicWorkflowRequest request, LogicWorkflowResponse response, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IntegrationServiceEnvironmentNetworkHealth(IReadOnlyList<IntegrationServiceEnvironmentNetworkDependency> outboundNetworkDependencies, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            StartOn = startOn;
-            EndOn = endOn;
-            Request = request;
-            Response = response;
+            OutboundNetworkDependencies = outboundNetworkDependencies;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The time the request started. </summary>
-        public DateTimeOffset? StartOn { get; set; }
-        /// <summary> The time the request ended. </summary>
-        public DateTimeOffset? EndOn { get; set; }
-        /// <summary> The request. </summary>
-        public LogicWorkflowRequest Request { get; set; }
-        /// <summary> The response. </summary>
-        public LogicWorkflowResponse Response { get; set; }
+        /// <summary> The outbound network dependencies. </summary>
+        public IReadOnlyList<IntegrationServiceEnvironmentNetworkDependency> OutboundNetworkDependencies { get; }
     }
 }

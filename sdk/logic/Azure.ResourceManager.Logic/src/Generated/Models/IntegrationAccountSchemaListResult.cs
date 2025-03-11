@@ -7,10 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The list of integration account schemas. </summary>
+    /// <summary> The response of a IntegrationAccountSchema list operation. </summary>
     internal partial class IntegrationAccountSchemaListResult
     {
         /// <summary>
@@ -46,25 +47,34 @@ namespace Azure.ResourceManager.Logic.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountSchemaListResult"/>. </summary>
-        internal IntegrationAccountSchemaListResult()
+        /// <param name="value"> The IntegrationAccountSchema items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal IntegrationAccountSchemaListResult(IEnumerable<IntegrationAccountSchemaData> value)
         {
-            Value = new ChangeTrackingList<IntegrationAccountSchemaData>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountSchemaListResult"/>. </summary>
-        /// <param name="value"> The list of integration account schemas. </param>
-        /// <param name="nextLink"> The URL to get the next set of results. </param>
+        /// <param name="value"> The IntegrationAccountSchema items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountSchemaListResult(IReadOnlyList<IntegrationAccountSchemaData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IntegrationAccountSchemaListResult(IReadOnlyList<IntegrationAccountSchemaData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The list of integration account schemas. </summary>
+        /// <summary> Initializes a new instance of <see cref="IntegrationAccountSchemaListResult"/> for deserialization. </summary>
+        internal IntegrationAccountSchemaListResult()
+        {
+        }
+
+        /// <summary> The IntegrationAccountSchema items on this page. </summary>
         public IReadOnlyList<IntegrationAccountSchemaData> Value { get; }
-        /// <summary> The URL to get the next set of results. </summary>
-        public string NextLink { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }

@@ -91,6 +91,75 @@ namespace Azure.ResourceManager.Logic
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
+        /// <summary> Gets a collection of IntegrationAccountAgreementResources in the IntegrationAccount. </summary>
+        /// <returns> An object representing collection of IntegrationAccountAgreementResources and their operations over a IntegrationAccountAgreementResource. </returns>
+        public virtual IntegrationAccountAgreementCollection GetIntegrationAccountAgreements()
+        {
+            return GetCachedClient(client => new IntegrationAccountAgreementCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets an integration account agreement.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements/{agreementName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>IntegrationAccountAgreements_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="IntegrationAccountAgreementResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="agreementName"> The integration account agreement name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="agreementName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="agreementName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<IntegrationAccountAgreementResource>> GetIntegrationAccountAgreementAsync(string agreementName, CancellationToken cancellationToken = default)
+        {
+            return await GetIntegrationAccountAgreements().GetAsync(agreementName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets an integration account agreement.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements/{agreementName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>IntegrationAccountAgreements_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="IntegrationAccountAgreementResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="agreementName"> The integration account agreement name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="agreementName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="agreementName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<IntegrationAccountAgreementResource> GetIntegrationAccountAgreement(string agreementName, CancellationToken cancellationToken = default)
+        {
+            return GetIntegrationAccountAgreements().Get(agreementName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of IntegrationAccountAssemblyDefinitionResources in the IntegrationAccount. </summary>
         /// <returns> An object representing collection of IntegrationAccountAssemblyDefinitionResources and their operations over a IntegrationAccountAssemblyDefinitionResource. </returns>
         public virtual IntegrationAccountAssemblyDefinitionCollection GetIntegrationAccountAssemblyDefinitions()
@@ -229,23 +298,23 @@ namespace Azure.ResourceManager.Logic
             return GetIntegrationAccountBatchConfigurations().Get(batchConfigurationName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of IntegrationAccountSchemaResources in the IntegrationAccount. </summary>
-        /// <returns> An object representing collection of IntegrationAccountSchemaResources and their operations over a IntegrationAccountSchemaResource. </returns>
-        public virtual IntegrationAccountSchemaCollection GetIntegrationAccountSchemas()
+        /// <summary> Gets a collection of IntegrationAccountCertificateResources in the IntegrationAccount. </summary>
+        /// <returns> An object representing collection of IntegrationAccountCertificateResources and their operations over a IntegrationAccountCertificateResource. </returns>
+        public virtual IntegrationAccountCertificateCollection GetIntegrationAccountCertificates()
         {
-            return GetCachedClient(client => new IntegrationAccountSchemaCollection(client, Id));
+            return GetCachedClient(client => new IntegrationAccountCertificateCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets an integration account schema.
+        /// Gets an integration account certificate.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas/{schemaName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates/{certificateName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationAccountSchemas_Get</description>
+        /// <description>IntegrationAccountCertificates_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -253,30 +322,30 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="IntegrationAccountSchemaResource"/></description>
+        /// <description><see cref="IntegrationAccountCertificateResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="schemaName"> The integration account schema name. </param>
+        /// <param name="certificateName"> The integration account certificate name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="schemaName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="schemaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="certificateName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<IntegrationAccountSchemaResource>> GetIntegrationAccountSchemaAsync(string schemaName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<IntegrationAccountCertificateResource>> GetIntegrationAccountCertificateAsync(string certificateName, CancellationToken cancellationToken = default)
         {
-            return await GetIntegrationAccountSchemas().GetAsync(schemaName, cancellationToken).ConfigureAwait(false);
+            return await GetIntegrationAccountCertificates().GetAsync(certificateName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets an integration account schema.
+        /// Gets an integration account certificate.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas/{schemaName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates/{certificateName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationAccountSchemas_Get</description>
+        /// <description>IntegrationAccountCertificates_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -284,18 +353,18 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="IntegrationAccountSchemaResource"/></description>
+        /// <description><see cref="IntegrationAccountCertificateResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="schemaName"> The integration account schema name. </param>
+        /// <param name="certificateName"> The integration account certificate name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="schemaName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="schemaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="certificateName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<IntegrationAccountSchemaResource> GetIntegrationAccountSchema(string schemaName, CancellationToken cancellationToken = default)
+        public virtual Response<IntegrationAccountCertificateResource> GetIntegrationAccountCertificate(string certificateName, CancellationToken cancellationToken = default)
         {
-            return GetIntegrationAccountSchemas().Get(schemaName, cancellationToken);
+            return GetIntegrationAccountCertificates().Get(certificateName, cancellationToken);
         }
 
         /// <summary> Gets a collection of IntegrationAccountMapResources in the IntegrationAccount. </summary>
@@ -436,23 +505,23 @@ namespace Azure.ResourceManager.Logic
             return GetIntegrationAccountPartners().Get(partnerName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of IntegrationAccountAgreementResources in the IntegrationAccount. </summary>
-        /// <returns> An object representing collection of IntegrationAccountAgreementResources and their operations over a IntegrationAccountAgreementResource. </returns>
-        public virtual IntegrationAccountAgreementCollection GetIntegrationAccountAgreements()
+        /// <summary> Gets a collection of IntegrationAccountSchemaResources in the IntegrationAccount. </summary>
+        /// <returns> An object representing collection of IntegrationAccountSchemaResources and their operations over a IntegrationAccountSchemaResource. </returns>
+        public virtual IntegrationAccountSchemaCollection GetIntegrationAccountSchemas()
         {
-            return GetCachedClient(client => new IntegrationAccountAgreementCollection(client, Id));
+            return GetCachedClient(client => new IntegrationAccountSchemaCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets an integration account agreement.
+        /// Gets an integration account schema.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements/{agreementName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas/{schemaName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationAccountAgreements_Get</description>
+        /// <description>IntegrationAccountSchemas_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -460,30 +529,30 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="IntegrationAccountAgreementResource"/></description>
+        /// <description><see cref="IntegrationAccountSchemaResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="agreementName"> The integration account agreement name. </param>
+        /// <param name="schemaName"> The integration account schema name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="agreementName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="agreementName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="schemaName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="schemaName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<IntegrationAccountAgreementResource>> GetIntegrationAccountAgreementAsync(string agreementName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<IntegrationAccountSchemaResource>> GetIntegrationAccountSchemaAsync(string schemaName, CancellationToken cancellationToken = default)
         {
-            return await GetIntegrationAccountAgreements().GetAsync(agreementName, cancellationToken).ConfigureAwait(false);
+            return await GetIntegrationAccountSchemas().GetAsync(schemaName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets an integration account agreement.
+        /// Gets an integration account schema.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements/{agreementName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas/{schemaName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationAccountAgreements_Get</description>
+        /// <description>IntegrationAccountSchemas_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -491,87 +560,18 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="IntegrationAccountAgreementResource"/></description>
+        /// <description><see cref="IntegrationAccountSchemaResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="agreementName"> The integration account agreement name. </param>
+        /// <param name="schemaName"> The integration account schema name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="agreementName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="agreementName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="schemaName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="schemaName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<IntegrationAccountAgreementResource> GetIntegrationAccountAgreement(string agreementName, CancellationToken cancellationToken = default)
+        public virtual Response<IntegrationAccountSchemaResource> GetIntegrationAccountSchema(string schemaName, CancellationToken cancellationToken = default)
         {
-            return GetIntegrationAccountAgreements().Get(agreementName, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of IntegrationAccountCertificateResources in the IntegrationAccount. </summary>
-        /// <returns> An object representing collection of IntegrationAccountCertificateResources and their operations over a IntegrationAccountCertificateResource. </returns>
-        public virtual IntegrationAccountCertificateCollection GetIntegrationAccountCertificates()
-        {
-            return GetCachedClient(client => new IntegrationAccountCertificateCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets an integration account certificate.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates/{certificateName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IntegrationAccountCertificates_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="IntegrationAccountCertificateResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="certificateName"> The integration account certificate name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="certificateName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<IntegrationAccountCertificateResource>> GetIntegrationAccountCertificateAsync(string certificateName, CancellationToken cancellationToken = default)
-        {
-            return await GetIntegrationAccountCertificates().GetAsync(certificateName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets an integration account certificate.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates/{certificateName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IntegrationAccountCertificates_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="IntegrationAccountCertificateResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="certificateName"> The integration account certificate name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="certificateName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<IntegrationAccountCertificateResource> GetIntegrationAccountCertificate(string certificateName, CancellationToken cancellationToken = default)
-        {
-            return GetIntegrationAccountCertificates().Get(certificateName, cancellationToken);
+            return GetIntegrationAccountSchemas().Get(schemaName, cancellationToken);
         }
 
         /// <summary> Gets a collection of IntegrationAccountSessionResources in the IntegrationAccount. </summary>

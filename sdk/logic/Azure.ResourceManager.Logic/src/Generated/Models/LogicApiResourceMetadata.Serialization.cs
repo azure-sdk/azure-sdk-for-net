@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.Logic.Models
             }
             if (Optional.IsDefined(ApiType))
             {
-                writer.WritePropertyName("ApiType"u8);
+                writer.WritePropertyName("apiType"u8);
                 writer.WriteStringValue(ApiType.Value.ToString());
             }
             if (Optional.IsDefined(WsdlService))
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("connectionType"u8);
                 writer.WriteStringValue(ConnectionType);
             }
-            if (Optional.IsDefined(ProvisioningState))
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
@@ -170,7 +170,7 @@ namespace Azure.ResourceManager.Logic.Models
                     tags = dictionary;
                     continue;
                 }
-                if (property.NameEquals("ApiType"u8))
+                if (property.NameEquals("apiType"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {

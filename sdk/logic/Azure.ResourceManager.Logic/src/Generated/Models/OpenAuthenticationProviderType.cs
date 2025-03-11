@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.Logic.Models
 
         private const string AADValue = "AAD";
 
-        /// <summary> AAD. </summary>
+        /// <summary> Represents Azure Active Directory (AAD) provider type. </summary>
         public static OpenAuthenticationProviderType AAD { get; } = new OpenAuthenticationProviderType(AADValue);
         /// <summary> Determines if two <see cref="OpenAuthenticationProviderType"/> values are the same. </summary>
         public static bool operator ==(OpenAuthenticationProviderType left, OpenAuthenticationProviderType right) => left.Equals(right);

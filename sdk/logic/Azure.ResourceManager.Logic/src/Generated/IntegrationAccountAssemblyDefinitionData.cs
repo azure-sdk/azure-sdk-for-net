@@ -53,13 +53,13 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountAssemblyDefinitionData"/>. </summary>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> The assembly properties. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
-        public IntegrationAccountAssemblyDefinitionData(AzureLocation location, IntegrationAccountAssemblyProperties properties) : base(location)
+        /// <param name="assemblyName"> The assembly name. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="assemblyName"/> is null. </exception>
+        public IntegrationAccountAssemblyDefinitionData(AzureLocation location, string assemblyName) : base(location)
         {
-            Argument.AssertNotNull(properties, nameof(properties));
+            Argument.AssertNotNull(assemblyName, nameof(assemblyName));
 
-            Properties = properties;
+            AssemblyName = assemblyName;
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountAssemblyDefinitionData"/>. </summary>
@@ -69,11 +69,29 @@ namespace Azure.ResourceManager.Logic
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> The assembly properties. </param>
+        /// <param name="createdOn"> The artifact creation time. </param>
+        /// <param name="changedOn"> The artifact changed time. </param>
+        /// <param name="metadata"> Anything. </param>
+        /// <param name="content"> Anything. </param>
+        /// <param name="contentType"> The content type. </param>
+        /// <param name="contentLink"> The content link. </param>
+        /// <param name="assemblyName"> The assembly name. </param>
+        /// <param name="assemblyVersion"> The assembly version. </param>
+        /// <param name="assemblyCulture"> The assembly culture. </param>
+        /// <param name="assemblyPublicKeyToken"> The assembly public key token. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountAssemblyDefinitionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IntegrationAccountAssemblyProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationAccountAssemblyDefinitionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, BinaryData metadata, BinaryData content, ContentType? contentType, LogicContentLink contentLink, string assemblyName, string assemblyVersion, string assemblyCulture, string assemblyPublicKeyToken, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Properties = properties;
+            CreatedOn = createdOn;
+            ChangedOn = changedOn;
+            Metadata = metadata;
+            Content = content;
+            ContentType = contentType;
+            ContentLink = contentLink;
+            AssemblyName = assemblyName;
+            AssemblyVersion = assemblyVersion;
+            AssemblyCulture = assemblyCulture;
+            AssemblyPublicKeyToken = assemblyPublicKeyToken;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -82,7 +100,83 @@ namespace Azure.ResourceManager.Logic
         {
         }
 
-        /// <summary> The assembly properties. </summary>
-        public IntegrationAccountAssemblyProperties Properties { get; set; }
+        /// <summary> The artifact creation time. </summary>
+        public DateTimeOffset? CreatedOn { get; set; }
+        /// <summary> The artifact changed time. </summary>
+        public DateTimeOffset? ChangedOn { get; set; }
+        /// <summary>
+        /// Anything
+        /// <para>
+        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public BinaryData Metadata { get; set; }
+        /// <summary>
+        /// Anything
+        /// <para>
+        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public BinaryData Content { get; set; }
+        /// <summary> The content type. </summary>
+        public ContentType? ContentType { get; set; }
+        /// <summary> The content link. </summary>
+        public LogicContentLink ContentLink { get; set; }
+        /// <summary> The assembly name. </summary>
+        public string AssemblyName { get; set; }
+        /// <summary> The assembly version. </summary>
+        public string AssemblyVersion { get; set; }
+        /// <summary> The assembly culture. </summary>
+        public string AssemblyCulture { get; set; }
+        /// <summary> The assembly public key token. </summary>
+        public string AssemblyPublicKeyToken { get; set; }
     }
 }

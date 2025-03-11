@@ -70,13 +70,10 @@ namespace Azure.ResourceManager.Logic.Samples
             ResourceIdentifier logicWorkflowRunActionResourceId = LogicWorkflowRunActionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, workflowName, runName, actionName);
             LogicWorkflowRunActionResource logicWorkflowRunAction = client.GetLogicWorkflowRunActionResource(logicWorkflowRunActionResourceId);
 
-            // invoke the operation and iterate over the result
-            await foreach (LogicExpressionRoot item in logicWorkflowRunAction.GetExpressionTracesAsync())
-            {
-                Console.WriteLine($"Succeeded: {item}");
-            }
+            // invoke the operation
+            ExpressionTraces result = await logicWorkflowRunAction.GetExpressionTracesAsync();
 
-            Console.WriteLine("Succeeded");
+            Console.WriteLine($"Succeeded: {result}");
         }
     }
 }

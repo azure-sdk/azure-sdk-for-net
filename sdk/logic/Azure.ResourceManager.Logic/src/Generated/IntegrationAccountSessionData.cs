@@ -54,6 +54,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="location"> The location. </param>
         public IntegrationAccountSessionData(AzureLocation location) : base(location)
         {
+            Content = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountSessionData"/>. </summary>
@@ -67,7 +68,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="changedOn"> The changed time. </param>
         /// <param name="content"> The session content. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountSessionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, BinaryData content, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationAccountSessionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, IDictionary<string, BinaryData> content, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             CreatedOn = createdOn;
             ChangedOn = changedOn;
@@ -87,7 +88,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// The session content.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -114,6 +115,6 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Content { get; set; }
+        public IDictionary<string, BinaryData> Content { get; }
     }
 }

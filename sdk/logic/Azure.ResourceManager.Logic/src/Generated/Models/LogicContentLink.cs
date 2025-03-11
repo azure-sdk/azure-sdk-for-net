@@ -48,6 +48,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="LogicContentLink"/>. </summary>
         public LogicContentLink()
         {
+            Metadata = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicContentLink"/>. </summary>
@@ -57,7 +58,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="contentHash"> The content hash. </param>
         /// <param name="metadata"> The metadata. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicContentLink(Uri uri, string contentVersion, long? contentSize, LogicContentHash contentHash, BinaryData metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicContentLink(Uri uri, string contentVersion, long? contentSize, LogicContentHash contentHash, IReadOnlyDictionary<string, BinaryData> metadata, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Uri = uri;
             ContentVersion = contentVersion;
@@ -78,7 +79,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// The metadata.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -105,6 +106,6 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Metadata { get; }
+        public IReadOnlyDictionary<string, BinaryData> Metadata { get; }
     }
 }

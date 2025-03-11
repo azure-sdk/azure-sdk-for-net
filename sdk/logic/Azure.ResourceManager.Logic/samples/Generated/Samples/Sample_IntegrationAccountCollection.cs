@@ -9,7 +9,6 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.Logic.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -41,10 +40,7 @@ namespace Azure.ResourceManager.Logic.Samples
 
             // invoke the operation
             string integrationAccountName = "testIntegrationAccount";
-            IntegrationAccountData data = new IntegrationAccountData(new AzureLocation("westus"))
-            {
-                SkuName = IntegrationAccountSkuName.Standard,
-            };
+            IntegrationAccountData data = new IntegrationAccountData(default);
             ArmOperation<IntegrationAccountResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, integrationAccountName, data);
             IntegrationAccountResource result = lro.Value;
 

@@ -73,7 +73,8 @@ namespace Azure.ResourceManager.Logic.Samples
             LogicWorkflowRunCollection collection = logicWorkflow.GetLogicWorkflowRuns();
 
             // invoke the operation and iterate over the result
-            await foreach (LogicWorkflowRunResource item in collection.GetAllAsync())
+            string runName = null;
+            await foreach (LogicWorkflowRunResource item in collection.GetAllAsync(runName))
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance

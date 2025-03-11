@@ -96,14 +96,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountPartnerResource integrationAccountPartner = client.GetIntegrationAccountPartnerResource(integrationAccountPartnerResourceId);
 
             // invoke the operation
-            IntegrationAccountPartnerData data = new IntegrationAccountPartnerData(new AzureLocation("westus"), IntegrationAccountPartnerType.B2B, new IntegrationAccountPartnerContent
-            {
-                B2BBusinessIdentities = { new IntegrationAccountBusinessIdentity("AA", "ZZ") },
-            })
-            {
-                Metadata = BinaryData.FromObjectAsJson(new object()),
-                Tags = { },
-            };
+            IntegrationAccountPartnerData data = new IntegrationAccountPartnerData(default, default, null);
             ArmOperation<IntegrationAccountPartnerResource> lro = await integrationAccountPartner.UpdateAsync(WaitUntil.Completed, data);
             IntegrationAccountPartnerResource result = lro.Value;
 
@@ -136,11 +129,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountPartnerResource integrationAccountPartner = client.GetIntegrationAccountPartnerResource(integrationAccountPartnerResourceId);
 
             // invoke the operation
-            ListOperationCallbackUrlParameterInfo info = new ListOperationCallbackUrlParameterInfo
-            {
-                NotAfter = DateTimeOffset.Parse("2018-04-19T16:00:00Z"),
-                KeyType = LogicKeyType.Primary,
-            };
+            ListOperationCallbackUrlParameterInfo info = new ListOperationCallbackUrlParameterInfo();
             LogicWorkflowTriggerCallbackUri result = await integrationAccountPartner.GetContentCallbackUrlAsync(info);
 
             Console.WriteLine($"Succeeded: {result}");

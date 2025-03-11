@@ -6,7 +6,6 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,22 +36,20 @@ namespace Azure.ResourceManager.Logic
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName)
+        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string integrationServiceEnvironmentName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
-            uri.AppendPath("/health/network", false);
+            uri.AppendPath("/network", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string integrationServiceEnvironmentName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -61,11 +58,9 @@ namespace Azure.ResourceManager.Logic
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroup, true);
             uri.AppendPath("/providers/Microsoft.Logic/integrationServiceEnvironments/", false);
             uri.AppendPath(integrationServiceEnvironmentName, true);
-            uri.AppendPath("/health/network", false);
+            uri.AppendPath("/network", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -74,32 +69,25 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the integration service environment network health. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IReadOnlyDictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth>>> GetAsync(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<IntegrationServiceEnvironmentNetworkHealth>> GetAsync(string subscriptionId, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            using var message = CreateGetRequest(subscriptionId, integrationServiceEnvironmentName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        IReadOnlyDictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth> value = default;
+                        IntegrationServiceEnvironmentNetworkHealth value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        Dictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth> dictionary = new Dictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth>();
-                        foreach (var property in document.RootElement.EnumerateObject())
-                        {
-                            dictionary.Add(property.Name, IntegrationServiceEnvironmentSubnetNetworkHealth.DeserializeIntegrationServiceEnvironmentSubnetNetworkHealth(property.Value));
-                        }
-                        value = dictionary;
+                        value = IntegrationServiceEnvironmentNetworkHealth.DeserializeIntegrationServiceEnvironmentNetworkHealth(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -108,32 +96,25 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the integration service environment network health. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroup"> The resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroup"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IReadOnlyDictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth>> Get(string subscriptionId, string resourceGroup, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<IntegrationServiceEnvironmentNetworkHealth> Get(string subscriptionId, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroup, nameof(resourceGroup));
             Argument.AssertNotNullOrEmpty(integrationServiceEnvironmentName, nameof(integrationServiceEnvironmentName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroup, integrationServiceEnvironmentName);
+            using var message = CreateGetRequest(subscriptionId, integrationServiceEnvironmentName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        IReadOnlyDictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth> value = default;
+                        IntegrationServiceEnvironmentNetworkHealth value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        Dictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth> dictionary = new Dictionary<string, IntegrationServiceEnvironmentSubnetNetworkHealth>();
-                        foreach (var property in document.RootElement.EnumerateObject())
-                        {
-                            dictionary.Add(property.Name, IntegrationServiceEnvironmentSubnetNetworkHealth.DeserializeIntegrationServiceEnvironmentSubnetNetworkHealth(property.Value));
-                        }
-                        value = dictionary;
+                        value = IntegrationServiceEnvironmentNetworkHealth.DeserializeIntegrationServiceEnvironmentNetworkHealth(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

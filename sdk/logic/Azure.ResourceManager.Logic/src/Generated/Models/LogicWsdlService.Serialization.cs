@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.Logic.Models
             }
             if (Optional.IsCollectionDefined(EndpointQualifiedNames))
             {
-                writer.WritePropertyName("EndpointQualifiedNames"u8);
+                writer.WritePropertyName("endpointQualifiedNames"u8);
                 writer.WriteStartArray();
                 foreach (var item in EndpointQualifiedNames)
                 {
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.Logic.Models
                     qualifiedName = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("EndpointQualifiedNames"u8))
+                if (property.NameEquals("endpointQualifiedNames"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {

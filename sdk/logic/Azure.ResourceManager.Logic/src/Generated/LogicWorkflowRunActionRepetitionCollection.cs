@@ -26,6 +26,8 @@ namespace Azure.ResourceManager.Logic
     {
         private readonly ClientDiagnostics _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsClientDiagnostics;
         private readonly WorkflowRunActionRepetitionsRestOperations _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsRestClient;
+        private readonly ClientDiagnostics _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsClientDiagnostics;
+        private readonly WorkflowRunActionScopeRepetitionsRestOperations _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="LogicWorkflowRunActionRepetitionCollection"/> class for mocking. </summary>
         protected LogicWorkflowRunActionRepetitionCollection()
@@ -40,6 +42,9 @@ namespace Azure.ResourceManager.Logic
             _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Logic", LogicWorkflowRunActionRepetitionResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(LogicWorkflowRunActionRepetitionResource.ResourceType, out string logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsApiVersion);
             _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsRestClient = new WorkflowRunActionRepetitionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsApiVersion);
+            _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Logic", LogicWorkflowRunActionRepetitionResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(LogicWorkflowRunActionRepetitionResource.ResourceType, out string logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsApiVersion);
+            _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsRestClient = new WorkflowRunActionScopeRepetitionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -72,7 +77,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -117,7 +122,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -142,7 +147,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Get all of a workflow run action repetitions.
+        /// List the workflow run action scoped repetitions.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -150,7 +155,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkflowRunActionRepetitions_List</description>
+        /// <description>WorkflowRunActionScopeRepetitions_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -166,12 +171,13 @@ namespace Azure.ResourceManager.Logic
         /// <returns> An async collection of <see cref="LogicWorkflowRunActionRepetitionResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<LogicWorkflowRunActionRepetitionResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new LogicWorkflowRunActionRepetitionResource(Client, LogicWorkflowRunActionRepetitionDefinitionData.DeserializeLogicWorkflowRunActionRepetitionDefinitionData(e)), _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionRepetitionCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new LogicWorkflowRunActionRepetitionResource(Client, LogicWorkflowRunActionRepetitionDefinitionData.DeserializeLogicWorkflowRunActionRepetitionDefinitionData(e)), _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionRepetitionCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Get all of a workflow run action repetitions.
+        /// List the workflow run action scoped repetitions.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -179,7 +185,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkflowRunActionRepetitions_List</description>
+        /// <description>WorkflowRunActionScopeRepetitions_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -195,8 +201,9 @@ namespace Azure.ResourceManager.Logic
         /// <returns> A collection of <see cref="LogicWorkflowRunActionRepetitionResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<LogicWorkflowRunActionRepetitionResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new LogicWorkflowRunActionRepetitionResource(Client, LogicWorkflowRunActionRepetitionDefinitionData.DeserializeLogicWorkflowRunActionRepetitionDefinitionData(e)), _logicWorkflowRunActionRepetitionWorkflowRunActionRepetitionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionRepetitionCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new LogicWorkflowRunActionRepetitionResource(Client, LogicWorkflowRunActionRepetitionDefinitionData.DeserializeLogicWorkflowRunActionRepetitionDefinitionData(e)), _logicWorkflowRunActionRepetitionWorkflowRunActionScopeRepetitionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionRepetitionCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -220,7 +227,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -263,7 +270,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -306,7 +313,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
@@ -351,7 +358,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>

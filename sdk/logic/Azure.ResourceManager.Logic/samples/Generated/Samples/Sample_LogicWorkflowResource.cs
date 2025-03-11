@@ -94,75 +94,7 @@ namespace Azure.ResourceManager.Logic.Samples
             LogicWorkflowResource logicWorkflow = client.GetLogicWorkflowResource(logicWorkflowResourceId);
 
             // invoke the operation
-            LogicWorkflowData data = new LogicWorkflowData(new AzureLocation("brazilsouth"))
-            {
-                IntegrationAccount = new LogicResourceReference
-                {
-                    Id = new ResourceIdentifier("/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/test-resource-group/providers/Microsoft.Logic/integrationAccounts/test-integration-account"),
-                },
-                Definition = BinaryData.FromObjectAsJson(new Dictionary<string, object>
-                {
-                    ["$schema"] = "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                    ["actions"] = new
-                    {
-                        Find_pet_by_ID = new
-                        {
-                            type = "ApiConnection",
-                            inputs = new
-                            {
-                                path = "/pet/@{encodeURIComponent('1')}",
-                                method = "get",
-                                host = new
-                                {
-                                    connection = new
-                                    {
-                                        name = "@parameters('$connections')['test-custom-connector']['connectionId']",
-                                    },
-                                },
-                            },
-                            runAfter = new object(),
-                        },
-                    },
-                    ["contentVersion"] = "1.0.0.0",
-                    ["outputs"] = new object(),
-                    ["parameters"] = new Dictionary<string, object>
-                    {
-                        ["$connections"] = new
-                        {
-                            type = "Object",
-                            defaultValue = new object(),
-                        }
-                    },
-                    ["triggers"] = new
-                    {
-                        manual = new
-                        {
-                            type = "Request",
-                            inputs = new
-                            {
-                                schema = new object(),
-                            },
-                            kind = "Http",
-                        },
-                    }
-                }),
-                Parameters =
-{
-["$connections"] = new LogicWorkflowParameterInfo
-{
-Value = BinaryData.FromObjectAsJson(new Dictionary<string, object>
-{
-["test-custom-connector"] = new
-{
-connectionId = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/test-resource-group/providers/Microsoft.Web/connections/test-custom-connector",
-connectionName = "test-custom-connector",
-id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.Web/locations/brazilsouth/managedApis/test-custom-connector",
-}
-}),
-}
-},
-                Tags = { },
-            };
+            LogicWorkflowData data = new LogicWorkflowData(default);
             ArmOperation<LogicWorkflowResource> lro = await logicWorkflow.UpdateAsync(WaitUntil.Completed, data);
             LogicWorkflowResource result = lro.Value;
 
@@ -246,11 +178,9 @@ id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.We
             LogicWorkflowResource logicWorkflow = client.GetLogicWorkflowResource(logicWorkflowResourceId);
 
             // invoke the operation
-            GenerateUpgradedDefinitionContent content = new GenerateUpgradedDefinitionContent
-            {
-                TargetSchemaVersion = "2016-06-01",
-            };
-            BinaryData result = await logicWorkflow.GenerateUpgradedDefinitionAsync(content);
+            GenerateUpgradedDefinitionContent content = new GenerateUpgradedDefinitionContent();
+            Response<IReadOnlyDictionary<string, BinaryData>> response = await logicWorkflow.GenerateUpgradedDefinitionAsync(content);
+            IReadOnlyDictionary<string, BinaryData> result = response.Value;
 
             Console.WriteLine($"Succeeded: {result}");
         }
@@ -276,11 +206,7 @@ id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.We
             LogicWorkflowResource logicWorkflow = client.GetLogicWorkflowResource(logicWorkflowResourceId);
 
             // invoke the operation
-            ListOperationCallbackUrlParameterInfo info = new ListOperationCallbackUrlParameterInfo
-            {
-                NotAfter = DateTimeOffset.Parse("2018-04-19T16:00:00Z"),
-                KeyType = LogicKeyType.Primary,
-            };
+            ListOperationCallbackUrlParameterInfo info = new ListOperationCallbackUrlParameterInfo();
             LogicWorkflowTriggerCallbackUri result = await logicWorkflow.GetCallbackUrlAsync(info);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -307,7 +233,8 @@ id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.We
             LogicWorkflowResource logicWorkflow = client.GetLogicWorkflowResource(logicWorkflowResourceId);
 
             // invoke the operation
-            BinaryData result = await logicWorkflow.GetSwaggerAsync();
+            Response<IReadOnlyDictionary<string, BinaryData>> response = await logicWorkflow.GetSwaggerAsync();
+            IReadOnlyDictionary<string, BinaryData> result = response.Value;
 
             Console.WriteLine($"Succeeded: {result}");
         }
@@ -333,11 +260,8 @@ id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.We
             LogicWorkflowResource logicWorkflow = client.GetLogicWorkflowResource(logicWorkflowResourceId);
 
             // invoke the operation
-            LogicWorkflowReference move = new LogicWorkflowReference
-            {
-                Id = new ResourceIdentifier("subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/newResourceGroup/providers/Microsoft.Logic/workflows/newWorkflowName"),
-            };
-            await logicWorkflow.MoveAsync(WaitUntil.Completed, move);
+            LogicWorkflowReference body = new LogicWorkflowReference();
+            await logicWorkflow.MoveAsync(WaitUntil.Completed, body);
 
             Console.WriteLine("Succeeded");
         }
@@ -363,10 +287,7 @@ id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.We
             LogicWorkflowResource logicWorkflow = client.GetLogicWorkflowResource(logicWorkflowResourceId);
 
             // invoke the operation
-            LogicWorkflowRegenerateActionContent content = new LogicWorkflowRegenerateActionContent
-            {
-                KeyType = LogicKeyType.Primary,
-            };
+            LogicWorkflowRegenerateActionContent content = new LogicWorkflowRegenerateActionContent();
             await logicWorkflow.RegenerateAccessKeyAsync(content);
 
             Console.WriteLine("Succeeded");
@@ -393,23 +314,7 @@ id = "/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/providers/Microsoft.We
             LogicWorkflowResource logicWorkflow = client.GetLogicWorkflowResource(logicWorkflowResourceId);
 
             // invoke the operation
-            LogicWorkflowData data = new LogicWorkflowData(new AzureLocation("brazilsouth"))
-            {
-                IntegrationAccount = new LogicResourceReference
-                {
-                    Id = new ResourceIdentifier("/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourceGroups/test-resource-group/providers/Microsoft.Logic/integrationAccounts/test-integration-account"),
-                },
-                Definition = BinaryData.FromObjectAsJson(new Dictionary<string, object>
-                {
-                    ["$schema"] = "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-                    ["actions"] = new object(),
-                    ["contentVersion"] = "1.0.0.0",
-                    ["outputs"] = new object(),
-                    ["parameters"] = new object(),
-                    ["triggers"] = new object()
-                }),
-                Tags = { },
-            };
+            LogicWorkflowData data = new LogicWorkflowData(default);
             await logicWorkflow.ValidateByResourceGroupAsync(data);
 
             Console.WriteLine("Succeeded");

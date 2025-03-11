@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Logic.Models
             if (Optional.IsDefined(OpenAuthenticationPolicies))
             {
                 writer.WritePropertyName("openAuthenticationPolicies"u8);
-                writer.WriteObjectValue(OpenAuthenticationPolicies, options);
+                writer.WriteObjectValue<OpenAuthenticationAccessPolicies>(OpenAuthenticationPolicies, options);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {

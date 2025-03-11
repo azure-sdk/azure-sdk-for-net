@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string IncludeValue = "Include";
         private const string ExcludeValue = "Exclude";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static MessageFilterType NotSpecified { get; } = new MessageFilterType(NotSpecifiedValue);
-        /// <summary> Include. </summary>
+        /// <summary> Represents an include message filter type. </summary>
         public static MessageFilterType Include { get; } = new MessageFilterType(IncludeValue);
-        /// <summary> Exclude. </summary>
+        /// <summary> Represents an exclude message filter type. </summary>
         public static MessageFilterType Exclude { get; } = new MessageFilterType(ExcludeValue);
         /// <summary> Determines if two <see cref="MessageFilterType"/> values are the same. </summary>
         public static bool operator ==(MessageFilterType left, MessageFilterType right) => left.Equals(right);

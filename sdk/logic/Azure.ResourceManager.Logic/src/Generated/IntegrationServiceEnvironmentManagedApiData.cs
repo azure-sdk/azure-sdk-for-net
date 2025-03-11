@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="location"> The location. </param>
         public IntegrationServiceEnvironmentManagedApiData(AzureLocation location) : base(location)
         {
-            ConnectionParameters = new ChangeTrackingDictionary<string, BinaryData>();
+            ConnectionParameters = new ChangeTrackingDictionary<string, IDictionary<string, BinaryData>>();
             RuntimeUris = new ChangeTrackingList<Uri>();
             Capabilities = new ChangeTrackingList<string>();
         }
@@ -67,7 +67,6 @@ namespace Azure.ResourceManager.Logic
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="namePropertiesName"> The name. </param>
         /// <param name="connectionParameters"> The connection parameters. </param>
         /// <param name="metadata"> The metadata. </param>
         /// <param name="runtimeUris"> The runtime urls. </param>
@@ -82,9 +81,8 @@ namespace Azure.ResourceManager.Logic
         /// <param name="category"> The category. </param>
         /// <param name="deploymentParameters"> The integration service environment managed api deployment parameters. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationServiceEnvironmentManagedApiData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string namePropertiesName, IReadOnlyDictionary<string, BinaryData> connectionParameters, LogicApiResourceMetadata metadata, IReadOnlyList<Uri> runtimeUris, LogicApiResourceGeneralInformation generalInformation, IReadOnlyList<string> capabilities, LogicApiResourceBackendService backendService, LogicApiResourcePolicies policies, Uri apiDefinitionUri, LogicApiResourceDefinitions apiDefinitions, LogicResourceReference integrationServiceEnvironment, LogicWorkflowProvisioningState? provisioningState, LogicApiTier? category, IntegrationServiceEnvironmentManagedApiDeploymentParameters deploymentParameters, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationServiceEnvironmentManagedApiData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IReadOnlyDictionary<string, IDictionary<string, BinaryData>> connectionParameters, LogicApiResourceMetadata metadata, IReadOnlyList<Uri> runtimeUris, LogicApiResourceGeneralInformation generalInformation, IReadOnlyList<string> capabilities, LogicApiResourceBackendService backendService, LogicApiResourcePolicies policies, Uri apiDefinitionUri, LogicApiResourceDefinitions apiDefinitions, LogicResourceReference integrationServiceEnvironment, LogicWorkflowProvisioningState? provisioningState, LogicApiTier? category, IntegrationServiceEnvironmentManagedApiDeploymentParameters deploymentParameters, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            NamePropertiesName = namePropertiesName;
             ConnectionParameters = connectionParameters;
             Metadata = metadata;
             RuntimeUris = runtimeUris;
@@ -106,8 +104,6 @@ namespace Azure.ResourceManager.Logic
         {
         }
 
-        /// <summary> The name. </summary>
-        public string NamePropertiesName { get; }
         /// <summary>
         /// The connection parameters.
         /// <para>
@@ -138,7 +134,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public IReadOnlyDictionary<string, BinaryData> ConnectionParameters { get; }
+        public IReadOnlyDictionary<string, IDictionary<string, BinaryData>> ConnectionParameters { get; }
         /// <summary> The metadata. </summary>
         public LogicApiResourceMetadata Metadata { get; }
         /// <summary> The runtime urls. </summary>

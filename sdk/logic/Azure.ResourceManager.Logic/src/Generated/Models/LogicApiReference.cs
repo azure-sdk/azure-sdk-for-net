@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.Logic.Models
 {
@@ -17,6 +16,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="LogicApiReference"/>. </summary>
         public LogicApiReference()
         {
+            Swagger = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicApiReference"/>. </summary>
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="brandColor"> The brand color of the api. </param>
         /// <param name="category"> The tier. </param>
         /// <param name="integrationServiceEnvironment"> The integration service environment reference. </param>
-        internal LogicApiReference(ResourceIdentifier id, string name, ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string displayName, string description, Uri iconUri, BinaryData swagger, string brandColor, LogicApiTier? category, LogicResourceReference integrationServiceEnvironment) : base(id, name, resourceType, serializedAdditionalRawData)
+        internal LogicApiReference(string id, string name, string resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string displayName, string description, Uri iconUri, IDictionary<string, BinaryData> swagger, string brandColor, LogicApiTier? category, LogicResourceReference integrationServiceEnvironment) : base(id, name, resourceType, serializedAdditionalRawData)
         {
             DisplayName = displayName;
             Description = description;
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// The swagger of the api.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Swagger { get; set; }
+        public IDictionary<string, BinaryData> Swagger { get; }
         /// <summary> The brand color of the api. </summary>
         public string BrandColor { get; set; }
         /// <summary> The tier. </summary>

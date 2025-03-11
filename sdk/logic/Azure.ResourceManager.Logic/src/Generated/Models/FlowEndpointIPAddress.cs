@@ -51,15 +51,15 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="FlowEndpointIPAddress"/>. </summary>
-        /// <param name="cidrAddress"> The address. </param>
+        /// <param name="address"> The address. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal FlowEndpointIPAddress(string cidrAddress, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FlowEndpointIPAddress(string address, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            CidrAddress = cidrAddress;
+            Address = address;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> The address. </summary>
-        public string CidrAddress { get; set; }
+        public string Address { get; set; }
     }
 }

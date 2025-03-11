@@ -55,6 +55,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="location"> The location. </param>
         public IntegrationAccountCertificateData(AzureLocation location) : base(location)
         {
+            Metadata = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="IntegrationAccountCertificateData"/>. </summary>
@@ -70,7 +71,7 @@ namespace Azure.ResourceManager.Logic
         /// <param name="key"> The key details in the key vault. </param>
         /// <param name="publicCertificate"> The public certificate. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationAccountCertificateData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, BinaryData metadata, IntegrationAccountKeyVaultKeyReference key, BinaryData publicCertificate, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal IntegrationAccountCertificateData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, DateTimeOffset? changedOn, IDictionary<string, BinaryData> metadata, IntegrationAccountKeyVaultKeyReference key, BinaryData publicCertificate, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             CreatedOn = createdOn;
             ChangedOn = changedOn;
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.Logic
         /// <summary>
         /// The metadata.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -119,7 +120,7 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Metadata { get; set; }
+        public IDictionary<string, BinaryData> Metadata { get; }
         /// <summary> The key details in the key vault. </summary>
         public IntegrationAccountKeyVaultKeyReference Key { get; set; }
         /// <summary>

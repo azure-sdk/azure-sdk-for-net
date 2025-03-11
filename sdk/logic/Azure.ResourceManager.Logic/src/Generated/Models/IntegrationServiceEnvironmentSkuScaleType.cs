@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string AutomaticValue = "Automatic";
         private const string NoneValue = "None";
 
-        /// <summary> Manual. </summary>
+        /// <summary> Represents a manual scale type. </summary>
         public static IntegrationServiceEnvironmentSkuScaleType Manual { get; } = new IntegrationServiceEnvironmentSkuScaleType(ManualValue);
-        /// <summary> Automatic. </summary>
+        /// <summary> Represents an automatic scale type. </summary>
         public static IntegrationServiceEnvironmentSkuScaleType Automatic { get; } = new IntegrationServiceEnvironmentSkuScaleType(AutomaticValue);
-        /// <summary> None. </summary>
+        /// <summary> Represents no scale type. </summary>
         public static IntegrationServiceEnvironmentSkuScaleType None { get; } = new IntegrationServiceEnvironmentSkuScaleType(NoneValue);
         /// <summary> Determines if two <see cref="IntegrationServiceEnvironmentSkuScaleType"/> values are the same. </summary>
         public static bool operator ==(IntegrationServiceEnvironmentSkuScaleType left, IntegrationServiceEnvironmentSkuScaleType right) => left.Equals(right);

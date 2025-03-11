@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.Logic.Models
 {
@@ -56,7 +55,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="sku"> The sku. </param>
         /// <param name="capacity"> The sku capacity. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IntegrationServiceEnvironmentSkuDefinition(ResourceType? resourceType, IntegrationServiceEnvironmentSkuDefinitionSku sku, IntegrationServiceEnvironmentSkuCapacity capacity, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IntegrationServiceEnvironmentSkuDefinition(string resourceType, IntegrationServiceEnvironmentSkuDefinitionSku sku, IntegrationServiceEnvironmentSkuCapacity capacity, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceType = resourceType;
             Sku = sku;
@@ -65,7 +64,7 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         /// <summary> The resource type. </summary>
-        public ResourceType? ResourceType { get; }
+        public string ResourceType { get; }
         /// <summary> The sku. </summary>
         public IntegrationServiceEnvironmentSkuDefinitionSku Sku { get; }
         /// <summary> The sku capacity. </summary>

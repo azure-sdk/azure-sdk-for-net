@@ -28,15 +28,15 @@ namespace Azure.ResourceManager.Logic.Models
         private const string HhmmsSddValue = "HHMMSSdd";
         private const string HhmmsSdValue = "HHMMSSd";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static X12TimeFormat NotSpecified { get; } = new X12TimeFormat(NotSpecifiedValue);
-        /// <summary> HHMM. </summary>
+        /// <summary> Represents the HHMM time format. </summary>
         public static X12TimeFormat Hhmm { get; } = new X12TimeFormat(HhmmValue);
-        /// <summary> HHMMSS. </summary>
+        /// <summary> Represents the HHMMSS time format. </summary>
         public static X12TimeFormat Hhmmss { get; } = new X12TimeFormat(HhmmssValue);
-        /// <summary> HHMMSSdd. </summary>
+        /// <summary> Represents the HHMMSSdd time format. </summary>
         public static X12TimeFormat HhmmsSdd { get; } = new X12TimeFormat(HhmmsSddValue);
-        /// <summary> HHMMSSd. </summary>
+        /// <summary> Represents the HHMMSSd time format. </summary>
         public static X12TimeFormat HhmmsSd { get; } = new X12TimeFormat(HhmmsSdValue);
         /// <summary> Determines if two <see cref="X12TimeFormat"/> values are the same. </summary>
         public static bool operator ==(X12TimeFormat left, X12TimeFormat right) => left.Equals(right);

@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string CcyymmddValue = "CCYYMMDD";
         private const string YymmddValue = "YYMMDD";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static X12DateFormat NotSpecified { get; } = new X12DateFormat(NotSpecifiedValue);
-        /// <summary> CCYYMMDD. </summary>
+        /// <summary> Represents the CCYYMMDD date format. </summary>
         public static X12DateFormat Ccyymmdd { get; } = new X12DateFormat(CcyymmddValue);
-        /// <summary> YYMMDD. </summary>
+        /// <summary> Represents the YYMMDD date format. </summary>
         public static X12DateFormat Yymmdd { get; } = new X12DateFormat(YymmddValue);
         /// <summary> Determines if two <see cref="X12DateFormat"/> values are the same. </summary>
         public static bool operator ==(X12DateFormat left, X12DateFormat right) => left.Equals(right);

@@ -40,7 +40,8 @@ namespace Azure.ResourceManager.Logic
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
@@ -99,17 +100,28 @@ namespace Azure.ResourceManager.Logic
                 writer.WritePropertyName("integrationServiceEnvironment"u8);
                 writer.WriteObjectValue(IntegrationServiceEnvironment, options);
             }
-            if (Optional.IsDefined(Definition))
+            if (Optional.IsCollectionDefined(Definition))
             {
                 writer.WritePropertyName("definition"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Definition);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Definition, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Definition)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsCollectionDefined(Parameters))
             {
@@ -163,7 +175,7 @@ namespace Azure.ResourceManager.Logic
             LogicSku sku = default;
             LogicResourceReference integrationAccount = default;
             LogicResourceReference integrationServiceEnvironment = default;
-            BinaryData definition = default;
+            IDictionary<string, BinaryData> definition = default;
             IDictionary<string, LogicWorkflowParameterInfo> parameters = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -175,7 +187,8 @@ namespace Azure.ResourceManager.Logic
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -327,7 +340,19 @@ namespace Azure.ResourceManager.Logic
                             {
                                 continue;
                             }
-                            definition = BinaryData.FromString(property0.Value.GetRawText());
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            definition = dictionary;
                             continue;
                         }
                         if (property0.NameEquals("parameters"u8))
@@ -372,7 +397,7 @@ namespace Azure.ResourceManager.Logic
                 sku,
                 integrationAccount,
                 integrationServiceEnvironment,
-                definition,
+                definition ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 parameters ?? new ChangeTrackingDictionary<string, LogicWorkflowParameterInfo>(),
                 serializedAdditionalRawData);
         }

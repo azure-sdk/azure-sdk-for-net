@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> Error response indicates Logic service is not able to process the incoming request. The error property contains the error details. </summary>
-    public partial class LogicErrorResponse
+    /// <summary> Common error response for all Azure Resource Manager APIs to return error details for failed operations. (This also follows the OData error response format.). </summary>
+    internal partial class LogicErrorResponse
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,19 +51,15 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="LogicErrorResponse"/>. </summary>
-        /// <param name="code"> Error code. </param>
-        /// <param name="message"> Error message indicating why the operation failed. </param>
+        /// <param name="error"> The error object. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicErrorResponse(string code, string message, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicErrorResponse(ResponseError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Code = code;
-            Message = message;
+            Error = error;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Error code. </summary>
-        public string Code { get; set; }
-        /// <summary> Error message indicating why the operation failed. </summary>
-        public string Message { get; set; }
+        /// <summary> The error object. </summary>
+        public ResponseError Error { get; set; }
     }
 }

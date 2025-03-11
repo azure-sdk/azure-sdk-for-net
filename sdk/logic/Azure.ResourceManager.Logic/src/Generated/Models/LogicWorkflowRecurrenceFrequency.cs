@@ -31,21 +31,21 @@ namespace Azure.ResourceManager.Logic.Models
         private const string MonthValue = "Month";
         private const string YearValue = "Year";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicWorkflowRecurrenceFrequency NotSpecified { get; } = new LogicWorkflowRecurrenceFrequency(NotSpecifiedValue);
-        /// <summary> Second. </summary>
+        /// <summary> Represents a recurrence frequency of seconds. </summary>
         public static LogicWorkflowRecurrenceFrequency Second { get; } = new LogicWorkflowRecurrenceFrequency(SecondValue);
-        /// <summary> Minute. </summary>
+        /// <summary> Represents a recurrence frequency of minutes. </summary>
         public static LogicWorkflowRecurrenceFrequency Minute { get; } = new LogicWorkflowRecurrenceFrequency(MinuteValue);
-        /// <summary> Hour. </summary>
+        /// <summary> Represents a recurrence frequency of hours. </summary>
         public static LogicWorkflowRecurrenceFrequency Hour { get; } = new LogicWorkflowRecurrenceFrequency(HourValue);
-        /// <summary> Day. </summary>
+        /// <summary> Represents a recurrence frequency of days. </summary>
         public static LogicWorkflowRecurrenceFrequency Day { get; } = new LogicWorkflowRecurrenceFrequency(DayValue);
-        /// <summary> Week. </summary>
+        /// <summary> Represents a recurrence frequency of weeks. </summary>
         public static LogicWorkflowRecurrenceFrequency Week { get; } = new LogicWorkflowRecurrenceFrequency(WeekValue);
-        /// <summary> Month. </summary>
+        /// <summary> Represents a recurrence frequency of months. </summary>
         public static LogicWorkflowRecurrenceFrequency Month { get; } = new LogicWorkflowRecurrenceFrequency(MonthValue);
-        /// <summary> Year. </summary>
+        /// <summary> Represents a recurrence frequency of years. </summary>
         public static LogicWorkflowRecurrenceFrequency Year { get; } = new LogicWorkflowRecurrenceFrequency(YearValue);
         /// <summary> Determines if two <see cref="LogicWorkflowRecurrenceFrequency"/> values are the same. </summary>
         public static bool operator ==(LogicWorkflowRecurrenceFrequency left, LogicWorkflowRecurrenceFrequency right) => left.Equals(right);

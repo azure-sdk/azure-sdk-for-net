@@ -35,29 +35,29 @@ namespace Azure.ResourceManager.Logic.Models
         private const string SqlValue = "SQL";
         private const string RegionalServiceValue = "RegionalService";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType NotSpecified { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(NotSpecifiedValue);
-        /// <summary> AzureStorage. </summary>
+        /// <summary> Represents an Azure Storage network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType AzureStorage { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(AzureStorageValue);
-        /// <summary> AzureManagement. </summary>
+        /// <summary> Represents an Azure Management network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType AzureManagement { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(AzureManagementValue);
-        /// <summary> AzureActiveDirectory. </summary>
+        /// <summary> Represents an Azure Active Directory network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType AzureActiveDirectory { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(AzureActiveDirectoryValue);
-        /// <summary> SSLCertificateVerification. </summary>
+        /// <summary> Represents an SSL Certificate Verification network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType SslCertificateVerification { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(SslCertificateVerificationValue);
-        /// <summary> DiagnosticLogsAndMetrics. </summary>
+        /// <summary> Represents a Diagnostic Logs and Metrics network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType DiagnosticLogsAndMetrics { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(DiagnosticLogsAndMetricsValue);
-        /// <summary> IntegrationServiceEnvironmentConnectors. </summary>
+        /// <summary> Represents an Integration Service Environment Connectors network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType IntegrationServiceEnvironmentConnectors { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(IntegrationServiceEnvironmentConnectorsValue);
-        /// <summary> RedisCache. </summary>
+        /// <summary> Represents a Redis Cache network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType RedisCache { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(RedisCacheValue);
-        /// <summary> AccessEndpoints. </summary>
+        /// <summary> Represents an Access Endpoints network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType AccessEndpoints { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(AccessEndpointsValue);
-        /// <summary> RecoveryService. </summary>
+        /// <summary> Represents a Recovery Service network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType RecoveryService { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(RecoveryServiceValue);
-        /// <summary> SQL. </summary>
+        /// <summary> Represents a SQL network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType Sql { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(SqlValue);
-        /// <summary> RegionalService. </summary>
+        /// <summary> Represents a Regional Service network dependency category type. </summary>
         public static IntegrationServiceEnvironmentNetworkDependencyCategoryType RegionalService { get; } = new IntegrationServiceEnvironmentNetworkDependencyCategoryType(RegionalServiceValue);
         /// <summary> Determines if two <see cref="IntegrationServiceEnvironmentNetworkDependencyCategoryType"/> values are the same. </summary>
         public static bool operator ==(IntegrationServiceEnvironmentNetworkDependencyCategoryType left, IntegrationServiceEnvironmentNetworkDependencyCategoryType right) => left.Equals(right);

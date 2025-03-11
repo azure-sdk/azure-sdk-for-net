@@ -190,15 +190,19 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> ResubmitAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> ResubmitAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using var scope = _logicWorkflowTriggerHistoryWorkflowTriggerHistoriesClientDiagnostics.CreateScope("LogicWorkflowTriggerHistoryResource.Resubmit");
             scope.Start();
             try
             {
                 var response = await _logicWorkflowTriggerHistoryWorkflowTriggerHistoriesRestClient.ResubmitAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                return response;
+                var operation = new LogicArmOperation(_logicWorkflowTriggerHistoryWorkflowTriggerHistoriesClientDiagnostics, Pipeline, _logicWorkflowTriggerHistoryWorkflowTriggerHistoriesRestClient.CreateResubmitRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
             }
             catch (Exception e)
             {
@@ -228,15 +232,19 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response Resubmit(CancellationToken cancellationToken = default)
+        public virtual ArmOperation Resubmit(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using var scope = _logicWorkflowTriggerHistoryWorkflowTriggerHistoriesClientDiagnostics.CreateScope("LogicWorkflowTriggerHistoryResource.Resubmit");
             scope.Start();
             try
             {
                 var response = _logicWorkflowTriggerHistoryWorkflowTriggerHistoriesRestClient.Resubmit(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
-                return response;
+                var operation = new LogicArmOperation(_logicWorkflowTriggerHistoryWorkflowTriggerHistoriesClientDiagnostics, Pipeline, _logicWorkflowTriggerHistoryWorkflowTriggerHistoriesRestClient.CreateResubmitRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
             }
             catch (Exception e)
             {

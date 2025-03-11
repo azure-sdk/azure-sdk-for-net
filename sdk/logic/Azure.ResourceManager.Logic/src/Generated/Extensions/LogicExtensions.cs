@@ -33,6 +33,63 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="IntegrationAccountResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationAccountResource"/> object. </returns>
+        public static IntegrationAccountResource GetIntegrationAccountResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationAccountResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationServiceEnvironmentResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationServiceEnvironmentResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationServiceEnvironmentResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationServiceEnvironmentResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationServiceEnvironmentResource"/> object. </returns>
+        public static IntegrationServiceEnvironmentResource GetIntegrationServiceEnvironmentResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationServiceEnvironmentResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationServiceEnvironmentManagedApiResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationServiceEnvironmentManagedApiResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationServiceEnvironmentManagedApiResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationServiceEnvironmentManagedApiResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationServiceEnvironmentManagedApiResource"/> object. </returns>
+        public static IntegrationServiceEnvironmentManagedApiResource GetIntegrationServiceEnvironmentManagedApiResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationServiceEnvironmentManagedApiResource(id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="LogicWorkflowResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="LogicWorkflowResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -52,60 +109,155 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="LogicWorkflowVersionResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="LogicWorkflowVersionResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowVersionResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing an <see cref="IntegrationAccountAgreementResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountAgreementResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountAgreementResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowVersionResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountAgreementResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="LogicWorkflowVersionResource"/> object. </returns>
-        public static LogicWorkflowVersionResource GetLogicWorkflowVersionResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="IntegrationAccountAgreementResource"/> object. </returns>
+        public static IntegrationAccountAgreementResource GetIntegrationAccountAgreementResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableLogicArmClient(client).GetLogicWorkflowVersionResource(id);
+            return GetMockableLogicArmClient(client).GetIntegrationAccountAgreementResource(id);
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="LogicWorkflowTriggerResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="LogicWorkflowTriggerResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowTriggerResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing an <see cref="IntegrationAccountAssemblyDefinitionResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountAssemblyDefinitionResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountAssemblyDefinitionResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowTriggerResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountAssemblyDefinitionResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="LogicWorkflowTriggerResource"/> object. </returns>
-        public static LogicWorkflowTriggerResource GetLogicWorkflowTriggerResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="IntegrationAccountAssemblyDefinitionResource"/> object. </returns>
+        public static IntegrationAccountAssemblyDefinitionResource GetIntegrationAccountAssemblyDefinitionResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableLogicArmClient(client).GetLogicWorkflowTriggerResource(id);
+            return GetMockableLogicArmClient(client).GetIntegrationAccountAssemblyDefinitionResource(id);
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="LogicWorkflowTriggerHistoryResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="LogicWorkflowTriggerHistoryResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowTriggerHistoryResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing an <see cref="IntegrationAccountBatchConfigurationResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountBatchConfigurationResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountBatchConfigurationResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowTriggerHistoryResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountBatchConfigurationResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="LogicWorkflowTriggerHistoryResource"/> object. </returns>
-        public static LogicWorkflowTriggerHistoryResource GetLogicWorkflowTriggerHistoryResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="IntegrationAccountBatchConfigurationResource"/> object. </returns>
+        public static IntegrationAccountBatchConfigurationResource GetIntegrationAccountBatchConfigurationResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableLogicArmClient(client).GetLogicWorkflowTriggerHistoryResource(id);
+            return GetMockableLogicArmClient(client).GetIntegrationAccountBatchConfigurationResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationAccountCertificateResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountCertificateResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountCertificateResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountCertificateResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationAccountCertificateResource"/> object. </returns>
+        public static IntegrationAccountCertificateResource GetIntegrationAccountCertificateResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationAccountCertificateResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationAccountMapResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountMapResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountMapResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountMapResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationAccountMapResource"/> object. </returns>
+        public static IntegrationAccountMapResource GetIntegrationAccountMapResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationAccountMapResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationAccountPartnerResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountPartnerResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountPartnerResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountPartnerResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationAccountPartnerResource"/> object. </returns>
+        public static IntegrationAccountPartnerResource GetIntegrationAccountPartnerResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationAccountPartnerResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationAccountSchemaResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountSchemaResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountSchemaResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountSchemaResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationAccountSchemaResource"/> object. </returns>
+        public static IntegrationAccountSchemaResource GetIntegrationAccountSchemaResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationAccountSchemaResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="IntegrationAccountSessionResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="IntegrationAccountSessionResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountSessionResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountSessionResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="IntegrationAccountSessionResource"/> object. </returns>
+        public static IntegrationAccountSessionResource GetIntegrationAccountSessionResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetIntegrationAccountSessionResource(id);
         }
 
         /// <summary>
@@ -166,25 +318,6 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="LogicWorkflowRunActionRepetitionResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="LogicWorkflowRunActionRepetitionResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowRunActionRepetitionResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowRunActionRepetitionResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="LogicWorkflowRunActionRepetitionResource"/> object. </returns>
-        public static LogicWorkflowRunActionRepetitionResource GetLogicWorkflowRunActionRepetitionResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetLogicWorkflowRunActionRepetitionResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="LogicWorkflowRunActionScopeRepetitionResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="LogicWorkflowRunActionScopeRepetitionResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowRunActionScopeRepetitionResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -201,6 +334,25 @@ namespace Azure.ResourceManager.Logic
             Argument.AssertNotNull(client, nameof(client));
 
             return GetMockableLogicArmClient(client).GetLogicWorkflowRunActionScopeRepetitionResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="LogicWorkflowRunActionRepetitionResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LogicWorkflowRunActionRepetitionResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowRunActionRepetitionResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowRunActionRepetitionResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="LogicWorkflowRunActionRepetitionResource"/> object. </returns>
+        public static LogicWorkflowRunActionRepetitionResource GetLogicWorkflowRunActionRepetitionResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableLogicArmClient(client).GetLogicWorkflowRunActionRepetitionResource(id);
         }
 
         /// <summary>
@@ -242,305 +394,60 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing a <see cref="LogicWorkflowTriggerResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LogicWorkflowTriggerResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowTriggerResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowTriggerResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountResource"/> object. </returns>
-        public static IntegrationAccountResource GetIntegrationAccountResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="LogicWorkflowTriggerResource"/> object. </returns>
+        public static LogicWorkflowTriggerResource GetLogicWorkflowTriggerResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableLogicArmClient(client).GetIntegrationAccountResource(id);
+            return GetMockableLogicArmClient(client).GetLogicWorkflowTriggerResource(id);
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountAssemblyDefinitionResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountAssemblyDefinitionResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountAssemblyDefinitionResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing a <see cref="LogicWorkflowTriggerHistoryResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LogicWorkflowTriggerHistoryResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowTriggerHistoryResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountAssemblyDefinitionResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowTriggerHistoryResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountAssemblyDefinitionResource"/> object. </returns>
-        public static IntegrationAccountAssemblyDefinitionResource GetIntegrationAccountAssemblyDefinitionResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="LogicWorkflowTriggerHistoryResource"/> object. </returns>
+        public static LogicWorkflowTriggerHistoryResource GetLogicWorkflowTriggerHistoryResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableLogicArmClient(client).GetIntegrationAccountAssemblyDefinitionResource(id);
+            return GetMockableLogicArmClient(client).GetLogicWorkflowTriggerHistoryResource(id);
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountBatchConfigurationResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountBatchConfigurationResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountBatchConfigurationResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing a <see cref="LogicWorkflowVersionResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LogicWorkflowVersionResource.CreateResourceIdentifier" /> to create a <see cref="LogicWorkflowVersionResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountBatchConfigurationResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetLogicWorkflowVersionResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountBatchConfigurationResource"/> object. </returns>
-        public static IntegrationAccountBatchConfigurationResource GetIntegrationAccountBatchConfigurationResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="LogicWorkflowVersionResource"/> object. </returns>
+        public static LogicWorkflowVersionResource GetLogicWorkflowVersionResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableLogicArmClient(client).GetIntegrationAccountBatchConfigurationResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountSchemaResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountSchemaResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountSchemaResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountSchemaResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountSchemaResource"/> object. </returns>
-        public static IntegrationAccountSchemaResource GetIntegrationAccountSchemaResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationAccountSchemaResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountMapResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountMapResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountMapResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountMapResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountMapResource"/> object. </returns>
-        public static IntegrationAccountMapResource GetIntegrationAccountMapResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationAccountMapResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountPartnerResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountPartnerResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountPartnerResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountPartnerResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountPartnerResource"/> object. </returns>
-        public static IntegrationAccountPartnerResource GetIntegrationAccountPartnerResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationAccountPartnerResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountAgreementResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountAgreementResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountAgreementResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountAgreementResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountAgreementResource"/> object. </returns>
-        public static IntegrationAccountAgreementResource GetIntegrationAccountAgreementResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationAccountAgreementResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountCertificateResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountCertificateResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountCertificateResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountCertificateResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountCertificateResource"/> object. </returns>
-        public static IntegrationAccountCertificateResource GetIntegrationAccountCertificateResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationAccountCertificateResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationAccountSessionResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationAccountSessionResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationAccountSessionResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationAccountSessionResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationAccountSessionResource"/> object. </returns>
-        public static IntegrationAccountSessionResource GetIntegrationAccountSessionResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationAccountSessionResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationServiceEnvironmentResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationServiceEnvironmentResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationServiceEnvironmentResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationServiceEnvironmentResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationServiceEnvironmentResource"/> object. </returns>
-        public static IntegrationServiceEnvironmentResource GetIntegrationServiceEnvironmentResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationServiceEnvironmentResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="IntegrationServiceEnvironmentManagedApiResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IntegrationServiceEnvironmentManagedApiResource.CreateResourceIdentifier" /> to create an <see cref="IntegrationServiceEnvironmentManagedApiResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicArmClient.GetIntegrationServiceEnvironmentManagedApiResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="IntegrationServiceEnvironmentManagedApiResource"/> object. </returns>
-        public static IntegrationServiceEnvironmentManagedApiResource GetIntegrationServiceEnvironmentManagedApiResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableLogicArmClient(client).GetIntegrationServiceEnvironmentManagedApiResource(id);
-        }
-
-        /// <summary>
-        /// Gets a collection of LogicWorkflowResources in the ResourceGroupResource.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetLogicWorkflows()"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> An object representing collection of LogicWorkflowResources and their operations over a LogicWorkflowResource. </returns>
-        public static LogicWorkflowCollection GetLogicWorkflows(this ResourceGroupResource resourceGroupResource)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetLogicWorkflows();
-        }
-
-        /// <summary>
-        /// Gets a workflow.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Workflows_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetLogicWorkflowAsync(string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="workflowName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<LogicWorkflowResource>> GetLogicWorkflowAsync(this ResourceGroupResource resourceGroupResource, string workflowName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return await GetMockableLogicResourceGroupResource(resourceGroupResource).GetLogicWorkflowAsync(workflowName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a workflow.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Workflows_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetLogicWorkflow(string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="workflowName"> The workflow name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="workflowName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static Response<LogicWorkflowResource> GetLogicWorkflow(this ResourceGroupResource resourceGroupResource, string workflowName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetLogicWorkflow(workflowName, cancellationToken);
+            return GetMockableLogicArmClient(client).GetLogicWorkflowVersionResource(id);
         }
 
         /// <summary>
@@ -637,32 +544,108 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Gets a collection of IntegrationServiceEnvironmentResources in the ResourceGroupResource.
+        /// Gets a collection of LogicWorkflowResources in the ResourceGroupResource.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetIntegrationServiceEnvironments()"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetLogicWorkflows()"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> An object representing collection of IntegrationServiceEnvironmentResources and their operations over a IntegrationServiceEnvironmentResource. </returns>
-        public static IntegrationServiceEnvironmentCollection GetIntegrationServiceEnvironments(this ResourceGroupResource resourceGroupResource)
+        /// <returns> An object representing collection of LogicWorkflowResources and their operations over a LogicWorkflowResource. </returns>
+        public static LogicWorkflowCollection GetLogicWorkflows(this ResourceGroupResource resourceGroupResource)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetIntegrationServiceEnvironments();
+            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetLogicWorkflows();
         }
 
         /// <summary>
-        /// Gets an integration service environment.
+        /// Gets a workflow.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_Get</description>
+        /// <description>Workflows_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="LogicWorkflowResource"/></description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetLogicWorkflowAsync(string,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<LogicWorkflowResource>> GetLogicWorkflowAsync(this ResourceGroupResource resourceGroupResource, string workflowName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return await GetMockableLogicResourceGroupResource(resourceGroupResource).GetLogicWorkflowAsync(workflowName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a workflow.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workflows_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="LogicWorkflowResource"/></description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetLogicWorkflow(string,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public static Response<LogicWorkflowResource> GetLogicWorkflow(this ResourceGroupResource resourceGroupResource, string workflowName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetLogicWorkflow(workflowName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a list of integration service environments by resource group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>IntegrationServiceEnvironments_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -675,32 +658,31 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetIntegrationServiceEnvironmentAsync(string,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetIntegrationServiceEnvironments(int?,CancellationToken)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
+        /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<IntegrationServiceEnvironmentResource>> GetIntegrationServiceEnvironmentAsync(this ResourceGroupResource resourceGroupResource, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> An async collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironmentsAsync(this ResourceGroupResource resourceGroupResource, int? top = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return await GetMockableLogicResourceGroupResource(resourceGroupResource).GetIntegrationServiceEnvironmentAsync(integrationServiceEnvironmentName, cancellationToken).ConfigureAwait(false);
+            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetIntegrationServiceEnvironmentsAsync(top, cancellationToken);
         }
 
         /// <summary>
-        /// Gets an integration service environment.
+        /// Gets a list of integration service environments by resource group.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_Get</description>
+        /// <description>IntegrationServiceEnvironments_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -713,20 +695,19 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetIntegrationServiceEnvironment(string,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicResourceGroupResource.GetIntegrationServiceEnvironments(int?,CancellationToken)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
+        /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static Response<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironment(this ResourceGroupResource resourceGroupResource, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironments(this ResourceGroupResource resourceGroupResource, int? top = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetIntegrationServiceEnvironment(integrationServiceEnvironmentName, cancellationToken);
+            return GetMockableLogicResourceGroupResource(resourceGroupResource).GetIntegrationServiceEnvironments(top, cancellationToken);
         }
 
         /// <summary>
@@ -755,7 +736,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="location"> The workflow location. </param>
+        /// <param name="location"> The name of Azure region. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -794,7 +775,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="location"> The workflow location. </param>
+        /// <param name="location"> The name of Azure region. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -808,53 +789,32 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Gets a list of workflows by subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/workflows</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Workflows_ListBySubscription</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowResource"/></description>
-        /// </item>
-        /// </list>
+        /// Gets a collection of IntegrationServiceEnvironmentResources in the SubscriptionResource.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetLogicWorkflows(int?,string,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetIntegrationServiceEnvironments()"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="top"> The number of items to be included in the result. </param>
-        /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> An async collection of <see cref="LogicWorkflowResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<LogicWorkflowResource> GetLogicWorkflowsAsync(this SubscriptionResource subscriptionResource, int? top = null, string filter = null, CancellationToken cancellationToken = default)
+        /// <returns> An object representing collection of IntegrationServiceEnvironmentResources and their operations over a IntegrationServiceEnvironmentResource. </returns>
+        public static IntegrationServiceEnvironmentCollection GetIntegrationServiceEnvironments(this SubscriptionResource subscriptionResource)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableLogicSubscriptionResource(subscriptionResource).GetLogicWorkflowsAsync(top, filter, cancellationToken);
+            return GetMockableLogicSubscriptionResource(subscriptionResource).GetIntegrationServiceEnvironments();
         }
 
         /// <summary>
-        /// Gets a list of workflows by subscription.
+        /// Gets an integration service environment.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/workflows</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Workflows_ListBySubscription</description>
+        /// <description>IntegrationServiceEnvironments_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -862,25 +822,63 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowResource"/></description>
+        /// <description><see cref="IntegrationServiceEnvironmentResource"/></description>
         /// </item>
         /// </list>
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetLogicWorkflows(int?,string,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetIntegrationServiceEnvironmentAsync(string,CancellationToken)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="top"> The number of items to be included in the result. </param>
-        /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
+        /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="LogicWorkflowResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<LogicWorkflowResource> GetLogicWorkflows(this SubscriptionResource subscriptionResource, int? top = null, string filter = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<IntegrationServiceEnvironmentResource>> GetIntegrationServiceEnvironmentAsync(this SubscriptionResource subscriptionResource, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableLogicSubscriptionResource(subscriptionResource).GetLogicWorkflows(top, filter, cancellationToken);
+            return await GetMockableLogicSubscriptionResource(subscriptionResource).GetIntegrationServiceEnvironmentAsync(integrationServiceEnvironmentName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets an integration service environment.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>IntegrationServiceEnvironments_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="IntegrationServiceEnvironmentResource"/></description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetIntegrationServiceEnvironment(string,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="integrationServiceEnvironmentName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="integrationServiceEnvironmentName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public static Response<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironment(this SubscriptionResource subscriptionResource, string integrationServiceEnvironmentName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return GetMockableLogicSubscriptionResource(subscriptionResource).GetIntegrationServiceEnvironment(integrationServiceEnvironmentName, cancellationToken);
         }
 
         /// <summary>
@@ -958,15 +956,15 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary>
-        /// Gets a list of integration service environments by subscription.
+        /// Gets a list of workflows by subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/workflows</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_ListBySubscription</description>
+        /// <description>Workflows_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -974,36 +972,37 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="IntegrationServiceEnvironmentResource"/></description>
+        /// <description><see cref="LogicWorkflowResource"/></description>
         /// </item>
         /// </list>
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetIntegrationServiceEnvironments(int?,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetLogicWorkflows(int?,string,CancellationToken)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
+        /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> An async collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironmentsAsync(this SubscriptionResource subscriptionResource, int? top = null, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="LogicWorkflowResource"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<LogicWorkflowResource> GetLogicWorkflowsAsync(this SubscriptionResource subscriptionResource, int? top = null, string filter = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableLogicSubscriptionResource(subscriptionResource).GetIntegrationServiceEnvironmentsAsync(top, cancellationToken);
+            return GetMockableLogicSubscriptionResource(subscriptionResource).GetLogicWorkflowsAsync(top, filter, cancellationToken);
         }
 
         /// <summary>
-        /// Gets a list of integration service environments by subscription.
+        /// Gets a list of workflows by subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Logic/workflows</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>IntegrationServiceEnvironments_ListBySubscription</description>
+        /// <description>Workflows_ListBySubscription</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -1011,24 +1010,25 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="IntegrationServiceEnvironmentResource"/></description>
+        /// <description><see cref="LogicWorkflowResource"/></description>
         /// </item>
         /// </list>
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetIntegrationServiceEnvironments(int?,CancellationToken)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableLogicSubscriptionResource.GetLogicWorkflows(int?,string,CancellationToken)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
+        /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="IntegrationServiceEnvironmentResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<IntegrationServiceEnvironmentResource> GetIntegrationServiceEnvironments(this SubscriptionResource subscriptionResource, int? top = null, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="LogicWorkflowResource"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<LogicWorkflowResource> GetLogicWorkflows(this SubscriptionResource subscriptionResource, int? top = null, string filter = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableLogicSubscriptionResource(subscriptionResource).GetIntegrationServiceEnvironments(top, cancellationToken);
+            return GetMockableLogicSubscriptionResource(subscriptionResource).GetLogicWorkflows(top, filter, cancellationToken);
         }
     }
 }

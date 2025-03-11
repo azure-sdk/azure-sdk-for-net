@@ -38,35 +38,35 @@ namespace Azure.ResourceManager.Logic.Models
         private const string UnoyValue = "UNOY";
         private const string KecaValue = "KECA";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static EdifactCharacterSet NotSpecified { get; } = new EdifactCharacterSet(NotSpecifiedValue);
-        /// <summary> UNOB. </summary>
+        /// <summary> Represents the UNOB Edifact character set. </summary>
         public static EdifactCharacterSet Unob { get; } = new EdifactCharacterSet(UnobValue);
-        /// <summary> UNOA. </summary>
+        /// <summary> Represents the UNOA Edifact character set. </summary>
         public static EdifactCharacterSet Unoa { get; } = new EdifactCharacterSet(UnoaValue);
-        /// <summary> UNOC. </summary>
+        /// <summary> Represents the UNOC Edifact character set. </summary>
         public static EdifactCharacterSet Unoc { get; } = new EdifactCharacterSet(UnocValue);
-        /// <summary> UNOD. </summary>
+        /// <summary> Represents the UNOD Edifact character set. </summary>
         public static EdifactCharacterSet Unod { get; } = new EdifactCharacterSet(UnodValue);
-        /// <summary> UNOE. </summary>
+        /// <summary> Represents the UNOE Edifact character set. </summary>
         public static EdifactCharacterSet Unoe { get; } = new EdifactCharacterSet(UnoeValue);
-        /// <summary> UNOF. </summary>
+        /// <summary> Represents the UNOF Edifact character set. </summary>
         public static EdifactCharacterSet Unof { get; } = new EdifactCharacterSet(UnofValue);
-        /// <summary> UNOG. </summary>
+        /// <summary> Represents the UNOG Edifact character set. </summary>
         public static EdifactCharacterSet Unog { get; } = new EdifactCharacterSet(UnogValue);
-        /// <summary> UNOH. </summary>
+        /// <summary> Represents the UNOH Edifact character set. </summary>
         public static EdifactCharacterSet Unoh { get; } = new EdifactCharacterSet(UnohValue);
-        /// <summary> UNOI. </summary>
+        /// <summary> Represents the UNOI Edifact character set. </summary>
         public static EdifactCharacterSet Unoi { get; } = new EdifactCharacterSet(UnoiValue);
-        /// <summary> UNOJ. </summary>
+        /// <summary> Represents the UNOJ Edifact character set. </summary>
         public static EdifactCharacterSet Unoj { get; } = new EdifactCharacterSet(UnojValue);
-        /// <summary> UNOK. </summary>
+        /// <summary> Represents the UNOK Edifact character set. </summary>
         public static EdifactCharacterSet Unok { get; } = new EdifactCharacterSet(UnokValue);
-        /// <summary> UNOX. </summary>
+        /// <summary> Represents the UNOX Edifact character set. </summary>
         public static EdifactCharacterSet Unox { get; } = new EdifactCharacterSet(UnoxValue);
-        /// <summary> UNOY. </summary>
+        /// <summary> Represents the UNOY Edifact character set. </summary>
         public static EdifactCharacterSet Unoy { get; } = new EdifactCharacterSet(UnoyValue);
-        /// <summary> KECA. </summary>
+        /// <summary> Represents the KECA Edifact character set. </summary>
         public static EdifactCharacterSet Keca { get; } = new EdifactCharacterSet(KecaValue);
         /// <summary> Determines if two <see cref="EdifactCharacterSet"/> values are the same. </summary>
         public static bool operator ==(EdifactCharacterSet left, EdifactCharacterSet right) => left.Equals(right);

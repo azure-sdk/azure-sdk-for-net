@@ -32,23 +32,23 @@ namespace Azure.ResourceManager.Logic.Models
         private const string ObjectValue = "Object";
         private const string SecureObjectValue = "SecureObject";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicWorkflowParameterType NotSpecified { get; } = new LogicWorkflowParameterType(NotSpecifiedValue);
-        /// <summary> String. </summary>
+        /// <summary> Represents a string parameter type. </summary>
         public static LogicWorkflowParameterType String { get; } = new LogicWorkflowParameterType(StringValue);
-        /// <summary> SecureString. </summary>
+        /// <summary> Represents a secure string parameter type. </summary>
         public static LogicWorkflowParameterType SecureString { get; } = new LogicWorkflowParameterType(SecureStringValue);
-        /// <summary> Int. </summary>
+        /// <summary> Represents an integer parameter type. </summary>
         public static LogicWorkflowParameterType Int { get; } = new LogicWorkflowParameterType(IntValue);
-        /// <summary> Float. </summary>
+        /// <summary> Represents a float parameter type. </summary>
         public static LogicWorkflowParameterType Float { get; } = new LogicWorkflowParameterType(FloatValue);
-        /// <summary> Bool. </summary>
+        /// <summary> Represents a boolean parameter type. </summary>
         public static LogicWorkflowParameterType Bool { get; } = new LogicWorkflowParameterType(BoolValue);
-        /// <summary> Array. </summary>
+        /// <summary> Represents an array parameter type. </summary>
         public static LogicWorkflowParameterType Array { get; } = new LogicWorkflowParameterType(ArrayValue);
-        /// <summary> Object. </summary>
+        /// <summary> Represents an object parameter type. </summary>
         public static LogicWorkflowParameterType Object { get; } = new LogicWorkflowParameterType(ObjectValue);
-        /// <summary> SecureObject. </summary>
+        /// <summary> Represents a secure object parameter type. </summary>
         public static LogicWorkflowParameterType SecureObject { get; } = new LogicWorkflowParameterType(SecureObjectValue);
         /// <summary> Determines if two <see cref="LogicWorkflowParameterType"/> values are the same. </summary>
         public static bool operator ==(LogicWorkflowParameterType left, LogicWorkflowParameterType right) => left.Equals(right);

@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.Logic.Models
 {
@@ -56,7 +55,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="name"> Gets the resource name. </param>
         /// <param name="resourceType"> Gets the resource type. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal LogicResourceReference(ResourceIdentifier id, string name, ResourceType? resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal LogicResourceReference(string id, string name, string resourceType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             Name = name;
@@ -65,10 +64,10 @@ namespace Azure.ResourceManager.Logic.Models
         }
 
         /// <summary> The resource id. </summary>
-        public ResourceIdentifier Id { get; set; }
+        public string Id { get; set; }
         /// <summary> Gets the resource name. </summary>
         public string Name { get; }
         /// <summary> Gets the resource type. </summary>
-        public ResourceType? ResourceType { get; }
+        public string ResourceType { get; }
     }
 }

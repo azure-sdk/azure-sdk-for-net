@@ -40,14 +40,7 @@ namespace Azure.ResourceManager.Logic.Samples
 
             // invoke the operation
             string sessionName = "testsession123-ICN";
-            IntegrationAccountSessionData data = new IntegrationAccountSessionData(default)
-            {
-                Content = BinaryData.FromObjectAsJson(new
-                {
-                    controlNumber = "1234",
-                    controlNumberChangedTime = "2017-02-21T22:30:11.9923759Z",
-                }),
-            };
+            IntegrationAccountSessionData data = new IntegrationAccountSessionData(default);
             ArmOperation<IntegrationAccountSessionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, sessionName, data);
             IntegrationAccountSessionResource result = lro.Value;
 

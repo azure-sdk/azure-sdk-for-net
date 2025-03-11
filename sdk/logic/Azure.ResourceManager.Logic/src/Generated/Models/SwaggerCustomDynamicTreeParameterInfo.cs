@@ -48,6 +48,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="SwaggerCustomDynamicTreeParameterInfo"/>. </summary>
         public SwaggerCustomDynamicTreeParameterInfo()
         {
+            Value = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SwaggerCustomDynamicTreeParameterInfo"/>. </summary>
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="parameterReference"> The parameter reference. </param>
         /// <param name="isRequired"> Indicates whether the parameter is required. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SwaggerCustomDynamicTreeParameterInfo(string selectedItemValuePath, BinaryData value, string parameterReference, bool? isRequired, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SwaggerCustomDynamicTreeParameterInfo(string selectedItemValuePath, IDictionary<string, BinaryData> value, string parameterReference, bool? isRequired, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SelectedItemValuePath = selectedItemValuePath;
             Value = value;
@@ -70,7 +71,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary>
         /// The parameter value.
         /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -97,7 +98,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Value { get; set; }
+        public IDictionary<string, BinaryData> Value { get; }
         /// <summary> The parameter reference. </summary>
         public string ParameterReference { get; set; }
         /// <summary> Indicates whether the parameter is required. </summary>

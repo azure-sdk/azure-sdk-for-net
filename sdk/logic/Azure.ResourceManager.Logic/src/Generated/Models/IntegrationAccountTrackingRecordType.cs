@@ -24,8 +24,8 @@ namespace Azure.ResourceManager.Logic.Models
 
         private const string NotSpecifiedValue = "NotSpecified";
         private const string CustomValue = "Custom";
-        private const string AS2MessageValue = "AS2Message";
-        private const string AS2MdnValue = "AS2MDN";
+        private const string As2MessageValue = "As2Message";
+        private const string As2MdnValue = "As2MDN";
         private const string X12InterchangeValue = "X12Interchange";
         private const string X12FunctionalGroupValue = "X12FunctionalGroup";
         private const string X12TransactionSetValue = "X12TransactionSet";
@@ -39,37 +39,37 @@ namespace Azure.ResourceManager.Logic.Models
         private const string EdifactFunctionalGroupAcknowledgmentValue = "EdifactFunctionalGroupAcknowledgment";
         private const string EdifactTransactionSetAcknowledgmentValue = "EdifactTransactionSetAcknowledgment";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationAccountTrackingRecordType NotSpecified { get; } = new IntegrationAccountTrackingRecordType(NotSpecifiedValue);
-        /// <summary> Custom. </summary>
+        /// <summary> Represents a custom tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType Custom { get; } = new IntegrationAccountTrackingRecordType(CustomValue);
-        /// <summary> AS2Message. </summary>
-        public static IntegrationAccountTrackingRecordType AS2Message { get; } = new IntegrationAccountTrackingRecordType(AS2MessageValue);
-        /// <summary> AS2MDN. </summary>
-        public static IntegrationAccountTrackingRecordType AS2Mdn { get; } = new IntegrationAccountTrackingRecordType(AS2MdnValue);
-        /// <summary> X12Interchange. </summary>
+        /// <summary> Represents an AS2 message tracking record type. </summary>
+        public static IntegrationAccountTrackingRecordType As2Message { get; } = new IntegrationAccountTrackingRecordType(As2MessageValue);
+        /// <summary> Represents an AS2 MDN tracking record type. </summary>
+        public static IntegrationAccountTrackingRecordType As2Mdn { get; } = new IntegrationAccountTrackingRecordType(As2MdnValue);
+        /// <summary> Represents an X12 interchange tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType X12Interchange { get; } = new IntegrationAccountTrackingRecordType(X12InterchangeValue);
-        /// <summary> X12FunctionalGroup. </summary>
+        /// <summary> Represents an X12 functional group tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType X12FunctionalGroup { get; } = new IntegrationAccountTrackingRecordType(X12FunctionalGroupValue);
-        /// <summary> X12TransactionSet. </summary>
+        /// <summary> Represents an X12 transaction set tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType X12TransactionSet { get; } = new IntegrationAccountTrackingRecordType(X12TransactionSetValue);
-        /// <summary> X12InterchangeAcknowledgment. </summary>
+        /// <summary> Represents an X12 interchange acknowledgment tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType X12InterchangeAcknowledgment { get; } = new IntegrationAccountTrackingRecordType(X12InterchangeAcknowledgmentValue);
-        /// <summary> X12FunctionalGroupAcknowledgment. </summary>
+        /// <summary> Represents an X12 functional group acknowledgment tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType X12FunctionalGroupAcknowledgment { get; } = new IntegrationAccountTrackingRecordType(X12FunctionalGroupAcknowledgmentValue);
-        /// <summary> X12TransactionSetAcknowledgment. </summary>
+        /// <summary> Represents an X12 transaction set acknowledgment tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType X12TransactionSetAcknowledgment { get; } = new IntegrationAccountTrackingRecordType(X12TransactionSetAcknowledgmentValue);
-        /// <summary> EdifactInterchange. </summary>
+        /// <summary> Represents an Edifact interchange tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType EdifactInterchange { get; } = new IntegrationAccountTrackingRecordType(EdifactInterchangeValue);
-        /// <summary> EdifactFunctionalGroup. </summary>
+        /// <summary> Represents an Edifact functional group tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType EdifactFunctionalGroup { get; } = new IntegrationAccountTrackingRecordType(EdifactFunctionalGroupValue);
-        /// <summary> EdifactTransactionSet. </summary>
+        /// <summary> Represents an Edifact transaction set tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType EdifactTransactionSet { get; } = new IntegrationAccountTrackingRecordType(EdifactTransactionSetValue);
-        /// <summary> EdifactInterchangeAcknowledgment. </summary>
+        /// <summary> Represents an Edifact interchange acknowledgment tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType EdifactInterchangeAcknowledgment { get; } = new IntegrationAccountTrackingRecordType(EdifactInterchangeAcknowledgmentValue);
-        /// <summary> EdifactFunctionalGroupAcknowledgment. </summary>
+        /// <summary> Represents an Edifact functional group acknowledgment tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType EdifactFunctionalGroupAcknowledgment { get; } = new IntegrationAccountTrackingRecordType(EdifactFunctionalGroupAcknowledgmentValue);
-        /// <summary> EdifactTransactionSetAcknowledgment. </summary>
+        /// <summary> Represents an Edifact transaction set acknowledgment tracking record type. </summary>
         public static IntegrationAccountTrackingRecordType EdifactTransactionSetAcknowledgment { get; } = new IntegrationAccountTrackingRecordType(EdifactTransactionSetAcknowledgmentValue);
         /// <summary> Determines if two <see cref="IntegrationAccountTrackingRecordType"/> values are the same. </summary>
         public static bool operator ==(IntegrationAccountTrackingRecordType left, IntegrationAccountTrackingRecordType right) => left.Equals(right);

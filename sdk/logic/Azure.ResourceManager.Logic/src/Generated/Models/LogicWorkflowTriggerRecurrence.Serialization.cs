@@ -44,15 +44,15 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("interval"u8);
                 writer.WriteNumberValue(Interval.Value);
             }
-            if (Optional.IsDefined(StartOn))
+            if (Optional.IsDefined(StartTime))
             {
                 writer.WritePropertyName("startTime"u8);
-                writer.WriteStringValue(StartOn.Value, "O");
+                writer.WriteStringValue(StartTime);
             }
-            if (Optional.IsDefined(EndOn))
+            if (Optional.IsDefined(EndTime))
             {
                 writer.WritePropertyName("endTime"u8);
-                writer.WriteStringValue(EndOn.Value, "O");
+                writer.WriteStringValue(EndTime);
             }
             if (Optional.IsDefined(TimeZone))
             {
@@ -103,8 +103,8 @@ namespace Azure.ResourceManager.Logic.Models
             }
             LogicWorkflowRecurrenceFrequency? frequency = default;
             int? interval = default;
-            DateTimeOffset? startTime = default;
-            DateTimeOffset? endTime = default;
+            string startTime = default;
+            string endTime = default;
             string timeZone = default;
             LogicWorkflowRecurrenceSchedule schedule = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -131,20 +131,12 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 if (property.NameEquals("startTime"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    startTime = property.Value.GetDateTimeOffset("O");
+                    startTime = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("endTime"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    endTime = property.Value.GetDateTimeOffset("O");
+                    endTime = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("timeZone"u8))

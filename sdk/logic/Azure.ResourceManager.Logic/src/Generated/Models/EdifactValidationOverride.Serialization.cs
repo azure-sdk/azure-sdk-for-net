@@ -38,9 +38,9 @@ namespace Azure.ResourceManager.Logic.Models
             writer.WriteStringValue(MessageId);
             writer.WritePropertyName("enforceCharacterSet"u8);
             writer.WriteBooleanValue(EnforceCharacterSet);
-            writer.WritePropertyName("validateEDITypes"u8);
+            writer.WritePropertyName("validateEdiTypes"u8);
             writer.WriteBooleanValue(ValidateEdiTypes);
-            writer.WritePropertyName("validateXSDTypes"u8);
+            writer.WritePropertyName("validateXsdTypes"u8);
             writer.WriteBooleanValue(ValidateXsdTypes);
             writer.WritePropertyName("allowLeadingAndTrailingSpacesAndZeroes"u8);
             writer.WriteBooleanValue(AllowLeadingAndTrailingSpacesAndZeroes);
@@ -106,12 +106,12 @@ namespace Azure.ResourceManager.Logic.Models
                     enforceCharacterSet = property.Value.GetBoolean();
                     continue;
                 }
-                if (property.NameEquals("validateEDITypes"u8))
+                if (property.NameEquals("validateEdiTypes"u8))
                 {
                     validateEdiTypes = property.Value.GetBoolean();
                     continue;
                 }
-                if (property.NameEquals("validateXSDTypes"u8))
+                if (property.NameEquals("validateXsdTypes"u8))
                 {
                     validateXsdTypes = property.Value.GetBoolean();
                     continue;

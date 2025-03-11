@@ -95,14 +95,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountSessionResource integrationAccountSession = client.GetIntegrationAccountSessionResource(integrationAccountSessionResourceId);
 
             // invoke the operation
-            IntegrationAccountSessionData data = new IntegrationAccountSessionData(default)
-            {
-                Content = BinaryData.FromObjectAsJson(new
-                {
-                    controlNumber = "1234",
-                    controlNumberChangedTime = "2017-02-21T22:30:11.9923759Z",
-                }),
-            };
+            IntegrationAccountSessionData data = new IntegrationAccountSessionData(default);
             ArmOperation<IntegrationAccountSessionResource> lro = await integrationAccountSession.UpdateAsync(WaitUntil.Completed, data);
             IntegrationAccountSessionResource result = lro.Value;
 

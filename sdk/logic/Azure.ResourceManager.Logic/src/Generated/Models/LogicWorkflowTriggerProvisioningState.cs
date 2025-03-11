@@ -41,41 +41,41 @@ namespace Azure.ResourceManager.Logic.Models
         private const string UnregisteredValue = "Unregistered";
         private const string CompletedValue = "Completed";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicWorkflowTriggerProvisioningState NotSpecified { get; } = new LogicWorkflowTriggerProvisioningState(NotSpecifiedValue);
-        /// <summary> Accepted. </summary>
+        /// <summary> Represents a state where the workflow trigger is accepted. </summary>
         public static LogicWorkflowTriggerProvisioningState Accepted { get; } = new LogicWorkflowTriggerProvisioningState(AcceptedValue);
-        /// <summary> Running. </summary>
+        /// <summary> Represents a state where the workflow trigger is running. </summary>
         public static LogicWorkflowTriggerProvisioningState Running { get; } = new LogicWorkflowTriggerProvisioningState(RunningValue);
-        /// <summary> Ready. </summary>
+        /// <summary> Represents a state where the workflow trigger is ready. </summary>
         public static LogicWorkflowTriggerProvisioningState Ready { get; } = new LogicWorkflowTriggerProvisioningState(ReadyValue);
-        /// <summary> Creating. </summary>
+        /// <summary> Represents a state where the workflow trigger is creating. </summary>
         public static LogicWorkflowTriggerProvisioningState Creating { get; } = new LogicWorkflowTriggerProvisioningState(CreatingValue);
-        /// <summary> Created. </summary>
+        /// <summary> Represents a state where the workflow trigger is created. </summary>
         public static LogicWorkflowTriggerProvisioningState Created { get; } = new LogicWorkflowTriggerProvisioningState(CreatedValue);
-        /// <summary> Deleting. </summary>
+        /// <summary> Represents a state where the workflow trigger is deleting. </summary>
         public static LogicWorkflowTriggerProvisioningState Deleting { get; } = new LogicWorkflowTriggerProvisioningState(DeletingValue);
-        /// <summary> Deleted. </summary>
+        /// <summary> Represents a state where the workflow trigger is deleted. </summary>
         public static LogicWorkflowTriggerProvisioningState Deleted { get; } = new LogicWorkflowTriggerProvisioningState(DeletedValue);
-        /// <summary> Canceled. </summary>
+        /// <summary> Represents a state where the workflow trigger is canceled. </summary>
         public static LogicWorkflowTriggerProvisioningState Canceled { get; } = new LogicWorkflowTriggerProvisioningState(CanceledValue);
-        /// <summary> Failed. </summary>
+        /// <summary> Represents a state where the workflow trigger is failed. </summary>
         public static LogicWorkflowTriggerProvisioningState Failed { get; } = new LogicWorkflowTriggerProvisioningState(FailedValue);
-        /// <summary> Succeeded. </summary>
+        /// <summary> Represents a state where the workflow trigger is succeeded. </summary>
         public static LogicWorkflowTriggerProvisioningState Succeeded { get; } = new LogicWorkflowTriggerProvisioningState(SucceededValue);
-        /// <summary> Moving. </summary>
+        /// <summary> Represents a state where the workflow trigger is moving. </summary>
         public static LogicWorkflowTriggerProvisioningState Moving { get; } = new LogicWorkflowTriggerProvisioningState(MovingValue);
-        /// <summary> Updating. </summary>
+        /// <summary> Represents a state where the workflow trigger is updating. </summary>
         public static LogicWorkflowTriggerProvisioningState Updating { get; } = new LogicWorkflowTriggerProvisioningState(UpdatingValue);
-        /// <summary> Registering. </summary>
+        /// <summary> Represents a state where the workflow trigger is registering. </summary>
         public static LogicWorkflowTriggerProvisioningState Registering { get; } = new LogicWorkflowTriggerProvisioningState(RegisteringValue);
-        /// <summary> Registered. </summary>
+        /// <summary> Represents a state where the workflow trigger is registered. </summary>
         public static LogicWorkflowTriggerProvisioningState Registered { get; } = new LogicWorkflowTriggerProvisioningState(RegisteredValue);
-        /// <summary> Unregistering. </summary>
+        /// <summary> Represents a state where the workflow trigger is unregistering. </summary>
         public static LogicWorkflowTriggerProvisioningState Unregistering { get; } = new LogicWorkflowTriggerProvisioningState(UnregisteringValue);
-        /// <summary> Unregistered. </summary>
+        /// <summary> Represents a state where the workflow trigger is unregistered. </summary>
         public static LogicWorkflowTriggerProvisioningState Unregistered { get; } = new LogicWorkflowTriggerProvisioningState(UnregisteredValue);
-        /// <summary> Completed. </summary>
+        /// <summary> Represents a state where the workflow trigger is completed. </summary>
         public static LogicWorkflowTriggerProvisioningState Completed { get; } = new LogicWorkflowTriggerProvisioningState(CompletedValue);
         /// <summary> Determines if two <see cref="LogicWorkflowTriggerProvisioningState"/> values are the same. </summary>
         public static bool operator ==(LogicWorkflowTriggerProvisioningState left, LogicWorkflowTriggerProvisioningState right) => left.Equals(right);

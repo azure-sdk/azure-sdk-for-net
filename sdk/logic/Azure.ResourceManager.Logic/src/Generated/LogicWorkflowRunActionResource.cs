@@ -9,7 +9,6 @@ using System;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Logic.Models;
@@ -91,75 +90,6 @@ namespace Azure.ResourceManager.Logic
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of LogicWorkflowRunActionRepetitionResources in the LogicWorkflowRunAction. </summary>
-        /// <returns> An object representing collection of LogicWorkflowRunActionRepetitionResources and their operations over a LogicWorkflowRunActionRepetitionResource. </returns>
-        public virtual LogicWorkflowRunActionRepetitionCollection GetLogicWorkflowRunActionRepetitions()
-        {
-            return GetCachedClient(client => new LogicWorkflowRunActionRepetitionCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a workflow run action repetition.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions/{actionName}/repetitions/{repetitionName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkflowRunActionRepetitions_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowRunActionRepetitionResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<LogicWorkflowRunActionRepetitionResource>> GetLogicWorkflowRunActionRepetitionAsync(string repetitionName, CancellationToken cancellationToken = default)
-        {
-            return await GetLogicWorkflowRunActionRepetitions().GetAsync(repetitionName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a workflow run action repetition.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions/{actionName}/repetitions/{repetitionName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkflowRunActionRepetitions_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2019-05-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="LogicWorkflowRunActionRepetitionResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<LogicWorkflowRunActionRepetitionResource> GetLogicWorkflowRunActionRepetition(string repetitionName, CancellationToken cancellationToken = default)
-        {
-            return GetLogicWorkflowRunActionRepetitions().Get(repetitionName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of LogicWorkflowRunActionScopeRepetitionResources in the LogicWorkflowRunAction. </summary>
         /// <returns> An object representing collection of LogicWorkflowRunActionScopeRepetitionResources and their operations over a LogicWorkflowRunActionScopeRepetitionResource. </returns>
         public virtual LogicWorkflowRunActionScopeRepetitionCollection GetLogicWorkflowRunActionScopeRepetitions()
@@ -188,7 +118,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -219,7 +149,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="repetitionName"> The workflow repetition. </param>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -227,6 +157,75 @@ namespace Azure.ResourceManager.Logic
         public virtual Response<LogicWorkflowRunActionScopeRepetitionResource> GetLogicWorkflowRunActionScopeRepetition(string repetitionName, CancellationToken cancellationToken = default)
         {
             return GetLogicWorkflowRunActionScopeRepetitions().Get(repetitionName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of LogicWorkflowRunActionRepetitionResources in the LogicWorkflowRunAction. </summary>
+        /// <returns> An object representing collection of LogicWorkflowRunActionRepetitionResources and their operations over a LogicWorkflowRunActionRepetitionResource. </returns>
+        public virtual LogicWorkflowRunActionRepetitionCollection GetLogicWorkflowRunActionRepetitions()
+        {
+            return GetCachedClient(client => new LogicWorkflowRunActionRepetitionCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get a workflow run action repetition.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions/{actionName}/repetitions/{repetitionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowRunActionRepetitions_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="LogicWorkflowRunActionRepetitionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<LogicWorkflowRunActionRepetitionResource>> GetLogicWorkflowRunActionRepetitionAsync(string repetitionName, CancellationToken cancellationToken = default)
+        {
+            return await GetLogicWorkflowRunActionRepetitions().GetAsync(repetitionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a workflow run action repetition.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions/{actionName}/repetitions/{repetitionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowRunActionRepetitions_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2019-05-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="LogicWorkflowRunActionRepetitionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="repetitionName"> The name of the WorkflowRunActionRepetitionDefinition. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="repetitionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="repetitionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<LogicWorkflowRunActionRepetitionResource> GetLogicWorkflowRunActionRepetition(string repetitionName, CancellationToken cancellationToken = default)
+        {
+            return GetLogicWorkflowRunActionRepetitions().Get(repetitionName, cancellationToken);
         }
 
         /// <summary> Gets a collection of LogicWorkflowRunActionRequestHistoryResources in the LogicWorkflowRunAction. </summary>
@@ -257,7 +256,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="requestHistoryName"> The request history name. </param>
+        /// <param name="requestHistoryName"> The name of the RequestHistory. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="requestHistoryName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="requestHistoryName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -288,7 +287,7 @@ namespace Azure.ResourceManager.Logic
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="requestHistoryName"> The request history name. </param>
+        /// <param name="requestHistoryName"> The name of the RequestHistory. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="requestHistoryName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="requestHistoryName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -400,11 +399,20 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="LogicExpressionRoot"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<LogicExpressionRoot> GetExpressionTracesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ExpressionTraces>> GetExpressionTracesAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionWorkflowRunActionsRestClient.CreateListExpressionTracesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => LogicExpressionRoot.DeserializeLogicExpressionRoot(e), _logicWorkflowRunActionWorkflowRunActionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionResource.GetExpressionTraces", "inputs", null, cancellationToken);
+            using var scope = _logicWorkflowRunActionWorkflowRunActionsClientDiagnostics.CreateScope("LogicWorkflowRunActionResource.GetExpressionTraces");
+            scope.Start();
+            try
+            {
+                var response = await _logicWorkflowRunActionWorkflowRunActionsRestClient.ListExpressionTracesAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -429,11 +437,20 @@ namespace Azure.ResourceManager.Logic
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="LogicExpressionRoot"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<LogicExpressionRoot> GetExpressionTraces(CancellationToken cancellationToken = default)
+        public virtual Response<ExpressionTraces> GetExpressionTraces(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _logicWorkflowRunActionWorkflowRunActionsRestClient.CreateListExpressionTracesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => LogicExpressionRoot.DeserializeLogicExpressionRoot(e), _logicWorkflowRunActionWorkflowRunActionsClientDiagnostics, Pipeline, "LogicWorkflowRunActionResource.GetExpressionTraces", "inputs", null, cancellationToken);
+            using var scope = _logicWorkflowRunActionWorkflowRunActionsClientDiagnostics.CreateScope("LogicWorkflowRunActionResource.GetExpressionTraces");
+            scope.Start();
+            try
+            {
+                var response = _logicWorkflowRunActionWorkflowRunActionsRestClient.ListExpressionTraces(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
     }
 }

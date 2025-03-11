@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.Logic
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="LogicWorkflowTriggerData"/>. </summary>
-        internal LogicWorkflowTriggerData()
+        public LogicWorkflowTriggerData()
         {
         }
 

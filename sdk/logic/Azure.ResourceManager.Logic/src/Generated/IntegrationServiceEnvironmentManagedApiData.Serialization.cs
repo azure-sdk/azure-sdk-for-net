@@ -39,11 +39,6 @@ namespace Azure.ResourceManager.Logic
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(NamePropertiesName))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(NamePropertiesName);
-            }
             if (options.Format != "W" && Optional.IsCollectionDefined(ConnectionParameters))
             {
                 writer.WritePropertyName("connectionParameters"u8);
@@ -56,14 +51,25 @@ namespace Azure.ResourceManager.Logic
                         writer.WriteNullValue();
                         continue;
                     }
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
-#else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    writer.WriteStartObject();
+                    foreach (var item0 in item.Value)
                     {
-                        JsonSerializer.Serialize(writer, document.RootElement);
-                    }
+                        writer.WritePropertyName(item0.Key);
+                        if (item0.Value == null)
+                        {
+                            writer.WriteNullValue();
+                            continue;
+                        }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item0.Value);
+#else
+                        using (JsonDocument document = JsonDocument.Parse(item0.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                        {
+                            JsonSerializer.Serialize(writer, document.RootElement);
+                        }
 #endif
+                    }
+                    writer.WriteEndObject();
                 }
                 writer.WriteEndObject();
             }
@@ -171,8 +177,7 @@ namespace Azure.ResourceManager.Logic
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string name0 = default;
-            IReadOnlyDictionary<string, BinaryData> connectionParameters = default;
+            IReadOnlyDictionary<string, IDictionary<string, BinaryData>> connectionParameters = default;
             LogicApiResourceMetadata metadata = default;
             IReadOnlyList<Uri> runtimeUrls = default;
             LogicApiResourceGeneralInformation generalInformation = default;
@@ -241,18 +246,13 @@ namespace Azure.ResourceManager.Logic
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("name"u8))
-                        {
-                            name0 = property0.Value.GetString();
-                            continue;
-                        }
                         if (property0.NameEquals("connectionParameters"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            Dictionary<string, IDictionary<string, BinaryData>> dictionary = new Dictionary<string, IDictionary<string, BinaryData>>();
                             foreach (var property1 in property0.Value.EnumerateObject())
                             {
                                 if (property1.Value.ValueKind == JsonValueKind.Null)
@@ -261,7 +261,19 @@ namespace Azure.ResourceManager.Logic
                                 }
                                 else
                                 {
-                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                    Dictionary<string, BinaryData> dictionary0 = new Dictionary<string, BinaryData>();
+                                    foreach (var property2 in property1.Value.EnumerateObject())
+                                    {
+                                        if (property2.Value.ValueKind == JsonValueKind.Null)
+                                        {
+                                            dictionary0.Add(property2.Name, null);
+                                        }
+                                        else
+                                        {
+                                            dictionary0.Add(property2.Name, BinaryData.FromString(property2.Value.GetRawText()));
+                                        }
+                                    }
+                                    dictionary.Add(property1.Name, dictionary0);
                                 }
                             }
                             connectionParameters = dictionary;
@@ -408,8 +420,7 @@ namespace Azure.ResourceManager.Logic
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                name0,
-                connectionParameters ?? new ChangeTrackingDictionary<string, BinaryData>(),
+                connectionParameters ?? new ChangeTrackingDictionary<string, IDictionary<string, BinaryData>>(),
                 metadata,
                 runtimeUrls ?? new ChangeTrackingList<Uri>(),
                 generalInformation,

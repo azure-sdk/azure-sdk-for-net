@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The B2B partner content. </summary>
+    /// <summary> The B2b partner content. </summary>
     internal partial class B2BPartnerContent
     {
         /// <summary>

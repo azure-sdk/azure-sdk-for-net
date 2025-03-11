@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <summary> Initializes a new instance of <see cref="SwaggerCustomDynamicSchema"/>. </summary>
         public SwaggerCustomDynamicSchema()
         {
-            Parameters = new ChangeTrackingDictionary<string, BinaryData>();
+            Parameters = new ChangeTrackingDictionary<string, IDictionary<string, BinaryData>>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SwaggerCustomDynamicSchema"/>. </summary>
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Logic.Models
         /// <param name="valuePath"> Json pointer to the dynamic schema on the response body. </param>
         /// <param name="parameters"> The operation parameters. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SwaggerCustomDynamicSchema(string operationId, string valuePath, IDictionary<string, BinaryData> parameters, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SwaggerCustomDynamicSchema(string operationId, string valuePath, IDictionary<string, IDictionary<string, BinaryData>> parameters, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             OperationId = operationId;
             ValuePath = valuePath;
@@ -98,6 +98,6 @@ namespace Azure.ResourceManager.Logic.Models
         /// </list>
         /// </para>
         /// </summary>
-        public IDictionary<string, BinaryData> Parameters { get; }
+        public IDictionary<string, IDictionary<string, BinaryData>> Parameters { get; }
     }
 }

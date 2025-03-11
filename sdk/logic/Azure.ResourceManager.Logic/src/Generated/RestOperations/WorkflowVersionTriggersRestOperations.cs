@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.Logic
             uri.AppendPath(workflowName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(versionId, true);
-            uri.AppendPath("/triggers/", false);
+            uri.AppendPath("/", false);
             uri.AppendPath(triggerName, true);
             uri.AppendPath("/listCallbackUrl", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Logic
             uri.AppendPath(workflowName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(versionId, true);
-            uri.AppendPath("/triggers/", false);
+            uri.AppendPath("/", false);
             uri.AppendPath(triggerName, true);
             uri.AppendPath("/listCallbackUrl", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -88,8 +88,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the callback url for a trigger of a workflow version. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="versionId"> The workflow versionId. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>
@@ -122,8 +122,8 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the callback url for a trigger of a workflow version. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
-        /// <param name="resourceGroupName"> The resource group name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="versionId"> The workflow versionId. </param>
         /// <param name="triggerName"> The workflow trigger name. </param>

@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string ExternalValue = "External";
         private const string InternalValue = "Internal";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static IntegrationServiceEnvironmentAccessEndpointType NotSpecified { get; } = new IntegrationServiceEnvironmentAccessEndpointType(NotSpecifiedValue);
-        /// <summary> External. </summary>
+        /// <summary> Represents an external access endpoint type. </summary>
         public static IntegrationServiceEnvironmentAccessEndpointType External { get; } = new IntegrationServiceEnvironmentAccessEndpointType(ExternalValue);
-        /// <summary> Internal. </summary>
+        /// <summary> Represents an internal access endpoint type. </summary>
         public static IntegrationServiceEnvironmentAccessEndpointType Internal { get; } = new IntegrationServiceEnvironmentAccessEndpointType(InternalValue);
         /// <summary> Determines if two <see cref="IntegrationServiceEnvironmentAccessEndpointType"/> values are the same. </summary>
         public static bool operator ==(IntegrationServiceEnvironmentAccessEndpointType left, IntegrationServiceEnvironmentAccessEndpointType right) => left.Equals(right);

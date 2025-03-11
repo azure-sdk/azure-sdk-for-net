@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Logic.Models
             writer.WritePropertyName("segmentTerminator"u8);
             writer.WriteNumberValue(SegmentTerminator);
             writer.WritePropertyName("segmentTerminatorSuffix"u8);
-            writer.WriteStringValue(SegmentTerminatorSuffix.ToSerialString());
+            writer.WriteStringValue(SegmentTerminatorSuffix.ToString());
             writer.WritePropertyName("replaceCharacter"u8);
             writer.WriteNumberValue(ReplaceCharacter);
             writer.WritePropertyName("replaceSeparatorsInPayload"u8);
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 if (property.NameEquals("segmentTerminatorSuffix"u8))
                 {
-                    segmentTerminatorSuffix = property.Value.GetString().ToSegmentTerminatorSuffix();
+                    segmentTerminatorSuffix = new SegmentTerminatorSuffix(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("replaceCharacter"u8))

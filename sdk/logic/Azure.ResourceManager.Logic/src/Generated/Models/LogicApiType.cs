@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Logic.Models
 {
-    /// <summary> The LogicApiType. </summary>
+    /// <summary> The API type. </summary>
     public readonly partial struct LogicApiType : IEquatable<LogicApiType>
     {
         private readonly string _value;
@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string RestValue = "Rest";
         private const string SoapValue = "Soap";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicApiType NotSpecified { get; } = new LogicApiType(NotSpecifiedValue);
-        /// <summary> Rest. </summary>
+        /// <summary> Represents a REST API type. </summary>
         public static LogicApiType Rest { get; } = new LogicApiType(RestValue);
-        /// <summary> Soap. </summary>
+        /// <summary> Represents a SOAP API type. </summary>
         public static LogicApiType Soap { get; } = new LogicApiType(SoapValue);
         /// <summary> Determines if two <see cref="LogicApiType"/> values are the same. </summary>
         public static bool operator ==(LogicApiType left, LogicApiType right) => left.Equals(right);

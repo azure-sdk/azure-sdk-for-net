@@ -34,10 +34,10 @@ namespace Azure.ResourceManager.Logic.Models
                 throw new FormatException($"The model {nameof(FlowEndpointIPAddress)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(CidrAddress))
+            if (Optional.IsDefined(Address))
             {
                 writer.WritePropertyName("address"u8);
-                writer.WriteStringValue(CidrAddress);
+                writer.WriteStringValue(Address);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {

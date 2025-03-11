@@ -37,11 +37,6 @@ namespace Azure.ResourceManager.Logic
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(Properties))
-            {
-                writer.WritePropertyName("properties"u8);
-                writer.WriteObjectValue(Properties, options);
-            }
             if (Optional.IsDefined(Sku))
             {
                 writer.WritePropertyName("sku"u8);
@@ -50,8 +45,42 @@ namespace Azure.ResourceManager.Logic
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
+            {
+                writer.WritePropertyName("provisioningState"u8);
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
+            }
+            if (Optional.IsDefined(State))
+            {
+                writer.WritePropertyName("state"u8);
+                writer.WriteStringValue(State.Value.ToString());
+            }
+            if (Optional.IsDefined(IntegrationServiceEnvironmentId))
+            {
+                writer.WritePropertyName("integrationServiceEnvironmentId"u8);
+                writer.WriteStringValue(IntegrationServiceEnvironmentId);
+            }
+            if (Optional.IsDefined(EndpointsConfiguration))
+            {
+                writer.WritePropertyName("endpointsConfiguration"u8);
+                writer.WriteObjectValue(EndpointsConfiguration, options);
+            }
+            if (Optional.IsDefined(NetworkConfiguration))
+            {
+                writer.WritePropertyName("networkConfiguration"u8);
+                writer.WriteObjectValue(NetworkConfiguration, options);
+            }
+            if (Optional.IsDefined(EncryptionConfiguration))
+            {
+                writer.WritePropertyName("encryptionConfiguration"u8);
+                writer.WriteObjectValue(EncryptionConfiguration, options);
+            }
+            writer.WriteEndObject();
         }
 
         IntegrationServiceEnvironmentData IJsonModel<IntegrationServiceEnvironmentData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -74,7 +103,6 @@ namespace Azure.ResourceManager.Logic
             {
                 return null;
             }
-            IntegrationServiceEnvironmentProperties properties = default;
             IntegrationServiceEnvironmentSku sku = default;
             ManagedServiceIdentity identity = default;
             IDictionary<string, string> tags = default;
@@ -83,19 +111,16 @@ namespace Azure.ResourceManager.Logic
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            LogicWorkflowProvisioningState? provisioningState = default;
+            LogicWorkflowState? state = default;
+            string integrationServiceEnvironmentId = default;
+            FlowEndpointsConfiguration endpointsConfiguration = default;
+            IntegrationServiceNetworkConfiguration networkConfiguration = default;
+            IntegrationServiceEnvironmenEncryptionConfiguration encryptionConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    properties = IntegrationServiceEnvironmentProperties.DeserializeIntegrationServiceEnvironmentProperties(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("sku"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -111,7 +136,8 @@ namespace Azure.ResourceManager.Logic
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -157,6 +183,68 @@ namespace Azure.ResourceManager.Logic
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            provisioningState = new LogicWorkflowProvisioningState(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("state"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            state = new LogicWorkflowState(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("integrationServiceEnvironmentId"u8))
+                        {
+                            integrationServiceEnvironmentId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("endpointsConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            endpointsConfiguration = FlowEndpointsConfiguration.DeserializeFlowEndpointsConfiguration(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("networkConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            networkConfiguration = IntegrationServiceNetworkConfiguration.DeserializeIntegrationServiceNetworkConfiguration(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("encryptionConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            encryptionConfiguration = IntegrationServiceEnvironmenEncryptionConfiguration.DeserializeIntegrationServiceEnvironmenEncryptionConfiguration(property0.Value, options);
+                            continue;
+                        }
+                    }
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -170,9 +258,14 @@ namespace Azure.ResourceManager.Logic
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                properties,
                 sku,
                 identity,
+                provisioningState,
+                state,
+                integrationServiceEnvironmentId,
+                endpointsConfiguration,
+                networkConfiguration,
+                encryptionConfiguration,
                 serializedAdditionalRawData);
         }
 

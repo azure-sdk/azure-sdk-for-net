@@ -50,17 +50,28 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("iconUri"u8);
                 writer.WriteStringValue(IconUri.AbsoluteUri);
             }
-            if (Optional.IsDefined(Swagger))
+            if (Optional.IsCollectionDefined(Swagger))
             {
                 writer.WritePropertyName("swagger"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Swagger);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Swagger, ModelSerializationExtensions.JsonDocumentOptions))
+                writer.WriteStartObject();
+                foreach (var item in Swagger)
                 {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
 #endif
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsDefined(BrandColor))
             {
@@ -102,13 +113,13 @@ namespace Azure.ResourceManager.Logic.Models
             string displayName = default;
             string description = default;
             Uri iconUri = default;
-            BinaryData swagger = default;
+            IDictionary<string, BinaryData> swagger = default;
             string brandColor = default;
             LogicApiTier? category = default;
             LogicResourceReference integrationServiceEnvironment = default;
-            ResourceIdentifier id = default;
+            string id = default;
             string name = default;
-            ResourceType? type = default;
+            string type = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -138,7 +149,19 @@ namespace Azure.ResourceManager.Logic.Models
                     {
                         continue;
                     }
-                    swagger = BinaryData.FromString(property.Value.GetRawText());
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    swagger = dictionary;
                     continue;
                 }
                 if (property.NameEquals("brandColor"u8))
@@ -166,11 +189,7 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 if (property.NameEquals("id"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    id = new ResourceIdentifier(property.Value.GetString());
+                    id = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("name"u8))
@@ -180,11 +199,7 @@ namespace Azure.ResourceManager.Logic.Models
                 }
                 if (property.NameEquals("type"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    type = new ResourceType(property.Value.GetString());
+                    type = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -201,7 +216,7 @@ namespace Azure.ResourceManager.Logic.Models
                 displayName,
                 description,
                 iconUri,
-                swagger,
+                swagger ?? new ChangeTrackingDictionary<string, BinaryData>(),
                 brandColor,
                 category,
                 integrationServiceEnvironment);

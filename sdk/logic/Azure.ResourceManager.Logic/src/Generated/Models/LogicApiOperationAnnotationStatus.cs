@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Logic.Models
         private const string PreviewValue = "Preview";
         private const string ProductionValue = "Production";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicApiOperationAnnotationStatus NotSpecified { get; } = new LogicApiOperationAnnotationStatus(NotSpecifiedValue);
-        /// <summary> Preview. </summary>
+        /// <summary> Represents a preview status annotation. </summary>
         public static LogicApiOperationAnnotationStatus Preview { get; } = new LogicApiOperationAnnotationStatus(PreviewValue);
-        /// <summary> Production. </summary>
+        /// <summary> Represents a production status annotation. </summary>
         public static LogicApiOperationAnnotationStatus Production { get; } = new LogicApiOperationAnnotationStatus(ProductionValue);
         /// <summary> Determines if two <see cref="LogicApiOperationAnnotationStatus"/> values are the same. </summary>
         public static bool operator ==(LogicApiOperationAnnotationStatus left, LogicApiOperationAnnotationStatus right) => left.Equals(right);

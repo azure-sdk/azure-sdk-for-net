@@ -30,19 +30,19 @@ namespace Azure.ResourceManager.Logic.Models
         private const string Aes192Value = "AES192";
         private const string Aes256Value = "AES256";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static AS2EncryptionAlgorithm NotSpecified { get; } = new AS2EncryptionAlgorithm(NotSpecifiedValue);
-        /// <summary> None. </summary>
+        /// <summary> Represents no encryption algorithm. </summary>
         public static AS2EncryptionAlgorithm None { get; } = new AS2EncryptionAlgorithm(NoneValue);
-        /// <summary> DES3. </summary>
+        /// <summary> Represents the DES3 encryption algorithm. </summary>
         public static AS2EncryptionAlgorithm Des3 { get; } = new AS2EncryptionAlgorithm(Des3Value);
-        /// <summary> RC2. </summary>
+        /// <summary> Represents the RC2 encryption algorithm. </summary>
         public static AS2EncryptionAlgorithm RC2 { get; } = new AS2EncryptionAlgorithm(RC2Value);
-        /// <summary> AES128. </summary>
+        /// <summary> Represents the AES-128 encryption algorithm. </summary>
         public static AS2EncryptionAlgorithm Aes128 { get; } = new AS2EncryptionAlgorithm(Aes128Value);
-        /// <summary> AES192. </summary>
+        /// <summary> Represents the AES-192 encryption algorithm. </summary>
         public static AS2EncryptionAlgorithm Aes192 { get; } = new AS2EncryptionAlgorithm(Aes192Value);
-        /// <summary> AES256. </summary>
+        /// <summary> Represents the AES-256 encryption algorithm. </summary>
         public static AS2EncryptionAlgorithm Aes256 { get; } = new AS2EncryptionAlgorithm(Aes256Value);
         /// <summary> Determines if two <see cref="AS2EncryptionAlgorithm"/> values are the same. </summary>
         public static bool operator ==(AS2EncryptionAlgorithm left, AS2EncryptionAlgorithm right) => left.Equals(right);

@@ -34,6 +34,8 @@ namespace Azure.ResourceManager.Logic.Models
                 throw new FormatException($"The model {nameof(IntegrationAccountKeyVaultKeyReference)} does not support writing '{format}' format.");
             }
 
+            writer.WritePropertyName("keyVault"u8);
+            writer.WriteObjectValue(KeyVault, options);
             writer.WritePropertyName("keyName"u8);
             writer.WriteStringValue(KeyName);
             if (Optional.IsDefined(KeyVersion))
@@ -41,24 +43,6 @@ namespace Azure.ResourceManager.Logic.Models
                 writer.WritePropertyName("keyVersion"u8);
                 writer.WriteStringValue(KeyVersion);
             }
-            writer.WritePropertyName("keyVault"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ResourceId))
-            {
-                writer.WritePropertyName("id"u8);
-                writer.WriteStringValue(ResourceId);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ResourceName))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(ResourceName);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ResourceType))
-            {
-                writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(ResourceType.Value);
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -96,15 +80,18 @@ namespace Azure.ResourceManager.Logic.Models
             {
                 return null;
             }
+            KeyVaultKeyReferenceKeyVault keyVault = default;
             string keyName = default;
             string keyVersion = default;
-            ResourceIdentifier id = default;
-            string name = default;
-            ResourceType? type = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("keyVault"u8))
+                {
+                    keyVault = KeyVaultKeyReferenceKeyVault.DeserializeKeyVaultKeyReferenceKeyVault(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("keyName"u8))
                 {
                     keyName = property.Value.GetString();
@@ -115,54 +102,13 @@ namespace Azure.ResourceManager.Logic.Models
                     keyVersion = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("keyVault"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("id"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            id = new ResourceIdentifier(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("name"u8))
-                        {
-                            name = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("type"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            type = new ResourceType(property0.Value.GetString());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new IntegrationAccountKeyVaultKeyReference(
-                keyName,
-                keyVersion,
-                id,
-                name,
-                type,
-                serializedAdditionalRawData);
+            return new IntegrationAccountKeyVaultKeyReference(keyVault, keyName, keyVersion, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<IntegrationAccountKeyVaultKeyReference>.Write(ModelReaderWriterOptions options)

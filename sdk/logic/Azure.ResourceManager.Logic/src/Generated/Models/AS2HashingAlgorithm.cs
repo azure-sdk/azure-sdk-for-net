@@ -30,19 +30,19 @@ namespace Azure.ResourceManager.Logic.Models
         private const string Sha2384Value = "SHA2384";
         private const string Sha2512Value = "SHA2512";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static AS2HashingAlgorithm NotSpecified { get; } = new AS2HashingAlgorithm(NotSpecifiedValue);
-        /// <summary> None. </summary>
+        /// <summary> Represents no hashing algorithm. </summary>
         public static AS2HashingAlgorithm None { get; } = new AS2HashingAlgorithm(NoneValue);
-        /// <summary> MD5. </summary>
+        /// <summary> Represents the MD5 hashing algorithm. </summary>
         public static AS2HashingAlgorithm MD5 { get; } = new AS2HashingAlgorithm(MD5Value);
-        /// <summary> SHA1. </summary>
+        /// <summary> Represents the SHA1 hashing algorithm. </summary>
         public static AS2HashingAlgorithm Sha1 { get; } = new AS2HashingAlgorithm(Sha1Value);
-        /// <summary> SHA2256. </summary>
+        /// <summary> Represents the SHA2-256 hashing algorithm. </summary>
         public static AS2HashingAlgorithm Sha2256 { get; } = new AS2HashingAlgorithm(Sha2256Value);
-        /// <summary> SHA2384. </summary>
+        /// <summary> Represents the SHA2-384 hashing algorithm. </summary>
         public static AS2HashingAlgorithm Sha2384 { get; } = new AS2HashingAlgorithm(Sha2384Value);
-        /// <summary> SHA2512. </summary>
+        /// <summary> Represents the SHA2-512 hashing algorithm. </summary>
         public static AS2HashingAlgorithm Sha2512 { get; } = new AS2HashingAlgorithm(Sha2512Value);
         /// <summary> Determines if two <see cref="AS2HashingAlgorithm"/> values are the same. </summary>
         public static bool operator ==(AS2HashingAlgorithm left, AS2HashingAlgorithm right) => left.Equals(right);

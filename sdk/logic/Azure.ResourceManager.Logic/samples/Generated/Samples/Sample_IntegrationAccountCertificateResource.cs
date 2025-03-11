@@ -9,7 +9,6 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.Logic.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Logic.Samples
@@ -96,15 +95,7 @@ namespace Azure.ResourceManager.Logic.Samples
             IntegrationAccountCertificateResource integrationAccountCertificate = client.GetIntegrationAccountCertificateResource(integrationAccountCertificateResourceId);
 
             // invoke the operation
-            IntegrationAccountCertificateData data = new IntegrationAccountCertificateData(new AzureLocation("brazilsouth"))
-            {
-                Key = new IntegrationAccountKeyVaultKeyReference("<keyName>")
-                {
-                    KeyVersion = "87d9764197604449b9b8eb7bd8710868",
-                    ResourceId = new ResourceIdentifier("/subscriptions/34adfa4f-cedf-4dc0-ba29-b6d1a69ab345/resourcegroups/testResourceGroup/providers/microsoft.keyvault/vaults/<keyVaultName>"),
-                },
-                PublicCertificate = BinaryData.FromObjectAsJson("<publicCertificateValue>"),
-            };
+            IntegrationAccountCertificateData data = new IntegrationAccountCertificateData(default);
             ArmOperation<IntegrationAccountCertificateResource> lro = await integrationAccountCertificate.UpdateAsync(WaitUntil.Completed, data);
             IntegrationAccountCertificateResource result = lro.Value;
 

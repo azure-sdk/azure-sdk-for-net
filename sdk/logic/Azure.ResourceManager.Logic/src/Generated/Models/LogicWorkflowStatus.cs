@@ -36,31 +36,31 @@ namespace Azure.ResourceManager.Logic.Models
         private const string AbortedValue = "Aborted";
         private const string IgnoredValue = "Ignored";
 
-        /// <summary> NotSpecified. </summary>
+        /// <summary> Represents a state where the value is not specified. </summary>
         public static LogicWorkflowStatus NotSpecified { get; } = new LogicWorkflowStatus(NotSpecifiedValue);
-        /// <summary> Paused. </summary>
+        /// <summary> Represents a paused workflow status. </summary>
         public static LogicWorkflowStatus Paused { get; } = new LogicWorkflowStatus(PausedValue);
-        /// <summary> Running. </summary>
+        /// <summary> Represents a running workflow status. </summary>
         public static LogicWorkflowStatus Running { get; } = new LogicWorkflowStatus(RunningValue);
-        /// <summary> Waiting. </summary>
+        /// <summary> Represents a waiting workflow status. </summary>
         public static LogicWorkflowStatus Waiting { get; } = new LogicWorkflowStatus(WaitingValue);
-        /// <summary> Succeeded. </summary>
+        /// <summary> Represents a succeeded workflow status. </summary>
         public static LogicWorkflowStatus Succeeded { get; } = new LogicWorkflowStatus(SucceededValue);
-        /// <summary> Skipped. </summary>
+        /// <summary> Represents a skipped workflow status. </summary>
         public static LogicWorkflowStatus Skipped { get; } = new LogicWorkflowStatus(SkippedValue);
-        /// <summary> Suspended. </summary>
+        /// <summary> Represents a suspended workflow status. </summary>
         public static LogicWorkflowStatus Suspended { get; } = new LogicWorkflowStatus(SuspendedValue);
-        /// <summary> Cancelled. </summary>
+        /// <summary> Represents a cancelled workflow status. </summary>
         public static LogicWorkflowStatus Cancelled { get; } = new LogicWorkflowStatus(CancelledValue);
-        /// <summary> Failed. </summary>
+        /// <summary> Represents a failed workflow status. </summary>
         public static LogicWorkflowStatus Failed { get; } = new LogicWorkflowStatus(FailedValue);
-        /// <summary> Faulted. </summary>
+        /// <summary> Represents a faulted workflow status. </summary>
         public static LogicWorkflowStatus Faulted { get; } = new LogicWorkflowStatus(FaultedValue);
-        /// <summary> TimedOut. </summary>
+        /// <summary> Represents a timed out workflow status. </summary>
         public static LogicWorkflowStatus TimedOut { get; } = new LogicWorkflowStatus(TimedOutValue);
-        /// <summary> Aborted. </summary>
+        /// <summary> Represents an aborted workflow status. </summary>
         public static LogicWorkflowStatus Aborted { get; } = new LogicWorkflowStatus(AbortedValue);
-        /// <summary> Ignored. </summary>
+        /// <summary> Represents an ignored workflow status. </summary>
         public static LogicWorkflowStatus Ignored { get; } = new LogicWorkflowStatus(IgnoredValue);
         /// <summary> Determines if two <see cref="LogicWorkflowStatus"/> values are the same. </summary>
         public static bool operator ==(LogicWorkflowStatus left, LogicWorkflowStatus right) => left.Equals(right);
