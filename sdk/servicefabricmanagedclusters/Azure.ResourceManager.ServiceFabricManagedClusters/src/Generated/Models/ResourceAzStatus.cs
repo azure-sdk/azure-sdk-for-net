@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 {
@@ -57,7 +56,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <param name="isZoneResilient"> VM Size name. </param>
         /// <param name="details"> Zone resiliency status details for the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ResourceAzStatus(string resourceName, ResourceType? resourceType, bool? isZoneResilient, string details, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ResourceAzStatus(string resourceName, string resourceType, bool? isZoneResilient, string details, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceName = resourceName;
             ResourceType = resourceType;
@@ -69,7 +68,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <summary> VM Size properties. </summary>
         public string ResourceName { get; }
         /// <summary> VM Size id. </summary>
-        public ResourceType? ResourceType { get; }
+        public string ResourceType { get; }
         /// <summary> VM Size name. </summary>
         public bool? IsZoneResilient { get; }
         /// <summary> Zone resiliency status details for the resource. </summary>

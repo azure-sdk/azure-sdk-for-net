@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             if (Optional.IsDefined(AppPackageUri))
             {
                 writer.WritePropertyName("appPackageUrl"u8);
-                writer.WriteStringValue(AppPackageUri.AbsoluteUri);
+                writer.WriteStringValue(AppPackageUri);
             }
             writer.WriteEndObject();
         }
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             ResourceType type = default;
             SystemData systemData = default;
             string provisioningState = default;
-            Uri appPackageUrl = default;
+            string appPackageUrl = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -142,11 +142,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         }
                         if (property0.NameEquals("appPackageUrl"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            appPackageUrl = new Uri(property0.Value.GetString());
+                            appPackageUrl = property0.Value.GetString();
                             continue;
                         }
                     }

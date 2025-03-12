@@ -25,14 +25,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// <summary> Initializes a new instance of NodeTypeSkusRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
-        /// <param name="endpoint"> server parameter. </param>
-        /// <param name="apiVersion"> Api Version. </param>
+        /// <param name="endpoint"> Service host. </param>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
         public NodeTypeSkusRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-09-01-preview";
+            _apiVersion = apiVersion ?? "2024-11-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -77,8 +77,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary> Get a Service Fabric node type supported SKUs. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
         /// <param name="nodeTypeName"> The name of the node type. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -108,8 +108,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary> Get a Service Fabric node type supported SKUs. </summary>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
         /// <param name="nodeTypeName"> The name of the node type. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -162,8 +162,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
 
         /// <summary> Get a Service Fabric node type supported SKUs. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
         /// <param name="nodeTypeName"> The name of the node type. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -195,8 +195,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
 
         /// <summary> Get a Service Fabric node type supported SKUs. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The customer subscription identifier. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
         /// <param name="nodeTypeName"> The name of the node type. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <param name="clusterApplication"> Azure active directory cluster application id. </param>
         /// <param name="clientApplication"> Azure active directory client application id. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedClusterAzureActiveDirectory(Guid? tenantId, string clusterApplication, string clientApplication, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterAzureActiveDirectory(string tenantId, string clusterApplication, string clientApplication, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             TenantId = tenantId;
             ClusterApplication = clusterApplication;
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         }
 
         /// <summary> Azure active directory tenant id. </summary>
-        public Guid? TenantId { get; set; }
+        public string TenantId { get; set; }
         /// <summary> Azure active directory cluster application id. </summary>
         public string ClusterApplication { get; set; }
         /// <summary> Azure active directory client application id. </summary>

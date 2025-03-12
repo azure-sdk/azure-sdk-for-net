@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 {
@@ -52,11 +51,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="NodeTypeAvailableSku"/>. </summary>
-        /// <param name="resourceType"> The type of resource the sku applies to.  &lt;br /&gt;&lt;br /&gt;Value: Microsoft.ServiceFabric/managedClusters/nodeTypes. </param>
+        /// <param name="resourceType"> The type of resource the sku applies to. Value: Microsoft.ServiceFabric/managedClusters/nodeTypes. </param>
         /// <param name="sku"> The supported SKU for a for node type. </param>
         /// <param name="capacity"> Provides information about how the node count can be scaled. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NodeTypeAvailableSku(ResourceType? resourceType, NodeTypeSupportedSku sku, NodeTypeSkuCapacity capacity, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal NodeTypeAvailableSku(string resourceType, NodeTypeSupportedSku sku, NodeTypeSkuCapacity capacity, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceType = resourceType;
             Sku = sku;
@@ -64,8 +63,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The type of resource the sku applies to.  &lt;br /&gt;&lt;br /&gt;Value: Microsoft.ServiceFabric/managedClusters/nodeTypes. </summary>
-        public ResourceType? ResourceType { get; }
+        /// <summary> The type of resource the sku applies to. Value: Microsoft.ServiceFabric/managedClusters/nodeTypes. </summary>
+        public string ResourceType { get; }
         /// <summary> The supported SKU for a for node type. </summary>
         public NodeTypeSupportedSku Sku { get; }
         /// <summary> Provides information about how the node count can be scaled. </summary>

@@ -51,10 +51,10 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 writer.WritePropertyName("privateLinkServiceNetworkPolicies"u8);
                 writer.WriteStringValue(PrivateLinkServiceNetworkPolicies.Value.ToString());
             }
-            if (Optional.IsDefined(NetworkSecurityGroupId))
+            if (Optional.IsDefined(ArmId))
             {
                 writer.WritePropertyName("networkSecurityGroupId"u8);
-                writer.WriteStringValue(NetworkSecurityGroupId);
+                writer.WriteStringValue(ArmId);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             bool? enableIPv6 = default;
             ManagedClusterSubnetPrivateEndpointNetworkPoliciesState? privateEndpointNetworkPolicies = default;
             ManagedClusterSubnetPrivateLinkServiceNetworkPoliciesState? privateLinkServiceNetworkPolicies = default;
-            ResourceIdentifier networkSecurityGroupId = default;
+            string networkSecurityGroupId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -136,11 +136,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 }
                 if (property.NameEquals("networkSecurityGroupId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null || property.Value.ValueKind == JsonValueKind.String && property.Value.GetString().Length == 0)
-                    {
-                        continue;
-                    }
-                    networkSecurityGroupId = new ResourceIdentifier(property.Value.GetString());
+                    networkSecurityGroupId = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")

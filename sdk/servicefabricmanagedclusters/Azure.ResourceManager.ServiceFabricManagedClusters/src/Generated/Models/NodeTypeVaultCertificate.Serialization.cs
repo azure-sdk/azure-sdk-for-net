@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             }
 
             writer.WritePropertyName("certificateUrl"u8);
-            writer.WriteStringValue(CertificateUri.AbsoluteUri);
+            writer.WriteStringValue(CertificateUri);
             writer.WritePropertyName("certificateStore"u8);
             writer.WriteStringValue(CertificateStore);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 return null;
             }
-            Uri certificateUrl = default;
+            string certificateUrl = default;
             string certificateStore = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 if (property.NameEquals("certificateUrl"u8))
                 {
-                    certificateUrl = new Uri(property.Value.GetString());
+                    certificateUrl = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("certificateStore"u8))

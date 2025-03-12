@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.ServiceFabricManagedClusters.Models;
@@ -17,7 +16,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
     /// <summary>
     /// A class representing the ServiceFabricManagedCluster data model.
     /// The managed cluster resource
-    ///
     /// </summary>
     public partial class ServiceFabricManagedClusterData : TrackedResourceData
     {
@@ -61,8 +59,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         {
             Argument.AssertNotNull(sku, nameof(sku));
 
-            Sku = sku;
-            ClusterCertificateThumbprints = new ChangeTrackingList<BinaryData>();
+            Any = new ChangeTrackingList<string>();
             LoadBalancingRules = new ChangeTrackingList<ManagedClusterLoadBalancingRule>();
             NetworkSecurityRules = new ChangeTrackingList<ServiceFabricManagedNetworkSecurityRule>();
             Clients = new ChangeTrackingList<ManagedClusterClientCertificate>();
@@ -71,6 +68,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             IPTags = new ChangeTrackingList<ManagedClusterIPTag>();
             AuxiliarySubnets = new ChangeTrackingList<ManagedClusterSubnet>();
             ServiceEndpoints = new ChangeTrackingList<ManagedClusterServiceEndpoint>();
+            Sku = sku;
         }
 
         /// <summary> Initializes a new instance of <see cref="ServiceFabricManagedClusterData"/>. </summary>
@@ -80,13 +78,12 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="sku"> The sku of the managed cluster. </param>
         /// <param name="dnsName"> The cluster dns name. </param>
         /// <param name="fqdn"> The fully qualified domain name associated with the public load balancer of the cluster. </param>
         /// <param name="ipv4Address"> The IPv4 address associated with the public load balancer of the cluster. </param>
-        /// <param name="clusterId"> A service generated unique identifier for the cluster resource. </param>
+        /// <param name="uuid"> A service generated unique identifier for the cluster resource. </param>
         /// <param name="clusterState"> The current state of the cluster. </param>
-        /// <param name="clusterCertificateThumbprints"> List of thumbprints of the cluster certificates. </param>
+        /// <param name="any"> List of thumbprints of the cluster certificates. </param>
         /// <param name="clientConnectionPort"> The port used for client connections to the cluster. </param>
         /// <param name="httpGatewayConnectionPort"> The port used for HTTP connections to the cluster. </param>
         /// <param name="adminUserName"> VM admin user name. </param>
@@ -99,10 +96,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// <param name="fabricSettings"> The list of custom fabric settings to configure the cluster. </param>
         /// <param name="provisioningState"> The provisioning state of the managed cluster resource. </param>
         /// <param name="clusterCodeVersion"> The Service Fabric runtime version of the cluster. This property is required when **clusterUpgradeMode** is set to 'Manual'. To get list of available Service Fabric versions for new clusters use [ClusterVersion API](./ClusterVersion.md). To get the list of available version for existing clusters use **availableClusterVersions**. </param>
-        /// <param name="clusterUpgradeMode">
-        /// The upgrade mode of the cluster when new Service Fabric runtime version is available.
-        ///
-        /// </param>
+        /// <param name="clusterUpgradeMode"> The upgrade mode of the cluster when new Service Fabric runtime version is available. </param>
         /// <param name="clusterUpgradeCadence"> Indicates when new cluster runtime version upgrades will be applied after they are released. By default is Wave0. Only applies when **clusterUpgradeMode** is set to 'Automatic'. </param>
         /// <param name="addOnFeatures"> List of add-on features to enable on the cluster. </param>
         /// <param name="isAutoOSUpgradeEnabled"> Enables automatic OS upgrade for node types created using OS images with version 'latest'. The default value for this setting is false. </param>
@@ -125,17 +119,17 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// <param name="isHttpGatewayExclusiveAuthModeEnabled"> If true, token-based authentication is not allowed on the HttpGatewayEndpoint. This is required to support TLS versions 1.3 and above. If token-based authentication is used, HttpGatewayTokenAuthConnectionPort must be defined. </param>
         /// <param name="autoGeneratedDomainNameLabelScope"> This property is the entry point to using a public CA cert for your cluster cert. It specifies the level of reuse allowed for the custom FQDN created, matching the subject of the public CA cert. </param>
         /// <param name="allocatedOutboundPorts"> The number of outbound ports allocated for SNAT for each node in the backend pool of the default load balancer. The default value is 0 which provides dynamic port allocation based on pool size. </param>
-        /// <param name="etag"> Azure resource etag. </param>
+        /// <param name="etag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",. </param>
+        /// <param name="sku"> The sku of the managed cluster. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceFabricManagedClusterData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ServiceFabricManagedClustersSku sku, string dnsName, string fqdn, IPAddress ipv4Address, Guid? clusterId, ServiceFabricManagedClusterState? clusterState, IReadOnlyList<BinaryData> clusterCertificateThumbprints, int? clientConnectionPort, int? httpGatewayConnectionPort, string adminUserName, string adminPassword, IList<ManagedClusterLoadBalancingRule> loadBalancingRules, bool? isRdpAccessAllowed, IList<ServiceFabricManagedNetworkSecurityRule> networkSecurityRules, IList<ManagedClusterClientCertificate> clients, ManagedClusterAzureActiveDirectory azureActiveDirectory, IList<ClusterFabricSettingsSection> fabricSettings, ServiceFabricManagedResourceProvisioningState? provisioningState, string clusterCodeVersion, ManagedClusterUpgradeMode? clusterUpgradeMode, ManagedClusterUpgradeCadence? clusterUpgradeCadence, IList<ManagedClusterAddOnFeature> addOnFeatures, bool? isAutoOSUpgradeEnabled, bool? hasZoneResiliency, ApplicationTypeVersionsCleanupPolicy applicationTypeVersionsCleanupPolicy, bool? isIPv6Enabled, string subnetId, IList<ManagedClusterIPTag> ipTags, IPAddress ipv6Address, bool? isServicePublicIPEnabled, IList<ManagedClusterSubnet> auxiliarySubnets, IList<ManagedClusterServiceEndpoint> serviceEndpoints, ZonalUpdateMode? zonalUpdateMode, bool? useCustomVnet, ResourceIdentifier publicIPPrefixId, ResourceIdentifier publicIPv6PrefixId, ResourceIdentifier ddosProtectionPlanId, ManagedClusterUpgradePolicy upgradeDescription, int? httpGatewayTokenAuthConnectionPort, bool? isHttpGatewayExclusiveAuthModeEnabled, AutoGeneratedDomainNameLabelScope? autoGeneratedDomainNameLabelScope, int? allocatedOutboundPorts, ETag? etag, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ServiceFabricManagedClusterData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string dnsName, string fqdn, string ipv4Address, string uuid, ServiceFabricManagedClusterState? clusterState, IReadOnlyList<string> any, int? clientConnectionPort, int? httpGatewayConnectionPort, string adminUserName, string adminPassword, IList<ManagedClusterLoadBalancingRule> loadBalancingRules, bool? isRdpAccessAllowed, IList<ServiceFabricManagedNetworkSecurityRule> networkSecurityRules, IList<ManagedClusterClientCertificate> clients, ManagedClusterAzureActiveDirectory azureActiveDirectory, IList<ClusterFabricSettingsSection> fabricSettings, ServiceFabricManagedResourceProvisioningState? provisioningState, string clusterCodeVersion, ManagedClusterUpgradeMode? clusterUpgradeMode, ManagedClusterUpgradeCadence? clusterUpgradeCadence, IList<ManagedClusterAddOnFeature> addOnFeatures, bool? isAutoOSUpgradeEnabled, bool? hasZoneResiliency, ApplicationTypeVersionsCleanupPolicy applicationTypeVersionsCleanupPolicy, bool? isIPv6Enabled, string subnetId, IList<ManagedClusterIPTag> ipTags, string ipv6Address, bool? isServicePublicIPEnabled, IList<ManagedClusterSubnet> auxiliarySubnets, IList<ManagedClusterServiceEndpoint> serviceEndpoints, ZonalUpdateMode? zonalUpdateMode, bool? useCustomVnet, ResourceIdentifier publicIPPrefixId, ResourceIdentifier publicIPv6PrefixId, ResourceIdentifier ddosProtectionPlanId, ManagedClusterUpgradePolicy upgradeDescription, int? httpGatewayTokenAuthConnectionPort, bool? isHttpGatewayExclusiveAuthModeEnabled, AutoGeneratedDomainNameLabelScope? autoGeneratedDomainNameLabelScope, int? allocatedOutboundPorts, string etag, ServiceFabricManagedClustersSku sku, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Sku = sku;
             DnsName = dnsName;
             Fqdn = fqdn;
             IPv4Address = ipv4Address;
-            ClusterId = clusterId;
+            Uuid = uuid;
             ClusterState = clusterState;
-            ClusterCertificateThumbprints = clusterCertificateThumbprints;
+            Any = any;
             ClientConnectionPort = clientConnectionPort;
             HttpGatewayConnectionPort = httpGatewayConnectionPort;
             AdminUserName = adminUserName;
@@ -172,6 +166,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             AutoGeneratedDomainNameLabelScope = autoGeneratedDomainNameLabelScope;
             AllocatedOutboundPorts = allocatedOutboundPorts;
             ETag = etag;
+            Sku = sku;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -180,59 +175,18 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         {
         }
 
-        /// <summary> The sku of the managed cluster. </summary>
-        internal ServiceFabricManagedClustersSku Sku { get; set; }
-        /// <summary> Sku Name. </summary>
-        public ServiceFabricManagedClustersSkuName? SkuName
-        {
-            get => Sku is null ? default(ServiceFabricManagedClustersSkuName?) : Sku.Name;
-            set
-            {
-                Sku = value.HasValue ? new ServiceFabricManagedClustersSku(value.Value) : null;
-            }
-        }
-
         /// <summary> The cluster dns name. </summary>
         public string DnsName { get; set; }
         /// <summary> The fully qualified domain name associated with the public load balancer of the cluster. </summary>
         public string Fqdn { get; }
         /// <summary> The IPv4 address associated with the public load balancer of the cluster. </summary>
-        public IPAddress IPv4Address { get; }
+        public string IPv4Address { get; }
         /// <summary> A service generated unique identifier for the cluster resource. </summary>
-        public Guid? ClusterId { get; }
+        public string Uuid { get; }
         /// <summary> The current state of the cluster. </summary>
         public ServiceFabricManagedClusterState? ClusterState { get; }
-        /// <summary>
-        /// List of thumbprints of the cluster certificates.
-        /// <para>
-        /// To assign an object to the element of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        public IReadOnlyList<BinaryData> ClusterCertificateThumbprints { get; }
+        /// <summary> List of thumbprints of the cluster certificates. </summary>
+        public IReadOnlyList<string> Any { get; }
         /// <summary> The port used for client connections to the cluster. </summary>
         public int? ClientConnectionPort { get; set; }
         /// <summary> The port used for HTTP connections to the cluster. </summary>
@@ -257,10 +211,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         public ServiceFabricManagedResourceProvisioningState? ProvisioningState { get; }
         /// <summary> The Service Fabric runtime version of the cluster. This property is required when **clusterUpgradeMode** is set to 'Manual'. To get list of available Service Fabric versions for new clusters use [ClusterVersion API](./ClusterVersion.md). To get the list of available version for existing clusters use **availableClusterVersions**. </summary>
         public string ClusterCodeVersion { get; set; }
-        /// <summary>
-        /// The upgrade mode of the cluster when new Service Fabric runtime version is available.
-        ///
-        /// </summary>
+        /// <summary> The upgrade mode of the cluster when new Service Fabric runtime version is available. </summary>
         public ManagedClusterUpgradeMode? ClusterUpgradeMode { get; set; }
         /// <summary> Indicates when new cluster runtime version upgrades will be applied after they are released. By default is Wave0. Only applies when **clusterUpgradeMode** is set to 'Automatic'. </summary>
         public ManagedClusterUpgradeCadence? ClusterUpgradeCadence { get; set; }
@@ -289,7 +240,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// <summary> The list of IP tags associated with the default public IP address of the cluster. </summary>
         public IList<ManagedClusterIPTag> IPTags { get; }
         /// <summary> IPv6 address for the cluster if IPv6 is enabled. </summary>
-        public IPAddress IPv6Address { get; }
+        public string IPv6Address { get; }
         /// <summary> Setting this to true will link the IPv4 address as the ServicePublicIP of the IPv6 address. It can only be set to True if IPv6 is enabled on the cluster. </summary>
         public bool? IsServicePublicIPEnabled { get; set; }
         /// <summary> Auxiliary subnets for the cluster. </summary>
@@ -316,7 +267,18 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         public AutoGeneratedDomainNameLabelScope? AutoGeneratedDomainNameLabelScope { get; set; }
         /// <summary> The number of outbound ports allocated for SNAT for each node in the backend pool of the default load balancer. The default value is 0 which provides dynamic port allocation based on pool size. </summary>
         public int? AllocatedOutboundPorts { get; set; }
-        /// <summary> Azure resource etag. </summary>
-        public ETag? ETag { get; }
+        /// <summary> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields.",. </summary>
+        public string ETag { get; }
+        /// <summary> The sku of the managed cluster. </summary>
+        internal ServiceFabricManagedClustersSku Sku { get; set; }
+        /// <summary> Sku Name. </summary>
+        public ServiceFabricManagedClustersSkuName? SkuName
+        {
+            get => Sku is null ? default(ServiceFabricManagedClustersSkuName?) : Sku.Name;
+            set
+            {
+                Sku = value.HasValue ? new ServiceFabricManagedClustersSku(value.Value) : null;
+            }
+        }
     }
 }

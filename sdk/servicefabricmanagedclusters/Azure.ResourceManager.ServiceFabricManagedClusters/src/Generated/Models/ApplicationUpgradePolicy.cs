@@ -51,10 +51,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ApplicationUpgradePolicy"/>. </summary>
-        /// <param name="applicationHealthPolicy">
-        /// Defines a health policy used to evaluate the health of an application or one of its children entities.
-        ///
-        /// </param>
+        /// <param name="applicationHealthPolicy"> Defines a health policy used to evaluate the health of an application or one of its children entities. </param>
         /// <param name="forceRestart"> If true, then processes are forcefully restarted during upgrade even when the code version has not changed (the upgrade only changes configuration or data). </param>
         /// <param name="rollingUpgradeMonitoringPolicy"> The policy used for monitoring the application upgrade. </param>
         /// <param name="instanceCloseDelayDurationInSeconds"> Duration in seconds, to wait before a stateless instance is closed, to allow the active requests to drain gracefully. This would be effective when the instance is closing during the application/cluster upgrade, only for those instances which have a non-zero delay duration configured in the service description. </param>
@@ -74,10 +71,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary>
-        /// Defines a health policy used to evaluate the health of an application or one of its children entities.
-        ///
-        /// </summary>
+        /// <summary> Defines a health policy used to evaluate the health of an application or one of its children entities. </summary>
         public ApplicationHealthPolicy ApplicationHealthPolicy { get; set; }
         /// <summary> If true, then processes are forcefully restarted during upgrade even when the code version has not changed (the upgrade only changes configuration or data). </summary>
         public bool? ForceRestart { get; set; }

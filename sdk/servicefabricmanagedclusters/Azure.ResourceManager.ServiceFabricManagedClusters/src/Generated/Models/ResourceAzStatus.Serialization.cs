@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             if (options.Format != "W" && Optional.IsDefined(ResourceType))
             {
                 writer.WritePropertyName("resourceType"u8);
-                writer.WriteStringValue(ResourceType.Value);
+                writer.WriteStringValue(ResourceType);
             }
             if (options.Format != "W" && Optional.IsDefined(IsZoneResilient))
             {
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 return null;
             }
             string resourceName = default;
-            ResourceType? resourceType = default;
+            string resourceType = default;
             bool? isZoneResilient = default;
             string details = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -106,11 +106,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 }
                 if (property.NameEquals("resourceType"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    resourceType = new ResourceType(property.Value.GetString());
+                    resourceType = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("isZoneResilient"u8))
