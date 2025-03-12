@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             if (Optional.IsDefined(TenantId))
             {
                 writer.WritePropertyName("tenantId"u8);
-                writer.WriteStringValue(TenantId.Value);
+                writer.WriteStringValue(TenantId);
             }
             if (Optional.IsDefined(ClusterApplication))
             {
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 return null;
             }
-            Guid? tenantId = default;
+            string tenantId = default;
             string clusterApplication = default;
             string clientApplication = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -95,11 +95,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 if (property.NameEquals("tenantId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    tenantId = property.Value.GetGuid();
+                    tenantId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("clusterApplication"u8))

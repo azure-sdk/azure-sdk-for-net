@@ -37,11 +37,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(Sku))
-            {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku, options);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -52,6 +47,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                     writer.WriteStringValue(item.Value);
                 }
                 writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku, options);
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
@@ -390,8 +390,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             {
                 return null;
             }
-            NodeTypeSku sku = default;
             IDictionary<string, string> tags = default;
+            NodeTypeSku sku = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -450,15 +450,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sku"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sku = NodeTypeSku.DeserializeNodeTypeSku(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -471,6 +462,15 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         dictionary.Add(property0.Name, property0.Value.GetString());
                     }
                     tags = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("sku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sku = NodeTypeSku.DeserializeNodeTypeSku(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("id"u8))
@@ -822,7 +822,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         }
                         if (property0.NameEquals("vmImageResourceId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null || property0.Value.ValueKind == JsonValueKind.String && property0.Value.GetString().Length == 0)
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
@@ -831,7 +831,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         }
                         if (property0.NameEquals("subnetId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null || property0.Value.ValueKind == JsonValueKind.String && property0.Value.GetString().Length == 0)
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
@@ -890,7 +890,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         }
                         if (property0.NameEquals("vmSharedGalleryImageId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null || property0.Value.ValueKind == JsonValueKind.String && property0.Value.GetString().Length == 0)
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
@@ -899,7 +899,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         }
                         if (property0.NameEquals("natGatewayId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null || property0.Value.ValueKind == JsonValueKind.String && property0.Value.GetString().Length == 0)
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
@@ -931,7 +931,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         }
                         if (property0.NameEquals("serviceArtifactReferenceId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null || property0.Value.ValueKind == JsonValueKind.String && property0.Value.GetString().Length == 0)
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
@@ -940,7 +940,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                         }
                         if (property0.NameEquals("dscpConfigurationId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null || property0.Value.ValueKind == JsonValueKind.String && property0.Value.GetString().Length == 0)
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
@@ -994,7 +994,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 name,
                 type,
                 systemData,
-                sku,
                 isPrimary,
                 vmInstanceCount,
                 dataDiskSizeGB,
@@ -1046,6 +1045,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 computerNamePrefix,
                 vmApplications ?? new ChangeTrackingList<ServiceFabricManagedVmApplication>(),
                 tags ?? new ChangeTrackingDictionary<string, string>(),
+                sku,
                 serializedAdditionalRawData);
         }
 

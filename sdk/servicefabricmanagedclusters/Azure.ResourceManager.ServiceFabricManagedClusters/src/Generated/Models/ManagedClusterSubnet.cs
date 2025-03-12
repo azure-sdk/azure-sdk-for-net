@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 {
@@ -61,15 +60,15 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <param name="isIPv6Enabled"> Indicates wether to enable Ipv6 or not. If not provided, it will take the same configuration as the cluster. </param>
         /// <param name="privateEndpointNetworkPolicies"> Enable or Disable apply network policies on private end point in the subnet. </param>
         /// <param name="privateLinkServiceNetworkPolicies"> Enable or Disable apply network policies on private link service in the subnet. </param>
-        /// <param name="networkSecurityGroupId"> Full resource id for the network security group. </param>
+        /// <param name="armId"> Full resource id for the network security group. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedClusterSubnet(string name, bool? isIPv6Enabled, ManagedClusterSubnetPrivateEndpointNetworkPoliciesState? privateEndpointNetworkPolicies, ManagedClusterSubnetPrivateLinkServiceNetworkPoliciesState? privateLinkServiceNetworkPolicies, ResourceIdentifier networkSecurityGroupId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterSubnet(string name, bool? isIPv6Enabled, ManagedClusterSubnetPrivateEndpointNetworkPoliciesState? privateEndpointNetworkPolicies, ManagedClusterSubnetPrivateLinkServiceNetworkPoliciesState? privateLinkServiceNetworkPolicies, string armId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             IsIPv6Enabled = isIPv6Enabled;
             PrivateEndpointNetworkPolicies = privateEndpointNetworkPolicies;
             PrivateLinkServiceNetworkPolicies = privateLinkServiceNetworkPolicies;
-            NetworkSecurityGroupId = networkSecurityGroupId;
+            ArmId = armId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -87,6 +86,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <summary> Enable or Disable apply network policies on private link service in the subnet. </summary>
         public ManagedClusterSubnetPrivateLinkServiceNetworkPoliciesState? PrivateLinkServiceNetworkPolicies { get; set; }
         /// <summary> Full resource id for the network security group. </summary>
-        public ResourceIdentifier NetworkSecurityGroupId { get; set; }
+        public string ArmId { get; set; }
     }
 }

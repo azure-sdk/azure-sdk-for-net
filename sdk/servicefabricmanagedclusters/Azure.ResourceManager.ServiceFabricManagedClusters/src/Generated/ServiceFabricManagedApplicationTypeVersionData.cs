@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// <param name="provisioningState"> The current deployment or provisioning state, which only appears in the response. </param>
         /// <param name="appPackageUri"> The URL to the application package. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceFabricManagedApplicationTypeVersionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string provisioningState, Uri appPackageUri, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ServiceFabricManagedApplicationTypeVersionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string provisioningState, string appPackageUri, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             ProvisioningState = provisioningState;
             AppPackageUri = appPackageUri;
@@ -81,6 +81,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// <summary> The current deployment or provisioning state, which only appears in the response. </summary>
         public string ProvisioningState { get; }
         /// <summary> The URL to the application package. </summary>
-        public Uri AppPackageUri { get; set; }
+        public string AppPackageUri { get; set; }
     }
 }

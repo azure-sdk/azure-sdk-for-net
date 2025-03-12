@@ -35,6 +35,18 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="ServiceFabricManagedApplicationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ServiceFabricManagedApplicationResource.CreateResourceIdentifier" /> to create a <see cref="ServiceFabricManagedApplicationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ServiceFabricManagedApplicationResource"/> object. </returns>
+        public virtual ServiceFabricManagedApplicationResource GetServiceFabricManagedApplicationResource(ResourceIdentifier id)
+        {
+            ServiceFabricManagedApplicationResource.ValidateResourceId(id);
+            return new ServiceFabricManagedApplicationResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ServiceFabricManagedApplicationTypeResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ServiceFabricManagedApplicationTypeResource.CreateResourceIdentifier" /> to create a <see cref="ServiceFabricManagedApplicationTypeResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -59,18 +71,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="ServiceFabricManagedApplicationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ServiceFabricManagedApplicationResource.CreateResourceIdentifier" /> to create a <see cref="ServiceFabricManagedApplicationResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ServiceFabricManagedApplicationResource"/> object. </returns>
-        public virtual ServiceFabricManagedApplicationResource GetServiceFabricManagedApplicationResource(ResourceIdentifier id)
-        {
-            ServiceFabricManagedApplicationResource.ValidateResourceId(id);
-            return new ServiceFabricManagedApplicationResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="ServiceFabricManagedServiceResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ServiceFabricManagedServiceResource.CreateResourceIdentifier" /> to create a <see cref="ServiceFabricManagedServiceResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -80,6 +80,42 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Mocking
         {
             ServiceFabricManagedServiceResource.ValidateResourceId(id);
             return new ServiceFabricManagedServiceResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="LocationManagedClusterVersionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LocationManagedClusterVersionResource.CreateResourceIdentifier" /> to create a <see cref="LocationManagedClusterVersionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="LocationManagedClusterVersionResource"/> object. </returns>
+        public virtual LocationManagedClusterVersionResource GetLocationManagedClusterVersionResource(ResourceIdentifier id)
+        {
+            LocationManagedClusterVersionResource.ValidateResourceId(id);
+            return new LocationManagedClusterVersionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="LocationEnvironmentManagedClusterVersionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LocationEnvironmentManagedClusterVersionResource.CreateResourceIdentifier" /> to create a <see cref="LocationEnvironmentManagedClusterVersionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="LocationEnvironmentManagedClusterVersionResource"/> object. </returns>
+        public virtual LocationEnvironmentManagedClusterVersionResource GetLocationEnvironmentManagedClusterVersionResource(ResourceIdentifier id)
+        {
+            LocationEnvironmentManagedClusterVersionResource.ValidateResourceId(id);
+            return new LocationEnvironmentManagedClusterVersionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ServiceFabricManagedUnsupportedVmSizeResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ServiceFabricManagedUnsupportedVmSizeResource.CreateResourceIdentifier" /> to create a <see cref="ServiceFabricManagedUnsupportedVmSizeResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ServiceFabricManagedUnsupportedVmSizeResource"/> object. </returns>
+        public virtual ServiceFabricManagedUnsupportedVmSizeResource GetServiceFabricManagedUnsupportedVmSizeResource(ResourceIdentifier id)
+        {
+            ServiceFabricManagedUnsupportedVmSizeResource.ValidateResourceId(id);
+            return new ServiceFabricManagedUnsupportedVmSizeResource(Client, id);
         }
 
         /// <summary>
