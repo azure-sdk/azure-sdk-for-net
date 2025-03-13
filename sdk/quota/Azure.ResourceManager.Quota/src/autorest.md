@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Quota
 namespace: Azure.ResourceManager.Quota
-require: https://github.com/Azure/azure-rest-api-specs/blob/8abab3c9c1ff7c4f9d393c2ddb00e5f735289b37/specification/quota/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/quota/resource-manager/readme.md
 #tag: package-2025-03-01
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
