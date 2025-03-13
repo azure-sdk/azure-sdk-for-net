@@ -38,6 +38,11 @@ namespace Azure.AI.Language.Conversations.Models
             writer.WriteStringValue(ProjectName);
             writer.WritePropertyName("deploymentName"u8);
             writer.WriteStringValue(DeploymentName);
+            if (Optional.IsDefined(StringIndexType))
+            {
+                writer.WritePropertyName("stringIndexType"u8);
+                writer.WriteStringValue(StringIndexType.Value.ToString());
+            }
             if (Optional.IsDefined(Verbose))
             {
                 writer.WritePropertyName("verbose"u8);
@@ -47,11 +52,6 @@ namespace Azure.AI.Language.Conversations.Models
             {
                 writer.WritePropertyName("isLoggingEnabled"u8);
                 writer.WriteBooleanValue(IsLoggingEnabled.Value);
-            }
-            if (Optional.IsDefined(StringIndexType))
-            {
-                writer.WritePropertyName("stringIndexType"u8);
-                writer.WriteStringValue(StringIndexType.Value.ToString());
             }
             if (Optional.IsDefined(DirectTarget))
             {
@@ -108,9 +108,9 @@ namespace Azure.AI.Language.Conversations.Models
             }
             string projectName = default;
             string deploymentName = default;
+            StringIndexType? stringIndexType = default;
             bool? verbose = default;
             bool? isLoggingEnabled = default;
-            StringIndexType? stringIndexType = default;
             string directTarget = default;
             IDictionary<string, AnalysisConfig> targetProjectParameters = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -125,6 +125,15 @@ namespace Azure.AI.Language.Conversations.Models
                 if (property.NameEquals("deploymentName"u8))
                 {
                     deploymentName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("stringIndexType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    stringIndexType = new StringIndexType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("verbose"u8))
@@ -143,15 +152,6 @@ namespace Azure.AI.Language.Conversations.Models
                         continue;
                     }
                     isLoggingEnabled = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("stringIndexType"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    stringIndexType = new StringIndexType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("directTarget"u8))
@@ -182,9 +182,9 @@ namespace Azure.AI.Language.Conversations.Models
             return new ConversationLanguageUnderstandingActionContent(
                 projectName,
                 deploymentName,
+                stringIndexType,
                 verbose,
                 isLoggingEnabled,
-                stringIndexType,
                 directTarget,
                 targetProjectParameters ?? new ChangeTrackingDictionary<string, AnalysisConfig>(),
                 serializedAdditionalRawData);

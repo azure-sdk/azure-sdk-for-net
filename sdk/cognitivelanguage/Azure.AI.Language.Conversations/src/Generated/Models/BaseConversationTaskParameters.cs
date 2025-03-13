@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Language.Conversations.Models
 {
-    /// <summary> Input parameters necessary for a Conversation task. </summary>
-    public partial class ConversationLanguageUnderstandingActionContent
+    /// <summary> The BaseConversationTaskParameters. </summary>
+    public partial class BaseConversationTaskParameters
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,47 +45,34 @@ namespace Azure.AI.Language.Conversations.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ConversationLanguageUnderstandingActionContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="BaseConversationTaskParameters"/>. </summary>
         /// <param name="projectName"> The name of the project to use. </param>
         /// <param name="deploymentName"> The name of the deployment to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is null. </exception>
-        public ConversationLanguageUnderstandingActionContent(string projectName, string deploymentName)
+        public BaseConversationTaskParameters(string projectName, string deploymentName)
         {
             Argument.AssertNotNull(projectName, nameof(projectName));
             Argument.AssertNotNull(deploymentName, nameof(deploymentName));
 
             ProjectName = projectName;
             DeploymentName = deploymentName;
-            TargetProjectParameters = new ChangeTrackingDictionary<string, AnalysisConfig>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ConversationLanguageUnderstandingActionContent"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="BaseConversationTaskParameters"/>. </summary>
         /// <param name="projectName"> The name of the project to use. </param>
         /// <param name="deploymentName"> The name of the deployment to use. </param>
         /// <param name="stringIndexType"> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </param>
-        /// <param name="verbose"> If true, the service will return more detailed information in the response. </param>
-        /// <param name="isLoggingEnabled"> If true, the service will keep the query for further review. </param>
-        /// <param name="directTarget"> The name of a target project to forward the request to. </param>
-        /// <param name="targetProjectParameters">
-        /// A dictionary representing the parameters for each target project.
-        /// Please note <see cref="AnalysisConfig"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ConversationConfig"/>, <see cref="LuisConfig"/> and <see cref="QuestionAnsweringConfig"/>.
-        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ConversationLanguageUnderstandingActionContent(string projectName, string deploymentName, StringIndexType? stringIndexType, bool? verbose, bool? isLoggingEnabled, string directTarget, IDictionary<string, AnalysisConfig> targetProjectParameters, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BaseConversationTaskParameters(string projectName, string deploymentName, StringIndexType? stringIndexType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProjectName = projectName;
             DeploymentName = deploymentName;
             StringIndexType = stringIndexType;
-            Verbose = verbose;
-            IsLoggingEnabled = isLoggingEnabled;
-            DirectTarget = directTarget;
-            TargetProjectParameters = targetProjectParameters;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ConversationLanguageUnderstandingActionContent"/> for deserialization. </summary>
-        internal ConversationLanguageUnderstandingActionContent()
+        /// <summary> Initializes a new instance of <see cref="BaseConversationTaskParameters"/> for deserialization. </summary>
+        internal BaseConversationTaskParameters()
         {
         }
 
@@ -95,17 +82,5 @@ namespace Azure.AI.Language.Conversations.Models
         public string DeploymentName { get; }
         /// <summary> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </summary>
         public StringIndexType? StringIndexType { get; set; }
-        /// <summary> If true, the service will return more detailed information in the response. </summary>
-        public bool? Verbose { get; set; }
-        /// <summary> If true, the service will keep the query for further review. </summary>
-        public bool? IsLoggingEnabled { get; set; }
-        /// <summary> The name of a target project to forward the request to. </summary>
-        public string DirectTarget { get; set; }
-        /// <summary>
-        /// A dictionary representing the parameters for each target project.
-        /// Please note <see cref="AnalysisConfig"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ConversationConfig"/>, <see cref="LuisConfig"/> and <see cref="QuestionAnsweringConfig"/>.
-        /// </summary>
-        public IDictionary<string, AnalysisConfig> TargetProjectParameters { get; }
     }
 }
