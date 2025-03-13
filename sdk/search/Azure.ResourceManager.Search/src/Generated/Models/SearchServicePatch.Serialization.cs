@@ -60,11 +60,6 @@ namespace Azure.ResourceManager.Search.Models
                 writer.WritePropertyName("partitionCount"u8);
                 writer.WriteNumberValue(PartitionCount.Value);
             }
-            if (Optional.IsDefined(Endpoint))
-            {
-                writer.WritePropertyName("endpoint"u8);
-                writer.WriteStringValue(Endpoint.AbsoluteUri);
-            }
             if (Optional.IsDefined(HostingMode))
             {
                 writer.WritePropertyName("hostingMode"u8);
@@ -78,7 +73,7 @@ namespace Azure.ResourceManager.Search.Models
             if (Optional.IsDefined(PublicInternetAccess))
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteStringValue(PublicInternetAccess.Value.ToString());
+                writer.WriteStringValue(PublicInternetAccess.Value.ToSerialString());
             }
             if (options.Format != "W" && Optional.IsDefined(Status))
             {
@@ -99,16 +94,6 @@ namespace Azure.ResourceManager.Search.Models
             {
                 writer.WritePropertyName("networkRuleSet"u8);
                 writer.WriteObjectValue(NetworkRuleSet, options);
-            }
-            if (Optional.IsCollectionDefined(DisabledDataExfiltrationOptions))
-            {
-                writer.WritePropertyName("disabledDataExfiltrationOptions"u8);
-                writer.WriteStartArray();
-                foreach (var item in DisabledDataExfiltrationOptions)
-                {
-                    writer.WriteStringValue(item.ToString());
-                }
-                writer.WriteEndArray();
             }
             if (Optional.IsDefined(EncryptionWithCmk))
             {
@@ -132,6 +117,16 @@ namespace Azure.ResourceManager.Search.Models
                 writer.WritePropertyName("authOptions"u8);
                 writer.WriteObjectValue(AuthOptions, options);
             }
+            if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
+            {
+                writer.WritePropertyName("privateEndpointConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateEndpointConnections)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(SemanticSearch))
             {
                 if (SemanticSearch != null)
@@ -144,16 +139,6 @@ namespace Azure.ResourceManager.Search.Models
                     writer.WriteNull("semanticSearch");
                 }
             }
-            if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
-            {
-                writer.WritePropertyName("privateEndpointConnections"u8);
-                writer.WriteStartArray();
-                foreach (var item in PrivateEndpointConnections)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
             if (options.Format != "W" && Optional.IsCollectionDefined(SharedPrivateLinkResources))
             {
                 writer.WritePropertyName("sharedPrivateLinkResources"u8);
@@ -163,11 +148,6 @@ namespace Azure.ResourceManager.Search.Models
                     writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
-            }
-            if (options.Format != "W" && Optional.IsDefined(ETag))
-            {
-                writer.WritePropertyName("eTag"u8);
-                writer.WriteStringValue(ETag.Value.ToString());
             }
             if (options.Format != "W" && Optional.IsDefined(IsUpgradeAvailable))
             {
@@ -212,7 +192,6 @@ namespace Azure.ResourceManager.Search.Models
             SystemData systemData = default;
             int? replicaCount = default;
             int? partitionCount = default;
-            Uri endpoint = default;
             SearchServiceHostingMode? hostingMode = default;
             SearchServiceComputeType? computeType = default;
             SearchServicePublicInternetAccess? publicNetworkAccess = default;
@@ -220,14 +199,12 @@ namespace Azure.ResourceManager.Search.Models
             string statusDetails = default;
             SearchServiceProvisioningState? provisioningState = default;
             SearchServiceNetworkRuleSet networkRuleSet = default;
-            IList<SearchDisabledDataExfiltrationOption> disabledDataExfiltrationOptions = default;
             SearchEncryptionWithCmk encryptionWithCmk = default;
             bool? disableLocalAuth = default;
             SearchAadAuthDataPlaneAuthOptions authOptions = default;
-            SearchSemanticSearch? semanticSearch = default;
             IReadOnlyList<SearchPrivateEndpointConnectionData> privateEndpointConnections = default;
+            SearchSemanticSearch? semanticSearch = default;
             IReadOnlyList<SharedSearchServicePrivateLinkResourceData> sharedPrivateLinkResources = default;
-            ETag? eTag = default;
             bool? upgradeAvailable = default;
             DateTimeOffset? serviceUpgradeDate = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -322,15 +299,6 @@ namespace Azure.ResourceManager.Search.Models
                             partitionCount = property0.Value.GetInt32();
                             continue;
                         }
-                        if (property0.NameEquals("endpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            endpoint = new Uri(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("hostingMode"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -355,7 +323,7 @@ namespace Azure.ResourceManager.Search.Models
                             {
                                 continue;
                             }
-                            publicNetworkAccess = new SearchServicePublicInternetAccess(property0.Value.GetString());
+                            publicNetworkAccess = property0.Value.GetString().ToSearchServicePublicInternetAccess();
                             continue;
                         }
                         if (property0.NameEquals("status"u8))
@@ -390,20 +358,6 @@ namespace Azure.ResourceManager.Search.Models
                             networkRuleSet = SearchServiceNetworkRuleSet.DeserializeSearchServiceNetworkRuleSet(property0.Value, options);
                             continue;
                         }
-                        if (property0.NameEquals("disabledDataExfiltrationOptions"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<SearchDisabledDataExfiltrationOption> array = new List<SearchDisabledDataExfiltrationOption>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(new SearchDisabledDataExfiltrationOption(item.GetString()));
-                            }
-                            disabledDataExfiltrationOptions = array;
-                            continue;
-                        }
                         if (property0.NameEquals("encryptionWithCmk"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -432,16 +386,6 @@ namespace Azure.ResourceManager.Search.Models
                             authOptions = SearchAadAuthDataPlaneAuthOptions.DeserializeSearchAadAuthDataPlaneAuthOptions(property0.Value, options);
                             continue;
                         }
-                        if (property0.NameEquals("semanticSearch"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                semanticSearch = null;
-                                continue;
-                            }
-                            semanticSearch = new SearchSemanticSearch(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("privateEndpointConnections"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -456,6 +400,16 @@ namespace Azure.ResourceManager.Search.Models
                             privateEndpointConnections = array;
                             continue;
                         }
+                        if (property0.NameEquals("semanticSearch"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                semanticSearch = null;
+                                continue;
+                            }
+                            semanticSearch = new SearchSemanticSearch(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("sharedPrivateLinkResources"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -468,15 +422,6 @@ namespace Azure.ResourceManager.Search.Models
                                 array.Add(SharedSearchServicePrivateLinkResourceData.DeserializeSharedSearchServicePrivateLinkResourceData(item, options));
                             }
                             sharedPrivateLinkResources = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("eTag"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            eTag = new ETag(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("upgradeAvailable"u8))
@@ -517,7 +462,6 @@ namespace Azure.ResourceManager.Search.Models
                 identity,
                 replicaCount,
                 partitionCount,
-                endpoint,
                 hostingMode,
                 computeType,
                 publicNetworkAccess,
@@ -525,14 +469,12 @@ namespace Azure.ResourceManager.Search.Models
                 statusDetails,
                 provisioningState,
                 networkRuleSet,
-                disabledDataExfiltrationOptions ?? new ChangeTrackingList<SearchDisabledDataExfiltrationOption>(),
                 encryptionWithCmk,
                 disableLocalAuth,
                 authOptions,
-                semanticSearch,
                 privateEndpointConnections ?? new ChangeTrackingList<SearchPrivateEndpointConnectionData>(),
+                semanticSearch,
                 sharedPrivateLinkResources ?? new ChangeTrackingList<SharedSearchServicePrivateLinkResourceData>(),
-                eTag,
                 upgradeAvailable,
                 serviceUpgradeDate,
                 serializedAdditionalRawData);
@@ -716,21 +658,6 @@ namespace Azure.ResourceManager.Search.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Endpoint), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    endpoint: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(Endpoint))
-                {
-                    builder.Append("    endpoint: ");
-                    builder.AppendLine($"'{Endpoint.AbsoluteUri}'");
-                }
-            }
-
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(HostingMode), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -772,7 +699,7 @@ namespace Azure.ResourceManager.Search.Models
                 if (Optional.IsDefined(PublicInternetAccess))
                 {
                     builder.Append("    publicNetworkAccess: ");
-                    builder.AppendLine($"'{PublicInternetAccess.Value.ToString()}'");
+                    builder.AppendLine($"'{PublicInternetAccess.Value.ToSerialString()}'");
                 }
             }
 
@@ -829,11 +756,16 @@ namespace Azure.ResourceManager.Search.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(NetworkRuleSet), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("IPRules", out propertyOverride);
             if (hasPropertyOverride)
             {
                 builder.Append("    networkRuleSet: ");
+                builder.AppendLine("{");
+                builder.AppendLine("      networkRuleSet: {");
+                builder.Append("        ipRules: ");
                 builder.AppendLine(propertyOverride);
+                builder.AppendLine("      }");
+                builder.AppendLine("    }");
             }
             else
             {
@@ -841,29 +773,6 @@ namespace Azure.ResourceManager.Search.Models
                 {
                     builder.Append("    networkRuleSet: ");
                     BicepSerializationHelpers.AppendChildObject(builder, NetworkRuleSet, options, 4, false, "    networkRuleSet: ");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DisabledDataExfiltrationOptions), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    disabledDataExfiltrationOptions: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsCollectionDefined(DisabledDataExfiltrationOptions))
-                {
-                    if (DisabledDataExfiltrationOptions.Any())
-                    {
-                        builder.Append("    disabledDataExfiltrationOptions: ");
-                        builder.AppendLine("[");
-                        foreach (var item in DisabledDataExfiltrationOptions)
-                        {
-                            builder.AppendLine($"      '{item.ToString()}'");
-                        }
-                        builder.AppendLine("    ]");
-                    }
                 }
             }
 
@@ -913,21 +822,6 @@ namespace Azure.ResourceManager.Search.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SemanticSearch), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    semanticSearch: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(SemanticSearch))
-                {
-                    builder.Append("    semanticSearch: ");
-                    builder.AppendLine($"'{SemanticSearch.Value.ToString()}'");
-                }
-            }
-
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PrivateEndpointConnections), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -951,6 +845,21 @@ namespace Azure.ResourceManager.Search.Models
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SemanticSearch), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    semanticSearch: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(SemanticSearch))
+                {
+                    builder.Append("    semanticSearch: ");
+                    builder.AppendLine($"'{SemanticSearch.Value.ToString()}'");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SharedPrivateLinkResources), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -971,21 +880,6 @@ namespace Azure.ResourceManager.Search.Models
                         }
                         builder.AppendLine("    ]");
                     }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ETag), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    eTag: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(ETag))
-                {
-                    builder.Append("    eTag: ");
-                    builder.AppendLine($"'{ETag.Value.ToString()}'");
                 }
             }
 
