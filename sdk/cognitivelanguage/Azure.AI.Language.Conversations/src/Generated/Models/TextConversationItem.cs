@@ -64,18 +64,18 @@ namespace Azure.AI.Language.Conversations.Models
         /// <summary> Initializes a new instance of <see cref="TextConversationItem"/>. </summary>
         /// <param name="id"> The ID of a conversation item. </param>
         /// <param name="participantId"> The participant ID of a conversation item. </param>
+        /// <param name="role"> Role of the participant. </param>
         /// <param name="language"> The override language of a conversation item in BCP 47 language representation. </param>
         /// <param name="modality"> Enumeration of supported conversational modalities. </param>
-        /// <param name="role"> Role of the participant. </param>
         /// <param name="text"> The text input. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TextConversationItem(string id, string participantId, string language, InputModality? modality, ParticipantRole? role, string text, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TextConversationItem(string id, string participantId, ParticipantRole? role, string language, InputModality? modality, string text, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             ParticipantId = participantId;
+            Role = role;
             Language = language;
             Modality = modality;
-            Role = role;
             Text = text;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -89,12 +89,12 @@ namespace Azure.AI.Language.Conversations.Models
         public string Id { get; }
         /// <summary> The participant ID of a conversation item. </summary>
         public string ParticipantId { get; }
+        /// <summary> Role of the participant. </summary>
+        public ParticipantRole? Role { get; set; }
         /// <summary> The override language of a conversation item in BCP 47 language representation. </summary>
         public string Language { get; set; }
         /// <summary> Enumeration of supported conversational modalities. </summary>
         public InputModality? Modality { get; set; }
-        /// <summary> Role of the participant. </summary>
-        public ParticipantRole? Role { get; set; }
         /// <summary> The text input. </summary>
         public string Text { get; }
     }

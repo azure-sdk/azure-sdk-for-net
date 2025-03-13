@@ -38,6 +38,11 @@ namespace Azure.AI.Language.Conversations.Models
             writer.WriteStringValue(Id);
             writer.WritePropertyName("participantId"u8);
             writer.WriteStringValue(ParticipantId);
+            if (Optional.IsDefined(Role))
+            {
+                writer.WritePropertyName("role"u8);
+                writer.WriteStringValue(Role.Value.ToString());
+            }
             if (Optional.IsDefined(Language))
             {
                 writer.WritePropertyName("language"u8);
@@ -47,11 +52,6 @@ namespace Azure.AI.Language.Conversations.Models
             {
                 writer.WritePropertyName("modality"u8);
                 writer.WriteStringValue(Modality.Value.ToString());
-            }
-            if (Optional.IsDefined(Role))
-            {
-                writer.WritePropertyName("role"u8);
-                writer.WriteStringValue(Role.Value.ToString());
             }
             writer.WritePropertyName("text"u8);
             writer.WriteStringValue(Text);
@@ -94,9 +94,9 @@ namespace Azure.AI.Language.Conversations.Models
             }
             string id = default;
             string participantId = default;
+            ParticipantRole? role = default;
             string language = default;
             InputModality? modality = default;
-            ParticipantRole? role = default;
             string text = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -110,6 +110,15 @@ namespace Azure.AI.Language.Conversations.Models
                 if (property.NameEquals("participantId"u8))
                 {
                     participantId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("role"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    role = new ParticipantRole(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("language"u8))
@@ -126,15 +135,6 @@ namespace Azure.AI.Language.Conversations.Models
                     modality = new InputModality(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("role"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    role = new ParticipantRole(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("text"u8))
                 {
                     text = property.Value.GetString();
@@ -149,9 +149,9 @@ namespace Azure.AI.Language.Conversations.Models
             return new TextConversationItem(
                 id,
                 participantId,
+                role,
                 language,
                 modality,
-                role,
                 text,
                 serializedAdditionalRawData);
         }
