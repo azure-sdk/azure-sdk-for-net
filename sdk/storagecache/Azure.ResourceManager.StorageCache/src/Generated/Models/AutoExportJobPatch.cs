@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.StorageCache.Models
 {
-    /// <summary> An import job update instance. </summary>
-    public partial class StorageCacheImportJobPatch
+    /// <summary> An auto export job update instance. </summary>
+    public partial class AutoExportJobPatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,17 +45,17 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="StorageCacheImportJobPatch"/>. </summary>
-        public StorageCacheImportJobPatch()
+        /// <summary> Initializes a new instance of <see cref="AutoExportJobPatch"/>. </summary>
+        public AutoExportJobPatch()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="StorageCacheImportJobPatch"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="AutoExportJobPatch"/>. </summary>
         /// <param name="tags"> Resource tags. </param>
-        /// <param name="adminStatus"> The administrative status of the import job. Possible values: 'Active', 'Cancel'. Passing in a value of 'Cancel' will cancel the current active import job. </param>
+        /// <param name="adminStatus"> The administrative status of the auto export job. Possible values: 'Enable', 'Disable'. Passing in a value of 'Disable' will disable the current active auto export job. By default it is set to 'Enable'. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StorageCacheImportJobPatch(IDictionary<string, string> tags, ImportJobAdminStatus? adminStatus, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AutoExportJobPatch(IDictionary<string, string> tags, AutoExportJobAdminStatus? adminStatus, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Tags = tags;
             AdminStatus = adminStatus;
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.StorageCache.Models
 
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
-        /// <summary> The administrative status of the import job. Possible values: 'Active', 'Cancel'. Passing in a value of 'Cancel' will cancel the current active import job. </summary>
-        public ImportJobAdminStatus? AdminStatus { get; set; }
+        /// <summary> The administrative status of the auto export job. Possible values: 'Enable', 'Disable'. Passing in a value of 'Disable' will disable the current active auto export job. By default it is set to 'Enable'. </summary>
+        public AutoExportJobAdminStatus? AdminStatus { get; set; }
     }
 }
