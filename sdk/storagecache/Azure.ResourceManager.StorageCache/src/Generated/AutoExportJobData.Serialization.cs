@@ -15,11 +15,11 @@ using Azure.ResourceManager.StorageCache.Models;
 
 namespace Azure.ResourceManager.StorageCache
 {
-    public partial class StorageCacheImportJobData : IUtf8JsonSerializable, IJsonModel<StorageCacheImportJobData>
+    public partial class AutoExportJobData : IUtf8JsonSerializable, IJsonModel<AutoExportJobData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<StorageCacheImportJobData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AutoExportJobData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<StorageCacheImportJobData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AutoExportJobData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -30,10 +30,10 @@ namespace Azure.ResourceManager.StorageCache
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StorageCacheImportJobData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AutoExportJobData)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
@@ -49,125 +49,110 @@ namespace Azure.ResourceManager.StorageCache
                 writer.WritePropertyName("adminStatus"u8);
                 writer.WriteStringValue(AdminStatus.Value.ToString());
             }
-            if (Optional.IsCollectionDefined(ImportPrefixes))
+            if (Optional.IsCollectionDefined(AutoExportPrefixes))
             {
-                writer.WritePropertyName("importPrefixes"u8);
+                writer.WritePropertyName("autoExportPrefixes"u8);
                 writer.WriteStartArray();
-                foreach (var item in ImportPrefixes)
+                foreach (var item in AutoExportPrefixes)
                 {
                     writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(ConflictResolutionMode))
-            {
-                writer.WritePropertyName("conflictResolutionMode"u8);
-                writer.WriteStringValue(ConflictResolutionMode.Value.ToString());
-            }
-            if (Optional.IsDefined(MaximumErrors))
-            {
-                writer.WritePropertyName("maximumErrors"u8);
-                writer.WriteNumberValue(MaximumErrors.Value);
-            }
             writer.WritePropertyName("status"u8);
             writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(State))
+            if (Optional.IsDefined(State))
             {
                 writer.WritePropertyName("state"u8);
                 writer.WriteStringValue(State.Value.ToString());
+            }
+            if (options.Format != "W" && Optional.IsDefined(StatusCode))
+            {
+                writer.WritePropertyName("statusCode"u8);
+                writer.WriteStringValue(StatusCode);
             }
             if (options.Format != "W" && Optional.IsDefined(StatusMessage))
             {
                 writer.WritePropertyName("statusMessage"u8);
                 writer.WriteStringValue(StatusMessage);
             }
-            if (options.Format != "W" && Optional.IsDefined(TotalBlobsWalked))
+            if (options.Format != "W" && Optional.IsDefined(TotalFilesExported))
             {
-                writer.WritePropertyName("totalBlobsWalked"u8);
-                writer.WriteNumberValue(TotalBlobsWalked.Value);
+                writer.WritePropertyName("totalFilesExported"u8);
+                writer.WriteNumberValue(TotalFilesExported.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(BlobsWalkedPerSecond))
+            if (options.Format != "W" && Optional.IsDefined(TotalMiBExported))
             {
-                writer.WritePropertyName("blobsWalkedPerSecond"u8);
-                writer.WriteNumberValue(BlobsWalkedPerSecond.Value);
+                writer.WritePropertyName("totalMiBExported"u8);
+                writer.WriteNumberValue(TotalMiBExported.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(TotalBlobsImported))
+            if (options.Format != "W" && Optional.IsDefined(TotalFilesFailed))
             {
-                writer.WritePropertyName("totalBlobsImported"u8);
-                writer.WriteNumberValue(TotalBlobsImported.Value);
+                writer.WritePropertyName("totalFilesFailed"u8);
+                writer.WriteNumberValue(TotalFilesFailed.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(ImportedFiles))
+            if (options.Format != "W" && Optional.IsDefined(ExportIterationCount))
             {
-                writer.WritePropertyName("importedFiles"u8);
-                writer.WriteNumberValue(ImportedFiles.Value);
+                writer.WritePropertyName("exportIterationCount"u8);
+                writer.WriteNumberValue(ExportIterationCount.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(ImportedDirectories))
+            if (options.Format != "W" && Optional.IsDefined(LastSuccessfulIterationCompletionTimeUTC))
             {
-                writer.WritePropertyName("importedDirectories"u8);
-                writer.WriteNumberValue(ImportedDirectories.Value);
+                writer.WritePropertyName("lastSuccessfulIterationCompletionTimeUTC"u8);
+                writer.WriteStringValue(LastSuccessfulIterationCompletionTimeUTC.Value, "O");
             }
-            if (options.Format != "W" && Optional.IsDefined(ImportedSymlinks))
+            if (options.Format != "W" && Optional.IsDefined(CurrentIterationFilesDiscovered))
             {
-                writer.WritePropertyName("importedSymlinks"u8);
-                writer.WriteNumberValue(ImportedSymlinks.Value);
+                writer.WritePropertyName("currentIterationFilesDiscovered"u8);
+                writer.WriteNumberValue(CurrentIterationFilesDiscovered.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(PreexistingFiles))
+            if (options.Format != "W" && Optional.IsDefined(CurrentIterationMiBDiscovered))
             {
-                writer.WritePropertyName("preexistingFiles"u8);
-                writer.WriteNumberValue(PreexistingFiles.Value);
+                writer.WritePropertyName("currentIterationMiBDiscovered"u8);
+                writer.WriteNumberValue(CurrentIterationMiBDiscovered.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(PreexistingDirectories))
+            if (options.Format != "W" && Optional.IsDefined(CurrentIterationFilesExported))
             {
-                writer.WritePropertyName("preexistingDirectories"u8);
-                writer.WriteNumberValue(PreexistingDirectories.Value);
+                writer.WritePropertyName("currentIterationFilesExported"u8);
+                writer.WriteNumberValue(CurrentIterationFilesExported.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(PreexistingSymlinks))
+            if (options.Format != "W" && Optional.IsDefined(CurrentIterationMiBExported))
             {
-                writer.WritePropertyName("preexistingSymlinks"u8);
-                writer.WriteNumberValue(PreexistingSymlinks.Value);
+                writer.WritePropertyName("currentIterationMiBExported"u8);
+                writer.WriteNumberValue(CurrentIterationMiBExported.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(BlobsImportedPerSecond))
+            if (options.Format != "W" && Optional.IsDefined(CurrentIterationFilesFailed))
             {
-                writer.WritePropertyName("blobsImportedPerSecond"u8);
-                writer.WriteNumberValue(BlobsImportedPerSecond.Value);
+                writer.WritePropertyName("currentIterationFilesFailed"u8);
+                writer.WriteNumberValue(CurrentIterationFilesFailed.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(LastCompletionOn))
+            if (options.Format != "W" && Optional.IsDefined(LastStartedTimeUTC))
             {
-                writer.WritePropertyName("lastCompletionTime"u8);
-                writer.WriteStringValue(LastCompletionOn.Value, "O");
+                writer.WritePropertyName("lastStartedTimeUTC"u8);
+                writer.WriteStringValue(LastStartedTimeUTC.Value, "O");
             }
-            if (options.Format != "W" && Optional.IsDefined(LastStartedOn))
+            if (options.Format != "W" && Optional.IsDefined(LastCompletionTimeUTC))
             {
-                writer.WritePropertyName("lastStartedTime"u8);
-                writer.WriteStringValue(LastStartedOn.Value, "O");
-            }
-            if (options.Format != "W" && Optional.IsDefined(TotalErrors))
-            {
-                writer.WritePropertyName("totalErrors"u8);
-                writer.WriteNumberValue(TotalErrors.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(TotalConflicts))
-            {
-                writer.WritePropertyName("totalConflicts"u8);
-                writer.WriteNumberValue(TotalConflicts.Value);
+                writer.WritePropertyName("lastCompletionTimeUTC"u8);
+                writer.WriteStringValue(LastCompletionTimeUTC.Value, "O");
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        StorageCacheImportJobData IJsonModel<StorageCacheImportJobData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AutoExportJobData IJsonModel<AutoExportJobData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StorageCacheImportJobData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AutoExportJobData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeStorageCacheImportJobData(document.RootElement, options);
+            return DeserializeAutoExportJobData(document.RootElement, options);
         }
 
-        internal static StorageCacheImportJobData DeserializeStorageCacheImportJobData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AutoExportJobData DeserializeAutoExportJobData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -181,27 +166,24 @@ namespace Azure.ResourceManager.StorageCache
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            ImportJobProvisioningStateType? provisioningState = default;
-            ImportJobAdminStatus? adminStatus = default;
-            IList<string> importPrefixes = default;
-            ConflictResolutionMode? conflictResolutionMode = default;
-            int? maximumErrors = default;
-            ImportStatusType? state = default;
+            AutoExportJobProvisioningStateType? provisioningState = default;
+            AutoExportJobAdminStatus? adminStatus = default;
+            IList<string> autoExportPrefixes = default;
+            AutoExportStatusType? state = default;
+            string statusCode = default;
             string statusMessage = default;
-            long? totalBlobsWalked = default;
-            long? blobsWalkedPerSecond = default;
-            long? totalBlobsImported = default;
-            long? importedFiles = default;
-            long? importedDirectories = default;
-            long? importedSymlinks = default;
-            long? preexistingFiles = default;
-            long? preexistingDirectories = default;
-            long? preexistingSymlinks = default;
-            long? blobsImportedPerSecond = default;
-            DateTimeOffset? lastCompletionTime = default;
-            DateTimeOffset? lastStartedTime = default;
-            int? totalErrors = default;
-            int? totalConflicts = default;
+            long? totalFilesExported = default;
+            long? totalMiBExported = default;
+            long? totalFilesFailed = default;
+            int? exportIterationCount = default;
+            DateTimeOffset? lastSuccessfulIterationCompletionTimeUTC = default;
+            long? currentIterationFilesDiscovered = default;
+            long? currentIterationMiBDiscovered = default;
+            long? currentIterationFilesExported = default;
+            long? currentIterationMiBExported = default;
+            long? currentIterationFilesFailed = default;
+            DateTimeOffset? lastStartedTimeUTC = default;
+            DateTimeOffset? lastCompletionTimeUTC = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -264,7 +246,7 @@ namespace Azure.ResourceManager.StorageCache
                             {
                                 continue;
                             }
-                            provisioningState = new ImportJobProvisioningStateType(property0.Value.GetString());
+                            provisioningState = new AutoExportJobProvisioningStateType(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("adminStatus"u8))
@@ -273,10 +255,10 @@ namespace Azure.ResourceManager.StorageCache
                             {
                                 continue;
                             }
-                            adminStatus = new ImportJobAdminStatus(property0.Value.GetString());
+                            adminStatus = new AutoExportJobAdminStatus(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("importPrefixes"u8))
+                        if (property0.NameEquals("autoExportPrefixes"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
@@ -287,25 +269,7 @@ namespace Azure.ResourceManager.StorageCache
                             {
                                 array.Add(item.GetString());
                             }
-                            importPrefixes = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("conflictResolutionMode"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            conflictResolutionMode = new ConflictResolutionMode(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("maximumErrors"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            maximumErrors = property0.Value.GetInt32();
+                            autoExportPrefixes = array;
                             continue;
                         }
                         if (property0.NameEquals("status"u8))
@@ -323,7 +287,12 @@ namespace Azure.ResourceManager.StorageCache
                                     {
                                         continue;
                                     }
-                                    state = new ImportStatusType(property1.Value.GetString());
+                                    state = new AutoExportStatusType(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("statusCode"u8))
+                                {
+                                    statusCode = property1.Value.GetString();
                                     continue;
                                 }
                                 if (property1.NameEquals("statusMessage"u8))
@@ -331,130 +300,112 @@ namespace Azure.ResourceManager.StorageCache
                                     statusMessage = property1.Value.GetString();
                                     continue;
                                 }
-                                if (property1.NameEquals("totalBlobsWalked"u8))
+                                if (property1.NameEquals("totalFilesExported"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    totalBlobsWalked = property1.Value.GetInt64();
+                                    totalFilesExported = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("blobsWalkedPerSecond"u8))
+                                if (property1.NameEquals("totalMiBExported"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    blobsWalkedPerSecond = property1.Value.GetInt64();
+                                    totalMiBExported = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("totalBlobsImported"u8))
+                                if (property1.NameEquals("totalFilesFailed"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    totalBlobsImported = property1.Value.GetInt64();
+                                    totalFilesFailed = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("importedFiles"u8))
+                                if (property1.NameEquals("exportIterationCount"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    importedFiles = property1.Value.GetInt64();
+                                    exportIterationCount = property1.Value.GetInt32();
                                     continue;
                                 }
-                                if (property1.NameEquals("importedDirectories"u8))
+                                if (property1.NameEquals("lastSuccessfulIterationCompletionTimeUTC"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    importedDirectories = property1.Value.GetInt64();
+                                    lastSuccessfulIterationCompletionTimeUTC = property1.Value.GetDateTimeOffset("O");
                                     continue;
                                 }
-                                if (property1.NameEquals("importedSymlinks"u8))
+                                if (property1.NameEquals("currentIterationFilesDiscovered"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    importedSymlinks = property1.Value.GetInt64();
+                                    currentIterationFilesDiscovered = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("preexistingFiles"u8))
+                                if (property1.NameEquals("currentIterationMiBDiscovered"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    preexistingFiles = property1.Value.GetInt64();
+                                    currentIterationMiBDiscovered = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("preexistingDirectories"u8))
+                                if (property1.NameEquals("currentIterationFilesExported"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    preexistingDirectories = property1.Value.GetInt64();
+                                    currentIterationFilesExported = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("preexistingSymlinks"u8))
+                                if (property1.NameEquals("currentIterationMiBExported"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    preexistingSymlinks = property1.Value.GetInt64();
+                                    currentIterationMiBExported = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("blobsImportedPerSecond"u8))
+                                if (property1.NameEquals("currentIterationFilesFailed"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    blobsImportedPerSecond = property1.Value.GetInt64();
+                                    currentIterationFilesFailed = property1.Value.GetInt64();
                                     continue;
                                 }
-                                if (property1.NameEquals("lastCompletionTime"u8))
+                                if (property1.NameEquals("lastStartedTimeUTC"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    lastCompletionTime = property1.Value.GetDateTimeOffset("O");
+                                    lastStartedTimeUTC = property1.Value.GetDateTimeOffset("O");
                                     continue;
                                 }
-                                if (property1.NameEquals("lastStartedTime"u8))
+                                if (property1.NameEquals("lastCompletionTimeUTC"u8))
                                 {
                                     if (property1.Value.ValueKind == JsonValueKind.Null)
                                     {
                                         continue;
                                     }
-                                    lastStartedTime = property1.Value.GetDateTimeOffset("O");
-                                    continue;
-                                }
-                                if (property1.NameEquals("totalErrors"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        continue;
-                                    }
-                                    totalErrors = property1.Value.GetInt32();
-                                    continue;
-                                }
-                                if (property1.NameEquals("totalConflicts"u8))
-                                {
-                                    if (property1.Value.ValueKind == JsonValueKind.Null)
-                                    {
-                                        continue;
-                                    }
-                                    totalConflicts = property1.Value.GetInt32();
+                                    lastCompletionTimeUTC = property1.Value.GetDateTimeOffset("O");
                                     continue;
                                 }
                             }
@@ -469,7 +420,7 @@ namespace Azure.ResourceManager.StorageCache
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StorageCacheImportJobData(
+            return new AutoExportJobData(
                 id,
                 name,
                 type,
@@ -478,57 +429,54 @@ namespace Azure.ResourceManager.StorageCache
                 location,
                 provisioningState,
                 adminStatus,
-                importPrefixes ?? new ChangeTrackingList<string>(),
-                conflictResolutionMode,
-                maximumErrors,
+                autoExportPrefixes ?? new ChangeTrackingList<string>(),
                 state,
+                statusCode,
                 statusMessage,
-                totalBlobsWalked,
-                blobsWalkedPerSecond,
-                totalBlobsImported,
-                importedFiles,
-                importedDirectories,
-                importedSymlinks,
-                preexistingFiles,
-                preexistingDirectories,
-                preexistingSymlinks,
-                blobsImportedPerSecond,
-                lastCompletionTime,
-                lastStartedTime,
-                totalErrors,
-                totalConflicts,
+                totalFilesExported,
+                totalMiBExported,
+                totalFilesFailed,
+                exportIterationCount,
+                lastSuccessfulIterationCompletionTimeUTC,
+                currentIterationFilesDiscovered,
+                currentIterationMiBDiscovered,
+                currentIterationFilesExported,
+                currentIterationMiBExported,
+                currentIterationFilesFailed,
+                lastStartedTimeUTC,
+                lastCompletionTimeUTC,
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<StorageCacheImportJobData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AutoExportJobData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(StorageCacheImportJobData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AutoExportJobData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        StorageCacheImportJobData IPersistableModel<StorageCacheImportJobData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AutoExportJobData IPersistableModel<AutoExportJobData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeStorageCacheImportJobData(document.RootElement, options);
+                        return DeserializeAutoExportJobData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(StorageCacheImportJobData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AutoExportJobData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<StorageCacheImportJobData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AutoExportJobData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

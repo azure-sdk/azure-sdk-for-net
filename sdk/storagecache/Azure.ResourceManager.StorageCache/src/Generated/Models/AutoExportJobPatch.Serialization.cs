@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.StorageCache.Models
 {
-    public partial class StorageCacheImportJobPatch : IUtf8JsonSerializable, IJsonModel<StorageCacheImportJobPatch>
+    public partial class AutoExportJobPatch : IUtf8JsonSerializable, IJsonModel<AutoExportJobPatch>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<StorageCacheImportJobPatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AutoExportJobPatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<StorageCacheImportJobPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AutoExportJobPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StorageCacheImportJobPatch)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AutoExportJobPatch)} does not support writing '{format}' format.");
             }
 
             if (Optional.IsCollectionDefined(Tags))
@@ -70,19 +70,19 @@ namespace Azure.ResourceManager.StorageCache.Models
             }
         }
 
-        StorageCacheImportJobPatch IJsonModel<StorageCacheImportJobPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AutoExportJobPatch IJsonModel<AutoExportJobPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StorageCacheImportJobPatch)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AutoExportJobPatch)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeStorageCacheImportJobPatch(document.RootElement, options);
+            return DeserializeAutoExportJobPatch(document.RootElement, options);
         }
 
-        internal static StorageCacheImportJobPatch DeserializeStorageCacheImportJobPatch(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AutoExportJobPatch DeserializeAutoExportJobPatch(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.StorageCache.Models
                 return null;
             }
             IDictionary<string, string> tags = default;
-            ImportJobAdminStatus? adminStatus = default;
+            AutoExportJobAdminStatus? adminStatus = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.StorageCache.Models
                             {
                                 continue;
                             }
-                            adminStatus = new ImportJobAdminStatus(property0.Value.GetString());
+                            adminStatus = new AutoExportJobAdminStatus(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -137,38 +137,38 @@ namespace Azure.ResourceManager.StorageCache.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StorageCacheImportJobPatch(tags ?? new ChangeTrackingDictionary<string, string>(), adminStatus, serializedAdditionalRawData);
+            return new AutoExportJobPatch(tags ?? new ChangeTrackingDictionary<string, string>(), adminStatus, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<StorageCacheImportJobPatch>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AutoExportJobPatch>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(StorageCacheImportJobPatch)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AutoExportJobPatch)} does not support writing '{options.Format}' format.");
             }
         }
 
-        StorageCacheImportJobPatch IPersistableModel<StorageCacheImportJobPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AutoExportJobPatch IPersistableModel<AutoExportJobPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageCacheImportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AutoExportJobPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeStorageCacheImportJobPatch(document.RootElement, options);
+                        return DeserializeAutoExportJobPatch(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(StorageCacheImportJobPatch)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AutoExportJobPatch)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<StorageCacheImportJobPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AutoExportJobPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
