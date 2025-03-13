@@ -5,47 +5,14 @@
 
 #nullable disable
 
-using System;
-using System.ComponentModel;
-
 namespace Azure.ResourceManager.Search.Models
 {
     /// <summary> This value can be set to 'enabled' to avoid breaking changes on existing customer resources and templates. If set to 'disabled', traffic over public interface is not allowed, and private endpoint connections would be the exclusive access method. </summary>
-    public readonly partial struct SearchServicePublicInternetAccess : IEquatable<SearchServicePublicInternetAccess>
+    public enum SearchServicePublicInternetAccess
     {
-        private readonly string _value;
-
-        /// <summary> Initializes a new instance of <see cref="SearchServicePublicInternetAccess"/>. </summary>
-        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        public SearchServicePublicInternetAccess(string value)
-        {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
-
-        private const string EnabledValue = "enabled";
-        private const string DisabledValue = "disabled";
-
-        /// <summary> The search service is accessible from traffic originating from the public internet. </summary>
-        public static SearchServicePublicInternetAccess Enabled { get; } = new SearchServicePublicInternetAccess(EnabledValue);
-        /// <summary> The search service is not accessible from traffic originating from the public internet. Access is only permitted over approved private endpoint connections. </summary>
-        public static SearchServicePublicInternetAccess Disabled { get; } = new SearchServicePublicInternetAccess(DisabledValue);
-        /// <summary> Determines if two <see cref="SearchServicePublicInternetAccess"/> values are the same. </summary>
-        public static bool operator ==(SearchServicePublicInternetAccess left, SearchServicePublicInternetAccess right) => left.Equals(right);
-        /// <summary> Determines if two <see cref="SearchServicePublicInternetAccess"/> values are not the same. </summary>
-        public static bool operator !=(SearchServicePublicInternetAccess left, SearchServicePublicInternetAccess right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="SearchServicePublicInternetAccess"/>. </summary>
-        public static implicit operator SearchServicePublicInternetAccess(string value) => new SearchServicePublicInternetAccess(value);
-
-        /// <inheritdoc />
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj) => obj is SearchServicePublicInternetAccess other && Equals(other);
-        /// <inheritdoc />
-        public bool Equals(SearchServicePublicInternetAccess other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
-
-        /// <inheritdoc />
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
-        public override string ToString() => _value;
+        /// <summary> enabled. </summary>
+        Enabled,
+        /// <summary> disabled. </summary>
+        Disabled
     }
 }
