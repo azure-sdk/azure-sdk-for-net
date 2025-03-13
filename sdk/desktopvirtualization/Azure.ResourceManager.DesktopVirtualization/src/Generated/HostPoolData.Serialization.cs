@@ -57,7 +57,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
             if (Optional.IsDefined(Sku))
             {
@@ -159,6 +160,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 writer.WritePropertyName("vmTemplate"u8);
                 writer.WriteStringValue(VmTemplate);
+            }
+            if (Optional.IsDefined(ManagementType))
+            {
+                writer.WritePropertyName("managementType"u8);
+                writer.WriteStringValue(ManagementType.Value.ToString());
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(ApplicationGroupReferences))
             {
@@ -266,20 +272,33 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
             {
-                if (PrivateEndpointConnections != null)
+                writer.WritePropertyName("privateEndpointConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateEndpointConnections)
                 {
-                    writer.WritePropertyName("privateEndpointConnections"u8);
-                    writer.WriteStartArray();
-                    foreach (var item in PrivateEndpointConnections)
-                    {
-                        writer.WriteObjectValue(item, options);
-                    }
-                    writer.WriteEndArray();
+                    writer.WriteObjectValue(item, options);
                 }
-                else
-                {
-                    writer.WriteNull("privateEndpointConnections");
-                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ManagedPrivateUDP))
+            {
+                writer.WritePropertyName("managedPrivateUDP"u8);
+                writer.WriteStringValue(ManagedPrivateUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(DirectUDP))
+            {
+                writer.WritePropertyName("directUDP"u8);
+                writer.WriteStringValue(DirectUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(PublicUDP))
+            {
+                writer.WritePropertyName("publicUDP"u8);
+                writer.WriteStringValue(PublicUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(RelayUDP))
+            {
+                writer.WritePropertyName("relayUDP"u8);
+                writer.WriteStringValue(RelayUDP.Value.ToString());
             }
             writer.WriteEndObject();
         }
@@ -328,6 +347,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             bool? validationEnvironment = default;
             HostPoolRegistrationInfo registrationInfo = default;
             string vmTemplate = default;
+            ManagementType? managementType = default;
             IReadOnlyList<string> applicationGroupReferences = default;
             IReadOnlyList<string> appAttachPackageReferences = default;
             string ssoadfsAuthority = default;
@@ -340,6 +360,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
             HostPoolPublicNetworkAccess? publicNetworkAccess = default;
             SessionHostAgentUpdateProperties agentUpdate = default;
             IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections = default;
+            ManagedPrivateUDP? managedPrivateUDP = default;
+            DirectUDP? directUDP = default;
+            PublicUDP? publicUDP = default;
+            RelayUDP? relayUDP = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -373,7 +397,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("sku"u8))
@@ -531,6 +556,15 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             vmTemplate = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("managementType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managementType = new ManagementType(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("applicationGroupReferences"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -634,7 +668,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                privateEndpointConnections = null;
                                 continue;
                             }
                             List<DesktopVirtualizationPrivateEndpointConnection> array = new List<DesktopVirtualizationPrivateEndpointConnection>();
@@ -643,6 +676,42 @@ namespace Azure.ResourceManager.DesktopVirtualization
                                 array.Add(DesktopVirtualizationPrivateEndpointConnection.DeserializeDesktopVirtualizationPrivateEndpointConnection(item, options));
                             }
                             privateEndpointConnections = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("managedPrivateUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managedPrivateUDP = new ManagedPrivateUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("directUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            directUDP = new DirectUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("publicUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            publicUDP = new PublicUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("relayUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            relayUDP = new RelayUDP(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -673,6 +742,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 validationEnvironment,
                 registrationInfo,
                 vmTemplate,
+                managementType,
                 applicationGroupReferences ?? new ChangeTrackingList<string>(),
                 appAttachPackageReferences ?? new ChangeTrackingList<string>(),
                 ssoadfsAuthority,
@@ -685,6 +755,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 publicNetworkAccess,
                 agentUpdate,
                 privateEndpointConnections ?? new ChangeTrackingList<DesktopVirtualizationPrivateEndpointConnection>(),
+                managedPrivateUDP,
+                directUDP,
+                publicUDP,
+                relayUDP,
                 managedBy,
                 kind,
                 etag,
@@ -1122,6 +1196,21 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagementType), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    managementType: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ManagementType))
+                {
+                    builder.Append("    managementType: ");
+                    builder.AppendLine($"'{ManagementType.Value.ToString()}'");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ApplicationGroupReferences), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -1372,6 +1461,66 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         builder.AppendLine("    ]");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagedPrivateUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    managedPrivateUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ManagedPrivateUDP))
+                {
+                    builder.Append("    managedPrivateUDP: ");
+                    builder.AppendLine($"'{ManagedPrivateUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DirectUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    directUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(DirectUDP))
+                {
+                    builder.Append("    directUDP: ");
+                    builder.AppendLine($"'{DirectUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PublicUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    publicUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PublicUDP))
+                {
+                    builder.Append("    publicUDP: ");
+                    builder.AppendLine($"'{PublicUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RelayUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    relayUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(RelayUDP))
+                {
+                    builder.Append("    relayUDP: ");
+                    builder.AppendLine($"'{RelayUDP.Value.ToString()}'");
                 }
             }
 

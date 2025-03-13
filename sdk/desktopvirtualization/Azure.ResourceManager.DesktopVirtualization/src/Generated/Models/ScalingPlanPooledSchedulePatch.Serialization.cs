@@ -40,6 +40,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (options.Format != "W" && Optional.IsDefined(NamePropertiesName))
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(NamePropertiesName);
+            }
             if (Optional.IsCollectionDefined(DaysOfWeek))
             {
                 writer.WritePropertyName("daysOfWeek"u8);
@@ -49,6 +54,23 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ScalingMethod))
+            {
+                writer.WritePropertyName("scalingMethod"u8);
+                writer.WriteStringValue(ScalingMethod.Value.ToString());
+            }
+            if (Optional.IsDefined(CreateDelete))
+            {
+                if (CreateDelete != null)
+                {
+                    writer.WritePropertyName("createDelete"u8);
+                    writer.WriteObjectValue(CreateDelete, options);
+                }
+                else
+                {
+                    writer.WriteNull("createDelete");
+                }
             }
             if (Optional.IsDefined(RampUpStartTime))
             {
@@ -157,7 +179,10 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            string name0 = default;
             IList<DesktopVirtualizationDayOfWeek> daysOfWeek = default;
+            ScalingMethod? scalingMethod = default;
+            CreateDeleteProperties createDelete = default;
             ScalingActionTime rampUpStartTime = default;
             SessionHostLoadBalancingAlgorithm? rampUpLoadBalancingAlgorithm = default;
             int? rampUpMinimumHostsPct = default;
@@ -211,6 +236,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("name"u8))
+                        {
+                            name0 = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("daysOfWeek"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -223,6 +253,25 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                                 array.Add(item.GetString().ToDesktopVirtualizationDayOfWeek());
                             }
                             daysOfWeek = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("scalingMethod"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            scalingMethod = new ScalingMethod(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("createDelete"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                createDelete = null;
+                                continue;
+                            }
+                            createDelete = CreateDeleteProperties.DeserializeCreateDeleteProperties(property0.Value, options);
                             continue;
                         }
                         if (property0.NameEquals("rampUpStartTime"u8))
@@ -379,7 +428,10 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 name,
                 type,
                 systemData,
+                name0,
                 daysOfWeek ?? new ChangeTrackingList<DesktopVirtualizationDayOfWeek>(),
+                scalingMethod,
+                createDelete,
                 rampUpStartTime,
                 rampUpLoadBalancingAlgorithm,
                 rampUpMinimumHostsPct,
@@ -465,6 +517,29 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
 
             builder.Append("  properties:");
             builder.AppendLine(" {");
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(NamePropertiesName), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    name: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(NamePropertiesName))
+                {
+                    builder.Append("    name: ");
+                    if (NamePropertiesName.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{NamePropertiesName}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{NamePropertiesName}'");
+                    }
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DaysOfWeek), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -485,6 +560,36 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                         }
                         builder.AppendLine("    ]");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ScalingMethod), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    scalingMethod: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ScalingMethod))
+                {
+                    builder.Append("    scalingMethod: ");
+                    builder.AppendLine($"'{ScalingMethod.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CreateDelete), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    createDelete: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(CreateDelete))
+                {
+                    builder.Append("    createDelete: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, CreateDelete, options, 4, false, "    createDelete: ");
                 }
             }
 

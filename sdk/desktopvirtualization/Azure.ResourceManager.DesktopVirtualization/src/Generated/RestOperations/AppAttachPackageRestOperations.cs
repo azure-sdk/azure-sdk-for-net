@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-04-03";
+            _apiVersion = apiVersion ?? "2024-11-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Get an app attach package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Get an app attach package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Create or update an App Attach package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="data"> Object containing App Attach Package definitions. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="appAttachPackageName"/> or <paramref name="data"/> is null. </exception>
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Create or update an App Attach package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="data"> Object containing App Attach Package definitions. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="appAttachPackageName"/> or <paramref name="data"/> is null. </exception>
@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
         }
 
-        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string resourceGroupName, string appAttachPackageName)
+        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -245,10 +245,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
             uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages/", false);
             uri.AppendPath(appAttachPackageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
+            if (force != null)
+            {
+                uri.AppendQuery("force", force.Value, true);
+            }
             return uri;
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string appAttachPackageName)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -262,6 +266,10 @@ namespace Azure.ResourceManager.DesktopVirtualization
             uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages/", false);
             uri.AppendPath(appAttachPackageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
+            if (force != null)
+            {
+                uri.AppendQuery("force", force.Value, true);
+            }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
@@ -271,17 +279,18 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Remove an App Attach Package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="force"> Force flag to delete App Attach package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string appAttachPackageName, CancellationToken cancellationToken = default)
+        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(appAttachPackageName, nameof(appAttachPackageName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName, force);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -296,17 +305,18 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Remove an App Attach Package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="force"> Force flag to delete App Attach package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string appAttachPackageName, CancellationToken cancellationToken = default)
+        public Response Delete(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(appAttachPackageName, nameof(appAttachPackageName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName, force);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -359,7 +369,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Update an App Attach Package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="patch"> Object containing App Attach Package definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="appAttachPackageName"/> or <paramref name="patch"/> is null. </exception>
@@ -390,7 +400,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> Update an App Attach Package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
         /// <param name="patch"> Object containing App Attach Package definition. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="appAttachPackageName"/> or <paramref name="patch"/> is null. </exception>
@@ -461,7 +471,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> List App Attach packages in resource group. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -489,7 +499,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> List App Attach packages in resource group. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -552,7 +562,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
         /// <summary> List App Attach packages in subscription. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, resource group, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -578,7 +588,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
         /// <summary> List App Attach packages in subscription. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, resource group, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -628,7 +638,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -658,7 +668,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -709,7 +719,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> List App Attach packages in subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, resource group, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
@@ -737,7 +747,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> List App Attach packages in subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, resource group, host pool, package owner name, and custom data. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
