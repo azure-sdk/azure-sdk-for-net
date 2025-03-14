@@ -6,8 +6,6 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -71,6 +69,54 @@ namespace Azure.AI.Inference
             _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
             _endpoint = endpoint;
             _apiVersion = options.Version;
+        }
+
+        /// <summary>
+        /// Gets chat completions for the provided chat messages.
+        /// Completions support a wide variety of tasks and generate text that continues from or "completes"
+        /// provided prompt data. The method makes a REST API call to the `/chat/completions` route
+        /// on the given endpoint.
+        /// </summary>
+        /// <param name="body"> The options for chat completions. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        internal virtual async Task<Response<ChatCompletions>> CompleteAsync(ChatCompletionsOptions body, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using RequestContent content = body.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await CompleteAsync(content, extraParams?.ToString(), context).ConfigureAwait(false);
+            return Response.FromValue(ChatCompletions.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// Gets chat completions for the provided chat messages.
+        /// Completions support a wide variety of tasks and generate text that continues from or "completes"
+        /// provided prompt data. The method makes a REST API call to the `/chat/completions` route
+        /// on the given endpoint.
+        /// </summary>
+        /// <param name="body"> The options for chat completions. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        internal virtual Response<ChatCompletions> Complete(ChatCompletionsOptions body, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using RequestContent content = body.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = Complete(content, extraParams?.ToString(), context);
+            return Response.FromValue(ChatCompletions.FromResponse(response), response);
         }
 
         /// <summary>

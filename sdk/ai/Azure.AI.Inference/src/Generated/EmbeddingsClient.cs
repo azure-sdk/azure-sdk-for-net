@@ -6,8 +6,6 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -71,6 +69,50 @@ namespace Azure.AI.Inference
             _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
             _endpoint = endpoint;
             _apiVersion = options.Version;
+        }
+
+        /// <summary>
+        /// Return the embedding vectors for given text prompts.
+        /// The method makes a REST API call to the `/embeddings` route on the given endpoint.
+        /// </summary>
+        /// <param name="body"> The body of the request containing the options for generating embeddings. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        internal virtual async Task<Response<EmbeddingsResult>> EmbedAsync(EmbeddingsOptions body, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using RequestContent content = body.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await EmbedAsync(content, extraParams?.ToString(), context).ConfigureAwait(false);
+            return Response.FromValue(EmbeddingsResult.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// Return the embedding vectors for given text prompts.
+        /// The method makes a REST API call to the `/embeddings` route on the given endpoint.
+        /// </summary>
+        /// <param name="body"> The body of the request containing the options for generating embeddings. </param>
+        /// <param name="extraParams">
+        /// Controls what happens if extra parameters, undefined by the REST API,
+        /// are passed in the JSON request payload.
+        /// This sets the HTTP request header `extra-parameters`.
+        /// </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        internal virtual Response<EmbeddingsResult> Embed(EmbeddingsOptions body, ExtraParameters? extraParams = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using RequestContent content = body.ToRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = Embed(content, extraParams?.ToString(), context);
+            return Response.FromValue(EmbeddingsResult.FromResponse(response), response);
         }
 
         /// <summary>
