@@ -44,75 +44,30 @@ namespace Azure.ResourceManager.TrustedSigning
                 writer.WritePropertyName("profileType"u8);
                 writer.WriteStringValue(ProfileType.Value.ToString());
             }
-            if (options.Format != "W" && Optional.IsDefined(CommonName))
-            {
-                writer.WritePropertyName("commonName"u8);
-                writer.WriteStringValue(CommonName);
-            }
-            if (options.Format != "W" && Optional.IsDefined(Organization))
-            {
-                writer.WritePropertyName("organization"u8);
-                writer.WriteStringValue(Organization);
-            }
-            if (options.Format != "W" && Optional.IsDefined(OrganizationUnit))
-            {
-                writer.WritePropertyName("organizationUnit"u8);
-                writer.WriteStringValue(OrganizationUnit);
-            }
-            if (options.Format != "W" && Optional.IsDefined(StreetAddress))
-            {
-                writer.WritePropertyName("streetAddress"u8);
-                writer.WriteStringValue(StreetAddress);
-            }
             if (Optional.IsDefined(IncludeStreetAddress))
             {
                 writer.WritePropertyName("includeStreetAddress"u8);
                 writer.WriteBooleanValue(IncludeStreetAddress.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(City))
-            {
-                writer.WritePropertyName("city"u8);
-                writer.WriteStringValue(City);
             }
             if (Optional.IsDefined(IncludeCity))
             {
                 writer.WritePropertyName("includeCity"u8);
                 writer.WriteBooleanValue(IncludeCity.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(State))
-            {
-                writer.WritePropertyName("state"u8);
-                writer.WriteStringValue(State);
-            }
             if (Optional.IsDefined(IncludeState))
             {
                 writer.WritePropertyName("includeState"u8);
                 writer.WriteBooleanValue(IncludeState.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(Country))
-            {
-                writer.WritePropertyName("country"u8);
-                writer.WriteStringValue(Country);
             }
             if (Optional.IsDefined(IncludeCountry))
             {
                 writer.WritePropertyName("includeCountry"u8);
                 writer.WriteBooleanValue(IncludeCountry.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(PostalCode))
-            {
-                writer.WritePropertyName("postalCode"u8);
-                writer.WriteStringValue(PostalCode);
-            }
             if (Optional.IsDefined(IncludePostalCode))
             {
                 writer.WritePropertyName("includePostalCode"u8);
                 writer.WriteBooleanValue(IncludePostalCode.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(EnhancedKeyUsage))
-            {
-                writer.WritePropertyName("enhancedKeyUsage"u8);
-                writer.WriteStringValue(EnhancedKeyUsage);
             }
             if (Optional.IsDefined(IdentityValidationId))
             {
@@ -167,20 +122,11 @@ namespace Azure.ResourceManager.TrustedSigning
             ResourceType type = default;
             SystemData systemData = default;
             CertificateProfileType? profileType = default;
-            string commonName = default;
-            string organization = default;
-            string organizationUnit = default;
-            string streetAddress = default;
             bool? includeStreetAddress = default;
-            string city = default;
             bool? includeCity = default;
-            string state = default;
             bool? includeState = default;
-            string country = default;
             bool? includeCountry = default;
-            string postalCode = default;
             bool? includePostalCode = default;
-            string enhancedKeyUsage = default;
             string identityValidationId = default;
             TrustedSigningProvisioningState? provisioningState = default;
             CertificateProfileStatus? status = default;
@@ -231,26 +177,6 @@ namespace Azure.ResourceManager.TrustedSigning
                             profileType = new CertificateProfileType(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("commonName"u8))
-                        {
-                            commonName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("organization"u8))
-                        {
-                            organization = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("organizationUnit"u8))
-                        {
-                            organizationUnit = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("streetAddress"u8))
-                        {
-                            streetAddress = property0.Value.GetString();
-                            continue;
-                        }
                         if (property0.NameEquals("includeStreetAddress"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -258,11 +184,6 @@ namespace Azure.ResourceManager.TrustedSigning
                                 continue;
                             }
                             includeStreetAddress = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("city"u8))
-                        {
-                            city = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("includeCity"u8))
@@ -274,11 +195,6 @@ namespace Azure.ResourceManager.TrustedSigning
                             includeCity = property0.Value.GetBoolean();
                             continue;
                         }
-                        if (property0.NameEquals("state"u8))
-                        {
-                            state = property0.Value.GetString();
-                            continue;
-                        }
                         if (property0.NameEquals("includeState"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -286,11 +202,6 @@ namespace Azure.ResourceManager.TrustedSigning
                                 continue;
                             }
                             includeState = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("country"u8))
-                        {
-                            country = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("includeCountry"u8))
@@ -302,11 +213,6 @@ namespace Azure.ResourceManager.TrustedSigning
                             includeCountry = property0.Value.GetBoolean();
                             continue;
                         }
-                        if (property0.NameEquals("postalCode"u8))
-                        {
-                            postalCode = property0.Value.GetString();
-                            continue;
-                        }
                         if (property0.NameEquals("includePostalCode"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -314,11 +220,6 @@ namespace Azure.ResourceManager.TrustedSigning
                                 continue;
                             }
                             includePostalCode = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("enhancedKeyUsage"u8))
-                        {
-                            enhancedKeyUsage = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("identityValidationId"u8))
@@ -373,20 +274,11 @@ namespace Azure.ResourceManager.TrustedSigning
                 type,
                 systemData,
                 profileType,
-                commonName,
-                organization,
-                organizationUnit,
-                streetAddress,
                 includeStreetAddress,
-                city,
                 includeCity,
-                state,
                 includeState,
-                country,
                 includeCountry,
-                postalCode,
                 includePostalCode,
-                enhancedKeyUsage,
                 identityValidationId,
                 provisioningState,
                 status,
