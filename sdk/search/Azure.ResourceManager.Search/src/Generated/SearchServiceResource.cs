@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -135,7 +135,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the search service with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -167,7 +167,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the Azure AI Search service with the specified resource group. </param>
+        /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection to the search service with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -206,7 +206,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource managed by the Azure AI Search service within the specified resource group. </param>
+        /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource managed by the search service within the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
@@ -230,7 +230,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -238,7 +238,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource managed by the Azure AI Search service within the specified resource group. </param>
+        /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource managed by the search service within the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
@@ -269,7 +269,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -300,7 +300,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -331,7 +331,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -372,7 +372,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -413,7 +413,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -458,7 +458,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -503,7 +503,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -546,7 +546,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -577,7 +577,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Gets the primary and secondary admin API keys for the specified Azure AI Search service.
+        /// Gets the primary and secondary admin API keys for the specified search service.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -589,7 +589,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -612,7 +612,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Gets the primary and secondary admin API keys for the specified Azure AI Search service.
+        /// Gets the primary and secondary admin API keys for the specified search service.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -624,7 +624,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -659,7 +659,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -695,7 +695,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -731,7 +731,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -771,7 +771,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -799,7 +799,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Returns the list of query API keys for the given Azure AI Search service.
+        /// Returns the list of query API keys for the given search service.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -811,7 +811,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -826,7 +826,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Returns the list of query API keys for the given Azure AI Search service.
+        /// Returns the list of query API keys for the given search service.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -838,7 +838,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -865,7 +865,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -905,7 +905,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -945,7 +945,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -971,7 +971,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -997,7 +997,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -1035,7 +1035,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -1073,7 +1073,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1135,7 +1135,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1197,7 +1197,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1254,7 +1254,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1311,7 +1311,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1371,7 +1371,7 @@ namespace Azure.ResourceManager.Search
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01-preview</description>
+        /// <description>2025-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
