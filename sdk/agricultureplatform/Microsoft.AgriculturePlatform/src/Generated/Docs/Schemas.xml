@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetSchemaAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSchemaAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+Response<Schema> response = await client.GetSchemaAsync("SCHEMA123");
+]]></code></example>
+    </member>
+    <member name="GetSchema(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSchema.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+Response<Schema> response = client.GetSchema("SCHEMA123");
+]]></code></example>
+    </member>
+    <member name="GetSchemaAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetSchemaAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+Response response = await client.GetSchemaAsync("SCHEMA123", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("schemaModel").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSchema(string,RequestContext)">
+      <example>
+This sample shows how to call GetSchema and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+Response response = client.GetSchema("SCHEMA123", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("schemaModel").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    schemaModel = new
+    {
+        type = "object",
+        properties = new Dictionary<string, object>
+        {
+            ["$id"] = "2950",
+            ["name"] = new Dictionary<string, object>
+            {
+                ["$id"] = "2951",
+                ["type"] = "string",
+                ["minLength"] = 2,
+                ["maxLength"] = 100
+            },
+            ["geometry"] = new Dictionary<string, object>
+            {
+                ["$id"] = "2952",
+                ["type"] = "object"
+            }
+        },
+    },
+});
+Response response = await client.CreateOrUpdateAsync("SCHEMA123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("schemaModel").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    schemaModel = new
+    {
+        type = "object",
+        properties = new Dictionary<string, object>
+        {
+            ["$id"] = "2950",
+            ["name"] = new Dictionary<string, object>
+            {
+                ["$id"] = "2951",
+                ["type"] = "string",
+                ["minLength"] = 2,
+                ["maxLength"] = 100
+            },
+            ["geometry"] = new Dictionary<string, object>
+            {
+                ["$id"] = "2952",
+                ["type"] = "object"
+            }
+        },
+    },
+});
+Response response = client.CreateOrUpdate("SCHEMA123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("schemaModel").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+Response response = await client.DeleteAsync("SCHEMA123");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+Response response = client.Delete("SCHEMA123");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetSchemasAsync(IEnumerable{string},IEnumerable{string},IEnumerable{string},IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSchemasAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+await foreach (Schema item in client.GetSchemasAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSchemas(IEnumerable{string},IEnumerable{string},IEnumerable{string},IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSchemas.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+foreach (Schema item in client.GetSchemas())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSchemasAsync(IEnumerable{string},IEnumerable{string},IEnumerable{string},IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetSchemasAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+await foreach (BinaryData item in client.GetSchemasAsync(null, null, null, null, null, null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("schemaModel").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSchemas(IEnumerable{string},IEnumerable{string},IEnumerable{string},IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetSchemas and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Schemas client = new AgriculturePlatformClient(endpoint, credential).GetSchemasClient(apiVersion: "2024-11-01-preview");
+
+foreach (BinaryData item in client.GetSchemas(null, null, null, null, null, null, null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("schemaModel").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>

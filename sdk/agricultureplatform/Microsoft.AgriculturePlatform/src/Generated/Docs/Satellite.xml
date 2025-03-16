@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="FetchItemsAsync(OauthClientCredentials,string,string,SatelliteData,string,DateTimeOffset?,DateTimeOffset?,string,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call FetchItemsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+OauthClientCredentials credentials = new OauthClientCredentials("ed16ee3f-9742-42cc-a71b-dcd90c3b6c03", new KeyVaultProperties("https://bhkankv.vault.azure.net", "SentinelHubClientSecret", "8fa2ce7e42df4b65991f818298eb9435"));
+SatelliteData data = new SatelliteData
+{
+    ImageNames = { "NDVI", "B04", "B08", "dataMask", "CLM" },
+    ImageFormats = { "TIF" },
+    ImageResolutions = { 10 },
+};
+Response<SatelliteFetchResponse> response = await client.FetchItemsAsync(credentials, "SentinelHub", "/catalogs/CATALOG123/collections/utka-collection/items/utka-item", data, "sentinel-2-l2a");
+]]></code></example>
+    </member>
+    <member name="FetchItems(OauthClientCredentials,string,string,SatelliteData,string,DateTimeOffset?,DateTimeOffset?,string,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call FetchItems.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+OauthClientCredentials credentials = new OauthClientCredentials("ed16ee3f-9742-42cc-a71b-dcd90c3b6c03", new KeyVaultProperties("https://bhkankv.vault.azure.net", "SentinelHubClientSecret", "8fa2ce7e42df4b65991f818298eb9435"));
+SatelliteData data = new SatelliteData
+{
+    ImageNames = { "NDVI", "B04", "B08", "dataMask", "CLM" },
+    ImageFormats = { "TIF" },
+    ImageResolutions = { 10 },
+};
+Response<SatelliteFetchResponse> response = client.FetchItems(credentials, "SentinelHub", "/catalogs/CATALOG123/collections/utka-collection/items/utka-item", data, "sentinel-2-l2a");
+]]></code></example>
+    </member>
+    <member name="FetchItemsAsync(RequestContent,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call FetchItemsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    startDateTime = "2024-06-05T12:42:29.217Z",
+    credentials = new
+    {
+        kind = "OAuthClientCredentials",
+        clientId = "ed16ee3f-9742-42cc-a71b-dcd90c3b6c03",
+        clientSecret = new
+        {
+            keyVaultUri = "https://bhkankv.vault.azure.net",
+            keyName = "SentinelHubClientSecret",
+            keyVersion = "8fa2ce7e42df4b65991f818298eb9435",
+        },
+    },
+    endDateTime = "2024-06-14T12:42:29.217Z",
+    provider = "SentinelHub",
+    itemUri = "/catalogs/CATALOG123/collections/utka-collection/items/utka-item",
+    data = new
+    {
+        imageNames = new object[]
+        {
+            "NDVI",
+            "B04",
+            "B08",
+            "dataMask",
+            "CLM"
+        },
+        imageFormats = new object[]
+        {
+            "TIF"
+        },
+        imageResolutions = new object[]
+        {
+            10
+        },
+    },
+    providerCollectionId = "sentinel-2-l2a",
+});
+Response response = await client.FetchItemsAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="FetchItems(RequestContent,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call FetchItems and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    startDateTime = "2024-06-05T12:42:29.217Z",
+    credentials = new
+    {
+        kind = "OAuthClientCredentials",
+        clientId = "ed16ee3f-9742-42cc-a71b-dcd90c3b6c03",
+        clientSecret = new
+        {
+            keyVaultUri = "https://bhkankv.vault.azure.net",
+            keyName = "SentinelHubClientSecret",
+            keyVersion = "8fa2ce7e42df4b65991f818298eb9435",
+        },
+    },
+    endDateTime = "2024-06-14T12:42:29.217Z",
+    provider = "SentinelHub",
+    itemUri = "/catalogs/CATALOG123/collections/utka-collection/items/utka-item",
+    data = new
+    {
+        imageNames = new object[]
+        {
+            "NDVI",
+            "B04",
+            "B08",
+            "dataMask",
+            "CLM"
+        },
+        imageFormats = new object[]
+        {
+            "TIF"
+        },
+        imageResolutions = new object[]
+        {
+            10
+        },
+    },
+    providerCollectionId = "sentinel-2-l2a",
+});
+Response response = client.FetchItems(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SearchItemsAsync(OauthClientCredentials,string,string,DateTimeOffset?,DateTimeOffset?,GeoJsonObject,IEnumerable{double},IEnumerable{string},int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call SearchItemsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+OauthClientCredentials credentials = new OauthClientCredentials("ed16ee3f-9742-42cc-a71b-dcd90c3b6c03", new KeyVaultProperties("https://bhkankv.vault.azure.net", "SentinelHubClientSecret", "8fa2ce7e42df4b65991f818298eb9435"));
+Response<SearchFeaturesResponse> response = await client.SearchItemsAsync(credentials, "SentinelHub", "sentinel-2-l2a");
+]]></code></example>
+    </member>
+    <member name="SearchItems(OauthClientCredentials,string,string,DateTimeOffset?,DateTimeOffset?,GeoJsonObject,IEnumerable{double},IEnumerable{string},int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call SearchItems.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+OauthClientCredentials credentials = new OauthClientCredentials("ed16ee3f-9742-42cc-a71b-dcd90c3b6c03", new KeyVaultProperties("https://bhkankv.vault.azure.net", "SentinelHubClientSecret", "8fa2ce7e42df4b65991f818298eb9435"));
+Response<SearchFeaturesResponse> response = client.SearchItems(credentials, "SentinelHub", "sentinel-2-l2a");
+]]></code></example>
+    </member>
+    <member name="SearchItemsAsync(RequestContent,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call SearchItemsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    startDateTime = "2024-06-15T12:42:29.217Z",
+    credentials = new
+    {
+        kind = "OAuthClientCredentials",
+        clientId = "ed16ee3f-9742-42cc-a71b-dcd90c3b6c03",
+        clientSecret = new
+        {
+            keyVaultUri = "https://bhkankv.vault.azure.net",
+            keyName = "SentinelHubClientSecret",
+            keyVersion = "8fa2ce7e42df4b65991f818298eb9435",
+        },
+    },
+    endDateTime = "2024-06-22T12:42:29.217Z",
+    intersects = new
+    {
+        type = "Polygon",
+        coordinates = new object[]
+        {
+            new object[]
+            {
+                new object[]
+                {
+                    73.70457172393799,
+                    20.545385304358106
+                },
+                new object[]
+                {
+                    73.70457172393799,
+                    20.545385304358106
+                },
+                new object[]
+                {
+                    73.70448589324951,
+                    20.542411534243367
+                },
+                new object[]
+                {
+                    73.70877742767334,
+                    20.541688176010233
+                },
+                new object[]
+                {
+                    73.71023654937744,
+                    20.545083911372505
+                },
+                new object[]
+                {
+                    73.70663166046143,
+                    20.546992723579137
+                },
+                new object[]
+                {
+                    73.70457172393799,
+                    20.545385304358106
+                }
+            }
+        },
+    },
+    providerCollectionId = "sentinel-2-l2a",
+    provider = "SentinelHub",
+});
+Response response = await client.SearchItemsAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("stacVersion").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("properties").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("links")[0].ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("assets").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="SearchItems(RequestContent,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call SearchItems and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Satellite client = new AgriculturePlatformClient(endpoint, credential).GetSatelliteClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    startDateTime = "2024-06-15T12:42:29.217Z",
+    credentials = new
+    {
+        kind = "OAuthClientCredentials",
+        clientId = "ed16ee3f-9742-42cc-a71b-dcd90c3b6c03",
+        clientSecret = new
+        {
+            keyVaultUri = "https://bhkankv.vault.azure.net",
+            keyName = "SentinelHubClientSecret",
+            keyVersion = "8fa2ce7e42df4b65991f818298eb9435",
+        },
+    },
+    endDateTime = "2024-06-22T12:42:29.217Z",
+    intersects = new
+    {
+        type = "Polygon",
+        coordinates = new object[]
+        {
+            new object[]
+            {
+                new object[]
+                {
+                    73.70457172393799,
+                    20.545385304358106
+                },
+                new object[]
+                {
+                    73.70457172393799,
+                    20.545385304358106
+                },
+                new object[]
+                {
+                    73.70448589324951,
+                    20.542411534243367
+                },
+                new object[]
+                {
+                    73.70877742767334,
+                    20.541688176010233
+                },
+                new object[]
+                {
+                    73.71023654937744,
+                    20.545083911372505
+                },
+                new object[]
+                {
+                    73.70663166046143,
+                    20.546992723579137
+                },
+                new object[]
+                {
+                    73.70457172393799,
+                    20.545385304358106
+                }
+            }
+        },
+    },
+    providerCollectionId = "sentinel-2-l2a",
+    provider = "SentinelHub",
+});
+Response response = client.SearchItems(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("stacVersion").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("properties").ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("links")[0].ToString());
+Console.WriteLine(result.GetProperty("features")[0].GetProperty("assets").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
