@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="DeleteAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response response = await client.DeleteAsync("string");
+]]></code></example>
+    </member>
+    <member name="Delete(string,CancellationToken)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response response = client.Delete("string");
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    filePath = "string",
+});
+Response response = await client.DeleteAsync(content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    filePath = "string",
+});
+Response response = client.Delete(content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DownloadAsync(AcceptHeaderEnum,string,CancellationToken)">
+      <example>
+This sample shows how to call DownloadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response<BinaryData> response = await client.DownloadAsync(AcceptHeaderEnum.Json, "string");
+]]></code></example>
+    </member>
+    <member name="Download(AcceptHeaderEnum,string,CancellationToken)">
+      <example>
+This sample shows how to call Download.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response<BinaryData> response = client.Download(AcceptHeaderEnum.Json, "string");
+]]></code></example>
+    </member>
+    <member name="DownloadAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DownloadAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    filePath = "string",
+});
+Response response = await client.DownloadAsync("application/json", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="Download(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Download and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    filePath = "string",
+});
+Response response = client.Download("application/json", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="UploadAsync(CancellationToken)">
+      <example>
+This sample shows how to call UploadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response<FileModel> response = await client.UploadAsync();
+]]></code></example>
+    </member>
+    <member name="Upload(CancellationToken)">
+      <example>
+This sample shows how to call Upload.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response<FileModel> response = client.Upload();
+]]></code></example>
+    </member>
+    <member name="UploadAsync(RequestContext)">
+      <example>
+This sample shows how to call UploadAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response response = await client.UploadAsync(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("filePath").ToString());
+]]></code></example>
+    </member>
+    <member name="Upload(RequestContext)">
+      <example>
+This sample shows how to call Upload and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+File client = new AgriculturePlatformClient(endpoint, credential).GetFileClient(apiVersion: "2024-11-01-preview");
+
+Response response = client.Upload(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("filePath").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
