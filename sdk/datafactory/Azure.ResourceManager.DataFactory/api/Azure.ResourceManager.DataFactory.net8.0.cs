@@ -8728,6 +8728,9 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Office365LinkedService(Azure.Core.Expressions.DataFactory.DataFactoryElement<string> office365TenantId, Azure.Core.Expressions.DataFactory.DataFactoryElement<string> servicePrincipalTenantId, Azure.Core.Expressions.DataFactory.DataFactoryElement<string> servicePrincipalId, Azure.Core.Expressions.DataFactory.DataFactorySecret servicePrincipalKey) { }
         public string EncryptedCredential { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Office365TenantId { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ServicePrincipalCredentialType { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactorySecret ServicePrincipalEmbeddedCert { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactorySecret ServicePrincipalEmbeddedCertPassword { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ServicePrincipalId { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactorySecret ServicePrincipalKey { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ServicePrincipalTenantId { get { throw null; } set { } }
