@@ -1,3 +1,4 @@
 directory: specification/cognitiveservices/Language.AnalyzeText-authoring
-commit: e0c1c7b9c5be9f404c7c78edaa4fe4a6bc71eb32
+commit: 60cdfa5bab6d13277f65080c556de2eef80561c0
 repo: Azure/azure-rest-api-specs
+additionalDirectories: 
