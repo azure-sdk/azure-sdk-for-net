@@ -15,17 +15,14 @@ namespace Azure.Search.Documents.Indexes.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Identity))
+            if (Identity != null)
             {
-                if (Identity != null)
-                {
-                    writer.WritePropertyName("identity"u8);
-                    writer.WriteObjectValue(Identity);
-                }
-                else
-                {
-                    writer.WriteNull("identity");
-                }
+                writer.WritePropertyName("identity"u8);
+                writer.WriteObjectValue(Identity);
+            }
+            else
+            {
+                writer.WriteNull("identity");
             }
             writer.WritePropertyName("subdomainUrl"u8);
             writer.WriteStringValue(SubdomainUrl);
