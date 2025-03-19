@@ -15,11 +15,6 @@ namespace Azure.Search.Documents.Indexes.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Id))
-            {
-                writer.WritePropertyName("id"u8);
-                writer.WriteStringValue(Id);
-            }
             if (Optional.IsDefined(StorageConnectionString))
             {
                 writer.WritePropertyName("storageConnectionString"u8);
@@ -58,17 +53,11 @@ namespace Azure.Search.Documents.Indexes.Models
             {
                 return null;
             }
-            string id = default;
             string storageConnectionString = default;
             bool? enableReprocessing = default;
             SearchIndexerDataIdentity identity = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("id"u8))
-                {
-                    id = property.Value.GetString();
-                    continue;
-                }
                 if (property.NameEquals("storageConnectionString"u8))
                 {
                     storageConnectionString = property.Value.GetString();
@@ -95,7 +84,7 @@ namespace Azure.Search.Documents.Indexes.Models
                     continue;
                 }
             }
-            return new SearchIndexerCache(id, storageConnectionString, enableReprocessing, identity);
+            return new SearchIndexerCache(storageConnectionString, enableReprocessing, identity);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>

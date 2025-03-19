@@ -22,15 +22,8 @@ namespace Azure.Search.Documents.Models
             writer.WriteStringValue(Kind.ToString());
             if (Optional.IsDefined(RerankWithOriginalVectors))
             {
-                if (RerankWithOriginalVectors != null)
-                {
-                    writer.WritePropertyName("rerankWithOriginalVectors"u8);
-                    writer.WriteBooleanValue(RerankWithOriginalVectors.Value);
-                }
-                else
-                {
-                    writer.WriteNull("rerankWithOriginalVectors");
-                }
+                writer.WritePropertyName("rerankWithOriginalVectors"u8);
+                writer.WriteBooleanValue(RerankWithOriginalVectors.Value);
             }
             if (Optional.IsDefined(DefaultOversampling))
             {
@@ -99,7 +92,6 @@ namespace Azure.Search.Documents.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        rerankWithOriginalVectors = null;
                         continue;
                     }
                     rerankWithOriginalVectors = property.Value.GetBoolean();

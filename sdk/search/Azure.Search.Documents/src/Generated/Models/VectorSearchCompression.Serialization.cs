@@ -22,15 +22,8 @@ namespace Azure.Search.Documents.Indexes.Models
             writer.WriteStringValue(Kind.ToString());
             if (Optional.IsDefined(RerankWithOriginalVectors))
             {
-                if (RerankWithOriginalVectors != null)
-                {
-                    writer.WritePropertyName("rerankWithOriginalVectors"u8);
-                    writer.WriteBooleanValue(RerankWithOriginalVectors.Value);
-                }
-                else
-                {
-                    writer.WriteNull("rerankWithOriginalVectors");
-                }
+                writer.WritePropertyName("rerankWithOriginalVectors"u8);
+                writer.WriteBooleanValue(RerankWithOriginalVectors.Value);
             }
             if (Optional.IsDefined(DefaultOversampling))
             {
