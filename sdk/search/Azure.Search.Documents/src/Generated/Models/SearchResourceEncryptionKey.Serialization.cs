@@ -17,11 +17,8 @@ namespace Azure.Search.Documents.Indexes.Models
             writer.WriteStartObject();
             writer.WritePropertyName("keyVaultKeyName"u8);
             writer.WriteStringValue(KeyName);
-            if (Optional.IsDefined(KeyVersion))
-            {
-                writer.WritePropertyName("keyVaultKeyVersion"u8);
-                writer.WriteStringValue(KeyVersion);
-            }
+            writer.WritePropertyName("keyVaultKeyVersion"u8);
+            writer.WriteStringValue(KeyVersion);
             writer.WritePropertyName("keyVaultUri"u8);
             writer.WriteStringValue(_vaultUri);
             if (Optional.IsDefined(AccessCredentialsInternal))
