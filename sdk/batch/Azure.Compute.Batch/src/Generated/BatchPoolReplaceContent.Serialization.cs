@@ -29,6 +29,13 @@ namespace Azure.Compute.Batch
                 writer.WritePropertyName("startTask"u8);
                 writer.WriteObjectValue(StartTask, options);
             }
+            writer.WritePropertyName("certificateReferences"u8);
+            writer.WriteStartArray();
+            foreach (var item in CertificateReferences)
+            {
+                writer.WriteObjectValue(item, options);
+            }
+            writer.WriteEndArray();
             writer.WritePropertyName("applicationPackageReferences"u8);
             writer.WriteStartArray();
             foreach (var item in ApplicationPackageReferences)
