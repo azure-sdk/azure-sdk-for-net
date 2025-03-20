@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Projects
 {
-    public partial class IndexResource : IUtf8JsonSerializable, IJsonModel<IndexResource>
+    public partial class AISearchIndexResource : IUtf8JsonSerializable, IJsonModel<AISearchIndexResource>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<IndexResource>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AISearchIndexResource>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<IndexResource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AISearchIndexResource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,16 +28,22 @@ namespace Azure.AI.Projects
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<IndexResource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AISearchIndexResource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(IndexResource)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AISearchIndexResource)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("index_connection_id"u8);
             writer.WriteStringValue(IndexConnectionId);
             writer.WritePropertyName("index_name"u8);
             writer.WriteStringValue(IndexName);
+            writer.WritePropertyName("query_type"u8);
+            writer.WriteStringValue(QueryType.ToString());
+            writer.WritePropertyName("top_k"u8);
+            writer.WriteNumberValue(TopK);
+            writer.WritePropertyName("filter"u8);
+            writer.WriteStringValue(Filter);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -55,19 +61,19 @@ namespace Azure.AI.Projects
             }
         }
 
-        IndexResource IJsonModel<IndexResource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AISearchIndexResource IJsonModel<AISearchIndexResource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<IndexResource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AISearchIndexResource>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(IndexResource)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AISearchIndexResource)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeIndexResource(document.RootElement, options);
+            return DeserializeAISearchIndexResource(document.RootElement, options);
         }
 
-        internal static IndexResource DeserializeIndexResource(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AISearchIndexResource DeserializeAISearchIndexResource(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -77,6 +83,9 @@ namespace Azure.AI.Projects
             }
             string indexConnectionId = default;
             string indexName = default;
+            AzureAISearchQueryType queryType = default;
+            int topK = default;
+            string filter = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -91,52 +100,73 @@ namespace Azure.AI.Projects
                     indexName = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("query_type"u8))
+                {
+                    queryType = new AzureAISearchQueryType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("top_k"u8))
+                {
+                    topK = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("filter"u8))
+                {
+                    filter = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new IndexResource(indexConnectionId, indexName, serializedAdditionalRawData);
+            return new AISearchIndexResource(
+                indexConnectionId,
+                indexName,
+                queryType,
+                topK,
+                filter,
+                serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<IndexResource>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AISearchIndexResource>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<IndexResource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AISearchIndexResource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(IndexResource)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AISearchIndexResource)} does not support writing '{options.Format}' format.");
             }
         }
 
-        IndexResource IPersistableModel<IndexResource>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AISearchIndexResource IPersistableModel<AISearchIndexResource>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<IndexResource>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AISearchIndexResource>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeIndexResource(document.RootElement, options);
+                        return DeserializeAISearchIndexResource(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(IndexResource)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AISearchIndexResource)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<IndexResource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AISearchIndexResource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static IndexResource FromResponse(Response response)
+        internal static AISearchIndexResource FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeIndexResource(document.RootElement);
+            return DeserializeAISearchIndexResource(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
