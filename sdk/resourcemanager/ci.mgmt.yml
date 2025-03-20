@@ -40,6 +40,7 @@ trigger:
     - sdk/changeanalysis/Azure.ResourceManager.ChangeAnalysis
     - sdk/chaos/Azure.ResourceManager.Chaos
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
+    - sdk/commonedgesitemanageroperations/Azure.ResourceManager.CommonEdgeSiteManagerOperations
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
     - sdk/computefleet/Azure.ResourceManager.ComputeFleet
@@ -57,6 +58,7 @@ trigger:
     - sdk/cosmosdbforpostgresql/Azure.ResourceManager.CosmosDBForPostgreSql
     - sdk/costmanagement/Azure.ResourceManager.CostManagement
     - sdk/customer-insights/Azure.ResourceManager.CustomerInsights
+    - sdk/databasefleetmanager/Azure.ResourceManager.DatabaseFleetManager
     - sdk/databasewatcher/Azure.ResourceManager.DatabaseWatcher
     - sdk/databox/Azure.ResourceManager.DataBox
     - sdk/databoxedge/Azure.ResourceManager.DataBoxEdge
@@ -248,6 +250,7 @@ pr:
     - sdk/changeanalysis/Azure.ResourceManager.ChangeAnalysis
     - sdk/chaos/Azure.ResourceManager.Chaos
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
+    - sdk/commonedgesitemanageroperations/Azure.ResourceManager.CommonEdgeSiteManagerOperations
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
     - sdk/computefleet/Azure.ResourceManager.ComputeFleet
@@ -265,6 +268,7 @@ pr:
     - sdk/cosmosdbforpostgresql/Azure.ResourceManager.CosmosDBForPostgreSql
     - sdk/costmanagement/Azure.ResourceManager.CostManagement
     - sdk/customer-insights/Azure.ResourceManager.CustomerInsights
+    - sdk/databasefleetmanager/Azure.ResourceManager.DatabaseFleetManager
     - sdk/databasewatcher/Azure.ResourceManager.DatabaseWatcher
     - sdk/databox/Azure.ResourceManager.DataBox
     - sdk/databoxedge/Azure.ResourceManager.DataBoxEdge
