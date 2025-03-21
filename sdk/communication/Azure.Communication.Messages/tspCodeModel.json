@@ -1,12 +1,12 @@
 {
  "$id": "1",
- "name": "Azure.Communication.MessagesService",
- "apiVersions": [
+ "Name": "Azure.Communication.MessagesService",
+ "ApiVersions": [
   "2024-02-01",
   "2024-08-30",
   "2025-01-15-preview"
  ],
- "enums": [
+ "Enums": [
   {
    "$id": "2",
    "kind": "enum",
@@ -920,7 +920,7 @@
    "decorators": []
   }
  ],
- "models": [
+ "Models": [
   {
    "$id": "100",
    "kind": "model",
@@ -4854,79 +4854,79 @@
    ]
   }
  ],
- "clients": [
+ "Clients": [
   {
    "$id": "611",
-   "name": "NotificationMessagesClient",
-   "namespace": "ClientForAcsMessages",
-   "operations": [
+   "Name": "NotificationMessagesClient",
+   "Namespace": "ClientForAcsMessages",
+   "Operations": [
     {
      "$id": "612",
-     "name": "send",
-     "resourceName": "NotificationMessagesClient",
-     "doc": "Sends a notification message from Business to User.",
-     "accessibility": "public",
-     "parameters": [
+     "Name": "send",
+     "ResourceName": "NotificationMessagesClient",
+     "Doc": "Sends a notification message from Business to User.",
+     "Accessibility": "public",
+     "Parameters": [
       {
        "$id": "613",
-       "name": "apiVersion",
-       "nameInRequest": "api-version",
-       "doc": "The API version to use for this operation.",
-       "type": {
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Doc": "The API version to use for this operation.",
+       "Type": {
         "$id": "614",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
         "decorators": []
        },
-       "location": "Query",
-       "isApiVersion": true,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Client",
-       "defaultValue": {
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
         "$id": "615",
-        "type": {
+        "Type": {
          "$id": "616",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string"
         },
-        "value": "2025-01-15-preview"
+        "Value": "2025-01-15-preview"
        },
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "617",
-       "name": "repeatabilityRequestId",
-       "nameInRequest": "Repeatability-Request-ID",
-       "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
-       "type": {
+       "Name": "repeatabilityRequestId",
+       "NameInRequest": "Repeatability-Request-ID",
+       "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
         "$id": "618",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": false,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "619",
-       "name": "repeatabilityFirstSent",
-       "nameInRequest": "Repeatability-First-Sent",
-       "doc": "Specifies the date and time at which the request was first created.",
-       "type": {
+       "Name": "repeatabilityFirstSent",
+       "NameInRequest": "Repeatability-First-Sent",
+       "Doc": "Specifies the date and time at which the request was first created.",
+       "Type": {
         "$id": "620",
         "kind": "utcDateTime",
         "name": "utcDateTime",
@@ -4941,22 +4941,22 @@
         "crossLanguageDefinitionId": "TypeSpec.utcDateTime",
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": false,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "622",
-       "name": "clientRequestId",
-       "nameInRequest": "x-ms-client-request-id",
-       "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
-       "type": {
+       "Name": "clientRequestId",
+       "NameInRequest": "x-ms-client-request-id",
+       "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
         "$id": "623",
         "kind": "string",
         "name": "uuid",
@@ -4970,22 +4970,22 @@
         },
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": false,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "625",
-       "name": "contentType",
-       "nameInRequest": "Content-Type",
-       "doc": "Body parameter's content type. Known values are application/json",
-       "type": {
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Doc": "Body parameter's content type. Known values are application/json",
+       "Type": {
         "$id": "626",
         "kind": "constant",
         "valueType": {
@@ -4998,21 +4998,21 @@
         "value": "application/json",
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": true,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Constant",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": true,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "628",
-       "name": "accept",
-       "nameInRequest": "Accept",
-       "type": {
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
         "$id": "629",
         "kind": "constant",
         "valueType": {
@@ -5025,60 +5025,60 @@
         "value": "application/json",
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Constant",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "631",
-       "name": "notificationContent",
-       "nameInRequest": "notificationContent",
-       "doc": "Details of the message to send.",
-       "type": {
+       "Name": "notificationContent",
+       "NameInRequest": "notificationContent",
+       "Doc": "Details of the message to send.",
+       "Type": {
         "$ref": "100"
        },
-       "location": "Body",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Body",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       }
      ],
-     "responses": [
+     "Responses": [
       {
        "$id": "632",
-       "statusCodes": [
+       "StatusCodes": [
         202
        ],
-       "bodyType": {
+       "BodyType": {
         "$ref": "561"
        },
-       "headers": [
+       "Headers": [
         {
          "$id": "633",
-         "name": "repeatabilityResult",
-         "nameInResponse": "Repeatability-Result",
-         "doc": "Indicates whether the repeatable request was accepted or rejected.",
-         "type": {
+         "Name": "repeatabilityResult",
+         "NameInResponse": "Repeatability-Result",
+         "Doc": "Indicates whether the repeatable request was accepted or rejected.",
+         "Type": {
           "$ref": "94"
          }
         },
         {
          "$id": "634",
-         "name": "clientRequestId",
-         "nameInResponse": "x-ms-client-request-id",
-         "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
-         "type": {
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
           "$id": "635",
           "kind": "string",
           "name": "uuid",
@@ -5094,91 +5094,91 @@
          }
         }
        ],
-       "isErrorResponse": false,
-       "contentTypes": [
+       "IsErrorResponse": false,
+       "ContentTypes": [
         "application/json"
        ]
       }
      ],
-     "httpMethod": "POST",
-     "uri": "{endpoint}",
-     "path": "/messages/notifications:send",
-     "requestMediaTypes": [
+     "HttpMethod": "POST",
+     "Uri": "{endpoint}",
+     "Path": "/messages/notifications:send",
+     "RequestMediaTypes": [
       "application/json"
      ],
-     "bufferResponse": true,
-     "generateProtocolMethod": true,
-     "generateConvenienceMethod": true,
-     "crossLanguageDefinitionId": "Azure.Communication.MessagesService.NotificationMessagesClient.send",
-     "decorators": []
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "Azure.Communication.MessagesService.NotificationMessagesClient.send",
+     "Decorators": []
     },
     {
      "$id": "637",
-     "name": "downloadMediaInternal",
-     "resourceName": "MessageDataStream",
-     "doc": "Download the Media payload from a User to Business message.",
-     "accessibility": "internal",
-     "parameters": [
+     "Name": "downloadMediaInternal",
+     "ResourceName": "MessageDataStream",
+     "Doc": "Download the Media payload from a User to Business message.",
+     "Accessibility": "internal",
+     "Parameters": [
       {
        "$id": "638",
-       "name": "apiVersion",
-       "nameInRequest": "api-version",
-       "doc": "The API version to use for this operation.",
-       "type": {
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Doc": "The API version to use for this operation.",
+       "Type": {
         "$id": "639",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
         "decorators": []
        },
-       "location": "Query",
-       "isApiVersion": true,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Client",
-       "defaultValue": {
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
         "$id": "640",
-        "type": {
+        "Type": {
          "$id": "641",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string"
         },
-        "value": "2025-01-15-preview"
+        "Value": "2025-01-15-preview"
        },
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "642",
-       "name": "id",
-       "nameInRequest": "id",
-       "doc": "The stream ID.",
-       "type": {
+       "Name": "id",
+       "NameInRequest": "id",
+       "Doc": "The stream ID.",
+       "Type": {
         "$id": "643",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
         "decorators": []
        },
-       "location": "Path",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "644",
-       "name": "clientRequestId",
-       "nameInRequest": "x-ms-client-request-id",
-       "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
-       "type": {
+       "Name": "clientRequestId",
+       "NameInRequest": "x-ms-client-request-id",
+       "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
         "$id": "645",
         "kind": "string",
         "name": "uuid",
@@ -5192,21 +5192,21 @@
         },
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": false,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
        "$id": "647",
-       "name": "accept",
-       "nameInRequest": "Accept",
-       "type": {
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
         "$id": "648",
         "kind": "constant",
         "valueType": {
@@ -5219,37 +5219,37 @@
         "value": "application/octet-stream",
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Constant",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       }
      ],
-     "responses": [
+     "Responses": [
       {
        "$id": "650",
-       "statusCodes": [
+       "StatusCodes": [
         200
        ],
-       "bodyType": {
+       "BodyType": {
         "$id": "651",
         "kind": "bytes",
         "name": "bytes",
         "crossLanguageDefinitionId": "TypeSpec.bytes",
         "decorators": []
        },
-       "headers": [
+       "Headers": [
         {
          "$id": "652",
-         "name": "clientRequestId",
-         "nameInResponse": "x-ms-client-request-id",
-         "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
-         "type": {
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
           "$id": "653",
           "kind": "string",
           "name": "uuid",
@@ -5266,10 +5266,10 @@
         },
         {
          "$id": "655",
-         "name": "contentType",
-         "nameInResponse": "content-type",
-         "doc": "The stream content type.",
-         "type": {
+         "Name": "contentType",
+         "NameInResponse": "content-type",
+         "Doc": "The stream content type.",
+         "Type": {
           "$id": "656",
           "kind": "constant",
           "valueType": {
@@ -5284,21 +5284,21 @@
          }
         }
        ],
-       "isErrorResponse": false,
-       "contentTypes": [
+       "IsErrorResponse": false,
+       "ContentTypes": [
         "application/octet-stream"
        ]
       }
      ],
-     "httpMethod": "GET",
-     "uri": "{endpoint}",
-     "path": "/messages/streams/{id}",
-     "bufferResponse": true,
-     "generateProtocolMethod": true,
-     "generateConvenienceMethod": true,
-     "crossLanguageDefinitionId": "ClientForAcsMessages.NotificationMessagesClient.downloadMedia",
-     "decorators": [],
-     "examples": [
+     "HttpMethod": "GET",
+     "Uri": "{endpoint}",
+     "Path": "/messages/streams/{id}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "ClientForAcsMessages.NotificationMessagesClient.downloadMedia",
+     "Decorators": [],
+     "Examples": [
       {
        "$id": "658",
        "kind": "http",
@@ -5356,87 +5356,91 @@
      ]
     }
    ],
-   "parameters": [
+   "Protocol": {
+    "$id": "665"
+   },
+   "Parameters": [
     {
-     "$id": "665",
-     "name": "endpoint",
-     "nameInRequest": "endpoint",
-     "doc": "The communication resource, for example https://my-resource.communication.azure.com",
-     "type": {
-      "$id": "666",
+     "$id": "666",
+     "Name": "endpoint",
+     "NameInRequest": "endpoint",
+     "Doc": "The communication resource, for example https://my-resource.communication.azure.com",
+     "Type": {
+      "$id": "667",
       "kind": "url",
       "name": "url",
       "crossLanguageDefinitionId": "TypeSpec.url"
      },
-     "location": "Uri",
-     "isApiVersion": false,
-     "isContentType": false,
-     "isRequired": true,
-     "isEndpoint": true,
-     "skipUrlEncoding": false,
-     "explode": false,
-     "kind": "Client"
+     "Location": "Uri",
+     "IsApiVersion": false,
+     "IsResourceParameter": false,
+     "IsContentType": false,
+     "IsRequired": true,
+     "IsEndpoint": true,
+     "SkipUrlEncoding": false,
+     "Explode": false,
+     "Kind": "Client"
     }
    ],
-   "decorators": [],
-   "crossLanguageDefinitionId": "ClientForAcsMessages.NotificationMessagesClient"
+   "Decorators": [],
+   "CrossLanguageDefinitionId": "ClientForAcsMessages.NotificationMessagesClient"
   },
   {
-   "$id": "667",
-   "name": "MessageTemplateClient",
-   "namespace": "ClientForAcsMessages",
-   "operations": [
+   "$id": "668",
+   "Name": "MessageTemplateClient",
+   "Namespace": "ClientForAcsMessages",
+   "Operations": [
     {
-     "$id": "668",
-     "name": "getTemplates",
-     "resourceName": "MessageTemplateItem",
-     "doc": "List all templates for given Azure Communication Services channel",
-     "accessibility": "public",
-     "parameters": [
+     "$id": "669",
+     "Name": "getTemplates",
+     "ResourceName": "MessageTemplateItem",
+     "Doc": "List all templates for given Azure Communication Services channel",
+     "Accessibility": "public",
+     "Parameters": [
       {
-       "$id": "669",
-       "name": "apiVersion",
-       "nameInRequest": "api-version",
-       "doc": "The API version to use for this operation.",
-       "type": {
-        "$id": "670",
+       "$id": "670",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Doc": "The API version to use for this operation.",
+       "Type": {
+        "$id": "671",
         "kind": "string",
         "name": "string",
         "crossLanguageDefinitionId": "TypeSpec.string",
         "decorators": []
        },
-       "location": "Query",
-       "isApiVersion": true,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Client",
-       "defaultValue": {
-        "$id": "671",
-        "type": {
-         "$id": "672",
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "672",
+        "Type": {
+         "$id": "673",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string"
         },
-        "value": "2025-01-15-preview"
+        "Value": "2025-01-15-preview"
        },
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
-       "$id": "673",
-       "name": "channelId",
-       "nameInRequest": "channelId",
-       "doc": "The registration ID of the channel.",
-       "type": {
-        "$id": "674",
+       "$id": "674",
+       "Name": "channelId",
+       "NameInRequest": "channelId",
+       "Doc": "The registration ID of the channel.",
+       "Type": {
+        "$id": "675",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "675",
+         "$id": "676",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5444,50 +5448,50 @@
         },
         "decorators": []
        },
-       "location": "Path",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
-       "$id": "676",
-       "name": "maxpagesize",
-       "nameInRequest": "maxpagesize",
-       "doc": "Number of objects to return per page.",
-       "type": {
-        "$id": "677",
+       "$id": "677",
+       "Name": "maxpagesize",
+       "NameInRequest": "maxpagesize",
+       "Doc": "Number of objects to return per page.",
+       "Type": {
+        "$id": "678",
         "kind": "int32",
         "name": "int32",
         "crossLanguageDefinitionId": "TypeSpec.int32",
         "decorators": []
        },
-       "location": "Query",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": false,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Query",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
-       "$id": "678",
-       "name": "clientRequestId",
-       "nameInRequest": "x-ms-client-request-id",
-       "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
-       "type": {
-        "$id": "679",
+       "$id": "679",
+       "Name": "clientRequestId",
+       "NameInRequest": "x-ms-client-request-id",
+       "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+       "Type": {
+        "$id": "680",
         "kind": "string",
         "name": "uuid",
         "crossLanguageDefinitionId": "Azure.Core.uuid",
         "baseType": {
-         "$id": "680",
+         "$id": "681",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5495,25 +5499,25 @@
         },
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": false,
-       "kind": "Method",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       },
       {
-       "$id": "681",
-       "name": "accept",
-       "nameInRequest": "Accept",
-       "type": {
-        "$id": "682",
+       "$id": "682",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "683",
         "kind": "constant",
         "valueType": {
-         "$id": "683",
+         "$id": "684",
          "kind": "string",
          "name": "string",
          "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5522,39 +5526,39 @@
         "value": "application/json",
         "decorators": []
        },
-       "location": "Header",
-       "isApiVersion": false,
-       "isContentType": false,
-       "isEndpoint": false,
-       "explode": false,
-       "isRequired": true,
-       "kind": "Constant",
-       "decorators": [],
-       "skipUrlEncoding": false
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
       }
      ],
-     "responses": [
+     "Responses": [
       {
-       "$id": "684",
-       "statusCodes": [
+       "$id": "685",
+       "StatusCodes": [
         200
        ],
-       "bodyType": {
+       "BodyType": {
         "$ref": "601"
        },
-       "headers": [
+       "Headers": [
         {
-         "$id": "685",
-         "name": "clientRequestId",
-         "nameInResponse": "x-ms-client-request-id",
-         "doc": "An opaque, globally-unique, client-generated string identifier for the request.",
-         "type": {
-          "$id": "686",
+         "$id": "686",
+         "Name": "clientRequestId",
+         "NameInResponse": "x-ms-client-request-id",
+         "Doc": "An opaque, globally-unique, client-generated string identifier for the request.",
+         "Type": {
+          "$id": "687",
           "kind": "string",
           "name": "uuid",
           "crossLanguageDefinitionId": "Azure.Core.uuid",
           "baseType": {
-           "$id": "687",
+           "$id": "688",
            "kind": "string",
            "name": "string",
            "crossLanguageDefinitionId": "TypeSpec.string",
@@ -5564,73 +5568,77 @@
          }
         }
        ],
-       "isErrorResponse": false,
-       "contentTypes": [
+       "IsErrorResponse": false,
+       "ContentTypes": [
         "application/json"
        ]
       }
      ],
-     "httpMethod": "GET",
-     "uri": "{endpoint}",
-     "path": "/messages/channels/{channelId}/templates",
-     "bufferResponse": true,
-     "paging": {
-      "$id": "688",
-      "itemPropertySegments": [
+     "HttpMethod": "GET",
+     "Uri": "{endpoint}",
+     "Path": "/messages/channels/{channelId}/templates",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "689",
+      "ItemPropertySegments": [
        "value"
       ],
-      "nextLink": {
-       "$id": "689",
-       "responseSegments": [
+      "NextLink": {
+       "$id": "690",
+       "ResponseSegments": [
         "nextLink"
        ],
-       "responseLocation": "Body"
+       "ResponseLocation": "Body"
       }
      },
-     "generateProtocolMethod": true,
-     "generateConvenienceMethod": true,
-     "crossLanguageDefinitionId": "Azure.Communication.MessagesService.MessageTemplateClient.listTemplates",
-     "decorators": []
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "Azure.Communication.MessagesService.MessageTemplateClient.listTemplates",
+     "Decorators": []
     }
    ],
-   "parameters": [
+   "Protocol": {
+    "$id": "691"
+   },
+   "Parameters": [
     {
-     "$id": "690",
-     "name": "endpoint",
-     "nameInRequest": "endpoint",
-     "doc": "The communication resource, for example https://my-resource.communication.azure.com",
-     "type": {
-      "$id": "691",
+     "$id": "692",
+     "Name": "endpoint",
+     "NameInRequest": "endpoint",
+     "Doc": "The communication resource, for example https://my-resource.communication.azure.com",
+     "Type": {
+      "$id": "693",
       "kind": "url",
       "name": "url",
       "crossLanguageDefinitionId": "TypeSpec.url"
      },
-     "location": "Uri",
-     "isApiVersion": false,
-     "isContentType": false,
-     "isRequired": true,
-     "isEndpoint": true,
-     "skipUrlEncoding": false,
-     "explode": false,
-     "kind": "Client"
+     "Location": "Uri",
+     "IsApiVersion": false,
+     "IsResourceParameter": false,
+     "IsContentType": false,
+     "IsRequired": true,
+     "IsEndpoint": true,
+     "SkipUrlEncoding": false,
+     "Explode": false,
+     "Kind": "Client"
     }
    ],
-   "decorators": [],
-   "crossLanguageDefinitionId": "ClientForAcsMessages.MessageTemplateClient"
+   "Decorators": [],
+   "CrossLanguageDefinitionId": "ClientForAcsMessages.MessageTemplateClient"
   }
  ],
- "auth": {
-  "$id": "692",
-  "oAuth2": {
-   "$id": "693",
-   "scopes": [
+ "Auth": {
+  "$id": "694",
+  "OAuth2": {
+   "$id": "695",
+   "Scopes": [
     "https://communication.azure.com/.default"
    ]
   },
-  "apiKey": {
-   "$id": "694",
-   "name": "Authorization",
-   "in": "header"
+  "ApiKey": {
+   "$id": "696",
+   "Name": "Authorization",
+   "In": "header"
   }
  }
 }
