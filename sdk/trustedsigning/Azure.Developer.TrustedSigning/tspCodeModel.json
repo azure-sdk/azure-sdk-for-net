@@ -1,0 +1,2447 @@
+{
+ "$id": "1",
+ "Name": "Azure.Developer.TrustedSigning",
+ "ApiVersions": [
+  "2023-06-15-preview"
+ ],
+ "Enums": [
+  {
+   "$id": "2",
+   "kind": "enum",
+   "name": "SignatureAlgorithm",
+   "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SignatureAlgorithm",
+   "valueType": {
+    "$id": "3",
+    "kind": "string",
+    "name": "string",
+    "crossLanguageDefinitionId": "TypeSpec.string",
+    "decorators": []
+   },
+   "values": [
+    {
+     "$id": "4",
+     "kind": "enumvalue",
+     "name": "RS256",
+     "value": "RS256",
+     "valueType": {
+      "$id": "5",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "RSASSA-PKCS1-v1_5 using SHA-256 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "6",
+     "kind": "enumvalue",
+     "name": "RS384",
+     "value": "RS384",
+     "valueType": {
+      "$id": "7",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "RSASSA-PKCS1-v1_5 using SHA-384 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "8",
+     "kind": "enumvalue",
+     "name": "RS512",
+     "value": "RS512",
+     "valueType": {
+      "$id": "9",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "RSASSA-PKCS1-v1_5 using SHA-512 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "10",
+     "kind": "enumvalue",
+     "name": "PS256",
+     "value": "PS256",
+     "valueType": {
+      "$id": "11",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "RSASSA-PSS using SHA-256 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "12",
+     "kind": "enumvalue",
+     "name": "PS384",
+     "value": "PS384",
+     "valueType": {
+      "$id": "13",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "RSASSA-PSS using SHA-384 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "14",
+     "kind": "enumvalue",
+     "name": "PS512",
+     "value": "PS512",
+     "valueType": {
+      "$id": "15",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "RSASSA-PSS using SHA-512 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "16",
+     "kind": "enumvalue",
+     "name": "ES256",
+     "value": "ES256",
+     "valueType": {
+      "$id": "17",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "ECDSA using P-256 and SHA-256 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "18",
+     "kind": "enumvalue",
+     "name": "ES384",
+     "value": "ES384",
+     "valueType": {
+      "$id": "19",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "ECDSA using P-384 and SHA-384 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "20",
+     "kind": "enumvalue",
+     "name": "ES512",
+     "value": "ES512",
+     "valueType": {
+      "$id": "21",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "ECDSA using P-521 and SHA-512 hash algorithm.",
+     "decorators": []
+    },
+    {
+     "$id": "22",
+     "kind": "enumvalue",
+     "name": "ES256K",
+     "value": "ES256K",
+     "valueType": {
+      "$id": "23",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "2"
+     },
+     "doc": "ECDSA using secp256k1 and SHA-256 hash algorithm.",
+     "decorators": []
+    }
+   ],
+   "namespace": "Azure.Developer.TrustedSigning",
+   "doc": "Algorithms supported for signing.",
+   "isFixed": false,
+   "isFlags": false,
+   "usage": "Input,Json",
+   "decorators": []
+  },
+  {
+   "$id": "24",
+   "kind": "enum",
+   "name": "Versions",
+   "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.Versions",
+   "valueType": {
+    "$id": "25",
+    "kind": "string",
+    "name": "string",
+    "crossLanguageDefinitionId": "TypeSpec.string",
+    "decorators": []
+   },
+   "values": [
+    {
+     "$id": "26",
+     "kind": "enumvalue",
+     "name": "v2023_06_15_preview",
+     "value": "2023-06-15-preview",
+     "valueType": {
+      "$id": "27",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "24"
+     },
+     "doc": "The 2023-06-15-preview version.",
+     "decorators": []
+    }
+   ],
+   "namespace": "Azure.Developer.TrustedSigning",
+   "doc": "Versions info.",
+   "isFixed": true,
+   "isFlags": false,
+   "usage": "ApiVersionEnum",
+   "decorators": []
+  },
+  {
+   "$id": "28",
+   "kind": "enum",
+   "name": "OperationState",
+   "crossLanguageDefinitionId": "Azure.Core.Foundations.OperationState",
+   "valueType": {
+    "$id": "29",
+    "kind": "string",
+    "name": "string",
+    "crossLanguageDefinitionId": "TypeSpec.string",
+    "decorators": []
+   },
+   "values": [
+    {
+     "$id": "30",
+     "kind": "enumvalue",
+     "name": "NotStarted",
+     "value": "NotStarted",
+     "valueType": {
+      "$id": "31",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "28"
+     },
+     "doc": "The operation has not started.",
+     "decorators": []
+    },
+    {
+     "$id": "32",
+     "kind": "enumvalue",
+     "name": "Running",
+     "value": "Running",
+     "valueType": {
+      "$id": "33",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "28"
+     },
+     "doc": "The operation is in progress.",
+     "decorators": []
+    },
+    {
+     "$id": "34",
+     "kind": "enumvalue",
+     "name": "Succeeded",
+     "value": "Succeeded",
+     "valueType": {
+      "$id": "35",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "28"
+     },
+     "doc": "The operation has completed successfully.",
+     "decorators": []
+    },
+    {
+     "$id": "36",
+     "kind": "enumvalue",
+     "name": "Failed",
+     "value": "Failed",
+     "valueType": {
+      "$id": "37",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "28"
+     },
+     "doc": "The operation has failed.",
+     "decorators": []
+    },
+    {
+     "$id": "38",
+     "kind": "enumvalue",
+     "name": "Canceled",
+     "value": "Canceled",
+     "valueType": {
+      "$id": "39",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "enumType": {
+      "$ref": "28"
+     },
+     "doc": "The operation has been canceled by the user.",
+     "decorators": []
+    }
+   ],
+   "namespace": "Azure.Core.Foundations",
+   "doc": "Enum describing allowed operation states.",
+   "isFixed": false,
+   "isFlags": false,
+   "usage": "Output,Json,LroInitial,LroPolling,LroFinalEnvelope",
+   "decorators": []
+  }
+ ],
+ "Models": [
+  {
+   "$id": "40",
+   "kind": "model",
+   "name": "SignResult",
+   "namespace": "Azure.Developer.TrustedSigning",
+   "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SignResult",
+   "usage": "Output,Json,LroInitial,LroPolling,LroFinalEnvelope",
+   "doc": "The sign status model.",
+   "decorators": [],
+   "properties": [
+    {
+     "$id": "41",
+     "kind": "property",
+     "name": "signature",
+     "serializedName": "signature",
+     "doc": "Digital signature of the requested content digest.",
+     "type": {
+      "$id": "42",
+      "kind": "bytes",
+      "name": "bytes",
+      "encode": "base64",
+      "crossLanguageDefinitionId": "TypeSpec.bytes",
+      "decorators": []
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SignResult.signature",
+     "serializationOptions": {
+      "$id": "43",
+      "json": {
+       "$id": "44",
+       "name": "signature"
+      }
+     }
+    },
+    {
+     "$id": "45",
+     "kind": "property",
+     "name": "signingCertificate",
+     "serializedName": "signingCertificate",
+     "doc": "Signing certificate corresponding to the private key used to sign the requested \ndigest.",
+     "type": {
+      "$id": "46",
+      "kind": "bytes",
+      "name": "bytes",
+      "encode": "base64",
+      "crossLanguageDefinitionId": "TypeSpec.bytes",
+      "decorators": []
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SignResult.signingCertificate",
+     "serializationOptions": {
+      "$id": "47",
+      "json": {
+       "$id": "48",
+       "name": "signingCertificate"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "$id": "49",
+   "kind": "model",
+   "name": "ExtendedKeyUsage",
+   "namespace": "Azure.Developer.TrustedSigning",
+   "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.ExtendedKeyUsage",
+   "usage": "Output,Json",
+   "doc": "Extended key usage object identifier that are allowable.",
+   "decorators": [],
+   "properties": [
+    {
+     "$id": "50",
+     "kind": "property",
+     "name": "eku",
+     "serializedName": "eku",
+     "doc": "An oid string that represents an eku.",
+     "type": {
+      "$id": "51",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "optional": false,
+     "readOnly": true,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.ExtendedKeyUsage.eku",
+     "serializationOptions": {
+      "$id": "52",
+      "json": {
+       "$id": "53",
+       "name": "eku"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "$id": "54",
+   "kind": "model",
+   "name": "SigningPayloadOptions",
+   "namespace": "Azure.Developer.TrustedSigning",
+   "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SigningPayloadOptions",
+   "usage": "Input,Json",
+   "doc": "The artifact request information to be signed by the service.",
+   "decorators": [],
+   "properties": [
+    {
+     "$id": "55",
+     "kind": "property",
+     "name": "signatureAlgorithm",
+     "serializedName": "signatureAlgorithm",
+     "doc": "The supported signature algorithm identifiers.",
+     "type": {
+      "$ref": "2"
+     },
+     "optional": false,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SigningPayloadOptions.signatureAlgorithm",
+     "serializationOptions": {
+      "$id": "56",
+      "json": {
+       "$id": "57",
+       "name": "signatureAlgorithm"
+      }
+     }
+    },
+    {
+     "$id": "58",
+     "kind": "property",
+     "name": "digest",
+     "serializedName": "digest",
+     "doc": "Content digest to sign.",
+     "type": {
+      "$id": "59",
+      "kind": "bytes",
+      "name": "bytes",
+      "encode": "base64",
+      "crossLanguageDefinitionId": "TypeSpec.bytes",
+      "decorators": []
+     },
+     "optional": false,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SigningPayloadOptions.digest",
+     "serializationOptions": {
+      "$id": "60",
+      "json": {
+       "$id": "61",
+       "name": "digest"
+      }
+     }
+    },
+    {
+     "$id": "62",
+     "kind": "property",
+     "name": "fileHashList",
+     "serializedName": "fileHashList",
+     "doc": "List of full file digital signatures.",
+     "type": {
+      "$id": "63",
+      "kind": "array",
+      "name": "Array",
+      "valueType": {
+       "$id": "64",
+       "kind": "bytes",
+       "name": "bytes",
+       "encode": "base64",
+       "crossLanguageDefinitionId": "TypeSpec.bytes",
+       "decorators": []
+      },
+      "crossLanguageDefinitionId": "TypeSpec.Array",
+      "decorators": []
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SigningPayloadOptions.fileHashList",
+     "serializationOptions": {
+      "$id": "65",
+      "json": {
+       "$id": "66",
+       "name": "fileHashList"
+      }
+     }
+    },
+    {
+     "$id": "67",
+     "kind": "property",
+     "name": "authenticodeHashList",
+     "serializedName": "authenticodeHashList",
+     "doc": "List of authenticode digital signatures.",
+     "type": {
+      "$id": "68",
+      "kind": "array",
+      "name": "Array",
+      "valueType": {
+       "$id": "69",
+       "kind": "bytes",
+       "name": "bytes",
+       "encode": "base64",
+       "crossLanguageDefinitionId": "TypeSpec.bytes",
+       "decorators": []
+      },
+      "crossLanguageDefinitionId": "TypeSpec.Array",
+      "decorators": []
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Developer.TrustedSigning.SigningPayloadOptions.authenticodeHashList",
+     "serializationOptions": {
+      "$id": "70",
+      "json": {
+       "$id": "71",
+       "name": "authenticodeHashList"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "$id": "72",
+   "kind": "model",
+   "name": "OperationStatusSignResultError",
+   "namespace": "Azure.Core.Foundations",
+   "crossLanguageDefinitionId": "Azure.Core.Foundations.OperationStatus",
+   "usage": "Output,Json,LroPolling,LroFinalEnvelope",
+   "doc": "Provides status details for long running operations.",
+   "decorators": [],
+   "properties": [
+    {
+     "$id": "73",
+     "kind": "property",
+     "name": "id",
+     "serializedName": "id",
+     "doc": "The unique ID of the operation.",
+     "type": {
+      "$id": "74",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "optional": false,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.Foundations.OperationStatus.id",
+     "serializationOptions": {
+      "$id": "75",
+      "json": {
+       "$id": "76",
+       "name": "id"
+      }
+     }
+    },
+    {
+     "$id": "77",
+     "kind": "property",
+     "name": "status",
+     "serializedName": "status",
+     "doc": "The status of the operation",
+     "type": {
+      "$ref": "28"
+     },
+     "optional": false,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.Foundations.OperationStatus.status",
+     "serializationOptions": {
+      "$id": "78",
+      "json": {
+       "$id": "79",
+       "name": "status"
+      }
+     }
+    },
+    {
+     "$id": "80",
+     "kind": "property",
+     "name": "error",
+     "serializedName": "error",
+     "doc": "Error object that describes the error when status is \"Failed\".",
+     "type": {
+      "$id": "81",
+      "kind": "model",
+      "name": "Error",
+      "namespace": "Azure.Core.Foundations",
+      "crossLanguageDefinitionId": "Azure.Core.Foundations.Error",
+      "usage": "Output,Json,Exception,LroInitial,LroPolling,LroFinalEnvelope",
+      "doc": "The error object.",
+      "decorators": [],
+      "properties": [
+       {
+        "$id": "82",
+        "kind": "property",
+        "name": "code",
+        "serializedName": "code",
+        "doc": "One of a server-defined set of error codes.",
+        "type": {
+         "$id": "83",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "optional": false,
+        "readOnly": false,
+        "discriminator": false,
+        "flatten": false,
+        "decorators": [],
+        "crossLanguageDefinitionId": "Azure.Core.Foundations.Error.code",
+        "serializationOptions": {
+         "$id": "84",
+         "json": {
+          "$id": "85",
+          "name": "code"
+         }
+        }
+       },
+       {
+        "$id": "86",
+        "kind": "property",
+        "name": "message",
+        "serializedName": "message",
+        "doc": "A human-readable representation of the error.",
+        "type": {
+         "$id": "87",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "optional": false,
+        "readOnly": false,
+        "discriminator": false,
+        "flatten": false,
+        "decorators": [],
+        "crossLanguageDefinitionId": "Azure.Core.Foundations.Error.message",
+        "serializationOptions": {
+         "$id": "88",
+         "json": {
+          "$id": "89",
+          "name": "message"
+         }
+        }
+       },
+       {
+        "$id": "90",
+        "kind": "property",
+        "name": "target",
+        "serializedName": "target",
+        "doc": "The target of the error.",
+        "type": {
+         "$id": "91",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "optional": true,
+        "readOnly": false,
+        "discriminator": false,
+        "flatten": false,
+        "decorators": [],
+        "crossLanguageDefinitionId": "Azure.Core.Foundations.Error.target",
+        "serializationOptions": {
+         "$id": "92",
+         "json": {
+          "$id": "93",
+          "name": "target"
+         }
+        }
+       },
+       {
+        "$id": "94",
+        "kind": "property",
+        "name": "details",
+        "serializedName": "details",
+        "doc": "An array of details about specific errors that led to this reported error.",
+        "type": {
+         "$id": "95",
+         "kind": "array",
+         "name": "ArrayError",
+         "valueType": {
+          "$ref": "81"
+         },
+         "crossLanguageDefinitionId": "TypeSpec.Array",
+         "decorators": []
+        },
+        "optional": true,
+        "readOnly": false,
+        "discriminator": false,
+        "flatten": false,
+        "decorators": [],
+        "crossLanguageDefinitionId": "Azure.Core.Foundations.Error.details",
+        "serializationOptions": {
+         "$id": "96",
+         "json": {
+          "$id": "97",
+          "name": "details"
+         }
+        }
+       },
+       {
+        "$id": "98",
+        "kind": "property",
+        "name": "innererror",
+        "serializedName": "innererror",
+        "doc": "An object containing more specific information than the current object about the error.",
+        "type": {
+         "$id": "99",
+         "kind": "model",
+         "name": "InnerError",
+         "namespace": "Azure.Core.Foundations",
+         "crossLanguageDefinitionId": "Azure.Core.Foundations.InnerError",
+         "usage": "Output,Json,Exception,LroInitial,LroPolling,LroFinalEnvelope",
+         "doc": "An object containing more specific information about the error. As per Microsoft One API guidelines - https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#7102-error-condition-responses.",
+         "decorators": [],
+         "properties": [
+          {
+           "$id": "100",
+           "kind": "property",
+           "name": "code",
+           "serializedName": "code",
+           "doc": "One of a server-defined set of error codes.",
+           "type": {
+            "$id": "101",
+            "kind": "string",
+            "name": "string",
+            "crossLanguageDefinitionId": "TypeSpec.string",
+            "decorators": []
+           },
+           "optional": true,
+           "readOnly": false,
+           "discriminator": false,
+           "flatten": false,
+           "decorators": [],
+           "crossLanguageDefinitionId": "Azure.Core.Foundations.InnerError.code",
+           "serializationOptions": {
+            "$id": "102",
+            "json": {
+             "$id": "103",
+             "name": "code"
+            }
+           }
+          },
+          {
+           "$id": "104",
+           "kind": "property",
+           "name": "innererror",
+           "serializedName": "innererror",
+           "doc": "Inner error.",
+           "type": {
+            "$ref": "99"
+           },
+           "optional": true,
+           "readOnly": false,
+           "discriminator": false,
+           "flatten": false,
+           "decorators": [],
+           "crossLanguageDefinitionId": "Azure.Core.Foundations.InnerError.innererror",
+           "serializationOptions": {
+            "$id": "105",
+            "json": {
+             "$id": "106",
+             "name": "innererror"
+            }
+           }
+          }
+         ]
+        },
+        "optional": true,
+        "readOnly": false,
+        "discriminator": false,
+        "flatten": false,
+        "decorators": [],
+        "crossLanguageDefinitionId": "Azure.Core.Foundations.Error.innererror",
+        "serializationOptions": {
+         "$id": "107",
+         "json": {
+          "$id": "108",
+          "name": "innererror"
+         }
+        }
+       }
+      ]
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.Foundations.OperationStatus.error",
+     "serializationOptions": {
+      "$id": "109",
+      "json": {
+       "$id": "110",
+       "name": "error"
+      }
+     }
+    },
+    {
+     "$id": "111",
+     "kind": "property",
+     "name": "result",
+     "serializedName": "result",
+     "doc": "The result of the operation.",
+     "type": {
+      "$ref": "40"
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.Foundations.OperationStatus.result",
+     "serializationOptions": {
+      "$id": "112",
+      "json": {
+       "$id": "113",
+       "name": "result"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "$ref": "81"
+  },
+  {
+   "$ref": "99"
+  },
+  {
+   "$id": "114",
+   "kind": "model",
+   "name": "PagedExtendedKeyUsage",
+   "namespace": "Azure.Core.Foundations",
+   "crossLanguageDefinitionId": "Azure.Core.Foundations.CustomPage",
+   "usage": "Output,Json",
+   "doc": "Paged collection of ExtendedKeyUsage items",
+   "decorators": [],
+   "properties": [
+    {
+     "$id": "115",
+     "kind": "property",
+     "name": "value",
+     "serializedName": "value",
+     "doc": "The ExtendedKeyUsage items on this page",
+     "type": {
+      "$id": "116",
+      "kind": "array",
+      "name": "ArrayExtendedKeyUsage",
+      "valueType": {
+       "$ref": "49"
+      },
+      "crossLanguageDefinitionId": "TypeSpec.Array",
+      "decorators": []
+     },
+     "optional": false,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.Foundations.CustomPage.value",
+     "serializationOptions": {
+      "$id": "117",
+      "json": {
+       "$id": "118",
+       "name": "value"
+      }
+     }
+    },
+    {
+     "$id": "119",
+     "kind": "property",
+     "name": "nextLink",
+     "serializedName": "nextLink",
+     "doc": "The link to the next page of items",
+     "type": {
+      "$id": "120",
+      "kind": "url",
+      "name": "ResourceLocation",
+      "crossLanguageDefinitionId": "TypeSpec.Rest.ResourceLocation",
+      "baseType": {
+       "$id": "121",
+       "kind": "url",
+       "name": "url",
+       "crossLanguageDefinitionId": "TypeSpec.url",
+       "decorators": []
+      },
+      "decorators": []
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.Foundations.CustomPage.nextLink",
+     "serializationOptions": {
+      "$id": "122",
+      "json": {
+       "$id": "123",
+       "name": "nextLink"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "$id": "124",
+   "kind": "model",
+   "name": "ResourceOperationStatusCertificateProfileNameSignResultErrorResponse",
+   "namespace": "Azure.Core",
+   "crossLanguageDefinitionId": "Azure.Core.ResourceOperationStatus",
+   "usage": "Json,LroInitial",
+   "doc": "Provides status details for long running operations.",
+   "decorators": [],
+   "properties": [
+    {
+     "$id": "125",
+     "kind": "property",
+     "name": "id",
+     "serializedName": "id",
+     "doc": "The unique ID of the operation.",
+     "type": {
+      "$id": "126",
+      "kind": "string",
+      "name": "string",
+      "crossLanguageDefinitionId": "TypeSpec.string",
+      "decorators": []
+     },
+     "optional": false,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.ResourceOperationStatus.id",
+     "serializationOptions": {
+      "$id": "127",
+      "json": {
+       "$id": "128",
+       "name": "id"
+      }
+     }
+    },
+    {
+     "$id": "129",
+     "kind": "property",
+     "name": "status",
+     "serializedName": "status",
+     "doc": "The status of the operation",
+     "type": {
+      "$ref": "28"
+     },
+     "optional": false,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.ResourceOperationStatus.status",
+     "serializationOptions": {
+      "$id": "130",
+      "json": {
+       "$id": "131",
+       "name": "status"
+      }
+     }
+    },
+    {
+     "$id": "132",
+     "kind": "property",
+     "name": "error",
+     "serializedName": "error",
+     "doc": "Error object that describes the error when status is \"Failed\".",
+     "type": {
+      "$id": "133",
+      "kind": "model",
+      "name": "ErrorResponse",
+      "namespace": "Azure.Core.Foundations",
+      "crossLanguageDefinitionId": "Azure.Core.Foundations.ErrorResponse",
+      "usage": "Error,Json,Exception,LroInitial",
+      "doc": "A response containing error details.",
+      "decorators": [],
+      "properties": [
+       {
+        "$id": "134",
+        "kind": "property",
+        "name": "error",
+        "serializedName": "error",
+        "doc": "The error object.",
+        "type": {
+         "$ref": "81"
+        },
+        "optional": false,
+        "readOnly": false,
+        "discriminator": false,
+        "flatten": false,
+        "decorators": [],
+        "crossLanguageDefinitionId": "Azure.Core.Foundations.ErrorResponse.error",
+        "serializationOptions": {
+         "$id": "135",
+         "json": {
+          "$id": "136",
+          "name": "error"
+         }
+        }
+       }
+      ]
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.ResourceOperationStatus.error",
+     "serializationOptions": {
+      "$id": "137",
+      "json": {
+       "$id": "138",
+       "name": "error"
+      }
+     }
+    },
+    {
+     "$id": "139",
+     "kind": "property",
+     "name": "result",
+     "serializedName": "result",
+     "doc": "The result of the operation.",
+     "type": {
+      "$ref": "40"
+     },
+     "optional": true,
+     "readOnly": false,
+     "discriminator": false,
+     "flatten": false,
+     "decorators": [],
+     "crossLanguageDefinitionId": "Azure.Core.ResourceOperationStatus.result",
+     "serializationOptions": {
+      "$id": "140",
+      "json": {
+       "$id": "141",
+       "name": "result"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "$ref": "133"
+  }
+ ],
+ "Clients": [
+  {
+   "$id": "142",
+   "Name": "TrustedSigningClient",
+   "Namespace": "Azure.Developer.TrustedSigning",
+   "Doc": "Azure Trusted Signing is a service that provides managed artifact signing for all.",
+   "Operations": [],
+   "Protocol": {
+    "$id": "143"
+   },
+   "Parameters": [],
+   "Decorators": [],
+   "CrossLanguageDefinitionId": "Azure.Developer.TrustedSigning"
+  },
+  {
+   "$id": "144",
+   "Name": "CertificateProfileOperations",
+   "Namespace": "Azure.Developer.TrustedSigning",
+   "Operations": [
+    {
+     "$id": "145",
+     "Name": "getSigningStatus",
+     "ResourceName": "CertificateProfileOperations",
+     "Summary": "Gets the status of a signing operation.",
+     "Doc": "This status operation requires that a Sign request has been submitted and the operationId is known.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$id": "146",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Doc": "The API version to use for this operation.",
+       "Type": {
+        "$id": "147",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "148",
+        "Type": {
+         "$id": "149",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2023-06-15-preview"
+       },
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "150",
+       "Name": "accountName",
+       "NameInRequest": "accountName",
+       "Doc": "Signing account name.",
+       "Type": {
+        "$id": "151",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "152",
+       "Name": "certificateProfile",
+       "NameInRequest": "certificateProfile",
+       "Doc": "Signing Certificate profile name.",
+       "Type": {
+        "$id": "153",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "154",
+       "Name": "operationId",
+       "NameInRequest": "operationId",
+       "Doc": "The unique ID of the operation.",
+       "Type": {
+        "$id": "155",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "156",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "157",
+        "kind": "constant",
+        "valueType": {
+         "$id": "158",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "value": "application/json",
+        "decorators": []
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "159",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "72"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{region}.codesigning.azure.net/",
+     "Path": "/codesigningaccounts/{accountName}/certificateprofiles/{certificateProfile}/sign/{operationId}",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "Azure.Developer.TrustedSigning.CertificateProfileOperations.getSigningStatus",
+     "Decorators": [],
+     "Examples": [
+      {
+       "$id": "160",
+       "kind": "http",
+       "name": "Gets the status of a codesign operation.",
+       "description": "Gets the status of a codesign operation.",
+       "filePath": "2023-06-15-preview/CertificateProfileOperations_GetSigningStatus.json",
+       "parameters": [
+        {
+         "$id": "161",
+         "parameter": {
+          "$ref": "150"
+         },
+         "value": {
+          "$id": "162",
+          "kind": "string",
+          "type": {
+           "$ref": "151"
+          },
+          "value": "YourAccountName"
+         }
+        },
+        {
+         "$id": "163",
+         "parameter": {
+          "$ref": "152"
+         },
+         "value": {
+          "$id": "164",
+          "kind": "string",
+          "type": {
+           "$ref": "153"
+          },
+          "value": "YourCertificateProfileName"
+         }
+        },
+        {
+         "$id": "165",
+         "parameter": {
+          "$ref": "146"
+         },
+         "value": {
+          "$id": "166",
+          "kind": "string",
+          "type": {
+           "$ref": "147"
+          },
+          "value": "2023-06-15-preview"
+         }
+        },
+        {
+         "$id": "167",
+         "parameter": {
+          "$ref": "154"
+         },
+         "value": {
+          "$id": "168",
+          "kind": "string",
+          "type": {
+           "$ref": "155"
+          },
+          "value": "9797c668-5b3c-4586-8e0c-2768c8160bad"
+         }
+        }
+       ],
+       "responses": [
+        {
+         "$id": "169",
+         "response": {
+          "$ref": "159"
+         },
+         "statusCode": 200,
+         "bodyValue": {
+          "$id": "170",
+          "kind": "model",
+          "type": {
+           "$ref": "72"
+          },
+          "value": {
+           "$id": "171",
+           "id": {
+            "$id": "172",
+            "kind": "string",
+            "type": {
+             "$ref": "74"
+            },
+            "value": "76f60a30-d088-42e0-b16d-b76b88d3cbe1"
+           },
+           "status": {
+            "$id": "173",
+            "kind": "string",
+            "type": {
+             "$ref": "28"
+            },
+            "value": "Succeeded"
+           },
+           "result": {
+            "$id": "174",
+            "kind": "model",
+            "type": {
+             "$ref": "40"
+            },
+            "value": {
+             "$id": "175",
+             "signature": {
+              "$id": "176",
+              "kind": "string",
+              "type": {
+               "$ref": "42"
+              },
+              "value": "OWY4NmQwODE4ODRjN2Q2NTlhMmZlYWEwYzU1YWQwMTVhM2JmNGYxYjJiMGI4MjJjZDE1ZDZjMTViMGYwMGEwOA=="
+             },
+             "signingCertificate": {
+              "$id": "177",
+              "kind": "string",
+              "type": {
+               "$ref": "46"
+              },
+              "value": "N2IzZDk3OWNhODMzMGE5NGZhN2U5ZTFiNDY2ZDhiOTllMGJjZGVhMWVjOTA1OTZjMGRjYzhkN2VmNmI0MzAwYw=="
+             }
+            }
+           }
+          }
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "$id": "178",
+     "Name": "getSignRootCertificate",
+     "ResourceName": "CertificateProfileOperations",
+     "Summary": "Gets the signing root certificate on the certificate chain for that account and profile name.",
+     "Doc": "The root certificate is generated as part of the initial account creation and it is used to sign the bits for the profile provided.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$id": "179",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Doc": "The API version to use for this operation.",
+       "Type": {
+        "$id": "180",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "181",
+        "Type": {
+         "$id": "182",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2023-06-15-preview"
+       },
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "183",
+       "Name": "accountName",
+       "NameInRequest": "accountName",
+       "Doc": "Signing account name.",
+       "Type": {
+        "$id": "184",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "185",
+       "Name": "certificateProfile",
+       "NameInRequest": "certificateProfile",
+       "Doc": "Signing Certificate profile name.",
+       "Type": {
+        "$id": "186",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "187",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "188",
+        "kind": "constant",
+        "valueType": {
+         "$id": "189",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "value": "application/x-x509-ca-cert",
+        "decorators": []
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "190",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$id": "191",
+        "kind": "bytes",
+        "name": "bytes",
+        "crossLanguageDefinitionId": "TypeSpec.bytes",
+        "decorators": []
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "192",
+         "Name": "contentType",
+         "NameInResponse": "content-type",
+         "Doc": "The content type of the x509 cert.",
+         "Type": {
+          "$id": "193",
+          "kind": "constant",
+          "valueType": {
+           "$id": "194",
+           "kind": "string",
+           "name": "string",
+           "crossLanguageDefinitionId": "TypeSpec.string",
+           "decorators": []
+          },
+          "value": "application/x-x509-ca-cert",
+          "decorators": []
+         }
+        }
+       ],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/x-x509-ca-cert"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{region}.codesigning.azure.net/",
+     "Path": "/codesigningaccounts/{accountName}/certificateprofiles/{certificateProfile}/sign/rootcert",
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "Azure.Developer.TrustedSigning.CertificateProfileOperations.getSignRootCertificate",
+     "Decorators": [],
+     "Examples": [
+      {
+       "$id": "195",
+       "kind": "http",
+       "name": "Gets the codesigning root certificate on the certificate chain for that account and profile name.",
+       "description": "Gets the codesigning root certificate on the certificate chain for that account and profile name.",
+       "filePath": "2023-06-15-preview/CertificateProfileOperations_GetSignRootCertificate.json",
+       "parameters": [
+        {
+         "$id": "196",
+         "parameter": {
+          "$ref": "183"
+         },
+         "value": {
+          "$id": "197",
+          "kind": "string",
+          "type": {
+           "$ref": "184"
+          },
+          "value": "YourAccountName"
+         }
+        },
+        {
+         "$id": "198",
+         "parameter": {
+          "$ref": "185"
+         },
+         "value": {
+          "$id": "199",
+          "kind": "string",
+          "type": {
+           "$ref": "186"
+          },
+          "value": "YourCertificateProfileName"
+         }
+        },
+        {
+         "$id": "200",
+         "parameter": {
+          "$ref": "179"
+         },
+         "value": {
+          "$id": "201",
+          "kind": "string",
+          "type": {
+           "$ref": "180"
+          },
+          "value": "2023-06-15-preview"
+         }
+        }
+       ],
+       "responses": [
+        {
+         "$id": "202",
+         "response": {
+          "$ref": "190"
+         },
+         "statusCode": 200,
+         "bodyValue": {
+          "$id": "203",
+          "kind": "string",
+          "type": {
+           "$ref": "191"
+          },
+          "value": "MjUzNjlhMDQ3Yzc0YTQ3NjdiNjYzZTIzMWFlMTAxMDVkODMxM2Y5ZjNkNmU0YTVlOTQ1ZGZiMWQ5NDgzOWU0NQ=="
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "$id": "204",
+     "Name": "listExtendedKeyUsages",
+     "ResourceName": "ExtendedKeyUsage",
+     "Summary": "Gets a list of extended key usage object identifiers that are allowed for this account and profile combination.",
+     "Doc": "The list of extended key usages are used to determine the purpose of the certificate usage as part of the signing operation.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$id": "205",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Doc": "The API version to use for this operation.",
+       "Type": {
+        "$id": "206",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "207",
+        "Type": {
+         "$id": "208",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2023-06-15-preview"
+       },
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "209",
+       "Name": "accountName",
+       "NameInRequest": "accountName",
+       "Doc": "Azure Trusted Signing account name.",
+       "Type": {
+        "$id": "210",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "211",
+       "Name": "certificateProfile",
+       "NameInRequest": "certificateProfile",
+       "Doc": "Azure Trusted Signing certificate profile name under an account.",
+       "Type": {
+        "$id": "212",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "213",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "214",
+        "kind": "constant",
+        "valueType": {
+         "$id": "215",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "value": "application/json",
+        "decorators": []
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "216",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "114"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "GET",
+     "RequestBodyMediaType": "None",
+     "Uri": "https://{region}.codesigning.azure.net/",
+     "Path": "/codesigningaccounts/{accountName}/certificateprofiles/{certificateProfile}/sign/eku",
+     "BufferResponse": true,
+     "Paging": {
+      "$id": "217",
+      "ItemName": "value",
+      "NextLinkName": "nextLink"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "Azure.Developer.TrustedSigning.CertificateProfileOperations.listExtendedKeyUsages",
+     "Decorators": [],
+     "Examples": [
+      {
+       "$id": "218",
+       "kind": "http",
+       "name": "Gets a list of extended key usage object identifiers that are allowed.",
+       "description": "Gets a list of extended key usage object identifiers that are allowed.",
+       "filePath": "2023-06-15-preview/CertificateProfileOperations_ListExtendedKeyUsages.json",
+       "parameters": [
+        {
+         "$id": "219",
+         "parameter": {
+          "$ref": "209"
+         },
+         "value": {
+          "$id": "220",
+          "kind": "string",
+          "type": {
+           "$ref": "210"
+          },
+          "value": "YourAccountName"
+         }
+        },
+        {
+         "$id": "221",
+         "parameter": {
+          "$ref": "211"
+         },
+         "value": {
+          "$id": "222",
+          "kind": "string",
+          "type": {
+           "$ref": "212"
+          },
+          "value": "YourCertificateProfileName"
+         }
+        },
+        {
+         "$id": "223",
+         "parameter": {
+          "$ref": "205"
+         },
+         "value": {
+          "$id": "224",
+          "kind": "string",
+          "type": {
+           "$ref": "206"
+          },
+          "value": "2023-06-15-preview"
+         }
+        }
+       ],
+       "responses": [
+        {
+         "$id": "225",
+         "response": {
+          "$ref": "216"
+         },
+         "statusCode": 200,
+         "bodyValue": {
+          "$id": "226",
+          "kind": "model",
+          "type": {
+           "$ref": "114"
+          },
+          "value": {
+           "$id": "227",
+           "value": {
+            "$id": "228",
+            "kind": "array",
+            "type": {
+             "$ref": "116"
+            },
+            "value": [
+             {
+              "$id": "229",
+              "kind": "model",
+              "type": {
+               "$ref": "49"
+              },
+              "value": {
+               "$id": "230",
+               "eku": {
+                "$id": "231",
+                "kind": "string",
+                "type": {
+                 "$ref": "51"
+                },
+                "value": "1.3.6.1.5.5.7.3.8"
+               }
+              }
+             },
+             {
+              "$id": "232",
+              "kind": "model",
+              "type": {
+               "$ref": "49"
+              },
+              "value": {
+               "$id": "233",
+               "eku": {
+                "$id": "234",
+                "kind": "string",
+                "type": {
+                 "$ref": "51"
+                },
+                "value": "1.3.6.1.5.5.7.3.10"
+               }
+              }
+             }
+            ]
+           },
+           "nextLink": {
+            "$id": "235",
+            "kind": "string",
+            "type": {
+             "$ref": "120"
+            },
+            "value": "https://localhost:5001/codesigningaccount/account/certificateprofile/profile/eku?continuationToken=&api-version=2023-06-15-preview"
+           }
+          }
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "$id": "236",
+     "Name": "sign",
+     "ResourceName": "CertificateProfileOperations",
+     "Summary": "Submit a sign operation.",
+     "Doc": "Submit a sign operation under the created account and profile name provided.",
+     "Accessibility": "public",
+     "Parameters": [
+      {
+       "$id": "237",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Doc": "The API version to use for this operation.",
+       "Type": {
+        "$id": "238",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Query",
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "239",
+        "Type": {
+         "$id": "240",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string"
+        },
+        "Value": "2023-06-15-preview"
+       },
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "241",
+       "Name": "accountName",
+       "NameInRequest": "accountName",
+       "Doc": "Azure Trusted Signing account name.",
+       "Type": {
+        "$id": "242",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "243",
+       "Name": "certificateProfile",
+       "NameInRequest": "certificateProfile",
+       "Doc": "Azure Trusted Signing certificate profile name under an account.",
+       "Type": {
+        "$id": "244",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Path",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "245",
+       "Name": "clientVersion",
+       "NameInRequest": "client-version",
+       "Doc": "An optional client version.",
+       "Type": {
+        "$id": "246",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "247",
+       "Name": "xCorrelationId",
+       "NameInRequest": "x-correlation-id",
+       "Doc": "An identifier used to batch multiple requests.",
+       "Type": {
+        "$id": "248",
+        "kind": "string",
+        "name": "string",
+        "crossLanguageDefinitionId": "TypeSpec.string",
+        "decorators": []
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": false,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "249",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Doc": "Body parameter's content type. Known values are application/json",
+       "Type": {
+        "$id": "250",
+        "kind": "constant",
+        "valueType": {
+         "$id": "251",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "value": "application/json",
+        "decorators": []
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": true,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "252",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "253",
+        "kind": "constant",
+        "valueType": {
+         "$id": "254",
+         "kind": "string",
+         "name": "string",
+         "crossLanguageDefinitionId": "TypeSpec.string",
+         "decorators": []
+        },
+        "value": "application/json",
+        "decorators": []
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Constant",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      },
+      {
+       "$id": "255",
+       "Name": "body",
+       "NameInRequest": "body",
+       "Doc": "Body parameter.",
+       "Type": {
+        "$ref": "54"
+       },
+       "Location": "Body",
+       "IsApiVersion": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "Explode": false,
+       "IsRequired": true,
+       "Kind": "Method",
+       "Decorators": [],
+       "SkipUrlEncoding": false
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "256",
+       "StatusCodes": [
+        202
+       ],
+       "BodyType": {
+        "$ref": "124"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "257",
+         "Name": "errorCode",
+         "NameInResponse": "x-ms-error-code",
+         "Doc": "String error code indicating what went wrong.",
+         "Type": {
+          "$id": "258",
+          "kind": "string",
+          "name": "string",
+          "crossLanguageDefinitionId": "TypeSpec.string",
+          "decorators": []
+         }
+        },
+        {
+         "$id": "259",
+         "Name": "operationLocation",
+         "NameInResponse": "Operation-Location",
+         "Doc": "The location for monitoring the operation state.",
+         "Type": {
+          "$id": "260",
+          "kind": "url",
+          "name": "ResourceLocation",
+          "crossLanguageDefinitionId": "TypeSpec.Rest.ResourceLocation",
+          "baseType": {
+           "$id": "261",
+           "kind": "url",
+           "name": "url",
+           "crossLanguageDefinitionId": "TypeSpec.url",
+           "decorators": []
+          },
+          "decorators": []
+         }
+        }
+       ],
+       "IsErrorResponse": false,
+       "ContentTypes": [
+        "application/json"
+       ]
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "https://{region}.codesigning.azure.net/",
+     "Path": "/codesigningaccounts/{accountName}/certificateprofiles/{certificateProfile}:sign",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "LongRunning": {
+      "$id": "262",
+      "FinalStateVia": 3,
+      "FinalResponse": {
+       "$id": "263",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "72"
+       },
+       "BodyMediaType": "Json"
+      },
+      "ResultPath": "result"
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true,
+     "CrossLanguageDefinitionId": "Azure.Developer.TrustedSigning.CertificateProfileOperations.sign",
+     "Decorators": [],
+     "Examples": [
+      {
+       "$id": "264",
+       "kind": "http",
+       "name": "Submit a codesign operation.",
+       "description": "Submit a codesign operation.",
+       "filePath": "2023-06-15-preview/CertificateProfileOperations_Sign.json",
+       "parameters": [
+        {
+         "$id": "265",
+         "parameter": {
+          "$ref": "241"
+         },
+         "value": {
+          "$id": "266",
+          "kind": "string",
+          "type": {
+           "$ref": "242"
+          },
+          "value": "YourAccountName"
+         }
+        },
+        {
+         "$id": "267",
+         "parameter": {
+          "$ref": "243"
+         },
+         "value": {
+          "$id": "268",
+          "kind": "string",
+          "type": {
+           "$ref": "244"
+          },
+          "value": "YourCertificateProfileName"
+         }
+        },
+        {
+         "$id": "269",
+         "parameter": {
+          "$ref": "237"
+         },
+         "value": {
+          "$id": "270",
+          "kind": "string",
+          "type": {
+           "$ref": "238"
+          },
+          "value": "2023-06-15-preview"
+         }
+        },
+        {
+         "$id": "271",
+         "parameter": {
+          "$ref": "247"
+         },
+         "value": {
+          "$id": "272",
+          "kind": "string",
+          "type": {
+           "$ref": "248"
+          },
+          "value": "9797c668-5b3c-4586-8e0c-2768c8160bad"
+         }
+        },
+        {
+         "$id": "273",
+         "parameter": {
+          "$ref": "245"
+         },
+         "value": {
+          "$id": "274",
+          "kind": "string",
+          "type": {
+           "$ref": "246"
+          },
+          "value": "serviceName@1.0.0.0"
+         }
+        },
+        {
+         "$id": "275",
+         "parameter": {
+          "$ref": "255"
+         },
+         "value": {
+          "$id": "276",
+          "kind": "model",
+          "type": {
+           "$ref": "54"
+          },
+          "value": {
+           "$id": "277",
+           "signatureAlgorithm": {
+            "$id": "278",
+            "kind": "string",
+            "type": {
+             "$ref": "2"
+            },
+            "value": "RS256"
+           },
+           "digest": {
+            "$id": "279",
+            "kind": "string",
+            "type": {
+             "$ref": "59"
+            },
+            "value": "TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQ="
+           },
+           "fileHashList": {
+            "$id": "280",
+            "kind": "array",
+            "type": {
+             "$ref": "63"
+            },
+            "value": [
+             {
+              "$id": "281",
+              "kind": "string",
+              "type": {
+               "$ref": "64"
+              },
+              "value": "Y29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0"
+             },
+             {
+              "$id": "282",
+              "kind": "string",
+              "type": {
+               "$ref": "64"
+              },
+              "value": "c2VkIGRvIGVpdXNtb2QgdGVtcG9yIGluY2lkaWR1bnQ="
+             }
+            ]
+           },
+           "authenticodeHashList": {
+            "$id": "283",
+            "kind": "array",
+            "type": {
+             "$ref": "68"
+            },
+            "value": [
+             {
+              "$id": "284",
+              "kind": "string",
+              "type": {
+               "$ref": "69"
+              },
+              "value": "dXQgbGFib3JlIGV0IGRvbG9yZSBtYWduYSBhbGlxdWE="
+             },
+             {
+              "$id": "285",
+              "kind": "string",
+              "type": {
+               "$ref": "69"
+              },
+              "value": "IFV0IGVuaW0gYWQgbWluaW0gdmVuaWFt"
+             }
+            ]
+           }
+          }
+         }
+        }
+       ],
+       "responses": [
+        {
+         "$id": "286",
+         "response": {
+          "$ref": "256"
+         },
+         "statusCode": 202,
+         "bodyValue": {
+          "$id": "287",
+          "kind": "model",
+          "type": {
+           "$ref": "124"
+          },
+          "value": {
+           "$id": "288",
+           "id": {
+            "$id": "289",
+            "kind": "string",
+            "type": {
+             "$ref": "126"
+            },
+            "value": "76f60a30-d088-42e0-b16d-b76b88d3cbe1"
+           },
+           "result": {
+            "$id": "290",
+            "kind": "model",
+            "type": {
+             "$ref": "40"
+            },
+            "value": {
+             "$id": "291"
+            }
+           }
+          }
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "Protocol": {
+    "$id": "292"
+   },
+   "Parent": "TrustedSigningClient",
+   "Parameters": [],
+   "Decorators": [],
+   "CrossLanguageDefinitionId": "Azure.Developer.TrustedSigning.CertificateProfileOperations"
+  }
+ ],
+ "Auth": {
+  "$id": "293",
+  "OAuth2": {
+   "$id": "294",
+   "Scopes": [
+    "https://codesigning.azure.net/.default"
+   ]
+  }
+ }
+}
