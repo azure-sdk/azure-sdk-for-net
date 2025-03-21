@@ -112,7 +112,19 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 switch (discriminator.GetString())
                 {
+                    case "AzureWorkloadAnyDatabasePointInTimeRestoreRequest": return AzureWorkloadAnyDatabasePointInTimeRestoreRequest.DeserializeAzureWorkloadAnyDatabasePointInTimeRestoreRequest(element, options);
+                    case "AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest": return AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest.DeserializeAzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest(element, options);
+                    case "AzureWorkloadAnyDatabaseRestoreRequest": return AzureWorkloadAnyDatabaseRestoreRequest.DeserializeAzureWorkloadAnyDatabaseRestoreRequest(element, options);
+                    case "AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest": return AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest.DeserializeAzureWorkloadAnyDatabaseRestoreWithRehydrateRequest(element, options);
+                    case "AzureWorkloadOraclePointInTimeRestoreRequest": return AzureWorkloadOraclePointInTimeRestoreRequest.DeserializeAzureWorkloadOraclePointInTimeRestoreRequest(element, options);
+                    case "AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest": return AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest.DeserializeAzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest(element, options);
+                    case "AzureWorkloadOracleRestoreRequest": return AzureWorkloadOracleRestoreRequest.DeserializeAzureWorkloadOracleRestoreRequest(element, options);
+                    case "AzureWorkloadOracleRestoreWithRehydrateRequest": return AzureWorkloadOracleRestoreWithRehydrateRequest.DeserializeAzureWorkloadOracleRestoreWithRehydrateRequest(element, options);
                     case "AzureWorkloadPointInTimeRestoreRequest": return WorkloadPointInTimeRestoreContent.DeserializeWorkloadPointInTimeRestoreContent(element, options);
+                    case "AzureWorkloadSAPAsePointInTimeRestoreRequest": return AzureWorkloadSapAsePointInTimeRestoreRequest.DeserializeAzureWorkloadSapAsePointInTimeRestoreRequest(element, options);
+                    case "AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest": return AzureWorkloadSapAsePointInTimeRestoreWithRehydrateRequest.DeserializeAzureWorkloadSapAsePointInTimeRestoreWithRehydrateRequest(element, options);
+                    case "AzureWorkloadSAPAseRestoreRequest": return AzureWorkloadSapAseRestoreRequest.DeserializeAzureWorkloadSapAseRestoreRequest(element, options);
+                    case "AzureWorkloadSAPAseRestoreWithRehydrateRequest": return AzureWorkloadSapAseRestoreWithRehydrateRequest.DeserializeAzureWorkloadSapAseRestoreWithRehydrateRequest(element, options);
                     case "AzureWorkloadSAPHanaPointInTimeRestoreRequest": return WorkloadSapHanaPointInTimeRestoreContent.DeserializeWorkloadSapHanaPointInTimeRestoreContent(element, options);
                     case "AzureWorkloadSAPHanaPointInTimeRestoreWithRehydrateRequest": return WorkloadSapHanaPointInTimeRestoreWithRehydrateContent.DeserializeWorkloadSapHanaPointInTimeRestoreWithRehydrateContent(element, options);
                     case "AzureWorkloadSAPHanaRestoreRequest": return WorkloadSapHanaRestoreContent.DeserializeWorkloadSapHanaRestoreContent(element, options);
@@ -133,6 +145,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             SnapshotRestoreContent snapshotRestoreParameters = default;
             ResourceIdentifier targetVirtualMachineId = default;
             string objectType = "AzureWorkloadRestoreRequest";
+            IList<string> resourceGuardOperationRequests = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -224,6 +237,20 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     objectType = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("resourceGuardOperationRequests"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    resourceGuardOperationRequests = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -232,6 +259,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new WorkloadRestoreContent(
                 objectType,
+                resourceGuardOperationRequests ?? new ChangeTrackingList<string>(),
                 serializedAdditionalRawData,
                 recoveryType,
                 sourceResourceId,
