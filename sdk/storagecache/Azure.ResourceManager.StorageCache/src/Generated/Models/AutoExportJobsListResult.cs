@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.StorageCache.Models
 {
-    /// <summary> An import job update instance. </summary>
-    public partial class StorageCacheImportJobPatch
+    /// <summary> Result of the request to list auto export jobs. It contains a list of auto export jobs and a URL link to get the next set of results. </summary>
+    internal partial class AutoExportJobsListResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,26 +45,26 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="StorageCacheImportJobPatch"/>. </summary>
-        public StorageCacheImportJobPatch()
+        /// <summary> Initializes a new instance of <see cref="AutoExportJobsListResult"/>. </summary>
+        internal AutoExportJobsListResult()
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
+            Value = new ChangeTrackingList<AutoExportJobData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="StorageCacheImportJobPatch"/>. </summary>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="adminStatus"> The administrative status of the import job. Possible values: 'Active', 'Cancel'. Passing in a value of 'Cancel' will cancel the current active import job. </param>
+        /// <summary> Initializes a new instance of <see cref="AutoExportJobsListResult"/>. </summary>
+        /// <param name="nextLink"> URL to get the next set of auto export job list results, if there are any. </param>
+        /// <param name="value"> List of auto export jobs. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StorageCacheImportJobPatch(IDictionary<string, string> tags, ImportJobAdminStatus? adminStatus, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AutoExportJobsListResult(string nextLink, IReadOnlyList<AutoExportJobData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Tags = tags;
-            AdminStatus = adminStatus;
+            NextLink = nextLink;
+            Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Resource tags. </summary>
-        public IDictionary<string, string> Tags { get; }
-        /// <summary> The administrative status of the import job. Possible values: 'Active', 'Cancel'. Passing in a value of 'Cancel' will cancel the current active import job. </summary>
-        public ImportJobAdminStatus? AdminStatus { get; set; }
+        /// <summary> URL to get the next set of auto export job list results, if there are any. </summary>
+        public string NextLink { get; }
+        /// <summary> List of auto export jobs. </summary>
+        public IReadOnlyList<AutoExportJobData> Value { get; }
     }
 }
