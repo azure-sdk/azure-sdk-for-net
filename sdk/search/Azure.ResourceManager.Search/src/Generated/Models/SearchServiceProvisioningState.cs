@@ -5,16 +5,50 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
+
 namespace Azure.ResourceManager.Search.Models
 {
     /// <summary> The state of the last provisioning operation performed on the search service. Provisioning is an intermediate state that occurs while service capacity is being established. After capacity is set up, provisioningState changes to either 'Succeeded' or 'Failed'. Client applications can poll provisioning status (the recommended polling interval is from 30 seconds to one minute) by using the Get Search Service operation to see when an operation is completed. If you are using the free service, this value tends to come back as 'Succeeded' directly in the call to Create search service. This is because the free service uses capacity that is already set up. </summary>
-    public enum SearchServiceProvisioningState
+    public readonly partial struct SearchServiceProvisioningState : IEquatable<SearchServiceProvisioningState>
     {
+        private readonly string _value;
+
+        /// <summary> Initializes a new instance of <see cref="SearchServiceProvisioningState"/>. </summary>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public SearchServiceProvisioningState(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        private const string SucceededValue = "succeeded";
+        private const string ProvisioningValue = "provisioning";
+        private const string FailedValue = "failed";
+
         /// <summary> The last provisioning operation has completed successfully. </summary>
-        Succeeded,
+        public static SearchServiceProvisioningState Succeeded { get; } = new SearchServiceProvisioningState(SucceededValue);
         /// <summary> The search service is being provisioned or scaled up or down. </summary>
-        Provisioning,
+        public static SearchServiceProvisioningState Provisioning { get; } = new SearchServiceProvisioningState(ProvisioningValue);
         /// <summary> The last provisioning operation has failed. </summary>
-        Failed
+        public static SearchServiceProvisioningState Failed { get; } = new SearchServiceProvisioningState(FailedValue);
+        /// <summary> Determines if two <see cref="SearchServiceProvisioningState"/> values are the same. </summary>
+        public static bool operator ==(SearchServiceProvisioningState left, SearchServiceProvisioningState right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="SearchServiceProvisioningState"/> values are not the same. </summary>
+        public static bool operator !=(SearchServiceProvisioningState left, SearchServiceProvisioningState right) => !left.Equals(right);
+        /// <summary> Converts a <see cref="string"/> to a <see cref="SearchServiceProvisioningState"/>. </summary>
+        public static implicit operator SearchServiceProvisioningState(string value) => new SearchServiceProvisioningState(value);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => obj is SearchServiceProvisioningState other && Equals(other);
+        /// <inheritdoc />
+        public bool Equals(SearchServiceProvisioningState other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
+        /// <inheritdoc />
+        public override string ToString() => _value;
     }
 }
