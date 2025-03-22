@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.Search
             if (options.Format != "W" && Optional.IsDefined(Status))
             {
                 writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status.Value.ToSerialString());
+                writer.WriteStringValue(Status.Value.ToString());
             }
             if (options.Format != "W" && Optional.IsDefined(StatusDetails))
             {
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Search
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToSerialString());
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
             if (Optional.IsDefined(NetworkRuleSet))
             {
@@ -365,7 +365,7 @@ namespace Azure.ResourceManager.Search
                             {
                                 continue;
                             }
-                            status = property0.Value.GetString().ToSearchServiceStatus();
+                            status = new SearchServiceStatus(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("statusDetails"u8))
@@ -379,7 +379,7 @@ namespace Azure.ResourceManager.Search
                             {
                                 continue;
                             }
-                            provisioningState = property0.Value.GetString().ToSearchServiceProvisioningState();
+                            provisioningState = new SearchServiceProvisioningState(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("networkRuleSet"u8))
@@ -788,7 +788,7 @@ namespace Azure.ResourceManager.Search
                 if (Optional.IsDefined(Status))
                 {
                     builder.Append("    status: ");
-                    builder.AppendLine($"'{Status.Value.ToSerialString()}'");
+                    builder.AppendLine($"'{Status.Value.ToString()}'");
                 }
             }
 
@@ -826,7 +826,7 @@ namespace Azure.ResourceManager.Search
                 if (Optional.IsDefined(ProvisioningState))
                 {
                     builder.Append("    provisioningState: ");
-                    builder.AppendLine($"'{ProvisioningState.Value.ToSerialString()}'");
+                    builder.AppendLine($"'{ProvisioningState.Value.ToString()}'");
                 }
             }
 

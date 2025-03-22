@@ -5,22 +5,59 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
+
 namespace Azure.ResourceManager.Search.Models
 {
     /// <summary> The status of the search service. Possible values include: 'running': The search service is running and no provisioning operations are underway. 'provisioning': The search service is being provisioned or scaled up or down. 'deleting': The search service is being deleted. 'degraded': The search service is degraded. This can occur when the underlying search units are not healthy. The search service is most likely operational, but performance might be slow and some requests might be dropped. 'disabled': The search service is disabled. In this state, the service will reject all API requests. 'error': The search service is in an error state. 'stopped': The search service is in a subscription that's disabled. If your service is in the degraded, disabled, or error states, it means the Azure AI Search team is actively investigating the underlying issue. Dedicated services in these states are still chargeable based on the number of search units provisioned. </summary>
-    public enum SearchServiceStatus
+    public readonly partial struct SearchServiceStatus : IEquatable<SearchServiceStatus>
     {
+        private readonly string _value;
+
+        /// <summary> Initializes a new instance of <see cref="SearchServiceStatus"/>. </summary>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public SearchServiceStatus(string value)
+        {
+            _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        private const string RunningValue = "running";
+        private const string ProvisioningValue = "provisioning";
+        private const string DeletingValue = "deleting";
+        private const string DegradedValue = "degraded";
+        private const string DisabledValue = "disabled";
+        private const string ErrorValue = "error";
+
         /// <summary> The search service is running and no provisioning operations are underway. </summary>
-        Running,
+        public static SearchServiceStatus Running { get; } = new SearchServiceStatus(RunningValue);
         /// <summary> The search service is being provisioned or scaled up or down. </summary>
-        Provisioning,
+        public static SearchServiceStatus Provisioning { get; } = new SearchServiceStatus(ProvisioningValue);
         /// <summary> The search service is being deleted. </summary>
-        Deleting,
+        public static SearchServiceStatus Deleting { get; } = new SearchServiceStatus(DeletingValue);
         /// <summary> The search service is degraded because underlying search units are not healthy. </summary>
-        Degraded,
+        public static SearchServiceStatus Degraded { get; } = new SearchServiceStatus(DegradedValue);
         /// <summary> The search service is disabled and all API requests will be rejected. </summary>
-        Disabled,
+        public static SearchServiceStatus Disabled { get; } = new SearchServiceStatus(DisabledValue);
         /// <summary> The search service is in error state, indicating either a failure to provision or to be deleted. </summary>
-        Error
+        public static SearchServiceStatus Error { get; } = new SearchServiceStatus(ErrorValue);
+        /// <summary> Determines if two <see cref="SearchServiceStatus"/> values are the same. </summary>
+        public static bool operator ==(SearchServiceStatus left, SearchServiceStatus right) => left.Equals(right);
+        /// <summary> Determines if two <see cref="SearchServiceStatus"/> values are not the same. </summary>
+        public static bool operator !=(SearchServiceStatus left, SearchServiceStatus right) => !left.Equals(right);
+        /// <summary> Converts a <see cref="string"/> to a <see cref="SearchServiceStatus"/>. </summary>
+        public static implicit operator SearchServiceStatus(string value) => new SearchServiceStatus(value);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => obj is SearchServiceStatus other && Equals(other);
+        /// <inheritdoc />
+        public bool Equals(SearchServiceStatus other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
+        /// <inheritdoc />
+        public override string ToString() => _value;
     }
 }
