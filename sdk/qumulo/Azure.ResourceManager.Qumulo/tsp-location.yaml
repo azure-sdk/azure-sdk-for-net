@@ -1,4 +1,4 @@
-directory: specification/kubernetesruntime/KubernetesRuntime.Management
+directory: specification/liftrqumulo/Qumulo.Storage.Management
 commit: 0b7fe264f94ec08eb76bfd1c5ee73aa6e1b8db6b
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
