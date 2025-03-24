@@ -1,4 +1,4 @@
-directory: specification/deviceregistry/DeviceRegistry.Management
+directory: specification/edge/Microsoft.Edge.Sites.Management
 commit: 9e8e1c4fcb919939d2ace763df0ece20652eef05
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
