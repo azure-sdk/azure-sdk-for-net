@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Models;
 using Azure.ResourceManager.RecoveryServicesBackup.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
@@ -21,7 +22,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateAzureStorageVaultStandardProtectionPolicy()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureStorage/ProtectionPolicies_CreateOrUpdate_Hardened.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureStorage/ProtectionPolicies_CreateOrUpdate_Hardened.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -122,7 +123,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateDailyAzureStorageProtectionPolicy()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureStorage/ProtectionPolicies_CreateOrUpdate_Daily.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureStorage/ProtectionPolicies_CreateOrUpdate_Daily.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -223,7 +224,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateEnhancedAzureVmProtectionPolicyWithHourlyBackup()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/V2Policy/IaaS_v2_hourly.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/V2Policy/IaaS_v2_hourly.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -314,6 +315,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
                     InstantRPRetentionRangeInDays = 30,
                     TimeZone = "India Standard Time",
                     PolicyType = IaasVmPolicyType.V2,
+                    SnapshotConsistencyType = IaasVmSnapshotConsistencyType.OnlyCrashConsistent,
                 },
             };
             ArmOperation<BackupProtectionPolicyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, policyName, data);
@@ -330,7 +332,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateEnhancedAzureVmProtectionPolicyWithDailyBackup()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/V2Policy/IaaS_v2_daily.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/V2Policy/IaaS_v2_daily.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -416,6 +418,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
                     InstantRPRetentionRangeInDays = 30,
                     TimeZone = "India Standard Time",
                     PolicyType = IaasVmPolicyType.V2,
+                    SnapshotConsistencyType = IaasVmSnapshotConsistencyType.OnlyCrashConsistent,
                 },
             };
             ArmOperation<BackupProtectionPolicyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, policyName, data);
@@ -432,7 +435,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateFullAzureVmProtectionPolicy()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/ProtectionPolicies_CreateOrUpdate_Complex.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/ProtectionPolicies_CreateOrUpdate_Complex.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -524,7 +527,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateFullAzureWorkloadProtectionPolicy()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureWorkload/ProtectionPolicies_CreateOrUpdate_Complex.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureWorkload/ProtectionPolicies_CreateOrUpdate_Complex.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -657,7 +660,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateHourlyAzureStorageProtectionPolicy()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureStorage/ProtectionPolicies_CreateOrUpdate_Hourly.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureStorage/ProtectionPolicies_CreateOrUpdate_Hourly.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -761,9 +764,133 @@ DurationType = RetentionDurationType.Days,
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateOrUpdateSapHanaDBInstanceWorkloadProtectionPolicy()
+        {
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureWorkload/ProtectionPolicies_CreateOrUpdate_SapHanaDBInstance.json
+            // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this BackupProtectionPolicyResource
+            string vaultName = "HanaTestRsVault";
+            BackupProtectionPolicyCollection collection = resourceGroupResource.GetBackupProtectionPolicies(vaultName);
+
+            // invoke the operation
+            string policyName = "testHanaSnapshotV2Policy1";
+            BackupProtectionPolicyData data = new BackupProtectionPolicyData(default)
+            {
+                Properties = new VmWorkloadProtectionPolicy
+                {
+                    WorkLoadType = BackupWorkloadType.SapHanaDBInstance,
+                    VmWorkloadPolicyType = VmWorkloadPolicyType.SnapshotV2,
+                    Settings = new BackupCommonSettings
+                    {
+                        TimeZone = "UTC",
+                        IsSqlCompression = false,
+                        IsCompression = false,
+                    },
+                    SubProtectionPolicy = {new SubProtectionPolicy
+{
+PolicyType = SubProtectionPolicyType.SnapshotFull,
+SchedulePolicy = new SimpleSchedulePolicy
+{
+ScheduleRunFrequency = ScheduleRunType.Daily,
+ScheduleRunDays = {},
+ScheduleRunTimes = {default},
+},
+RetentionPolicy = new LongTermRetentionPolicy
+{
+DailySchedule = new DailyRetentionSchedule
+{
+RetentionTimes = {default},
+RetentionDuration = new RetentionDuration
+{
+Count = 30,
+DurationType = RetentionDurationType.Days,
+},
+},
+WeeklySchedule = new WeeklyRetentionSchedule
+{
+DaysOfTheWeek = {BackupDayOfWeek.Sunday},
+RetentionTimes = {default},
+RetentionDuration = new RetentionDuration
+{
+Count = 10,
+DurationType = RetentionDurationType.Weeks,
+},
+},
+MonthlySchedule = new MonthlyRetentionSchedule
+{
+RetentionScheduleFormatType = RetentionScheduleFormat.Weekly,
+RetentionScheduleWeekly = new WeeklyRetentionFormat
+{
+DaysOfTheWeek = {BackupDayOfWeek.Sunday},
+WeeksOfTheMonth = {BackupWeekOfMonth.Second},
+},
+RetentionTimes = {default},
+RetentionDuration = new RetentionDuration
+{
+Count = 6,
+DurationType = RetentionDurationType.Months,
+},
+},
+YearlySchedule = new YearlyRetentionSchedule
+{
+RetentionScheduleFormatType = RetentionScheduleFormat.Weekly,
+MonthsOfYear = {BackupMonthOfYear.January},
+RetentionScheduleWeekly = new WeeklyRetentionFormat
+{
+DaysOfTheWeek = {BackupDayOfWeek.Sunday},
+WeeksOfTheMonth = {BackupWeekOfMonth.Last},
+},
+RetentionTimes = {default},
+RetentionDuration = new RetentionDuration
+{
+Count = 2,
+DurationType = RetentionDurationType.Years,
+},
+},
+},
+SnapshotBackupAdditionalDetails = new SnapshotBackupAdditionalDetails
+{
+InstantRpRetentionRangeInDays = 5,
+InstantRPDetails = "SwaggerTestRG",
+UserAssignedManagedIdentityDetails = new UserAssignedManagedIdentityDetails
+{
+IdentityArmId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/SwaggerMsiRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/SwaggerUMI",
+IdentityName = "SwaggerUMI",
+UserAssignedIdentityProperties = new UserAssignedIdentity(),
+},
+},
+}},
+                    ProtectedItemsCount = 0,
+                },
+            };
+            ArmOperation<BackupProtectionPolicyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, policyName, data);
+            BackupProtectionPolicyResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            BackupProtectionPolicyData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateSimpleAzureVmProtectionPolicy()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/ProtectionPolicies_CreateOrUpdate_Simple.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/ProtectionPolicies_CreateOrUpdate_Simple.json
             // this example is just showing the usage of "ProtectionPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -822,7 +949,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetAzureIaasVmEnhancedProtectionPolicyDetails()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/V2Policy/v2-Get-Policy.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/V2Policy/v2-Get-Policy.json
             // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -856,7 +983,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetAzureIaasVmProtectionPolicyDetails()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/ProtectionPolicies_Get.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/ProtectionPolicies_Get.json
             // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -888,9 +1015,43 @@ DurationType = RetentionDurationType.Days,
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task Get_GetSapHanaDBInstanceWorkloadProtectionPolicyDetails()
+        {
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureWorkload/ProtectionPolicies_Get_SapHanaDBInstance.json
+            // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this BackupProtectionPolicyResource
+            string vaultName = "HanaTestRsVault";
+            BackupProtectionPolicyCollection collection = resourceGroupResource.GetBackupProtectionPolicies(vaultName);
+
+            // invoke the operation
+            string policyName = "testHanaSnapshotV2Policy1";
+            BackupProtectionPolicyResource result = await collection.GetAsync(policyName);
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            BackupProtectionPolicyData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListProtectionPoliciesWithBackupManagementTypeFilterAsAzureIaasVm()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/BackupPolicies_List.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/BackupPolicies_List.json
             // this example is just showing the usage of "BackupPolicies_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -927,7 +1088,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListProtectionPoliciesWithBackupManagementTypeFilterAsAzureIaasVmWithBothV1AndV2Policies()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/V2Policy/v2-List-Policies.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/V2Policy/v2-List-Policies.json
             // this example is just showing the usage of "BackupPolicies_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -964,7 +1125,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListProtectionPoliciesWithBackupManagementTypeFilterAsAzureWorkload()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureWorkload/BackupPolicies_List.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureWorkload/BackupPolicies_List.json
             // this example is just showing the usage of "BackupPolicies_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1001,7 +1162,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetAzureIaasVmEnhancedProtectionPolicyDetails()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/V2Policy/v2-Get-Policy.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/V2Policy/v2-Get-Policy.json
             // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1031,7 +1192,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetAzureIaasVmProtectionPolicyDetails()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/ProtectionPolicies_Get.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/ProtectionPolicies_Get.json
             // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1059,9 +1220,39 @@ DurationType = RetentionDurationType.Days,
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task Exists_GetSapHanaDBInstanceWorkloadProtectionPolicyDetails()
+        {
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureWorkload/ProtectionPolicies_Get_SapHanaDBInstance.json
+            // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this BackupProtectionPolicyResource
+            string vaultName = "HanaTestRsVault";
+            BackupProtectionPolicyCollection collection = resourceGroupResource.GetBackupProtectionPolicies(vaultName);
+
+            // invoke the operation
+            string policyName = "testHanaSnapshotV2Policy1";
+            bool result = await collection.ExistsAsync(policyName);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetAzureIaasVmEnhancedProtectionPolicyDetails()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/V2Policy/v2-Get-Policy.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/V2Policy/v2-Get-Policy.json
             // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1103,7 +1294,7 @@ DurationType = RetentionDurationType.Days,
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetAzureIaasVmProtectionPolicyDetails()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2023-06-01/examples/AzureIaasVm/ProtectionPolicies_Get.json
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureIaasVm/ProtectionPolicies_Get.json
             // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1124,6 +1315,48 @@ DurationType = RetentionDurationType.Days,
 
             // invoke the operation
             string policyName = "testPolicy1";
+            NullableResponse<BackupProtectionPolicyResource> response = await collection.GetIfExistsAsync(policyName);
+            BackupProtectionPolicyResource result = response.HasValue ? response.Value : null;
+
+            if (result == null)
+            {
+                Console.WriteLine("Succeeded with null as result");
+            }
+            else
+            {
+                // the variable result is a resource, you could call other operations on this instance as well
+                // but just for demo, we get its data from this resource instance
+                BackupProtectionPolicyData resourceData = result.Data;
+                // for demo we just print out the id
+                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            }
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetIfExists_GetSapHanaDBInstanceWorkloadProtectionPolicyDetails()
+        {
+            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/preview/2024-11-01-preview/examples/AzureWorkload/ProtectionPolicies_Get_SapHanaDBInstance.json
+            // this example is just showing the usage of "ProtectionPolicies_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this BackupProtectionPolicyResource
+            string vaultName = "HanaTestRsVault";
+            BackupProtectionPolicyCollection collection = resourceGroupResource.GetBackupProtectionPolicies(vaultName);
+
+            // invoke the operation
+            string policyName = "testHanaSnapshotV2Policy1";
             NullableResponse<BackupProtectionPolicyResource> response = await collection.GetIfExistsAsync(policyName);
             BackupProtectionPolicyResource result = response.HasValue ? response.Value : null;
 
