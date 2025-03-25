@@ -35,11 +35,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(MessageId))
-            {
-                writer.WritePropertyName("messageId"u8);
-                writer.WriteStringValue(MessageId);
-            }
+            writer.WritePropertyName("messageId"u8);
+            writer.WriteStringValue(MessageId);
             writer.WritePropertyName("senderCommunicationIdentifier"u8);
             writer.WriteObjectValue(SenderCommunicationIdentifier, options);
             if (Optional.IsDefined(SenderDisplayName))
@@ -52,16 +49,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("composeTime"u8);
                 writer.WriteStringValue(ComposeTime.Value, "O");
             }
-            if (Optional.IsDefined(Type))
-            {
-                writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(Type);
-            }
-            if (Optional.IsDefined(Version))
-            {
-                writer.WritePropertyName("version"u8);
-                writer.WriteNumberValue(Version.Value);
-            }
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(Type);
+            writer.WritePropertyName("version"u8);
+            writer.WriteNumberValue(Version);
         }
 
         AcsChatMessageEventInThreadBaseProperties IJsonModel<AcsChatMessageEventInThreadBaseProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -89,7 +80,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string senderDisplayName = default;
             DateTimeOffset? composeTime = default;
             string type = default;
-            long? version = default;
+            long version = default;
             string transactionId = default;
             string threadId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -127,10 +118,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
                 if (property.NameEquals("version"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     version = property.Value.GetInt64();
                     continue;
                 }

@@ -14,11 +14,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsChatMessageDeletedInThreadEventData : AcsChatMessageEventInThreadBaseProperties
     {
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageDeletedInThreadEventData"/>. </summary>
+        /// <param name="threadId"> The chat thread id. </param>
+        /// <param name="messageId"> The chat message id. </param>
         /// <param name="senderCommunicationIdentifier"> The communication identifier of the sender. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="senderCommunicationIdentifier"/> is null. </exception>
-        internal AcsChatMessageDeletedInThreadEventData(CommunicationIdentifierModel senderCommunicationIdentifier) : base(senderCommunicationIdentifier)
+        /// <param name="type"> The type of the message. </param>
+        /// <param name="version"> The version of the message. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="messageId"/>, <paramref name="senderCommunicationIdentifier"/> or <paramref name="type"/> is null. </exception>
+        internal AcsChatMessageDeletedInThreadEventData(string threadId, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string type, long version) : base(threadId, messageId, senderCommunicationIdentifier, type, version)
         {
+            Argument.AssertNotNull(threadId, nameof(threadId));
+            Argument.AssertNotNull(messageId, nameof(messageId));
             Argument.AssertNotNull(senderCommunicationIdentifier, nameof(senderCommunicationIdentifier));
+            Argument.AssertNotNull(type, nameof(type));
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageDeletedInThreadEventData"/>. </summary>
@@ -32,7 +39,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="type"> The type of the message. </param>
         /// <param name="version"> The version of the message. </param>
         /// <param name="deleteTime"> The time at which the message was deleted. </param>
-        internal AcsChatMessageDeletedInThreadEventData(string transactionId, string threadId, IDictionary<string, BinaryData> serializedAdditionalRawData, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string senderDisplayName, DateTimeOffset? composeTime, string type, long? version, DateTimeOffset? deleteTime) : base(transactionId, threadId, serializedAdditionalRawData, messageId, senderCommunicationIdentifier, senderDisplayName, composeTime, type, version)
+        internal AcsChatMessageDeletedInThreadEventData(string transactionId, string threadId, IDictionary<string, BinaryData> serializedAdditionalRawData, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string senderDisplayName, DateTimeOffset? composeTime, string type, long version, DateTimeOffset? deleteTime) : base(transactionId, threadId, serializedAdditionalRawData, messageId, senderCommunicationIdentifier, senderDisplayName, composeTime, type, version)
         {
             DeleteTime = deleteTime;
         }
