@@ -160,6 +160,7 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayHostnameConfigurationCreatedEventData ApiManagementGatewayHostnameConfigurationCreatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayHostnameConfigurationDeletedEventData ApiManagementGatewayHostnameConfigurationDeletedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayHostnameConfigurationUpdatedEventData ApiManagementGatewayHostnameConfigurationUpdatedEventData(string resourceUri = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayTokenExpiredRemovedEventData ApiManagementGatewayTokenExpiredRemovedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayUpdatedEventData ApiManagementGatewayUpdatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementProductCreatedEventData ApiManagementProductCreatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementProductDeletedEventData ApiManagementProductDeletedEventData(string resourceUri = null) { throw null; }
@@ -506,6 +507,7 @@ namespace Azure.Messaging.EventGrid
         public const string ApiManagementGatewayHostnameConfigurationCreated = "Microsoft.ApiManagement.GatewayHostnameConfigurationCreated";
         public const string ApiManagementGatewayHostnameConfigurationDeleted = "Microsoft.ApiManagement.GatewayHostnameConfigurationDeleted";
         public const string ApiManagementGatewayHostnameConfigurationUpdated = "Microsoft.ApiManagement.GatewayHostnameConfigurationUpdated";
+        public const string ApiManagementGatewayTokenExpiredRemoved = "Microsoft.ApiManagement.GatewayAPIRemoved";
         public const string ApiManagementGatewayUpdated = "Microsoft.ApiManagement.GatewayUpdated";
         public const string ApiManagementProductCreated = "Microsoft.ApiManagement.ProductCreated";
         public const string ApiManagementProductDeleted = "Microsoft.ApiManagement.ProductDeleted";
@@ -1726,6 +1728,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class ApiManagementGatewayHostnameConfigurationUpdatedEventData
     {
         internal ApiManagementGatewayHostnameConfigurationUpdatedEventData() { }
+        public string ResourceUri { get { throw null; } }
+    }
+    public partial class ApiManagementGatewayTokenExpiredRemovedEventData
+    {
+        internal ApiManagementGatewayTokenExpiredRemovedEventData() { }
         public string ResourceUri { get { throw null; } }
     }
     public partial class ApiManagementGatewayUpdatedEventData

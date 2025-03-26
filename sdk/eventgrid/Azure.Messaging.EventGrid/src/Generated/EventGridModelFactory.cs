@@ -3916,6 +3916,14 @@ namespace Azure.Messaging.EventGrid
             return new ApiManagementGatewayApiRemovedEventData(resourceUri);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenExpiredRemovedEventData"/>. </summary>
+        /// <param name="resourceUri"> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/apis/&lt;ResourceName&gt;`. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenExpiredRemovedEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenExpiredRemovedEventData ApiManagementGatewayTokenExpiredRemovedEventData(string resourceUri = null)
+        {
+            return new ApiManagementGatewayTokenExpiredRemovedEventData(resourceUri);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.HealthcareFhirResourceCreatedEventData"/>. </summary>
         /// <param name="fhirResourceType"> Type of HL7 FHIR resource. </param>
         /// <param name="fhirServiceHostName"> Domain name of FHIR account for this resource. </param>
