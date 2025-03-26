@@ -11,13 +11,13 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
-namespace Azure.AI.Translation.Document
+namespace Azure.Health.Insights.RadiologyInsights
 {
-    public partial class TranslationBatch : IUtf8JsonSerializable, IJsonModel<TranslationBatch>
+    public partial class QualityMeasureOptions : IUtf8JsonSerializable, IJsonModel<QualityMeasureOptions>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TranslationBatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<QualityMeasureOptions>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<TranslationBatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<QualityMeasureOptions>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,24 +28,19 @@ namespace Azure.AI.Translation.Document
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationBatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureOptions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TranslationBatch)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(QualityMeasureOptions)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("inputs"u8);
+            writer.WritePropertyName("measureTypes"u8);
             writer.WriteStartArray();
-            foreach (var item in Inputs)
+            foreach (var item in MeasureTypes)
             {
-                writer.WriteObjectValue(item, options);
+                writer.WriteStringValue(item.ToString());
             }
             writer.WriteEndArray();
-            if (Optional.IsDefined(Options))
-            {
-                writer.WritePropertyName("options"u8);
-                writer.WriteObjectValue(Options, options);
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -63,19 +58,19 @@ namespace Azure.AI.Translation.Document
             }
         }
 
-        TranslationBatch IJsonModel<TranslationBatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        QualityMeasureOptions IJsonModel<QualityMeasureOptions>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationBatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureOptions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TranslationBatch)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(QualityMeasureOptions)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeTranslationBatch(document.RootElement, options);
+            return DeserializeQualityMeasureOptions(document.RootElement, options);
         }
 
-        internal static TranslationBatch DeserializeTranslationBatch(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static QualityMeasureOptions DeserializeQualityMeasureOptions(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -83,29 +78,19 @@ namespace Azure.AI.Translation.Document
             {
                 return null;
             }
-            IList<DocumentTranslationInput> inputs = default;
-            BatchOptions options0 = default;
+            IList<QualityMeasureType> measureTypes = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("inputs"u8))
+                if (property.NameEquals("measureTypes"u8))
                 {
-                    List<DocumentTranslationInput> array = new List<DocumentTranslationInput>();
+                    List<QualityMeasureType> array = new List<QualityMeasureType>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(DocumentTranslationInput.DeserializeDocumentTranslationInput(item, options));
+                        array.Add(new QualityMeasureType(item.GetString()));
                     }
-                    inputs = array;
-                    continue;
-                }
-                if (property.NameEquals("options"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    options0 = BatchOptions.DeserializeBatchOptions(property.Value, options);
+                    measureTypes = array;
                     continue;
                 }
                 if (options.Format != "W")
@@ -114,46 +99,46 @@ namespace Azure.AI.Translation.Document
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new TranslationBatch(inputs, options0, serializedAdditionalRawData);
+            return new QualityMeasureOptions(measureTypes, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<TranslationBatch>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<QualityMeasureOptions>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationBatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureOptions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(TranslationBatch)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(QualityMeasureOptions)} does not support writing '{options.Format}' format.");
             }
         }
 
-        TranslationBatch IPersistableModel<TranslationBatch>.Create(BinaryData data, ModelReaderWriterOptions options)
+        QualityMeasureOptions IPersistableModel<QualityMeasureOptions>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationBatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<QualityMeasureOptions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeTranslationBatch(document.RootElement, options);
+                        return DeserializeQualityMeasureOptions(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(TranslationBatch)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(QualityMeasureOptions)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<TranslationBatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<QualityMeasureOptions>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static TranslationBatch FromResponse(Response response)
+        internal static QualityMeasureOptions FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeTranslationBatch(document.RootElement);
+            return DeserializeQualityMeasureOptions(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
