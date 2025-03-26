@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetAccountAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAccountAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response<Account> response = await client.GetAccountAsync("sampleAccountId_00000000-0000-0000-0000-000000000000");
+]]></code></example>
+    </member>
+    <member name="GetAccount(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAccount.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response<Account> response = client.GetAccount("sampleAccountId_00000000-0000-0000-0000-000000000000");
+]]></code></example>
+    </member>
+    <member name="GetAccountAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetAccountAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response response = await client.GetAccountAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+Console.WriteLine(result.GetProperty("subscriptionId").ToString());
+Console.WriteLine(result.GetProperty("subscriptionState").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("location").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAccount(string,RequestContext)">
+      <example>
+This sample shows how to call GetAccount and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response response = client.GetAccount("sampleAccountId_00000000-0000-0000-0000-000000000000", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+Console.WriteLine(result.GetProperty("subscriptionId").ToString());
+Console.WriteLine(result.GetProperty("subscriptionState").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("location").ToString());
+]]></code></example>
+    </member>
+    <member name="GetBrowsersAsync(string,string,OS?,CancellationToken)">
+      <example>
+This sample shows how to call GetBrowsersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response response = await client.GetBrowsersAsync("sampleAccountId_00000000-0000-0000-0000-000000000000");
+]]></code></example>
+    </member>
+    <member name="GetBrowsers(string,string,OS?,CancellationToken)">
+      <example>
+This sample shows how to call GetBrowsers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response response = client.GetBrowsers("sampleAccountId_00000000-0000-0000-0000-000000000000");
+]]></code></example>
+    </member>
+    <member name="GetBrowsersAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetBrowsersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response response = await client.GetBrowsersAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", null, "Linux", null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetBrowsers(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetBrowsers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new AuthManagerClient(endpoint, credential).GetAccountsClient(apiVersion: "2024-12-01");
+
+Response response = client.GetBrowsers("sampleAccountId_00000000-0000-0000-0000-000000000000", null, "Linux", null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+  </members>
+</doc>
