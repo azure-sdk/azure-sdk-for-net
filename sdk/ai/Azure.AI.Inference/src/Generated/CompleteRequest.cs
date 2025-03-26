@@ -11,14 +11,10 @@ using System.Linq;
 
 namespace Azure.AI.Inference
 {
-    /// <summary>
-    /// The configuration information for a chat completions request.
-    /// Completions support a wide variety of tasks and generate text that continues from or "completes"
-    /// provided prompt data.
-    /// </summary>
-    public partial class ChatCompletionsOptions
+    /// <summary> The CompleteRequest. </summary>
+    internal partial class CompleteRequest
     {
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsOptions"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CompleteRequest"/>. </summary>
         /// <param name="messages">
         /// The collection of context messages associated with this chat completions request.
         /// Typical usage begins with a chat message for the System role that provides instructions for
@@ -28,7 +24,7 @@ namespace Azure.AI.Inference
         /// The available derived classes include <see cref="ChatRequestAssistantMessage"/>, <see cref="ChatRequestDeveloperMessage"/>, <see cref="ChatRequestSystemMessage"/>, <see cref="ChatRequestToolMessage"/> and <see cref="ChatRequestUserMessage"/>.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
-        public ChatCompletionsOptions(IEnumerable<ChatRequestMessage> messages)
+        internal CompleteRequest(IEnumerable<ChatRequestMessage> messages)
         {
             Argument.AssertNotNull(messages, nameof(messages));
 
@@ -38,7 +34,7 @@ namespace Azure.AI.Inference
             AdditionalProperties = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ChatCompletionsOptions"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CompleteRequest"/>. </summary>
         /// <param name="messages">
         /// The collection of context messages associated with this chat completions request.
         /// Typical usage begins with a chat message for the System role that provides instructions for
@@ -89,21 +85,21 @@ namespace Azure.AI.Inference
         ///
         /// **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
         /// Please note <see cref="ChatCompletionsResponseFormat"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/> and <see cref="ChatCompletionsResponseFormatText"/>.
+        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/>, <see cref="ChatCompletionsResponseFormatJsonSchema"/> and <see cref="ChatCompletionsResponseFormatText"/>.
         /// </param>
         /// <param name="stopSequences"> A collection of textual sequences that will end completions generation. </param>
         /// <param name="tools">
         /// A list of tools the model may request to call. Currently, only functions are supported as a tool. The model
         /// may response with a function call request and provide the input arguments in JSON format for that function.
         /// </param>
-        /// <param name="internalSuppressedToolChoice"> If specified, the model will configure which of the provided tools it can use for the chat completions response. </param>
+        /// <param name="toolChoice"> If specified, the model will configure which of the provided tools it can use for the chat completions response. </param>
         /// <param name="seed">
         /// If specified, the system will make a best effort to sample deterministically such that repeated requests with the
         /// same seed and parameters should return the same result. Determinism is not guaranteed.
         /// </param>
         /// <param name="model"> ID of the specific AI model to use, if more than one model is available on the endpoint. </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
-        internal ChatCompletionsOptions(IList<ChatRequestMessage> messages, float? frequencyPenalty, bool? internalShouldStreamResponse, float? presencePenalty, float? temperature, float? nucleusSamplingFactor, int? maxTokens, ChatCompletionsResponseFormat responseFormat, IList<string> stopSequences, IList<ChatCompletionsToolDefinition> tools, BinaryData internalSuppressedToolChoice, long? seed, string model, IDictionary<string, BinaryData> additionalProperties)
+        internal CompleteRequest(IReadOnlyList<ChatRequestMessage> messages, float? frequencyPenalty, bool? internalShouldStreamResponse, float? presencePenalty, float? temperature, float? nucleusSamplingFactor, int? maxTokens, ChatCompletionsResponseFormat responseFormat, IReadOnlyList<string> stopSequences, IReadOnlyList<ChatCompletionsToolDefinition> tools, BinaryData toolChoice, long? seed, string model, IReadOnlyDictionary<string, BinaryData> additionalProperties)
         {
             Messages = messages;
             FrequencyPenalty = frequencyPenalty;
@@ -115,11 +111,26 @@ namespace Azure.AI.Inference
             ResponseFormat = responseFormat;
             StopSequences = stopSequences;
             Tools = tools;
-            InternalSuppressedToolChoice = internalSuppressedToolChoice;
+            ToolChoice = toolChoice;
             Seed = seed;
             Model = model;
             AdditionalProperties = additionalProperties;
         }
+
+        /// <summary> Initializes a new instance of <see cref="CompleteRequest"/> for deserialization. </summary>
+        internal CompleteRequest()
+        {
+        }
+
+        /// <summary>
+        /// The collection of context messages associated with this chat completions request.
+        /// Typical usage begins with a chat message for the System role that provides instructions for
+        /// the behavior of the assistant, followed by alternating messages between the User and
+        /// Assistant roles.
+        /// Please note <see cref="ChatRequestMessage"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="ChatRequestAssistantMessage"/>, <see cref="ChatRequestDeveloperMessage"/>, <see cref="ChatRequestSystemMessage"/>, <see cref="ChatRequestToolMessage"/> and <see cref="ChatRequestUserMessage"/>.
+        /// </summary>
+        public IReadOnlyList<ChatRequestMessage> Messages { get; }
         /// <summary>
         /// A value that influences the probability of generated tokens appearing based on their cumulative
         /// frequency in generated text.
@@ -127,7 +138,9 @@ namespace Azure.AI.Inference
         /// decrease the likelihood of the model repeating the same statements verbatim.
         /// Supported range is [-2, 2].
         /// </summary>
-        public float? FrequencyPenalty { get; set; }
+        public float? FrequencyPenalty { get; }
+        /// <summary> A value indicating whether chat completions should be streamed for this request. </summary>
+        public bool? InternalShouldStreamResponse { get; }
         /// <summary>
         /// A value that influences the probability of generated tokens appearing based on their existing
         /// presence in generated text.
@@ -135,7 +148,7 @@ namespace Azure.AI.Inference
         /// model's likelihood to output new topics.
         /// Supported range is [-2, 2].
         /// </summary>
-        public float? PresencePenalty { get; set; }
+        public float? PresencePenalty { get; }
         /// <summary>
         /// The sampling temperature to use that controls the apparent creativity of generated completions.
         /// Higher values will make output more random while lower values will make results more focused
@@ -144,7 +157,7 @@ namespace Azure.AI.Inference
         /// interaction of these two settings is difficult to predict.
         /// Supported range is [0, 1].
         /// </summary>
-        public float? Temperature { get; set; }
+        public float? Temperature { get; }
         /// <summary>
         /// An alternative to sampling with temperature called nucleus sampling. This value causes the
         /// model to consider the results of tokens with the provided probability mass. As an example, a
@@ -154,9 +167,9 @@ namespace Azure.AI.Inference
         /// interaction of these two settings is difficult to predict.
         /// Supported range is [0, 1].
         /// </summary>
-        public float? NucleusSamplingFactor { get; set; }
+        public float? NucleusSamplingFactor { get; }
         /// <summary> The maximum number of tokens to generate. </summary>
-        public int? MaxTokens { get; set; }
+        public int? MaxTokens { get; }
         /// <summary>
         /// An object specifying the format that the model must output.
         ///
@@ -166,23 +179,65 @@ namespace Azure.AI.Inference
         ///
         /// **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
         /// Please note <see cref="ChatCompletionsResponseFormat"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/> and <see cref="ChatCompletionsResponseFormatText"/>.
+        /// The available derived classes include <see cref="ChatCompletionsResponseFormatJsonObject"/>, <see cref="ChatCompletionsResponseFormatJsonSchema"/> and <see cref="ChatCompletionsResponseFormatText"/>.
         /// </summary>
-        public ChatCompletionsResponseFormat ResponseFormat { get; set; }
+        public ChatCompletionsResponseFormat ResponseFormat { get; }
         /// <summary> A collection of textual sequences that will end completions generation. </summary>
-        public IList<string> StopSequences { get; }
+        public IReadOnlyList<string> StopSequences { get; }
         /// <summary>
         /// A list of tools the model may request to call. Currently, only functions are supported as a tool. The model
         /// may response with a function call request and provide the input arguments in JSON format for that function.
         /// </summary>
-        public IList<ChatCompletionsToolDefinition> Tools { get; }
+        public IReadOnlyList<ChatCompletionsToolDefinition> Tools { get; }
+        /// <summary>
+        /// If specified, the model will configure which of the provided tools it can use for the chat completions response.
+        /// <para>
+        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// <remarks>
+        /// Supported types:
+        /// <list type="bullet">
+        /// <item>
+        /// <description><see cref="ChatCompletionsToolChoicePreset"/></description>
+        /// </item>
+        /// <item>
+        /// <description><see cref="ChatCompletionsNamedToolChoice"/></description>
+        /// </item>
+        /// </list>
+        /// </remarks>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public BinaryData ToolChoice { get; }
         /// <summary>
         /// If specified, the system will make a best effort to sample deterministically such that repeated requests with the
         /// same seed and parameters should return the same result. Determinism is not guaranteed.
         /// </summary>
-        public long? Seed { get; set; }
+        public long? Seed { get; }
         /// <summary> ID of the specific AI model to use, if more than one model is available on the endpoint. </summary>
-        public string Model { get; set; }
+        public string Model { get; }
         /// <summary>
         /// Additional Properties
         /// <para>
@@ -213,6 +268,6 @@ namespace Azure.AI.Inference
         /// </list>
         /// </para>
         /// </summary>
-        public IDictionary<string, BinaryData> AdditionalProperties { get; }
+        public IReadOnlyDictionary<string, BinaryData> AdditionalProperties { get; }
     }
 }

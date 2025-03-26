@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.AI.Inference
 {
     /// <summary> A structured chat content item for audio content passed as base64 encoded data. </summary>
-    internal partial class ChatMessageAudioDataContentItem : ChatMessageContentItem
+    public partial class ChatMessageAudioDataContentItem : ChatMessageContentItem
     {
         /// <summary> Initializes a new instance of <see cref="ChatMessageAudioDataContentItem"/>. </summary>
         /// <param name="inputAudio"> The details of the input audio data. </param>

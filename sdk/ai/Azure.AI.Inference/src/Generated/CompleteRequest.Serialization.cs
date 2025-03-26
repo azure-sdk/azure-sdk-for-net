@@ -13,25 +13,32 @@ using Azure.Core;
 
 namespace Azure.AI.Inference
 {
-    public partial class ChatCompletionsOptions : IUtf8JsonSerializable, IJsonModel<ChatCompletionsOptions>
+    internal partial class CompleteRequest : IUtf8JsonSerializable, IJsonModel<CompleteRequest>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ChatCompletionsOptions>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CompleteRequest>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+
+        void IJsonModel<CompleteRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        {
+            writer.WriteStartObject();
+            JsonModelWriteCore(writer, options);
+            writer.WriteEndObject();
+        }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsOptions>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CompleteRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChatCompletionsOptions)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(CompleteRequest)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("messages"u8);
             writer.WriteStartArray();
             foreach (var item in Messages)
             {
-                writer.WriteObjectValue<ChatRequestMessage>(item, options);
+                writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
             if (Optional.IsDefined(FrequencyPenalty))
@@ -89,13 +96,13 @@ namespace Azure.AI.Inference
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(InternalSuppressedToolChoice))
+            if (Optional.IsDefined(ToolChoice))
             {
                 writer.WritePropertyName("tool_choice"u8);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(InternalSuppressedToolChoice);
+				writer.WriteRawValue(ToolChoice);
 #else
-                using (JsonDocument document = JsonDocument.Parse(InternalSuppressedToolChoice, ModelSerializationExtensions.JsonDocumentOptions))
+                using (JsonDocument document = JsonDocument.Parse(ToolChoice, ModelSerializationExtensions.JsonDocumentOptions))
                 {
                     JsonSerializer.Serialize(writer, document.RootElement);
                 }
@@ -125,19 +132,19 @@ namespace Azure.AI.Inference
             }
         }
 
-        ChatCompletionsOptions IJsonModel<ChatCompletionsOptions>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        CompleteRequest IJsonModel<CompleteRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsOptions>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CompleteRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChatCompletionsOptions)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(CompleteRequest)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeChatCompletionsOptions(document.RootElement, options);
+            return DeserializeCompleteRequest(document.RootElement, options);
         }
 
-        internal static ChatCompletionsOptions DeserializeChatCompletionsOptions(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static CompleteRequest DeserializeCompleteRequest(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -145,7 +152,7 @@ namespace Azure.AI.Inference
             {
                 return null;
             }
-            IList<ChatRequestMessage> messages = default;
+            IReadOnlyList<ChatRequestMessage> messages = default;
             float? frequencyPenalty = default;
             bool? stream = default;
             float? presencePenalty = default;
@@ -153,12 +160,12 @@ namespace Azure.AI.Inference
             float? topP = default;
             int? maxTokens = default;
             ChatCompletionsResponseFormat responseFormat = default;
-            IList<string> stop = default;
-            IList<ChatCompletionsToolDefinition> tools = default;
+            IReadOnlyList<string> stop = default;
+            IReadOnlyList<ChatCompletionsToolDefinition> tools = default;
             BinaryData toolChoice = default;
             long? seed = default;
             string model = default;
-            IDictionary<string, BinaryData> additionalProperties = default;
+            IReadOnlyDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
@@ -289,7 +296,7 @@ namespace Azure.AI.Inference
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new ChatCompletionsOptions(
+            return new CompleteRequest(
                 messages,
                 frequencyPenalty,
                 stream,
@@ -306,43 +313,43 @@ namespace Azure.AI.Inference
                 additionalProperties);
         }
 
-        BinaryData IPersistableModel<ChatCompletionsOptions>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<CompleteRequest>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsOptions>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CompleteRequest>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ChatCompletionsOptions)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CompleteRequest)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ChatCompletionsOptions IPersistableModel<ChatCompletionsOptions>.Create(BinaryData data, ModelReaderWriterOptions options)
+        CompleteRequest IPersistableModel<CompleteRequest>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ChatCompletionsOptions>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<CompleteRequest>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeChatCompletionsOptions(document.RootElement, options);
+                        return DeserializeCompleteRequest(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ChatCompletionsOptions)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CompleteRequest)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ChatCompletionsOptions>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<CompleteRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ChatCompletionsOptions FromResponse(Response response)
+        internal static CompleteRequest FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeChatCompletionsOptions(document.RootElement);
+            return DeserializeCompleteRequest(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

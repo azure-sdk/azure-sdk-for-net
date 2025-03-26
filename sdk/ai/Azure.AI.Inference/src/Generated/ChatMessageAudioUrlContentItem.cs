@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.AI.Inference
 {
     /// <summary> A structured chat content item for audio content passed as a url. </summary>
-    internal partial class ChatMessageAudioUrlContentItem : ChatMessageContentItem
+    public partial class ChatMessageAudioUrlContentItem : ChatMessageContentItem
     {
         /// <summary> Initializes a new instance of <see cref="ChatMessageAudioUrlContentItem"/>. </summary>
         /// <param name="audioUrl"> The details of the audio url. </param>
