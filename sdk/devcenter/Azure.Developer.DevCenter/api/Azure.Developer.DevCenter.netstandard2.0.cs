@@ -159,7 +159,7 @@ namespace Azure.Developer.DevCenter.Models
         public Azure.Developer.DevCenter.Models.DevBoxHardwareProfile HardwareProfile { get { throw null; } }
         public Azure.Developer.DevCenter.Models.HibernateSupport? HibernateSupport { get { throw null; } }
         public Azure.Developer.DevCenter.Models.DevBoxImageReference ImageReference { get { throw null; } }
-        public Azure.Developer.DevCenter.Models.LocalAdministratorStatus? LocalAdministratorStatus { get { throw null; } set { } }
+        public Azure.Developer.DevCenter.Models.LocalAdministratorStatus? LocalAdministratorStatus { get { throw null; } }
         public Azure.Core.AzureLocation? Location { get { throw null; } }
         public string Name { get { throw null; } }
         public Azure.Developer.DevCenter.Models.DevBoxOSType? OSType { get { throw null; } }
