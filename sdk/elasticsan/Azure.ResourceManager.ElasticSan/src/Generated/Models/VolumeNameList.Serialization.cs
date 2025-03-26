@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    internal partial class AutoScaleProperties : IUtf8JsonSerializable, IJsonModel<AutoScaleProperties>
+    public partial class VolumeNameList : IUtf8JsonSerializable, IJsonModel<VolumeNameList>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AutoScaleProperties>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<VolumeNameList>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AutoScaleProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<VolumeNameList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,16 +28,21 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutoScaleProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeNameList>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AutoScaleProperties)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(VolumeNameList)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(ScaleUpProperties))
+            if (Optional.IsCollectionDefined(VolumeNames))
             {
-                writer.WritePropertyName("scaleUpProperties"u8);
-                writer.WriteObjectValue(ScaleUpProperties, options);
+                writer.WritePropertyName("volumeNames"u8);
+                writer.WriteStartArray();
+                foreach (var item in VolumeNames)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -56,19 +61,19 @@ namespace Azure.ResourceManager.ElasticSan.Models
             }
         }
 
-        AutoScaleProperties IJsonModel<AutoScaleProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        VolumeNameList IJsonModel<VolumeNameList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutoScaleProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeNameList>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AutoScaleProperties)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(VolumeNameList)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAutoScaleProperties(document.RootElement, options);
+            return DeserializeVolumeNameList(document.RootElement, options);
         }
 
-        internal static AutoScaleProperties DeserializeAutoScaleProperties(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static VolumeNameList DeserializeVolumeNameList(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -76,18 +81,23 @@ namespace Azure.ResourceManager.ElasticSan.Models
             {
                 return null;
             }
-            ScaleUpProperties scaleUpProperties = default;
+            IList<string> volumeNames = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("scaleUpProperties"u8))
+                if (property.NameEquals("volumeNames"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    scaleUpProperties = ScaleUpProperties.DeserializeScaleUpProperties(property.Value, options);
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    volumeNames = array;
                     continue;
                 }
                 if (options.Format != "W")
@@ -96,38 +106,38 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AutoScaleProperties(scaleUpProperties, serializedAdditionalRawData);
+            return new VolumeNameList(volumeNames ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AutoScaleProperties>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<VolumeNameList>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutoScaleProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeNameList>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AutoScaleProperties)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(VolumeNameList)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AutoScaleProperties IPersistableModel<AutoScaleProperties>.Create(BinaryData data, ModelReaderWriterOptions options)
+        VolumeNameList IPersistableModel<VolumeNameList>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AutoScaleProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeNameList>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeAutoScaleProperties(document.RootElement, options);
+                        return DeserializeVolumeNameList(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AutoScaleProperties)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(VolumeNameList)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AutoScaleProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<VolumeNameList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
