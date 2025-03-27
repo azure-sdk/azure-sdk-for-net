@@ -7828,15 +7828,6 @@ namespace Azure.ResourceManager.Network.Models
             return new VnetRoute(staticRoutesConfig, staticRoutes?.ToList(), bgpConnections?.ToList(), serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.StaticRoutesConfig"/>. </summary>
-        /// <param name="propagateStaticRoutes"> Boolean indicating whether static routes on this connection are automatically propagate to route tables which this connection propagates to. </param>
-        /// <param name="vnetLocalRouteOverrideCriteria"> Parameter determining whether NVA in spoke vnet is bypassed for traffic with destination in spoke. </param>
-        /// <returns> A new <see cref="Models.StaticRoutesConfig"/> instance for mocking. </returns>
-        public static StaticRoutesConfig StaticRoutesConfig(bool? propagateStaticRoutes = null, VnetLocalRouteOverrideCriterion? vnetLocalRouteOverrideCriteria = null)
-        {
-            return new StaticRoutesConfig(propagateStaticRoutes, vnetLocalRouteOverrideCriteria, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Network.VpnServerConfigurationPolicyGroupData"/>. </summary>
         /// <param name="id"> Resource ID. </param>
         /// <param name="name"> Resource name. </param>
