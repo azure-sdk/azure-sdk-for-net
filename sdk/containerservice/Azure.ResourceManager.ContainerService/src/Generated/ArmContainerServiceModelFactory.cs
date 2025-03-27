@@ -8,956 +8,443 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
     /// <summary> Model factory for models. </summary>
     public static partial class ArmContainerServiceModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="ContainerService.OSOptionProfileData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="osOptionPropertyList"> The list of OS options. </param>
-        /// <returns> A new <see cref="ContainerService.OSOptionProfileData"/> instance for mocking. </returns>
-        public static OSOptionProfileData OSOptionProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IEnumerable<ContainerServiceOSOptionProperty> osOptionPropertyList = null)
-        {
-            osOptionPropertyList ??= new List<ContainerServiceOSOptionProperty>();
-
-            return new OSOptionProfileData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                osOptionPropertyList?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceOSOptionProperty"/>. </summary>
-        /// <param name="osType"> The OS type. </param>
-        /// <param name="enableFipsImage"> Whether the image is FIPS-enabled. </param>
-        /// <returns> A new <see cref="Models.ContainerServiceOSOptionProperty"/> instance for mocking. </returns>
-        public static ContainerServiceOSOptionProperty ContainerServiceOSOptionProperty(string osType = null, bool enableFipsImage = default)
-        {
-            return new ContainerServiceOSOptionProperty(osType, enableFipsImage, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.KubernetesVersionListResult"/>. </summary>
-        /// <param name="values"> Array of AKS supported Kubernetes versions. </param>
-        /// <returns> A new <see cref="Models.KubernetesVersionListResult"/> instance for mocking. </returns>
-        public static KubernetesVersionListResult KubernetesVersionListResult(IEnumerable<KubernetesVersion> values = null)
-        {
-            values ??= new List<KubernetesVersion>();
-
-            return new KubernetesVersionListResult(values?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.KubernetesVersion"/>. </summary>
-        /// <param name="version"> major.minor version of Kubernetes release. </param>
-        /// <param name="capabilitiesSupportPlan"> Capabilities on this Kubernetes version. </param>
-        /// <param name="isPreview"> Whether this version is in preview mode. </param>
-        /// <param name="patchVersions"> Patch versions of Kubernetes release. </param>
-        /// <returns> A new <see cref="Models.KubernetesVersion"/> instance for mocking. </returns>
-        public static KubernetesVersion KubernetesVersion(string version = null, IEnumerable<KubernetesSupportPlan> capabilitiesSupportPlan = null, bool? isPreview = null, IReadOnlyDictionary<string, KubernetesPatchVersion> patchVersions = null)
-        {
-            capabilitiesSupportPlan ??= new List<KubernetesSupportPlan>();
-            patchVersions ??= new Dictionary<string, KubernetesPatchVersion>();
-
-            return new KubernetesVersion(version, capabilitiesSupportPlan != null ? new KubernetesVersionCapabilities(capabilitiesSupportPlan?.ToList(), serializedAdditionalRawData: null) : null, isPreview, patchVersions, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.KubernetesPatchVersion"/>. </summary>
-        /// <param name="upgrades"> Possible upgrade path for given patch version. </param>
-        /// <returns> A new <see cref="Models.KubernetesPatchVersion"/> instance for mocking. </returns>
-        public static KubernetesPatchVersion KubernetesPatchVersion(IEnumerable<string> upgrades = null)
-        {
-            upgrades ??= new List<string>();
-
-            return new KubernetesPatchVersion(upgrades?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerService.ContainerServiceManagedClusterData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerService.FleetData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="sku"> The managed cluster SKU. </param>
-        /// <param name="extendedLocation"> The extended location of the Virtual Machine. </param>
-        /// <param name="clusterIdentity"> The identity of the managed cluster, if configured. </param>
-        /// <param name="provisioningState"> The current provisioning state. </param>
-        /// <param name="powerStateCode"> The Power State of the cluster. </param>
-        /// <param name="maxAgentPools"> The max number of agent pools for the managed cluster. </param>
-        /// <param name="kubernetesVersion"> Both patch version &lt;major.minor.patch&gt; (e.g. 1.20.13) and &lt;major.minor&gt; (e.g. 1.20) are supported. When &lt;major.minor&gt; is specified, the latest supported GA patch version is chosen automatically. Updating the cluster with the same &lt;major.minor&gt; once it has been created (e.g. 1.14.x -&gt; 1.14) will not trigger an upgrade, even if a newer patch version is available. When you upgrade a supported AKS cluster, Kubernetes minor versions cannot be skipped. All upgrades must be performed sequentially by major version number. For example, upgrades between 1.14.x -&gt; 1.15.x or 1.15.x -&gt; 1.16.x are allowed, however 1.14.x -&gt; 1.16.x is not allowed. See [upgrading an AKS cluster](https://docs.microsoft.com/azure/aks/upgrade-cluster) for more details. </param>
-        /// <param name="currentKubernetesVersion"> If kubernetesVersion was a fully specified version &lt;major.minor.patch&gt;, this field will be exactly equal to it. If kubernetesVersion was &lt;major.minor&gt;, this field will contain the full &lt;major.minor.patch&gt; version being used. </param>
-        /// <param name="dnsPrefix"> This cannot be updated once the Managed Cluster has been created. </param>
-        /// <param name="fqdnSubdomain"> This cannot be updated once the Managed Cluster has been created. </param>
-        /// <param name="fqdn"> The FQDN of the master pool. </param>
-        /// <param name="privateFqdn"> The FQDN of private cluster. </param>
-        /// <param name="azurePortalFqdn"> The Azure Portal requires certain Cross-Origin Resource Sharing (CORS) headers to be sent in some responses, which Kubernetes APIServer doesn't handle by default. This special FQDN supports CORS, allowing the Azure Portal to function properly. </param>
-        /// <param name="agentPoolProfiles"> The agent pool properties. </param>
-        /// <param name="linuxProfile"> The profile for Linux VMs in the Managed Cluster. </param>
-        /// <param name="windowsProfile"> The profile for Windows VMs in the Managed Cluster. </param>
-        /// <param name="servicePrincipalProfile"> Information about a service principal identity for the cluster to use for manipulating Azure APIs. </param>
-        /// <param name="addonProfiles"> The profile of managed cluster add-on. </param>
-        /// <param name="podIdentityProfile"> See [use AAD pod identity](https://docs.microsoft.com/azure/aks/use-azure-ad-pod-identity) for more details on AAD pod identity integration. </param>
-        /// <param name="oidcIssuerProfile"> The OIDC issuer profile of the Managed Cluster. </param>
-        /// <param name="nodeResourceGroup"> The name of the resource group containing agent pool nodes. </param>
-        /// <param name="enableRbac"> Whether to enable Kubernetes Role-Based Access Control. </param>
-        /// <param name="supportPlan"> The support plan for the Managed Cluster. If unspecified, the default is 'KubernetesOfficial'. </param>
-        /// <param name="enablePodSecurityPolicy"> (DEPRECATED) Whether to enable Kubernetes pod security policy (preview). PodSecurityPolicy was deprecated in Kubernetes v1.21, and removed from Kubernetes in v1.25. Learn more at https://aka.ms/k8s/psp and https://aka.ms/aks/psp. </param>
-        /// <param name="networkProfile"> The network configuration profile. </param>
-        /// <param name="aadProfile"> The Azure Active Directory configuration. </param>
-        /// <param name="autoUpgradeProfile"> The auto upgrade configuration. </param>
-        /// <param name="upgradeOverrideSettings"> Settings for upgrading a cluster. </param>
-        /// <param name="autoScalerProfile"> Parameters to be applied to the cluster-autoscaler when enabled. </param>
-        /// <param name="apiServerAccessProfile"> The access profile for managed cluster API server. </param>
-        /// <param name="diskEncryptionSetId"> This is of the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{encryptionSetName}'. </param>
-        /// <param name="identityProfile"> Identities associated with the cluster. </param>
-        /// <param name="privateLinkResources"> Private link resources associated with the cluster. </param>
-        /// <param name="disableLocalAccounts"> If set to true, getting static credentials will be disabled for this cluster. This must only be used on Managed Clusters that are AAD enabled. For more details see [disable local accounts](https://docs.microsoft.com/azure/aks/managed-aad#disable-local-accounts-preview). </param>
-        /// <param name="httpProxyConfig"> Configurations for provisioning the cluster with HTTP proxy servers. </param>
-        /// <param name="securityProfile"> Security profile for the managed cluster. </param>
-        /// <param name="storageProfile"> Storage profile for the managed cluster. </param>
-        /// <param name="publicNetworkAccess"> Allow or deny public network access for AKS. </param>
-        /// <param name="workloadAutoScalerProfile"> Workload Auto-scaler profile for the managed cluster. </param>
-        /// <param name="azureMonitorMetrics"> Azure Monitor addon profiles for monitoring the managed cluster. </param>
-        /// <param name="serviceMeshProfile"> Service mesh profile for a managed cluster. </param>
-        /// <param name="resourceId"> The resourceUID uniquely identifies ManagedClusters that reuse ARM ResourceIds (i.e: create, delete, create sequence). </param>
-        /// <returns> A new <see cref="ContainerService.ContainerServiceManagedClusterData"/> instance for mocking. </returns>
-        public static ContainerServiceManagedClusterData ContainerServiceManagedClusterData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedClusterSku sku = null, ExtendedLocation extendedLocation = null, ManagedClusterIdentity clusterIdentity = null, string provisioningState = null, ContainerServiceStateCode? powerStateCode = null, int? maxAgentPools = null, string kubernetesVersion = null, string currentKubernetesVersion = null, string dnsPrefix = null, string fqdnSubdomain = null, string fqdn = null, string privateFqdn = null, string azurePortalFqdn = null, IEnumerable<ManagedClusterAgentPoolProfile> agentPoolProfiles = null, ContainerServiceLinuxProfile linuxProfile = null, ManagedClusterWindowsProfile windowsProfile = null, ManagedClusterServicePrincipalProfile servicePrincipalProfile = null, IDictionary<string, ManagedClusterAddonProfile> addonProfiles = null, ManagedClusterPodIdentityProfile podIdentityProfile = null, ManagedClusterOidcIssuerProfile oidcIssuerProfile = null, string nodeResourceGroup = null, bool? enableRbac = null, KubernetesSupportPlan? supportPlan = null, bool? enablePodSecurityPolicy = null, ContainerServiceNetworkProfile networkProfile = null, ManagedClusterAadProfile aadProfile = null, ManagedClusterAutoUpgradeProfile autoUpgradeProfile = null, UpgradeOverrideSettings upgradeOverrideSettings = null, ManagedClusterAutoScalerProfile autoScalerProfile = null, ManagedClusterApiServerAccessProfile apiServerAccessProfile = null, ResourceIdentifier diskEncryptionSetId = null, IDictionary<string, ContainerServiceUserAssignedIdentity> identityProfile = null, IEnumerable<ContainerServicePrivateLinkResourceData> privateLinkResources = null, bool? disableLocalAccounts = null, ManagedClusterHttpProxyConfig httpProxyConfig = null, ManagedClusterSecurityProfile securityProfile = null, ManagedClusterStorageProfile storageProfile = null, ContainerServicePublicNetworkAccess? publicNetworkAccess = null, ManagedClusterWorkloadAutoScalerProfile workloadAutoScalerProfile = null, ManagedClusterMonitorProfileMetrics azureMonitorMetrics = null, ServiceMeshProfile serviceMeshProfile = null, ResourceIdentifier resourceId = null)
+        /// <param name="etag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="identity"> Managed identity. </param>
+        /// <param name="provisioningState"> The status of the last operation. </param>
+        /// <param name="hubProfile"> The FleetHubProfile configures the Fleet's hub. </param>
+        /// <param name="status"> Status information for the fleet. </param>
+        /// <returns> A new <see cref="ContainerService.FleetData"/> instance for mocking. </returns>
+        public static FleetData FleetData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, ResourceManager.Models.ManagedServiceIdentity identity = null, FleetProvisioningState? provisioningState = null, FleetHubProfile hubProfile = null, FleetStatus status = null)
         {
             tags ??= new Dictionary<string, string>();
-            agentPoolProfiles ??= new List<ManagedClusterAgentPoolProfile>();
-            addonProfiles ??= new Dictionary<string, ManagedClusterAddonProfile>();
-            identityProfile ??= new Dictionary<string, ContainerServiceUserAssignedIdentity>();
-            privateLinkResources ??= new List<ContainerServicePrivateLinkResourceData>();
 
-            return new ContainerServiceManagedClusterData(
+            return new FleetData(
                 id,
                 name,
                 resourceType,
                 systemData,
                 tags,
                 location,
-                sku,
-                extendedLocation,
-                clusterIdentity,
-                provisioningState,
-                powerStateCode != null ? new ContainerServicePowerState(powerStateCode, serializedAdditionalRawData: null) : null,
-                maxAgentPools,
-                kubernetesVersion,
-                currentKubernetesVersion,
-                dnsPrefix,
-                fqdnSubdomain,
-                fqdn,
-                privateFqdn,
-                azurePortalFqdn,
-                agentPoolProfiles?.ToList(),
-                linuxProfile,
-                windowsProfile,
-                servicePrincipalProfile,
-                addonProfiles,
-                podIdentityProfile,
-                oidcIssuerProfile,
-                nodeResourceGroup,
-                enableRbac,
-                supportPlan,
-                enablePodSecurityPolicy,
-                networkProfile,
-                aadProfile,
-                autoUpgradeProfile,
-                upgradeOverrideSettings != null ? new ClusterUpgradeSettings(upgradeOverrideSettings, serializedAdditionalRawData: null) : null,
-                autoScalerProfile,
-                apiServerAccessProfile,
-                diskEncryptionSetId,
-                identityProfile,
-                privateLinkResources?.ToList(),
-                disableLocalAccounts,
-                httpProxyConfig,
-                securityProfile,
-                storageProfile,
-                publicNetworkAccess,
-                workloadAutoScalerProfile,
-                azureMonitorMetrics != null ? new ManagedClusterAzureMonitorProfile(azureMonitorMetrics, serializedAdditionalRawData: null) : null,
-                serviceMeshProfile,
-                resourceId,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterAgentPoolProfile"/>. </summary>
-        /// <param name="count"> Number of agents (VMs) to host docker containers. Allowed values must be in the range of 0 to 1000 (inclusive) for user pools and in the range of 1 to 1000 (inclusive) for system pools. The default value is 1. </param>
-        /// <param name="vmSize"> VM size availability varies by region. If a node contains insufficient compute resources (memory, cpu, etc) pods might fail to run correctly. For more details on restricted VM sizes, see: https://docs.microsoft.com/azure/aks/quotas-skus-regions. </param>
-        /// <param name="osDiskSizeInGB"> OS Disk Size in GB to be used to specify the disk size for every machine in the master/agent pool. If you specify 0, it will apply the default osDisk size according to the vmSize specified. </param>
-        /// <param name="osDiskType"> The default is 'Ephemeral' if the VM supports it and has a cache disk larger than the requested OSDiskSizeGB. Otherwise, defaults to 'Managed'. May not be changed after creation. For more information see [Ephemeral OS](https://docs.microsoft.com/azure/aks/cluster-configuration#ephemeral-os). </param>
-        /// <param name="kubeletDiskType"> Determines the placement of emptyDir volumes, container runtime data root, and Kubelet ephemeral storage. </param>
-        /// <param name="workloadRuntime"> Determines the type of workload a node can run. </param>
-        /// <param name="vnetSubnetId"> If this is not specified, a VNET and subnet will be generated and used. If no podSubnetID is specified, this applies to nodes and pods, otherwise it applies to just nodes. This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}. </param>
-        /// <param name="podSubnetId"> If omitted, pod IPs are statically assigned on the node subnet (see vnetSubnetID for more details). This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}. </param>
-        /// <param name="maxPods"> The maximum number of pods that can run on a node. </param>
-        /// <param name="osType"> The operating system type. The default is Linux. </param>
-        /// <param name="osSku"> Specifies the OS SKU used by the agent pool. The default is Ubuntu if OSType is Linux. The default is Windows2019 when Kubernetes &lt;= 1.24 or Windows2022 when Kubernetes &gt;= 1.25 if OSType is Windows. </param>
-        /// <param name="maxCount"> The maximum number of nodes for auto-scaling. </param>
-        /// <param name="minCount"> The minimum number of nodes for auto-scaling. </param>
-        /// <param name="enableAutoScaling"> Whether to enable auto-scaler. </param>
-        /// <param name="scaleDownMode"> This also effects the cluster autoscaler behavior. If not specified, it defaults to Delete. </param>
-        /// <param name="agentPoolType"> The type of Agent Pool. </param>
-        /// <param name="mode"> A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent pool restrictions and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools. </param>
-        /// <param name="orchestratorVersion"> Both patch version &lt;major.minor.patch&gt; (e.g. 1.20.13) and &lt;major.minor&gt; (e.g. 1.20) are supported. When &lt;major.minor&gt; is specified, the latest supported GA patch version is chosen automatically. Updating the cluster with the same &lt;major.minor&gt; once it has been created (e.g. 1.14.x -&gt; 1.14) will not trigger an upgrade, even if a newer patch version is available. As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes version. The node pool version must have the same major version as the control plane. The node pool minor version must be within two minor versions of the control plane version. The node pool version cannot be greater than the control plane version. For more information see [upgrading a node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool). </param>
-        /// <param name="currentOrchestratorVersion"> If orchestratorVersion is a fully specified version &lt;major.minor.patch&gt;, this field will be exactly equal to it. If orchestratorVersion is &lt;major.minor&gt;, this field will contain the full &lt;major.minor.patch&gt; version being used. </param>
-        /// <param name="nodeImageVersion"> The version of node image. </param>
-        /// <param name="upgradeSettings"> Settings for upgrading the agentpool. </param>
-        /// <param name="provisioningState"> The current deployment or provisioning state. </param>
-        /// <param name="powerStateCode"> When an Agent Pool is first created it is initially Running. The Agent Pool can be stopped by setting this field to Stopped. A stopped Agent Pool stops all of its VMs and does not accrue billing charges. An Agent Pool can only be stopped if it is Running and provisioning state is Succeeded. </param>
-        /// <param name="availabilityZones"> The list of Availability zones to use for nodes. This can only be specified if the AgentPoolType property is 'VirtualMachineScaleSets'. </param>
-        /// <param name="enableNodePublicIP"> Some scenarios may require nodes in a node pool to receive their own dedicated public IP addresses. A common scenario is for gaming workloads, where a console needs to make a direct connection to a cloud virtual machine to minimize hops. For more information see [assigning a public IP per node](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#assign-a-public-ip-per-node-for-your-node-pools). The default is false. </param>
-        /// <param name="nodePublicIPPrefixId"> This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPPrefixes/{publicIPPrefixName}. </param>
-        /// <param name="scaleSetPriority"> The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'. </param>
-        /// <param name="scaleSetEvictionPolicy"> This cannot be specified unless the scaleSetPriority is 'Spot'. If not specified, the default is 'Delete'. </param>
-        /// <param name="spotMaxPrice"> Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price. For more details on spot pricing, see [spot VMs pricing](https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing). </param>
-        /// <param name="tags"> The tags to be persisted on the agent pool virtual machine scale set. </param>
-        /// <param name="nodeLabels"> The node labels to be persisted across all nodes in agent pool. </param>
-        /// <param name="nodeTaints"> The taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule. </param>
-        /// <param name="proximityPlacementGroupId"> The ID for Proximity Placement Group. </param>
-        /// <param name="kubeletConfig"> The Kubelet configuration on the agent pool nodes. </param>
-        /// <param name="linuxOSConfig"> The OS configuration of Linux agent nodes. </param>
-        /// <param name="enableEncryptionAtHost"> This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption. </param>
-        /// <param name="enableUltraSsd"> Whether to enable UltraSSD. </param>
-        /// <param name="enableFips"> See [Add a FIPS-enabled node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#add-a-fips-enabled-node-pool-preview) for more details. </param>
-        /// <param name="gpuInstanceProfile"> GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU. </param>
-        /// <param name="creationDataSourceResourceId"> CreationData to be used to specify the source Snapshot ID if the node pool will be created/upgraded using a snapshot. </param>
-        /// <param name="capacityReservationGroupId"> AKS will associate the specified agent pool with the Capacity Reservation Group. </param>
-        /// <param name="hostGroupId"> This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}. For more information see [Azure dedicated hosts](https://docs.microsoft.com/azure/virtual-machines/dedicated-hosts). </param>
-        /// <param name="networkProfile"> Network-related settings of an agent pool. </param>
-        /// <param name="name"> Windows agent pool names must be 6 characters or less. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterAgentPoolProfile"/> instance for mocking. </returns>
-        public static ManagedClusterAgentPoolProfile ManagedClusterAgentPoolProfile(int? count = null, string vmSize = null, int? osDiskSizeInGB = null, ContainerServiceOSDiskType? osDiskType = null, KubeletDiskType? kubeletDiskType = null, WorkloadRuntime? workloadRuntime = null, ResourceIdentifier vnetSubnetId = null, ResourceIdentifier podSubnetId = null, int? maxPods = null, ContainerServiceOSType? osType = null, ContainerServiceOSSku? osSku = null, int? maxCount = null, int? minCount = null, bool? enableAutoScaling = null, ScaleDownMode? scaleDownMode = null, AgentPoolType? agentPoolType = null, AgentPoolMode? mode = null, string orchestratorVersion = null, string currentOrchestratorVersion = null, string nodeImageVersion = null, AgentPoolUpgradeSettings upgradeSettings = null, string provisioningState = null, ContainerServiceStateCode? powerStateCode = null, IEnumerable<string> availabilityZones = null, bool? enableNodePublicIP = null, ResourceIdentifier nodePublicIPPrefixId = null, ScaleSetPriority? scaleSetPriority = null, ScaleSetEvictionPolicy? scaleSetEvictionPolicy = null, float? spotMaxPrice = null, IDictionary<string, string> tags = null, IDictionary<string, string> nodeLabels = null, IEnumerable<string> nodeTaints = null, ResourceIdentifier proximityPlacementGroupId = null, KubeletConfig kubeletConfig = null, LinuxOSConfig linuxOSConfig = null, bool? enableEncryptionAtHost = null, bool? enableUltraSsd = null, bool? enableFips = null, GpuInstanceProfile? gpuInstanceProfile = null, ResourceIdentifier creationDataSourceResourceId = null, ResourceIdentifier capacityReservationGroupId = null, ResourceIdentifier hostGroupId = null, AgentPoolNetworkProfile networkProfile = null, string name = null)
-        {
-            availabilityZones ??= new List<string>();
-            tags ??= new Dictionary<string, string>();
-            nodeLabels ??= new Dictionary<string, string>();
-            nodeTaints ??= new List<string>();
-
-            return new ManagedClusterAgentPoolProfile(
-                count,
-                vmSize,
-                osDiskSizeInGB,
-                osDiskType,
-                kubeletDiskType,
-                workloadRuntime,
-                vnetSubnetId,
-                podSubnetId,
-                maxPods,
-                osType,
-                osSku,
-                maxCount,
-                minCount,
-                enableAutoScaling,
-                scaleDownMode,
-                agentPoolType,
-                mode,
-                orchestratorVersion,
-                currentOrchestratorVersion,
-                nodeImageVersion,
-                upgradeSettings,
-                provisioningState,
-                powerStateCode != null ? new ContainerServicePowerState(powerStateCode, serializedAdditionalRawData: null) : null,
-                availabilityZones?.ToList(),
-                enableNodePublicIP,
-                nodePublicIPPrefixId,
-                scaleSetPriority,
-                scaleSetEvictionPolicy,
-                spotMaxPrice,
-                tags,
-                nodeLabels,
-                nodeTaints?.ToList(),
-                proximityPlacementGroupId,
-                kubeletConfig,
-                linuxOSConfig,
-                enableEncryptionAtHost,
-                enableUltraSsd,
-                enableFips,
-                gpuInstanceProfile,
-                creationDataSourceResourceId != null ? new ContainerServiceCreationData(creationDataSourceResourceId, serializedAdditionalRawData: null) : null,
-                capacityReservationGroupId,
-                hostGroupId,
-                networkProfile,
-                serializedAdditionalRawData: null,
-                name);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterAgentPoolProfileProperties"/>. </summary>
-        /// <param name="count"> Number of agents (VMs) to host docker containers. Allowed values must be in the range of 0 to 1000 (inclusive) for user pools and in the range of 1 to 1000 (inclusive) for system pools. The default value is 1. </param>
-        /// <param name="vmSize"> VM size availability varies by region. If a node contains insufficient compute resources (memory, cpu, etc) pods might fail to run correctly. For more details on restricted VM sizes, see: https://docs.microsoft.com/azure/aks/quotas-skus-regions. </param>
-        /// <param name="osDiskSizeInGB"> OS Disk Size in GB to be used to specify the disk size for every machine in the master/agent pool. If you specify 0, it will apply the default osDisk size according to the vmSize specified. </param>
-        /// <param name="osDiskType"> The default is 'Ephemeral' if the VM supports it and has a cache disk larger than the requested OSDiskSizeGB. Otherwise, defaults to 'Managed'. May not be changed after creation. For more information see [Ephemeral OS](https://docs.microsoft.com/azure/aks/cluster-configuration#ephemeral-os). </param>
-        /// <param name="kubeletDiskType"> Determines the placement of emptyDir volumes, container runtime data root, and Kubelet ephemeral storage. </param>
-        /// <param name="workloadRuntime"> Determines the type of workload a node can run. </param>
-        /// <param name="vnetSubnetId"> If this is not specified, a VNET and subnet will be generated and used. If no podSubnetID is specified, this applies to nodes and pods, otherwise it applies to just nodes. This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}. </param>
-        /// <param name="podSubnetId"> If omitted, pod IPs are statically assigned on the node subnet (see vnetSubnetID for more details). This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}. </param>
-        /// <param name="maxPods"> The maximum number of pods that can run on a node. </param>
-        /// <param name="osType"> The operating system type. The default is Linux. </param>
-        /// <param name="osSku"> Specifies the OS SKU used by the agent pool. The default is Ubuntu if OSType is Linux. The default is Windows2019 when Kubernetes &lt;= 1.24 or Windows2022 when Kubernetes &gt;= 1.25 if OSType is Windows. </param>
-        /// <param name="maxCount"> The maximum number of nodes for auto-scaling. </param>
-        /// <param name="minCount"> The minimum number of nodes for auto-scaling. </param>
-        /// <param name="enableAutoScaling"> Whether to enable auto-scaler. </param>
-        /// <param name="scaleDownMode"> This also effects the cluster autoscaler behavior. If not specified, it defaults to Delete. </param>
-        /// <param name="agentPoolType"> The type of Agent Pool. </param>
-        /// <param name="mode"> A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent pool restrictions and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools. </param>
-        /// <param name="orchestratorVersion"> Both patch version &lt;major.minor.patch&gt; (e.g. 1.20.13) and &lt;major.minor&gt; (e.g. 1.20) are supported. When &lt;major.minor&gt; is specified, the latest supported GA patch version is chosen automatically. Updating the cluster with the same &lt;major.minor&gt; once it has been created (e.g. 1.14.x -&gt; 1.14) will not trigger an upgrade, even if a newer patch version is available. As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes version. The node pool version must have the same major version as the control plane. The node pool minor version must be within two minor versions of the control plane version. The node pool version cannot be greater than the control plane version. For more information see [upgrading a node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool). </param>
-        /// <param name="currentOrchestratorVersion"> If orchestratorVersion is a fully specified version &lt;major.minor.patch&gt;, this field will be exactly equal to it. If orchestratorVersion is &lt;major.minor&gt;, this field will contain the full &lt;major.minor.patch&gt; version being used. </param>
-        /// <param name="nodeImageVersion"> The version of node image. </param>
-        /// <param name="upgradeSettings"> Settings for upgrading the agentpool. </param>
-        /// <param name="provisioningState"> The current deployment or provisioning state. </param>
-        /// <param name="powerStateCode"> When an Agent Pool is first created it is initially Running. The Agent Pool can be stopped by setting this field to Stopped. A stopped Agent Pool stops all of its VMs and does not accrue billing charges. An Agent Pool can only be stopped if it is Running and provisioning state is Succeeded. </param>
-        /// <param name="availabilityZones"> The list of Availability zones to use for nodes. This can only be specified if the AgentPoolType property is 'VirtualMachineScaleSets'. </param>
-        /// <param name="enableNodePublicIP"> Some scenarios may require nodes in a node pool to receive their own dedicated public IP addresses. A common scenario is for gaming workloads, where a console needs to make a direct connection to a cloud virtual machine to minimize hops. For more information see [assigning a public IP per node](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#assign-a-public-ip-per-node-for-your-node-pools). The default is false. </param>
-        /// <param name="nodePublicIPPrefixId"> This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPPrefixes/{publicIPPrefixName}. </param>
-        /// <param name="scaleSetPriority"> The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'. </param>
-        /// <param name="scaleSetEvictionPolicy"> This cannot be specified unless the scaleSetPriority is 'Spot'. If not specified, the default is 'Delete'. </param>
-        /// <param name="spotMaxPrice"> Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price. For more details on spot pricing, see [spot VMs pricing](https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing). </param>
-        /// <param name="tags"> The tags to be persisted on the agent pool virtual machine scale set. </param>
-        /// <param name="nodeLabels"> The node labels to be persisted across all nodes in agent pool. </param>
-        /// <param name="nodeTaints"> The taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule. </param>
-        /// <param name="proximityPlacementGroupId"> The ID for Proximity Placement Group. </param>
-        /// <param name="kubeletConfig"> The Kubelet configuration on the agent pool nodes. </param>
-        /// <param name="linuxOSConfig"> The OS configuration of Linux agent nodes. </param>
-        /// <param name="enableEncryptionAtHost"> This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption. </param>
-        /// <param name="enableUltraSsd"> Whether to enable UltraSSD. </param>
-        /// <param name="enableFips"> See [Add a FIPS-enabled node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#add-a-fips-enabled-node-pool-preview) for more details. </param>
-        /// <param name="gpuInstanceProfile"> GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU. </param>
-        /// <param name="creationDataSourceResourceId"> CreationData to be used to specify the source Snapshot ID if the node pool will be created/upgraded using a snapshot. </param>
-        /// <param name="capacityReservationGroupId"> AKS will associate the specified agent pool with the Capacity Reservation Group. </param>
-        /// <param name="hostGroupId"> This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}. For more information see [Azure dedicated hosts](https://docs.microsoft.com/azure/virtual-machines/dedicated-hosts). </param>
-        /// <param name="networkProfile"> Network-related settings of an agent pool. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterAgentPoolProfileProperties"/> instance for mocking. </returns>
-        public static ManagedClusterAgentPoolProfileProperties ManagedClusterAgentPoolProfileProperties(int? count = null, string vmSize = null, int? osDiskSizeInGB = null, ContainerServiceOSDiskType? osDiskType = null, KubeletDiskType? kubeletDiskType = null, WorkloadRuntime? workloadRuntime = null, ResourceIdentifier vnetSubnetId = null, ResourceIdentifier podSubnetId = null, int? maxPods = null, ContainerServiceOSType? osType = null, ContainerServiceOSSku? osSku = null, int? maxCount = null, int? minCount = null, bool? enableAutoScaling = null, ScaleDownMode? scaleDownMode = null, AgentPoolType? agentPoolType = null, AgentPoolMode? mode = null, string orchestratorVersion = null, string currentOrchestratorVersion = null, string nodeImageVersion = null, AgentPoolUpgradeSettings upgradeSettings = null, string provisioningState = null, ContainerServiceStateCode? powerStateCode = null, IEnumerable<string> availabilityZones = null, bool? enableNodePublicIP = null, ResourceIdentifier nodePublicIPPrefixId = null, ScaleSetPriority? scaleSetPriority = null, ScaleSetEvictionPolicy? scaleSetEvictionPolicy = null, float? spotMaxPrice = null, IDictionary<string, string> tags = null, IDictionary<string, string> nodeLabels = null, IEnumerable<string> nodeTaints = null, ResourceIdentifier proximityPlacementGroupId = null, KubeletConfig kubeletConfig = null, LinuxOSConfig linuxOSConfig = null, bool? enableEncryptionAtHost = null, bool? enableUltraSsd = null, bool? enableFips = null, GpuInstanceProfile? gpuInstanceProfile = null, ResourceIdentifier creationDataSourceResourceId = null, ResourceIdentifier capacityReservationGroupId = null, ResourceIdentifier hostGroupId = null, AgentPoolNetworkProfile networkProfile = null)
-        {
-            availabilityZones ??= new List<string>();
-            tags ??= new Dictionary<string, string>();
-            nodeLabels ??= new Dictionary<string, string>();
-            nodeTaints ??= new List<string>();
-
-            return new ManagedClusterAgentPoolProfileProperties(
-                count,
-                vmSize,
-                osDiskSizeInGB,
-                osDiskType,
-                kubeletDiskType,
-                workloadRuntime,
-                vnetSubnetId,
-                podSubnetId,
-                maxPods,
-                osType,
-                osSku,
-                maxCount,
-                minCount,
-                enableAutoScaling,
-                scaleDownMode,
-                agentPoolType,
-                mode,
-                orchestratorVersion,
-                currentOrchestratorVersion,
-                nodeImageVersion,
-                upgradeSettings,
-                provisioningState,
-                powerStateCode != null ? new ContainerServicePowerState(powerStateCode, serializedAdditionalRawData: null) : null,
-                availabilityZones?.ToList(),
-                enableNodePublicIP,
-                nodePublicIPPrefixId,
-                scaleSetPriority,
-                scaleSetEvictionPolicy,
-                spotMaxPrice,
-                tags,
-                nodeLabels,
-                nodeTaints?.ToList(),
-                proximityPlacementGroupId,
-                kubeletConfig,
-                linuxOSConfig,
-                enableEncryptionAtHost,
-                enableUltraSsd,
-                enableFips,
-                gpuInstanceProfile,
-                creationDataSourceResourceId != null ? new ContainerServiceCreationData(creationDataSourceResourceId, serializedAdditionalRawData: null) : null,
-                capacityReservationGroupId,
-                hostGroupId,
-                networkProfile,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterAddonProfile"/>. </summary>
-        /// <param name="isEnabled"> Whether the add-on is enabled or not. </param>
-        /// <param name="config"> Key-value pairs for configuring an add-on. </param>
-        /// <param name="identity"> Information of user assigned identity used by this add-on. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterAddonProfile"/> instance for mocking. </returns>
-        public static ManagedClusterAddonProfile ManagedClusterAddonProfile(bool isEnabled = default, IDictionary<string, string> config = null, ManagedClusterAddonProfileIdentity identity = null)
-        {
-            config ??= new Dictionary<string, string>();
-
-            return new ManagedClusterAddonProfile(isEnabled, config, identity, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterPodIdentity"/>. </summary>
-        /// <param name="name"> The name of the pod identity. </param>
-        /// <param name="namespace"> The namespace of the pod identity. </param>
-        /// <param name="bindingSelector"> The binding selector to use for the AzureIdentityBinding resource. </param>
-        /// <param name="identity"> The user assigned identity details. </param>
-        /// <param name="provisioningState"> The current provisioning state of the pod identity. </param>
-        /// <param name="errorDetail"></param>
-        /// <returns> A new <see cref="Models.ManagedClusterPodIdentity"/> instance for mocking. </returns>
-        public static ManagedClusterPodIdentity ManagedClusterPodIdentity(string name = null, string @namespace = null, string bindingSelector = null, ContainerServiceUserAssignedIdentity identity = null, ManagedClusterPodIdentityProvisioningState? provisioningState = null, ResponseError errorDetail = null)
-        {
-            return new ManagedClusterPodIdentity(
-                name,
-                @namespace,
-                bindingSelector,
+                etag,
                 identity,
                 provisioningState,
-                errorDetail != null ? new ManagedClusterPodIdentityProvisioningInfo(new ManagedClusterPodIdentityProvisioningError(errorDetail, serializedAdditionalRawData: null), serializedAdditionalRawData: null) : null,
+                hubProfile,
+                status,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterOidcIssuerProfile"/>. </summary>
-        /// <param name="issuerUriInfo"> The OIDC issuer url of the Managed Cluster. </param>
-        /// <param name="isEnabled"> Whether the OIDC issuer is enabled. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterOidcIssuerProfile"/> instance for mocking. </returns>
-        public static ManagedClusterOidcIssuerProfile ManagedClusterOidcIssuerProfile(string issuerUriInfo = null, bool? isEnabled = null)
+        /// <summary> Initializes a new instance of <see cref="Models.FleetHubProfile"/>. </summary>
+        /// <param name="dnsPrefix"> DNS prefix used to create the FQDN for the Fleet hub. </param>
+        /// <param name="apiServerAccessProfile"> The access profile for the Fleet hub API server. </param>
+        /// <param name="agentProfile"> The agent profile for the Fleet hub. </param>
+        /// <param name="fqdn"> The FQDN of the Fleet hub. </param>
+        /// <param name="kubernetesVersion"> The Kubernetes version of the Fleet hub. </param>
+        /// <param name="portalFqdn"> The Azure Portal FQDN of the Fleet hub. </param>
+        /// <returns> A new <see cref="Models.FleetHubProfile"/> instance for mocking. </returns>
+        public static FleetHubProfile FleetHubProfile(string dnsPrefix = null, ApiServerAccessProfile apiServerAccessProfile = null, AgentProfile agentProfile = null, string fqdn = null, string kubernetesVersion = null, string portalFqdn = null)
         {
-            return new ManagedClusterOidcIssuerProfile(issuerUriInfo, isEnabled, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ContainerServicePrivateLinkResourceData"/>. </summary>
-        /// <param name="id"> The ID of the private link resource. </param>
-        /// <param name="name"> The name of the private link resource. </param>
-        /// <param name="resourceType"> The resource type. </param>
-        /// <param name="groupId"> The group ID of the resource. </param>
-        /// <param name="requiredMembers"> The RequiredMembers of the resource. </param>
-        /// <param name="privateLinkServiceId"> The private link service ID of the resource, this field is exposed only to NRP internally. </param>
-        /// <returns> A new <see cref="Models.ContainerServicePrivateLinkResourceData"/> instance for mocking. </returns>
-        public static ContainerServicePrivateLinkResourceData ContainerServicePrivateLinkResourceData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, string groupId = null, IEnumerable<string> requiredMembers = null, ResourceIdentifier privateLinkServiceId = null)
-        {
-            requiredMembers ??= new List<string>();
-
-            return new ContainerServicePrivateLinkResourceData(
-                id,
-                name,
-                resourceType,
-                groupId,
-                requiredMembers?.ToList(),
-                privateLinkServiceId,
+            return new FleetHubProfile(
+                dnsPrefix,
+                apiServerAccessProfile,
+                agentProfile,
+                fqdn,
+                kubernetesVersion,
+                portalFqdn,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerService.ManagedClusterUpgradeProfileData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.FleetStatus"/>. </summary>
+        /// <param name="lastOperationId"> The last operation ID for the fleet. </param>
+        /// <param name="lastOperationError"> The last operation error for the fleet. </param>
+        /// <returns> A new <see cref="Models.FleetStatus"/> instance for mocking. </returns>
+        public static FleetStatus FleetStatus(string lastOperationId = null, ResponseError lastOperationError = null)
+        {
+            return new FleetStatus(lastOperationId, lastOperationError, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContainerService.AutoUpgradeProfileData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="controlPlaneProfile"> The list of available upgrade versions for the control plane. </param>
-        /// <param name="agentPoolProfiles"> The list of available upgrade versions for agent pools. </param>
-        /// <returns> A new <see cref="ContainerService.ManagedClusterUpgradeProfileData"/> instance for mocking. </returns>
-        public static ManagedClusterUpgradeProfileData ManagedClusterUpgradeProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ManagedClusterPoolUpgradeProfile controlPlaneProfile = null, IEnumerable<ManagedClusterPoolUpgradeProfile> agentPoolProfiles = null)
+        /// <param name="etag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="provisioningState"> The provisioning state of the AutoUpgradeProfile resource. </param>
+        /// <param name="updateStrategyId"> The resource id of the UpdateStrategy resource to reference. If not specified, the auto upgrade will run on all clusters which are members of the fleet. </param>
+        /// <param name="channel"> Configures how auto-upgrade will be run. </param>
+        /// <param name="selectionType"> The node image upgrade to be applied to the target clusters in auto upgrade. </param>
+        /// <param name="disabled">
+        /// If set to False: the auto upgrade has effect - target managed clusters will be upgraded on schedule.
+        /// If set to True: the auto upgrade has no effect - no upgrade will be run on the target managed clusters.
+        /// This is a boolean and not an enum because enabled/disabled are all available states of the auto upgrade profile.
+        /// By default, this is set to False.
+        /// </param>
+        /// <param name="autoUpgradeProfileStatus"> The status of the auto upgrade profile. </param>
+        /// <returns> A new <see cref="ContainerService.AutoUpgradeProfileData"/> instance for mocking. </returns>
+        public static AutoUpgradeProfileData AutoUpgradeProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, AutoUpgradeProfileProvisioningState? provisioningState = null, ResourceIdentifier updateStrategyId = null, UpgradeChannel? channel = null, AutoUpgradeNodeImageSelectionType? selectionType = null, bool? disabled = null, AutoUpgradeProfileStatus autoUpgradeProfileStatus = null)
         {
-            agentPoolProfiles ??= new List<ManagedClusterPoolUpgradeProfile>();
-
-            return new ManagedClusterUpgradeProfileData(
+            return new AutoUpgradeProfileData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                controlPlaneProfile,
-                agentPoolProfiles?.ToList(),
+                etag,
+                provisioningState,
+                updateStrategyId,
+                channel,
+                selectionType.HasValue ? new AutoUpgradeNodeImageSelection(selectionType.Value, serializedAdditionalRawData: null) : null,
+                disabled,
+                autoUpgradeProfileStatus,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterPoolUpgradeProfile"/>. </summary>
-        /// <param name="kubernetesVersion"> The Kubernetes version (major.minor.patch). </param>
-        /// <param name="name"> The Agent Pool name. </param>
-        /// <param name="osType"> The operating system type. The default is Linux. </param>
-        /// <param name="upgrades"> List of orchestrator types and versions available for upgrade. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterPoolUpgradeProfile"/> instance for mocking. </returns>
-        public static ManagedClusterPoolUpgradeProfile ManagedClusterPoolUpgradeProfile(string kubernetesVersion = null, string name = null, ContainerServiceOSType osType = default, IEnumerable<ManagedClusterPoolUpgradeProfileUpgradesItem> upgrades = null)
+        /// <summary> Initializes a new instance of <see cref="Models.AutoUpgradeProfileStatus"/>. </summary>
+        /// <param name="lastTriggeredOn"> The UTC time of the last attempt to automatically create and start an UpdateRun as triggered by the release of new versions. </param>
+        /// <param name="lastTriggerStatus"> The status of the last AutoUpgrade trigger. </param>
+        /// <param name="lastTriggerError"> The error details of the last trigger. </param>
+        /// <param name="lastTriggerUpgradeVersions"> The target Kubernetes version or node image versions of the last trigger. </param>
+        /// <returns> A new <see cref="Models.AutoUpgradeProfileStatus"/> instance for mocking. </returns>
+        public static AutoUpgradeProfileStatus AutoUpgradeProfileStatus(DateTimeOffset? lastTriggeredOn = null, AutoUpgradeLastTriggerStatus? lastTriggerStatus = null, ResponseError lastTriggerError = null, IEnumerable<string> lastTriggerUpgradeVersions = null)
         {
-            upgrades ??= new List<ManagedClusterPoolUpgradeProfileUpgradesItem>();
+            lastTriggerUpgradeVersions ??= new List<string>();
 
-            return new ManagedClusterPoolUpgradeProfile(kubernetesVersion, name, osType, upgrades?.ToList(), serializedAdditionalRawData: null);
+            return new AutoUpgradeProfileStatus(lastTriggeredOn, lastTriggerStatus, lastTriggerError, lastTriggerUpgradeVersions?.ToList(), serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterPoolUpgradeProfileUpgradesItem"/>. </summary>
-        /// <param name="kubernetesVersion"> The Kubernetes version (major.minor.patch). </param>
-        /// <param name="isPreview"> Whether the Kubernetes version is currently in preview. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterPoolUpgradeProfileUpgradesItem"/> instance for mocking. </returns>
-        public static ManagedClusterPoolUpgradeProfileUpgradesItem ManagedClusterPoolUpgradeProfileUpgradesItem(string kubernetesVersion = null, bool? isPreview = null)
+        /// <summary> Initializes a new instance of <see cref="Models.GenerateResponse"/>. </summary>
+        /// <param name="id"> The ARM resource id of the generated UpdateRun. e.g.: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/fleets/{fleetName}/updateRuns/{updateRunName}'. </param>
+        /// <returns> A new <see cref="Models.GenerateResponse"/> instance for mocking. </returns>
+        public static GenerateResponse GenerateResponse(string id = null)
         {
-            return new ManagedClusterPoolUpgradeProfileUpgradesItem(kubernetesVersion, isPreview, serializedAdditionalRawData: null);
+            return new GenerateResponse(id, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterAccessProfile"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerService.GateData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="kubeConfig"> Base64-encoded Kubernetes configuration file. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterAccessProfile"/> instance for mocking. </returns>
-        public static ManagedClusterAccessProfile ManagedClusterAccessProfile(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, byte[] kubeConfig = null)
+        /// <param name="etag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="provisioningState"> The provisioning state of the Gate resource. </param>
+        /// <param name="displayName"> The human-readable display name of the Gate. </param>
+        /// <param name="gateType"> The type of the Gate determines how it is completed. </param>
+        /// <param name="target"> The target that the Gate is controlling, e.g. an Update Run. </param>
+        /// <param name="state"> The state of the Gate. </param>
+        /// <returns> A new <see cref="ContainerService.GateData"/> instance for mocking. </returns>
+        public static GateData GateData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, GateProvisioningState? provisioningState = null, string displayName = null, GateType? gateType = null, GateTarget target = null, GateState? state = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new ManagedClusterAccessProfile(
+            return new GateData(
                 id,
                 name,
                 resourceType,
                 systemData,
                 tags,
                 location,
-                kubeConfig,
+                etag,
+                provisioningState,
+                displayName,
+                gateType,
+                target,
+                state,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterCredentials"/>. </summary>
-        /// <param name="kubeconfigs"> Base64-encoded Kubernetes configuration file. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterCredentials"/> instance for mocking. </returns>
-        public static ManagedClusterCredentials ManagedClusterCredentials(IEnumerable<ManagedClusterCredential> kubeconfigs = null)
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateRunGateTargetProperties"/>. </summary>
+        /// <param name="name"> The name of the Update Run. </param>
+        /// <param name="stage"> The Update Stage of the Update Run. </param>
+        /// <param name="group"> The Update Group of the Update Run. </param>
+        /// <param name="timing"> Whether the Gate is placed before or after the update itself. </param>
+        /// <returns> A new <see cref="Models.UpdateRunGateTargetProperties"/> instance for mocking. </returns>
+        public static UpdateRunGateTargetProperties UpdateRunGateTargetProperties(string name = null, string stage = null, string group = null, Timing timing = default)
         {
-            kubeconfigs ??= new List<ManagedClusterCredential>();
-
-            return new ManagedClusterCredentials(kubeconfigs?.ToList(), serializedAdditionalRawData: null);
+            return new UpdateRunGateTargetProperties(name, stage, group, timing, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterCredential"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.GatePatch"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="state"> The state of the Gate. </param>
+        /// <returns> A new <see cref="Models.GatePatch"/> instance for mocking. </returns>
+        public static GatePatch GatePatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, GateState? state = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new GatePatch(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                state,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.FleetCredentialResults"/>. </summary>
+        /// <param name="kubeconfigs"> Array of base64-encoded Kubernetes configuration files. </param>
+        /// <returns> A new <see cref="Models.FleetCredentialResults"/> instance for mocking. </returns>
+        public static FleetCredentialResults FleetCredentialResults(IEnumerable<FleetCredentialResult> kubeconfigs = null)
+        {
+            kubeconfigs ??= new List<FleetCredentialResult>();
+
+            return new FleetCredentialResults(kubeconfigs?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.FleetCredentialResult"/>. </summary>
         /// <param name="name"> The name of the credential. </param>
         /// <param name="value"> Base64-encoded Kubernetes configuration file. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterCredential"/> instance for mocking. </returns>
-        public static ManagedClusterCredential ManagedClusterCredential(string name = null, byte[] value = null)
+        /// <returns> A new <see cref="Models.FleetCredentialResult"/> instance for mocking. </returns>
+        public static FleetCredentialResult FleetCredentialResult(string name = null, byte[] value = null)
         {
-            return new ManagedClusterCredential(name, value, serializedAdditionalRawData: null);
+            return new FleetCredentialResult(name, value, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerService.ContainerServiceMaintenanceConfigurationData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerService.FleetMemberData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="timesInWeek"> If two array entries specify the same day of the week, the applied configuration is the union of times in both entries. </param>
-        /// <param name="notAllowedTimes"> Time slots on which upgrade is not allowed. </param>
-        /// <param name="maintenanceWindow"> Maintenance window for the maintenance configuration. </param>
-        /// <returns> A new <see cref="ContainerService.ContainerServiceMaintenanceConfigurationData"/> instance for mocking. </returns>
-        public static ContainerServiceMaintenanceConfigurationData ContainerServiceMaintenanceConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IEnumerable<ContainerServiceTimeInWeek> timesInWeek = null, IEnumerable<ContainerServiceTimeSpan> notAllowedTimes = null, ContainerServiceMaintenanceWindow maintenanceWindow = null)
+        /// <param name="etag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="clusterResourceId"> The ARM resource id of the cluster that joins the Fleet. Must be a valid Azure resource id. e.g.: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{clusterName}'. </param>
+        /// <param name="group"> The group this member belongs to for multi-cluster update management. </param>
+        /// <param name="provisioningState"> The status of the last operation. </param>
+        /// <param name="labels"> The labels for the fleet member. </param>
+        /// <param name="status"> Status information of the last operation for fleet member. </param>
+        /// <returns> A new <see cref="ContainerService.FleetMemberData"/> instance for mocking. </returns>
+        public static FleetMemberData FleetMemberData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, ResourceIdentifier clusterResourceId = null, string group = null, FleetMemberProvisioningState? provisioningState = null, IDictionary<string, string> labels = null, FleetMemberStatus status = null)
         {
-            timesInWeek ??= new List<ContainerServiceTimeInWeek>();
-            notAllowedTimes ??= new List<ContainerServiceTimeSpan>();
+            labels ??= new Dictionary<string, string>();
 
-            return new ContainerServiceMaintenanceConfigurationData(
+            return new FleetMemberData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                timesInWeek?.ToList(),
-                notAllowedTimes?.ToList(),
-                maintenanceWindow,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerService.ContainerServiceAgentPoolData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="count"> Number of agents (VMs) to host docker containers. Allowed values must be in the range of 0 to 1000 (inclusive) for user pools and in the range of 1 to 1000 (inclusive) for system pools. The default value is 1. </param>
-        /// <param name="vmSize"> VM size availability varies by region. If a node contains insufficient compute resources (memory, cpu, etc) pods might fail to run correctly. For more details on restricted VM sizes, see: https://docs.microsoft.com/azure/aks/quotas-skus-regions. </param>
-        /// <param name="osDiskSizeInGB"> OS Disk Size in GB to be used to specify the disk size for every machine in the master/agent pool. If you specify 0, it will apply the default osDisk size according to the vmSize specified. </param>
-        /// <param name="osDiskType"> The default is 'Ephemeral' if the VM supports it and has a cache disk larger than the requested OSDiskSizeGB. Otherwise, defaults to 'Managed'. May not be changed after creation. For more information see [Ephemeral OS](https://docs.microsoft.com/azure/aks/cluster-configuration#ephemeral-os). </param>
-        /// <param name="kubeletDiskType"> Determines the placement of emptyDir volumes, container runtime data root, and Kubelet ephemeral storage. </param>
-        /// <param name="workloadRuntime"> Determines the type of workload a node can run. </param>
-        /// <param name="vnetSubnetId"> If this is not specified, a VNET and subnet will be generated and used. If no podSubnetID is specified, this applies to nodes and pods, otherwise it applies to just nodes. This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}. </param>
-        /// <param name="podSubnetId"> If omitted, pod IPs are statically assigned on the node subnet (see vnetSubnetID for more details). This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{virtualNetworkName}/subnets/{subnetName}. </param>
-        /// <param name="maxPods"> The maximum number of pods that can run on a node. </param>
-        /// <param name="osType"> The operating system type. The default is Linux. </param>
-        /// <param name="osSku"> Specifies the OS SKU used by the agent pool. The default is Ubuntu if OSType is Linux. The default is Windows2019 when Kubernetes &lt;= 1.24 or Windows2022 when Kubernetes &gt;= 1.25 if OSType is Windows. </param>
-        /// <param name="maxCount"> The maximum number of nodes for auto-scaling. </param>
-        /// <param name="minCount"> The minimum number of nodes for auto-scaling. </param>
-        /// <param name="enableAutoScaling"> Whether to enable auto-scaler. </param>
-        /// <param name="scaleDownMode"> This also effects the cluster autoscaler behavior. If not specified, it defaults to Delete. </param>
-        /// <param name="typePropertiesType"> The type of Agent Pool. </param>
-        /// <param name="mode"> A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent pool restrictions and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools. </param>
-        /// <param name="orchestratorVersion"> Both patch version &lt;major.minor.patch&gt; (e.g. 1.20.13) and &lt;major.minor&gt; (e.g. 1.20) are supported. When &lt;major.minor&gt; is specified, the latest supported GA patch version is chosen automatically. Updating the cluster with the same &lt;major.minor&gt; once it has been created (e.g. 1.14.x -&gt; 1.14) will not trigger an upgrade, even if a newer patch version is available. As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes version. The node pool version must have the same major version as the control plane. The node pool minor version must be within two minor versions of the control plane version. The node pool version cannot be greater than the control plane version. For more information see [upgrading a node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool). </param>
-        /// <param name="currentOrchestratorVersion"> If orchestratorVersion is a fully specified version &lt;major.minor.patch&gt;, this field will be exactly equal to it. If orchestratorVersion is &lt;major.minor&gt;, this field will contain the full &lt;major.minor.patch&gt; version being used. </param>
-        /// <param name="nodeImageVersion"> The version of node image. </param>
-        /// <param name="upgradeSettings"> Settings for upgrading the agentpool. </param>
-        /// <param name="provisioningState"> The current deployment or provisioning state. </param>
-        /// <param name="powerStateCode"> When an Agent Pool is first created it is initially Running. The Agent Pool can be stopped by setting this field to Stopped. A stopped Agent Pool stops all of its VMs and does not accrue billing charges. An Agent Pool can only be stopped if it is Running and provisioning state is Succeeded. </param>
-        /// <param name="availabilityZones"> The list of Availability zones to use for nodes. This can only be specified if the AgentPoolType property is 'VirtualMachineScaleSets'. </param>
-        /// <param name="enableNodePublicIP"> Some scenarios may require nodes in a node pool to receive their own dedicated public IP addresses. A common scenario is for gaming workloads, where a console needs to make a direct connection to a cloud virtual machine to minimize hops. For more information see [assigning a public IP per node](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#assign-a-public-ip-per-node-for-your-node-pools). The default is false. </param>
-        /// <param name="nodePublicIPPrefixId"> This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPPrefixes/{publicIPPrefixName}. </param>
-        /// <param name="scaleSetPriority"> The Virtual Machine Scale Set priority. If not specified, the default is 'Regular'. </param>
-        /// <param name="scaleSetEvictionPolicy"> This cannot be specified unless the scaleSetPriority is 'Spot'. If not specified, the default is 'Delete'. </param>
-        /// <param name="spotMaxPrice"> Possible values are any decimal value greater than zero or -1 which indicates the willingness to pay any on-demand price. For more details on spot pricing, see [spot VMs pricing](https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing). </param>
-        /// <param name="tags"> The tags to be persisted on the agent pool virtual machine scale set. </param>
-        /// <param name="nodeLabels"> The node labels to be persisted across all nodes in agent pool. </param>
-        /// <param name="nodeTaints"> The taints added to new nodes during node pool create and scale. For example, key=value:NoSchedule. </param>
-        /// <param name="proximityPlacementGroupId"> The ID for Proximity Placement Group. </param>
-        /// <param name="kubeletConfig"> The Kubelet configuration on the agent pool nodes. </param>
-        /// <param name="linuxOSConfig"> The OS configuration of Linux agent nodes. </param>
-        /// <param name="enableEncryptionAtHost"> This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption. </param>
-        /// <param name="enableUltraSsd"> Whether to enable UltraSSD. </param>
-        /// <param name="enableFips"> See [Add a FIPS-enabled node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#add-a-fips-enabled-node-pool-preview) for more details. </param>
-        /// <param name="gpuInstanceProfile"> GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU. </param>
-        /// <param name="creationDataSourceResourceId"> CreationData to be used to specify the source Snapshot ID if the node pool will be created/upgraded using a snapshot. </param>
-        /// <param name="capacityReservationGroupId"> AKS will associate the specified agent pool with the Capacity Reservation Group. </param>
-        /// <param name="hostGroupId"> This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}. For more information see [Azure dedicated hosts](https://docs.microsoft.com/azure/virtual-machines/dedicated-hosts). </param>
-        /// <param name="networkProfile"> Network-related settings of an agent pool. </param>
-        /// <returns> A new <see cref="ContainerService.ContainerServiceAgentPoolData"/> instance for mocking. </returns>
-        public static ContainerServiceAgentPoolData ContainerServiceAgentPoolData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, int? count = null, string vmSize = null, int? osDiskSizeInGB = null, ContainerServiceOSDiskType? osDiskType = null, KubeletDiskType? kubeletDiskType = null, WorkloadRuntime? workloadRuntime = null, ResourceIdentifier vnetSubnetId = null, ResourceIdentifier podSubnetId = null, int? maxPods = null, ContainerServiceOSType? osType = null, ContainerServiceOSSku? osSku = null, int? maxCount = null, int? minCount = null, bool? enableAutoScaling = null, ScaleDownMode? scaleDownMode = null, AgentPoolType? typePropertiesType = null, AgentPoolMode? mode = null, string orchestratorVersion = null, string currentOrchestratorVersion = null, string nodeImageVersion = null, AgentPoolUpgradeSettings upgradeSettings = null, string provisioningState = null, ContainerServiceStateCode? powerStateCode = null, IEnumerable<string> availabilityZones = null, bool? enableNodePublicIP = null, ResourceIdentifier nodePublicIPPrefixId = null, ScaleSetPriority? scaleSetPriority = null, ScaleSetEvictionPolicy? scaleSetEvictionPolicy = null, float? spotMaxPrice = null, IDictionary<string, string> tags = null, IDictionary<string, string> nodeLabels = null, IEnumerable<string> nodeTaints = null, ResourceIdentifier proximityPlacementGroupId = null, KubeletConfig kubeletConfig = null, LinuxOSConfig linuxOSConfig = null, bool? enableEncryptionAtHost = null, bool? enableUltraSsd = null, bool? enableFips = null, GpuInstanceProfile? gpuInstanceProfile = null, ResourceIdentifier creationDataSourceResourceId = null, ResourceIdentifier capacityReservationGroupId = null, ResourceIdentifier hostGroupId = null, AgentPoolNetworkProfile networkProfile = null)
-        {
-            availabilityZones ??= new List<string>();
-            tags ??= new Dictionary<string, string>();
-            nodeLabels ??= new Dictionary<string, string>();
-            nodeTaints ??= new List<string>();
-
-            return new ContainerServiceAgentPoolData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                count,
-                vmSize,
-                osDiskSizeInGB,
-                osDiskType,
-                kubeletDiskType,
-                workloadRuntime,
-                vnetSubnetId,
-                podSubnetId,
-                maxPods,
-                osType,
-                osSku,
-                maxCount,
-                minCount,
-                enableAutoScaling,
-                scaleDownMode,
-                typePropertiesType,
-                mode,
-                orchestratorVersion,
-                currentOrchestratorVersion,
-                nodeImageVersion,
-                upgradeSettings,
+                etag,
+                clusterResourceId,
+                group,
                 provisioningState,
-                powerStateCode != null ? new ContainerServicePowerState(powerStateCode, serializedAdditionalRawData: null) : null,
-                availabilityZones?.ToList(),
-                enableNodePublicIP,
-                nodePublicIPPrefixId,
-                scaleSetPriority,
-                scaleSetEvictionPolicy,
-                spotMaxPrice,
-                tags,
-                nodeLabels,
-                nodeTaints?.ToList(),
-                proximityPlacementGroupId,
-                kubeletConfig,
-                linuxOSConfig,
-                enableEncryptionAtHost,
-                enableUltraSsd,
-                enableFips,
-                gpuInstanceProfile,
-                creationDataSourceResourceId != null ? new ContainerServiceCreationData(creationDataSourceResourceId, serializedAdditionalRawData: null) : null,
-                capacityReservationGroupId,
-                hostGroupId,
-                networkProfile,
+                labels,
+                status,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerService.AgentPoolUpgradeProfileData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.FleetMemberStatus"/>. </summary>
+        /// <param name="lastOperationId"> The last operation ID for the fleet member. </param>
+        /// <param name="lastOperationError"> The last operation error of the fleet member. </param>
+        /// <returns> A new <see cref="Models.FleetMemberStatus"/> instance for mocking. </returns>
+        public static FleetMemberStatus FleetMemberStatus(string lastOperationId = null, ResponseError lastOperationError = null)
+        {
+            return new FleetMemberStatus(lastOperationId, lastOperationError, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContainerService.UpdateRunData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="kubernetesVersion"> The Kubernetes version (major.minor.patch). </param>
-        /// <param name="osType"> The operating system type. The default is Linux. </param>
-        /// <param name="upgrades"> List of orchestrator types and versions available for upgrade. </param>
-        /// <param name="latestNodeImageVersion"> The latest AKS supported node image version. </param>
-        /// <returns> A new <see cref="ContainerService.AgentPoolUpgradeProfileData"/> instance for mocking. </returns>
-        public static AgentPoolUpgradeProfileData AgentPoolUpgradeProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string kubernetesVersion = null, ContainerServiceOSType osType = default, IEnumerable<AgentPoolUpgradeProfilePropertiesUpgradesItem> upgrades = null, string latestNodeImageVersion = null)
+        /// <param name="etag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="provisioningState"> The provisioning state of the UpdateRun resource. </param>
+        /// <param name="updateStrategyId">
+        /// The resource id of the FleetUpdateStrategy resource to reference.
+        ///
+        /// When creating a new run, there are three ways to define a strategy for the run:
+        /// 1. Define a new strategy in place: Set the "strategy" field.
+        /// 2. Use an existing strategy: Set the "updateStrategyId" field. (since 2023-08-15-preview)
+        /// 3. Use the default strategy to update all the members one by one: Leave both "updateStrategyId" and "strategy" unset. (since 2023-08-15-preview)
+        ///
+        /// Setting both "updateStrategyId" and "strategy" is invalid.
+        ///
+        /// UpdateRuns created by "updateStrategyId" snapshot the referenced UpdateStrategy at the time of creation and store it in the "strategy" field.
+        /// Subsequent changes to the referenced FleetUpdateStrategy resource do not propagate.
+        /// UpdateRunStrategy changes can be made directly on the "strategy" field before launching the UpdateRun.
+        /// </param>
+        /// <param name="strategyStages">
+        /// The strategy defines the order in which the clusters will be updated.
+        /// If not set, all members will be updated sequentially. The UpdateRun status will show a single UpdateStage and a single UpdateGroup targeting all members.
+        /// The strategy of the UpdateRun can be modified until the run is started.
+        /// </param>
+        /// <param name="managedClusterUpdate"> The update to be applied to all clusters in the UpdateRun. The managedClusterUpdate can be modified until the run is started. </param>
+        /// <param name="status"> The status of the UpdateRun. </param>
+        /// <param name="autoUpgradeProfileId"> AutoUpgradeProfileId is the id of an auto upgrade profile resource. </param>
+        /// <returns> A new <see cref="ContainerService.UpdateRunData"/> instance for mocking. </returns>
+        public static UpdateRunData UpdateRunData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, UpdateRunProvisioningState? provisioningState = null, ResourceIdentifier updateStrategyId = null, IEnumerable<UpdateStage> strategyStages = null, ManagedClusterUpdate managedClusterUpdate = null, UpdateRunStatus status = null, ResourceIdentifier autoUpgradeProfileId = null)
         {
-            upgrades ??= new List<AgentPoolUpgradeProfilePropertiesUpgradesItem>();
+            strategyStages ??= new List<UpdateStage>();
 
-            return new AgentPoolUpgradeProfileData(
+            return new UpdateRunData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                kubernetesVersion,
-                osType,
-                upgrades?.ToList(),
-                latestNodeImageVersion,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.AgentPoolUpgradeProfilePropertiesUpgradesItem"/>. </summary>
-        /// <param name="kubernetesVersion"> The Kubernetes version (major.minor.patch). </param>
-        /// <param name="isPreview"> Whether the Kubernetes version is currently in preview. </param>
-        /// <returns> A new <see cref="Models.AgentPoolUpgradeProfilePropertiesUpgradesItem"/> instance for mocking. </returns>
-        public static AgentPoolUpgradeProfilePropertiesUpgradesItem AgentPoolUpgradeProfilePropertiesUpgradesItem(string kubernetesVersion = null, bool? isPreview = null)
-        {
-            return new AgentPoolUpgradeProfilePropertiesUpgradesItem(kubernetesVersion, isPreview, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.AgentPoolAvailableVersions"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="agentPoolVersions"> List of versions available for agent pool. </param>
-        /// <returns> A new <see cref="Models.AgentPoolAvailableVersions"/> instance for mocking. </returns>
-        public static AgentPoolAvailableVersions AgentPoolAvailableVersions(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IEnumerable<AgentPoolAvailableVersion> agentPoolVersions = null)
-        {
-            agentPoolVersions ??= new List<AgentPoolAvailableVersion>();
-
-            return new AgentPoolAvailableVersions(
-                id,
-                name,
-                resourceType,
-                systemData,
-                agentPoolVersions?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.AgentPoolAvailableVersion"/>. </summary>
-        /// <param name="isDefault"> Whether this version is the default agent pool version. </param>
-        /// <param name="kubernetesVersion"> The Kubernetes version (major.minor.patch). </param>
-        /// <param name="isPreview"> Whether Kubernetes version is currently in preview. </param>
-        /// <returns> A new <see cref="Models.AgentPoolAvailableVersion"/> instance for mocking. </returns>
-        public static AgentPoolAvailableVersion AgentPoolAvailableVersion(bool? isDefault = null, string kubernetesVersion = null, bool? isPreview = null)
-        {
-            return new AgentPoolAvailableVersion(isDefault, kubernetesVersion, isPreview, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerService.ContainerServicePrivateEndpointConnectionData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="provisioningState"> The current provisioning state. </param>
-        /// <param name="privateEndpointId"> The resource of private endpoint. </param>
-        /// <param name="connectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
-        /// <returns> A new <see cref="ContainerService.ContainerServicePrivateEndpointConnectionData"/> instance for mocking. </returns>
-        public static ContainerServicePrivateEndpointConnectionData ContainerServicePrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ContainerServicePrivateEndpointConnectionProvisioningState? provisioningState = null, ResourceIdentifier privateEndpointId = null, ContainerServicePrivateLinkServiceConnectionState connectionState = null)
-        {
-            return new ContainerServicePrivateEndpointConnectionData(
-                id,
-                name,
-                resourceType,
-                systemData,
+                etag,
                 provisioningState,
-                privateEndpointId != null ? ResourceManagerModelFactory.WritableSubResource(privateEndpointId) : null,
-                connectionState,
+                updateStrategyId,
+                strategyStages != null ? new UpdateRunStrategy(strategyStages?.ToList(), serializedAdditionalRawData: null) : null,
+                managedClusterUpdate,
+                status,
+                autoUpgradeProfileId,
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterRunCommandContent"/>. </summary>
-        /// <param name="command"> The command to run. </param>
-        /// <param name="context"> A base64 encoded zip file containing the files required by the command. </param>
-        /// <param name="clusterToken"> AuthToken issued for AKS AAD Server App. </param>
-        /// <returns> A new <see cref="Models.ManagedClusterRunCommandContent"/> instance for mocking. </returns>
-        public static ManagedClusterRunCommandContent ManagedClusterRunCommandContent(string command = null, string context = null, string clusterToken = null)
+        /// <summary> Initializes a new instance of <see cref="Models.NodeImageVersion"/>. </summary>
+        /// <param name="version"> The image version to upgrade the nodes to (e.g., 'AKSUbuntu-1804gen2containerd-2022.12.13'). </param>
+        /// <returns> A new <see cref="Models.NodeImageVersion"/> instance for mocking. </returns>
+        public static NodeImageVersion NodeImageVersion(string version = null)
         {
-            return new ManagedClusterRunCommandContent(command, context, clusterToken, serializedAdditionalRawData: null);
+            return new NodeImageVersion(version, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedClusterRunCommandResult"/>. </summary>
-        /// <param name="id"> The command id. </param>
-        /// <param name="provisioningState"> provisioning State. </param>
-        /// <param name="exitCode"> The exit code of the command. </param>
-        /// <param name="startedOn"> The time when the command started. </param>
-        /// <param name="finishedOn"> The time when the command finished. </param>
-        /// <param name="logs"> The command output. </param>
-        /// <param name="reason"> An explanation of why provisioningState is set to failed (if so). </param>
-        /// <returns> A new <see cref="Models.ManagedClusterRunCommandResult"/> instance for mocking. </returns>
-        public static ManagedClusterRunCommandResult ManagedClusterRunCommandResult(string id = null, string provisioningState = null, int? exitCode = null, DateTimeOffset? startedOn = null, DateTimeOffset? finishedOn = null, string logs = null, string reason = null)
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateRunStatus"/>. </summary>
+        /// <param name="status"> The status of the UpdateRun. </param>
+        /// <param name="stages"> The stages composing an update run. Stages are run sequentially withing an UpdateRun. </param>
+        /// <param name="selectedNodeImageVersions"> The node image upgrade specs for the update run. It is only set in update run when `NodeImageSelection.type` is `Consistent`. </param>
+        /// <returns> A new <see cref="Models.UpdateRunStatus"/> instance for mocking. </returns>
+        public static UpdateRunStatus UpdateRunStatus(UpdateStatus status = null, IEnumerable<UpdateStageStatus> stages = null, IEnumerable<NodeImageVersion> selectedNodeImageVersions = null)
         {
-            return new ManagedClusterRunCommandResult(
+            stages ??= new List<UpdateStageStatus>();
+            selectedNodeImageVersions ??= new List<NodeImageVersion>();
+
+            return new UpdateRunStatus(status, stages?.ToList(), selectedNodeImageVersions != null ? new NodeImageSelectionStatus(selectedNodeImageVersions?.ToList(), serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateStatus"/>. </summary>
+        /// <param name="startOn"> The time the operation or group was started. </param>
+        /// <param name="completedOn"> The time the operation or group was completed. </param>
+        /// <param name="state"> The State of the operation or group. </param>
+        /// <param name="error"> The error details when a failure is encountered. </param>
+        /// <returns> A new <see cref="Models.UpdateStatus"/> instance for mocking. </returns>
+        public static UpdateStatus UpdateStatus(DateTimeOffset? startOn = null, DateTimeOffset? completedOn = null, UpdateState? state = null, ResponseError error = null)
+        {
+            return new UpdateStatus(startOn, completedOn, state, error, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateStageStatus"/>. </summary>
+        /// <param name="status"> The status of the UpdateStage. </param>
+        /// <param name="name"> The name of the UpdateStage. </param>
+        /// <param name="groups"> The list of groups to be updated as part of this UpdateStage. </param>
+        /// <param name="beforeGates"> The list of Gates that will run before this UpdateStage. </param>
+        /// <param name="afterGates"> The list of Gates that will run after this UpdateStage. </param>
+        /// <param name="afterStageWaitStatus"> The status of the wait period configured on the UpdateStage. </param>
+        /// <returns> A new <see cref="Models.UpdateStageStatus"/> instance for mocking. </returns>
+        public static UpdateStageStatus UpdateStageStatus(UpdateStatus status = null, string name = null, IEnumerable<UpdateGroupStatus> groups = null, IEnumerable<UpdateRunGateStatus> beforeGates = null, IEnumerable<UpdateRunGateStatus> afterGates = null, WaitStatus afterStageWaitStatus = null)
+        {
+            groups ??= new List<UpdateGroupStatus>();
+            beforeGates ??= new List<UpdateRunGateStatus>();
+            afterGates ??= new List<UpdateRunGateStatus>();
+
+            return new UpdateStageStatus(
+                status,
+                name,
+                groups?.ToList(),
+                beforeGates?.ToList(),
+                afterGates?.ToList(),
+                afterStageWaitStatus,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateGroupStatus"/>. </summary>
+        /// <param name="status"> The status of the UpdateGroup. </param>
+        /// <param name="name"> The name of the UpdateGroup. </param>
+        /// <param name="members"> The list of member this UpdateGroup updates. </param>
+        /// <param name="beforeGates"> The list of Gates that will run before this UpdateGroup. </param>
+        /// <param name="afterGates"> The list of Gates that will run after this UpdateGroup. </param>
+        /// <returns> A new <see cref="Models.UpdateGroupStatus"/> instance for mocking. </returns>
+        public static UpdateGroupStatus UpdateGroupStatus(UpdateStatus status = null, string name = null, IEnumerable<MemberUpdateStatus> members = null, IEnumerable<UpdateRunGateStatus> beforeGates = null, IEnumerable<UpdateRunGateStatus> afterGates = null)
+        {
+            members ??= new List<MemberUpdateStatus>();
+            beforeGates ??= new List<UpdateRunGateStatus>();
+            afterGates ??= new List<UpdateRunGateStatus>();
+
+            return new UpdateGroupStatus(
+                status,
+                name,
+                members?.ToList(),
+                beforeGates?.ToList(),
+                afterGates?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.MemberUpdateStatus"/>. </summary>
+        /// <param name="status"> The status of the MemberUpdate operation. </param>
+        /// <param name="name"> The name of the FleetMember. </param>
+        /// <param name="clusterResourceId"> The Azure resource id of the target Kubernetes cluster. </param>
+        /// <param name="operationId"> The operation resource id of the latest attempt to perform the operation. </param>
+        /// <param name="message"> The status message after processing the member update operation. </param>
+        /// <returns> A new <see cref="Models.MemberUpdateStatus"/> instance for mocking. </returns>
+        public static MemberUpdateStatus MemberUpdateStatus(UpdateStatus status = null, string name = null, ResourceIdentifier clusterResourceId = null, string operationId = null, string message = null)
+        {
+            return new MemberUpdateStatus(
+                status,
+                name,
+                clusterResourceId,
+                operationId,
+                message,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateRunGateStatus"/>. </summary>
+        /// <param name="displayName"> The human-readable display name of the Gate. </param>
+        /// <param name="gateId"> The resource id of the Gate. </param>
+        /// <param name="status"> The status of the Gate. </param>
+        /// <returns> A new <see cref="Models.UpdateRunGateStatus"/> instance for mocking. </returns>
+        public static UpdateRunGateStatus UpdateRunGateStatus(string displayName = null, ResourceIdentifier gateId = null, UpdateStatus status = null)
+        {
+            return new UpdateRunGateStatus(displayName, gateId, status, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.WaitStatus"/>. </summary>
+        /// <param name="status"> The status of the wait duration. </param>
+        /// <param name="waitDurationInSeconds"> The wait duration configured in seconds. </param>
+        /// <returns> A new <see cref="Models.WaitStatus"/> instance for mocking. </returns>
+        public static WaitStatus WaitStatus(UpdateStatus status = null, int? waitDurationInSeconds = null)
+        {
+            return new WaitStatus(status, waitDurationInSeconds, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContainerService.FleetUpdateStrategyData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="etag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="provisioningState"> The provisioning state of the UpdateStrategy resource. </param>
+        /// <param name="strategyStages"> Defines the update sequence of the clusters. </param>
+        /// <returns> A new <see cref="ContainerService.FleetUpdateStrategyData"/> instance for mocking. </returns>
+        public static FleetUpdateStrategyData FleetUpdateStrategyData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, FleetUpdateStrategyProvisioningState? provisioningState = null, IEnumerable<UpdateStage> strategyStages = null)
+        {
+            strategyStages ??= new List<UpdateStage>();
+
+            return new FleetUpdateStrategyData(
                 id,
+                name,
+                resourceType,
+                systemData,
+                etag,
                 provisioningState,
-                exitCode,
-                startedOn,
-                finishedOn,
-                logs,
-                reason,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceOutboundEnvironmentEndpoint"/>. </summary>
-        /// <param name="category"> The category of endpoints accessed by the AKS agent node, e.g. azure-resource-management, apiserver, etc. </param>
-        /// <param name="endpoints"> The endpoints that AKS agent nodes connect to. </param>
-        /// <returns> A new <see cref="Models.ContainerServiceOutboundEnvironmentEndpoint"/> instance for mocking. </returns>
-        public static ContainerServiceOutboundEnvironmentEndpoint ContainerServiceOutboundEnvironmentEndpoint(string category = null, IEnumerable<ContainerServiceEndpointDependency> endpoints = null)
-        {
-            endpoints ??= new List<ContainerServiceEndpointDependency>();
-
-            return new ContainerServiceOutboundEnvironmentEndpoint(category, endpoints?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceEndpointDependency"/>. </summary>
-        /// <param name="domainName"> The domain name of the dependency. </param>
-        /// <param name="endpointDetails"> The Ports and Protocols used when connecting to domainName. </param>
-        /// <returns> A new <see cref="Models.ContainerServiceEndpointDependency"/> instance for mocking. </returns>
-        public static ContainerServiceEndpointDependency ContainerServiceEndpointDependency(string domainName = null, IEnumerable<ContainerServiceEndpointDetail> endpointDetails = null)
-        {
-            endpointDetails ??= new List<ContainerServiceEndpointDetail>();
-
-            return new ContainerServiceEndpointDependency(domainName, endpointDetails?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceEndpointDetail"/>. </summary>
-        /// <param name="ipAddress"> An IP Address that Domain Name currently resolves to. </param>
-        /// <param name="port"> The port an endpoint is connected to. </param>
-        /// <param name="protocol"> The protocol used for connection. </param>
-        /// <param name="description"> Description of the detail. </param>
-        /// <returns> A new <see cref="Models.ContainerServiceEndpointDetail"/> instance for mocking. </returns>
-        public static ContainerServiceEndpointDetail ContainerServiceEndpointDetail(IPAddress ipAddress = null, int? port = null, string protocol = null, string description = null)
-        {
-            return new ContainerServiceEndpointDetail(ipAddress, port, protocol, description, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerService.AgentPoolSnapshotData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="creationDataSourceResourceId"> CreationData to be used to specify the source agent pool resource ID to create this snapshot. </param>
-        /// <param name="snapshotType"> The type of a snapshot. The default is NodePool. </param>
-        /// <param name="kubernetesVersion"> The version of Kubernetes. </param>
-        /// <param name="nodeImageVersion"> The version of node image. </param>
-        /// <param name="osType"> The operating system type. The default is Linux. </param>
-        /// <param name="osSku"> Specifies the OS SKU used by the agent pool. The default is Ubuntu if OSType is Linux. The default is Windows2019 when Kubernetes &lt;= 1.24 or Windows2022 when Kubernetes &gt;= 1.25 if OSType is Windows. </param>
-        /// <param name="vmSize"> The size of the VM. </param>
-        /// <param name="enableFips"> Whether to use a FIPS-enabled OS. </param>
-        /// <returns> A new <see cref="ContainerService.AgentPoolSnapshotData"/> instance for mocking. </returns>
-        public static AgentPoolSnapshotData AgentPoolSnapshotData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ResourceIdentifier creationDataSourceResourceId = null, SnapshotType? snapshotType = null, string kubernetesVersion = null, string nodeImageVersion = null, ContainerServiceOSType? osType = null, ContainerServiceOSSku? osSku = null, string vmSize = null, bool? enableFips = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new AgentPoolSnapshotData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                creationDataSourceResourceId != null ? new ContainerServiceCreationData(creationDataSourceResourceId, serializedAdditionalRawData: null) : null,
-                snapshotType,
-                kubernetesVersion,
-                nodeImageVersion,
-                osType,
-                osSku,
-                vmSize,
-                enableFips,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerService.MeshRevisionProfileData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="meshRevisions"> Mesh revision profile properties for a mesh. </param>
-        /// <returns> A new <see cref="ContainerService.MeshRevisionProfileData"/> instance for mocking. </returns>
-        public static MeshRevisionProfileData MeshRevisionProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IEnumerable<MeshRevision> meshRevisions = null)
-        {
-            meshRevisions ??= new List<MeshRevision>();
-
-            return new MeshRevisionProfileData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                meshRevisions != null ? new MeshRevisionProfileProperties(meshRevisions?.ToList(), serializedAdditionalRawData: null) : null,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerService.MeshUpgradeProfileData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Mesh upgrade profile properties for a major.minor release. </param>
-        /// <returns> A new <see cref="ContainerService.MeshUpgradeProfileData"/> instance for mocking. </returns>
-        public static MeshUpgradeProfileData MeshUpgradeProfileData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, MeshUpgradeProfileProperties properties = null)
-        {
-            return new MeshUpgradeProfileData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerService.ContainerServiceTrustedAccessRoleBindingData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="provisioningState"> The current provisioning state of trusted access role binding. </param>
-        /// <param name="sourceResourceId"> The ARM resource ID of source resource that trusted access is configured for. </param>
-        /// <param name="roles"> A list of roles to bind, each item is a resource type qualified role name. For example: 'Microsoft.MachineLearningServices/workspaces/reader'. </param>
-        /// <returns> A new <see cref="ContainerService.ContainerServiceTrustedAccessRoleBindingData"/> instance for mocking. </returns>
-        public static ContainerServiceTrustedAccessRoleBindingData ContainerServiceTrustedAccessRoleBindingData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ContainerServiceTrustedAccessRoleBindingProvisioningState? provisioningState = null, ResourceIdentifier sourceResourceId = null, IEnumerable<string> roles = null)
-        {
-            roles ??= new List<string>();
-
-            return new ContainerServiceTrustedAccessRoleBindingData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                provisioningState,
-                sourceResourceId,
-                roles?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceTrustedAccessRole"/>. </summary>
-        /// <param name="sourceResourceType"> Resource type of Azure resource. </param>
-        /// <param name="name"> Name of role, name is unique under a source resource type. </param>
-        /// <param name="rules"> List of rules for the role. This maps to 'rules' property of [Kubernetes Cluster Role](https://kubernetes.io/docs/reference/kubernetes-api/authorization-resources/cluster-role-v1/#ClusterRole). </param>
-        /// <returns> A new <see cref="Models.ContainerServiceTrustedAccessRole"/> instance for mocking. </returns>
-        public static ContainerServiceTrustedAccessRole ContainerServiceTrustedAccessRole(string sourceResourceType = null, string name = null, IEnumerable<ContainerServiceTrustedAccessRoleRule> rules = null)
-        {
-            rules ??= new List<ContainerServiceTrustedAccessRoleRule>();
-
-            return new ContainerServiceTrustedAccessRole(sourceResourceType, name, rules?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceTrustedAccessRoleRule"/>. </summary>
-        /// <param name="verbs"> List of allowed verbs. </param>
-        /// <param name="apiGroups"> List of allowed apiGroups. </param>
-        /// <param name="resources"> List of allowed resources. </param>
-        /// <param name="resourceNames"> List of allowed names. </param>
-        /// <param name="nonResourceUrls"> List of allowed nonResourceURLs. </param>
-        /// <returns> A new <see cref="Models.ContainerServiceTrustedAccessRoleRule"/> instance for mocking. </returns>
-        public static ContainerServiceTrustedAccessRoleRule ContainerServiceTrustedAccessRoleRule(IEnumerable<string> verbs = null, IEnumerable<string> apiGroups = null, IEnumerable<string> resources = null, IEnumerable<string> resourceNames = null, IEnumerable<string> nonResourceUrls = null)
-        {
-            verbs ??= new List<string>();
-            apiGroups ??= new List<string>();
-            resources ??= new List<string>();
-            resourceNames ??= new List<string>();
-            nonResourceUrls ??= new List<string>();
-
-            return new ContainerServiceTrustedAccessRoleRule(
-                verbs?.ToList(),
-                apiGroups?.ToList(),
-                resources?.ToList(),
-                resourceNames?.ToList(),
-                nonResourceUrls?.ToList(),
+                strategyStages != null ? new UpdateRunStrategy(strategyStages?.ToList(), serializedAdditionalRawData: null) : null,
                 serializedAdditionalRawData: null);
         }
     }
