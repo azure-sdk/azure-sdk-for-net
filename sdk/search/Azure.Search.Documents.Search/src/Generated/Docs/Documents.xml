@@ -1,0 +1,1745 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CountAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call CountAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<int> response = await client.CountAsync("preview-test");
+]]></code></example>
+    </member>
+    <member name="Count(string,CancellationToken)">
+      <example>
+This sample shows how to call Count.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<int> response = client.Count("preview-test");
+]]></code></example>
+    </member>
+    <member name="CountAsync(string,RequestContext)">
+      <example>
+This sample shows how to call CountAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = await client.CountAsync("preview-test", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="Count(string,RequestContext)">
+      <example>
+This sample shows how to call Count and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = client.Count("preview-test", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SearchGetAsync(string,string,bool?,IEnumerable{string},string,IEnumerable{string},string,string,double?,IEnumerable{string},QueryType?,IEnumerable{string},string,IEnumerable{string},SearchMode?,ScoringStatistics?,string,IEnumerable{string},int?,int?,string,SemanticErrorMode?,int?,QueryAnswerType?,QueryCaptionType?,string,QueryRewritesType?,QueryDebugMode?,QueryLanguage?,QuerySpellerType?,IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call SearchGetAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<SearchDocumentsResult> response = await client.SearchGetAsync("myindex");
+]]></code>
+This sample shows how to call SearchGetAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<SearchDocumentsResult> response = await client.SearchGetAsync("myindex");
+]]></code></example>
+    </member>
+    <member name="SearchGet(string,string,bool?,IEnumerable{string},string,IEnumerable{string},string,string,double?,IEnumerable{string},QueryType?,IEnumerable{string},string,IEnumerable{string},SearchMode?,ScoringStatistics?,string,IEnumerable{string},int?,int?,string,SemanticErrorMode?,int?,QueryAnswerType?,QueryCaptionType?,string,QueryRewritesType?,QueryDebugMode?,QueryLanguage?,QuerySpellerType?,IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call SearchGet.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<SearchDocumentsResult> response = client.SearchGet("myindex");
+]]></code>
+This sample shows how to call SearchGet.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<SearchDocumentsResult> response = client.SearchGet("myindex");
+]]></code></example>
+    </member>
+    <member name="SearchGetAsync(string,string,bool?,IEnumerable{string},string,IEnumerable{string},string,string,double?,IEnumerable{string},string,IEnumerable{string},string,IEnumerable{string},string,string,string,IEnumerable{string},int?,int?,string,string,int?,string,string,string,string,string,string,string,IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call SearchGetAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = await client.SearchGetAsync("myindex", "nice hotels", true, new string[] { "category,count:10,sort:count" }, "rating gt 10", new string[] { "title" }, "</em>", "<em>", 80, new string[] { "search.score() desc", "rating desc" }, "simple", null, "sp", new string[] { "title", "description" }, "any", "global", "mysessionid", new string[] { "docId", "title", "description" }, 100, 10, null, null, null, null, null, null, null, null, null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code>
+This sample shows how to call SearchGetAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = await client.SearchGetAsync("myindex", "how do clouds form", true, null, null, null, "</em>", "<em>", null, null, "semantic", null, null, null, null, null, null, null, null, null, "my-semantic-config", "partial", 780, "extractive|count-3", "extractive|highlight-true", null, null, null, null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code></example>
+    </member>
+    <member name="SearchGet(string,string,bool?,IEnumerable{string},string,IEnumerable{string},string,string,double?,IEnumerable{string},string,IEnumerable{string},string,IEnumerable{string},string,string,string,IEnumerable{string},int?,int?,string,string,int?,string,string,string,string,string,string,string,IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call SearchGet and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = client.SearchGet("myindex", "nice hotels", true, new string[] { "category,count:10,sort:count" }, "rating gt 10", new string[] { "title" }, "</em>", "<em>", 80, new string[] { "search.score() desc", "rating desc" }, "simple", null, "sp", new string[] { "title", "description" }, "any", "global", "mysessionid", new string[] { "docId", "title", "description" }, 100, 10, null, null, null, null, null, null, null, null, null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code>
+This sample shows how to call SearchGet and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = client.SearchGet("myindex", "how do clouds form", true, null, null, null, "</em>", "<em>", null, null, "semantic", null, null, null, null, null, null, null, null, null, "my-semantic-config", "partial", 780, "extractive|count-3", "extractive|highlight-true", null, null, null, null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code></example>
+    </member>
+    <member name="SearchPostAsync(string,SearchRequest,CancellationToken)">
+      <example>
+This sample shows how to call SearchPostAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+SearchRequest searchRequest = new SearchRequest
+{
+    Count = true,
+    Facets = { "ownerId", "price,metric:sum,default:10" },
+    Filter = "category eq 'purple' or category eq 'pink'",
+    Highlight = "category",
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "</em>",
+    MinimumCoverage = 100,
+    QueryType = QueryType.Semantic,
+    ScoringStatistics = ScoringStatistics.Global,
+    SessionId = "mysessionid",
+    ScoringParameters = { "categoryTag:desiredCategoryValue" },
+    ScoringProfile = "stringFieldBoost",
+    Search = "purple",
+    SearchFields = "id,name,description,category,ownerId",
+    SearchMode = SearchMode.Any,
+    QueryLanguage = QueryLanguage.EnUs,
+    Speller = QuerySpellerType.Lexicon,
+    Select = "id,name,description,category,ownerId",
+    Skip = 0,
+    Top = 10,
+    SemanticConfiguration = "testconfig",
+    SemanticErrorHandling = SemanticErrorMode.Partial,
+    SemanticMaxWaitInMilliseconds = 5000,
+    SemanticQuery = "find all purple",
+    Answers = QueryAnswerType.Extractive,
+    Captions = QueryCaptionType.Extractive,
+    QueryRewrites = QueryRewritesType.Generative,
+    VectorQueries = {new VectorizedQuery(new float[]{0F, 1F, 2F, 3F, 4F, 5F, 6F, 7F, 8F, 9F})
+    {
+        K = 50,
+        Fields = "vector22, vector1b",
+        Oversampling = 20,
+        Weight = 1F,
+        Threshold = new VectorSimilarityThreshold(0.984),
+        FilterOverride = "ownerId eq 'sam'",
+    }},
+    VectorFilterMode = VectorFilterMode.PreFilter,
+    HybridSearch = new HybridSearch
+    {
+        MaxTextRecallSize = 100,
+        CountAndFacetMode = HybridCountAndFacetMode.CountAllResults,
+    },
+};
+Response<SearchDocumentsResult> response = await client.SearchPostAsync("preview-test", searchRequest);
+]]></code>
+This sample shows how to call SearchPostAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+SearchRequest searchRequest = new SearchRequest
+{
+    Count = true,
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "<em>",
+    QueryType = QueryType.Semantic,
+    Search = "how do clouds form",
+    SemanticConfiguration = "my-semantic-config",
+    SemanticErrorHandling = SemanticErrorMode.Partial,
+    SemanticMaxWaitInMilliseconds = 780,
+    Answers = new QueryAnswerType("extractive|count-3"),
+    Captions = new QueryCaptionType("extractive|highlight-true"),
+};
+Response<SearchDocumentsResult> response = await client.SearchPostAsync("myindex", searchRequest);
+]]></code></example>
+    </member>
+    <member name="SearchPost(string,SearchRequest,CancellationToken)">
+      <example>
+This sample shows how to call SearchPost.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+SearchRequest searchRequest = new SearchRequest
+{
+    Count = true,
+    Facets = { "ownerId", "price,metric:sum,default:10" },
+    Filter = "category eq 'purple' or category eq 'pink'",
+    Highlight = "category",
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "</em>",
+    MinimumCoverage = 100,
+    QueryType = QueryType.Semantic,
+    ScoringStatistics = ScoringStatistics.Global,
+    SessionId = "mysessionid",
+    ScoringParameters = { "categoryTag:desiredCategoryValue" },
+    ScoringProfile = "stringFieldBoost",
+    Search = "purple",
+    SearchFields = "id,name,description,category,ownerId",
+    SearchMode = SearchMode.Any,
+    QueryLanguage = QueryLanguage.EnUs,
+    Speller = QuerySpellerType.Lexicon,
+    Select = "id,name,description,category,ownerId",
+    Skip = 0,
+    Top = 10,
+    SemanticConfiguration = "testconfig",
+    SemanticErrorHandling = SemanticErrorMode.Partial,
+    SemanticMaxWaitInMilliseconds = 5000,
+    SemanticQuery = "find all purple",
+    Answers = QueryAnswerType.Extractive,
+    Captions = QueryCaptionType.Extractive,
+    QueryRewrites = QueryRewritesType.Generative,
+    VectorQueries = {new VectorizedQuery(new float[]{0F, 1F, 2F, 3F, 4F, 5F, 6F, 7F, 8F, 9F})
+    {
+        K = 50,
+        Fields = "vector22, vector1b",
+        Oversampling = 20,
+        Weight = 1F,
+        Threshold = new VectorSimilarityThreshold(0.984),
+        FilterOverride = "ownerId eq 'sam'",
+    }},
+    VectorFilterMode = VectorFilterMode.PreFilter,
+    HybridSearch = new HybridSearch
+    {
+        MaxTextRecallSize = 100,
+        CountAndFacetMode = HybridCountAndFacetMode.CountAllResults,
+    },
+};
+Response<SearchDocumentsResult> response = client.SearchPost("preview-test", searchRequest);
+]]></code>
+This sample shows how to call SearchPost.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+SearchRequest searchRequest = new SearchRequest
+{
+    Count = true,
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "<em>",
+    QueryType = QueryType.Semantic,
+    Search = "how do clouds form",
+    SemanticConfiguration = "my-semantic-config",
+    SemanticErrorHandling = SemanticErrorMode.Partial,
+    SemanticMaxWaitInMilliseconds = 780,
+    Answers = new QueryAnswerType("extractive|count-3"),
+    Captions = new QueryCaptionType("extractive|highlight-true"),
+};
+Response<SearchDocumentsResult> response = client.SearchPost("myindex", searchRequest);
+]]></code></example>
+    </member>
+    <member name="SearchPostAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SearchPostAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    count = true,
+    facets = new object[]
+    {
+        "ownerId",
+        "price,metric:sum,default:10"
+    },
+    filter = "category eq 'purple' or category eq 'pink'",
+    highlight = "category",
+    highlightPostTag = "</em>",
+    highlightPreTag = "</em>",
+    minimumCoverage = 100,
+    queryType = "semantic",
+    scoringStatistics = "global",
+    sessionId = "mysessionid",
+    scoringParameters = new object[]
+    {
+        "categoryTag:desiredCategoryValue"
+    },
+    scoringProfile = "stringFieldBoost",
+    search = "purple",
+    searchFields = "id,name,description,category,ownerId",
+    searchMode = "any",
+    queryLanguage = "en-us",
+    speller = "lexicon",
+    select = "id,name,description,category,ownerId",
+    skip = 0,
+    top = 10,
+    semanticConfiguration = "testconfig",
+    semanticErrorHandling = "partial",
+    semanticMaxWaitInMilliseconds = 5000,
+    semanticQuery = "find all purple",
+    answers = "extractive",
+    captions = "extractive",
+    queryRewrites = "generative",
+    vectorQueries = new object[]
+    {
+        new
+        {
+            vector = new object[]
+            {
+                0F,
+                1F,
+                2F,
+                3F,
+                4F,
+                5F,
+                6F,
+                7F,
+                8F,
+                9F
+            },
+            kind = "vector",
+            k = 50,
+            fields = "vector22, vector1b",
+            oversampling = 20,
+            weight = 1F,
+            threshold = new
+            {
+                value = 0.984,
+                kind = "vectorSimilarity",
+            },
+            filterOverride = "ownerId eq 'sam'",
+        }
+    },
+    vectorFilterMode = "preFilter",
+    hybridSearch = new
+    {
+        maxTextRecallSize = 100,
+        countAndFacetMode = "countAllResults",
+    },
+});
+Response response = await client.SearchPostAsync("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code>
+This sample shows how to call SearchPostAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    count = true,
+    highlightPostTag = "</em>",
+    highlightPreTag = "<em>",
+    queryType = "semantic",
+    search = "how do clouds form",
+    semanticConfiguration = "my-semantic-config",
+    answers = "extractive|count-3",
+    captions = "extractive|highlight-true",
+    semanticErrorHandling = "partial",
+    semanticMaxWaitInMilliseconds = 780,
+});
+Response response = await client.SearchPostAsync("myindex", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code></example>
+    </member>
+    <member name="SearchPost(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SearchPost and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    count = true,
+    facets = new object[]
+    {
+        "ownerId",
+        "price,metric:sum,default:10"
+    },
+    filter = "category eq 'purple' or category eq 'pink'",
+    highlight = "category",
+    highlightPostTag = "</em>",
+    highlightPreTag = "</em>",
+    minimumCoverage = 100,
+    queryType = "semantic",
+    scoringStatistics = "global",
+    sessionId = "mysessionid",
+    scoringParameters = new object[]
+    {
+        "categoryTag:desiredCategoryValue"
+    },
+    scoringProfile = "stringFieldBoost",
+    search = "purple",
+    searchFields = "id,name,description,category,ownerId",
+    searchMode = "any",
+    queryLanguage = "en-us",
+    speller = "lexicon",
+    select = "id,name,description,category,ownerId",
+    skip = 0,
+    top = 10,
+    semanticConfiguration = "testconfig",
+    semanticErrorHandling = "partial",
+    semanticMaxWaitInMilliseconds = 5000,
+    semanticQuery = "find all purple",
+    answers = "extractive",
+    captions = "extractive",
+    queryRewrites = "generative",
+    vectorQueries = new object[]
+    {
+        new
+        {
+            vector = new object[]
+            {
+                0F,
+                1F,
+                2F,
+                3F,
+                4F,
+                5F,
+                6F,
+                7F,
+                8F,
+                9F
+            },
+            kind = "vector",
+            k = 50,
+            fields = "vector22, vector1b",
+            oversampling = 20,
+            weight = 1F,
+            threshold = new
+            {
+                value = 0.984,
+                kind = "vectorSimilarity",
+            },
+            filterOverride = "ownerId eq 'sam'",
+        }
+    },
+    vectorFilterMode = "preFilter",
+    hybridSearch = new
+    {
+        maxTextRecallSize = 100,
+        countAndFacetMode = "countAllResults",
+    },
+});
+Response response = client.SearchPost("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code>
+This sample shows how to call SearchPost and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    count = true,
+    highlightPostTag = "</em>",
+    highlightPreTag = "<em>",
+    queryType = "semantic",
+    search = "how do clouds form",
+    semanticConfiguration = "my-semantic-config",
+    answers = "extractive|count-3",
+    captions = "extractive|highlight-true",
+    semanticErrorHandling = "partial",
+    semanticMaxWaitInMilliseconds = 780,
+});
+Response response = client.SearchPost("myindex", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.score").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDocumentAsync(string,string,IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetDocumentAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<LookupDocument> response = await client.GetDocumentAsync("preview-test", "1");
+]]></code></example>
+    </member>
+    <member name="GetDocument(string,string,IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetDocument.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<LookupDocument> response = client.GetDocument("preview-test", "1");
+]]></code></example>
+    </member>
+    <member name="GetDocumentAsync(string,string,IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetDocumentAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = await client.GetDocumentAsync("preview-test", "1", new string[] { "id", "description", "name", "category", "ownerId" }, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetDocument(string,string,IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetDocument and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = client.GetDocument("preview-test", "1", new string[] { "id", "description", "name", "category", "ownerId" }, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SuggestGetAsync(string,string,string,string,bool?,string,string,double?,IEnumerable{string},IEnumerable{string},IEnumerable{string},int?,CancellationToken)">
+      <example>
+This sample shows how to call SuggestGetAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<SuggestDocumentsResult> response = await client.SuggestGetAsync("myindex", "hote", "sg");
+]]></code></example>
+    </member>
+    <member name="SuggestGet(string,string,string,string,bool?,string,string,double?,IEnumerable{string},IEnumerable{string},IEnumerable{string},int?,CancellationToken)">
+      <example>
+This sample shows how to call SuggestGet.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<SuggestDocumentsResult> response = client.SuggestGet("myindex", "hote", "sg");
+]]></code></example>
+    </member>
+    <member name="SuggestGetAsync(string,string,string,string,bool?,string,string,double?,IEnumerable{string},IEnumerable{string},IEnumerable{string},int?,RequestContext)">
+      <example>
+This sample shows how to call SuggestGetAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = await client.SuggestGetAsync("myindex", "hote", "sg", "rating gt 10", false, "</em>", "<em>", 80, new string[] { "search.score() desc", "rating desc" }, new string[] { "title" }, new string[] { "docId", "title", "description" }, 10, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.text").ToString());
+]]></code></example>
+    </member>
+    <member name="SuggestGet(string,string,string,string,bool?,string,string,double?,IEnumerable{string},IEnumerable{string},IEnumerable{string},int?,RequestContext)">
+      <example>
+This sample shows how to call SuggestGet and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = client.SuggestGet("myindex", "hote", "sg", "rating gt 10", false, "</em>", "<em>", 80, new string[] { "search.score() desc", "rating desc" }, new string[] { "title" }, new string[] { "docId", "title", "description" }, 10, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.text").ToString());
+]]></code></example>
+    </member>
+    <member name="SuggestPostAsync(string,SuggestRequest,CancellationToken)">
+      <example>
+This sample shows how to call SuggestPostAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+SuggestRequest suggestRequest = new SuggestRequest("p", "sg")
+{
+    Filter = "ownerId eq 'sam' and id lt '15'",
+    Fuzzy = true,
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "<em>",
+    MinimumCoverage = 80,
+    Orderby = "id desc",
+    SearchFields = "category",
+    Select = "id,name,category,ownerId",
+    Top = 10,
+};
+Response<SuggestDocumentsResult> response = await client.SuggestPostAsync("preview-test", suggestRequest);
+]]></code></example>
+    </member>
+    <member name="SuggestPost(string,SuggestRequest,CancellationToken)">
+      <example>
+This sample shows how to call SuggestPost.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+SuggestRequest suggestRequest = new SuggestRequest("p", "sg")
+{
+    Filter = "ownerId eq 'sam' and id lt '15'",
+    Fuzzy = true,
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "<em>",
+    MinimumCoverage = 80,
+    Orderby = "id desc",
+    SearchFields = "category",
+    Select = "id,name,category,ownerId",
+    Top = 10,
+};
+Response<SuggestDocumentsResult> response = client.SuggestPost("preview-test", suggestRequest);
+]]></code></example>
+    </member>
+    <member name="SuggestPostAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SuggestPostAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    filter = "ownerId eq 'sam' and id lt '15'",
+    fuzzy = true,
+    highlightPostTag = "</em>",
+    highlightPreTag = "<em>",
+    minimumCoverage = 80,
+    orderby = "id desc",
+    search = "p",
+    searchFields = "category",
+    select = "id,name,category,ownerId",
+    suggesterName = "sg",
+    top = 10,
+});
+Response response = await client.SuggestPostAsync("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.text").ToString());
+]]></code></example>
+    </member>
+    <member name="SuggestPost(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SuggestPost and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    filter = "ownerId eq 'sam' and id lt '15'",
+    fuzzy = true,
+    highlightPostTag = "</em>",
+    highlightPreTag = "<em>",
+    minimumCoverage = 80,
+    orderby = "id desc",
+    search = "p",
+    searchFields = "category",
+    select = "id,name,category,ownerId",
+    suggesterName = "sg",
+    top = 10,
+});
+Response response = client.SuggestPost("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("@search.text").ToString());
+]]></code></example>
+    </member>
+    <member name="IndexAsync(string,IndexBatch,CancellationToken)">
+      <example>
+This sample shows how to call IndexAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+IndexBatch batch = new IndexBatch(new IndexAction[]
+{
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    }
+});
+Response<IndexDocumentsResult> response = await client.IndexAsync("preview-test", batch);
+]]></code></example>
+    </member>
+    <member name="Index(string,IndexBatch,CancellationToken)">
+      <example>
+This sample shows how to call Index.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+IndexBatch batch = new IndexBatch(new IndexAction[]
+{
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    },
+    new IndexAction
+    {
+        ActionType = IndexActionType.MergeOrUpload,
+    }
+});
+Response<IndexDocumentsResult> response = client.Index("preview-test", batch);
+]]></code></example>
+    </member>
+    <member name="IndexAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call IndexAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    value = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        }
+    },
+});
+Response response = await client.IndexAsync("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("key").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("statusCode").ToString());
+]]></code></example>
+    </member>
+    <member name="Index(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Index and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    value = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        },
+        new Dictionary<string, object>
+        {
+            ["@search.action"] = "mergeOrUpload"
+        }
+    },
+});
+Response response = client.Index("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("key").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("statusCode").ToString());
+]]></code></example>
+    </member>
+    <member name="AutocompleteGetAsync(string,string,string,AutocompleteMode?,string,bool?,string,string,double?,IEnumerable{string},int?,CancellationToken)">
+      <example>
+This sample shows how to call AutocompleteGetAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<AutocompleteResult> response = await client.AutocompleteGetAsync("myindex", "washington medic", "sg");
+]]></code></example>
+    </member>
+    <member name="AutocompleteGet(string,string,string,AutocompleteMode?,string,bool?,string,string,double?,IEnumerable{string},int?,CancellationToken)">
+      <example>
+This sample shows how to call AutocompleteGet.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response<AutocompleteResult> response = client.AutocompleteGet("myindex", "washington medic", "sg");
+]]></code></example>
+    </member>
+    <member name="AutocompleteGetAsync(string,string,string,string,string,bool?,string,string,double?,IEnumerable{string},int?,RequestContext)">
+      <example>
+This sample shows how to call AutocompleteGetAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = await client.AutocompleteGetAsync("myindex", "washington medic", "sg", "oneTerm", null, false, "</em>", "<em>", 80, new string[] { "title", "description" }, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("queryPlusText").ToString());
+]]></code></example>
+    </member>
+    <member name="AutocompleteGet(string,string,string,string,string,bool?,string,string,double?,IEnumerable{string},int?,RequestContext)">
+      <example>
+This sample shows how to call AutocompleteGet and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+Response response = client.AutocompleteGet("myindex", "washington medic", "sg", "oneTerm", null, false, "</em>", "<em>", 80, new string[] { "title", "description" }, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("queryPlusText").ToString());
+]]></code></example>
+    </member>
+    <member name="AutocompletePostAsync(string,AutocompleteRequest,CancellationToken)">
+      <example>
+This sample shows how to call AutocompletePostAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+AutocompleteRequest autocompleteRequest = new AutocompleteRequest("p", "sg")
+{
+    AutocompleteMode = AutocompleteMode.OneTerm,
+    Filter = "ownerId ne '1'",
+    Fuzzy = true,
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "<em>",
+    MinimumCoverage = 80,
+    SearchFields = "category, ownerId",
+    Top = 10,
+};
+Response<AutocompleteResult> response = await client.AutocompletePostAsync("preview-test", autocompleteRequest);
+]]></code></example>
+    </member>
+    <member name="AutocompletePost(string,AutocompleteRequest,CancellationToken)">
+      <example>
+This sample shows how to call AutocompletePost.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+AutocompleteRequest autocompleteRequest = new AutocompleteRequest("p", "sg")
+{
+    AutocompleteMode = AutocompleteMode.OneTerm,
+    Filter = "ownerId ne '1'",
+    Fuzzy = true,
+    HighlightPostTag = "</em>",
+    HighlightPreTag = "<em>",
+    MinimumCoverage = 80,
+    SearchFields = "category, ownerId",
+    Top = 10,
+};
+Response<AutocompleteResult> response = client.AutocompletePost("preview-test", autocompleteRequest);
+]]></code></example>
+    </member>
+    <member name="AutocompletePostAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AutocompletePostAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    search = "p",
+    autocompleteMode = "oneTerm",
+    filter = "ownerId ne '1'",
+    fuzzy = true,
+    highlightPostTag = "</em>",
+    highlightPreTag = "<em>",
+    minimumCoverage = 80,
+    searchFields = "category, ownerId",
+    suggesterName = "sg",
+    top = 10,
+});
+Response response = await client.AutocompletePostAsync("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("queryPlusText").ToString());
+]]></code></example>
+    </member>
+    <member name="AutocompletePost(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AutocompletePost and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Documents client = new SearchClient(endpoint, credential).GetDocumentsClient(apiVersion: "2025-03-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    search = "p",
+    autocompleteMode = "oneTerm",
+    filter = "ownerId ne '1'",
+    fuzzy = true,
+    highlightPostTag = "</em>",
+    highlightPreTag = "<em>",
+    minimumCoverage = 80,
+    searchFields = "category, ownerId",
+    suggesterName = "sg",
+    top = 10,
+});
+Response response = client.AutocompletePost("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("queryPlusText").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
