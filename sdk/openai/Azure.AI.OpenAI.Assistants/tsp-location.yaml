@@ -1,3 +1,4 @@
 directory: specification/ai/OpenAI.Assistants
-commit: 08ed77edf1aca430f3f368c848ccd43219bf2ff2
+commit: ba157b228cab0384b40238b39bc934313be87a76
 repo: Azure/azure-rest-api-specs
+additionalDirectories: 
