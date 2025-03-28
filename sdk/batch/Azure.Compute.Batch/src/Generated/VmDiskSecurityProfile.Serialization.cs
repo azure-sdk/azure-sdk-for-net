@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Compute.Batch
 {
-    public partial class BatchTaskAddCollectionResult : IUtf8JsonSerializable, IJsonModel<BatchTaskAddCollectionResult>
+    public partial class VmDiskSecurityProfile : IUtf8JsonSerializable, IJsonModel<VmDiskSecurityProfile>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchTaskAddCollectionResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<VmDiskSecurityProfile>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BatchTaskAddCollectionResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<VmDiskSecurityProfile>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,21 +28,16 @@ namespace Azure.Compute.Batch
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchTaskAddCollectionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VmDiskSecurityProfile>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BatchTaskAddCollectionResult)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(VmDiskSecurityProfile)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsCollectionDefined(Value))
+            if (Optional.IsDefined(SecurityEncryptionType))
             {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
+                writer.WritePropertyName("securityEncryptionType"u8);
+                writer.WriteStringValue(SecurityEncryptionType.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -61,19 +56,19 @@ namespace Azure.Compute.Batch
             }
         }
 
-        BatchTaskAddCollectionResult IJsonModel<BatchTaskAddCollectionResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        VmDiskSecurityProfile IJsonModel<VmDiskSecurityProfile>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchTaskAddCollectionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VmDiskSecurityProfile>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BatchTaskAddCollectionResult)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(VmDiskSecurityProfile)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBatchTaskAddCollectionResult(document.RootElement, options);
+            return DeserializeVmDiskSecurityProfile(document.RootElement, options);
         }
 
-        internal static BatchTaskAddCollectionResult DeserializeBatchTaskAddCollectionResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static VmDiskSecurityProfile DeserializeVmDiskSecurityProfile(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -81,23 +76,18 @@ namespace Azure.Compute.Batch
             {
                 return null;
             }
-            IReadOnlyList<BatchTaskAddResult> value = default;
+            SecurityEncryptionTypes? securityEncryptionType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("value"u8))
+                if (property.NameEquals("securityEncryptionType"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    List<BatchTaskAddResult> array = new List<BatchTaskAddResult>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(BatchTaskAddResult.DeserializeBatchTaskAddResult(item, options));
-                    }
-                    value = array;
+                    securityEncryptionType = new SecurityEncryptionTypes(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -106,46 +96,46 @@ namespace Azure.Compute.Batch
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new BatchTaskAddCollectionResult(value ?? new ChangeTrackingList<BatchTaskAddResult>(), serializedAdditionalRawData);
+            return new VmDiskSecurityProfile(securityEncryptionType, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BatchTaskAddCollectionResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<VmDiskSecurityProfile>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchTaskAddCollectionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VmDiskSecurityProfile>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(BatchTaskAddCollectionResult)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(VmDiskSecurityProfile)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BatchTaskAddCollectionResult IPersistableModel<BatchTaskAddCollectionResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        VmDiskSecurityProfile IPersistableModel<VmDiskSecurityProfile>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BatchTaskAddCollectionResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VmDiskSecurityProfile>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBatchTaskAddCollectionResult(document.RootElement, options);
+                        return DeserializeVmDiskSecurityProfile(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BatchTaskAddCollectionResult)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(VmDiskSecurityProfile)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BatchTaskAddCollectionResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<VmDiskSecurityProfile>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static BatchTaskAddCollectionResult FromResponse(Response response)
+        internal static VmDiskSecurityProfile FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeBatchTaskAddCollectionResult(document.RootElement);
+            return DeserializeVmDiskSecurityProfile(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
