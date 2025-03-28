@@ -1,4 +1,4 @@
-directory: specification/agricultureplatform/AgriculturePlatform.Management
+directory: specification/durabletask/DurableTask.Management
 commit: 0bedb6f1e35385460bf68c3edc2e629355d5a189
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
