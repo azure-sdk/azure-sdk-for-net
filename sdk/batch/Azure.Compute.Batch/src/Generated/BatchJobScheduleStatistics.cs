@@ -52,16 +52,16 @@ namespace Azure.Compute.Batch
         /// <param name="userCpuTime"> The total user mode CPU time (summed across all cores and all Compute Nodes) consumed by all Tasks in all Jobs created under the schedule. </param>
         /// <param name="kernelCpuTime"> The total kernel mode CPU time (summed across all cores and all Compute Nodes) consumed by all Tasks in all Jobs created under the schedule. </param>
         /// <param name="wallClockTime"> The total wall clock time of all the Tasks in all the Jobs created under the schedule. The wall clock time is the elapsed time from when the Task started running on a Compute Node to when it finished (or to the last time the statistics were updated, if the Task had not finished by then). If a Task was retried, this includes the wall clock time of all the Task retries. </param>
-        /// <param name="readIOps"> The total number of disk read operations made by all Tasks in all Jobs created under the schedule. </param>
-        /// <param name="writeIOps"> The total number of disk write operations made by all Tasks in all Jobs created under the schedule. </param>
-        /// <param name="readIOGiB"> The total gibibytes read from disk by all Tasks in all Jobs created under the schedule. </param>
-        /// <param name="writeIOGiB"> The total gibibytes written to disk by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="readIops"> The total number of disk read operations made by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="writeIops"> The total number of disk write operations made by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="readIoGiB"> The total gibibytes read from disk by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="writeIoGiB"> The total gibibytes written to disk by all Tasks in all Jobs created under the schedule. </param>
         /// <param name="numSucceededTasks"> The total number of Tasks successfully completed during the given time range in Jobs created under the schedule. A Task completes successfully if it returns exit code 0. </param>
         /// <param name="numFailedTasks"> The total number of Tasks that failed during the given time range in Jobs created under the schedule. A Task fails if it exhausts its maximum retry count without returning exit code 0. </param>
         /// <param name="numTaskRetries"> The total number of retries during the given time range on all Tasks in all Jobs created under the schedule. </param>
         /// <param name="waitTime"> The total wait time of all Tasks in all Jobs created under the schedule. The wait time for a Task is defined as the elapsed time between the creation of the Task and the start of Task execution. (If the Task is retried due to failures, the wait time is the time to the most recent Task execution.). This value is only reported in the Account lifetime statistics; it is not included in the Job statistics. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="url"/> is null. </exception>
-        internal BatchJobScheduleStatistics(string url, DateTimeOffset startTime, DateTimeOffset lastUpdateTime, TimeSpan userCpuTime, TimeSpan kernelCpuTime, TimeSpan wallClockTime, long readIOps, long writeIOps, float readIOGiB, float writeIOGiB, long numSucceededTasks, long numFailedTasks, long numTaskRetries, TimeSpan waitTime)
+        internal BatchJobScheduleStatistics(string url, DateTimeOffset startTime, DateTimeOffset lastUpdateTime, TimeSpan userCpuTime, TimeSpan kernelCpuTime, TimeSpan wallClockTime, long readIops, long writeIops, float readIoGiB, float writeIoGiB, long numSucceededTasks, long numFailedTasks, long numTaskRetries, TimeSpan waitTime)
         {
             Argument.AssertNotNull(url, nameof(url));
 
@@ -71,10 +71,10 @@ namespace Azure.Compute.Batch
             UserCpuTime = userCpuTime;
             KernelCpuTime = kernelCpuTime;
             WallClockTime = wallClockTime;
-            ReadIOps = readIOps;
-            WriteIOps = writeIOps;
-            ReadIOGiB = readIOGiB;
-            WriteIOGiB = writeIOGiB;
+            ReadIops = readIops;
+            WriteIops = writeIops;
+            ReadIoGiB = readIoGiB;
+            WriteIoGiB = writeIoGiB;
             NumSucceededTasks = numSucceededTasks;
             NumFailedTasks = numFailedTasks;
             NumTaskRetries = numTaskRetries;
@@ -88,16 +88,16 @@ namespace Azure.Compute.Batch
         /// <param name="userCpuTime"> The total user mode CPU time (summed across all cores and all Compute Nodes) consumed by all Tasks in all Jobs created under the schedule. </param>
         /// <param name="kernelCpuTime"> The total kernel mode CPU time (summed across all cores and all Compute Nodes) consumed by all Tasks in all Jobs created under the schedule. </param>
         /// <param name="wallClockTime"> The total wall clock time of all the Tasks in all the Jobs created under the schedule. The wall clock time is the elapsed time from when the Task started running on a Compute Node to when it finished (or to the last time the statistics were updated, if the Task had not finished by then). If a Task was retried, this includes the wall clock time of all the Task retries. </param>
-        /// <param name="readIOps"> The total number of disk read operations made by all Tasks in all Jobs created under the schedule. </param>
-        /// <param name="writeIOps"> The total number of disk write operations made by all Tasks in all Jobs created under the schedule. </param>
-        /// <param name="readIOGiB"> The total gibibytes read from disk by all Tasks in all Jobs created under the schedule. </param>
-        /// <param name="writeIOGiB"> The total gibibytes written to disk by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="readIops"> The total number of disk read operations made by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="writeIops"> The total number of disk write operations made by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="readIoGiB"> The total gibibytes read from disk by all Tasks in all Jobs created under the schedule. </param>
+        /// <param name="writeIoGiB"> The total gibibytes written to disk by all Tasks in all Jobs created under the schedule. </param>
         /// <param name="numSucceededTasks"> The total number of Tasks successfully completed during the given time range in Jobs created under the schedule. A Task completes successfully if it returns exit code 0. </param>
         /// <param name="numFailedTasks"> The total number of Tasks that failed during the given time range in Jobs created under the schedule. A Task fails if it exhausts its maximum retry count without returning exit code 0. </param>
         /// <param name="numTaskRetries"> The total number of retries during the given time range on all Tasks in all Jobs created under the schedule. </param>
         /// <param name="waitTime"> The total wait time of all Tasks in all Jobs created under the schedule. The wait time for a Task is defined as the elapsed time between the creation of the Task and the start of Task execution. (If the Task is retried due to failures, the wait time is the time to the most recent Task execution.). This value is only reported in the Account lifetime statistics; it is not included in the Job statistics. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BatchJobScheduleStatistics(string url, DateTimeOffset startTime, DateTimeOffset lastUpdateTime, TimeSpan userCpuTime, TimeSpan kernelCpuTime, TimeSpan wallClockTime, long readIOps, long writeIOps, float readIOGiB, float writeIOGiB, long numSucceededTasks, long numFailedTasks, long numTaskRetries, TimeSpan waitTime, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BatchJobScheduleStatistics(string url, DateTimeOffset startTime, DateTimeOffset lastUpdateTime, TimeSpan userCpuTime, TimeSpan kernelCpuTime, TimeSpan wallClockTime, long readIops, long writeIops, float readIoGiB, float writeIoGiB, long numSucceededTasks, long numFailedTasks, long numTaskRetries, TimeSpan waitTime, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Url = url;
             StartTime = startTime;
@@ -105,10 +105,10 @@ namespace Azure.Compute.Batch
             UserCpuTime = userCpuTime;
             KernelCpuTime = kernelCpuTime;
             WallClockTime = wallClockTime;
-            ReadIOps = readIOps;
-            WriteIOps = writeIOps;
-            ReadIOGiB = readIOGiB;
-            WriteIOGiB = writeIOGiB;
+            ReadIops = readIops;
+            WriteIops = writeIops;
+            ReadIoGiB = readIoGiB;
+            WriteIoGiB = writeIoGiB;
             NumSucceededTasks = numSucceededTasks;
             NumFailedTasks = numFailedTasks;
             NumTaskRetries = numTaskRetries;
@@ -134,13 +134,13 @@ namespace Azure.Compute.Batch
         /// <summary> The total wall clock time of all the Tasks in all the Jobs created under the schedule. The wall clock time is the elapsed time from when the Task started running on a Compute Node to when it finished (or to the last time the statistics were updated, if the Task had not finished by then). If a Task was retried, this includes the wall clock time of all the Task retries. </summary>
         public TimeSpan WallClockTime { get; }
         /// <summary> The total number of disk read operations made by all Tasks in all Jobs created under the schedule. </summary>
-        public long ReadIOps { get; }
+        public long ReadIops { get; }
         /// <summary> The total number of disk write operations made by all Tasks in all Jobs created under the schedule. </summary>
-        public long WriteIOps { get; }
+        public long WriteIops { get; }
         /// <summary> The total gibibytes read from disk by all Tasks in all Jobs created under the schedule. </summary>
-        public float ReadIOGiB { get; }
+        public float ReadIoGiB { get; }
         /// <summary> The total gibibytes written to disk by all Tasks in all Jobs created under the schedule. </summary>
-        public float WriteIOGiB { get; }
+        public float WriteIoGiB { get; }
         /// <summary> The total number of Tasks successfully completed during the given time range in Jobs created under the schedule. A Task completes successfully if it returns exit code 0. </summary>
         public long NumSucceededTasks { get; }
         /// <summary> The total number of Tasks that failed during the given time range in Jobs created under the schedule. A Task fails if it exhausts its maximum retry count without returning exit code 0. </summary>
