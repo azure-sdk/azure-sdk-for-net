@@ -1,0 +1,5 @@
+directory: specification/search/Azure.Search.Index
+commit: 5b1fbde971f33fb4fbfb01b5390526d7eda053d9
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
+- specification/search/Azure.Search

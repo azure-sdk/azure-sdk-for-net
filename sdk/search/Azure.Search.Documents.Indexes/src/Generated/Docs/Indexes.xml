@@ -1,0 +1,3133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateAsync(SearchIndex,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+SearchIndex index = new SearchIndex("temp-preview-test", new SearchField[]
+{
+    new SearchField("id", SearchFieldDataType.String)
+    {
+        Key = true,
+        Sortable = true,
+    },
+    new SearchField("vector1", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 20,
+        VectorSearchProfile = "config1",
+    },
+    new SearchField("vector1b", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector2", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector3", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector22", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector4", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 32,
+        VectorSearchProfile = "config4",
+    },
+    new SearchField("name", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("description", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.StandardLucene,
+    },
+    new SearchField("category", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("ownerId", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("price", SearchFieldDataType.Double)
+    {
+        Retrievable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+    }
+})
+{
+    ScoringProfiles = {new ScoringProfile("stringFieldBoost")
+    {
+        Text = new TextWeights(new Dictionary<string, double>
+        {
+            ["name"] = 3,
+            ["description"] = 1,
+            ["category"] = 2,
+            ["ownerId"] = 1
+        }),
+        Functions = {new TagScoringFunction("category", 2, new TagScoringParameters("categoryTag"))},
+    }},
+    DefaultScoringProfile = "stringFieldBoost",
+    CorsOptions = new CorsOptions(new string[] { "https://www.example.com/foo" })
+    {
+        MaxAgeInSeconds = 10L,
+    },
+    Suggesters = { new SearchSuggester("sg", new string[] { "category", "ownerId" }) },
+    Analyzers = {new CustomAnalyzer("tagsAnalyzer", LexicalTokenizerName.Standard)
+    {
+        TokenFilters = {TokenFilterName.CommonGram},
+        CharFilters = {CharFilterName.HtmlStrip},
+    }},
+    Tokenizers = {new LuceneStandardTokenizerV2("my_tokenizer")
+    {
+        MaxTokenLength = 100,
+    }},
+    TokenFilters = {new AsciiFoldingTokenFilter("my_tokenFilter")
+    {
+        PreserveOriginal = false,
+    }},
+    CharFilters = { new MappingCharFilter("my_mapping", new string[] { ".=>,", "_=>-" }) },
+    Normalizers = {new CustomNormalizer("my_normalizer")
+    {
+        TokenFilters = {new TokenFilterName("my_tokenFilter")},
+        CharFilters = {new CharFilterName("my_mapping")},
+    }},
+    Similarity = new BM25SimilarityAlgorithm
+    {
+        K1 = 10,
+        B = 0.1,
+    },
+    Semantic = new SemanticSearch
+    {
+        DefaultConfiguration = "testconfig",
+        Configurations = {new SemanticConfiguration("testconfig", new SemanticPrioritizedFields
+        {
+            TitleField = new SemanticField("category"),
+            PrioritizedContentFields = {new SemanticField("description")},
+            PrioritizedKeywordsFields = {new SemanticField("ownerId")},
+        })
+        {
+            FlightingOptIn = true,
+        }},
+    },
+    VectorSearch = new VectorSearch
+    {
+        Profiles = {new VectorSearchProfile("config1", "cosine")
+        {
+            Vectorizer = "openai",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config2", "euclidean")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config3", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQC",
+        }, new VectorSearchProfile("config4", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQWithoutOriginals",
+        }},
+        Algorithms = {new HnswAlgorithmConfiguration("cosine")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Cosine,
+            },
+        }, new HnswAlgorithmConfiguration("euclidean")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Euclidean,
+            },
+        }, new HnswAlgorithmConfiguration("dotProduct")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.DotProduct,
+            },
+        }},
+        Vectorizers = {new AzureOpenAIVectorizer("openai")
+        {
+            AzureOpenAIParameters = new AzureOpenAIVectorizerParameters
+            {
+                ResourceUri = new Uri("https://test-sample.openai.azure.com/"),
+                DeploymentId = "model",
+                ApiKey = "api-key",
+                ModelName = AzureOpenAIModelName.TextEmbedding3Large,
+            },
+        }, new WebApiVectorizer("custom-web-api")
+        {
+            CustomWebApiParameters = new WebApiVectorizerParameters
+            {
+                Uri = new Uri("https://my-custom-endpoint.org/"),
+                HttpHeaders =
+                {
+                    ["header1"] = "value1",
+                    ["header2"] = "value2"
+                },
+                HttpMethod = "POST",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                AuthResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                AuthIdentity = new SearchIndexerDataNoneIdentity(),
+            },
+        }, new AMLVectorizer("aml")
+        {
+            AmlParameters = new AMLParameters(new Uri("https://my-custom-endpoint.org/"))
+            {
+                ResourceId = "aml resource id",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                Region = "aml region",
+                ModelName = AIFoundryModelCatalogName.OpenAICLIPImageTextEmbeddingsVitBasePatch32,
+            },
+        }},
+        Compressions = {new ScalarQuantizationCompression("mySQ8")
+        {
+            ScalarQuantizationParameters = new ScalarQuantizationParameters
+            {
+                QuantizedDataType = VectorSearchCompressionTarget.Int8,
+            },
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQC")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQWithoutOriginals")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.DiscardOriginals,
+            },
+            TruncationDimension = 2,
+        }},
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchIndex> response = await client.CreateAsync(index);
+]]></code></example>
+    </member>
+    <member name="Create(SearchIndex,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+SearchIndex index = new SearchIndex("temp-preview-test", new SearchField[]
+{
+    new SearchField("id", SearchFieldDataType.String)
+    {
+        Key = true,
+        Sortable = true,
+    },
+    new SearchField("vector1", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 20,
+        VectorSearchProfile = "config1",
+    },
+    new SearchField("vector1b", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector2", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector3", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector22", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector4", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 32,
+        VectorSearchProfile = "config4",
+    },
+    new SearchField("name", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("description", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.StandardLucene,
+    },
+    new SearchField("category", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("ownerId", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("price", SearchFieldDataType.Double)
+    {
+        Retrievable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+    }
+})
+{
+    ScoringProfiles = {new ScoringProfile("stringFieldBoost")
+    {
+        Text = new TextWeights(new Dictionary<string, double>
+        {
+            ["name"] = 3,
+            ["description"] = 1,
+            ["category"] = 2,
+            ["ownerId"] = 1
+        }),
+        Functions = {new TagScoringFunction("category", 2, new TagScoringParameters("categoryTag"))},
+    }},
+    DefaultScoringProfile = "stringFieldBoost",
+    CorsOptions = new CorsOptions(new string[] { "https://www.example.com/foo" })
+    {
+        MaxAgeInSeconds = 10L,
+    },
+    Suggesters = { new SearchSuggester("sg", new string[] { "category", "ownerId" }) },
+    Analyzers = {new CustomAnalyzer("tagsAnalyzer", LexicalTokenizerName.Standard)
+    {
+        TokenFilters = {TokenFilterName.CommonGram},
+        CharFilters = {CharFilterName.HtmlStrip},
+    }},
+    Tokenizers = {new LuceneStandardTokenizerV2("my_tokenizer")
+    {
+        MaxTokenLength = 100,
+    }},
+    TokenFilters = {new AsciiFoldingTokenFilter("my_tokenFilter")
+    {
+        PreserveOriginal = false,
+    }},
+    CharFilters = { new MappingCharFilter("my_mapping", new string[] { ".=>,", "_=>-" }) },
+    Normalizers = {new CustomNormalizer("my_normalizer")
+    {
+        TokenFilters = {new TokenFilterName("my_tokenFilter")},
+        CharFilters = {new CharFilterName("my_mapping")},
+    }},
+    Similarity = new BM25SimilarityAlgorithm
+    {
+        K1 = 10,
+        B = 0.1,
+    },
+    Semantic = new SemanticSearch
+    {
+        DefaultConfiguration = "testconfig",
+        Configurations = {new SemanticConfiguration("testconfig", new SemanticPrioritizedFields
+        {
+            TitleField = new SemanticField("category"),
+            PrioritizedContentFields = {new SemanticField("description")},
+            PrioritizedKeywordsFields = {new SemanticField("ownerId")},
+        })
+        {
+            FlightingOptIn = true,
+        }},
+    },
+    VectorSearch = new VectorSearch
+    {
+        Profiles = {new VectorSearchProfile("config1", "cosine")
+        {
+            Vectorizer = "openai",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config2", "euclidean")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config3", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQC",
+        }, new VectorSearchProfile("config4", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQWithoutOriginals",
+        }},
+        Algorithms = {new HnswAlgorithmConfiguration("cosine")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Cosine,
+            },
+        }, new HnswAlgorithmConfiguration("euclidean")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Euclidean,
+            },
+        }, new HnswAlgorithmConfiguration("dotProduct")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.DotProduct,
+            },
+        }},
+        Vectorizers = {new AzureOpenAIVectorizer("openai")
+        {
+            AzureOpenAIParameters = new AzureOpenAIVectorizerParameters
+            {
+                ResourceUri = new Uri("https://test-sample.openai.azure.com/"),
+                DeploymentId = "model",
+                ApiKey = "api-key",
+                ModelName = AzureOpenAIModelName.TextEmbedding3Large,
+            },
+        }, new WebApiVectorizer("custom-web-api")
+        {
+            CustomWebApiParameters = new WebApiVectorizerParameters
+            {
+                Uri = new Uri("https://my-custom-endpoint.org/"),
+                HttpHeaders =
+                {
+                    ["header1"] = "value1",
+                    ["header2"] = "value2"
+                },
+                HttpMethod = "POST",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                AuthResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                AuthIdentity = new SearchIndexerDataNoneIdentity(),
+            },
+        }, new AMLVectorizer("aml")
+        {
+            AmlParameters = new AMLParameters(new Uri("https://my-custom-endpoint.org/"))
+            {
+                ResourceId = "aml resource id",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                Region = "aml region",
+                ModelName = AIFoundryModelCatalogName.OpenAICLIPImageTextEmbeddingsVitBasePatch32,
+            },
+        }},
+        Compressions = {new ScalarQuantizationCompression("mySQ8")
+        {
+            ScalarQuantizationParameters = new ScalarQuantizationParameters
+            {
+                QuantizedDataType = VectorSearchCompressionTarget.Int8,
+            },
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQC")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQWithoutOriginals")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.DiscardOriginals,
+            },
+            TruncationDimension = 2,
+        }},
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchIndex> response = client.Create(index);
+]]></code></example>
+    </member>
+    <member name="CreateAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "temp-preview-test",
+    ["fields"] = new object[]
+    {
+        new
+        {
+            name = "id",
+            type = "Edm.String",
+            key = true,
+            sortable = true,
+        },
+        new
+        {
+            name = "vector1",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 20,
+            vectorSearchProfile = "config1",
+        },
+        new
+        {
+            name = "vector1b",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector2",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector3",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector22",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector4",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 32,
+            vectorSearchProfile = "config4",
+        },
+        new
+        {
+            name = "name",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "description",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "standard.lucene",
+        },
+        new
+        {
+            name = "category",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "ownerId",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "price",
+            type = "Edm.Double",
+            retrievable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+        }
+    },
+    ["scoringProfiles"] = new object[]
+    {
+        new
+        {
+            name = "stringFieldBoost",
+            text = new
+            {
+                weights = new
+                {
+                    name = 3,
+                    description = 1,
+                    category = 2,
+                    ownerId = 1,
+                },
+            },
+            functions = new object[]
+            {
+                new
+                {
+                    tag = new
+                    {
+                        tagsParameter = "categoryTag",
+                    },
+                    type = "tag",
+                    fieldName = "category",
+                    boost = 2,
+                }
+            },
+        }
+    },
+    ["defaultScoringProfile"] = "stringFieldBoost",
+    ["corsOptions"] = new
+    {
+        allowedOrigins = new object[]
+        {
+            "https://www.example.com/foo"
+        },
+        maxAgeInSeconds = 10L,
+    },
+    ["suggesters"] = new object[]
+    {
+        new
+        {
+            name = "sg",
+            searchMode = "analyzingInfixMatching",
+            sourceFields = new object[]
+            {
+                "category",
+                "ownerId"
+            },
+        }
+    },
+    ["analyzers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenizer"] = "standard_v2",
+            ["tokenFilters"] = new object[]
+            {
+                "common_grams"
+            },
+            ["charFilters"] = new object[]
+            {
+                "html_strip"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomAnalyzer",
+            ["name"] = "tagsAnalyzer"
+        }
+    },
+    ["tokenizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["maxTokenLength"] = 100,
+            ["@odata.type"] = "#Microsoft.Azure.Search.StandardTokenizerV2",
+            ["name"] = "my_tokenizer"
+        }
+    },
+    ["tokenFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["preserveOriginal"] = false,
+            ["@odata.type"] = "#Microsoft.Azure.Search.AsciiFoldingTokenFilter",
+            ["name"] = "my_tokenFilter"
+        }
+    },
+    ["charFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["mappings"] = new object[]
+            {
+                ".=>,",
+                "_=>-"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.MappingCharFilter",
+            ["name"] = "my_mapping"
+        }
+    },
+    ["normalizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenFilters"] = new object[]
+            {
+                "my_tokenFilter"
+            },
+            ["charFilters"] = new object[]
+            {
+                "my_mapping"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomNormalizer",
+            ["name"] = "my_normalizer"
+        }
+    },
+    ["similarity"] = new Dictionary<string, object>
+    {
+        ["k1"] = 10,
+        ["b"] = 0.1,
+        ["@odata.type"] = "#Microsoft.Azure.Search.BM25Similarity"
+    },
+    ["semantic"] = new
+    {
+        defaultConfiguration = "testconfig",
+        configurations = new object[]
+        {
+            new
+            {
+                name = "testconfig",
+                prioritizedFields = new
+                {
+                    titleField = new
+                    {
+                        fieldName = "category",
+                    },
+                    prioritizedContentFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "description",
+                        }
+                    },
+                    prioritizedKeywordsFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "ownerId",
+                        }
+                    },
+                },
+                flightingOptIn = true,
+            }
+        },
+    },
+    ["vectorSearch"] = new
+    {
+        profiles = new object[]
+        {
+            new
+            {
+                name = "config1",
+                algorithm = "cosine",
+                vectorizer = "openai",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config2",
+                algorithm = "euclidean",
+                vectorizer = "custom-web-api",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config3",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQC",
+            },
+            new
+            {
+                name = "config4",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQWithoutOriginals",
+            }
+        },
+        algorithms = new object[]
+        {
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "cosine",
+                },
+                name = "cosine",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "euclidean",
+                },
+                name = "euclidean",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "dotProduct",
+                },
+                name = "dotProduct",
+                kind = "hnsw",
+            }
+        },
+        vectorizers = new object[]
+        {
+            new
+            {
+                azureOpenAIParameters = new
+                {
+                    resourceUri = "https://test-sample.openai.azure.com/",
+                    deploymentId = "model",
+                    apiKey = "api-key",
+                    modelName = "text-embedding-3-large",
+                },
+                name = "openai",
+                kind = "azureOpenAI",
+            },
+            new
+            {
+                customWebApiParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    httpHeaders = new
+                    {
+                        header1 = "value1",
+                        header2 = "value2",
+                    },
+                    httpMethod = "POST",
+                    timeout = "PT1M",
+                    authResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                    authIdentity = new Dictionary<string, object>
+                    {
+                        ["@odata.type"] = "#Microsoft.Azure.Search.DataNoneIdentity"
+                    },
+                },
+                name = "custom-web-api",
+                kind = "customWebApi",
+            },
+            new
+            {
+                amlParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    resourceId = "aml resource id",
+                    timeout = "PT1M",
+                    region = "aml region",
+                    modelName = "OpenAI-CLIP-Image-Text-Embeddings-vit-base-patch32",
+                },
+                name = "aml",
+                kind = "aml",
+            }
+        },
+        compressions = new object[]
+        {
+            new
+            {
+                scalarQuantizationParameters = new
+                {
+                    quantizedDataType = "int8",
+                },
+                name = "mySQ8",
+                kind = "scalarQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQC",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQWithoutOriginals",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "discardOriginals",
+                },
+                truncationDimension = 2,
+            }
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = await client.CreateAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+]]></code></example>
+    </member>
+    <member name="Create(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "temp-preview-test",
+    ["fields"] = new object[]
+    {
+        new
+        {
+            name = "id",
+            type = "Edm.String",
+            key = true,
+            sortable = true,
+        },
+        new
+        {
+            name = "vector1",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 20,
+            vectorSearchProfile = "config1",
+        },
+        new
+        {
+            name = "vector1b",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector2",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector3",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector22",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector4",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 32,
+            vectorSearchProfile = "config4",
+        },
+        new
+        {
+            name = "name",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "description",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "standard.lucene",
+        },
+        new
+        {
+            name = "category",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "ownerId",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "price",
+            type = "Edm.Double",
+            retrievable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+        }
+    },
+    ["scoringProfiles"] = new object[]
+    {
+        new
+        {
+            name = "stringFieldBoost",
+            text = new
+            {
+                weights = new
+                {
+                    name = 3,
+                    description = 1,
+                    category = 2,
+                    ownerId = 1,
+                },
+            },
+            functions = new object[]
+            {
+                new
+                {
+                    tag = new
+                    {
+                        tagsParameter = "categoryTag",
+                    },
+                    type = "tag",
+                    fieldName = "category",
+                    boost = 2,
+                }
+            },
+        }
+    },
+    ["defaultScoringProfile"] = "stringFieldBoost",
+    ["corsOptions"] = new
+    {
+        allowedOrigins = new object[]
+        {
+            "https://www.example.com/foo"
+        },
+        maxAgeInSeconds = 10L,
+    },
+    ["suggesters"] = new object[]
+    {
+        new
+        {
+            name = "sg",
+            searchMode = "analyzingInfixMatching",
+            sourceFields = new object[]
+            {
+                "category",
+                "ownerId"
+            },
+        }
+    },
+    ["analyzers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenizer"] = "standard_v2",
+            ["tokenFilters"] = new object[]
+            {
+                "common_grams"
+            },
+            ["charFilters"] = new object[]
+            {
+                "html_strip"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomAnalyzer",
+            ["name"] = "tagsAnalyzer"
+        }
+    },
+    ["tokenizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["maxTokenLength"] = 100,
+            ["@odata.type"] = "#Microsoft.Azure.Search.StandardTokenizerV2",
+            ["name"] = "my_tokenizer"
+        }
+    },
+    ["tokenFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["preserveOriginal"] = false,
+            ["@odata.type"] = "#Microsoft.Azure.Search.AsciiFoldingTokenFilter",
+            ["name"] = "my_tokenFilter"
+        }
+    },
+    ["charFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["mappings"] = new object[]
+            {
+                ".=>,",
+                "_=>-"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.MappingCharFilter",
+            ["name"] = "my_mapping"
+        }
+    },
+    ["normalizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenFilters"] = new object[]
+            {
+                "my_tokenFilter"
+            },
+            ["charFilters"] = new object[]
+            {
+                "my_mapping"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomNormalizer",
+            ["name"] = "my_normalizer"
+        }
+    },
+    ["similarity"] = new Dictionary<string, object>
+    {
+        ["k1"] = 10,
+        ["b"] = 0.1,
+        ["@odata.type"] = "#Microsoft.Azure.Search.BM25Similarity"
+    },
+    ["semantic"] = new
+    {
+        defaultConfiguration = "testconfig",
+        configurations = new object[]
+        {
+            new
+            {
+                name = "testconfig",
+                prioritizedFields = new
+                {
+                    titleField = new
+                    {
+                        fieldName = "category",
+                    },
+                    prioritizedContentFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "description",
+                        }
+                    },
+                    prioritizedKeywordsFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "ownerId",
+                        }
+                    },
+                },
+                flightingOptIn = true,
+            }
+        },
+    },
+    ["vectorSearch"] = new
+    {
+        profiles = new object[]
+        {
+            new
+            {
+                name = "config1",
+                algorithm = "cosine",
+                vectorizer = "openai",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config2",
+                algorithm = "euclidean",
+                vectorizer = "custom-web-api",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config3",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQC",
+            },
+            new
+            {
+                name = "config4",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQWithoutOriginals",
+            }
+        },
+        algorithms = new object[]
+        {
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "cosine",
+                },
+                name = "cosine",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "euclidean",
+                },
+                name = "euclidean",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "dotProduct",
+                },
+                name = "dotProduct",
+                kind = "hnsw",
+            }
+        },
+        vectorizers = new object[]
+        {
+            new
+            {
+                azureOpenAIParameters = new
+                {
+                    resourceUri = "https://test-sample.openai.azure.com/",
+                    deploymentId = "model",
+                    apiKey = "api-key",
+                    modelName = "text-embedding-3-large",
+                },
+                name = "openai",
+                kind = "azureOpenAI",
+            },
+            new
+            {
+                customWebApiParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    httpHeaders = new
+                    {
+                        header1 = "value1",
+                        header2 = "value2",
+                    },
+                    httpMethod = "POST",
+                    timeout = "PT1M",
+                    authResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                    authIdentity = new Dictionary<string, object>
+                    {
+                        ["@odata.type"] = "#Microsoft.Azure.Search.DataNoneIdentity"
+                    },
+                },
+                name = "custom-web-api",
+                kind = "customWebApi",
+            },
+            new
+            {
+                amlParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    resourceId = "aml resource id",
+                    timeout = "PT1M",
+                    region = "aml region",
+                    modelName = "OpenAI-CLIP-Image-Text-Embeddings-vit-base-patch32",
+                },
+                name = "aml",
+                kind = "aml",
+            }
+        },
+        compressions = new object[]
+        {
+            new
+            {
+                scalarQuantizationParameters = new
+                {
+                    quantizedDataType = "int8",
+                },
+                name = "mySQ8",
+                kind = "scalarQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQC",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQWithoutOriginals",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "discardOriginals",
+                },
+                truncationDimension = 2,
+            }
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = client.Create(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,SearchIndex,bool?,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+SearchIndex index = new SearchIndex("temp-preview-test", new SearchField[]
+{
+    new SearchField("id", SearchFieldDataType.String)
+    {
+        Key = true,
+        Sortable = true,
+    },
+    new SearchField("vector1", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 20,
+        VectorSearchProfile = "config1",
+    },
+    new SearchField("vector1b", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector2", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector3", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector22", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector4", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 32,
+        VectorSearchProfile = "config4",
+    },
+    new SearchField("name", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("description", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.StandardLucene,
+    },
+    new SearchField("category", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("ownerId", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("price", SearchFieldDataType.Double)
+    {
+        Retrievable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+    }
+})
+{
+    ScoringProfiles = {new ScoringProfile("stringFieldBoost")
+    {
+        Text = new TextWeights(new Dictionary<string, double>
+        {
+            ["name"] = 3,
+            ["description"] = 1,
+            ["category"] = 2,
+            ["ownerId"] = 1
+        }),
+        Functions = {new TagScoringFunction("category", 2, new TagScoringParameters("categoryTag"))},
+    }},
+    DefaultScoringProfile = "stringFieldBoost",
+    CorsOptions = new CorsOptions(new string[] { "https://www.example.com/foo" })
+    {
+        MaxAgeInSeconds = 10L,
+    },
+    Suggesters = { new SearchSuggester("sg", new string[] { "category", "ownerId" }) },
+    Analyzers = {new CustomAnalyzer("tagsAnalyzer", LexicalTokenizerName.Standard)
+    {
+        TokenFilters = {TokenFilterName.CommonGram},
+        CharFilters = {CharFilterName.HtmlStrip},
+    }},
+    Tokenizers = {new LuceneStandardTokenizerV2("my_tokenizer")
+    {
+        MaxTokenLength = 100,
+    }},
+    TokenFilters = {new AsciiFoldingTokenFilter("my_tokenFilter")
+    {
+        PreserveOriginal = false,
+    }},
+    CharFilters = { new MappingCharFilter("my_mapping", new string[] { ".=>,", "_=>-" }) },
+    Normalizers = {new CustomNormalizer("my_normalizer")
+    {
+        TokenFilters = {new TokenFilterName("my_tokenFilter")},
+        CharFilters = {new CharFilterName("my_mapping")},
+    }},
+    Similarity = new BM25SimilarityAlgorithm
+    {
+        K1 = 10,
+        B = 0.1,
+    },
+    Semantic = new SemanticSearch
+    {
+        DefaultConfiguration = "testconfig",
+        Configurations = {new SemanticConfiguration("testconfig", new SemanticPrioritizedFields
+        {
+            TitleField = new SemanticField("category"),
+            PrioritizedContentFields = {new SemanticField("description")},
+            PrioritizedKeywordsFields = {new SemanticField("ownerId")},
+        })
+        {
+            FlightingOptIn = true,
+        }},
+    },
+    VectorSearch = new VectorSearch
+    {
+        Profiles = {new VectorSearchProfile("config1", "cosine")
+        {
+            Vectorizer = "openai",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config2", "euclidean")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config3", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQC",
+        }, new VectorSearchProfile("config4", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQWithoutOriginals",
+        }},
+        Algorithms = {new HnswAlgorithmConfiguration("cosine")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Cosine,
+            },
+        }, new HnswAlgorithmConfiguration("euclidean")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Euclidean,
+            },
+        }, new HnswAlgorithmConfiguration("dotProduct")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.DotProduct,
+            },
+        }},
+        Vectorizers = {new AzureOpenAIVectorizer("openai")
+        {
+            AzureOpenAIParameters = new AzureOpenAIVectorizerParameters
+            {
+                ResourceUri = new Uri("https://test-sample.openai.azure.com/"),
+                DeploymentId = "model",
+                ApiKey = "api-key",
+                ModelName = AzureOpenAIModelName.TextEmbedding3Large,
+            },
+        }, new WebApiVectorizer("custom-web-api")
+        {
+            CustomWebApiParameters = new WebApiVectorizerParameters
+            {
+                Uri = new Uri("https://my-custom-endpoint.org/"),
+                HttpHeaders =
+                {
+                    ["header1"] = "value1",
+                    ["header2"] = "value2"
+                },
+                HttpMethod = "POST",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                AuthResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                AuthIdentity = new SearchIndexerDataNoneIdentity(),
+            },
+        }, new AMLVectorizer("aml")
+        {
+            AmlParameters = new AMLParameters(new Uri("https://my-custom-endpoint.org/"))
+            {
+                ResourceId = "aml resource id",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                Region = "aml region",
+                ModelName = AIFoundryModelCatalogName.OpenAICLIPImageTextEmbeddingsVitBasePatch32,
+            },
+        }},
+        Compressions = {new ScalarQuantizationCompression("mySQ8")
+        {
+            ScalarQuantizationParameters = new ScalarQuantizationParameters
+            {
+                QuantizedDataType = VectorSearchCompressionTarget.Int8,
+            },
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQC")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQWithoutOriginals")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.DiscardOriginals,
+            },
+            TruncationDimension = 2,
+        }},
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchIndex> response = await client.CreateOrUpdateAsync("temp-preview-test", index);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,SearchIndex,bool?,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdate.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+SearchIndex index = new SearchIndex("temp-preview-test", new SearchField[]
+{
+    new SearchField("id", SearchFieldDataType.String)
+    {
+        Key = true,
+        Sortable = true,
+    },
+    new SearchField("vector1", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 20,
+        VectorSearchProfile = "config1",
+    },
+    new SearchField("vector1b", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector2", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector3", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 5,
+        VectorSearchProfile = "config3",
+    },
+    new SearchField("vector22", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 10,
+        VectorSearchProfile = "config2",
+    },
+    new SearchField("vector4", new SearchFieldDataType("Collection(Edm.Single)"))
+    {
+        Retrievable = true,
+        Searchable = true,
+        Dimensions = 32,
+        VectorSearchProfile = "config4",
+    },
+    new SearchField("name", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("description", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.StandardLucene,
+    },
+    new SearchField("category", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("ownerId", SearchFieldDataType.String)
+    {
+        Retrievable = true,
+        Searchable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+        Analyzer = LexicalAnalyzerName.EnLucene,
+    },
+    new SearchField("price", SearchFieldDataType.Double)
+    {
+        Retrievable = true,
+        Filterable = true,
+        Sortable = true,
+        Facetable = true,
+    }
+})
+{
+    ScoringProfiles = {new ScoringProfile("stringFieldBoost")
+    {
+        Text = new TextWeights(new Dictionary<string, double>
+        {
+            ["name"] = 3,
+            ["description"] = 1,
+            ["category"] = 2,
+            ["ownerId"] = 1
+        }),
+        Functions = {new TagScoringFunction("category", 2, new TagScoringParameters("categoryTag"))},
+    }},
+    DefaultScoringProfile = "stringFieldBoost",
+    CorsOptions = new CorsOptions(new string[] { "https://www.example.com/foo" })
+    {
+        MaxAgeInSeconds = 10L,
+    },
+    Suggesters = { new SearchSuggester("sg", new string[] { "category", "ownerId" }) },
+    Analyzers = {new CustomAnalyzer("tagsAnalyzer", LexicalTokenizerName.Standard)
+    {
+        TokenFilters = {TokenFilterName.CommonGram},
+        CharFilters = {CharFilterName.HtmlStrip},
+    }},
+    Tokenizers = {new LuceneStandardTokenizerV2("my_tokenizer")
+    {
+        MaxTokenLength = 100,
+    }},
+    TokenFilters = {new AsciiFoldingTokenFilter("my_tokenFilter")
+    {
+        PreserveOriginal = false,
+    }},
+    CharFilters = { new MappingCharFilter("my_mapping", new string[] { ".=>,", "_=>-" }) },
+    Normalizers = {new CustomNormalizer("my_normalizer")
+    {
+        TokenFilters = {new TokenFilterName("my_tokenFilter")},
+        CharFilters = {new CharFilterName("my_mapping")},
+    }},
+    Similarity = new BM25SimilarityAlgorithm
+    {
+        K1 = 10,
+        B = 0.1,
+    },
+    Semantic = new SemanticSearch
+    {
+        DefaultConfiguration = "testconfig",
+        Configurations = {new SemanticConfiguration("testconfig", new SemanticPrioritizedFields
+        {
+            TitleField = new SemanticField("category"),
+            PrioritizedContentFields = {new SemanticField("description")},
+            PrioritizedKeywordsFields = {new SemanticField("ownerId")},
+        })
+        {
+            FlightingOptIn = true,
+        }},
+    },
+    VectorSearch = new VectorSearch
+    {
+        Profiles = {new VectorSearchProfile("config1", "cosine")
+        {
+            Vectorizer = "openai",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config2", "euclidean")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "mySQ8",
+        }, new VectorSearchProfile("config3", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQC",
+        }, new VectorSearchProfile("config4", "dotProduct")
+        {
+            Vectorizer = "custom-web-api",
+            Compression = "myBQWithoutOriginals",
+        }},
+        Algorithms = {new HnswAlgorithmConfiguration("cosine")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Cosine,
+            },
+        }, new HnswAlgorithmConfiguration("euclidean")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.Euclidean,
+            },
+        }, new HnswAlgorithmConfiguration("dotProduct")
+        {
+            HnswParameters = new HnswParameters
+            {
+                Metric = VectorSearchAlgorithmMetric.DotProduct,
+            },
+        }},
+        Vectorizers = {new AzureOpenAIVectorizer("openai")
+        {
+            AzureOpenAIParameters = new AzureOpenAIVectorizerParameters
+            {
+                ResourceUri = new Uri("https://test-sample.openai.azure.com/"),
+                DeploymentId = "model",
+                ApiKey = "api-key",
+                ModelName = AzureOpenAIModelName.TextEmbedding3Large,
+            },
+        }, new WebApiVectorizer("custom-web-api")
+        {
+            CustomWebApiParameters = new WebApiVectorizerParameters
+            {
+                Uri = new Uri("https://my-custom-endpoint.org/"),
+                HttpHeaders =
+                {
+                    ["header1"] = "value1",
+                    ["header2"] = "value2"
+                },
+                HttpMethod = "POST",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                AuthResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                AuthIdentity = new SearchIndexerDataNoneIdentity(),
+            },
+        }, new AMLVectorizer("aml")
+        {
+            AmlParameters = new AMLParameters(new Uri("https://my-custom-endpoint.org/"))
+            {
+                ResourceId = "aml resource id",
+                Timeout = XmlConvert.ToTimeSpan("PT1M"),
+                Region = "aml region",
+                ModelName = AIFoundryModelCatalogName.OpenAICLIPImageTextEmbeddingsVitBasePatch32,
+            },
+        }},
+        Compressions = {new ScalarQuantizationCompression("mySQ8")
+        {
+            ScalarQuantizationParameters = new ScalarQuantizationParameters
+            {
+                QuantizedDataType = VectorSearchCompressionTarget.Int8,
+            },
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQC")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.PreserveOriginals,
+            },
+            TruncationDimension = 2,
+        }, new BinaryQuantizationCompression("myBQWithoutOriginals")
+        {
+            RescoringOptions = new RescoringOptions
+            {
+                EnableRescoring = true,
+                DefaultOversampling = 10,
+                RescoreStorageMethod = VectorSearchCompressionRescoreStorageMethod.DiscardOriginals,
+            },
+            TruncationDimension = 2,
+        }},
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SearchIndex> response = client.CreateOrUpdate("temp-preview-test", index);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,RequestContent,bool?,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "temp-preview-test",
+    ["fields"] = new object[]
+    {
+        new
+        {
+            name = "id",
+            type = "Edm.String",
+            key = true,
+            sortable = true,
+        },
+        new
+        {
+            name = "vector1",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 20,
+            vectorSearchProfile = "config1",
+        },
+        new
+        {
+            name = "vector1b",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector2",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector3",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector22",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector4",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 32,
+            vectorSearchProfile = "config4",
+        },
+        new
+        {
+            name = "name",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "description",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "standard.lucene",
+        },
+        new
+        {
+            name = "category",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "ownerId",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "price",
+            type = "Edm.Double",
+            retrievable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+        }
+    },
+    ["scoringProfiles"] = new object[]
+    {
+        new
+        {
+            name = "stringFieldBoost",
+            text = new
+            {
+                weights = new
+                {
+                    name = 3,
+                    description = 1,
+                    category = 2,
+                    ownerId = 1,
+                },
+            },
+            functions = new object[]
+            {
+                new
+                {
+                    tag = new
+                    {
+                        tagsParameter = "categoryTag",
+                    },
+                    type = "tag",
+                    fieldName = "category",
+                    boost = 2,
+                }
+            },
+        }
+    },
+    ["defaultScoringProfile"] = "stringFieldBoost",
+    ["corsOptions"] = new
+    {
+        allowedOrigins = new object[]
+        {
+            "https://www.example.com/foo"
+        },
+        maxAgeInSeconds = 10L,
+    },
+    ["suggesters"] = new object[]
+    {
+        new
+        {
+            name = "sg",
+            searchMode = "analyzingInfixMatching",
+            sourceFields = new object[]
+            {
+                "category",
+                "ownerId"
+            },
+        }
+    },
+    ["analyzers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenizer"] = "standard_v2",
+            ["tokenFilters"] = new object[]
+            {
+                "common_grams"
+            },
+            ["charFilters"] = new object[]
+            {
+                "html_strip"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomAnalyzer",
+            ["name"] = "tagsAnalyzer"
+        }
+    },
+    ["tokenizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["maxTokenLength"] = 100,
+            ["@odata.type"] = "#Microsoft.Azure.Search.StandardTokenizerV2",
+            ["name"] = "my_tokenizer"
+        }
+    },
+    ["tokenFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["preserveOriginal"] = false,
+            ["@odata.type"] = "#Microsoft.Azure.Search.AsciiFoldingTokenFilter",
+            ["name"] = "my_tokenFilter"
+        }
+    },
+    ["charFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["mappings"] = new object[]
+            {
+                ".=>,",
+                "_=>-"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.MappingCharFilter",
+            ["name"] = "my_mapping"
+        }
+    },
+    ["normalizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenFilters"] = new object[]
+            {
+                "my_tokenFilter"
+            },
+            ["charFilters"] = new object[]
+            {
+                "my_mapping"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomNormalizer",
+            ["name"] = "my_normalizer"
+        }
+    },
+    ["similarity"] = new Dictionary<string, object>
+    {
+        ["k1"] = 10,
+        ["b"] = 0.1,
+        ["@odata.type"] = "#Microsoft.Azure.Search.BM25Similarity"
+    },
+    ["semantic"] = new
+    {
+        defaultConfiguration = "testconfig",
+        configurations = new object[]
+        {
+            new
+            {
+                name = "testconfig",
+                prioritizedFields = new
+                {
+                    titleField = new
+                    {
+                        fieldName = "category",
+                    },
+                    prioritizedContentFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "description",
+                        }
+                    },
+                    prioritizedKeywordsFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "ownerId",
+                        }
+                    },
+                },
+                flightingOptIn = true,
+            }
+        },
+    },
+    ["vectorSearch"] = new
+    {
+        profiles = new object[]
+        {
+            new
+            {
+                name = "config1",
+                algorithm = "cosine",
+                vectorizer = "openai",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config2",
+                algorithm = "euclidean",
+                vectorizer = "custom-web-api",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config3",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQC",
+            },
+            new
+            {
+                name = "config4",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQWithoutOriginals",
+            }
+        },
+        algorithms = new object[]
+        {
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "cosine",
+                },
+                name = "cosine",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "euclidean",
+                },
+                name = "euclidean",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "dotProduct",
+                },
+                name = "dotProduct",
+                kind = "hnsw",
+            }
+        },
+        vectorizers = new object[]
+        {
+            new
+            {
+                azureOpenAIParameters = new
+                {
+                    resourceUri = "https://test-sample.openai.azure.com/",
+                    deploymentId = "model",
+                    apiKey = "api-key",
+                    modelName = "text-embedding-3-large",
+                },
+                name = "openai",
+                kind = "azureOpenAI",
+            },
+            new
+            {
+                customWebApiParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    httpHeaders = new
+                    {
+                        header1 = "value1",
+                        header2 = "value2",
+                    },
+                    httpMethod = "POST",
+                    timeout = "PT1M",
+                    authResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                    authIdentity = new Dictionary<string, object>
+                    {
+                        ["@odata.type"] = "#Microsoft.Azure.Search.DataNoneIdentity"
+                    },
+                },
+                name = "custom-web-api",
+                kind = "customWebApi",
+            },
+            new
+            {
+                amlParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    resourceId = "aml resource id",
+                    timeout = "PT1M",
+                    region = "aml region",
+                    modelName = "OpenAI-CLIP-Image-Text-Embeddings-vit-base-patch32",
+                },
+                name = "aml",
+                kind = "aml",
+            }
+        },
+        compressions = new object[]
+        {
+            new
+            {
+                scalarQuantizationParameters = new
+                {
+                    quantizedDataType = "int8",
+                },
+                name = "mySQ8",
+                kind = "scalarQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQC",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQWithoutOriginals",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "discardOriginals",
+                },
+                truncationDimension = 2,
+            }
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = await client.CreateOrUpdateAsync("temp-preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,RequestContent,bool?,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "temp-preview-test",
+    ["fields"] = new object[]
+    {
+        new
+        {
+            name = "id",
+            type = "Edm.String",
+            key = true,
+            sortable = true,
+        },
+        new
+        {
+            name = "vector1",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 20,
+            vectorSearchProfile = "config1",
+        },
+        new
+        {
+            name = "vector1b",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector2",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector3",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 5,
+            vectorSearchProfile = "config3",
+        },
+        new
+        {
+            name = "vector22",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 10,
+            vectorSearchProfile = "config2",
+        },
+        new
+        {
+            name = "vector4",
+            type = "Collection(Edm.Single)",
+            retrievable = true,
+            searchable = true,
+            dimensions = 32,
+            vectorSearchProfile = "config4",
+        },
+        new
+        {
+            name = "name",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "description",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "standard.lucene",
+        },
+        new
+        {
+            name = "category",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "ownerId",
+            type = "Edm.String",
+            retrievable = true,
+            searchable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+            analyzer = "en.lucene",
+        },
+        new
+        {
+            name = "price",
+            type = "Edm.Double",
+            retrievable = true,
+            filterable = true,
+            sortable = true,
+            facetable = true,
+        }
+    },
+    ["scoringProfiles"] = new object[]
+    {
+        new
+        {
+            name = "stringFieldBoost",
+            text = new
+            {
+                weights = new
+                {
+                    name = 3,
+                    description = 1,
+                    category = 2,
+                    ownerId = 1,
+                },
+            },
+            functions = new object[]
+            {
+                new
+                {
+                    tag = new
+                    {
+                        tagsParameter = "categoryTag",
+                    },
+                    type = "tag",
+                    fieldName = "category",
+                    boost = 2,
+                }
+            },
+        }
+    },
+    ["defaultScoringProfile"] = "stringFieldBoost",
+    ["corsOptions"] = new
+    {
+        allowedOrigins = new object[]
+        {
+            "https://www.example.com/foo"
+        },
+        maxAgeInSeconds = 10L,
+    },
+    ["suggesters"] = new object[]
+    {
+        new
+        {
+            name = "sg",
+            searchMode = "analyzingInfixMatching",
+            sourceFields = new object[]
+            {
+                "category",
+                "ownerId"
+            },
+        }
+    },
+    ["analyzers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenizer"] = "standard_v2",
+            ["tokenFilters"] = new object[]
+            {
+                "common_grams"
+            },
+            ["charFilters"] = new object[]
+            {
+                "html_strip"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomAnalyzer",
+            ["name"] = "tagsAnalyzer"
+        }
+    },
+    ["tokenizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["maxTokenLength"] = 100,
+            ["@odata.type"] = "#Microsoft.Azure.Search.StandardTokenizerV2",
+            ["name"] = "my_tokenizer"
+        }
+    },
+    ["tokenFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["preserveOriginal"] = false,
+            ["@odata.type"] = "#Microsoft.Azure.Search.AsciiFoldingTokenFilter",
+            ["name"] = "my_tokenFilter"
+        }
+    },
+    ["charFilters"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["mappings"] = new object[]
+            {
+                ".=>,",
+                "_=>-"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.MappingCharFilter",
+            ["name"] = "my_mapping"
+        }
+    },
+    ["normalizers"] = new object[]
+    {
+        new Dictionary<string, object>
+        {
+            ["tokenFilters"] = new object[]
+            {
+                "my_tokenFilter"
+            },
+            ["charFilters"] = new object[]
+            {
+                "my_mapping"
+            },
+            ["@odata.type"] = "#Microsoft.Azure.Search.CustomNormalizer",
+            ["name"] = "my_normalizer"
+        }
+    },
+    ["similarity"] = new Dictionary<string, object>
+    {
+        ["k1"] = 10,
+        ["b"] = 0.1,
+        ["@odata.type"] = "#Microsoft.Azure.Search.BM25Similarity"
+    },
+    ["semantic"] = new
+    {
+        defaultConfiguration = "testconfig",
+        configurations = new object[]
+        {
+            new
+            {
+                name = "testconfig",
+                prioritizedFields = new
+                {
+                    titleField = new
+                    {
+                        fieldName = "category",
+                    },
+                    prioritizedContentFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "description",
+                        }
+                    },
+                    prioritizedKeywordsFields = new object[]
+                    {
+                        new
+                        {
+                            fieldName = "ownerId",
+                        }
+                    },
+                },
+                flightingOptIn = true,
+            }
+        },
+    },
+    ["vectorSearch"] = new
+    {
+        profiles = new object[]
+        {
+            new
+            {
+                name = "config1",
+                algorithm = "cosine",
+                vectorizer = "openai",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config2",
+                algorithm = "euclidean",
+                vectorizer = "custom-web-api",
+                compression = "mySQ8",
+            },
+            new
+            {
+                name = "config3",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQC",
+            },
+            new
+            {
+                name = "config4",
+                algorithm = "dotProduct",
+                vectorizer = "custom-web-api",
+                compression = "myBQWithoutOriginals",
+            }
+        },
+        algorithms = new object[]
+        {
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "cosine",
+                },
+                name = "cosine",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "euclidean",
+                },
+                name = "euclidean",
+                kind = "hnsw",
+            },
+            new
+            {
+                hnswParameters = new
+                {
+                    metric = "dotProduct",
+                },
+                name = "dotProduct",
+                kind = "hnsw",
+            }
+        },
+        vectorizers = new object[]
+        {
+            new
+            {
+                azureOpenAIParameters = new
+                {
+                    resourceUri = "https://test-sample.openai.azure.com/",
+                    deploymentId = "model",
+                    apiKey = "api-key",
+                    modelName = "text-embedding-3-large",
+                },
+                name = "openai",
+                kind = "azureOpenAI",
+            },
+            new
+            {
+                customWebApiParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    httpHeaders = new
+                    {
+                        header1 = "value1",
+                        header2 = "value2",
+                    },
+                    httpMethod = "POST",
+                    timeout = "PT1M",
+                    authResourceId = "api://f89d1c93-58a7-4b07-9a5b-5f89048b927b",
+                    authIdentity = new Dictionary<string, object>
+                    {
+                        ["@odata.type"] = "#Microsoft.Azure.Search.DataNoneIdentity"
+                    },
+                },
+                name = "custom-web-api",
+                kind = "customWebApi",
+            },
+            new
+            {
+                amlParameters = new
+                {
+                    uri = "https://my-custom-endpoint.org/",
+                    resourceId = "aml resource id",
+                    timeout = "PT1M",
+                    region = "aml region",
+                    modelName = "OpenAI-CLIP-Image-Text-Embeddings-vit-base-patch32",
+                },
+                name = "aml",
+                kind = "aml",
+            }
+        },
+        compressions = new object[]
+        {
+            new
+            {
+                scalarQuantizationParameters = new
+                {
+                    quantizedDataType = "int8",
+                },
+                name = "mySQ8",
+                kind = "scalarQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQC",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "preserveOriginals",
+                },
+                truncationDimension = 2,
+            },
+            new
+            {
+                name = "myBQWithoutOriginals",
+                kind = "binaryQuantization",
+                rescoringOptions = new
+                {
+                    enableRescoring = true,
+                    defaultOversampling = 10,
+                    rescoreStorageMethod = "discardOriginals",
+                },
+                truncationDimension = 2,
+            }
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = client.CreateOrUpdate("temp-preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response response = await client.DeleteAsync("temp-preview-test");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response response = client.Delete("temp-preview-test");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetIndexAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndexAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response<SearchIndex> response = await client.GetIndexAsync("preview-test");
+]]></code></example>
+    </member>
+    <member name="GetIndex(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndex.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response<SearchIndex> response = client.GetIndex("preview-test");
+]]></code></example>
+    </member>
+    <member name="GetIndexAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndexAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response response = await client.GetIndexAsync("preview-test", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+]]></code></example>
+    </member>
+    <member name="GetIndex(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndex and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response response = client.GetIndex("preview-test", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+]]></code></example>
+    </member>
+    <member name="GetStatisticsAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetStatisticsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response<GetIndexStatisticsResult> response = await client.GetStatisticsAsync("preview-test");
+]]></code></example>
+    </member>
+    <member name="GetStatistics(string,CancellationToken)">
+      <example>
+This sample shows how to call GetStatistics.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response<GetIndexStatisticsResult> response = client.GetStatistics("preview-test");
+]]></code></example>
+    </member>
+    <member name="GetStatisticsAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetStatisticsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response response = await client.GetStatisticsAsync("preview-test", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("documentCount").ToString());
+Console.WriteLine(result.GetProperty("storageSize").ToString());
+Console.WriteLine(result.GetProperty("vectorIndexSize").ToString());
+]]></code></example>
+    </member>
+    <member name="GetStatistics(string,RequestContext)">
+      <example>
+This sample shows how to call GetStatistics and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+Response response = client.GetStatistics("preview-test", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("documentCount").ToString());
+Console.WriteLine(result.GetProperty("storageSize").ToString());
+Console.WriteLine(result.GetProperty("vectorIndexSize").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeAsync(string,AnalyzeRequest,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+AnalyzeRequest request = new AnalyzeRequest("Text to analyze")
+{
+    Analyzer = LexicalAnalyzerName.ArLucene,
+};
+Response<AnalyzeResult> response = await client.AnalyzeAsync("preview-test", request);
+]]></code></example>
+    </member>
+    <member name="Analyze(string,AnalyzeRequest,CancellationToken)">
+      <example>
+This sample shows how to call Analyze.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+AnalyzeRequest request = new AnalyzeRequest("Text to analyze")
+{
+    Analyzer = LexicalAnalyzerName.ArLucene,
+};
+Response<AnalyzeResult> response = client.Analyze("preview-test", request);
+]]></code></example>
+    </member>
+    <member name="AnalyzeAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "Text to analyze",
+    analyzer = "ar.lucene",
+});
+Response response = await client.AnalyzeAsync("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("token").ToString());
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("startOffset").ToString());
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("endOffset").ToString());
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("position").ToString());
+]]></code></example>
+    </member>
+    <member name="Analyze(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Analyze and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    text = "Text to analyze",
+    analyzer = "ar.lucene",
+});
+Response response = client.Analyze("preview-test", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("token").ToString());
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("startOffset").ToString());
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("endOffset").ToString());
+Console.WriteLine(result.GetProperty("tokens")[0].GetProperty("position").ToString());
+]]></code></example>
+    </member>
+    <member name="GetIndexesAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndexesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+await foreach (SearchIndex item in client.GetIndexesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetIndexes(string,CancellationToken)">
+      <example>
+This sample shows how to call GetIndexes.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+foreach (SearchIndex item in client.GetIndexes())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetIndexesAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndexesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+await foreach (BinaryData item in client.GetIndexesAsync(null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetIndexes(string,RequestContext)">
+      <example>
+This sample shows how to call GetIndexes and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Indexes client = new SearchClient(endpoint, credential).GetIndexesClient();
+
+foreach (BinaryData item in client.GetIndexes(null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("fields")[0].GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("fields")[0].GetProperty("type").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>

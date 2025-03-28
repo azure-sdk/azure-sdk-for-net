@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetServiceStatisticsAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetServiceStatisticsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response<SearchServiceStatistics> response = await client.GetServiceStatisticsAsync();
+]]></code></example>
+    </member>
+    <member name="GetServiceStatistics(CancellationToken)">
+      <example>
+This sample shows how to call GetServiceStatistics.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response<SearchServiceStatistics> response = client.GetServiceStatistics();
+]]></code></example>
+    </member>
+    <member name="GetServiceStatisticsAsync(RequestContext)">
+      <example>
+This sample shows how to call GetServiceStatisticsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response response = await client.GetServiceStatisticsAsync(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("counters").GetProperty("aliasesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("documentCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexersCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("dataSourcesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("storageSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("synonymMaps").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("skillsetCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("vectorIndexSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("limits").ToString());
+]]></code></example>
+    </member>
+    <member name="GetServiceStatistics(RequestContext)">
+      <example>
+This sample shows how to call GetServiceStatistics and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+Response response = client.GetServiceStatistics(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("counters").GetProperty("aliasesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("documentCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("indexersCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("dataSourcesCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("storageSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("synonymMaps").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("skillsetCount").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("counters").GetProperty("vectorIndexSize").GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("limits").ToString());
+]]></code></example>
+    </member>
+    <member name="GetIndexStatsSummaryAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetIndexStatsSummaryAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+await foreach (IndexStatisticsSummary item in client.GetIndexStatsSummaryAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetIndexStatsSummary(CancellationToken)">
+      <example>
+This sample shows how to call GetIndexStatsSummary.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+foreach (IndexStatisticsSummary item in client.GetIndexStatsSummary())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetIndexStatsSummaryAsync(RequestContext)">
+      <example>
+This sample shows how to call GetIndexStatsSummaryAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetIndexStatsSummaryAsync(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("documentCount").ToString());
+    Console.WriteLine(result.GetProperty("storageSize").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetIndexStatsSummary(RequestContext)">
+      <example>
+This sample shows how to call GetIndexStatsSummary and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SearchClient client = new SearchClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetIndexStatsSummary(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("documentCount").ToString());
+    Console.WriteLine(result.GetProperty("storageSize").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>

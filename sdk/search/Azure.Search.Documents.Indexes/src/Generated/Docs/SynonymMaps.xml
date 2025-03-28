@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateAsync(string,SynonymMap,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+SynonymMap synonymMap = new SynonymMap("mysynonymmap", "United States, United States of America, USA\nWashington, Wash. => WA")
+{
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "https://myKeyVault.vault.azure.net")
+    {
+        KeyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SynonymMap> response = await client.CreateOrUpdateAsync("mysynonymmap", synonymMap);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,SynonymMap,MatchConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdate.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+SynonymMap synonymMap = new SynonymMap("mysynonymmap", "United States, United States of America, USA\nWashington, Wash. => WA")
+{
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "https://myKeyVault.vault.azure.net")
+    {
+        KeyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SynonymMap> response = client.CreateOrUpdate("mysynonymmap", synonymMap);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,RequestContent,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "mysynonymmap",
+    ["format"] = "solr",
+    ["synonyms"] = "United States, United States of America, USA\nWashington, Wash. => WA",
+    ["encryptionKey"] = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = await client.CreateOrUpdateAsync("mysynonymmap", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,RequestContent,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "mysynonymmap",
+    ["format"] = "solr",
+    ["synonyms"] = "United States, United States of America, USA\nWashington, Wash. => WA",
+    ["encryptionKey"] = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = client.CreateOrUpdate("mysynonymmap", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response response = await client.DeleteAsync("tempsynonymmap");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,MatchConditions,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response response = client.Delete("tempsynonymmap");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetSynonymMapAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSynonymMapAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response<SynonymMap> response = await client.GetSynonymMapAsync("mysynonymmap");
+]]></code></example>
+    </member>
+    <member name="GetSynonymMap(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSynonymMap.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response<SynonymMap> response = client.GetSynonymMap("mysynonymmap");
+]]></code></example>
+    </member>
+    <member name="GetSynonymMapAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetSynonymMapAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response response = await client.GetSynonymMapAsync("mysynonymmap", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSynonymMap(string,RequestContext)">
+      <example>
+This sample shows how to call GetSynonymMap and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response response = client.GetSynonymMap("mysynonymmap", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSynonymMapsAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSynonymMapsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response<ListSynonymMapsResult> response = await client.GetSynonymMapsAsync();
+]]></code></example>
+    </member>
+    <member name="GetSynonymMaps(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSynonymMaps.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response<ListSynonymMapsResult> response = client.GetSynonymMaps();
+]]></code></example>
+    </member>
+    <member name="GetSynonymMapsAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetSynonymMapsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response response = await client.GetSynonymMapsAsync(null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSynonymMaps(string,RequestContext)">
+      <example>
+This sample shows how to call GetSynonymMaps and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+Response response = client.GetSynonymMaps(null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateAsync(SynonymMap,CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+SynonymMap synonymMap = new SynonymMap("tempsynonymmap", "United States, United States of America, USA\nWashington, Wash. => WA")
+{
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "https://myKeyVault.vault.azure.net")
+    {
+        KeyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SynonymMap> response = await client.CreateAsync(synonymMap);
+]]></code></example>
+    </member>
+    <member name="Create(SynonymMap,CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+SynonymMap synonymMap = new SynonymMap("tempsynonymmap", "United States, United States of America, USA\nWashington, Wash. => WA")
+{
+    EncryptionKey = new SearchResourceEncryptionKey("myUserManagedEncryptionKey-createdinAzureKeyVault", "https://myKeyVault.vault.azure.net")
+    {
+        KeyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        AccessCredentials = new AzureActiveDirectoryApplicationCredentials("00000000-0000-0000-0000-000000000000")
+        {
+            ApplicationSecret = "<applicationSecret>",
+        },
+    },
+    ETag = "0x1234568AE7E58A1",
+};
+Response<SynonymMap> response = client.Create(synonymMap);
+]]></code></example>
+    </member>
+    <member name="CreateAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "tempsynonymmap",
+    ["format"] = "solr",
+    ["synonyms"] = "United States, United States of America, USA\nWashington, Wash. => WA",
+    ["encryptionKey"] = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = await client.CreateAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+    <member name="Create(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+SynonymMaps client = new SearchClient(endpoint, credential).GetSynonymMapsClient();
+
+using RequestContent content = RequestContent.Create(new Dictionary<string, object>
+{
+    ["name"] = "tempsynonymmap",
+    ["format"] = "solr",
+    ["synonyms"] = "United States, United States of America, USA\nWashington, Wash. => WA",
+    ["encryptionKey"] = new
+    {
+        keyVaultKeyName = "myUserManagedEncryptionKey-createdinAzureKeyVault",
+        keyVaultKeyVersion = "myKeyVersion-32charAlphaNumericString",
+        keyVaultUri = "https://myKeyVault.vault.azure.net",
+        accessCredentials = new
+        {
+            applicationId = "00000000-0000-0000-0000-000000000000",
+            applicationSecret = "<applicationSecret>",
+        },
+    },
+    ["@odata.etag"] = "0x1234568AE7E58A1"
+});
+Response response = client.Create(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("format").ToString());
+Console.WriteLine(result.GetProperty("synonyms").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
