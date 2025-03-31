@@ -85,6 +85,7 @@ namespace Azure.AI.Projects
                     case "fabric_dataagent": return RunStepMicrosoftFabricToolCall.DeserializeRunStepMicrosoftFabricToolCall(element, options);
                     case "file_search": return RunStepFileSearchToolCall.DeserializeRunStepFileSearchToolCall(element, options);
                     case "function": return RunStepFunctionToolCall.DeserializeRunStepFunctionToolCall(element, options);
+                    case "openapi": return RunStepOpenAPIToolCall.DeserializeRunStepOpenAPIToolCall(element, options);
                     case "sharepoint_grounding": return RunStepSharepointToolCall.DeserializeRunStepSharepointToolCall(element, options);
                 }
             }
