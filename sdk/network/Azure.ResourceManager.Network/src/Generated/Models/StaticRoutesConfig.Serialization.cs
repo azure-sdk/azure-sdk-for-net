@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.Network.Models
                 throw new FormatException($"The model {nameof(StaticRoutesConfig)} does not support writing '{format}' format.");
             }
 
-            if (options.Format != "W" && Optional.IsDefined(PropagateStaticRoutes))
+            if (Optional.IsDefined(PropagateStaticRoutes))
             {
                 writer.WritePropertyName("propagateStaticRoutes"u8);
                 writer.WriteBooleanValue(PropagateStaticRoutes.Value);
