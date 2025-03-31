@@ -57,6 +57,11 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("password"u8);
                 JsonSerializer.Serialize(writer, Password);
             }
+            if (Optional.IsDefined(ThriftTransportProtocol))
+            {
+                writer.WritePropertyName("thriftTransportProtocol"u8);
+                writer.WriteStringValue(ThriftTransportProtocol.Value.ToString());
+            }
             if (Optional.IsDefined(EnableSsl))
             {
                 writer.WritePropertyName("enableSsl"u8);
@@ -133,6 +138,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             ImpalaAuthenticationType authenticationType = default;
             DataFactoryElement<string> username = default;
             DataFactorySecret password = default;
+            ImpalaThriftTransportProtocol? thriftTransportProtocol = default;
             DataFactoryElement<bool> enableSsl = default;
             DataFactoryElement<string> trustedCertPath = default;
             DataFactoryElement<bool> useSystemTrustStore = default;
@@ -248,6 +254,15 @@ namespace Azure.ResourceManager.DataFactory.Models
                             password = JsonSerializer.Deserialize<DataFactorySecret>(property0.Value.GetRawText());
                             continue;
                         }
+                        if (property0.NameEquals("thriftTransportProtocol"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            thriftTransportProtocol = new ImpalaThriftTransportProtocol(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("enableSsl"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -317,6 +332,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 authenticationType,
                 username,
                 password,
+                thriftTransportProtocol,
                 enableSsl,
                 trustedCertPath,
                 useSystemTrustStore,
