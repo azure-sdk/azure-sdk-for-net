@@ -22,8 +22,10 @@ namespace Azure.ResourceManager.Terraform.Models
         /// <param name="query"> The ARG where predicate. Note that you can combine multiple conditions in one `where` predicate, e.g. `resourceGroup =~ "my-rg" and type =~ "microsoft.network/virtualnetworks"`. </param>
         /// <param name="namePattern"> The name pattern of the Terraform resources. </param>
         /// <param name="isRecursive"> Whether to recursively list child resources of the query result. </param>
+        /// <param name="table"> The ARG table name. </param>
+        /// <param name="authorizationScopeFilter"> The ARG Scope Filter parameter. </param>
         /// <returns> A new <see cref="Models.ExportQueryTerraform"/> instance for mocking. </returns>
-        public static ExportQueryTerraform ExportQueryTerraform(TargetTerraformProvider? targetProvider = null, bool? isOutputFullPropertiesEnabled = null, bool? isMaskSensitiveEnabled = null, string query = null, string namePattern = null, bool? isRecursive = null)
+        public static ExportQueryTerraform ExportQueryTerraform(TargetTerraformProvider? targetProvider = null, bool? isOutputFullPropertiesEnabled = null, bool? isMaskSensitiveEnabled = null, string query = null, string namePattern = null, bool? isRecursive = null, string table = null, AuthorizationScopeFilter? authorizationScopeFilter = null)
         {
             return new ExportQueryTerraform(
                 CommonExportType.ExportQuery,
@@ -33,7 +35,9 @@ namespace Azure.ResourceManager.Terraform.Models
                 serializedAdditionalRawData: null,
                 query,
                 namePattern,
-                isRecursive);
+                isRecursive,
+                table,
+                authorizationScopeFilter);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ExportResourceGroupTerraform"/>. </summary>
@@ -79,15 +83,16 @@ namespace Azure.ResourceManager.Terraform.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.TerraformExportResult"/>. </summary>
         /// <param name="configuration"> The Terraform configuration content. </param>
+        /// <param name="import"> The Terraform import blocks for the current export, which users can use to run "terraform plan" with to import the resources. </param>
         /// <param name="skippedResourceIds"> A list of Azure resources which are not exported to Terraform due to there is no corresponding resources in Terraform. </param>
         /// <param name="errors"> A list of errors derived during exporting each resource. </param>
         /// <returns> A new <see cref="Models.TerraformExportResult"/> instance for mocking. </returns>
-        public static TerraformExportResult TerraformExportResult(string configuration = null, IEnumerable<ResourceIdentifier> skippedResourceIds = null, IEnumerable<ResponseError> errors = null)
+        public static TerraformExportResult TerraformExportResult(string configuration = null, string import = null, IEnumerable<ResourceIdentifier> skippedResourceIds = null, IEnumerable<ResponseError> errors = null)
         {
             skippedResourceIds ??= new List<ResourceIdentifier>();
             errors ??= new List<ResponseError>();
 
-            return new TerraformExportResult(configuration, skippedResourceIds?.ToList(), errors?.ToList(), serializedAdditionalRawData: null);
+            return new TerraformExportResult(configuration, import, skippedResourceIds?.ToList(), errors?.ToList(), serializedAdditionalRawData: null);
         }
     }
 }
