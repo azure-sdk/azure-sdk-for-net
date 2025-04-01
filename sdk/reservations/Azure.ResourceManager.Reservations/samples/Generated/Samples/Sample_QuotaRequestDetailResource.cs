@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.Reservations.Samples
             // for more information of creating QuotaRequestDetailResource, please refer to the document of QuotaRequestDetailResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string providerId = "Microsoft.Compute";
-            AzureLocation location = new AzureLocation("eastus");
+            AzureLocation location = new AzureLocation("westus");
             Guid id = Guid.Parse("2B5C8515-37D8-4B6A-879B-CD641A2CF605");
             ResourceIdentifier quotaRequestDetailResourceId = QuotaRequestDetailResource.CreateResourceIdentifier(subscriptionId, providerId, location, id);
             QuotaRequestDetailResource quotaRequestDetail = client.GetQuotaRequestDetailResource(quotaRequestDetailResourceId);

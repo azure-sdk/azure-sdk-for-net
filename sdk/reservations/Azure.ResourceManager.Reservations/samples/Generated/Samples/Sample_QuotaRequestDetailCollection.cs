@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Reservations.Samples
 
             // get the collection of this QuotaRequestDetailResource
             string providerId = "Microsoft.Compute";
-            AzureLocation location = new AzureLocation("eastus");
+            AzureLocation location = new AzureLocation("westus");
             QuotaRequestDetailCollection collection = subscriptionResource.GetQuotaRequestDetails(providerId, location);
 
             // invoke the operation
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.Reservations.Samples
 
             // get the collection of this QuotaRequestDetailResource
             string providerId = "Microsoft.Compute";
-            AzureLocation location = new AzureLocation("eastus");
+            AzureLocation location = new AzureLocation("westus");
             QuotaRequestDetailCollection collection = subscriptionResource.GetQuotaRequestDetails(providerId, location);
 
             // invoke the operation
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager.Reservations.Samples
 
             // get the collection of this QuotaRequestDetailResource
             string providerId = "Microsoft.Compute";
-            AzureLocation location = new AzureLocation("eastus");
+            AzureLocation location = new AzureLocation("westus");
             QuotaRequestDetailCollection collection = subscriptionResource.GetQuotaRequestDetails(providerId, location);
 
             // invoke the operation
