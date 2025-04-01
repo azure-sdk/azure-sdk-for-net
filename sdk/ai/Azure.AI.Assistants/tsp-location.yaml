@@ -1,0 +1,4 @@
+directory: specification/ai/Azure.AI.Assistants
+commit: 84edb38067b63fa1b126fbeeb036adf95165013b
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
