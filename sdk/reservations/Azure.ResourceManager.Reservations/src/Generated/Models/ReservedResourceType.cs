@@ -48,6 +48,7 @@ namespace Azure.ResourceManager.Reservations.Models
         private const string AzureFilesValue = "AzureFiles";
         private const string SqlEdgeValue = "SqlEdge";
         private const string VirtualMachineSoftwareValue = "VirtualMachineSoftware";
+        private const string OpenAiptuValue = "OpenAIPTU";
 
         /// <summary> VirtualMachines. </summary>
         public static ReservedResourceType VirtualMachines { get; } = new ReservedResourceType(VirtualMachinesValue);
@@ -101,6 +102,8 @@ namespace Azure.ResourceManager.Reservations.Models
         public static ReservedResourceType SqlEdge { get; } = new ReservedResourceType(SqlEdgeValue);
         /// <summary> VirtualMachineSoftware. </summary>
         public static ReservedResourceType VirtualMachineSoftware { get; } = new ReservedResourceType(VirtualMachineSoftwareValue);
+        /// <summary> OpenAIPTU. </summary>
+        public static ReservedResourceType OpenAiptu { get; } = new ReservedResourceType(OpenAiptuValue);
         /// <summary> Determines if two <see cref="ReservedResourceType"/> values are the same. </summary>
         public static bool operator ==(ReservedResourceType left, ReservedResourceType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ReservedResourceType"/> values are not the same. </summary>

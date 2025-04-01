@@ -1530,6 +1530,7 @@ namespace Azure.ResourceManager.Reservations.Models
         public static Azure.ResourceManager.Reservations.Models.ReservedResourceType MariaDB { get { throw null; } }
         public static Azure.ResourceManager.Reservations.Models.ReservedResourceType MySql { get { throw null; } }
         public static Azure.ResourceManager.Reservations.Models.ReservedResourceType NetAppStorage { get { throw null; } }
+        public static Azure.ResourceManager.Reservations.Models.ReservedResourceType OpenAiptu { get { throw null; } }
         public static Azure.ResourceManager.Reservations.Models.ReservedResourceType PostgreSql { get { throw null; } }
         public static Azure.ResourceManager.Reservations.Models.ReservedResourceType RedHat { get { throw null; } }
         public static Azure.ResourceManager.Reservations.Models.ReservedResourceType RedHatOsa { get { throw null; } }
