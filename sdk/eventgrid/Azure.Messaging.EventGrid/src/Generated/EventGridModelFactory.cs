@@ -3916,6 +3916,75 @@ namespace Azure.Messaging.EventGrid
             return new ApiManagementGatewayApiRemovedEventData(resourceUri);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has opened. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerOpenedEventData ApiManagementCircuitBreakerOpenedEventData(string backendName = null, ApiManagementCircuitBreakerInfo circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerOpenedEventData(backendName, circuitBreaker);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerInfo"/>. </summary>
+        /// <param name="rules"> Overview of all configured rules and respective details. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerInfo"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerInfo ApiManagementCircuitBreakerInfo(object rules = null)
+        {
+            return new ApiManagementCircuitBreakerInfo(rules);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has closed. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerClosedEventData ApiManagementCircuitBreakerClosedEventData(string backendName = null, ApiManagementCircuitBreakerInfo circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerClosedEventData(backendName, circuitBreaker);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a gateway token that is near expiry for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenNearExpiryEventData ApiManagementGatewayTokenNearExpiryEventData(ApiManagementGatewayInfo gatewayInfo = null, ApiManagementGatewayTokenNearExpiryInfo tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenNearExpiryEventData(gatewayInfo, tokenInfo);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayInfo"/>. </summary>
+        /// <param name="gatewayId"> Id of Gateway that is used to deploy the gateway to get the configuration for. This is the ARM resource ID referenced in the Azure API Management instance. </param>
+        /// <param name="instanceId"> Unique instance ID of the deployed gateway. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayInfo"/> instance for mocking. </returns>
+        public static ApiManagementGatewayInfo ApiManagementGatewayInfo(string gatewayId = null, string instanceId = null)
+        {
+            return new ApiManagementGatewayInfo(gatewayId, instanceId);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryInfo"/>. </summary>
+        /// <param name="expiresAtUtc"> Timestamp when the gateway token will expire. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryInfo"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenNearExpiryInfo ApiManagementGatewayTokenNearExpiryInfo(DateTimeOffset? expiresAtUtc = null)
+        {
+            return new ApiManagementGatewayTokenNearExpiryInfo(expiresAtUtc);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a an expired gateway token for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenExpiredEventData ApiManagementGatewayTokenExpiredEventData(ApiManagementGatewayInfo gatewayInfo = null, ApiManagementExpiredGatewayTokenInfo tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenExpiredEventData(gatewayInfo, tokenInfo);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementExpiredGatewayTokenInfo"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token has expired. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementExpiredGatewayTokenInfo"/> instance for mocking. </returns>
+        public static ApiManagementExpiredGatewayTokenInfo ApiManagementExpiredGatewayTokenInfo(DateTimeOffset? expiredAtUtc = null)
+        {
+            return new ApiManagementExpiredGatewayTokenInfo(expiredAtUtc);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.HealthcareFhirResourceCreatedEventData"/>. </summary>
         /// <param name="fhirResourceType"> Type of HL7 FHIR resource. </param>
         /// <param name="fhirServiceHostName"> Domain name of FHIR account for this resource. </param>
