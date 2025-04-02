@@ -55,12 +55,11 @@ namespace Azure.AI.Language.Conversations.Authoring
     }
     public partial class ConversationAnalysisAuthoringClientOptions : Azure.Core.ClientOptions
     {
-        public ConversationAnalysisAuthoringClientOptions(Azure.AI.Language.Conversations.Authoring.ConversationAnalysisAuthoringClientOptions.ServiceVersion version = Azure.AI.Language.Conversations.Authoring.ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2024_11_15_Preview) { }
+        public ConversationAnalysisAuthoringClientOptions(Azure.AI.Language.Conversations.Authoring.ConversationAnalysisAuthoringClientOptions.ServiceVersion version = Azure.AI.Language.Conversations.Authoring.ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_05_01) { }
         public enum ServiceVersion
         {
             V2023_04_01 = 1,
-            V2023_04_15_Preview = 2,
-            V2024_11_15_Preview = 3,
+            V2025_05_01 = 2,
         }
     }
     public static partial class ConversationAnalysisAuthoringModelFactory
