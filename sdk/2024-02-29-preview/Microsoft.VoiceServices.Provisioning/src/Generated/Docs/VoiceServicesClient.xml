@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetNumbersAsync(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+await foreach (NumberResource item in client.GetNumbersAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbers(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+foreach (NumberResource item in client.GetNumbers())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbersAsync(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbersAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetNumbersAsync(null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbers(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbers and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+VoiceServicesClient client = new VoiceServicesClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetNumbers(null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
