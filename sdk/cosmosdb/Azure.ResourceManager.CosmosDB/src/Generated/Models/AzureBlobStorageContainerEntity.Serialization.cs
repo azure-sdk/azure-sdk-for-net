@@ -14,11 +14,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    public partial class AzureBlobDataTransferDataSourceSink : IUtf8JsonSerializable, IJsonModel<AzureBlobDataTransferDataSourceSink>
+    public partial class AzureBlobStorageContainerEntity : IUtf8JsonSerializable, IJsonModel<AzureBlobStorageContainerEntity>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AzureBlobDataTransferDataSourceSink>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AzureBlobStorageContainerEntity>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<AzureBlobDataTransferDataSourceSink>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AzureBlobStorageContainerEntity>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -29,38 +29,30 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobDataTransferDataSourceSink>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobStorageContainerEntity>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureBlobDataTransferDataSourceSink)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AzureBlobStorageContainerEntity)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(ContainerName))
-            {
-                writer.WritePropertyName("containerName"u8);
-                writer.WriteStringValue(ContainerName);
-            }
-            if (Optional.IsDefined(EndpointUri))
-            {
-                writer.WritePropertyName("endpointUrl"u8);
-                writer.WriteStringValue(EndpointUri.AbsoluteUri);
-            }
+            writer.WritePropertyName("containerName"u8);
+            writer.WriteStringValue(ContainerName);
         }
 
-        AzureBlobDataTransferDataSourceSink IJsonModel<AzureBlobDataTransferDataSourceSink>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AzureBlobStorageContainerEntity IJsonModel<AzureBlobStorageContainerEntity>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobDataTransferDataSourceSink>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobStorageContainerEntity>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureBlobDataTransferDataSourceSink)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AzureBlobStorageContainerEntity)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAzureBlobDataTransferDataSourceSink(document.RootElement, options);
+            return DeserializeAzureBlobStorageContainerEntity(document.RootElement, options);
         }
 
-        internal static AzureBlobDataTransferDataSourceSink DeserializeAzureBlobDataTransferDataSourceSink(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AzureBlobStorageContainerEntity DeserializeAzureBlobStorageContainerEntity(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -69,7 +61,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 return null;
             }
             string containerName = default;
-            Uri endpointUrl = default;
             DataTransferComponent component = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -78,15 +69,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 if (property.NameEquals("containerName"u8))
                 {
                     containerName = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("endpointUrl"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    endpointUrl = new Uri(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("component"u8))
@@ -100,7 +82,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AzureBlobDataTransferDataSourceSink(component, serializedAdditionalRawData, containerName, endpointUrl);
+            return new AzureBlobStorageContainerEntity(component, serializedAdditionalRawData, containerName);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -137,21 +119,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(EndpointUri), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  endpointUrl: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(EndpointUri))
-                {
-                    builder.Append("  endpointUrl: ");
-                    builder.AppendLine($"'{EndpointUri.AbsoluteUri}'");
-                }
-            }
-
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Component), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -168,9 +135,9 @@ namespace Azure.ResourceManager.CosmosDB.Models
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<AzureBlobDataTransferDataSourceSink>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AzureBlobStorageContainerEntity>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobDataTransferDataSourceSink>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobStorageContainerEntity>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -179,26 +146,26 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(AzureBlobDataTransferDataSourceSink)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AzureBlobStorageContainerEntity)} does not support writing '{options.Format}' format.");
             }
         }
 
-        AzureBlobDataTransferDataSourceSink IPersistableModel<AzureBlobDataTransferDataSourceSink>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AzureBlobStorageContainerEntity IPersistableModel<AzureBlobStorageContainerEntity>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobDataTransferDataSourceSink>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AzureBlobStorageContainerEntity>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeAzureBlobDataTransferDataSourceSink(document.RootElement, options);
+                        return DeserializeAzureBlobStorageContainerEntity(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AzureBlobDataTransferDataSourceSink)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AzureBlobStorageContainerEntity)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AzureBlobDataTransferDataSourceSink>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AzureBlobStorageContainerEntity>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

@@ -14,16 +14,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
     public partial class CosmosMongoVCoreDataTransferDataSourceSink : DataTransferDataSourceSink
     {
         /// <summary> Initializes a new instance of <see cref="CosmosMongoVCoreDataTransferDataSourceSink"/>. </summary>
-        /// <param name="databaseName"></param>
-        /// <param name="collectionName"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="databaseName"/> or <paramref name="collectionName"/> is null. </exception>
-        public CosmosMongoVCoreDataTransferDataSourceSink(string databaseName, string collectionName)
+        public CosmosMongoVCoreDataTransferDataSourceSink()
         {
-            Argument.AssertNotNull(databaseName, nameof(databaseName));
-            Argument.AssertNotNull(collectionName, nameof(collectionName));
-
-            DatabaseName = databaseName;
-            CollectionName = collectionName;
             Component = DataTransferComponent.CosmosDBMongoVCore;
         }
 
@@ -41,11 +33,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             HostName = hostName;
             ConnectionStringKeyVaultUri = connectionStringKeyVaultUri;
             Component = component;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CosmosMongoVCoreDataTransferDataSourceSink"/> for deserialization. </summary>
-        internal CosmosMongoVCoreDataTransferDataSourceSink()
-        {
         }
 
         /// <summary> Gets or sets the database name. </summary>

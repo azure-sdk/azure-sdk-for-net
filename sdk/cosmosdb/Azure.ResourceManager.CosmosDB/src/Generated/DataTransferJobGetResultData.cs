@@ -54,6 +54,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// <summary> Initializes a new instance of <see cref="DataTransferJobGetResultData"/>. </summary>
         public DataTransferJobGetResultData()
         {
+            SourceAndDestinationContainers = new ChangeTrackingList<DataTransferContainerDetails>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DataTransferJobGetResultData"/>. </summary>
@@ -72,6 +73,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// Please note <see cref="DataTransferDataSourceSink"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AzureBlobDataTransferDataSourceSink"/>, <see cref="BaseCosmosDataTransferDataSourceSink"/>, <see cref="CosmosCassandraDataTransferDataSourceSink"/>, <see cref="CosmosMongoDataTransferDataSourceSink"/>, <see cref="CosmosMongoVCoreDataTransferDataSourceSink"/> and <see cref="CosmosSqlDataTransferDataSourceSink"/>.
         /// </param>
+        /// <param name="sourceAndDestinationContainers"></param>
         /// <param name="status"> Job Status. </param>
         /// <param name="processedCount"> Processed Count. </param>
         /// <param name="totalCount"> Total Count. </param>
@@ -81,11 +83,12 @@ namespace Azure.ResourceManager.CosmosDB
         /// <param name="duration"> Total Duration of Job. </param>
         /// <param name="mode"> Mode of job execution. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataTransferJobGetResultData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string jobName, DataTransferDataSourceSink source, DataTransferDataSourceSink destination, string status, long? processedCount, long? totalCount, DateTimeOffset? lastUpdatedUtcOn, int? workerCount, CosmosDBErrorResult error, TimeSpan? duration, DataTransferJobMode? mode, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal DataTransferJobGetResultData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string jobName, DataTransferDataSourceSink source, DataTransferDataSourceSink destination, IList<DataTransferContainerDetails> sourceAndDestinationContainers, string status, long? processedCount, long? totalCount, DateTimeOffset? lastUpdatedUtcOn, int? workerCount, CosmosDBErrorResult error, TimeSpan? duration, DataTransferJobMode? mode, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             JobName = jobName;
             Source = source;
             Destination = destination;
+            SourceAndDestinationContainers = sourceAndDestinationContainers;
             Status = status;
             ProcessedCount = processedCount;
             TotalCount = totalCount;
@@ -114,6 +117,9 @@ namespace Azure.ResourceManager.CosmosDB
         /// </summary>
         [WirePath("properties.destination")]
         public DataTransferDataSourceSink Destination { get; set; }
+        /// <summary> Gets the source and destination containers. </summary>
+        [WirePath("properties.sourceAndDestinationContainers")]
+        public IList<DataTransferContainerDetails> SourceAndDestinationContainers { get; }
         /// <summary> Job Status. </summary>
         [WirePath("properties.status")]
         public string Status { get; }

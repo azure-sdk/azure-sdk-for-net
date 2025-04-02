@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
@@ -54,6 +55,16 @@ namespace Azure.ResourceManager.CosmosDB
             {
                 writer.WritePropertyName("destination"u8);
                 writer.WriteObjectValue(Destination, options);
+            }
+            if (Optional.IsCollectionDefined(SourceAndDestinationContainers))
+            {
+                writer.WritePropertyName("sourceAndDestinationContainers"u8);
+                writer.WriteStartArray();
+                foreach (var item in SourceAndDestinationContainers)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
             }
             if (options.Format != "W" && Optional.IsDefined(Status))
             {
@@ -125,6 +136,7 @@ namespace Azure.ResourceManager.CosmosDB
             string jobName = default;
             DataTransferDataSourceSink source = default;
             DataTransferDataSourceSink destination = default;
+            IList<DataTransferContainerDetails> sourceAndDestinationContainers = default;
             string status = default;
             long? processedCount = default;
             long? totalCount = default;
@@ -191,6 +203,20 @@ namespace Azure.ResourceManager.CosmosDB
                                 continue;
                             }
                             destination = DataTransferDataSourceSink.DeserializeDataTransferDataSourceSink(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("sourceAndDestinationContainers"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<DataTransferContainerDetails> array = new List<DataTransferContainerDetails>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(DataTransferContainerDetails.DeserializeDataTransferContainerDetails(item, options));
+                            }
+                            sourceAndDestinationContainers = array;
                             continue;
                         }
                         if (property0.NameEquals("status"u8))
@@ -278,6 +304,7 @@ namespace Azure.ResourceManager.CosmosDB
                 jobName,
                 source,
                 destination,
+                sourceAndDestinationContainers ?? new ChangeTrackingList<DataTransferContainerDetails>(),
                 status,
                 processedCount,
                 totalCount,
@@ -405,6 +432,29 @@ namespace Azure.ResourceManager.CosmosDB
                 {
                     builder.Append("    destination: ");
                     BicepSerializationHelpers.AppendChildObject(builder, Destination, options, 4, false, "    destination: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SourceAndDestinationContainers), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    sourceAndDestinationContainers: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsCollectionDefined(SourceAndDestinationContainers))
+                {
+                    if (SourceAndDestinationContainers.Any())
+                    {
+                        builder.Append("    sourceAndDestinationContainers: ");
+                        builder.AppendLine("[");
+                        foreach (var item in SourceAndDestinationContainers)
+                        {
+                            BicepSerializationHelpers.AppendChildObject(builder, item, options, 6, true, "    sourceAndDestinationContainers: ");
+                        }
+                        builder.AppendLine("    ]");
+                    }
                 }
             }
 
