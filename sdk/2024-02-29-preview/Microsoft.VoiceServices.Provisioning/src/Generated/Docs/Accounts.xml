@@ -1,0 +1,973 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetAccountResourceAsync(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetAccountResourceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<AccountResource> response = await client.GetAccountResourceAsync("contoso");
+]]></code></example>
+    </member>
+    <member name="GetAccountResource(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetAccountResource.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<AccountResource> response = client.GetAccountResource("contoso");
+]]></code></example>
+    </member>
+    <member name="GetAccountResourceAsync(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetAccountResourceAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = await client.GetAccountResourceAsync("contoso", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAccountResource(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetAccountResource and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = client.GetAccountResource("contoso", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrReplaceAsync(string,AccountResource,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrReplaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+AccountResource resource = new AccountResource("contoso")
+{
+    CorrelationId = "c7aa0070-3956-11eb-8d59-4d9d2e7a4a8d",
+    ServiceDetails = new AccountServiceDetails
+    {
+        TeamsTenantId = "a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a",
+        TeamsOperatorConnect = new TeamsOperatorConnectAccountDetails(true, true),
+    },
+};
+Response<AccountResource> response = await client.CreateOrReplaceAsync("contoso", resource);
+]]></code></example>
+    </member>
+    <member name="CreateOrReplace(string,AccountResource,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrReplace.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+AccountResource resource = new AccountResource("contoso")
+{
+    CorrelationId = "c7aa0070-3956-11eb-8d59-4d9d2e7a4a8d",
+    ServiceDetails = new AccountServiceDetails
+    {
+        TeamsTenantId = "a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a",
+        TeamsOperatorConnect = new TeamsOperatorConnectAccountDetails(true, true),
+    },
+};
+Response<AccountResource> response = client.CreateOrReplace("contoso", resource);
+]]></code></example>
+    </member>
+    <member name="CreateOrReplaceAsync(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrReplaceAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "contoso",
+    correlationId = "c7aa0070-3956-11eb-8d59-4d9d2e7a4a8d",
+    serviceDetails = new
+    {
+        teamsTenantId = "a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a",
+        teamsOperatorConnect = new
+        {
+            enabled = true,
+            syncEnabled = true,
+        },
+    },
+});
+Response response = await client.CreateOrReplaceAsync("contoso", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrReplace(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrReplace and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "contoso",
+    correlationId = "c7aa0070-3956-11eb-8d59-4d9d2e7a4a8d",
+    serviceDetails = new
+    {
+        teamsTenantId = "a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a",
+        teamsOperatorConnect = new
+        {
+            enabled = true,
+            syncEnabled = true,
+        },
+    },
+});
+Response response = client.CreateOrReplace("contoso", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,bool?,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = await client.DeleteAsync("contoso");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,bool?,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = client.Delete("contoso");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateNumbersAsync(string,BatchNumbers,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateNumbersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+BatchNumbers body = new BatchNumbers(new NumberResource[]
+{
+    new NumberResource("+15105850321", "contoso", new NumberServiceDetails
+    {
+        TeamsOperatorConnect = new TeamsOperatorConnectNumberDetails(true)
+        {
+            AssignmentStatus = TelephoneNumberAssignmentStatus.Assigned,
+            Configuration = new TeamsOperatorConnectNumberConfig("CallingUserAssignment", new string[]{"InboundCalling"}),
+        },
+    })
+    {
+        Configuration = new NumberConfiguration
+        {
+            CustomSipHeader = "contoso-commsgw",
+        },
+    }
+});
+Response<BatchNumbers> response = await client.CreateOrUpdateNumbersAsync("contoso", body);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateNumbers(string,BatchNumbers,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrUpdateNumbers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+BatchNumbers body = new BatchNumbers(new NumberResource[]
+{
+    new NumberResource("+15105850321", "contoso", new NumberServiceDetails
+    {
+        TeamsOperatorConnect = new TeamsOperatorConnectNumberDetails(true)
+        {
+            AssignmentStatus = TelephoneNumberAssignmentStatus.Assigned,
+            Configuration = new TeamsOperatorConnectNumberConfig("CallingUserAssignment", new string[]{"InboundCalling"}),
+        },
+    })
+    {
+        Configuration = new NumberConfiguration
+        {
+            CustomSipHeader = "contoso-commsgw",
+        },
+    }
+});
+Response<BatchNumbers> response = client.CreateOrUpdateNumbers("contoso", body);
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateNumbersAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateNumbersAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    numbers = new object[]
+    {
+        new
+        {
+            telephoneNumber = "+15105850321",
+            accountName = "contoso",
+            serviceDetails = new
+            {
+                teamsOperatorConnect = new
+                {
+                    enabled = true,
+                    assignmentStatus = "assigned",
+                    configuration = new
+                    {
+                        usage = "CallingUserAssignment",
+                        choosableCapabilities = new object[]
+                        {
+                            "InboundCalling"
+                        },
+                    },
+                },
+            },
+            configuration = new
+            {
+                customSipHeader = "contoso-commsgw",
+            },
+        }
+    },
+});
+Response response = await client.CreateOrUpdateNumbersAsync("contoso", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("numbers")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("numbers")[0].GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("numbers")[0].GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateNumbers(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateNumbers and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    numbers = new object[]
+    {
+        new
+        {
+            telephoneNumber = "+15105850321",
+            accountName = "contoso",
+            serviceDetails = new
+            {
+                teamsOperatorConnect = new
+                {
+                    enabled = true,
+                    assignmentStatus = "assigned",
+                    configuration = new
+                    {
+                        usage = "CallingUserAssignment",
+                        choosableCapabilities = new object[]
+                        {
+                            "InboundCalling"
+                        },
+                    },
+                },
+            },
+            configuration = new
+            {
+                customSipHeader = "contoso-commsgw",
+            },
+        }
+    },
+});
+Response response = client.CreateOrUpdateNumbers("contoso", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("numbers")[0].GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("numbers")[0].GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("numbers")[0].GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteNumbersAsync(string,BatchNumbersDelete,CancellationToken)">
+      <example>
+This sample shows how to call DeleteNumbersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+BatchNumbersDelete body = new BatchNumbersDelete(new NumberIdentifier[]
+{
+    new NumberIdentifier("+15105850321")
+});
+Response response = await client.DeleteNumbersAsync("contoso", body);
+]]></code></example>
+    </member>
+    <member name="DeleteNumbers(string,BatchNumbersDelete,CancellationToken)">
+      <example>
+This sample shows how to call DeleteNumbers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+BatchNumbersDelete body = new BatchNumbersDelete(new NumberIdentifier[]
+{
+    new NumberIdentifier("+15105850321")
+});
+Response response = client.DeleteNumbers("contoso", body);
+]]></code></example>
+    </member>
+    <member name="DeleteNumbersAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeleteNumbersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    numbers = new object[]
+    {
+        new
+        {
+            telephoneNumber = "+15105850321",
+        }
+    },
+});
+Response response = await client.DeleteNumbersAsync("contoso", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteNumbers(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call DeleteNumbers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    numbers = new object[]
+    {
+        new
+        {
+            telephoneNumber = "+15105850321",
+        }
+    },
+});
+Response response = client.DeleteNumbers("contoso", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetNumberAsync(string,string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetNumberAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<NumberResource> response = await client.GetNumberAsync("contoso", "+15105850321");
+]]></code></example>
+    </member>
+    <member name="GetNumber(string,string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetNumber.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<NumberResource> response = client.GetNumber("contoso", "+15105850321");
+]]></code></example>
+    </member>
+    <member name="GetNumberAsync(string,string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetNumberAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = await client.GetNumberAsync("contoso", "+15105850321", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+    <member name="GetNumber(string,string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetNumber and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = client.GetNumber("contoso", "+15105850321", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrReplaceNumberAsync(string,string,NumberResource,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrReplaceNumberAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+NumberResource resource = new NumberResource("+15105850321", "contoso", new NumberServiceDetails
+{
+    TeamsOperatorConnect = new TeamsOperatorConnectNumberDetails(true)
+    {
+        AssignmentStatus = TelephoneNumberAssignmentStatus.Assigned,
+        Configuration = new TeamsOperatorConnectNumberConfig("CallingUserAssignment", new string[] { "InboundCalling" }),
+    },
+})
+{
+    Configuration = new NumberConfiguration
+    {
+        CustomSipHeader = "contoso-commsgw",
+    },
+};
+Response<NumberResource> response = await client.CreateOrReplaceNumberAsync("contoso", "+15105850321", resource);
+]]></code></example>
+    </member>
+    <member name="CreateOrReplaceNumber(string,string,NumberResource,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrReplaceNumber.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+NumberResource resource = new NumberResource("+15105850321", "contoso", new NumberServiceDetails
+{
+    TeamsOperatorConnect = new TeamsOperatorConnectNumberDetails(true)
+    {
+        AssignmentStatus = TelephoneNumberAssignmentStatus.Assigned,
+        Configuration = new TeamsOperatorConnectNumberConfig("CallingUserAssignment", new string[] { "InboundCalling" }),
+    },
+})
+{
+    Configuration = new NumberConfiguration
+    {
+        CustomSipHeader = "contoso-commsgw",
+    },
+};
+Response<NumberResource> response = client.CreateOrReplaceNumber("contoso", "+15105850321", resource);
+]]></code></example>
+    </member>
+    <member name="CreateOrReplaceNumberAsync(string,string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrReplaceNumberAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    telephoneNumber = "+15105850321",
+    accountName = "contoso",
+    serviceDetails = new
+    {
+        teamsOperatorConnect = new
+        {
+            enabled = true,
+            assignmentStatus = "assigned",
+            configuration = new
+            {
+                usage = "CallingUserAssignment",
+                choosableCapabilities = new object[]
+                {
+                    "InboundCalling"
+                },
+            },
+        },
+    },
+    configuration = new
+    {
+        customSipHeader = "contoso-commsgw",
+    },
+});
+Response response = await client.CreateOrReplaceNumberAsync("contoso", "+15105850321", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrReplaceNumber(string,string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrReplaceNumber and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    telephoneNumber = "+15105850321",
+    accountName = "contoso",
+    serviceDetails = new
+    {
+        teamsOperatorConnect = new
+        {
+            enabled = true,
+            assignmentStatus = "assigned",
+            configuration = new
+            {
+                usage = "CallingUserAssignment",
+                choosableCapabilities = new object[]
+                {
+                    "InboundCalling"
+                },
+            },
+        },
+    },
+    configuration = new
+    {
+        customSipHeader = "contoso-commsgw",
+    },
+});
+Response response = client.CreateOrReplaceNumber("contoso", "+15105850321", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+Console.WriteLine(result.GetProperty("accountName").ToString());
+Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteNumberAsync(string,string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteNumberAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = await client.DeleteNumberAsync("contoso", "+15105850321");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteNumber(string,string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteNumber.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = client.DeleteNumber("contoso", "+15105850321");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetTeamsCapabilityPlansAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsCapabilityPlansAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<TeamsCapabilityPlans> response = await client.GetTeamsCapabilityPlansAsync("contoso");
+]]></code></example>
+    </member>
+    <member name="GetTeamsCapabilityPlans(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsCapabilityPlans.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<TeamsCapabilityPlans> response = client.GetTeamsCapabilityPlans("contoso");
+]]></code></example>
+    </member>
+    <member name="GetTeamsCapabilityPlansAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsCapabilityPlansAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = await client.GetTeamsCapabilityPlansAsync("contoso", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("capabilityPlans")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("capabilityPlans")[0].GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("capabilityPlans")[0].GetProperty("supportsTollFree").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTeamsCapabilityPlans(string,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsCapabilityPlans and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = client.GetTeamsCapabilityPlans("contoso", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("capabilityPlans")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("capabilityPlans")[0].GetProperty("usage").ToString());
+Console.WriteLine(result.GetProperty("capabilityPlans")[0].GetProperty("supportsTollFree").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTeamsAvailableCapabilitiesAsync(string,NumberIdentifiers,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsAvailableCapabilitiesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+NumberIdentifiers body = new NumberIdentifiers(new NumberIdentifier[]
+{
+    new NumberIdentifier("+15105850321")
+});
+Response<TeamsAvailableCapabilities> response = await client.GetTeamsAvailableCapabilitiesAsync("contoso", body);
+]]></code></example>
+    </member>
+    <member name="GetTeamsAvailableCapabilities(string,NumberIdentifiers,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsAvailableCapabilities.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+NumberIdentifiers body = new NumberIdentifiers(new NumberIdentifier[]
+{
+    new NumberIdentifier("+15105850321")
+});
+Response<TeamsAvailableCapabilities> response = client.GetTeamsAvailableCapabilities("contoso", body);
+]]></code></example>
+    </member>
+    <member name="GetTeamsAvailableCapabilitiesAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsAvailableCapabilitiesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    numbers = new object[]
+    {
+        new
+        {
+            telephoneNumber = "+15105850321",
+        }
+    },
+});
+Response response = await client.GetTeamsAvailableCapabilitiesAsync("contoso", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("availableCapabilities")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetTeamsAvailableCapabilities(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsAvailableCapabilities and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    numbers = new object[]
+    {
+        new
+        {
+            telephoneNumber = "+15105850321",
+        }
+    },
+});
+Response response = client.GetTeamsAvailableCapabilities("contoso", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("availableCapabilities")[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddressAsync(string,string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsCivicAddressAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<TeamsCivicAddressResource> response = await client.GetTeamsCivicAddressAsync("contoso", "ebfee340-a791-11ed-9bfa-ed8bb5c41be4");
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddress(string,string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsCivicAddress.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response<TeamsCivicAddressResource> response = client.GetTeamsCivicAddress("contoso", "ebfee340-a791-11ed-9bfa-ed8bb5c41be4");
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddressAsync(string,string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsCivicAddressAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = await client.GetTeamsCivicAddressAsync("contoso", "ebfee340-a791-11ed-9bfa-ed8bb5c41be4", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("defaultLocationId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddress(string,string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsCivicAddress and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+Response response = client.GetTeamsCivicAddress("contoso", "ebfee340-a791-11ed-9bfa-ed8bb5c41be4", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("defaultLocationId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAccountResourcesAsync(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetAccountResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+await foreach (AccountResource item in client.GetAccountResourcesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAccountResources(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetAccountResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+foreach (AccountResource item in client.GetAccountResources())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAccountResourcesAsync(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetAccountResourcesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+await foreach (BinaryData item in client.GetAccountResourcesAsync(null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetAccountResources(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetAccountResources and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+foreach (BinaryData item in client.GetAccountResources(null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbersAsync(string,int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+await foreach (NumberResource item in client.GetNumbersAsync("contoso"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbers(string,int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetNumbers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+foreach (NumberResource item in client.GetNumbers("contoso"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbersAsync(string,int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbersAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+await foreach (BinaryData item in client.GetNumbersAsync("contoso", null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetNumbers(string,int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetNumbers and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+foreach (BinaryData item in client.GetNumbers("contoso", null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("telephoneNumber").ToString());
+    Console.WriteLine(result.GetProperty("accountName").ToString());
+    Console.WriteLine(result.GetProperty("serviceDetails").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddressesAsync(string,int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsCivicAddressesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+await foreach (TeamsCivicAddressResource item in client.GetTeamsCivicAddressesAsync("contoso"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddresses(string,int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetTeamsCivicAddresses.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+foreach (TeamsCivicAddressResource item in client.GetTeamsCivicAddresses("contoso"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddressesAsync(string,int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsCivicAddressesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+await foreach (BinaryData item in client.GetTeamsCivicAddressesAsync("contoso", null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("defaultLocationId").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetTeamsCivicAddresses(string,int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetTeamsCivicAddresses and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Accounts client = new VoiceServicesClient(endpoint, credential).GetAccountsClient();
+
+foreach (BinaryData item in client.GetTeamsCivicAddresses("contoso", null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("defaultLocationId").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
