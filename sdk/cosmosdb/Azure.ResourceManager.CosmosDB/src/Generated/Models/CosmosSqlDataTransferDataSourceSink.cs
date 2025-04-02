@@ -14,16 +14,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
     public partial class CosmosSqlDataTransferDataSourceSink : BaseCosmosDataTransferDataSourceSink
     {
         /// <summary> Initializes a new instance of <see cref="CosmosSqlDataTransferDataSourceSink"/>. </summary>
-        /// <param name="databaseName"></param>
-        /// <param name="containerName"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="databaseName"/> or <paramref name="containerName"/> is null. </exception>
-        public CosmosSqlDataTransferDataSourceSink(string databaseName, string containerName)
+        public CosmosSqlDataTransferDataSourceSink()
         {
-            Argument.AssertNotNull(databaseName, nameof(databaseName));
-            Argument.AssertNotNull(containerName, nameof(containerName));
-
-            DatabaseName = databaseName;
-            ContainerName = containerName;
             Component = DataTransferComponent.CosmosDBSql;
         }
 
@@ -38,11 +30,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             DatabaseName = databaseName;
             ContainerName = containerName;
             Component = component;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CosmosSqlDataTransferDataSourceSink"/> for deserialization. </summary>
-        internal CosmosSqlDataTransferDataSourceSink()
-        {
         }
 
         /// <summary> Gets or sets the database name. </summary>

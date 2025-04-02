@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
@@ -44,6 +45,16 @@ namespace Azure.ResourceManager.CosmosDB.Models
             writer.WriteObjectValue(Source, options);
             writer.WritePropertyName("destination"u8);
             writer.WriteObjectValue(Destination, options);
+            if (Optional.IsCollectionDefined(SourceAndDestinationContainers))
+            {
+                writer.WritePropertyName("sourceAndDestinationContainers"u8);
+                writer.WriteStartArray();
+                foreach (var item in SourceAndDestinationContainers)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && Optional.IsDefined(Status))
             {
                 writer.WritePropertyName("status"u8);
@@ -124,6 +135,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
             string jobName = default;
             DataTransferDataSourceSink source = default;
             DataTransferDataSourceSink destination = default;
+            IList<DataTransferContainerDetails> sourceAndDestinationContainers = default;
             string status = default;
             long? processedCount = default;
             long? totalCount = default;
@@ -149,6 +161,20 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 if (property.NameEquals("destination"u8))
                 {
                     destination = DataTransferDataSourceSink.DeserializeDataTransferDataSourceSink(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("sourceAndDestinationContainers"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<DataTransferContainerDetails> array = new List<DataTransferContainerDetails>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(DataTransferContainerDetails.DeserializeDataTransferContainerDetails(item, options));
+                    }
+                    sourceAndDestinationContainers = array;
                     continue;
                 }
                 if (property.NameEquals("status"u8))
@@ -229,6 +255,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 jobName,
                 source,
                 destination,
+                sourceAndDestinationContainers ?? new ChangeTrackingList<DataTransferContainerDetails>(),
                 status,
                 processedCount,
                 totalCount,
@@ -301,6 +328,29 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 {
                     builder.Append("  destination: ");
                     BicepSerializationHelpers.AppendChildObject(builder, Destination, options, 2, false, "  destination: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SourceAndDestinationContainers), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  sourceAndDestinationContainers: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsCollectionDefined(SourceAndDestinationContainers))
+                {
+                    if (SourceAndDestinationContainers.Any())
+                    {
+                        builder.Append("  sourceAndDestinationContainers: ");
+                        builder.AppendLine("[");
+                        foreach (var item in SourceAndDestinationContainers)
+                        {
+                            BicepSerializationHelpers.AppendChildObject(builder, item, options, 4, true, "  sourceAndDestinationContainers: ");
+                        }
+                        builder.AppendLine("  ]");
+                    }
                 }
             }
 

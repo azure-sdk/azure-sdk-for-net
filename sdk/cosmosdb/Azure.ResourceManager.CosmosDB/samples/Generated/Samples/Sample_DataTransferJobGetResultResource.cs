@@ -69,8 +69,13 @@ namespace Azure.ResourceManager.CosmosDB.Samples
             DataTransferJobGetResultResource dataTransferJobGetResult = client.GetDataTransferJobGetResultResource(dataTransferJobGetResultResourceId);
 
             // invoke the operation
-            DataTransferJobGetResultCreateOrUpdateContent content = new DataTransferJobGetResultCreateOrUpdateContent(new DataTransferJobProperties(new CosmosCassandraDataTransferDataSourceSink("keyspace", "table"), new AzureBlobDataTransferDataSourceSink("blob_container")
+            DataTransferJobGetResultCreateOrUpdateContent content = new DataTransferJobGetResultCreateOrUpdateContent(new DataTransferJobProperties(new CosmosCassandraDataTransferDataSourceSink
             {
+                KeyspaceName = "keyspace",
+                TableName = "table",
+            }, new AzureBlobDataTransferDataSourceSink
+            {
+                ContainerName = "blob_container",
                 EndpointUri = new Uri("https://blob.windows.net"),
             }));
             ArmOperation<DataTransferJobGetResultResource> lro = await dataTransferJobGetResult.UpdateAsync(WaitUntil.Completed, content);
