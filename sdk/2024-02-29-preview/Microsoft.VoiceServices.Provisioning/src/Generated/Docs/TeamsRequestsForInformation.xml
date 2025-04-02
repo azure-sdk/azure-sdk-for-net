@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetRequestForInformationAsync(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response<RequestForInformationResource> response = await client.GetRequestForInformationAsync("a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a");
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformation(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response<RequestForInformationResource> response = client.GetRequestForInformation("a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a");
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationAsync(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response response = await client.GetRequestForInformationAsync("a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformation(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+Response response = client.GetRequestForInformation("a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateRequestForInformationAsync(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRequestForInformationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    customerRelationship = new
+    {
+        status = "ConsentAcknowledged",
+        comment = "Consent has been accepted on 2024-01-12",
+    },
+});
+Response response = await client.CreateOrUpdateRequestForInformationAsync("a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateRequestForInformation(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRequestForInformation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    customerRelationship = new
+    {
+        status = "ConsentAcknowledged",
+        comment = "Consent has been accepted on 2024-01-12",
+    },
+});
+Response response = client.CreateOrUpdateRequestForInformation("a7f4bd5c-cc01-40f4-8baa-2b6bdb272b8a", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResourcesAsync(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformationResourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+await foreach (RequestForInformationResource item in client.GetRequestForInformationResourcesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResources(int?,int?,int?,string,bool?,CancellationToken)">
+      <example>
+This sample shows how to call GetRequestForInformationResources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+foreach (RequestForInformationResource item in client.GetRequestForInformationResources())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResourcesAsync(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformationResourcesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+await foreach (BinaryData item in client.GetRequestForInformationResourcesAsync(null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("tenantId").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetRequestForInformationResources(int?,int?,int?,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call GetRequestForInformationResources and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+TeamsRequestsForInformation client = new VoiceServicesClient(endpoint, credential).GetTeamsRequestsForInformationClient();
+
+foreach (BinaryData item in client.GetRequestForInformationResources(null, null, null, null, true, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("tenantId").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
