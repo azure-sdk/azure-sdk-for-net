@@ -164,6 +164,7 @@ trigger:
     - sdk/recoveryservices-backup/Azure.ResourceManager.RecoveryServicesBackup
     - sdk/recoveryservices-datareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/recoveryservices-siterecovery/Azure.ResourceManager.RecoveryServicesSiteRecovery
+    - sdk/recoveryservicesdatareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/redis/Azure.ResourceManager.Redis
     - sdk/redisenterprise/Azure.ResourceManager.RedisEnterprise
     - sdk/relay/Azure.ResourceManager.Relay
@@ -373,6 +374,7 @@ pr:
     - sdk/recoveryservices-backup/Azure.ResourceManager.RecoveryServicesBackup
     - sdk/recoveryservices-datareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/recoveryservices-siterecovery/Azure.ResourceManager.RecoveryServicesSiteRecovery
+    - sdk/recoveryservicesdatareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/redis/Azure.ResourceManager.Redis
     - sdk/redisenterprise/Azure.ResourceManager.RedisEnterprise
     - sdk/relay/Azure.ResourceManager.Relay
