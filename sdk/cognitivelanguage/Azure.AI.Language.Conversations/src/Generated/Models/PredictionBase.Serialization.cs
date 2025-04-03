@@ -83,6 +83,7 @@ namespace Azure.AI.Language.Conversations.Models
                 switch (discriminator.GetString())
                 {
                     case "Conversation": return ConversationPrediction.DeserializeConversationPrediction(element, options);
+                    case "ConversationalAI": return ConversationalAIPrediction.DeserializeConversationalAIPrediction(element, options);
                     case "Orchestration": return OrchestrationPrediction.DeserializeOrchestrationPrediction(element, options);
                 }
             }

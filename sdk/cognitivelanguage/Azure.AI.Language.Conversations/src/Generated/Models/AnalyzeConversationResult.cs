@@ -50,7 +50,7 @@ namespace Azure.AI.Language.Conversations.Models
         /// <param name="prediction">
         /// The prediction result of a conversation project.
         /// Please note <see cref="PredictionBase"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ConversationPrediction"/> and <see cref="OrchestrationPrediction"/>.
+        /// The available derived classes include <see cref="ConversationPrediction"/>, <see cref="ConversationalAIPrediction"/> and <see cref="OrchestrationPrediction"/>.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="query"/> or <paramref name="prediction"/> is null. </exception>
         internal AnalyzeConversationResult(string query, PredictionBase prediction)
@@ -68,7 +68,7 @@ namespace Azure.AI.Language.Conversations.Models
         /// <param name="prediction">
         /// The prediction result of a conversation project.
         /// Please note <see cref="PredictionBase"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ConversationPrediction"/> and <see cref="OrchestrationPrediction"/>.
+        /// The available derived classes include <see cref="ConversationPrediction"/>, <see cref="ConversationalAIPrediction"/> and <see cref="OrchestrationPrediction"/>.
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal AnalyzeConversationResult(string query, string detectedLanguage, PredictionBase prediction, IDictionary<string, BinaryData> serializedAdditionalRawData)
@@ -91,7 +91,7 @@ namespace Azure.AI.Language.Conversations.Models
         /// <summary>
         /// The prediction result of a conversation project.
         /// Please note <see cref="PredictionBase"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="ConversationPrediction"/> and <see cref="OrchestrationPrediction"/>.
+        /// The available derived classes include <see cref="ConversationPrediction"/>, <see cref="ConversationalAIPrediction"/> and <see cref="OrchestrationPrediction"/>.
         /// </summary>
         public PredictionBase Prediction { get; }
     }

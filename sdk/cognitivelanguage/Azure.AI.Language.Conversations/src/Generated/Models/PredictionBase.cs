@@ -13,7 +13,7 @@ namespace Azure.AI.Language.Conversations.Models
     /// <summary>
     /// This is the base class of prediction
     /// Please note <see cref="PredictionBase"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="ConversationPrediction"/> and <see cref="OrchestrationPrediction"/>.
+    /// The available derived classes include <see cref="ConversationPrediction"/>, <see cref="ConversationalAIPrediction"/> and <see cref="OrchestrationPrediction"/>.
     /// </summary>
     public abstract partial class PredictionBase
     {
