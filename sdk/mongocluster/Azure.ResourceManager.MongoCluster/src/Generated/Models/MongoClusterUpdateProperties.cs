@@ -60,9 +60,10 @@ namespace Azure.ResourceManager.MongoCluster.Models
         /// <param name="sharding"> The sharding properties of the mongo cluster. </param>
         /// <param name="compute"> The compute properties of the mongo cluster. </param>
         /// <param name="backup"> The backup properties of the mongo cluster. </param>
+        /// <param name="dataApi"> The Data API properties of the mongo cluster. </param>
         /// <param name="previewFeatures"> List of private endpoint connections. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MongoClusterUpdateProperties(MongoClusterAdministratorProperties administrator, string serverVersion, MongoClusterPublicNetworkAccess? publicNetworkAccess, HighAvailabilityProperties highAvailability, StorageProperties storage, ShardingProperties sharding, ComputeProperties compute, BackupProperties backup, IList<MongoClusterPreviewFeature> previewFeatures, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MongoClusterUpdateProperties(MongoClusterAdministratorProperties administrator, string serverVersion, MongoClusterPublicNetworkAccess? publicNetworkAccess, HighAvailabilityProperties highAvailability, StorageProperties storage, ShardingProperties sharding, ComputeProperties compute, BackupProperties backup, DataApiProperties dataApi, IList<MongoClusterPreviewFeature> previewFeatures, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Administrator = administrator;
             ServerVersion = serverVersion;
@@ -72,6 +73,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
             Sharding = sharding;
             Compute = compute;
             Backup = backup;
+            DataApi = dataApi;
             PreviewFeatures = previewFeatures;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -144,6 +146,20 @@ namespace Azure.ResourceManager.MongoCluster.Models
         public string BackupEarliestRestoreTime
         {
             get => Backup is null ? default : Backup.EarliestRestoreTime;
+        }
+
+        /// <summary> The Data API properties of the mongo cluster. </summary>
+        internal DataApiProperties DataApi { get; set; }
+        /// <summary> The mode to indicate whether the Mongo Data API is enabled for a cluster. </summary>
+        public DataApiMode? DataApiMode
+        {
+            get => DataApi is null ? default : DataApi.Mode;
+            set
+            {
+                if (DataApi is null)
+                    DataApi = new DataApiProperties();
+                DataApi.Mode = value;
+            }
         }
 
         /// <summary> List of private endpoint connections. </summary>
