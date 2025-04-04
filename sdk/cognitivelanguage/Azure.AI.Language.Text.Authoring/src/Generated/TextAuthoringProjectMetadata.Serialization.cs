@@ -50,6 +50,8 @@ namespace Azure.AI.Language.Text.Authoring
             }
             writer.WritePropertyName("projectKind"u8);
             writer.WriteStringValue(ProjectKind.ToString());
+            writer.WritePropertyName("storageAccountResourceId"u8);
+            writer.WriteStringValue(StorageAccountResourceId);
             writer.WritePropertyName("storageInputContainerName"u8);
             writer.WriteStringValue(StorageInputContainerName);
             if (Optional.IsDefined(Settings))
@@ -116,6 +118,7 @@ namespace Azure.AI.Language.Text.Authoring
             DateTimeOffset? lastTrainedDateTime = default;
             DateTimeOffset? lastDeployedDateTime = default;
             TextAuthoringProjectKind projectKind = default;
+            string storageAccountResourceId = default;
             string storageInputContainerName = default;
             TextAuthoringProjectSettings settings = default;
             string projectName = default;
@@ -157,6 +160,11 @@ namespace Azure.AI.Language.Text.Authoring
                 if (property.NameEquals("projectKind"u8))
                 {
                     projectKind = new TextAuthoringProjectKind(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("storageAccountResourceId"u8))
+                {
+                    storageAccountResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("storageInputContainerName"u8))
@@ -209,6 +217,7 @@ namespace Azure.AI.Language.Text.Authoring
                 lastTrainedDateTime,
                 lastDeployedDateTime,
                 projectKind,
+                storageAccountResourceId,
                 storageInputContainerName,
                 settings,
                 projectName,
