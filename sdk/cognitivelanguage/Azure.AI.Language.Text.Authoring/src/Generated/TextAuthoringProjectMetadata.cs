@@ -49,17 +49,20 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="createdOn"> Represents the project creation datetime. </param>
         /// <param name="lastModifiedOn"> Represents the project last modification datetime. </param>
         /// <param name="projectKind"> The project kind. </param>
+        /// <param name="storageAccountResourceId"> The project storage account resource ID. </param>
         /// <param name="storageInputContainerName"> The storage container name. </param>
         /// <param name="language"> The project language. This is BCP-47 representation of a language. For example, use "en" for English, "en-gb" for English (UK), "es" for Spanish etc. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="storageInputContainerName"/> or <paramref name="language"/> is null. </exception>
-        internal TextAuthoringProjectMetadata(DateTimeOffset createdOn, DateTimeOffset lastModifiedOn, TextAuthoringProjectKind projectKind, string storageInputContainerName, string language)
+        /// <exception cref="ArgumentNullException"> <paramref name="storageAccountResourceId"/>, <paramref name="storageInputContainerName"/> or <paramref name="language"/> is null. </exception>
+        internal TextAuthoringProjectMetadata(DateTimeOffset createdOn, DateTimeOffset lastModifiedOn, TextAuthoringProjectKind projectKind, string storageAccountResourceId, string storageInputContainerName, string language)
         {
+            Argument.AssertNotNull(storageAccountResourceId, nameof(storageAccountResourceId));
             Argument.AssertNotNull(storageInputContainerName, nameof(storageInputContainerName));
             Argument.AssertNotNull(language, nameof(language));
 
             CreatedOn = createdOn;
             LastModifiedOn = lastModifiedOn;
             ProjectKind = projectKind;
+            StorageAccountResourceId = storageAccountResourceId;
             StorageInputContainerName = storageInputContainerName;
             Language = language;
         }
@@ -70,6 +73,7 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="lastTrainedOn"> Represents the project last training datetime. </param>
         /// <param name="lastDeployedOn"> Represents the project last deployment datetime. </param>
         /// <param name="projectKind"> The project kind. </param>
+        /// <param name="storageAccountResourceId"> The project storage account resource ID. </param>
         /// <param name="storageInputContainerName"> The storage container name. </param>
         /// <param name="settings"> The project settings. </param>
         /// <param name="projectName"> The new project name. </param>
@@ -77,13 +81,14 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="description"> The project description. </param>
         /// <param name="language"> The project language. This is BCP-47 representation of a language. For example, use "en" for English, "en-gb" for English (UK), "es" for Spanish etc. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TextAuthoringProjectMetadata(DateTimeOffset createdOn, DateTimeOffset lastModifiedOn, DateTimeOffset? lastTrainedOn, DateTimeOffset? lastDeployedOn, TextAuthoringProjectKind projectKind, string storageInputContainerName, TextAuthoringProjectSettings settings, string projectName, bool? multilingual, string description, string language, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TextAuthoringProjectMetadata(DateTimeOffset createdOn, DateTimeOffset lastModifiedOn, DateTimeOffset? lastTrainedOn, DateTimeOffset? lastDeployedOn, TextAuthoringProjectKind projectKind, string storageAccountResourceId, string storageInputContainerName, TextAuthoringProjectSettings settings, string projectName, bool? multilingual, string description, string language, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             CreatedOn = createdOn;
             LastModifiedOn = lastModifiedOn;
             LastTrainedOn = lastTrainedOn;
             LastDeployedOn = lastDeployedOn;
             ProjectKind = projectKind;
+            StorageAccountResourceId = storageAccountResourceId;
             StorageInputContainerName = storageInputContainerName;
             Settings = settings;
             ProjectName = projectName;
@@ -108,6 +113,8 @@ namespace Azure.AI.Language.Text.Authoring
         public DateTimeOffset? LastDeployedOn { get; }
         /// <summary> The project kind. </summary>
         public TextAuthoringProjectKind ProjectKind { get; }
+        /// <summary> The project storage account resource ID. </summary>
+        public string StorageAccountResourceId { get; }
         /// <summary> The storage container name. </summary>
         public string StorageInputContainerName { get; }
         /// <summary> The project settings. </summary>
