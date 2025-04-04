@@ -47,10 +47,11 @@ namespace Azure.AI.Inference
     }
     public partial class AzureAIInferenceClientOptions : Azure.Core.ClientOptions
     {
-        public AzureAIInferenceClientOptions(Azure.AI.Inference.AzureAIInferenceClientOptions.ServiceVersion version = Azure.AI.Inference.AzureAIInferenceClientOptions.ServiceVersion.V2024_05_01_Preview) { }
+        public AzureAIInferenceClientOptions(Azure.AI.Inference.AzureAIInferenceClientOptions.ServiceVersion version = Azure.AI.Inference.AzureAIInferenceClientOptions.ServiceVersion.V2024_08_01_Preview) { }
         public enum ServiceVersion
         {
             V2024_05_01_Preview = 1,
+            V2024_08_01_Preview = 2,
         }
     }
     public partial class ChatChoice : System.ClientModel.Primitives.IJsonModel<Azure.AI.Inference.ChatChoice>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Inference.ChatChoice>
