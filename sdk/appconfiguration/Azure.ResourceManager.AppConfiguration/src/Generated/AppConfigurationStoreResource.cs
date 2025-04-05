@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -180,7 +180,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -249,7 +249,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -280,7 +280,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -318,7 +318,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -349,7 +349,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -375,7 +375,7 @@ namespace Azure.ResourceManager.AppConfiguration
         }
 
         /// <summary>
-        /// Gets the properties of the specified snapshot. NOTE: This operation is intended for use in Azure Resource Manager (ARM) Template deployments. For all other scenarios involving App Configuration snapshots the data plane API should be used instead.
+        /// Gets the properties of the specified snapshot. NOTE: This operation is intended for use in ARM Template deployments. For all other scenarios involving App Configuration snapshots the data plane API should be used instead.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -387,7 +387,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -406,7 +406,7 @@ namespace Azure.ResourceManager.AppConfiguration
         }
 
         /// <summary>
-        /// Gets the properties of the specified snapshot. NOTE: This operation is intended for use in Azure Resource Manager (ARM) Template deployments. For all other scenarios involving App Configuration snapshots the data plane API should be used instead.
+        /// Gets the properties of the specified snapshot. NOTE: This operation is intended for use in ARM Template deployments. For all other scenarios involving App Configuration snapshots the data plane API should be used instead.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -418,7 +418,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -436,6 +436,75 @@ namespace Azure.ResourceManager.AppConfiguration
             return GetAppConfigurationSnapshots().Get(snapshotName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of ExperimentationResources in the AppConfigurationStore. </summary>
+        /// <returns> An object representing collection of ExperimentationResources and their operations over a ExperimentationResource. </returns>
+        public virtual ExperimentationCollection GetExperimentations()
+        {
+            return GetCachedClient(client => new ExperimentationCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets the properties of the experimentation.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/experimentation/{experimentationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Experimentation_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-02-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ExperimentationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="experimentationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ExperimentationResource>> GetExperimentationAsync(string experimentationName, CancellationToken cancellationToken = default)
+        {
+            return await GetExperimentations().GetAsync(experimentationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the properties of the experimentation.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/experimentation/{experimentationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Experimentation_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-02-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ExperimentationResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="experimentationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ExperimentationResource> GetExperimentation(string experimentationName, CancellationToken cancellationToken = default)
+        {
+            return GetExperimentations().Get(experimentationName, cancellationToken);
+        }
+
         /// <summary>
         /// Gets the properties of the specified configuration store.
         /// <list type="bullet">
@@ -449,7 +518,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -489,7 +558,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -529,7 +598,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -571,7 +640,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -613,7 +682,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -659,7 +728,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -705,7 +774,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -736,7 +805,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -767,7 +836,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -809,7 +878,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -851,7 +920,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -913,7 +982,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -975,7 +1044,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1032,7 +1101,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1089,7 +1158,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1149,7 +1218,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-05-01</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

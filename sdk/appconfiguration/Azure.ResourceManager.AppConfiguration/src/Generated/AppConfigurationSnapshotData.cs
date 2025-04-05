@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <param name="retentionPeriod"> The amount of time, in seconds, that a snapshot will remain in the archived state before expiring. This property is only writable during the creation of a snapshot. If not specified, the default lifetime of key-value revisions will be used. </param>
         /// <param name="size"> The size in bytes of the snapshot. </param>
         /// <param name="itemsCount"> The amount of key-values in the snapshot. </param>
-        /// <param name="tags"> The tags of the snapshot. NOTE: These are data plane tags, not Azure Resource Manager (ARM) tags. </param>
+        /// <param name="tags"> The tags of the snapshot. NOTE: These are data plane tags, not ARM tags. </param>
         /// <param name="eTag"> A value representing the current state of the snapshot. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal AppConfigurationSnapshotData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string snapshotType, AppConfigurationProvisioningState? provisioningState, AppConfigurationSnapshotStatus? status, IList<SnapshotKeyValueFilter> filters, SnapshotCompositionType? compositionType, DateTimeOffset? createdOn, DateTimeOffset? expireOn, long? retentionPeriod, long? size, long? itemsCount, IDictionary<string, string> tags, ETag? eTag, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <summary> The amount of key-values in the snapshot. </summary>
         [WirePath("properties.itemsCount")]
         public long? ItemsCount { get; }
-        /// <summary> The tags of the snapshot. NOTE: These are data plane tags, not Azure Resource Manager (ARM) tags. </summary>
+        /// <summary> The tags of the snapshot. NOTE: These are data plane tags, not ARM tags. </summary>
         [WirePath("properties.tags")]
         public IDictionary<string, string> Tags { get; }
         /// <summary> A value representing the current state of the snapshot. </summary>
