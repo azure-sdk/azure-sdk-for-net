@@ -135,12 +135,12 @@ namespace Azure.Compute.Batch
             {
                 return null;
             }
-            ImageReference imageReference = default;
+            BatchImageReference imageReference = default;
             string nodeAgentSKUId = default;
             WindowsConfiguration windowsConfiguration = default;
             IList<DataDisk> dataDisks = default;
             string licenseType = default;
-            ContainerConfiguration containerConfiguration = default;
+            BatchContainerConfiguration containerConfiguration = default;
             DiskEncryptionConfiguration diskEncryptionConfiguration = default;
             BatchNodePlacementConfiguration nodePlacementConfiguration = default;
             IList<VMExtension> extensions = default;
@@ -153,7 +153,7 @@ namespace Azure.Compute.Batch
             {
                 if (property.NameEquals("imageReference"u8))
                 {
-                    imageReference = ImageReference.DeserializeImageReference(property.Value, options);
+                    imageReference = BatchImageReference.DeserializeBatchImageReference(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("nodeAgentSKUId"u8))
@@ -195,7 +195,7 @@ namespace Azure.Compute.Batch
                     {
                         continue;
                     }
-                    containerConfiguration = ContainerConfiguration.DeserializeContainerConfiguration(property.Value, options);
+                    containerConfiguration = BatchContainerConfiguration.DeserializeBatchContainerConfiguration(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("diskEncryptionConfiguration"u8))
