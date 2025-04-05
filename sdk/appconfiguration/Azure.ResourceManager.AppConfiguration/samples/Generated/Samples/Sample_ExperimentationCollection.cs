@@ -9,19 +9,18 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.AppConfiguration.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.AppConfiguration.Samples
 {
-    public partial class Sample_AppConfigurationPrivateEndpointConnectionCollection
+    public partial class Sample_ExperimentationCollection
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_PrivateEndpointConnectionUpdate()
+        public async Task CreateOrUpdate_ExperimentationCreate()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresUpdatePrivateEndpointConnection.json
-            // this example is just showing the usage of "PrivateEndpointConnections_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresCreateExperimentation.json
+            // this example is just showing the usage of "Experimentation_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -36,35 +35,31 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
             ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
             AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
 
-            // get the collection of this AppConfigurationPrivateEndpointConnectionResource
-            AppConfigurationPrivateEndpointConnectionCollection collection = appConfigurationStore.GetAppConfigurationPrivateEndpointConnections();
+            // get the collection of this ExperimentationResource
+            ExperimentationCollection collection = appConfigurationStore.GetExperimentations();
 
             // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            AppConfigurationPrivateEndpointConnectionData data = new AppConfigurationPrivateEndpointConnectionData
+            string experimentationName = "default";
+            ExperimentationData data = new ExperimentationData
             {
-                ConnectionState = new AppConfigurationPrivateLinkServiceConnectionState
-                {
-                    Status = AppConfigurationPrivateLinkServiceConnectionStatus.Approved,
-                    Description = "Auto-Approved",
-                },
+                ManagedResourceGroupName = "AAC_MRG_myResourceGroup_contoso_eastus",
             };
-            ArmOperation<AppConfigurationPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
-            AppConfigurationPrivateEndpointConnectionResource result = lro.Value;
+            ArmOperation<ExperimentationResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, experimentationName, data);
+            ExperimentationResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            AppConfigurationPrivateEndpointConnectionData resourceData = result.Data;
+            ExperimentationData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_PrivateEndpointConnectionGetConnection()
+        public async Task Get_ExperimentationGet()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresGetPrivateEndpointConnection.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresGetExperimentation.json
+            // this example is just showing the usage of "Experimentation_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -79,26 +74,26 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
             ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
             AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
 
-            // get the collection of this AppConfigurationPrivateEndpointConnectionResource
-            AppConfigurationPrivateEndpointConnectionCollection collection = appConfigurationStore.GetAppConfigurationPrivateEndpointConnections();
+            // get the collection of this ExperimentationResource
+            ExperimentationCollection collection = appConfigurationStore.GetExperimentations();
 
             // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            AppConfigurationPrivateEndpointConnectionResource result = await collection.GetAsync(privateEndpointConnectionName);
+            string experimentationName = "Experimentation";
+            ExperimentationResource result = await collection.GetAsync(experimentationName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            AppConfigurationPrivateEndpointConnectionData resourceData = result.Data;
+            ExperimentationData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetAll_PrivateEndpointConnectionList()
+        public async Task GetAll_ExperimentationGet()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresListPrivateEndpointConnections.json
-            // this example is just showing the usage of "PrivateEndpointConnections_ListByConfigurationStore" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresListExperimentation.json
+            // this example is just showing the usage of "Experimentation_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -113,15 +108,15 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
             ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
             AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
 
-            // get the collection of this AppConfigurationPrivateEndpointConnectionResource
-            AppConfigurationPrivateEndpointConnectionCollection collection = appConfigurationStore.GetAppConfigurationPrivateEndpointConnections();
+            // get the collection of this ExperimentationResource
+            ExperimentationCollection collection = appConfigurationStore.GetExperimentations();
 
             // invoke the operation and iterate over the result
-            await foreach (AppConfigurationPrivateEndpointConnectionResource item in collection.GetAllAsync())
+            await foreach (ExperimentationResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                AppConfigurationPrivateEndpointConnectionData resourceData = item.Data;
+                ExperimentationData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -131,10 +126,10 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_PrivateEndpointConnectionGetConnection()
+        public async Task Exists_ExperimentationGet()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresGetPrivateEndpointConnection.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresGetExperimentation.json
+            // this example is just showing the usage of "Experimentation_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -149,22 +144,22 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
             ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
             AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
 
-            // get the collection of this AppConfigurationPrivateEndpointConnectionResource
-            AppConfigurationPrivateEndpointConnectionCollection collection = appConfigurationStore.GetAppConfigurationPrivateEndpointConnections();
+            // get the collection of this ExperimentationResource
+            ExperimentationCollection collection = appConfigurationStore.GetExperimentations();
 
             // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            bool result = await collection.ExistsAsync(privateEndpointConnectionName);
+            string experimentationName = "Experimentation";
+            bool result = await collection.ExistsAsync(experimentationName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_PrivateEndpointConnectionGetConnection()
+        public async Task GetIfExists_ExperimentationGet()
         {
-            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresGetPrivateEndpointConnection.json
-            // this example is just showing the usage of "PrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/appconfiguration/resource-manager/Microsoft.AppConfiguration/preview/2025-02-01-preview/examples/ConfigurationStoresGetExperimentation.json
+            // this example is just showing the usage of "Experimentation_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -179,13 +174,13 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
             ResourceIdentifier appConfigurationStoreResourceId = AppConfigurationStoreResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, configStoreName);
             AppConfigurationStoreResource appConfigurationStore = client.GetAppConfigurationStoreResource(appConfigurationStoreResourceId);
 
-            // get the collection of this AppConfigurationPrivateEndpointConnectionResource
-            AppConfigurationPrivateEndpointConnectionCollection collection = appConfigurationStore.GetAppConfigurationPrivateEndpointConnections();
+            // get the collection of this ExperimentationResource
+            ExperimentationCollection collection = appConfigurationStore.GetExperimentations();
 
             // invoke the operation
-            string privateEndpointConnectionName = "myConnection";
-            NullableResponse<AppConfigurationPrivateEndpointConnectionResource> response = await collection.GetIfExistsAsync(privateEndpointConnectionName);
-            AppConfigurationPrivateEndpointConnectionResource result = response.HasValue ? response.Value : null;
+            string experimentationName = "Experimentation";
+            NullableResponse<ExperimentationResource> response = await collection.GetIfExistsAsync(experimentationName);
+            ExperimentationResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -195,7 +190,7 @@ namespace Azure.ResourceManager.AppConfiguration.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                AppConfigurationPrivateEndpointConnectionData resourceData = result.Data;
+                ExperimentationData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }

@@ -15,20 +15,20 @@ using Azure.ResourceManager.AppConfiguration.Models;
 
 namespace Azure.ResourceManager.AppConfiguration
 {
-    internal partial class PrivateEndpointConnectionsRestOperations
+    internal partial class ExperimentationRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of PrivateEndpointConnectionsRestOperations. </summary>
+        /// <summary> Initializes a new instance of ExperimentationRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public PrivateEndpointConnectionsRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public ExperimentationRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.AppConfiguration
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal RequestUriBuilder CreateListByConfigurationStoreRequestUri(string subscriptionId, string resourceGroupName, string configStoreName)
+        internal RequestUriBuilder CreateListRequestUri(string subscriptionId, string resourceGroupName, string configStoreName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -46,12 +46,12 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections", false);
+            uri.AppendPath("/experimentation", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateListByConfigurationStoreRequest(string subscriptionId, string resourceGroupName, string configStoreName)
+        internal HttpMessage CreateListRequest(string subscriptionId, string resourceGroupName, string configStoreName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections", false);
+            uri.AppendPath("/experimentation", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -72,28 +72,28 @@ namespace Azure.ResourceManager.AppConfiguration
             return message;
         }
 
-        /// <summary> Lists all private endpoint connections for a configuration store. </summary>
+        /// <summary> Lists experimentation for a given configuration store. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AppConfigurationPrivateEndpointConnectionListResult>> ListByConfigurationStoreAsync(string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
+        public async Task<Response<ExperimentationListResult>> ListAsync(string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
 
-            using var message = CreateListByConfigurationStoreRequest(subscriptionId, resourceGroupName, configStoreName);
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, configStoreName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AppConfigurationPrivateEndpointConnectionListResult value = default;
+                        ExperimentationListResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = AppConfigurationPrivateEndpointConnectionListResult.DeserializeAppConfigurationPrivateEndpointConnectionListResult(document.RootElement);
+                        value = ExperimentationListResult.DeserializeExperimentationListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -101,28 +101,28 @@ namespace Azure.ResourceManager.AppConfiguration
             }
         }
 
-        /// <summary> Lists all private endpoint connections for a configuration store. </summary>
+        /// <summary> Lists experimentation for a given configuration store. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AppConfigurationPrivateEndpointConnectionListResult> ListByConfigurationStore(string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
+        public Response<ExperimentationListResult> List(string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
 
-            using var message = CreateListByConfigurationStoreRequest(subscriptionId, resourceGroupName, configStoreName);
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, configStoreName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AppConfigurationPrivateEndpointConnectionListResult value = default;
+                        ExperimentationListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = AppConfigurationPrivateEndpointConnectionListResult.DeserializeAppConfigurationPrivateEndpointConnectionListResult(document.RootElement);
+                        value = ExperimentationListResult.DeserializeExperimentationListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -130,7 +130,7 @@ namespace Azure.ResourceManager.AppConfiguration
             }
         }
 
-        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName)
+        internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -140,13 +140,13 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections/", false);
-            uri.AppendPath(privateEndpointConnectionName, true);
+            uri.AppendPath("/experimentation/", false);
+            uri.AppendPath(experimentationName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -159,8 +159,8 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections/", false);
-            uri.AppendPath(privateEndpointConnectionName, true);
+            uri.AppendPath("/experimentation/", false);
+            uri.AppendPath(experimentationName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -168,73 +168,73 @@ namespace Azure.ResourceManager.AppConfiguration
             return message;
         }
 
-        /// <summary> Gets the specified private endpoint connection associated with the configuration store. </summary>
+        /// <summary> Gets the properties of the experimentation. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
-        /// <param name="privateEndpointConnectionName"> Private endpoint connection name. </param>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AppConfigurationPrivateEndpointConnectionData>> GetAsync(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ExperimentationData>> GetAsync(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+            Argument.AssertNotNullOrEmpty(experimentationName, nameof(experimentationName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, configStoreName, privateEndpointConnectionName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, configStoreName, experimentationName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AppConfigurationPrivateEndpointConnectionData value = default;
+                        ExperimentationData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = AppConfigurationPrivateEndpointConnectionData.DeserializeAppConfigurationPrivateEndpointConnectionData(document.RootElement);
+                        value = ExperimentationData.DeserializeExperimentationData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((AppConfigurationPrivateEndpointConnectionData)null, message.Response);
+                    return Response.FromValue((ExperimentationData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Gets the specified private endpoint connection associated with the configuration store. </summary>
+        /// <summary> Gets the properties of the experimentation. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
-        /// <param name="privateEndpointConnectionName"> Private endpoint connection name. </param>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AppConfigurationPrivateEndpointConnectionData> Get(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ExperimentationData> Get(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+            Argument.AssertNotNullOrEmpty(experimentationName, nameof(experimentationName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, configStoreName, privateEndpointConnectionName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, configStoreName, experimentationName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AppConfigurationPrivateEndpointConnectionData value = default;
+                        ExperimentationData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = AppConfigurationPrivateEndpointConnectionData.DeserializeAppConfigurationPrivateEndpointConnectionData(document.RootElement);
+                        value = ExperimentationData.DeserializeExperimentationData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((AppConfigurationPrivateEndpointConnectionData)null, message.Response);
+                    return Response.FromValue((ExperimentationData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal RequestUriBuilder CreateCreateOrUpdateRequestUri(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, AppConfigurationPrivateEndpointConnectionData data)
+        internal RequestUriBuilder CreateCreateRequestUri(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, ExperimentationData data)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -244,13 +244,13 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections/", false);
-            uri.AppendPath(privateEndpointConnectionName, true);
+            uri.AppendPath("/experimentation/", false);
+            uri.AppendPath(experimentationName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, AppConfigurationPrivateEndpointConnectionData data)
+        internal HttpMessage CreateCreateRequest(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, ExperimentationData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -263,8 +263,8 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections/", false);
-            uri.AppendPath(privateEndpointConnectionName, true);
+            uri.AppendPath("/experimentation/", false);
+            uri.AppendPath(experimentationName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -276,24 +276,24 @@ namespace Azure.ResourceManager.AppConfiguration
             return message;
         }
 
-        /// <summary> Update the state of the specified private endpoint connection associated with the configuration store. This operation cannot be used to create a private endpoint connection. Private endpoint connections must be created with the Network resource provider. </summary>
+        /// <summary> Creates the experimentation. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
-        /// <param name="privateEndpointConnectionName"> Private endpoint connection name. </param>
-        /// <param name="data"> The private endpoint connection properties. </param>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
+        /// <param name="data"> The parameters for creating the experimentation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, AppConfigurationPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/>, <paramref name="experimentationName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> CreateAsync(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, ExperimentationData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+            Argument.AssertNotNullOrEmpty(experimentationName, nameof(experimentationName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, configStoreName, privateEndpointConnectionName, data);
+            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, configStoreName, experimentationName, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -305,24 +305,24 @@ namespace Azure.ResourceManager.AppConfiguration
             }
         }
 
-        /// <summary> Update the state of the specified private endpoint connection associated with the configuration store. This operation cannot be used to create a private endpoint connection. Private endpoint connections must be created with the Network resource provider. </summary>
+        /// <summary> Creates the experimentation. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
-        /// <param name="privateEndpointConnectionName"> Private endpoint connection name. </param>
-        /// <param name="data"> The private endpoint connection properties. </param>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
+        /// <param name="data"> The parameters for creating the experimentation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, AppConfigurationPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/>, <paramref name="experimentationName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Create(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, ExperimentationData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+            Argument.AssertNotNullOrEmpty(experimentationName, nameof(experimentationName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, configStoreName, privateEndpointConnectionName, data);
+            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, configStoreName, experimentationName, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -334,7 +334,7 @@ namespace Azure.ResourceManager.AppConfiguration
             }
         }
 
-        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName)
+        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -344,13 +344,13 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections/", false);
-            uri.AppendPath(privateEndpointConnectionName, true);
+            uri.AppendPath("/experimentation/", false);
+            uri.AppendPath(experimentationName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -363,8 +363,8 @@ namespace Azure.ResourceManager.AppConfiguration
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.AppConfiguration/configurationStores/", false);
             uri.AppendPath(configStoreName, true);
-            uri.AppendPath("/privateEndpointConnections/", false);
-            uri.AppendPath(privateEndpointConnectionName, true);
+            uri.AppendPath("/experimentation/", false);
+            uri.AppendPath(experimentationName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -372,26 +372,25 @@ namespace Azure.ResourceManager.AppConfiguration
             return message;
         }
 
-        /// <summary> Deletes a private endpoint connection. </summary>
+        /// <summary> Deletes the experimentation. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
-        /// <param name="privateEndpointConnectionName"> Private endpoint connection name. </param>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+            Argument.AssertNotNullOrEmpty(experimentationName, nameof(experimentationName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, configStoreName, privateEndpointConnectionName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, configStoreName, experimentationName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
-                case 200:
                 case 202:
                 case 204:
                     return message.Response;
@@ -400,26 +399,25 @@ namespace Azure.ResourceManager.AppConfiguration
             }
         }
 
-        /// <summary> Deletes a private endpoint connection. </summary>
+        /// <summary> Deletes the experimentation. </summary>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
-        /// <param name="privateEndpointConnectionName"> Private endpoint connection name. </param>
+        /// <param name="experimentationName"> The name of the experimentation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string configStoreName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="configStoreName"/> or <paramref name="experimentationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(string subscriptionId, string resourceGroupName, string configStoreName, string experimentationName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+            Argument.AssertNotNullOrEmpty(experimentationName, nameof(experimentationName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, configStoreName, privateEndpointConnectionName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, configStoreName, experimentationName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
-                case 200:
                 case 202:
                 case 204:
                     return message.Response;
@@ -428,7 +426,7 @@ namespace Azure.ResourceManager.AppConfiguration
             }
         }
 
-        internal RequestUriBuilder CreateListByConfigurationStoreNextPageRequestUri(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName)
+        internal RequestUriBuilder CreateListNextPageRequestUri(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -436,7 +434,7 @@ namespace Azure.ResourceManager.AppConfiguration
             return uri;
         }
 
-        internal HttpMessage CreateListByConfigurationStoreNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName)
+        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -450,30 +448,30 @@ namespace Azure.ResourceManager.AppConfiguration
             return message;
         }
 
-        /// <summary> Lists all private endpoint connections for a configuration store. </summary>
+        /// <summary> Lists experimentation for a given configuration store. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AppConfigurationPrivateEndpointConnectionListResult>> ListByConfigurationStoreNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
+        public async Task<Response<ExperimentationListResult>> ListNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
 
-            using var message = CreateListByConfigurationStoreNextPageRequest(nextLink, subscriptionId, resourceGroupName, configStoreName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, configStoreName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AppConfigurationPrivateEndpointConnectionListResult value = default;
+                        ExperimentationListResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = AppConfigurationPrivateEndpointConnectionListResult.DeserializeAppConfigurationPrivateEndpointConnectionListResult(document.RootElement);
+                        value = ExperimentationListResult.DeserializeExperimentationListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -481,30 +479,30 @@ namespace Azure.ResourceManager.AppConfiguration
             }
         }
 
-        /// <summary> Lists all private endpoint connections for a configuration store. </summary>
+        /// <summary> Lists experimentation for a given configuration store. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="configStoreName"> The name of the configuration store. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="configStoreName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AppConfigurationPrivateEndpointConnectionListResult> ListByConfigurationStoreNextPage(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
+        public Response<ExperimentationListResult> ListNextPage(string nextLink, string subscriptionId, string resourceGroupName, string configStoreName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(configStoreName, nameof(configStoreName));
 
-            using var message = CreateListByConfigurationStoreNextPageRequest(nextLink, subscriptionId, resourceGroupName, configStoreName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, configStoreName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AppConfigurationPrivateEndpointConnectionListResult value = default;
+                        ExperimentationListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = AppConfigurationPrivateEndpointConnectionListResult.DeserializeAppConfigurationPrivateEndpointConnectionListResult(document.RootElement);
+                        value = ExperimentationListResult.DeserializeExperimentationListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
