@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.Billing.Models
         /// <param name="lastMonthCharges"> The last month's charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="monthToDateCharges"> The current month to date charges. This field is only available for usage based subscriptions of Microsoft Customer Agreement billing accounts. </param>
         /// <param name="nextBillingCycleDetails"> Next billing cycle details of the subscription. </param>
-        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts. </param>
+        /// <param name="offerId"> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts or billing accounts with agreement type Enterprise Agreement. </param>
         /// <param name="productCategory"> The category of the product for which the subscription is purchased. Possible values include: AzureSupport, Hardware, ReservationOrder, SaaS, SavingsPlanOrder, Software, UsageBased, Other. </param>
         /// <param name="productType"> Type of the product for which the subscription is purchased. </param>
         /// <param name="productTypeId"> Id of the product for which the subscription is purchased. </param>
@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.Billing.Models
             get => NextBillingCycleDetails?.NextBillingCycleBillingFrequency;
         }
 
-        /// <summary> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts. </summary>
+        /// <summary> The offer ID for the subscription. This field is only available for the Microsoft Online Services Program billing accounts or billing accounts with agreement type Enterprise Agreement. </summary>
         [WirePath("properties.offerId")]
         public string OfferId { get; }
         /// <summary> The category of the product for which the subscription is purchased. Possible values include: AzureSupport, Hardware, ReservationOrder, SaaS, SavingsPlanOrder, Software, UsageBased, Other. </summary>
