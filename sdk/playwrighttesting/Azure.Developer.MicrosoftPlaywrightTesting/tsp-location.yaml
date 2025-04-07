@@ -1,0 +1,5 @@
+directory: specification/playwrighttesting/PlaywrightTesting.AuthManager
+commit: e5eca2279ea7f0cf8c93e7c543ffc033a18e5f7f
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
+- specification/playwrighttesting/PlaywrightTesting.Shared
