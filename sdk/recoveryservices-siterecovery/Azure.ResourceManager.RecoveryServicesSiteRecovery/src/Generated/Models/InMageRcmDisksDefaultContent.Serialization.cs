@@ -43,6 +43,26 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("diskEncryptionSetId"u8);
                 writer.WriteStringValue(DiskEncryptionSetId);
             }
+            if (Optional.IsDefined(SectorSizeInBytes))
+            {
+                writer.WritePropertyName("sectorSizeInBytes"u8);
+                writer.WriteNumberValue(SectorSizeInBytes.Value);
+            }
+            if (Optional.IsDefined(Iops))
+            {
+                writer.WritePropertyName("iops"u8);
+                writer.WriteNumberValue(Iops.Value);
+            }
+            if (Optional.IsDefined(ThroughputInMbps))
+            {
+                writer.WritePropertyName("throughputInMbps"u8);
+                writer.WriteNumberValue(ThroughputInMbps.Value);
+            }
+            if (Optional.IsDefined(CustomTargetDiskSize))
+            {
+                writer.WritePropertyName("customTargetDiskSize"u8);
+                writer.WriteNumberValue(CustomTargetDiskSize.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,6 +103,10 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             ResourceIdentifier logStorageAccountId = default;
             SiteRecoveryDiskAccountType diskType = default;
             ResourceIdentifier diskEncryptionSetId = default;
+            int? sectorSizeInBytes = default;
+            int? iops = default;
+            int? throughputInMbps = default;
+            int? customTargetDiskSize = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -106,13 +130,57 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                     diskEncryptionSetId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("sectorSizeInBytes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sectorSizeInBytes = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("iops"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    iops = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("throughputInMbps"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    throughputInMbps = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("customTargetDiskSize"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    customTargetDiskSize = property.Value.GetInt32();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new InMageRcmDisksDefaultContent(logStorageAccountId, diskType, diskEncryptionSetId, serializedAdditionalRawData);
+            return new InMageRcmDisksDefaultContent(
+                logStorageAccountId,
+                diskType,
+                diskEncryptionSetId,
+                sectorSizeInBytes,
+                iops,
+                throughputInMbps,
+                customTargetDiskSize,
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<InMageRcmDisksDefaultContent>.Write(ModelReaderWriterOptions options)

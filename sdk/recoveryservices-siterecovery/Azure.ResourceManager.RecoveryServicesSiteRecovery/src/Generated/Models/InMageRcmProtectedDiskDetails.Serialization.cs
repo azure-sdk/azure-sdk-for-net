@@ -54,6 +54,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("capacityInBytes"u8);
                 writer.WriteNumberValue(CapacityInBytes.Value);
             }
+            if (options.Format != "W" && Optional.IsDefined(DiskState))
+            {
+                writer.WritePropertyName("diskState"u8);
+                writer.WriteStringValue(DiskState.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsDefined(LogStorageAccountId))
             {
                 writer.WritePropertyName("logStorageAccountId"u8);
@@ -109,6 +114,31 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 writer.WritePropertyName("resyncDetails"u8);
                 writer.WriteObjectValue(ResyncDetails, options);
             }
+            if (Optional.IsDefined(CustomTargetDiskName))
+            {
+                writer.WritePropertyName("customTargetDiskName"u8);
+                writer.WriteStringValue(CustomTargetDiskName);
+            }
+            if (Optional.IsDefined(SectorSizeInBytes))
+            {
+                writer.WritePropertyName("sectorSizeInBytes"u8);
+                writer.WriteNumberValue(SectorSizeInBytes.Value);
+            }
+            if (Optional.IsDefined(Iops))
+            {
+                writer.WritePropertyName("iops"u8);
+                writer.WriteNumberValue(Iops.Value);
+            }
+            if (Optional.IsDefined(ThroughputInMbps))
+            {
+                writer.WritePropertyName("throughputInMbps"u8);
+                writer.WriteNumberValue(ThroughputInMbps.Value);
+            }
+            if (Optional.IsDefined(DiskSizeInGB))
+            {
+                writer.WritePropertyName("diskSizeInGB"u8);
+                writer.WriteNumberValue(DiskSizeInGB.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -150,6 +180,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             string diskName = default;
             string isOSDisk = default;
             long? capacityInBytes = default;
+            DiskState? diskState = default;
             ResourceIdentifier logStorageAccountId = default;
             ResourceIdentifier diskEncryptionSetId = default;
             string seedManagedDiskId = default;
@@ -161,6 +192,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
             string isInitialReplicationComplete = default;
             InMageRcmSyncDetails irDetails = default;
             InMageRcmSyncDetails resyncDetails = default;
+            string customTargetDiskName = default;
+            int? sectorSizeInBytes = default;
+            long? iops = default;
+            long? throughputInMbps = default;
+            long? diskSizeInGB = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -187,6 +223,15 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                         continue;
                     }
                     capacityInBytes = property.Value.GetInt64();
+                    continue;
+                }
+                if (property.NameEquals("diskState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    diskState = new DiskState(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("logStorageAccountId"u8))
@@ -276,6 +321,47 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                     resyncDetails = InMageRcmSyncDetails.DeserializeInMageRcmSyncDetails(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("customTargetDiskName"u8))
+                {
+                    customTargetDiskName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("sectorSizeInBytes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sectorSizeInBytes = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("iops"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    iops = property.Value.GetInt64();
+                    continue;
+                }
+                if (property.NameEquals("throughputInMbps"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    throughputInMbps = property.Value.GetInt64();
+                    continue;
+                }
+                if (property.NameEquals("diskSizeInGB"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    diskSizeInGB = property.Value.GetInt64();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -287,6 +373,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 diskName,
                 isOSDisk,
                 capacityInBytes,
+                diskState,
                 logStorageAccountId,
                 diskEncryptionSetId,
                 seedManagedDiskId,
@@ -298,6 +385,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
                 isInitialReplicationComplete,
                 irDetails,
                 resyncDetails,
+                customTargetDiskName,
+                sectorSizeInBytes,
+                iops,
+                throughputInMbps,
+                diskSizeInGB,
                 serializedAdditionalRawData);
         }
 
