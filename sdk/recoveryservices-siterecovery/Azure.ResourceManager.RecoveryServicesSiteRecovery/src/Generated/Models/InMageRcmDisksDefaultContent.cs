@@ -62,12 +62,20 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         /// <param name="logStorageAccountId"> The log storage account ARM Id. </param>
         /// <param name="diskType"> The disk type. </param>
         /// <param name="diskEncryptionSetId"> The DiskEncryptionSet ARM Id. </param>
+        /// <param name="sectorSizeInBytes"> The logical sector size (in bytes), 512 by default. </param>
+        /// <param name="iops"> The number of IOPS allowed for Premium V2 and Ultra disks. </param>
+        /// <param name="throughputInMbps"> The total throughput in Mbps for Premium V2 and Ultra disks. </param>
+        /// <param name="customTargetDiskSize"> The target disk size in GB. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal InMageRcmDisksDefaultContent(ResourceIdentifier logStorageAccountId, SiteRecoveryDiskAccountType diskType, ResourceIdentifier diskEncryptionSetId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal InMageRcmDisksDefaultContent(ResourceIdentifier logStorageAccountId, SiteRecoveryDiskAccountType diskType, ResourceIdentifier diskEncryptionSetId, int? sectorSizeInBytes, int? iops, int? throughputInMbps, int? customTargetDiskSize, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             LogStorageAccountId = logStorageAccountId;
             DiskType = diskType;
             DiskEncryptionSetId = diskEncryptionSetId;
+            SectorSizeInBytes = sectorSizeInBytes;
+            Iops = iops;
+            ThroughputInMbps = throughputInMbps;
+            CustomTargetDiskSize = customTargetDiskSize;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -82,5 +90,13 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public SiteRecoveryDiskAccountType DiskType { get; }
         /// <summary> The DiskEncryptionSet ARM Id. </summary>
         public ResourceIdentifier DiskEncryptionSetId { get; set; }
+        /// <summary> The logical sector size (in bytes), 512 by default. </summary>
+        public int? SectorSizeInBytes { get; set; }
+        /// <summary> The number of IOPS allowed for Premium V2 and Ultra disks. </summary>
+        public int? Iops { get; set; }
+        /// <summary> The total throughput in Mbps for Premium V2 and Ultra disks. </summary>
+        public int? ThroughputInMbps { get; set; }
+        /// <summary> The target disk size in GB. </summary>
+        public int? CustomTargetDiskSize { get; set; }
     }
 }
