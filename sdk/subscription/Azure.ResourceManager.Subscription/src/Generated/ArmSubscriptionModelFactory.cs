@@ -40,6 +40,14 @@ namespace Azure.ResourceManager.Subscription.Models
             return new EnabledSubscriptionId(subscriptionId, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.SubscriptionCreationResult"/>. </summary>
+        /// <param name="subscriptionLink"> The link to the new subscription. Use this link to check the status of subscription creation operation. </param>
+        /// <returns> A new <see cref="Models.SubscriptionCreationResult"/> instance for mocking. </returns>
+        public static SubscriptionCreationResult SubscriptionCreationResult(string subscriptionLink = null)
+        {
+            return new SubscriptionCreationResult(subscriptionLink, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Subscription.SubscriptionAliasData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
