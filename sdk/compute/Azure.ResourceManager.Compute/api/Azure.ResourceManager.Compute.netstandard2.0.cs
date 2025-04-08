@@ -8011,6 +8011,24 @@ namespace Azure.ResourceManager.Compute.Models
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ScheduledEventsPolicy>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ScriptShellType : System.IEquatable<Azure.ResourceManager.Compute.Models.ScriptShellType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ScriptShellType(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.ScriptShellType Default { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ScriptShellType Powershell7 { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.ScriptShellType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.ScriptShellType left, Azure.ResourceManager.Compute.Models.ScriptShellType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.ScriptShellType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.ScriptShellType left, Azure.ResourceManager.Compute.Models.ScriptShellType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SecurityEncryptionType : System.IEquatable<Azure.ResourceManager.Compute.Models.SecurityEncryptionType>
     {
         private readonly object _dummy;
@@ -9391,7 +9409,9 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public VirtualMachineRunCommandScriptSource() { }
         public string CommandId { get { throw null; } set { } }
+        public string GalleryScriptReferenceId { get { throw null; } set { } }
         public string Script { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.ScriptShellType? ScriptShell { get { throw null; } set { } }
         public System.Uri ScriptUri { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.RunCommandManagedIdentity ScriptUriManagedIdentity { get { throw null; } set { } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -10602,6 +10622,8 @@ namespace Azure.ResourceManager.Compute.Models
         public System.Collections.Generic.IList<string> KbNumbersToExclude { get { throw null; } }
         public System.Collections.Generic.IList<string> KbNumbersToInclude { get { throw null; } }
         public System.DateTimeOffset? MaxPatchPublishOn { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> PatchNameMasksToExclude { get { throw null; } }
+        public System.Collections.Generic.IList<string> PatchNameMasksToInclude { get { throw null; } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Compute.Models.WindowsParameters System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.WindowsParameters>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.WindowsParameters>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
