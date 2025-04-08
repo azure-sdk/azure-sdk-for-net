@@ -57,8 +57,9 @@ namespace Azure.ResourceManager.Marketplace.Models
         /// <param name="accessibility"> Plan accessibility. </param>
         /// <param name="altStackReference"> Alternative stack type. </param>
         /// <param name="stackType"> Stack type (classic or arm). </param>
+        /// <param name="isStopSell"> Indicating whether the plan is stop sell or not. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PrivateStorePlan(string skuId, string planId, string planDisplayName, PrivateStorePlanAccessibility? accessibility, string altStackReference, string stackType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PrivateStorePlan(string skuId, string planId, string planDisplayName, PrivateStorePlanAccessibility? accessibility, string altStackReference, string stackType, bool? isStopSell, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SkuId = skuId;
             PlanId = planId;
@@ -66,6 +67,7 @@ namespace Azure.ResourceManager.Marketplace.Models
             Accessibility = accessibility;
             AltStackReference = altStackReference;
             StackType = stackType;
+            IsStopSell = isStopSell;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -81,5 +83,7 @@ namespace Azure.ResourceManager.Marketplace.Models
         public string AltStackReference { get; }
         /// <summary> Stack type (classic or arm). </summary>
         public string StackType { get; }
+        /// <summary> Indicating whether the plan is stop sell or not. </summary>
+        public bool? IsStopSell { get; }
     }
 }

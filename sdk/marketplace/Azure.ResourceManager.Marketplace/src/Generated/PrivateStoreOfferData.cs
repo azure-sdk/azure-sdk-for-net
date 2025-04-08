@@ -74,9 +74,10 @@ namespace Azure.ResourceManager.Marketplace
         /// <param name="specificPlanIdsLimitation"> Plan ids limitation for this offer. </param>
         /// <param name="isUpdateSuppressedDueToIdempotence"> Indicating whether the offer was not updated to db (true = not updated). If the allow list is identical to the existed one in db, the offer would not be updated. </param>
         /// <param name="iconFileUris"> Icon File Uris. </param>
+        /// <param name="isStopSell"> Indicating whether the offer is stop sell or not. </param>
         /// <param name="plans"> Offer plans. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PrivateStoreOfferData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string uniqueOfferId, string offerDisplayName, string publisherDisplayName, ETag? eTag, Guid? privateStoreId, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, IList<string> specificPlanIdsLimitation, bool? isUpdateSuppressedDueToIdempotence, IDictionary<string, Uri> iconFileUris, IList<PrivateStorePlan> plans, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal PrivateStoreOfferData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string uniqueOfferId, string offerDisplayName, string publisherDisplayName, ETag? eTag, Guid? privateStoreId, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, IList<string> specificPlanIdsLimitation, bool? isUpdateSuppressedDueToIdempotence, IDictionary<string, Uri> iconFileUris, bool? isStopSell, IList<PrivateStorePlan> plans, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             UniqueOfferId = uniqueOfferId;
             OfferDisplayName = offerDisplayName;
@@ -88,6 +89,7 @@ namespace Azure.ResourceManager.Marketplace
             SpecificPlanIdsLimitation = specificPlanIdsLimitation;
             IsUpdateSuppressedDueToIdempotence = isUpdateSuppressedDueToIdempotence;
             IconFileUris = iconFileUris;
+            IsStopSell = isStopSell;
             Plans = plans;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -112,6 +114,8 @@ namespace Azure.ResourceManager.Marketplace
         public bool? IsUpdateSuppressedDueToIdempotence { get; set; }
         /// <summary> Icon File Uris. </summary>
         public IDictionary<string, Uri> IconFileUris { get; }
+        /// <summary> Indicating whether the offer is stop sell or not. </summary>
+        public bool? IsStopSell { get; }
         /// <summary> Offer plans. </summary>
         public IList<PrivateStorePlan> Plans { get; }
     }

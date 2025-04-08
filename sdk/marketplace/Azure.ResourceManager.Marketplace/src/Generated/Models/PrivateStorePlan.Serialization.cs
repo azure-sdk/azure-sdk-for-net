@@ -64,6 +64,11 @@ namespace Azure.ResourceManager.Marketplace.Models
                 writer.WritePropertyName("stackType"u8);
                 writer.WriteStringValue(StackType);
             }
+            if (options.Format != "W" && Optional.IsDefined(IsStopSell))
+            {
+                writer.WritePropertyName("isStopSell"u8);
+                writer.WriteBooleanValue(IsStopSell.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -107,6 +112,7 @@ namespace Azure.ResourceManager.Marketplace.Models
             PrivateStorePlanAccessibility? accessibility = default;
             string altStackReference = default;
             string stackType = default;
+            bool? isStopSell = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -145,6 +151,15 @@ namespace Azure.ResourceManager.Marketplace.Models
                     stackType = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("isStopSell"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    isStopSell = property.Value.GetBoolean();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -158,6 +173,7 @@ namespace Azure.ResourceManager.Marketplace.Models
                 accessibility,
                 altStackReference,
                 stackType,
+                isStopSell,
                 serializedAdditionalRawData);
         }
 

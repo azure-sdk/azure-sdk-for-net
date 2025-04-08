@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -85,9 +86,10 @@ namespace Azure.ResourceManager.Marketplace.Models
         /// <param name="specificPlanIdsLimitation"> Plan ids limitation for this offer. </param>
         /// <param name="isUpdateSuppressedDueToIdempotence"> Indicating whether the offer was not updated to db (true = not updated). If the allow list is identical to the existed one in db, the offer would not be updated. </param>
         /// <param name="iconFileUris"> Icon File Uris. </param>
+        /// <param name="isStopSell"> Indicating whether the offer is stop sell or not. </param>
         /// <param name="plans"> Offer plans. </param>
         /// <returns> A new <see cref="Models.PrivateStoreOfferResult"/> instance for mocking. </returns>
-        public static PrivateStoreOfferResult PrivateStoreOfferResult(string uniqueOfferId = null, string offerDisplayName = null, string publisherDisplayName = null, ETag? eTag = null, Guid? privateStoreId = null, DateTimeOffset? createdOn = null, DateTimeOffset? modifiedOn = null, IEnumerable<string> specificPlanIdsLimitation = null, bool? isUpdateSuppressedDueToIdempotence = null, IReadOnlyDictionary<string, Uri> iconFileUris = null, IEnumerable<PrivateStorePlan> plans = null)
+        public static PrivateStoreOfferResult PrivateStoreOfferResult(string uniqueOfferId = null, string offerDisplayName = null, string publisherDisplayName = null, ETag? eTag = null, Guid? privateStoreId = null, DateTimeOffset? createdOn = null, DateTimeOffset? modifiedOn = null, IEnumerable<string> specificPlanIdsLimitation = null, bool? isUpdateSuppressedDueToIdempotence = null, IReadOnlyDictionary<string, Uri> iconFileUris = null, bool? isStopSell = null, IEnumerable<PrivateStorePlan> plans = null)
         {
             specificPlanIdsLimitation ??= new List<string>();
             iconFileUris ??= new Dictionary<string, Uri>();
@@ -104,6 +106,7 @@ namespace Azure.ResourceManager.Marketplace.Models
                 specificPlanIdsLimitation?.ToList(),
                 isUpdateSuppressedDueToIdempotence,
                 iconFileUris,
+                isStopSell,
                 plans?.ToList(),
                 serializedAdditionalRawData: null);
         }
@@ -115,8 +118,9 @@ namespace Azure.ResourceManager.Marketplace.Models
         /// <param name="accessibility"> Plan accessibility. </param>
         /// <param name="altStackReference"> Alternative stack type. </param>
         /// <param name="stackType"> Stack type (classic or arm). </param>
+        /// <param name="isStopSell"> Indicating whether the plan is stop sell or not. </param>
         /// <returns> A new <see cref="Models.PrivateStorePlan"/> instance for mocking. </returns>
-        public static PrivateStorePlan PrivateStorePlan(string skuId = null, string planId = null, string planDisplayName = null, PrivateStorePlanAccessibility? accessibility = null, string altStackReference = null, string stackType = null)
+        public static PrivateStorePlan PrivateStorePlan(string skuId = null, string planId = null, string planDisplayName = null, PrivateStorePlanAccessibility? accessibility = null, string altStackReference = null, string stackType = null, bool? isStopSell = null)
         {
             return new PrivateStorePlan(
                 skuId,
@@ -125,6 +129,7 @@ namespace Azure.ResourceManager.Marketplace.Models
                 accessibility,
                 altStackReference,
                 stackType,
+                isStopSell,
                 serializedAdditionalRawData: null);
         }
 
@@ -268,9 +273,10 @@ namespace Azure.ResourceManager.Marketplace.Models
         /// <param name="specificPlanIdsLimitation"> Plan ids limitation for this offer. </param>
         /// <param name="isUpdateSuppressedDueToIdempotence"> Indicating whether the offer was not updated to db (true = not updated). If the allow list is identical to the existed one in db, the offer would not be updated. </param>
         /// <param name="iconFileUris"> Icon File Uris. </param>
+        /// <param name="isStopSell"> Indicating whether the offer is stop sell or not. </param>
         /// <param name="plans"> Offer plans. </param>
         /// <returns> A new <see cref="Marketplace.PrivateStoreOfferData"/> instance for mocking. </returns>
-        public static PrivateStoreOfferData PrivateStoreOfferData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string uniqueOfferId = null, string offerDisplayName = null, string publisherDisplayName = null, ETag? eTag = null, Guid? privateStoreId = null, DateTimeOffset? createdOn = null, DateTimeOffset? modifiedOn = null, IEnumerable<string> specificPlanIdsLimitation = null, bool? isUpdateSuppressedDueToIdempotence = null, IDictionary<string, Uri> iconFileUris = null, IEnumerable<PrivateStorePlan> plans = null)
+        public static PrivateStoreOfferData PrivateStoreOfferData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string uniqueOfferId = null, string offerDisplayName = null, string publisherDisplayName = null, ETag? eTag = null, Guid? privateStoreId = null, DateTimeOffset? createdOn = null, DateTimeOffset? modifiedOn = null, IEnumerable<string> specificPlanIdsLimitation = null, bool? isUpdateSuppressedDueToIdempotence = null, IDictionary<string, Uri> iconFileUris = null, bool? isStopSell = null, IEnumerable<PrivateStorePlan> plans = null)
         {
             specificPlanIdsLimitation ??= new List<string>();
             iconFileUris ??= new Dictionary<string, Uri>();
@@ -291,6 +297,7 @@ namespace Azure.ResourceManager.Marketplace.Models
                 specificPlanIdsLimitation?.ToList(),
                 isUpdateSuppressedDueToIdempotence,
                 iconFileUris,
+                isStopSell,
                 plans?.ToList(),
                 serializedAdditionalRawData: null);
         }
@@ -594,6 +601,62 @@ namespace Azure.ResourceManager.Marketplace.Models
             subscriptionsIds ??= new List<string>();
 
             return new SubscriptionsContextList(subscriptionsIds?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Marketplace.Models.PrivateStoreOfferResult" />. </summary>
+        /// <param name="uniqueOfferId"> Offers unique id. </param>
+        /// <param name="offerDisplayName"> It will be displayed prominently in the marketplace. </param>
+        /// <param name="publisherDisplayName"> Publisher name that will be displayed prominently in the marketplace. </param>
+        /// <param name="eTag"> Identifier for purposes of race condition. </param>
+        /// <param name="privateStoreId"> Private store unique id. </param>
+        /// <param name="createdOn"> Private store offer creation date. </param>
+        /// <param name="modifiedOn"> Private store offer modification date. </param>
+        /// <param name="specificPlanIdsLimitation"> Plan ids limitation for this offer. </param>
+        /// <param name="isUpdateSuppressedDueToIdempotence"> Indicating whether the offer was not updated to db (true = not updated). If the allow list is identical to the existed one in db, the offer would not be updated. </param>
+        /// <param name="iconFileUris"> Icon File Uris. </param>
+        /// <param name="plans"> Offer plans. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Marketplace.Models.PrivateStoreOfferResult" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PrivateStoreOfferResult PrivateStoreOfferResult(string uniqueOfferId, string offerDisplayName, string publisherDisplayName, ETag? eTag, Guid? privateStoreId, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, IEnumerable<string> specificPlanIdsLimitation, bool? isUpdateSuppressedDueToIdempotence, IReadOnlyDictionary<string, Uri> iconFileUris, IEnumerable<PrivateStorePlan> plans)
+        {
+            return PrivateStoreOfferResult(uniqueOfferId: uniqueOfferId, offerDisplayName: offerDisplayName, publisherDisplayName: publisherDisplayName, eTag: eTag, privateStoreId: privateStoreId, createdOn: createdOn, modifiedOn: modifiedOn, specificPlanIdsLimitation: specificPlanIdsLimitation, isUpdateSuppressedDueToIdempotence: isUpdateSuppressedDueToIdempotence, iconFileUris: iconFileUris, isStopSell: default, plans: plans);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Marketplace.Models.PrivateStorePlan" />. </summary>
+        /// <param name="skuId"> Identifier for this plan. </param>
+        /// <param name="planId"> Text identifier for this plan. </param>
+        /// <param name="planDisplayName"> Friendly name for the plan for display in the marketplace. </param>
+        /// <param name="accessibility"> Plan accessibility. </param>
+        /// <param name="altStackReference"> Alternative stack type. </param>
+        /// <param name="stackType"> Stack type (classic or arm). </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Marketplace.Models.PrivateStorePlan" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PrivateStorePlan PrivateStorePlan(string skuId, string planId, string planDisplayName, PrivateStorePlanAccessibility? accessibility, string altStackReference, string stackType)
+        {
+            return PrivateStorePlan(skuId: skuId, planId: planId, planDisplayName: planDisplayName, accessibility: accessibility, altStackReference: altStackReference, stackType: stackType, isStopSell: default);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Marketplace.PrivateStoreOfferData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="uniqueOfferId"> Offers unique id. </param>
+        /// <param name="offerDisplayName"> It will be displayed prominently in the marketplace. </param>
+        /// <param name="publisherDisplayName"> Publisher name that will be displayed prominently in the marketplace. </param>
+        /// <param name="eTag"> Identifier for purposes of race condition. </param>
+        /// <param name="privateStoreId"> Private store unique id. </param>
+        /// <param name="createdOn"> Private store offer creation date. </param>
+        /// <param name="modifiedOn"> Private store offer modification date. </param>
+        /// <param name="specificPlanIdsLimitation"> Plan ids limitation for this offer. </param>
+        /// <param name="isUpdateSuppressedDueToIdempotence"> Indicating whether the offer was not updated to db (true = not updated). If the allow list is identical to the existed one in db, the offer would not be updated. </param>
+        /// <param name="iconFileUris"> Icon File Uris. </param>
+        /// <param name="plans"> Offer plans. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Marketplace.PrivateStoreOfferData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PrivateStoreOfferData PrivateStoreOfferData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string uniqueOfferId, string offerDisplayName, string publisherDisplayName, ETag? eTag, Guid? privateStoreId, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, IEnumerable<string> specificPlanIdsLimitation, bool? isUpdateSuppressedDueToIdempotence, IDictionary<string, Uri> iconFileUris, IEnumerable<PrivateStorePlan> plans)
+        {
+            return PrivateStoreOfferData(id: id, name: name, resourceType: resourceType, systemData: systemData, uniqueOfferId: uniqueOfferId, offerDisplayName: offerDisplayName, publisherDisplayName: publisherDisplayName, eTag: eTag, privateStoreId: privateStoreId, createdOn: createdOn, modifiedOn: modifiedOn, specificPlanIdsLimitation: specificPlanIdsLimitation, isUpdateSuppressedDueToIdempotence: isUpdateSuppressedDueToIdempotence, iconFileUris: iconFileUris, isStopSell: default, plans: plans);
         }
     }
 }

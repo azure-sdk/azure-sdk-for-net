@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Marketplace
 namespace: Azure.ResourceManager.Marketplace
-require: https://github.com/Azure/azure-rest-api-specs/blob/a54263176acce91199a19333d6c4717367a3317e/specification/marketplace/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/marketplace/resource-manager/readme.md
 #tag: package-2023-01-01
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
