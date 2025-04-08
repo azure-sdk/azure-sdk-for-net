@@ -169,15 +169,15 @@ namespace Azure.ResourceManager.Search.Models
                 writer.WritePropertyName("eTag"u8);
                 writer.WriteStringValue(ETag.Value.ToString());
             }
-            if (options.Format != "W" && Optional.IsDefined(IsUpgradeAvailable))
+            if (Optional.IsDefined(IsUpgradeAvailable))
             {
                 writer.WritePropertyName("upgradeAvailable"u8);
-                writer.WriteBooleanValue(IsUpgradeAvailable.Value);
+                writer.WriteStringValue(IsUpgradeAvailable.Value.ToString());
             }
-            if (options.Format != "W" && Optional.IsDefined(ServiceUpgradeOn))
+            if (options.Format != "W" && Optional.IsDefined(ServiceUpgradedOn))
             {
-                writer.WritePropertyName("serviceUpgradeDate"u8);
-                writer.WriteStringValue(ServiceUpgradeOn.Value, "O");
+                writer.WritePropertyName("serviceUpgradedAt"u8);
+                writer.WriteStringValue(ServiceUpgradedOn.Value, "O");
             }
             writer.WriteEndObject();
         }
@@ -228,8 +228,8 @@ namespace Azure.ResourceManager.Search.Models
             IReadOnlyList<SearchPrivateEndpointConnectionData> privateEndpointConnections = default;
             IReadOnlyList<SharedSearchServicePrivateLinkResourceData> sharedPrivateLinkResources = default;
             ETag? eTag = default;
-            bool? upgradeAvailable = default;
-            DateTimeOffset? serviceUpgradeDate = default;
+            UpgradeAvailable? upgradeAvailable = default;
+            DateTimeOffset? serviceUpgradedAt = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -485,16 +485,16 @@ namespace Azure.ResourceManager.Search.Models
                             {
                                 continue;
                             }
-                            upgradeAvailable = property0.Value.GetBoolean();
+                            upgradeAvailable = new UpgradeAvailable(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("serviceUpgradeDate"u8))
+                        if (property0.NameEquals("serviceUpgradedAt"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            serviceUpgradeDate = property0.Value.GetDateTimeOffset("O");
+                            serviceUpgradedAt = property0.Value.GetDateTimeOffset("O");
                             continue;
                         }
                     }
@@ -534,7 +534,7 @@ namespace Azure.ResourceManager.Search.Models
                 sharedPrivateLinkResources ?? new ChangeTrackingList<SharedSearchServicePrivateLinkResourceData>(),
                 eTag,
                 upgradeAvailable,
-                serviceUpgradeDate,
+                serviceUpgradedAt,
                 serializedAdditionalRawData);
         }
 
@@ -1000,23 +1000,22 @@ namespace Azure.ResourceManager.Search.Models
                 if (Optional.IsDefined(IsUpgradeAvailable))
                 {
                     builder.Append("    upgradeAvailable: ");
-                    var boolValue = IsUpgradeAvailable.Value == true ? "true" : "false";
-                    builder.AppendLine($"{boolValue}");
+                    builder.AppendLine($"'{IsUpgradeAvailable.Value.ToString()}'");
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ServiceUpgradeOn), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ServiceUpgradedOn), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("    serviceUpgradeDate: ");
+                builder.Append("    serviceUpgradedAt: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(ServiceUpgradeOn))
+                if (Optional.IsDefined(ServiceUpgradedOn))
                 {
-                    builder.Append("    serviceUpgradeDate: ");
-                    var formattedDateTimeString = TypeFormatters.ToString(ServiceUpgradeOn.Value, "o");
+                    builder.Append("    serviceUpgradedAt: ");
+                    var formattedDateTimeString = TypeFormatters.ToString(ServiceUpgradedOn.Value, "o");
                     builder.AppendLine($"'{formattedDateTimeString}'");
                 }
             }
