@@ -83,11 +83,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("createMode"u8);
                 writer.WriteStringValue(CreateMode.Value.ToString());
             }
-            if (Optional.IsDefined(MaterializedViewDefinition))
-            {
-                writer.WritePropertyName("materializedViewDefinition"u8);
-                writer.WriteObjectValue(MaterializedViewDefinition, options);
-            }
             if (Optional.IsCollectionDefined(ComputedProperties))
             {
                 writer.WritePropertyName("computedProperties"u8);
@@ -150,7 +145,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
             long? analyticalStorageTtl = default;
             ResourceRestoreParameters restoreParameters = default;
             CosmosDBAccountCreateMode? createMode = default;
-            MaterializedViewDefinition materializedViewDefinition = default;
             IList<ComputedProperty> computedProperties = default;
             VectorEmbeddingPolicy vectorEmbeddingPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -243,15 +237,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     createMode = new CosmosDBAccountCreateMode(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("materializedViewDefinition"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    materializedViewDefinition = MaterializedViewDefinition.DeserializeMaterializedViewDefinition(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("computedProperties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -292,7 +277,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 analyticalStorageTtl,
                 restoreParameters,
                 createMode,
-                materializedViewDefinition,
                 computedProperties ?? new ChangeTrackingList<ComputedProperty>(),
                 vectorEmbeddingPolicy,
                 serializedAdditionalRawData);
@@ -467,21 +451,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 {
                     builder.Append("  createMode: ");
                     builder.AppendLine($"'{CreateMode.Value.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(MaterializedViewDefinition), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  materializedViewDefinition: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(MaterializedViewDefinition))
-                {
-                    builder.Append("  materializedViewDefinition: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, MaterializedViewDefinition, options, 2, false, "  materializedViewDefinition: ");
                 }
             }
 
