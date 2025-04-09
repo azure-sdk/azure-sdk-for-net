@@ -59,6 +59,22 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
+            if (Optional.IsCollectionDefined(Labels))
+            {
+                writer.WritePropertyName("labels"u8);
+                writer.WriteStartObject();
+                foreach (var item in Labels)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            if (options.Format != "W" && Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteObjectValue(Status, options);
+            }
             writer.WriteEndObject();
         }
 
@@ -90,6 +106,8 @@ namespace Azure.ResourceManager.ContainerServiceFleet
             ResourceIdentifier clusterResourceId = default;
             string group = default;
             FleetMemberProvisioningState? provisioningState = default;
+            IDictionary<string, string> labels = default;
+            FleetMemberStatus status = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -159,6 +177,29 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                             provisioningState = new FleetMemberProvisioningState(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("labels"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, property1.Value.GetString());
+                            }
+                            labels = dictionary;
+                            continue;
+                        }
+                        if (property0.NameEquals("status"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            status = FleetMemberStatus.DeserializeFleetMemberStatus(property0.Value, options);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -177,6 +218,8 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                 clusterResourceId,
                 group,
                 provisioningState,
+                labels ?? new ChangeTrackingDictionary<string, string>(),
+                status,
                 serializedAdditionalRawData);
         }
 
