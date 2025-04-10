@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    /// <summary> List of physical partitions and their properties returned by a merge operation. </summary>
-    public partial class PhysicalPartitionStorageInfoCollection
+    /// <summary> Represents the full text path settings for the full text index. </summary>
+    public partial class FullTextPath
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,23 +45,40 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="PhysicalPartitionStorageInfoCollection"/>. </summary>
-        internal PhysicalPartitionStorageInfoCollection()
+        /// <summary> Initializes a new instance of <see cref="FullTextPath"/>. </summary>
+        /// <param name="path"> A string containing the path of the full text index. </param>
+        /// <param name="language"> A string containing the language of the full text index. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="path"/> or <paramref name="language"/> is null. </exception>
+        public FullTextPath(string path, string language)
         {
-            PhysicalPartitionStorageInfoCollectionValue = new ChangeTrackingList<PhysicalPartitionStorageInfo>();
+            Argument.AssertNotNull(path, nameof(path));
+            Argument.AssertNotNull(language, nameof(language));
+
+            Path = path;
+            Language = language;
         }
 
-        /// <summary> Initializes a new instance of <see cref="PhysicalPartitionStorageInfoCollection"/>. </summary>
-        /// <param name="physicalPartitionStorageInfoCollectionValue"> List of physical partitions and their properties. </param>
+        /// <summary> Initializes a new instance of <see cref="FullTextPath"/>. </summary>
+        /// <param name="path"> A string containing the path of the full text index. </param>
+        /// <param name="language"> A string containing the language of the full text index. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PhysicalPartitionStorageInfoCollection(IReadOnlyList<PhysicalPartitionStorageInfo> physicalPartitionStorageInfoCollectionValue, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FullTextPath(string path, string language, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            PhysicalPartitionStorageInfoCollectionValue = physicalPartitionStorageInfoCollectionValue;
+            Path = path;
+            Language = language;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> List of physical partitions and their properties. </summary>
-        [WirePath("physicalPartitionStorageInfoCollection")]
-        public IReadOnlyList<PhysicalPartitionStorageInfo> PhysicalPartitionStorageInfoCollectionValue { get; }
+        /// <summary> Initializes a new instance of <see cref="FullTextPath"/> for deserialization. </summary>
+        internal FullTextPath()
+        {
+        }
+
+        /// <summary> A string containing the path of the full text index. </summary>
+        [WirePath("path")]
+        public string Path { get; set; }
+        /// <summary> A string containing the language of the full text index. </summary>
+        [WirePath("language")]
+        public string Language { get; set; }
     }
 }

@@ -10,12 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    /// <summary>
-    /// Base class for all DataTransfer source/sink
-    /// Please note <see cref="DataTransferDataSourceSink"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="AzureBlobDataTransferDataSourceSink"/>, <see cref="BaseCosmosDataTransferDataSourceSink"/>, <see cref="CosmosCassandraDataTransferDataSourceSink"/>, <see cref="CosmosMongoDataTransferDataSourceSink"/>, <see cref="CosmosMongoVCoreDataTransferDataSourceSink"/> and <see cref="CosmosSqlDataTransferDataSourceSink"/>.
-    /// </summary>
-    public abstract partial class DataTransferDataSourceSink
+    /// <summary> Cosmos DB FullText Policy. </summary>
+    public partial class FullTextPolicy
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,23 +43,30 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DataTransferDataSourceSink"/>. </summary>
-        protected DataTransferDataSourceSink()
+        /// <summary> Initializes a new instance of <see cref="FullTextPolicy"/>. </summary>
+        public FullTextPolicy()
         {
+            FullTextPaths = new ChangeTrackingList<FullTextPath>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataTransferDataSourceSink"/>. </summary>
-        /// <param name="component"></param>
+        /// <summary> Initializes a new instance of <see cref="FullTextPolicy"/>. </summary>
+        /// <param name="defaultLanguage"> The default language for a full text index. </param>
+        /// <param name="fullTextPaths"> List of FullText Paths. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataTransferDataSourceSink(DataTransferComponent component, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FullTextPolicy(string defaultLanguage, IList<FullTextPath> fullTextPaths, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Component = component;
+            DefaultLanguage = defaultLanguage;
+            FullTextPaths = fullTextPaths;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets or sets the component. </summary>
-        internal DataTransferComponent Component { get; set; }
+        /// <summary> The default language for a full text index. </summary>
+        [WirePath("defaultLanguage")]
+        public string DefaultLanguage { get; set; }
+        /// <summary> List of FullText Paths. </summary>
+        [WirePath("fullTextPaths")]
+        public IList<FullTextPath> FullTextPaths { get; }
     }
 }
