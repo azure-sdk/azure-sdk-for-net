@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> Use custom models to ease the process of information extraction from unstructured documents like contracts or financial documents. </summary>
+    /// <summary> Contains the custom text LRO task. </summary>
     internal partial class CustomEntitiesLROTask : AnalyzeTextLROTask
     {
         /// <summary> Initializes a new instance of <see cref="CustomEntitiesLROTask"/>. </summary>
@@ -17,16 +17,16 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="CustomEntitiesLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        /// <param name="parameters"> Supported parameters for a Custom Entities task. </param>
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="parameters"> task parameters. </param>
         internal CustomEntitiesLROTask(string taskName, AnalyzeTextLROTaskKind kind, CustomEntitiesTaskParameters parameters) : base(taskName, kind)
         {
             Parameters = parameters;
             Kind = kind;
         }
 
-        /// <summary> Supported parameters for a Custom Entities task. </summary>
+        /// <summary> task parameters. </summary>
         public CustomEntitiesTaskParameters Parameters { get; set; }
     }
 }

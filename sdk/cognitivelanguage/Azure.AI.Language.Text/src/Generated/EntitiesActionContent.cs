@@ -64,8 +64,9 @@ namespace Azure.AI.Language.Text
         /// The available derived classes include <see cref="AllowOverlapEntityPolicyType"/> and <see cref="MatchLongestEntityPolicyType"/>.
         /// </param>
         /// <param name="inferenceOptions"> (Optional) request parameter that allows the user to provide settings for running the inference. </param>
+        /// <param name="entitySynonyms"> (Optional) request parameter that allows the user to provide synonyms for context words that to enhance entity detection. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EntitiesActionContent(bool? loggingOptOut, string modelVersion, StringIndexType? stringIndexType, IList<EntityCategory> inclusions, IList<EntityCategory> exclusions, EntityOverlapPolicy overlapPolicy, EntityInferenceConfig inferenceOptions, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal EntitiesActionContent(bool? loggingOptOut, string modelVersion, StringIndexType? stringIndexType, IList<EntityCategory> inclusions, IList<EntityCategory> exclusions, EntityOverlapPolicy overlapPolicy, EntityInferenceConfig inferenceOptions, EntitySynonyms entitySynonyms, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             LoggingOptOut = loggingOptOut;
             ModelVersion = modelVersion;
@@ -74,6 +75,7 @@ namespace Azure.AI.Language.Text
             Exclusions = exclusions;
             OverlapPolicy = overlapPolicy;
             InferenceOptions = inferenceOptions;
+            EntitySynonyms = entitySynonyms;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -95,5 +97,7 @@ namespace Azure.AI.Language.Text
         public EntityOverlapPolicy OverlapPolicy { get; set; }
         /// <summary> (Optional) request parameter that allows the user to provide settings for running the inference. </summary>
         public EntityInferenceConfig InferenceOptions { get; set; }
+        /// <summary> (Optional) request parameter that allows the user to provide synonyms for context words that to enhance entity detection. </summary>
+        public EntitySynonyms EntitySynonyms { get; set; }
     }
 }

@@ -7,53 +7,11 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class HealthcareEntityInternal : IUtf8JsonSerializable
+    internal partial class HealthcareEntityInternal
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
-            writer.WritePropertyName("category"u8);
-            writer.WriteStringValue(Category.ToString());
-            if (Optional.IsDefined(Subcategory))
-            {
-                writer.WritePropertyName("subcategory"u8);
-                writer.WriteStringValue(Subcategory);
-            }
-            writer.WritePropertyName("offset"u8);
-            writer.WriteNumberValue(Offset);
-            writer.WritePropertyName("length"u8);
-            writer.WriteNumberValue(Length);
-            writer.WritePropertyName("confidenceScore"u8);
-            writer.WriteNumberValue(ConfidenceScore);
-            if (Optional.IsDefined(Assertion))
-            {
-                writer.WritePropertyName("assertion"u8);
-                writer.WriteObjectValue(Assertion);
-            }
-            if (Optional.IsDefined(Name))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            if (Optional.IsCollectionDefined(Links))
-            {
-                writer.WritePropertyName("links"u8);
-                writer.WriteStartArray();
-                foreach (var item in Links)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
-        }
-
         internal static HealthcareEntityInternal DeserializeHealthcareEntityInternal(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -68,7 +26,7 @@ namespace Azure.AI.TextAnalytics.Models
             double confidenceScore = default;
             HealthcareEntityAssertion assertion = default;
             string name = default;
-            IList<EntityDataSource> links = default;
+            IReadOnlyList<EntityDataSource> links = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("text"u8))
@@ -148,14 +106,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeHealthcareEntityInternal(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

@@ -7,31 +7,11 @@
 
 using System;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class PiiEntityRecognitionLROResult : IUtf8JsonSerializable
+    internal partial class PiiEntityRecognitionLROResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("results"u8);
-            writer.WriteObjectValue(Results);
-            writer.WritePropertyName("kind"u8);
-            writer.WriteStringValue(Kind.ToString());
-            if (Optional.IsDefined(TaskName))
-            {
-                writer.WritePropertyName("taskName"u8);
-                writer.WriteStringValue(TaskName);
-            }
-            writer.WritePropertyName("lastUpdateDateTime"u8);
-            writer.WriteStringValue(LastUpdateDateTime, "O");
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToString());
-            writer.WriteEndObject();
-        }
-
         internal static PiiEntityRecognitionLROResult DeserializePiiEntityRecognitionLROResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -39,25 +19,15 @@ namespace Azure.AI.TextAnalytics.Models
                 return null;
             }
             PiiEntitiesResult results = default;
-            AnalyzeTextLROResultsKind kind = default;
-            string taskName = default;
             DateTimeOffset lastUpdateDateTime = default;
             TextAnalyticsOperationStatus status = default;
+            string taskName = default;
+            AnalyzeTextLROResultsKind kind = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("results"u8))
                 {
                     results = PiiEntitiesResult.DeserializePiiEntitiesResult(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("kind"u8))
-                {
-                    kind = new AnalyzeTextLROResultsKind(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("taskName"u8))
-                {
-                    taskName = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("lastUpdateDateTime"u8))
@@ -70,8 +40,18 @@ namespace Azure.AI.TextAnalytics.Models
                     status = new TextAnalyticsOperationStatus(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("taskName"u8))
+                {
+                    taskName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("kind"u8))
+                {
+                    kind = new AnalyzeTextLROResultsKind(property.Value.GetString());
+                    continue;
+                }
             }
-            return new PiiEntityRecognitionLROResult(lastUpdateDateTime, status, kind, taskName, results);
+            return new PiiEntityRecognitionLROResult(lastUpdateDateTime, status, taskName, kind, results);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
@@ -80,14 +60,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializePiiEntityRecognitionLROResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

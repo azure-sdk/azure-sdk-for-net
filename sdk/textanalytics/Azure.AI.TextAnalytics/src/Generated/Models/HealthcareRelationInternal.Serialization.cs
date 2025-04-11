@@ -7,32 +7,11 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class HealthcareRelationInternal : IUtf8JsonSerializable
+    internal partial class HealthcareRelationInternal
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("relationType"u8);
-            writer.WriteStringValue(RelationType.ToString());
-            if (Optional.IsDefined(ConfidenceScore))
-            {
-                writer.WritePropertyName("confidenceScore"u8);
-                writer.WriteNumberValue(ConfidenceScore.Value);
-            }
-            writer.WritePropertyName("entities"u8);
-            writer.WriteStartArray();
-            foreach (var item in Entities)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WriteEndObject();
-        }
-
         internal static HealthcareRelationInternal DeserializeHealthcareRelationInternal(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -40,22 +19,13 @@ namespace Azure.AI.TextAnalytics.Models
                 return null;
             }
             HealthcareEntityRelationType relationType = default;
+            IReadOnlyList<HealthcareRelationEntity> entities = default;
             double? confidenceScore = default;
-            IList<HealthcareRelationEntity> entities = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("relationType"u8))
                 {
                     relationType = new HealthcareEntityRelationType(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("confidenceScore"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    confidenceScore = property.Value.GetDouble();
                     continue;
                 }
                 if (property.NameEquals("entities"u8))
@@ -68,8 +38,17 @@ namespace Azure.AI.TextAnalytics.Models
                     entities = array;
                     continue;
                 }
+                if (property.NameEquals("confidenceScore"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    confidenceScore = property.Value.GetDouble();
+                    continue;
+                }
             }
-            return new HealthcareRelationInternal(relationType, confidenceScore, entities);
+            return new HealthcareRelationInternal(relationType, entities, confidenceScore);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
@@ -78,14 +57,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeHealthcareRelationInternal(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

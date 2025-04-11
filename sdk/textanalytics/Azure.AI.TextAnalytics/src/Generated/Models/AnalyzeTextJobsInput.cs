@@ -11,13 +11,13 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The AnalyzeTextJobsInput. </summary>
+    /// <summary> The input object for the analyze text LRO. </summary>
     internal partial class AnalyzeTextJobsInput
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextJobsInput"/>. </summary>
-        /// <param name="analysisInput"></param>
+        /// <param name="analysisInput"> Contains the input to be analyzed. </param>
         /// <param name="tasks">
-        /// The set of tasks to execute on the input documents.
+        /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeTextLROTask"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AbstractiveSummarizationLROTask"/>, <see cref="CustomEntitiesLROTask"/>, <see cref="CustomMultiLabelClassificationLROTask"/>, <see cref="CustomSingleLabelClassificationLROTask"/>, <see cref="EntityLinkingLROTask"/>, <see cref="EntitiesLROTask"/>, <see cref="ExtractiveSummarizationLROTask"/>, <see cref="HealthcareLROTask"/>, <see cref="KeyPhraseLROTask"/>, <see cref="PiiLROTask"/> and <see cref="SentimentAnalysisLROTask"/>.
         /// </param>
@@ -32,10 +32,10 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextJobsInput"/>. </summary>
-        /// <param name="displayName"> Optional display name for the analysis job. </param>
-        /// <param name="analysisInput"></param>
+        /// <param name="displayName"> Name for the task. </param>
+        /// <param name="analysisInput"> Contains the input to be analyzed. </param>
         /// <param name="tasks">
-        /// The set of tasks to execute on the input documents.
+        /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeTextLROTask"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AbstractiveSummarizationLROTask"/>, <see cref="CustomEntitiesLROTask"/>, <see cref="CustomMultiLabelClassificationLROTask"/>, <see cref="CustomSingleLabelClassificationLROTask"/>, <see cref="EntityLinkingLROTask"/>, <see cref="EntitiesLROTask"/>, <see cref="ExtractiveSummarizationLROTask"/>, <see cref="HealthcareLROTask"/>, <see cref="KeyPhraseLROTask"/>, <see cref="PiiLROTask"/> and <see cref="SentimentAnalysisLROTask"/>.
         /// </param>
@@ -46,12 +46,12 @@ namespace Azure.AI.TextAnalytics.Models
             Tasks = tasks;
         }
 
-        /// <summary> Optional display name for the analysis job. </summary>
+        /// <summary> Name for the task. </summary>
         public string DisplayName { get; set; }
-        /// <summary> Gets the analysis input. </summary>
+        /// <summary> Contains the input to be analyzed. </summary>
         public MultiLanguageAnalysisInput AnalysisInput { get; }
         /// <summary>
-        /// The set of tasks to execute on the input documents.
+        /// List of tasks to be performed as part of the LRO.
         /// Please note <see cref="AnalyzeTextLROTask"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AbstractiveSummarizationLROTask"/>, <see cref="CustomEntitiesLROTask"/>, <see cref="CustomMultiLabelClassificationLROTask"/>, <see cref="CustomSingleLabelClassificationLROTask"/>, <see cref="EntityLinkingLROTask"/>, <see cref="EntitiesLROTask"/>, <see cref="ExtractiveSummarizationLROTask"/>, <see cref="HealthcareLROTask"/>, <see cref="KeyPhraseLROTask"/>, <see cref="PiiLROTask"/> and <see cref="SentimentAnalysisLROTask"/>.
         /// </summary>
