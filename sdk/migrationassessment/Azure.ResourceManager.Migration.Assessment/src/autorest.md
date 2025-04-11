@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: Migration.Assessment
 namespace: Azure.ResourceManager.Migration.Assessment
-require: https://github.com/Azure/azure-rest-api-specs/blob/56b8f400c8c9f20f8137fa12c37d25bcfdeb7725/specification/migrate/resource-manager/Microsoft.Migrate/AssessmentProjects/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/9cbd4fea47eee549047a5abfa5546b0994019ce4/specification/migrate/resource-manager/Microsoft.Migrate/AssessmentProjects/readme.md
 tag: package-2023-03
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
