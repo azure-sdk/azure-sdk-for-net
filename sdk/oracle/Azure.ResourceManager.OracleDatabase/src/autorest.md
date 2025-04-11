@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: OracleDatabase
 namespace: Azure.ResourceManager.OracleDatabase
-require: https://github.com/Azure/azure-rest-api-specs/blob/ec7ee8842bf615c2f0354bf8b5b8725fdac9454a/specification/oracle/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/6db4b864a093c837eef8ad2b27b91250e349c204/specification/oracle/resource-manager/readme.md
 #tag: package-2023-09-01
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
