@@ -7,77 +7,25 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class SentimentDocumentResult : IUtf8JsonSerializable
+    internal partial class SentimentDocumentResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("sentiment"u8);
-            writer.WriteStringValue(Sentiment.ToSerialString());
-            writer.WritePropertyName("confidenceScores"u8);
-            writer.WriteObjectValue(ConfidenceScores);
-            writer.WritePropertyName("sentences"u8);
-            writer.WriteStartArray();
-            foreach (var item in Sentences)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName("id"u8);
-            writer.WriteStringValue(Id);
-            writer.WritePropertyName("warnings"u8);
-            writer.WriteStartArray();
-            foreach (var item in Warnings)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            if (Optional.IsDefined(Statistics))
-            {
-                writer.WritePropertyName("statistics"u8);
-                writer.WriteObjectValue(Statistics);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static SentimentDocumentResult DeserializeSentimentDocumentResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
+            string id = default;
+            IReadOnlyList<DocumentWarning> warnings = default;
+            TextDocumentStatistics? statistics = default;
             TextSentiment sentiment = default;
             SentimentConfidenceScores confidenceScores = default;
-            IList<SentenceSentimentInternal> sentences = default;
-            string id = default;
-            IList<DocumentWarning> warnings = default;
-            TextDocumentStatistics? statistics = default;
+            IReadOnlyList<SentenceSentimentInternal> sentences = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sentiment"u8))
-                {
-                    sentiment = property.Value.GetString().ToTextSentiment();
-                    continue;
-                }
-                if (property.NameEquals("confidenceScores"u8))
-                {
-                    confidenceScores = SentimentConfidenceScores.DeserializeSentimentConfidenceScores(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("sentences"u8))
-                {
-                    List<SentenceSentimentInternal> array = new List<SentenceSentimentInternal>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(SentenceSentimentInternal.DeserializeSentenceSentimentInternal(item));
-                    }
-                    sentences = array;
-                    continue;
-                }
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
@@ -102,6 +50,26 @@ namespace Azure.AI.TextAnalytics.Models
                     statistics = TextDocumentStatistics.DeserializeTextDocumentStatistics(property.Value);
                     continue;
                 }
+                if (property.NameEquals("sentiment"u8))
+                {
+                    sentiment = property.Value.GetString().ToTextSentiment();
+                    continue;
+                }
+                if (property.NameEquals("confidenceScores"u8))
+                {
+                    confidenceScores = SentimentConfidenceScores.DeserializeSentimentConfidenceScores(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("sentences"u8))
+                {
+                    List<SentenceSentimentInternal> array = new List<SentenceSentimentInternal>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(SentenceSentimentInternal.DeserializeSentenceSentimentInternal(item));
+                    }
+                    sentences = array;
+                    continue;
+                }
             }
             return new SentimentDocumentResult(
                 id,
@@ -114,18 +82,10 @@ namespace Azure.AI.TextAnalytics.Models
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new SentimentDocumentResult FromResponse(Response response)
+        internal static SentimentDocumentResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeSentimentDocumentResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

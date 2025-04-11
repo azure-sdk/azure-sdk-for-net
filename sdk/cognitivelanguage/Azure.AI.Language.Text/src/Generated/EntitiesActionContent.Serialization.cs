@@ -79,6 +79,11 @@ namespace Azure.AI.Language.Text
                 writer.WritePropertyName("inferenceOptions"u8);
                 writer.WriteObjectValue(InferenceOptions, options);
             }
+            if (Optional.IsDefined(EntitySynonyms))
+            {
+                writer.WritePropertyName("entitySynonyms"u8);
+                writer.WriteObjectValue(EntitySynonyms, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -123,6 +128,7 @@ namespace Azure.AI.Language.Text
             IList<EntityCategory> exclusionList = default;
             EntityOverlapPolicy overlapPolicy = default;
             EntityInferenceConfig inferenceOptions = default;
+            EntitySynonyms entitySynonyms = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -196,6 +202,15 @@ namespace Azure.AI.Language.Text
                     inferenceOptions = EntityInferenceConfig.DeserializeEntityInferenceConfig(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("entitySynonyms"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    entitySynonyms = EntitySynonyms.DeserializeEntitySynonyms(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -210,6 +225,7 @@ namespace Azure.AI.Language.Text
                 exclusionList ?? new ChangeTrackingList<EntityCategory>(),
                 overlapPolicy,
                 inferenceOptions,
+                entitySynonyms,
                 serializedAdditionalRawData);
         }
 
