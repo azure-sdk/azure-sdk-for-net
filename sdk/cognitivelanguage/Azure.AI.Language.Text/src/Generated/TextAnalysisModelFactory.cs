@@ -24,6 +24,15 @@ namespace Azure.AI.Language.Text
             return new MultiLanguageInput(id, text, language, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Text.EntitySynonym"/>. </summary>
+        /// <param name="synonym"> The synonym to be used for context. </param>
+        /// <param name="language"> The language the synonym. </param>
+        /// <returns> A new <see cref="Text.EntitySynonym"/> instance for mocking. </returns>
+        public static EntitySynonym EntitySynonym(string synonym = null, string language = null)
+        {
+            return new EntitySynonym(synonym, language, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Text.LanguageInput"/>. </summary>
         /// <param name="id"> A unique, non-empty document identifier. </param>
         /// <param name="text"> The input text to process. </param>

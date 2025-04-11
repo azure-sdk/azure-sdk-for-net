@@ -15,57 +15,21 @@ namespace Azure.AI.TextAnalytics.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(ModelVersion))
-            {
-                writer.WritePropertyName("modelVersion"u8);
-                writer.WriteStringValue(ModelVersion);
-            }
             if (Optional.IsDefined(LoggingOptOut))
             {
                 writer.WritePropertyName("loggingOptOut"u8);
                 writer.WriteBooleanValue(LoggingOptOut.Value);
             }
+            if (Optional.IsDefined(ModelVersion))
+            {
+                writer.WritePropertyName("modelVersion"u8);
+                writer.WriteStringValue(ModelVersion);
+            }
             writer.WriteEndObject();
         }
 
-        internal static LanguageDetectionTaskParameters DeserializeLanguageDetectionTaskParameters(JsonElement element)
-        {
-            if (element.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            string modelVersion = default;
-            bool? loggingOptOut = default;
-            foreach (var property in element.EnumerateObject())
-            {
-                if (property.NameEquals("modelVersion"u8))
-                {
-                    modelVersion = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("loggingOptOut"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    loggingOptOut = property.Value.GetBoolean();
-                    continue;
-                }
-            }
-            return new LanguageDetectionTaskParameters(loggingOptOut, modelVersion);
-        }
-
-        /// <summary> Deserializes the model from a raw response. </summary>
-        /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new LanguageDetectionTaskParameters FromResponse(Response response)
-        {
-            using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeLanguageDetectionTaskParameters(document.RootElement);
-        }
-
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
+        internal virtual RequestContent ToRequestContent()
         {
             var content = new Utf8JsonRequestContent();
             content.JsonWriter.WriteObjectValue(this);
