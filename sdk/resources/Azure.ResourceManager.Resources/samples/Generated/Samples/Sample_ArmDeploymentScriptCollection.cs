@@ -49,9 +49,8 @@ namespace Azure.ResourceManager.Resources.Samples
                 ScriptContent = "Param([string]$Location,[string]$Name) $deploymentScriptOutputs['test'] = 'value' Get-AzResourceGroup -Location $Location -Name $Name",
                 Arguments = "-Location 'westus' -Name \"*rg2\"",
                 Timeout = XmlConvert.ToTimeSpan("PT1H"),
-                Identity = new ArmDeploymentScriptManagedIdentity
+                Identity = new ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType.UserAssigned)
                 {
-                    IdentityType = ArmDeploymentScriptManagedIdentityType.UserAssigned,
                     UserAssignedIdentities =
 {
 ["/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/scriptRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uai"] = new UserAssignedIdentity()
@@ -138,9 +137,8 @@ namespace Azure.ResourceManager.Resources.Samples
             {
                 ScriptContent = "Param([string]$Location,[string]$Name) $deploymentScriptOutputs['test'] = 'value' Get-AzResourceGroup -Location $Location -Name $Name",
                 Arguments = "-Location 'westus' -Name \"*rg2\"",
-                Identity = new ArmDeploymentScriptManagedIdentity
+                Identity = new ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType.UserAssigned)
                 {
-                    IdentityType = ArmDeploymentScriptManagedIdentityType.UserAssigned,
                     UserAssignedIdentities =
 {
 ["/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/scriptRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uai"] = new UserAssignedIdentity()
@@ -189,9 +187,8 @@ namespace Azure.ResourceManager.Resources.Samples
                 ScriptContent = "Param([string]$Location,[string]$Name) $deploymentScriptOutputs['test'] = 'value' Get-AzResourceGroup -Location $Location -Name $Name",
                 Arguments = "-Location 'westus' -Name \"*rg2\"",
                 Timeout = XmlConvert.ToTimeSpan("PT1H"),
-                Identity = new ArmDeploymentScriptManagedIdentity
+                Identity = new ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType.UserAssigned)
                 {
-                    IdentityType = ArmDeploymentScriptManagedIdentityType.UserAssigned,
                     UserAssignedIdentities =
 {
 ["/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/scriptRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uai"] = new UserAssignedIdentity()
@@ -244,9 +241,8 @@ namespace Azure.ResourceManager.Resources.Samples
                 ScriptContent = "Param([string]$Location,[string]$Name) $deploymentScriptOutputs['test'] = 'value' Get-AzResourceGroup -Location $Location -Name $Name",
                 Arguments = "-Location 'westus' -Name \"*rg2\"",
                 Timeout = XmlConvert.ToTimeSpan("PT1H"),
-                Identity = new ArmDeploymentScriptManagedIdentity
+                Identity = new ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType.UserAssigned)
                 {
-                    IdentityType = ArmDeploymentScriptManagedIdentityType.UserAssigned,
                     UserAssignedIdentities =
 {
 ["/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/scriptRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uai"] = new UserAssignedIdentity()

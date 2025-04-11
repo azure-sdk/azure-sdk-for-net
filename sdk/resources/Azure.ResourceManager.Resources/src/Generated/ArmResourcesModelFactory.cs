@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.Resources.Models
         /// <param name="tenantId"> ID of the Azure Active Directory. </param>
         /// <param name="userAssignedIdentities"> The list of user-assigned managed identities associated with the resource. Key is the Azure resource Id of the managed identity. </param>
         /// <returns> A new <see cref="Models.ArmDeploymentScriptManagedIdentity"/> instance for mocking. </returns>
-        public static ArmDeploymentScriptManagedIdentity ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType? identityType = null, Guid? tenantId = null, IDictionary<string, UserAssignedIdentity> userAssignedIdentities = null)
+        public static ArmDeploymentScriptManagedIdentity ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType identityType = default, Guid? tenantId = null, IDictionary<string, UserAssignedIdentity> userAssignedIdentities = null)
         {
             userAssignedIdentities ??= new Dictionary<string, UserAssignedIdentity>();
 

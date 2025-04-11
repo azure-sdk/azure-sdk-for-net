@@ -37,11 +37,8 @@ namespace Azure.ResourceManager.Resources.Models
                 throw new FormatException($"The model {nameof(ArmDeploymentScriptManagedIdentity)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(IdentityType))
-            {
-                writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(IdentityType.Value.ToString());
-            }
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(IdentityType.ToString());
             if (options.Format != "W" && Optional.IsDefined(TenantId))
             {
                 writer.WritePropertyName("tenantId"u8);
@@ -95,7 +92,7 @@ namespace Azure.ResourceManager.Resources.Models
             {
                 return null;
             }
-            ArmDeploymentScriptManagedIdentityType? type = default;
+            ArmDeploymentScriptManagedIdentityType type = default;
             Guid? tenantId = default;
             IDictionary<string, UserAssignedIdentity> userAssignedIdentities = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -104,10 +101,6 @@ namespace Azure.ResourceManager.Resources.Models
             {
                 if (property.NameEquals("type"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     type = new ArmDeploymentScriptManagedIdentityType(property.Value.GetString());
                     continue;
                 }
@@ -162,11 +155,8 @@ namespace Azure.ResourceManager.Resources.Models
             }
             else
             {
-                if (Optional.IsDefined(IdentityType))
-                {
-                    builder.Append("  type: ");
-                    builder.AppendLine($"'{IdentityType.Value.ToString()}'");
-                }
+                builder.Append("  type: ");
+                builder.AppendLine($"'{IdentityType.ToString()}'");
             }
 
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(TenantId), out propertyOverride);
