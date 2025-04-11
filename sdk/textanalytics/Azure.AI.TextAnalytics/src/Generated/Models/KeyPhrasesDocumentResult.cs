@@ -11,20 +11,22 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The KeyPhrasesDocumentResult. </summary>
-    internal partial class KeyPhrasesDocumentResult : DocumentResult
+    /// <summary> Contains the Key phrase extraction results for a document. </summary>
+    internal partial class KeyPhrasesDocumentResult
     {
         /// <summary> Initializes a new instance of <see cref="KeyPhrasesDocumentResult"/>. </summary>
         /// <param name="id"> Unique, non-empty document identifier. </param>
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="keyPhrases"> A list of representative words or phrases. The number of key phrases returned is proportional to the number of words in the input document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="warnings"/> or <paramref name="keyPhrases"/> is null. </exception>
-        public KeyPhrasesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<string> keyPhrases) : base(id, warnings)
+        internal KeyPhrasesDocumentResult(string id, IEnumerable<DocumentWarning> warnings, IEnumerable<string> keyPhrases)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(warnings, nameof(warnings));
             Argument.AssertNotNull(keyPhrases, nameof(keyPhrases));
 
+            Id = id;
+            Warnings = warnings.ToList();
             KeyPhrases = keyPhrases.ToList();
         }
 
@@ -33,12 +35,21 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="warnings"> Warnings encountered while processing document. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the document payload. </param>
         /// <param name="keyPhrases"> A list of representative words or phrases. The number of key phrases returned is proportional to the number of words in the input document. </param>
-        internal KeyPhrasesDocumentResult(string id, IList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IList<string> keyPhrases) : base(id, warnings, statistics)
+        internal KeyPhrasesDocumentResult(string id, IReadOnlyList<DocumentWarning> warnings, TextDocumentStatistics? statistics, IReadOnlyList<string> keyPhrases)
         {
+            Id = id;
+            Warnings = warnings;
+            Statistics = statistics;
             KeyPhrases = keyPhrases;
         }
 
+        /// <summary> Unique, non-empty document identifier. </summary>
+        public string Id { get; }
+        /// <summary> Warnings encountered while processing document. </summary>
+        public IReadOnlyList<DocumentWarning> Warnings { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the document payload. </summary>
+        public TextDocumentStatistics? Statistics { get; }
         /// <summary> A list of representative words or phrases. The number of key phrases returned is proportional to the number of words in the input document. </summary>
-        public IList<string> KeyPhrases { get; }
+        public IReadOnlyList<string> KeyPhrases { get; }
     }
 }

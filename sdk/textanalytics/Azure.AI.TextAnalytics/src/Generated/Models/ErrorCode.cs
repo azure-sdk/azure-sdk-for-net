@@ -41,41 +41,41 @@ namespace Azure.AI.TextAnalytics.Models
         private const string ConflictValue = "Conflict";
         private const string WarningValue = "Warning";
 
-        /// <summary> InvalidRequest. </summary>
+        /// <summary> Invalid request error. </summary>
         public static ErrorCode InvalidRequest { get; } = new ErrorCode(InvalidRequestValue);
-        /// <summary> InvalidArgument. </summary>
+        /// <summary> Invalid argument error. </summary>
         public static ErrorCode InvalidArgument { get; } = new ErrorCode(InvalidArgumentValue);
-        /// <summary> Unauthorized. </summary>
+        /// <summary> Unauthorized access error. </summary>
         public static ErrorCode Unauthorized { get; } = new ErrorCode(UnauthorizedValue);
-        /// <summary> Forbidden. </summary>
+        /// <summary> Forbidden access error. </summary>
         public static ErrorCode Forbidden { get; } = new ErrorCode(ForbiddenValue);
-        /// <summary> NotFound. </summary>
+        /// <summary> Not found error. </summary>
         public static ErrorCode NotFound { get; } = new ErrorCode(NotFoundValue);
-        /// <summary> ProjectNotFound. </summary>
+        /// <summary> Project not found error. </summary>
         public static ErrorCode ProjectNotFound { get; } = new ErrorCode(ProjectNotFoundValue);
-        /// <summary> OperationNotFound. </summary>
+        /// <summary> Operation not found error. </summary>
         public static ErrorCode OperationNotFound { get; } = new ErrorCode(OperationNotFoundValue);
-        /// <summary> AzureCognitiveSearchNotFound. </summary>
+        /// <summary> Azure Cognitive Search not found error. </summary>
         public static ErrorCode AzureCognitiveSearchNotFound { get; } = new ErrorCode(AzureCognitiveSearchNotFoundValue);
-        /// <summary> AzureCognitiveSearchIndexNotFound. </summary>
+        /// <summary> Azure Cognitive Search index not found error. </summary>
         public static ErrorCode AzureCognitiveSearchIndexNotFound { get; } = new ErrorCode(AzureCognitiveSearchIndexNotFoundValue);
-        /// <summary> TooManyRequests. </summary>
+        /// <summary> Too many requests error. </summary>
         public static ErrorCode TooManyRequests { get; } = new ErrorCode(TooManyRequestsValue);
-        /// <summary> AzureCognitiveSearchThrottling. </summary>
+        /// <summary> Azure Cognitive Search throttling error. </summary>
         public static ErrorCode AzureCognitiveSearchThrottling { get; } = new ErrorCode(AzureCognitiveSearchThrottlingValue);
-        /// <summary> AzureCognitiveSearchIndexLimitReached. </summary>
+        /// <summary> Azure Cognitive Search index limit reached error. </summary>
         public static ErrorCode AzureCognitiveSearchIndexLimitReached { get; } = new ErrorCode(AzureCognitiveSearchIndexLimitReachedValue);
-        /// <summary> InternalServerError. </summary>
+        /// <summary> Internal server error. </summary>
         public static ErrorCode InternalServerError { get; } = new ErrorCode(InternalServerErrorValue);
-        /// <summary> ServiceUnavailable. </summary>
+        /// <summary> Service unavailable error. </summary>
         public static ErrorCode ServiceUnavailable { get; } = new ErrorCode(ServiceUnavailableValue);
-        /// <summary> Timeout. </summary>
+        /// <summary> Timeout error. </summary>
         public static ErrorCode Timeout { get; } = new ErrorCode(TimeoutValue);
-        /// <summary> QuotaExceeded. </summary>
+        /// <summary> Quota exceeded error. </summary>
         public static ErrorCode QuotaExceeded { get; } = new ErrorCode(QuotaExceededValue);
-        /// <summary> Conflict. </summary>
+        /// <summary> Conflict error. </summary>
         public static ErrorCode Conflict { get; } = new ErrorCode(ConflictValue);
-        /// <summary> Warning. </summary>
+        /// <summary> Warning error. </summary>
         public static ErrorCode Warning { get; } = new ErrorCode(WarningValue);
         /// <summary> Determines if two <see cref="ErrorCode"/> values are the same. </summary>
         public static bool operator ==(ErrorCode left, ErrorCode right) => left.Equals(right);

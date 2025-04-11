@@ -6,26 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics
 {
-    public partial class TextDocumentBatchStatistics : IUtf8JsonSerializable
+    public partial class TextDocumentBatchStatistics
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("documentsCount"u8);
-            writer.WriteNumberValue(DocumentCount);
-            writer.WritePropertyName("validDocumentsCount"u8);
-            writer.WriteNumberValue(ValidDocumentCount);
-            writer.WritePropertyName("erroneousDocumentsCount"u8);
-            writer.WriteNumberValue(InvalidDocumentCount);
-            writer.WritePropertyName("transactionsCount"u8);
-            writer.WriteNumberValue(TransactionCount);
-            writer.WriteEndObject();
-        }
-
         internal static TextDocumentBatchStatistics DeserializeTextDocumentBatchStatistics(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -68,14 +53,6 @@ namespace Azure.AI.TextAnalytics
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeTextDocumentBatchStatistics(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
