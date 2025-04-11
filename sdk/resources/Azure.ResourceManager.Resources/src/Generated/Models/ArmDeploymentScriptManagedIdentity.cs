@@ -47,8 +47,10 @@ namespace Azure.ResourceManager.Resources.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ArmDeploymentScriptManagedIdentity"/>. </summary>
-        public ArmDeploymentScriptManagedIdentity()
+        /// <param name="identityType"> Type of the managed identity. </param>
+        public ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType identityType)
         {
+            IdentityType = identityType;
             UserAssignedIdentities = new ChangeTrackingDictionary<string, UserAssignedIdentity>();
         }
 
@@ -57,7 +59,7 @@ namespace Azure.ResourceManager.Resources.Models
         /// <param name="tenantId"> ID of the Azure Active Directory. </param>
         /// <param name="userAssignedIdentities"> The list of user-assigned managed identities associated with the resource. Key is the Azure resource Id of the managed identity. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType? identityType, Guid? tenantId, IDictionary<string, UserAssignedIdentity> userAssignedIdentities, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ArmDeploymentScriptManagedIdentity(ArmDeploymentScriptManagedIdentityType identityType, Guid? tenantId, IDictionary<string, UserAssignedIdentity> userAssignedIdentities, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             IdentityType = identityType;
             TenantId = tenantId;
@@ -65,9 +67,14 @@ namespace Azure.ResourceManager.Resources.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> Initializes a new instance of <see cref="ArmDeploymentScriptManagedIdentity"/> for deserialization. </summary>
+        internal ArmDeploymentScriptManagedIdentity()
+        {
+        }
+
         /// <summary> Type of the managed identity. </summary>
         [WirePath("type")]
-        public ArmDeploymentScriptManagedIdentityType? IdentityType { get; set; }
+        public ArmDeploymentScriptManagedIdentityType IdentityType { get; set; }
         /// <summary> ID of the Azure Active Directory. </summary>
         [WirePath("tenantId")]
         public Guid? TenantId { get; }
