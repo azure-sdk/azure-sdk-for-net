@@ -464,7 +464,7 @@ namespace Azure.ResourceManager.Compute.Samples
             string publisherName = "MicrosoftWindowsServer";
             string offer = "WindowsServer";
             string skus = "2022-datacenter-azure-edition";
-            GetVirtualMachineImagesWithPropertiesExpand expand = GetVirtualMachineImagesWithPropertiesExpand.Properties;
+            GetVirtualMachineImagesWithPropertiesExpand expand = new GetVirtualMachineImagesWithPropertiesExpand("Properties");
             SubscriptionResourceGetVirtualMachineImagesWithPropertiesOptions options = new SubscriptionResourceGetVirtualMachineImagesWithPropertiesOptions(location, publisherName, offer, skus, expand) { Top = 4, Orderby = "aa" };
             await foreach (VirtualMachineImage item in subscriptionResource.GetVirtualMachineImagesWithPropertiesAsync(options))
             {
@@ -497,7 +497,7 @@ namespace Azure.ResourceManager.Compute.Samples
             string publisherName = "MicrosoftWindowsServer";
             string offer = "WindowsServer";
             string skus = "2022-datacenter-azure-edition";
-            GetVirtualMachineImagesWithPropertiesExpand expand = GetVirtualMachineImagesWithPropertiesExpand.Properties;
+            GetVirtualMachineImagesWithPropertiesExpand expand = new GetVirtualMachineImagesWithPropertiesExpand("Properties");
             SubscriptionResourceGetVirtualMachineImagesWithPropertiesOptions options = new SubscriptionResourceGetVirtualMachineImagesWithPropertiesOptions(location, publisherName, offer, skus, expand);
             await foreach (VirtualMachineImage item in subscriptionResource.GetVirtualMachineImagesWithPropertiesAsync(options))
             {
