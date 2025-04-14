@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Net;
 using System.Text.Json;
 using Azure.Core;
 
@@ -45,7 +46,12 @@ namespace Azure.Compute.Batch
                 writer.WriteStartArray();
                 foreach (var item in IpAddressIds)
                 {
-                    writer.WriteStringValue(item);
+                    if (item == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+                    writer.WriteStringValue(item.ToString());
                 }
                 writer.WriteEndArray();
             }
@@ -87,7 +93,7 @@ namespace Azure.Compute.Batch
                 return null;
             }
             IpAddressProvisioningType? provision = default;
-            IList<string> ipAddressIds = default;
+            IList<IPAddress> ipAddressIds = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -107,10 +113,17 @@ namespace Azure.Compute.Batch
                     {
                         continue;
                     }
-                    List<string> array = new List<string>();
+                    List<IPAddress> array = new List<IPAddress>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString());
+                        if (item.ValueKind == JsonValueKind.Null)
+                        {
+                            array.Add(null);
+                        }
+                        else
+                        {
+                            array.Add(IPAddress.Parse(item.GetString()));
+                        }
                     }
                     ipAddressIds = array;
                     continue;
@@ -121,7 +134,7 @@ namespace Azure.Compute.Batch
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new PublicIpAddressConfiguration(provision, ipAddressIds ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
+            return new PublicIpAddressConfiguration(provision, ipAddressIds ?? new ChangeTrackingList<IPAddress>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<PublicIpAddressConfiguration>.Write(ModelReaderWriterOptions options)
