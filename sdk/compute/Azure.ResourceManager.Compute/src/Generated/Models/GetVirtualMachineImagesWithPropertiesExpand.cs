@@ -22,9 +22,9 @@ namespace Azure.ResourceManager.Compute.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string PropertiesValue = "Properties";
+        private const string PropertiesValue = "properties";
 
-        /// <summary> Properties. </summary>
+        /// <summary> properties. </summary>
         public static GetVirtualMachineImagesWithPropertiesExpand Properties { get; } = new GetVirtualMachineImagesWithPropertiesExpand(PropertiesValue);
         /// <summary> Determines if two <see cref="GetVirtualMachineImagesWithPropertiesExpand"/> values are the same. </summary>
         public static bool operator ==(GetVirtualMachineImagesWithPropertiesExpand left, GetVirtualMachineImagesWithPropertiesExpand right) => left.Equals(right);
