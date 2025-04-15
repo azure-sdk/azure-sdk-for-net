@@ -10,12 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    /// <summary>
-    /// Base class for all DataTransfer source/sink
-    /// Please note <see cref="DataTransferDataSourceSink"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="AzureBlobDataTransferDataSourceSink"/>, <see cref="BaseCosmosDataTransferDataSourceSink"/>, <see cref="CosmosCassandraDataTransferDataSourceSink"/>, <see cref="CosmosMongoDataTransferDataSourceSink"/>, <see cref="CosmosMongoVCoreDataTransferDataSourceSink"/> and <see cref="CosmosSqlDataTransferDataSourceSink"/>.
-    /// </summary>
-    public abstract partial class DataTransferDataSourceSink
+    /// <summary> Represents the full text path specification. </summary>
+    public partial class FullTextPath
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,23 +43,39 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DataTransferDataSourceSink"/>. </summary>
-        protected DataTransferDataSourceSink()
+        /// <summary> Initializes a new instance of <see cref="FullTextPath"/>. </summary>
+        /// <param name="path"> The path to the full text field in the document. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="path"/> is null. </exception>
+        public FullTextPath(string path)
         {
+            Argument.AssertNotNull(path, nameof(path));
+
+            Path = path;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataTransferDataSourceSink"/>. </summary>
-        /// <param name="component"></param>
+        /// <summary> Initializes a new instance of <see cref="FullTextPath"/>. </summary>
+        /// <param name="path"> The path to the full text field in the document. </param>
+        /// <param name="language"> The language of the full text field in the document. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataTransferDataSourceSink(DataTransferComponent component, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FullTextPath(string path, string language, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Component = component;
+            Path = path;
+            Language = language;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets or sets the component. </summary>
-        internal DataTransferComponent Component { get; set; }
+        /// <summary> Initializes a new instance of <see cref="FullTextPath"/> for deserialization. </summary>
+        internal FullTextPath()
+        {
+        }
+
+        /// <summary> The path to the full text field in the document. </summary>
+        [WirePath("path")]
+        public string Path { get; set; }
+        /// <summary> The language of the full text field in the document. </summary>
+        [WirePath("language")]
+        public string Language { get; set; }
     }
 }

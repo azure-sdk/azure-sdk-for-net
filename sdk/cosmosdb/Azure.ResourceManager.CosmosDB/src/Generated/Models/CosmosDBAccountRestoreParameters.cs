@@ -30,14 +30,12 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="databasesToRestore"> List of specific databases available for restore. </param>
         /// <param name="gremlinDatabasesToRestore"> List of specific gremlin databases available for restore. </param>
         /// <param name="tablesToRestore"> List of specific tables available for restore. </param>
-        /// <param name="sourceBackupLocation"> The source backup location for restore. </param>
-        internal CosmosDBAccountRestoreParameters(string restoreSource, DateTimeOffset? restoreTimestampInUtc, bool? isRestoreWithTtlDisabled, IDictionary<string, BinaryData> serializedAdditionalRawData, CosmosDBAccountRestoreMode? restoreMode, IList<DatabaseRestoreResourceInfo> databasesToRestore, IList<GremlinDatabaseRestoreResourceInfo> gremlinDatabasesToRestore, IList<string> tablesToRestore, string sourceBackupLocation) : base(restoreSource, restoreTimestampInUtc, isRestoreWithTtlDisabled, serializedAdditionalRawData)
+        internal CosmosDBAccountRestoreParameters(string restoreSource, DateTimeOffset? restoreTimestampInUtc, bool? isRestoreWithTtlDisabled, IDictionary<string, BinaryData> serializedAdditionalRawData, CosmosDBAccountRestoreMode? restoreMode, IList<DatabaseRestoreResourceInfo> databasesToRestore, IList<GremlinDatabaseRestoreResourceInfo> gremlinDatabasesToRestore, IList<string> tablesToRestore) : base(restoreSource, restoreTimestampInUtc, isRestoreWithTtlDisabled, serializedAdditionalRawData)
         {
             RestoreMode = restoreMode;
             DatabasesToRestore = databasesToRestore;
             GremlinDatabasesToRestore = gremlinDatabasesToRestore;
             TablesToRestore = tablesToRestore;
-            SourceBackupLocation = sourceBackupLocation;
         }
 
         /// <summary> Describes the mode of the restore. </summary>
@@ -52,8 +50,5 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <summary> List of specific tables available for restore. </summary>
         [WirePath("tablesToRestore")]
         public IList<string> TablesToRestore { get; }
-        /// <summary> The source backup location for restore. </summary>
-        [WirePath("sourceBackupLocation")]
-        public string SourceBackupLocation { get; set; }
     }
 }

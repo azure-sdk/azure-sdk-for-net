@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    /// <summary> List of physical partitions and their properties returned by a merge operation. </summary>
-    public partial class PhysicalPartitionStorageInfoCollection
+    /// <summary> Cosmos DB FullText Policy. </summary>
+    public partial class FullTextPolicy
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,23 +45,28 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="PhysicalPartitionStorageInfoCollection"/>. </summary>
-        internal PhysicalPartitionStorageInfoCollection()
+        /// <summary> Initializes a new instance of <see cref="FullTextPolicy"/>. </summary>
+        public FullTextPolicy()
         {
-            PhysicalPartitionStorageInfoCollectionValue = new ChangeTrackingList<PhysicalPartitionStorageInfo>();
+            FullTextPaths = new ChangeTrackingList<FullTextPath>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="PhysicalPartitionStorageInfoCollection"/>. </summary>
-        /// <param name="physicalPartitionStorageInfoCollectionValue"> List of physical partitions and their properties. </param>
+        /// <summary> Initializes a new instance of <see cref="FullTextPolicy"/>. </summary>
+        /// <param name="defaultLanguage"> The default language for a full text paths. </param>
+        /// <param name="fullTextPaths"> List of FullText Paths. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PhysicalPartitionStorageInfoCollection(IReadOnlyList<PhysicalPartitionStorageInfo> physicalPartitionStorageInfoCollectionValue, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal FullTextPolicy(string defaultLanguage, IList<FullTextPath> fullTextPaths, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            PhysicalPartitionStorageInfoCollectionValue = physicalPartitionStorageInfoCollectionValue;
+            DefaultLanguage = defaultLanguage;
+            FullTextPaths = fullTextPaths;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> List of physical partitions and their properties. </summary>
-        [WirePath("physicalPartitionStorageInfoCollection")]
-        public IReadOnlyList<PhysicalPartitionStorageInfo> PhysicalPartitionStorageInfoCollectionValue { get; }
+        /// <summary> The default language for a full text paths. </summary>
+        [WirePath("defaultLanguage")]
+        public string DefaultLanguage { get; set; }
+        /// <summary> List of FullText Paths. </summary>
+        [WirePath("fullTextPaths")]
+        public IList<FullTextPath> FullTextPaths { get; }
     }
 }

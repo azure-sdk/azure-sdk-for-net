@@ -14,11 +14,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.CosmosDB.Models
 {
-    public partial class ResourceAssociation : IUtf8JsonSerializable, IJsonModel<ResourceAssociation>
+    public partial class FullTextPath : IUtf8JsonSerializable, IJsonModel<FullTextPath>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ResourceAssociation>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<FullTextPath>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ResourceAssociation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<FullTextPath>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -29,21 +29,18 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FullTextPath>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ResourceAssociation)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(FullTextPath)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(Name))
+            writer.WritePropertyName("path"u8);
+            writer.WriteStringValue(Path);
+            if (Optional.IsDefined(Language))
             {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            if (Optional.IsDefined(AccessMode))
-            {
-                writer.WritePropertyName("accessMode"u8);
-                writer.WriteStringValue(AccessMode.Value.ToString());
+                writer.WritePropertyName("language"u8);
+                writer.WriteStringValue(Language);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -62,19 +59,19 @@ namespace Azure.ResourceManager.CosmosDB.Models
             }
         }
 
-        ResourceAssociation IJsonModel<ResourceAssociation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        FullTextPath IJsonModel<FullTextPath>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FullTextPath>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ResourceAssociation)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(FullTextPath)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeResourceAssociation(document.RootElement, options);
+            return DeserializeFullTextPath(document.RootElement, options);
         }
 
-        internal static ResourceAssociation DeserializeResourceAssociation(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static FullTextPath DeserializeFullTextPath(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -82,24 +79,20 @@ namespace Azure.ResourceManager.CosmosDB.Models
             {
                 return null;
             }
-            string name = default;
-            ResourceAssociationAccessMode? accessMode = default;
+            string path = default;
+            string language = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("name"u8))
+                if (property.NameEquals("path"u8))
                 {
-                    name = property.Value.GetString();
+                    path = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("accessMode"u8))
+                if (property.NameEquals("language"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    accessMode = new ResourceAssociationAccessMode(property.Value.GetString());
+                    language = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -108,7 +101,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ResourceAssociation(name, accessMode, serializedAdditionalRawData);
+            return new FullTextPath(path, language, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -122,41 +115,49 @@ namespace Azure.ResourceManager.CosmosDB.Models
 
             builder.AppendLine("{");
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Name), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Path), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  name: ");
+                builder.Append("  path: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(Name))
+                if (Optional.IsDefined(Path))
                 {
-                    builder.Append("  name: ");
-                    if (Name.Contains(Environment.NewLine))
+                    builder.Append("  path: ");
+                    if (Path.Contains(Environment.NewLine))
                     {
                         builder.AppendLine("'''");
-                        builder.AppendLine($"{Name}'''");
+                        builder.AppendLine($"{Path}'''");
                     }
                     else
                     {
-                        builder.AppendLine($"'{Name}'");
+                        builder.AppendLine($"'{Path}'");
                     }
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AccessMode), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Language), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  accessMode: ");
+                builder.Append("  language: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(AccessMode))
+                if (Optional.IsDefined(Language))
                 {
-                    builder.Append("  accessMode: ");
-                    builder.AppendLine($"'{AccessMode.Value.ToString()}'");
+                    builder.Append("  language: ");
+                    if (Language.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{Language}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{Language}'");
+                    }
                 }
             }
 
@@ -164,9 +165,9 @@ namespace Azure.ResourceManager.CosmosDB.Models
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<ResourceAssociation>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<FullTextPath>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FullTextPath>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -175,26 +176,26 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(ResourceAssociation)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(FullTextPath)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ResourceAssociation IPersistableModel<ResourceAssociation>.Create(BinaryData data, ModelReaderWriterOptions options)
+        FullTextPath IPersistableModel<FullTextPath>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FullTextPath>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeResourceAssociation(document.RootElement, options);
+                        return DeserializeFullTextPath(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ResourceAssociation)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(FullTextPath)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ResourceAssociation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<FullTextPath>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
