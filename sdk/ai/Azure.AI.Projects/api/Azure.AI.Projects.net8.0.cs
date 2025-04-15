@@ -279,6 +279,10 @@ namespace Azure.AI.Projects
         public virtual Azure.Response<Azure.AI.Projects.AgentThread> GetThread(string threadId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response> GetThreadAsync(string threadId, Azure.RequestContext context) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.AI.Projects.AgentThread>> GetThreadAsync(string threadId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.AI.Projects.OpenAIPageableListOfAgentThread> GetThreads(int? limit = default(int?), Azure.AI.Projects.ListSortOrder? order = default(Azure.AI.Projects.ListSortOrder?), string after = null, string before = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response GetThreads(int? limit, string order, string after, string before, Azure.RequestContext context) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.AI.Projects.OpenAIPageableListOfAgentThread>> GetThreadsAsync(int? limit = default(int?), Azure.AI.Projects.ListSortOrder? order = default(Azure.AI.Projects.ListSortOrder?), string after = null, string before = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> GetThreadsAsync(int? limit, string order, string after, string before, Azure.RequestContext context) { throw null; }
         public virtual Azure.Response GetVectorStore(string vectorStoreId, Azure.RequestContext context) { throw null; }
         public virtual Azure.Response<Azure.AI.Projects.VectorStore> GetVectorStore(string vectorStoreId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response> GetVectorStoreAsync(string vectorStoreId, Azure.RequestContext context) { throw null; }
@@ -358,6 +362,7 @@ namespace Azure.AI.Projects
         public static Azure.AI.Projects.AgentsNamedToolChoiceType BingCustomSearch { get { throw null; } }
         public static Azure.AI.Projects.AgentsNamedToolChoiceType BingGrounding { get { throw null; } }
         public static Azure.AI.Projects.AgentsNamedToolChoiceType CodeInterpreter { get { throw null; } }
+        public static Azure.AI.Projects.AgentsNamedToolChoiceType ConnectedAgent { get { throw null; } }
         public static Azure.AI.Projects.AgentsNamedToolChoiceType FileSearch { get { throw null; } }
         public static Azure.AI.Projects.AgentsNamedToolChoiceType Function { get { throw null; } }
         public static Azure.AI.Projects.AgentsNamedToolChoiceType MicrosoftFabric { get { throw null; } }
@@ -517,6 +522,7 @@ namespace Azure.AI.Projects
         public static Azure.AI.Projects.MessageTextAnnotation MessageTextAnnotation(string type = null, string text = null) { throw null; }
         public static Azure.AI.Projects.MessageTextUrlCitationAnnotation MessageTextUrlCitationAnnotation(string text = null, Azure.AI.Projects.MessageTextUrlCitationDetails urlCitation = null, int? startIndex = default(int?), int? endIndex = default(int?)) { throw null; }
         public static Azure.AI.Projects.MessageTextUrlCitationDetails MessageTextUrlCitationDetails(string url = null, string title = null) { throw null; }
+        public static Azure.AI.Projects.OpenAIPageableListOfAgentThread OpenAIPageableListOfAgentThread(Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject @object = default(Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject), System.Collections.Generic.IEnumerable<Azure.AI.Projects.AgentThread> data = null, string firstId = null, string lastId = null, bool hasMore = false) { throw null; }
         public static Azure.AI.Projects.RequiredToolCall RequiredToolCall(string type = null, string id = null) { throw null; }
         public static Azure.AI.Projects.ResponseFormatJsonSchemaType ResponseFormatJsonSchemaType(Azure.AI.Projects.ResponseFormatJsonSchemaTypeType type = default(Azure.AI.Projects.ResponseFormatJsonSchemaTypeType), Azure.AI.Projects.ResponseFormatJsonSchema jsonSchema = null) { throw null; }
         public static Azure.AI.Projects.RunCompletionUsage RunCompletionUsage(long completionTokens = (long)0, long promptTokens = (long)0, long totalTokens = (long)0) { throw null; }
@@ -759,6 +765,30 @@ namespace Azure.AI.Projects
         Azure.AI.Projects.CodeInterpreterToolResource System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.CodeInterpreterToolResource>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.CodeInterpreterToolResource>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.CodeInterpreterToolResource>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ConnectedAgentDetails : System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ConnectedAgentDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentDetails>
+    {
+        public ConnectedAgentDetails(string id, string name, string description) { }
+        public string Description { get { throw null; } set { } }
+        public string Id { get { throw null; } set { } }
+        public string Name { get { throw null; } set { } }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.AI.Projects.ConnectedAgentDetails System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ConnectedAgentDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ConnectedAgentDetails>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.AI.Projects.ConnectedAgentDetails System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentDetails>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentDetails>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentDetails>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ConnectedAgentToolDefinition : Azure.AI.Projects.ToolDefinition, System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ConnectedAgentToolDefinition>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentToolDefinition>
+    {
+        public ConnectedAgentToolDefinition(Azure.AI.Projects.ConnectedAgentDetails connectedAgent) { }
+        public Azure.AI.Projects.ConnectedAgentDetails ConnectedAgent { get { throw null; } set { } }
+        protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.AI.Projects.ConnectedAgentToolDefinition System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ConnectedAgentToolDefinition>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ConnectedAgentToolDefinition>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.AI.Projects.ConnectedAgentToolDefinition System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentToolDefinition>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentToolDefinition>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectedAgentToolDefinition>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public abstract partial class ConnectionProperties : System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.ConnectionProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.ConnectionProperties>
     {
@@ -1698,6 +1728,38 @@ namespace Azure.AI.Projects
         Azure.AI.Projects.MicrosoftFabricToolDefinition System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.MicrosoftFabricToolDefinition>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.MicrosoftFabricToolDefinition>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.MicrosoftFabricToolDefinition>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class OpenAIPageableListOfAgentThread : System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.OpenAIPageableListOfAgentThread>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.OpenAIPageableListOfAgentThread>
+    {
+        internal OpenAIPageableListOfAgentThread() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.AI.Projects.AgentThread> Data { get { throw null; } }
+        public string FirstId { get { throw null; } }
+        public bool HasMore { get { throw null; } }
+        public string LastId { get { throw null; } }
+        public Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject Object { get { throw null; } }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.AI.Projects.OpenAIPageableListOfAgentThread System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.OpenAIPageableListOfAgentThread>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.OpenAIPageableListOfAgentThread>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.AI.Projects.OpenAIPageableListOfAgentThread System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.OpenAIPageableListOfAgentThread>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.OpenAIPageableListOfAgentThread>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.OpenAIPageableListOfAgentThread>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct OpenAIPageableListOfAgentThreadObject : System.IEquatable<Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public OpenAIPageableListOfAgentThreadObject(string value) { throw null; }
+        public static Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject List { get { throw null; } }
+        public bool Equals(Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject left, Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject right) { throw null; }
+        public static implicit operator Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject (string value) { throw null; }
+        public static bool operator !=(Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject left, Azure.AI.Projects.OpenAIPageableListOfAgentThreadObject right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class OpenApiAnonymousAuthDetails : Azure.AI.Projects.OpenApiAuthDetails, System.ClientModel.Primitives.IJsonModel<Azure.AI.Projects.OpenApiAnonymousAuthDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.AI.Projects.OpenApiAnonymousAuthDetails>
     {
