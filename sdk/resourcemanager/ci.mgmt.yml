@@ -68,6 +68,7 @@ trigger:
     - sdk/dataprotection/Azure.ResourceManager.DataProtectionBackup
     - sdk/datashare/Azure.ResourceManager.DataShare
     - sdk/defendereasm/Azure.ResourceManager.DefenderEasm
+    - sdk/dependencymap/Azure.ResourceManager.DependencyMap
     - sdk/desktopvirtualization/Azure.ResourceManager.DesktopVirtualization
     - sdk/devcenter/Azure.ResourceManager.DevCenter
     - sdk/deviceprovisioningservices/Azure.ResourceManager.DeviceProvisioningServices
@@ -128,6 +129,7 @@ trigger:
     - sdk/marketplace/Azure.ResourceManager.Marketplace
     - sdk/marketplaceordering/Azure.ResourceManager.MarketplaceOrdering
     - sdk/mediaservices/Azure.ResourceManager.Media
+    - sdk/migrate/Azure.ResourceManager.Migrate
     - sdk/migrationassessment/Azure.ResourceManager.Migration.Assessment
     - sdk/migrationdiscoverysap/Azure.ResourceManager.MigrationDiscoverySap
     - sdk/mixedreality/Azure.ResourceManager.MixedReality
@@ -277,6 +279,7 @@ pr:
     - sdk/dataprotection/Azure.ResourceManager.DataProtectionBackup
     - sdk/datashare/Azure.ResourceManager.DataShare
     - sdk/defendereasm/Azure.ResourceManager.DefenderEasm
+    - sdk/dependencymap/Azure.ResourceManager.DependencyMap
     - sdk/desktopvirtualization/Azure.ResourceManager.DesktopVirtualization
     - sdk/devcenter/Azure.ResourceManager.DevCenter
     - sdk/deviceprovisioningservices/Azure.ResourceManager.DeviceProvisioningServices
@@ -337,6 +340,7 @@ pr:
     - sdk/marketplace/Azure.ResourceManager.Marketplace
     - sdk/marketplaceordering/Azure.ResourceManager.MarketplaceOrdering
     - sdk/mediaservices/Azure.ResourceManager.Media
+    - sdk/migrate/Azure.ResourceManager.Migrate
     - sdk/migrationassessment/Azure.ResourceManager.Migration.Assessment
     - sdk/migrationdiscoverysap/Azure.ResourceManager.MigrationDiscoverySap
     - sdk/mixedreality/Azure.ResourceManager.MixedReality
