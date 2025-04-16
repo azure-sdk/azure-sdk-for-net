@@ -1,0 +1,1611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetRedTeamAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetRedTeamAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.RedTeam > response = await client.GetRedTeamAsync("<name>");
+]]></code>
+This sample shows how to call GetRedTeamAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.RedTeam > response = await client.GetRedTeamAsync("<name>");
+]]></code></example>
+    </member>
+    <member name="GetRedTeam(string,CancellationToken)">
+      <example>
+This sample shows how to call GetRedTeam.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.RedTeam > response = client.GetRedTeam("<name>");
+]]></code>
+This sample shows how to call GetRedTeam with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.RedTeam > response = client.GetRedTeam("<name>");
+]]></code></example>
+    </member>
+    <member name="GetRedTeamAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetRedTeamAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetRedTeamAsync("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call GetRedTeamAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetRedTeamAsync("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRedTeam(string,RequestContext)">
+      <example>
+This sample shows how to call GetRedTeam and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetRedTeam("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call GetRedTeam with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetRedTeam("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateRunAsync(RedTeam,CancellationToken)">
+      <example>
+This sample shows how to call CreateRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeam redTeam = new Projects.1DP.RedTeam("<scanName>", 1234, new Projects.1DP.AttackStrategy[]{ AI.Projects.1DP.AttackStrategy.Easy}, true, new Projects.1DP.RiskCategory[]{ AI.Projects.1DP.RiskCategory.HateUnfairness});
+Azure.Response < AI.Projects.1DP.RedTeam > response = await client.CreateRunAsync(redTeam);
+]]></code>
+This sample shows how to call CreateRunAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeam redTeam = new Projects.1DP.RedTeam("<scanName>", 1234, new Projects.1DP.AttackStrategy[]{ AI.Projects.1DP.AttackStrategy.Easy}, true, new Projects.1DP.RiskCategory[]{ AI.Projects.1DP.RiskCategory.HateUnfairness})
+{
+    ApplicationScenario = "<applicationScenario>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+};
+Azure.Response < AI.Projects.1DP.RedTeam > response = await client.CreateRunAsync(redTeam);
+]]></code></example>
+    </member>
+    <member name="CreateRun(RedTeam,CancellationToken)">
+      <example>
+This sample shows how to call CreateRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeam redTeam = new Projects.1DP.RedTeam("<scanName>", 1234, new Projects.1DP.AttackStrategy[]{ AI.Projects.1DP.AttackStrategy.Easy}, true, new Projects.1DP.RiskCategory[]{ AI.Projects.1DP.RiskCategory.HateUnfairness});
+Azure.Response < AI.Projects.1DP.RedTeam > response = client.CreateRun(redTeam);
+]]></code>
+This sample shows how to call CreateRun with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeam redTeam = new Projects.1DP.RedTeam("<scanName>", 1234, new Projects.1DP.AttackStrategy[]{ AI.Projects.1DP.AttackStrategy.Easy}, true, new Projects.1DP.RiskCategory[]{ AI.Projects.1DP.RiskCategory.HateUnfairness})
+{
+    ApplicationScenario = "<applicationScenario>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+};
+Azure.Response < AI.Projects.1DP.RedTeam > response = client.CreateRun(redTeam);
+]]></code></example>
+    </member>
+    <member name="CreateRunAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+});
+Response response = await client.CreateRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call CreateRunAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+    applicationScenario = "<applicationScenario>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+});
+Response response = await client.CreateRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateRun(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+});
+Response response = client.CreateRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call CreateRun with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+    applicationScenario = "<applicationScenario>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+});
+Response response = client.CreateRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadRunAsync(RedTeamUpload,CancellationToken)">
+      <example>
+This sample shows how to call UploadRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeamUpload redteam = new Projects.1DP.RedTeamUpload();
+Azure.Response < AI.Projects.1DP.RedTeam > response = await client.UploadRunAsync(redteam);
+]]></code>
+This sample shows how to call UploadRunAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeamUpload redteam = new Projects.1DP.RedTeamUpload
+{
+    ScanName = "<scanName>",
+    NumTurns = 1234,
+    AttackStrategy = { AI.Projects.1DP.AttackStrategy.Easy},
+    SimulationOnly = true,
+    RiskCategories = { AI.Projects.1DP.RiskCategory.HateUnfairness},
+    ApplicationScenario = "<applicationScenario>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+};
+Azure.Response < AI.Projects.1DP.RedTeam > response = await client.UploadRunAsync(redteam);
+]]></code></example>
+    </member>
+    <member name="UploadRun(RedTeamUpload,CancellationToken)">
+      <example>
+This sample shows how to call UploadRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeamUpload redteam = new Projects.1DP.RedTeamUpload();
+Azure.Response < AI.Projects.1DP.RedTeam > response = client.UploadRun(redteam);
+]]></code>
+This sample shows how to call UploadRun with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.RedTeamUpload redteam = new Projects.1DP.RedTeamUpload
+{
+    ScanName = "<scanName>",
+    NumTurns = 1234,
+    AttackStrategy = { AI.Projects.1DP.AttackStrategy.Easy},
+    SimulationOnly = true,
+    RiskCategories = { AI.Projects.1DP.RiskCategory.HateUnfairness},
+    ApplicationScenario = "<applicationScenario>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+};
+Azure.Response < AI.Projects.1DP.RedTeam > response = client.UploadRun(redteam);
+]]></code></example>
+    </member>
+    <member name="UploadRunAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.UploadRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadRunAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+    applicationScenario = "<applicationScenario>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+});
+Response response = await client.UploadRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadRun(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.UploadRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadRun with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+    applicationScenario = "<applicationScenario>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+});
+Response response = client.UploadRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadUpdateRunAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadUpdateRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.UploadUpdateRunAsync("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadUpdateRunAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+    applicationScenario = "<applicationScenario>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+});
+Response response = await client.UploadUpdateRunAsync("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadUpdateRun(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadUpdateRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.UploadUpdateRun("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadUpdateRun with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    scanName = "<scanName>",
+    numTurns = 1234,
+    attackStrategy = new object[]
+    {
+        "easy"
+    },
+    simulationOnly = true,
+    riskCategories = new object[]
+    {
+        "HateUnfairness"
+    },
+    applicationScenario = "<applicationScenario>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+});
+Response response = client.UploadUpdateRun("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("scanName").ToString());
+Console.WriteLine(result.GetProperty("numTurns").ToString());
+Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDatasetWithTypeAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetJailBreakDatasetWithTypeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = await client.GetJailBreakDatasetWithTypeAsync("<type>");
+]]></code>
+This sample shows how to call GetJailBreakDatasetWithTypeAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = await client.GetJailBreakDatasetWithTypeAsync("<type>");
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDatasetWithType(string,CancellationToken)">
+      <example>
+This sample shows how to call GetJailBreakDatasetWithType.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = client.GetJailBreakDatasetWithType("<type>");
+]]></code>
+This sample shows how to call GetJailBreakDatasetWithType with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = client.GetJailBreakDatasetWithType("<type>");
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDatasetWithTypeAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetJailBreakDatasetWithTypeAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetJailBreakDatasetWithTypeAsync("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code>
+This sample shows how to call GetJailBreakDatasetWithTypeAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetJailBreakDatasetWithTypeAsync("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDatasetWithType(string,RequestContext)">
+      <example>
+This sample shows how to call GetJailBreakDatasetWithType and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetJailBreakDatasetWithType("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code>
+This sample shows how to call GetJailBreakDatasetWithType with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetJailBreakDatasetWithType("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetAttackObjectivesAsync(IEnumerable{string},string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetAttackObjectivesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < System.Collections.Generic.IReadOnlyList < AI.Projects.1DP.AttackObjective >> response = await client.GetAttackObjectivesAsync();
+]]></code>
+This sample shows how to call GetAttackObjectivesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < System.Collections.Generic.IReadOnlyList < AI.Projects.1DP.AttackObjective >> response = await client.GetAttackObjectivesAsync(riskTypes: new string[] { "<riskTypes>" }, lang: "<lang>", strategy: "<strategy>");
+]]></code></example>
+    </member>
+    <member name="GetAttackObjectives(IEnumerable{string},string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetAttackObjectives.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < System.Collections.Generic.IReadOnlyList < AI.Projects.1DP.AttackObjective >> response = client.GetAttackObjectives();
+]]></code>
+This sample shows how to call GetAttackObjectives with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < System.Collections.Generic.IReadOnlyList < AI.Projects.1DP.AttackObjective >> response = client.GetAttackObjectives(riskTypes: new string[] { "<riskTypes>" }, lang: "<lang>", strategy: "<strategy>");
+]]></code></example>
+    </member>
+    <member name="GetAttackObjectivesAsync(IEnumerable{string},string,string,RequestContext)">
+      <example>
+This sample shows how to call GetAttackObjectivesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetAttackObjectivesAsync((IEnumerable<string>)null, (string)null, (string)null, (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("Id").ToString());
+Console.WriteLine(result[0].GetProperty("Source")[0].ToString());
+Console.WriteLine(result[0].GetProperty("Modality").ToString());
+Console.WriteLine(result[0].GetProperty("Messages")[0].ToString());
+]]></code>
+This sample shows how to call GetAttackObjectivesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetAttackObjectivesAsync(new string[] { "<riskTypes>" }, "<lang>", "<strategy>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("Id").ToString());
+Console.WriteLine(result[0].GetProperty("Metadata").GetProperty("TargetHarms")[0].GetProperty("RiskType").ToString());
+Console.WriteLine(result[0].GetProperty("Metadata").GetProperty("TargetHarms")[0].GetProperty("RiskSubType").ToString());
+Console.WriteLine(result[0].GetProperty("Metadata").GetProperty("Language").ToString());
+Console.WriteLine(result[0].GetProperty("Source")[0].ToString());
+Console.WriteLine(result[0].GetProperty("Modality").ToString());
+Console.WriteLine(result[0].GetProperty("Messages")[0].GetProperty("Role").ToString());
+Console.WriteLine(result[0].GetProperty("Messages")[0].GetProperty("Content").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAttackObjectives(IEnumerable{string},string,string,RequestContext)">
+      <example>
+This sample shows how to call GetAttackObjectives and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetAttackObjectives((IEnumerable<string>)null, (string)null, (string)null, (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("Id").ToString());
+Console.WriteLine(result[0].GetProperty("Source")[0].ToString());
+Console.WriteLine(result[0].GetProperty("Modality").ToString());
+Console.WriteLine(result[0].GetProperty("Messages")[0].ToString());
+]]></code>
+This sample shows how to call GetAttackObjectives with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetAttackObjectives(new string[] { "<riskTypes>" }, "<lang>", "<strategy>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].GetProperty("Id").ToString());
+Console.WriteLine(result[0].GetProperty("Metadata").GetProperty("TargetHarms")[0].GetProperty("RiskType").ToString());
+Console.WriteLine(result[0].GetProperty("Metadata").GetProperty("TargetHarms")[0].GetProperty("RiskSubType").ToString());
+Console.WriteLine(result[0].GetProperty("Metadata").GetProperty("Language").ToString());
+Console.WriteLine(result[0].GetProperty("Source")[0].ToString());
+Console.WriteLine(result[0].GetProperty("Modality").ToString());
+Console.WriteLine(result[0].GetProperty("Messages")[0].GetProperty("Role").ToString());
+Console.WriteLine(result[0].GetProperty("Messages")[0].GetProperty("Content").ToString());
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDatasetAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetJailBreakDatasetAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = await client.GetJailBreakDatasetAsync();
+]]></code>
+This sample shows how to call GetJailBreakDatasetAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = await client.GetJailBreakDatasetAsync();
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDataset(CancellationToken)">
+      <example>
+This sample shows how to call GetJailBreakDataset.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = client.GetJailBreakDataset();
+]]></code>
+This sample shows how to call GetJailBreakDataset with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = client.GetJailBreakDataset();
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDatasetAsync(RequestContext)">
+      <example>
+This sample shows how to call GetJailBreakDatasetAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetJailBreakDatasetAsync((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code>
+This sample shows how to call GetJailBreakDatasetAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetJailBreakDatasetAsync((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetJailBreakDataset(RequestContext)">
+      <example>
+This sample shows how to call GetJailBreakDataset and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetJailBreakDataset((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code>
+This sample shows how to call GetJailBreakDataset with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetJailBreakDataset((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersWithTypeAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTemplateParametersWithTypeAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = await client.GetTemplateParametersWithTypeAsync("<type>");
+]]></code>
+This sample shows how to call GetTemplateParametersWithTypeAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = await client.GetTemplateParametersWithTypeAsync("<type>");
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersWithType(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTemplateParametersWithType.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = client.GetTemplateParametersWithType("<type>");
+]]></code>
+This sample shows how to call GetTemplateParametersWithType with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = client.GetTemplateParametersWithType("<type>");
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersWithTypeAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTemplateParametersWithTypeAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetTemplateParametersWithTypeAsync("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetTemplateParametersWithTypeAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetTemplateParametersWithTypeAsync("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersWithType(string,RequestContext)">
+      <example>
+This sample shows how to call GetTemplateParametersWithType and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetTemplateParametersWithType("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetTemplateParametersWithType with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetTemplateParametersWithType("<type>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetTemplateParametersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = await client.GetTemplateParametersAsync();
+]]></code>
+This sample shows how to call GetTemplateParametersAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = await client.GetTemplateParametersAsync();
+]]></code></example>
+    </member>
+    <member name="GetTemplateParameters(CancellationToken)">
+      <example>
+This sample shows how to call GetTemplateParameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = client.GetTemplateParameters();
+]]></code>
+This sample shows how to call GetTemplateParameters with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = client.GetTemplateParameters();
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersAsync(RequestContext)">
+      <example>
+This sample shows how to call GetTemplateParametersAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetTemplateParametersAsync((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetTemplateParametersAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetTemplateParametersAsync((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetTemplateParameters(RequestContext)">
+      <example>
+This sample shows how to call GetTemplateParameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetTemplateParameters((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetTemplateParameters with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetTemplateParameters((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersImageAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTemplateParametersImageAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = await client.GetTemplateParametersImageAsync("<path>");
+]]></code>
+This sample shows how to call GetTemplateParametersImageAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = await client.GetTemplateParametersImageAsync("<path>");
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersImage(string,CancellationToken)">
+      <example>
+This sample shows how to call GetTemplateParametersImage.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = client.GetTemplateParametersImage("<path>");
+]]></code>
+This sample shows how to call GetTemplateParametersImage with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response<string> response = client.GetTemplateParametersImage("<path>");
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersImageAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetTemplateParametersImageAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetTemplateParametersImageAsync("<path>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetTemplateParametersImageAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetTemplateParametersImageAsync("<path>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetTemplateParametersImage(string,RequestContext)">
+      <example>
+This sample shows how to call GetTemplateParametersImage and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetTemplateParametersImage("<path>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetTemplateParametersImage with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetTemplateParametersImage("<path>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SubmitSimulationAsync(SimulationDTO,CancellationToken)">
+      <example>
+This sample shows how to call SubmitSimulationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.SimulationDTO body = new Projects.1DP.SimulationDTO();
+Azure.Response < AI.Projects.1DP.LongRunningResponse > response = await client.SubmitSimulationAsync(body);
+]]></code>
+This sample shows how to call SubmitSimulationAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.SimulationDTO body = new Projects.1DP.SimulationDTO
+{
+    Headers =
+    {
+        ["key"] = "<Headers>"
+    },
+    Params =
+    {
+        ["key"] = "<Params>"
+    },
+    TemplateParameters =
+    {
+        ["key"] = "<TemplateParameters>"
+    },
+    CustomizationParameters = new Projects.1DP.CustomizationParameters(new string[] { "<HarmCategories>" })
+    {
+        ApplicationScenario = "<ApplicationScenario>",
+    },
+    Json = "<Json>",
+    Url = "<Url>",
+    TemplateKey = "<TemplateKey>",
+    SimulationType = AI.Projects.1DP.SimulationType.Default,
+    IsMicrosoftTenant = true,
+    SubscriptionId = "<SubscriptionId>",
+    ResourceGroupName = "<ResourceGroupName>",
+    WorkspaceName = "<WorkspaceName>",
+};
+Azure.Response < AI.Projects.1DP.LongRunningResponse > response = await client.SubmitSimulationAsync(body);
+]]></code></example>
+    </member>
+    <member name="SubmitSimulation(SimulationDTO,CancellationToken)">
+      <example>
+This sample shows how to call SubmitSimulation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.SimulationDTO body = new Projects.1DP.SimulationDTO();
+Azure.Response < AI.Projects.1DP.LongRunningResponse > response = client.SubmitSimulation(body);
+]]></code>
+This sample shows how to call SubmitSimulation with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.SimulationDTO body = new Projects.1DP.SimulationDTO
+{
+    Headers =
+    {
+        ["key"] = "<Headers>"
+    },
+    Params =
+    {
+        ["key"] = "<Params>"
+    },
+    TemplateParameters =
+    {
+        ["key"] = "<TemplateParameters>"
+    },
+    CustomizationParameters = new Projects.1DP.CustomizationParameters(new string[] { "<HarmCategories>" })
+    {
+        ApplicationScenario = "<ApplicationScenario>",
+    },
+    Json = "<Json>",
+    Url = "<Url>",
+    TemplateKey = "<TemplateKey>",
+    SimulationType = AI.Projects.1DP.SimulationType.Default,
+    IsMicrosoftTenant = true,
+    SubscriptionId = "<SubscriptionId>",
+    ResourceGroupName = "<ResourceGroupName>",
+    WorkspaceName = "<WorkspaceName>",
+};
+Azure.Response < AI.Projects.1DP.LongRunningResponse > response = client.SubmitSimulation(body);
+]]></code></example>
+    </member>
+    <member name="SubmitSimulationAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SubmitSimulationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.SubmitSimulationAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Location").ToString());
+Console.WriteLine(result.GetProperty("OperationResult").ToString());
+]]></code>
+This sample shows how to call SubmitSimulationAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    Headers = new
+    {
+        key = "<Headers>",
+    },
+    Params = new
+    {
+        key = "<Params>",
+    },
+    TemplateParameters = new
+    {
+        key = "<TemplateParameters>",
+    },
+    CustomizationParameters = new
+    {
+        ApplicationScenario = "<ApplicationScenario>",
+        HarmCategories = new object[]
+        {
+            "<HarmCategories>"
+        },
+    },
+    Json = "<Json>",
+    Url = "<Url>",
+    TemplateKey = "<TemplateKey>",
+    SimulationType = "Default",
+    IsMicrosoftTenant = true,
+    SubscriptionId = "<SubscriptionId>",
+    ResourceGroupName = "<ResourceGroupName>",
+    WorkspaceName = "<WorkspaceName>",
+});
+Response response = await client.SubmitSimulationAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Location").ToString());
+Console.WriteLine(result.GetProperty("OperationResult").ToString());
+]]></code></example>
+    </member>
+    <member name="SubmitSimulation(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SubmitSimulation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.SubmitSimulation(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Location").ToString());
+Console.WriteLine(result.GetProperty("OperationResult").ToString());
+]]></code>
+This sample shows how to call SubmitSimulation with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    Headers = new
+    {
+        key = "<Headers>",
+    },
+    Params = new
+    {
+        key = "<Params>",
+    },
+    TemplateParameters = new
+    {
+        key = "<TemplateParameters>",
+    },
+    CustomizationParameters = new
+    {
+        ApplicationScenario = "<ApplicationScenario>",
+        HarmCategories = new object[]
+        {
+            "<HarmCategories>"
+        },
+    },
+    Json = "<Json>",
+    Url = "<Url>",
+    TemplateKey = "<TemplateKey>",
+    SimulationType = "Default",
+    IsMicrosoftTenant = true,
+    SubscriptionId = "<SubscriptionId>",
+    ResourceGroupName = "<ResourceGroupName>",
+    WorkspaceName = "<WorkspaceName>",
+});
+Response response = client.SubmitSimulation(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("Location").ToString());
+Console.WriteLine(result.GetProperty("OperationResult").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRedTeamsAsync(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetRedTeamsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (Projects.1DP.RedTeam item in client.GetRedTeamsAsync())
+{
+}
+]]></code>
+This sample shows how to call GetRedTeamsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (Projects.1DP.RedTeam item in client.GetRedTeamsAsync(maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRedTeams(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetRedTeams.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+foreach (Projects.1DP.RedTeam item in client.GetRedTeams())
+{
+}
+]]></code>
+This sample shows how to call GetRedTeams with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+foreach (Projects.1DP.RedTeam item in client.GetRedTeams(maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRedTeamsAsync(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetRedTeamsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (BinaryData item in client.GetRedTeamsAsync((int?)null, (int?)null, (int?)null, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("scanName").ToString());
+    Console.WriteLine(result.GetProperty("numTurns").ToString());
+    Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+    Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+    Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+}
+]]></code>
+This sample shows how to call GetRedTeamsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (BinaryData item in client.GetRedTeamsAsync(1234, 1234, 1234, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("scanName").ToString());
+    Console.WriteLine(result.GetProperty("numTurns").ToString());
+    Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+    Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+    Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+    Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+    Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetRedTeams(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetRedTeams and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+foreach (BinaryData item in client.GetRedTeams((int?)null, (int?)null, (int?)null, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("scanName").ToString());
+    Console.WriteLine(result.GetProperty("numTurns").ToString());
+    Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+    Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+    Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+}
+]]></code>
+This sample shows how to call GetRedTeams with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.RedTeams client = new Projects.1DP.AIProjectClient(endpoint, credential).GetRedTeamsClient(apiVersion: "2025-05-15-preview");
+
+foreach (BinaryData item in client.GetRedTeams(1234, 1234, 1234, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("scanName").ToString());
+    Console.WriteLine(result.GetProperty("numTurns").ToString());
+    Console.WriteLine(result.GetProperty("attackStrategy")[0].ToString());
+    Console.WriteLine(result.GetProperty("simulationOnly").ToString());
+    Console.WriteLine(result.GetProperty("riskCategories")[0].ToString());
+    Console.WriteLine(result.GetProperty("applicationScenario").ToString());
+    Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
