@@ -6265,23 +6265,6 @@ namespace Azure.ResourceManager.Compute.Models
         public static bool operator !=(Azure.ResourceManager.Compute.Models.GetVirtualMachineExpandType left, Azure.ResourceManager.Compute.Models.GetVirtualMachineExpandType right) { throw null; }
         public override string ToString() { throw null; }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct GetVirtualMachineImagesWithPropertiesExpand : System.IEquatable<Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public GetVirtualMachineImagesWithPropertiesExpand(string value) { throw null; }
-        public static Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand Properties { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand left, Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand left, Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand right) { throw null; }
-        public override string ToString() { throw null; }
-    }
     public partial class GrantAccessData : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GrantAccessData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GrantAccessData>
     {
         public GrantAccessData(Azure.ResourceManager.Compute.Models.AccessLevel access, int durationInSeconds) { }
@@ -8496,8 +8479,8 @@ namespace Azure.ResourceManager.Compute.Models
     }
     public partial class SubscriptionResourceGetVirtualMachineImagesWithPropertiesOptions
     {
-        public SubscriptionResourceGetVirtualMachineImagesWithPropertiesOptions(Azure.Core.AzureLocation location, string publisherName, string offer, string skus, Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand expand) { }
-        public Azure.ResourceManager.Compute.Models.GetVirtualMachineImagesWithPropertiesExpand Expand { get { throw null; } }
+        public SubscriptionResourceGetVirtualMachineImagesWithPropertiesOptions(Azure.Core.AzureLocation location, string publisherName, string offer, string skus, string expand) { }
+        public string Expand { get { throw null; } }
         public Azure.Core.AzureLocation Location { get { throw null; } }
         public string Offer { get { throw null; } }
         public string Orderby { get { throw null; } set { } }
