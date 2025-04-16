@@ -1,3 +1,4 @@
 directory: specification/cognitiveservices/Language.Conversations
-commit: 462574dbd02088c209bb1da3eef0d93f699e8de2
+commit: 4aefd2b997af368fb370933df6e3e4cb92d29a32
 repo: Azure/azure-rest-api-specs
+additionalDirectories: 
