@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetWorkspaceAsync(Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetWorkspaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response<Workspace> response = await client.GetWorkspaceAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"));
+]]></code>
+This sample shows how to call GetWorkspaceAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response<Workspace> response = await client.GetWorkspaceAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"));
+]]></code></example>
+    </member>
+    <member name="GetWorkspace(Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetWorkspace.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response<Workspace> response = client.GetWorkspace(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"));
+]]></code>
+This sample shows how to call GetWorkspace with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response<Workspace> response = client.GetWorkspace(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"));
+]]></code></example>
+    </member>
+    <member name="GetWorkspaceAsync(Guid,RequestContext)">
+      <example>
+This sample shows how to call GetWorkspaceAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = await client.GetWorkspaceAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+Console.WriteLine(result.GetProperty("subscriptionId").ToString());
+Console.WriteLine(result.GetProperty("subscriptionState").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("location").ToString());
+]]></code>
+This sample shows how to call GetWorkspaceAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = await client.GetWorkspaceAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+Console.WriteLine(result.GetProperty("subscriptionId").ToString());
+Console.WriteLine(result.GetProperty("subscriptionState").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("dataplaneUri").ToString());
+Console.WriteLine(result.GetProperty("regionalAffinity").ToString());
+Console.WriteLine(result.GetProperty("localAuth").ToString());
+]]></code></example>
+    </member>
+    <member name="GetWorkspace(Guid,RequestContext)">
+      <example>
+This sample shows how to call GetWorkspace and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = client.GetWorkspace(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+Console.WriteLine(result.GetProperty("subscriptionId").ToString());
+Console.WriteLine(result.GetProperty("subscriptionState").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("location").ToString());
+]]></code>
+This sample shows how to call GetWorkspace with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = client.GetWorkspace(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("resourceId").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+Console.WriteLine(result.GetProperty("subscriptionId").ToString());
+Console.WriteLine(result.GetProperty("subscriptionState").ToString());
+Console.WriteLine(result.GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("dataplaneUri").ToString());
+Console.WriteLine(result.GetProperty("regionalAffinity").ToString());
+Console.WriteLine(result.GetProperty("localAuth").ToString());
+]]></code></example>
+    </member>
+    <member name="GetBrowsersAsync(string,OS?,CancellationToken)">
+      <example>
+This sample shows how to call GetBrowsersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = await client.GetBrowsersAsync("00000000-0000-0000-0000-000000000000");
+]]></code></example>
+    </member>
+    <member name="GetBrowsers(string,OS?,CancellationToken)">
+      <example>
+This sample shows how to call GetBrowsers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = client.GetBrowsers("00000000-0000-0000-0000-000000000000");
+]]></code></example>
+    </member>
+    <member name="GetBrowsersAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetBrowsersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = await client.GetBrowsersAsync("00000000-0000-0000-0000-000000000000", "Linux", null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetBrowsers(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetBrowsers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = client.GetBrowsers("00000000-0000-0000-0000-000000000000", "Linux", null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+  </members>
+</doc>
