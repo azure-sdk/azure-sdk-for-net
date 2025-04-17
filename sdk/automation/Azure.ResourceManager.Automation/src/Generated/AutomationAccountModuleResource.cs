@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -156,7 +156,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -240,7 +240,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -284,7 +284,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -326,7 +326,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -368,7 +368,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -407,7 +407,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -446,7 +446,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -472,7 +472,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -498,7 +498,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -528,7 +528,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -558,7 +558,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -588,7 +588,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -618,7 +618,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -680,7 +680,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -742,7 +742,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -799,7 +799,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -856,7 +856,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -916,7 +916,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2024-10-23</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
