@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Automation
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2020-01-13-preview";
+            _apiVersion = apiVersion ?? "2024-10-23";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
