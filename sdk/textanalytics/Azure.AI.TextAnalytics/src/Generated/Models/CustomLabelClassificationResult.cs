@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The CustomLabelClassificationResult. </summary>
-    internal partial class CustomLabelClassificationResult : CustomResult
+    /// <summary> Contains the custom label classification results. </summary>
+    internal partial class CustomLabelClassificationResult
     {
         /// <summary> Initializes a new instance of <see cref="CustomLabelClassificationResult"/>. </summary>
         /// <param name="errors"> Errors by document id. </param>
@@ -20,13 +20,16 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
         /// <param name="documents"> Response by document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="errors"/>, <paramref name="projectName"/>, <paramref name="deploymentName"/> or <paramref name="documents"/> is null. </exception>
-        public CustomLabelClassificationResult(IEnumerable<DocumentError> errors, string projectName, string deploymentName, IEnumerable<CustomLabelClassificationResultDocumentsItem> documents) : base(errors, projectName, deploymentName)
+        internal CustomLabelClassificationResult(IEnumerable<DocumentError> errors, string projectName, string deploymentName, IEnumerable<ClassificationDocumentResult> documents)
         {
             Argument.AssertNotNull(errors, nameof(errors));
             Argument.AssertNotNull(projectName, nameof(projectName));
             Argument.AssertNotNull(deploymentName, nameof(deploymentName));
             Argument.AssertNotNull(documents, nameof(documents));
 
+            Errors = errors.ToList();
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
             Documents = documents.ToList();
         }
 
@@ -36,12 +39,24 @@ namespace Azure.AI.TextAnalytics.Models
         /// <param name="projectName"> This field indicates the project name for the model. </param>
         /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
         /// <param name="documents"> Response by document. </param>
-        internal CustomLabelClassificationResult(IList<DocumentError> errors, TextDocumentBatchStatistics statistics, string projectName, string deploymentName, IList<CustomLabelClassificationResultDocumentsItem> documents) : base(errors, statistics, projectName, deploymentName)
+        internal CustomLabelClassificationResult(IReadOnlyList<DocumentError> errors, TextDocumentBatchStatistics statistics, string projectName, string deploymentName, IReadOnlyList<ClassificationDocumentResult> documents)
         {
+            Errors = errors;
+            Statistics = statistics;
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
             Documents = documents;
         }
 
+        /// <summary> Errors by document id. </summary>
+        public IReadOnlyList<DocumentError> Errors { get; }
+        /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
+        public TextDocumentBatchStatistics Statistics { get; }
+        /// <summary> This field indicates the project name for the model. </summary>
+        public string ProjectName { get; }
+        /// <summary> This field indicates the deployment name for the model. </summary>
+        public string DeploymentName { get; }
         /// <summary> Response by document. </summary>
-        public IList<CustomLabelClassificationResultDocumentsItem> Documents { get; }
+        public IReadOnlyList<ClassificationDocumentResult> Documents { get; }
     }
 }
