@@ -10,9 +10,9 @@ using System.Text.Json;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class AnalyzeTasks
+    internal partial class Tasks
     {
-        internal static AnalyzeTasks DeserializeAnalyzeTasks(JsonElement element)
+        internal static Tasks DeserializeTasks(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -60,15 +60,15 @@ namespace Azure.AI.TextAnalytics.Models
                     continue;
                 }
             }
-            return new AnalyzeTasks(completed, failed, inProgress, total, items ?? new ChangeTrackingList<AnalyzeTextLROResult>());
+            return new Tasks(completed, failed, inProgress, total, items ?? new ChangeTrackingList<AnalyzeTextLROResult>());
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AnalyzeTasks FromResponse(Response response)
+        internal static Tasks FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeAnalyzeTasks(document.RootElement);
+            return DeserializeTasks(document.RootElement);
         }
     }
 }

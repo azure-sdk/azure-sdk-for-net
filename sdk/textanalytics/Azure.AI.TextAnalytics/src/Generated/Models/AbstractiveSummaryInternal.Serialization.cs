@@ -7,30 +7,11 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class AbstractiveSummaryInternal : IUtf8JsonSerializable
+    internal partial class AbstractiveSummaryInternal
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
-            if (Optional.IsCollectionDefined(Contexts))
-            {
-                writer.WritePropertyName("contexts"u8);
-                writer.WriteStartArray();
-                foreach (var item in Contexts)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
-        }
-
         internal static AbstractiveSummaryInternal DeserializeAbstractiveSummaryInternal(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -38,7 +19,7 @@ namespace Azure.AI.TextAnalytics.Models
                 return null;
             }
             string text = default;
-            IList<SummaryContextInternal> contexts = default;
+            IReadOnlyList<SummaryContextInternal> contexts = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("text"u8))
@@ -70,14 +51,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeAbstractiveSummaryInternal(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
