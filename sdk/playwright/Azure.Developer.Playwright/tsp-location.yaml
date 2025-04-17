@@ -1,0 +1,5 @@
+directory: specification/loadtestservice/Playwright
+commit: b1436c8da67db7013697005cce8e7e5bb9e81283
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
+- specification/loadtestservice/Playwright.Shared
