@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetRunbook()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/getRunbook.json
             // this example is just showing the usage of "Runbook_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_DeleteARunbook()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/deleteRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/deleteRunbook.json
             // this example is just showing the usage of "Runbook_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_UpdateRunbook()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/updateRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/updateRunbook.json
             // this example is just showing the usage of "Runbook_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetContentRunbookDraft_GetRunbookDraftContent()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getRunbookDraftContent.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/getRunbookDraftContent.json
             // this example is just showing the usage of "RunbookDraft_GetContent" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetRunbookDraft_GetRunbookDraft()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getRunbookDraft.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/getRunbookDraft.json
             // this example is just showing the usage of "RunbookDraft_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -170,7 +170,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task UndoEditRunbookDraft_UndoDraftEditToLastKnownPublishedState()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/undoDraftEditToLastKnownPublishedState.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/undoDraftEditToLastKnownPublishedState.json
             // this example is just showing the usage of "RunbookDraft_UndoEdit" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -197,7 +197,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Publish_PublishRunbookDraft()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/publishRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/publishRunbook.json
             // this example is just showing the usage of "Runbook_Publish" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetContent_GetRunbookContent()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getRunbookContent.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/getRunbookContent.json
             // this example is just showing the usage of "Runbook_GetContent" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -251,7 +251,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetTestJobStream_GetTestJobStream()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getTestJobStream.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/getTestJobStream.json
             // this example is just showing the usage of "TestJobStreams_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetTestJobStreams_ListJobStreamsByJobName()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/listTestJobStreamsByJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/listTestJobStreamsByJob.json
             // this example is just showing the usage of "TestJobStreams_ListByTestJob" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -309,7 +309,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateTestJob_CreateTestJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/createTestJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/createTestJob.json
             // this example is just showing the usage of "TestJob_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -335,6 +335,7 @@ namespace Azure.ResourceManager.Automation.Samples
 ["key02"] = "value02"
 },
                 RunOn = "",
+                RuntimeEnvironment = "runtimeEnvironmentName",
             };
             RunbookTestJob result = await automationRunbook.CreateTestJobAsync(content);
 
@@ -345,7 +346,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetTestJob_GetTestJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getTestJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/getTestJob.json
             // this example is just showing the usage of "TestJob_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -372,7 +373,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task ResumeTestJob_ResumeTestJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/resumeTestJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/resumeTestJob.json
             // this example is just showing the usage of "TestJob_Resume" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -399,7 +400,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task StopTestJob_StopTestJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/stopTestJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/stopTestJob.json
             // this example is just showing the usage of "TestJob_Stop" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -426,7 +427,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task SuspendTestJob_SuspendTestJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/suspendTestJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/runbook/suspendTestJob.json
             // this example is just showing the usage of "TestJob_Suspend" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
