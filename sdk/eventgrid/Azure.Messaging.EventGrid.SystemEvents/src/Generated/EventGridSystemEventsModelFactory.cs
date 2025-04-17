@@ -2474,6 +2474,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new DataBoxOrderCompletedEventData(serialNumber, stageName, stageTime, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/>. </summary>
+        /// <param name="externalValidationId"> A GUID to uniquely track External Solution Validation. </param>
+        /// <param name="targetId"> ARM ID of the Target resource. </param>
+        /// <param name="solutionTemplateId"> ARM ID of the Solution Template resource. </param>
+        /// <param name="solutionTemplateVersionId"> ARM ID of the Solution Template Version resource. </param>
+        /// <param name="solutionVersionId"> ARM ID of the Solution Version resource. </param>
+        /// <param name="apiVersion"> API Version supported for the resources. </param>
+        /// <param name="callbackUrl"> Direct URL to callback for updating validation status. </param>
+        /// <returns> A new <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/> instance for mocking. </returns>
+        public static EdgeSolutionVersionPublishedEventData EdgeSolutionVersionPublishedEventData(string externalValidationId = null, string targetId = null, string solutionTemplateId = null, string solutionTemplateVersionId = null, string solutionVersionId = null, string apiVersion = null, Uri callbackUrl = null)
+        {
+            return new EdgeSolutionVersionPublishedEventData(
+                externalValidationId,
+                targetId,
+                solutionTemplateId,
+                solutionTemplateVersionId,
+                solutionVersionId,
+                apiVersion,
+                callbackUrl,
+                serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.EventHubCaptureFileCreatedEventData"/>. </summary>
         /// <param name="fileurl"> The path to the capture file. </param>
         /// <param name="fileType"> The file type of the capture file. </param>

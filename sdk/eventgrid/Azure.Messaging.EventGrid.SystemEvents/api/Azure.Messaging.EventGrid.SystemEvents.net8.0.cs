@@ -2332,6 +2332,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         string System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.DeviceTwinProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.DeviceTwinProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    public partial class EdgeSolutionVersionPublishedEventData : System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData>, System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData>
+    {
+        internal EdgeSolutionVersionPublishedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public System.Uri CallbackUrl { get { throw null; } }
+        public string ExternalValidationId { get { throw null; } }
+        public string SolutionTemplateId { get { throw null; } }
+        public string SolutionTemplateVersionId { get { throw null; } }
+        public string SolutionVersionId { get { throw null; } }
+        public string TargetId { get { throw null; } }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class EventGridMqttClientCreatedOrUpdatedEventData : Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientEventData, System.ClientModel.Primitives.IJsonModel<Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientCreatedOrUpdatedEventData>, System.ClientModel.Primitives.IPersistableModel<Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientCreatedOrUpdatedEventData>
     {
         internal EventGridMqttClientCreatedOrUpdatedEventData() { }
@@ -2602,6 +2619,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinInfoX509Thumbprint DeviceTwinInfoX509Thumbprint(string primaryThumbprint = null, string secondaryThumbprint = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata DeviceTwinMetadata(string lastUpdated = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinProperties DeviceTwinProperties(Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata metadata = null, float? version = default(float?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData EdgeSolutionVersionPublishedEventData(string externalValidationId = null, string targetId = null, string solutionTemplateId = null, string solutionTemplateVersionId = null, string solutionVersionId = null, string apiVersion = null, System.Uri callbackUrl = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientCreatedOrUpdatedEventData EventGridMqttClientCreatedOrUpdatedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientState? state = default(Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? updatedOn = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, string> attributes = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientDeletedEventData EventGridMqttClientDeletedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientEventData EventGridMqttClientEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null) { throw null; }
@@ -4476,6 +4494,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public const string DataBoxCopyCompleted = "Microsoft.DataBox.CopyCompleted";
         public const string DataBoxCopyStarted = "Microsoft.DataBox.CopyStarted";
         public const string DataBoxOrderCompleted = "Microsoft.DataBox.OrderCompleted";
+        public const string EdgeSolutionVersionPublished = "Microsoft.Edge.SolutionVersionPublished";
         public const string EventGridMqttClientCreatedOrUpdated = "Microsoft.EventGrid.MQTTClientCreatedOrUpdated";
         public const string EventGridMqttClientDeleted = "Microsoft.EventGrid.MQTTClientDeleted";
         public const string EventGridMqttClientSessionConnected = "Microsoft.EventGrid.MQTTClientSessionConnected";

@@ -232,6 +232,7 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinInfoX509Thumbprint DeviceTwinInfoX509Thumbprint(string primaryThumbprint = null, string secondaryThumbprint = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata DeviceTwinMetadata(string lastUpdated = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinProperties DeviceTwinProperties(Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata metadata = null, float? version = default(float?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData EdgeSolutionVersionPublishedEventData(string externalValidationId = null, string targetId = null, string solutionTemplateId = null, string solutionTemplateVersionId = null, string solutionVersionId = null, string apiVersion = null, System.Uri callbackUrl = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientCreatedOrUpdatedEventData EventGridMqttClientCreatedOrUpdatedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientState? state = default(Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? updatedOn = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, string> attributes = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientDeletedEventData EventGridMqttClientDeletedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientEventData EventGridMqttClientEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null) { throw null; }
@@ -545,6 +546,7 @@ namespace Azure.Messaging.EventGrid
         public const string DataBoxCopyCompleted = "Microsoft.DataBox.CopyCompleted";
         public const string DataBoxCopyStarted = "Microsoft.DataBox.CopyStarted";
         public const string DataBoxOrderCompleted = "Microsoft.DataBox.OrderCompleted";
+        public const string EdgeSolutionVersionPublished = "Microsoft.Edge.SolutionVersionPublished";
         public const string EventGridMqttClientCreatedOrUpdated = "Microsoft.EventGrid.MQTTClientCreatedOrUpdated";
         public const string EventGridMqttClientDeleted = "Microsoft.EventGrid.MQTTClientDeleted";
         public const string EventGridMqttClientSessionConnected = "Microsoft.EventGrid.MQTTClientSessionConnected";
@@ -2213,6 +2215,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         internal DeviceTwinProperties() { }
         public Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata Metadata { get { throw null; } }
         public float? Version { get { throw null; } }
+    }
+    public partial class EdgeSolutionVersionPublishedEventData
+    {
+        internal EdgeSolutionVersionPublishedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public System.Uri CallbackUrl { get { throw null; } }
+        public string ExternalValidationId { get { throw null; } }
+        public string SolutionTemplateId { get { throw null; } }
+        public string SolutionTemplateVersionId { get { throw null; } }
+        public string SolutionVersionId { get { throw null; } }
+        public string TargetId { get { throw null; } }
     }
     public partial class EventGridMqttClientCreatedOrUpdatedEventData : Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientEventData
     {
