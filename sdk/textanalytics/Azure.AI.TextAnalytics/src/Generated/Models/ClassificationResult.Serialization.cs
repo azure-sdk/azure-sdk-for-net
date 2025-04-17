@@ -6,22 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class ClassificationResult : IUtf8JsonSerializable
+    internal partial class ClassificationResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("category"u8);
-            writer.WriteStringValue(Category);
-            writer.WritePropertyName("confidenceScore"u8);
-            writer.WriteNumberValue(ConfidenceScore);
-            writer.WriteEndObject();
-        }
-
         internal static ClassificationResult DeserializeClassificationResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -52,14 +41,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeClassificationResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
