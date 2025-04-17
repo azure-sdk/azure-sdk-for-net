@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.Automation.Models
 {
     /// <summary> The Dsc configuration property associated with the entity. </summary>
-    public partial class DscConfigurationAssociationProperty
+    internal partial class DscConfigurationAssociationProperty
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
