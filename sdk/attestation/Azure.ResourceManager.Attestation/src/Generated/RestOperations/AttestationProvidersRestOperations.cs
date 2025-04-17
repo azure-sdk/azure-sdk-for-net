@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Attestation
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-06-01-preview";
+            _apiVersion = apiVersion ?? "2021-06-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -170,7 +170,7 @@ namespace Azure.ResourceManager.Attestation
             return message;
         }
 
-        /// <summary> Creates a new Attestation Provider. </summary>
+        /// <summary> Creates or updates an Attestation Provider. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="providerName"> Name of the attestation provider. </param>
@@ -202,7 +202,7 @@ namespace Azure.ResourceManager.Attestation
             }
         }
 
-        /// <summary> Creates a new Attestation Provider. </summary>
+        /// <summary> Creates or updates an Attestation Provider. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="providerName"> Name of the attestation provider. </param>
