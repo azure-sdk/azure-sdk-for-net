@@ -8,31 +8,39 @@
 using System;
 using Azure;
 using Azure.AI.Language.QuestionAnswering;
-using Azure.AI.Language.QuestionAnswering.Authoring;
 using Azure.Core.Extensions;
 
 namespace Microsoft.Extensions.Azure
 {
-    /// <summary> Extension methods to add <see cref="QuestionAnsweringAuthoringClient"/> to client builder. </summary>
+    /// <summary> Extension methods to add <see cref="QuestionAnsweringClient"/> to client builder. </summary>
     public static partial class QuestionAnsweringClientExtensions
     {
-        /// <summary> Registers a <see cref="QuestionAnsweringAuthoringClient"/> instance. </summary>
+        /// <summary> Registers a <see cref="QuestionAnsweringClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
-        public static IAzureClientBuilder<QuestionAnsweringAuthoringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringAuthoringClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
+        public static IAzureClientBuilder<QuestionAnsweringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
         where TBuilder : IAzureClientFactoryBuilder
         {
-            return builder.RegisterClientFactory<QuestionAnsweringAuthoringClient, QuestionAnsweringClientOptions>((options) => new QuestionAnsweringAuthoringClient(endpoint, credential, options));
+            return builder.RegisterClientFactory<QuestionAnsweringClient, QuestionAnsweringClientOptions>((options) => new QuestionAnsweringClient(endpoint, credential, options));
         }
 
-        /// <summary> Registers a <see cref="QuestionAnsweringAuthoringClient"/> instance. </summary>
+        /// <summary> Registers a <see cref="QuestionAnsweringClient"/> instance. </summary>
+        /// <param name="builder"> The builder to register with. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        public static IAzureClientBuilder<QuestionAnsweringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringClient<TBuilder>(this TBuilder builder, Uri endpoint)
+        where TBuilder : IAzureClientFactoryBuilderWithCredential
+        {
+            return builder.RegisterClientFactory<QuestionAnsweringClient, QuestionAnsweringClientOptions>((options, cred) => new QuestionAnsweringClient(endpoint, cred, options));
+        }
+
+        /// <summary> Registers a <see cref="QuestionAnsweringClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="configuration"> The configuration values. </param>
-        public static IAzureClientBuilder<QuestionAnsweringAuthoringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringAuthoringClient<TBuilder, TConfiguration>(this TBuilder builder, TConfiguration configuration)
+        public static IAzureClientBuilder<QuestionAnsweringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringClient<TBuilder, TConfiguration>(this TBuilder builder, TConfiguration configuration)
         where TBuilder : IAzureClientFactoryBuilderWithConfiguration<TConfiguration>
         {
-            return builder.RegisterClientFactory<QuestionAnsweringAuthoringClient, QuestionAnsweringClientOptions>(configuration);
+            return builder.RegisterClientFactory<QuestionAnsweringClient, QuestionAnsweringClientOptions>(configuration);
         }
     }
 }
