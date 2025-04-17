@@ -4319,5 +4319,56 @@ namespace Azure.Messaging.EventGrid
         {
             return new ApiCenterApiDefinitionUpdatedEventData(title, description, specification);
         }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/>. </summary>
+        /// <param name="externalValidationId"> A GUID to uniquely track External Solution Validation. </param>
+        /// <param name="targetId"> ARM ID of the Target resource. </param>
+        /// <param name="solutionTemplateId"> ARM ID of the Solution Template resource. </param>
+        /// <param name="solutionTemplateVersionId"> ARM ID of the Solution Template Version resource. </param>
+        /// <param name="solutionVersionId"> ARM ID of the Solution Version resource. </param>
+        /// <param name="apiVersion"> API Version supported for the resources. </param>
+        /// <param name="callbackUrl"> Direct URL to callback for updating validation status. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="externalValidationId"/>, <paramref name="targetId"/>, <paramref name="solutionTemplateId"/>, <paramref name="solutionTemplateVersionId"/>, <paramref name="solutionVersionId"/>, <paramref name="apiVersion"/> or <paramref name="callbackUrl"/> is null. </exception>
+        /// <returns> A new <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/> instance for mocking. </returns>
+        public static EdgeSolutionVersionPublishedEventData EdgeSolutionVersionPublishedEventData(string externalValidationId = null, string targetId = null, string solutionTemplateId = null, string solutionTemplateVersionId = null, string solutionVersionId = null, string apiVersion = null, Uri callbackUrl = null)
+        {
+            if (externalValidationId == null)
+            {
+                throw new ArgumentNullException(nameof(externalValidationId));
+            }
+            if (targetId == null)
+            {
+                throw new ArgumentNullException(nameof(targetId));
+            }
+            if (solutionTemplateId == null)
+            {
+                throw new ArgumentNullException(nameof(solutionTemplateId));
+            }
+            if (solutionTemplateVersionId == null)
+            {
+                throw new ArgumentNullException(nameof(solutionTemplateVersionId));
+            }
+            if (solutionVersionId == null)
+            {
+                throw new ArgumentNullException(nameof(solutionVersionId));
+            }
+            if (apiVersion == null)
+            {
+                throw new ArgumentNullException(nameof(apiVersion));
+            }
+            if (callbackUrl == null)
+            {
+                throw new ArgumentNullException(nameof(callbackUrl));
+            }
+
+            return new EdgeSolutionVersionPublishedEventData(
+                externalValidationId,
+                targetId,
+                solutionTemplateId,
+                solutionTemplateVersionId,
+                solutionVersionId,
+                apiVersion,
+                callbackUrl);
+        }
     }
 }
