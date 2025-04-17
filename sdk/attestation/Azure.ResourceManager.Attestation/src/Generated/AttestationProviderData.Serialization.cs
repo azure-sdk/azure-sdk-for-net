@@ -69,6 +69,11 @@ namespace Azure.ResourceManager.Attestation
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(TpmAttestationAuthentication))
+            {
+                writer.WritePropertyName("tpmAttestationAuthentication"u8);
+                writer.WriteStringValue(TpmAttestationAuthentication.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -103,6 +108,7 @@ namespace Azure.ResourceManager.Attestation
             Uri attestUri = default;
             PublicNetworkAccessType? publicNetworkAccess = default;
             IReadOnlyList<AttestationPrivateEndpointConnectionData> privateEndpointConnections = default;
+            TpmAttestationAuthenticationType? tpmAttestationAuthentication = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -205,6 +211,15 @@ namespace Azure.ResourceManager.Attestation
                             privateEndpointConnections = array;
                             continue;
                         }
+                        if (property0.NameEquals("tpmAttestationAuthentication"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            tpmAttestationAuthentication = new TpmAttestationAuthenticationType(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -226,6 +241,7 @@ namespace Azure.ResourceManager.Attestation
                 attestUri,
                 publicNetworkAccess,
                 privateEndpointConnections ?? new ChangeTrackingList<AttestationPrivateEndpointConnectionData>(),
+                tpmAttestationAuthentication,
                 serializedAdditionalRawData);
         }
 
