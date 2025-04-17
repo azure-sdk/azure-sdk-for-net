@@ -10,6 +10,7 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Automanage.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automanage
@@ -36,21 +37,11 @@ namespace Azure.ResourceManager.Automanage
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Configuration))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("configuration"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Configuration);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Configuration, ModelSerializationExtensions.JsonDocumentOptions))
-                {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
-#endif
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            writer.WriteEndObject();
         }
 
         AutomanageBestPracticeData IJsonModel<AutomanageBestPracticeData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -73,15 +64,24 @@ namespace Azure.ResourceManager.Automanage
             {
                 return null;
             }
+            ConfigurationProfileProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            BinaryData configuration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = ConfigurationProfileProperties.DeserializeConfigurationProfileProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -106,27 +106,6 @@ namespace Azure.ResourceManager.Automanage
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("configuration"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            configuration = BinaryData.FromString(property0.Value.GetRawText());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -138,7 +117,7 @@ namespace Azure.ResourceManager.Automanage
                 name,
                 type,
                 systemData,
-                configuration,
+                properties,
                 serializedAdditionalRawData);
         }
 
