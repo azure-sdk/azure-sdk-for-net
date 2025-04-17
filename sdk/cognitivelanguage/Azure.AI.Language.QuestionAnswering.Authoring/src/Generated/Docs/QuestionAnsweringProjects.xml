@@ -1,0 +1,2629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetProjectDetailsAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetProjectDetailsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<ProjectMetadata> response = await client.GetProjectDetailsAsync("<projectName>");
+]]></code>
+This sample shows how to call GetProjectDetailsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<ProjectMetadata> response = await client.GetProjectDetailsAsync("<projectName>");
+]]></code></example>
+    </member>
+    <member name="GetProjectDetails(string,CancellationToken)">
+      <example>
+This sample shows how to call GetProjectDetails.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<ProjectMetadata> response = client.GetProjectDetails("<projectName>");
+]]></code>
+This sample shows how to call GetProjectDetails with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<ProjectMetadata> response = client.GetProjectDetails("<projectName>");
+]]></code></example>
+    </member>
+    <member name="GetProjectDetailsAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetProjectDetailsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetProjectDetailsAsync("<projectName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+]]></code>
+This sample shows how to call GetProjectDetailsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetProjectDetailsAsync("<projectName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("multilingualResource").ToString());
+Console.WriteLine(result.GetProperty("settings").GetProperty("defaultAnswer").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+]]></code></example>
+    </member>
+    <member name="GetProjectDetails(string,RequestContext)">
+      <example>
+This sample shows how to call GetProjectDetails and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetProjectDetails("<projectName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+]]></code>
+This sample shows how to call GetProjectDetails with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetProjectDetails("<projectName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("multilingualResource").ToString());
+Console.WriteLine(result.GetProperty("settings").GetProperty("defaultAnswer").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateProjectAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateProjectAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    language = "<language>",
+});
+Response response = await client.CreateProjectAsync("<projectName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+]]></code>
+This sample shows how to call CreateProjectAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    description = "<description>",
+    language = "<language>",
+    multilingualResource = true,
+    settings = new
+    {
+        defaultAnswer = "<defaultAnswer>",
+    },
+});
+Response response = await client.CreateProjectAsync("<projectName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("multilingualResource").ToString());
+Console.WriteLine(result.GetProperty("settings").GetProperty("defaultAnswer").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateProject(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateProject and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    language = "<language>",
+});
+Response response = client.CreateProject("<projectName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+]]></code>
+This sample shows how to call CreateProject with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    description = "<description>",
+    language = "<language>",
+    multilingualResource = true,
+    settings = new
+    {
+        defaultAnswer = "<defaultAnswer>",
+    },
+});
+Response response = client.CreateProject("<projectName>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("projectName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("multilingualResource").ToString());
+Console.WriteLine(result.GetProperty("settings").GetProperty("defaultAnswer").ToString());
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeleteStatusAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeleteStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeletionJobState> response = await client.GetDeleteStatusAsync("<jobId>");
+]]></code>
+This sample shows how to call GetDeleteStatusAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeletionJobState> response = await client.GetDeleteStatusAsync("<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetDeleteStatus(string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeleteStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeletionJobState> response = client.GetDeleteStatus("<jobId>");
+]]></code>
+This sample shows how to call GetDeleteStatus with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeletionJobState> response = client.GetDeleteStatus("<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetDeleteStatusAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetDeleteStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetDeleteStatusAsync("<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetDeleteStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetDeleteStatusAsync("<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeleteStatus(string,RequestContext)">
+      <example>
+This sample shows how to call GetDeleteStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetDeleteStatus("<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetDeleteStatus with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetDeleteStatus("<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringExportJobState> response = await client.GetExportStatusAsync("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetExportStatusAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringExportJobState> response = await client.GetExportStatusAsync("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetExportStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetExportStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringExportJobState> response = client.GetExportStatus("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetExportStatus with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringExportJobState> response = client.GetExportStatus("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetExportStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetExportStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("resultUrl").ToString());
+]]></code>
+This sample shows how to call GetExportStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetExportStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("resultUrl").ToString());
+]]></code></example>
+    </member>
+    <member name="GetExportStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetExportStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetExportStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("resultUrl").ToString());
+]]></code>
+This sample shows how to call GetExportStatus with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetExportStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("resultUrl").ToString());
+]]></code></example>
+    </member>
+    <member name="GetImportStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetImportStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringImportJobState> response = await client.GetImportStatusAsync("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetImportStatusAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringImportJobState> response = await client.GetImportStatusAsync("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetImportStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetImportStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringImportJobState> response = client.GetImportStatus("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetImportStatus with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringImportJobState> response = client.GetImportStatus("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetImportStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetImportStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetImportStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetImportStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetImportStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetImportStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetImportStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetImportStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetImportStatus with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetImportStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeployStatusAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeployStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeploymentJobState> response = await client.GetDeployStatusAsync("<projectName>", "<deploymentName>", "<jobId>");
+]]></code>
+This sample shows how to call GetDeployStatusAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeploymentJobState> response = await client.GetDeployStatusAsync("<projectName>", "<deploymentName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetDeployStatus(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetDeployStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeploymentJobState> response = client.GetDeployStatus("<projectName>", "<deploymentName>", "<jobId>");
+]]></code>
+This sample shows how to call GetDeployStatus with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringProjectDeploymentJobState> response = client.GetDeployStatus("<projectName>", "<deploymentName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetDeployStatusAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeployStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetDeployStatusAsync("<projectName>", "<deploymentName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetDeployStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetDeployStatusAsync("<projectName>", "<deploymentName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetDeployStatus(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetDeployStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetDeployStatus("<projectName>", "<deploymentName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetDeployStatus with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetDeployStatus("<projectName>", "<deploymentName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateSynonymsAsync(string,SynonymAssets,CancellationToken)">
+      <example>
+This sample shows how to call UpdateSynonymsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+SynonymAssets body = new SynonymAssets(new WordAlterations[]
+{
+    new WordAlterations(new string[]{"<alterations>"})
+});
+Response response = await client.UpdateSynonymsAsync("<projectName>", body);
+]]></code>
+This sample shows how to call UpdateSynonymsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+SynonymAssets body = new SynonymAssets(new WordAlterations[]
+{
+    new WordAlterations(new string[]{"<alterations>"})
+})
+{
+    NextLink = new Uri("http://localhost:3000"),
+};
+Response response = await client.UpdateSynonymsAsync("<projectName>", body);
+]]></code></example>
+    </member>
+    <member name="UpdateSynonyms(string,SynonymAssets,CancellationToken)">
+      <example>
+This sample shows how to call UpdateSynonyms.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+SynonymAssets body = new SynonymAssets(new WordAlterations[]
+{
+    new WordAlterations(new string[]{"<alterations>"})
+});
+Response response = client.UpdateSynonyms("<projectName>", body);
+]]></code>
+This sample shows how to call UpdateSynonyms with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+SynonymAssets body = new SynonymAssets(new WordAlterations[]
+{
+    new WordAlterations(new string[]{"<alterations>"})
+})
+{
+    NextLink = new Uri("http://localhost:3000"),
+};
+Response response = client.UpdateSynonyms("<projectName>", body);
+]]></code></example>
+    </member>
+    <member name="UpdateSynonymsAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateSynonymsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    value = new object[]
+    {
+        new
+        {
+            alterations = new object[]
+            {
+                "<alterations>"
+            },
+        }
+    },
+});
+Response response = await client.UpdateSynonymsAsync("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdateSynonymsAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    value = new object[]
+    {
+        new
+        {
+            alterations = new object[]
+            {
+                "<alterations>"
+            },
+        }
+    },
+    nextLink = "http://localhost:3000",
+});
+Response response = await client.UpdateSynonymsAsync("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="UpdateSynonyms(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateSynonyms.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    value = new object[]
+    {
+        new
+        {
+            alterations = new object[]
+            {
+                "<alterations>"
+            },
+        }
+    },
+});
+Response response = client.UpdateSynonyms("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdateSynonyms with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    value = new object[]
+    {
+        new
+        {
+            alterations = new object[]
+            {
+                "<alterations>"
+            },
+        }
+    },
+    nextLink = "http://localhost:3000",
+});
+Response response = client.UpdateSynonyms("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetUpdateSourcesStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetUpdateSourcesStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateSourcesJobState> response = await client.GetUpdateSourcesStatusAsync("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetUpdateSourcesStatusAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateSourcesJobState> response = await client.GetUpdateSourcesStatusAsync("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetUpdateSourcesStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetUpdateSourcesStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateSourcesJobState> response = client.GetUpdateSourcesStatus("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetUpdateSourcesStatus with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateSourcesJobState> response = client.GetUpdateSourcesStatus("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetUpdateSourcesStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetUpdateSourcesStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetUpdateSourcesStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetUpdateSourcesStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetUpdateSourcesStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetUpdateSourcesStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetUpdateSourcesStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetUpdateSourcesStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetUpdateSourcesStatus with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetUpdateSourcesStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetUpdateQnasStatusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetUpdateQnasStatusAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateQnasJobState> response = await client.GetUpdateQnasStatusAsync("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetUpdateQnasStatusAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateQnasJobState> response = await client.GetUpdateQnasStatusAsync("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetUpdateQnasStatus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetUpdateQnasStatus.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateQnasJobState> response = client.GetUpdateQnasStatus("<projectName>", "<jobId>");
+]]></code>
+This sample shows how to call GetUpdateQnasStatus with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response<QuestionAnsweringAuthoringUpdateQnasJobState> response = client.GetUpdateQnasStatus("<projectName>", "<jobId>");
+]]></code></example>
+    </member>
+    <member name="GetUpdateQnasStatusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetUpdateQnasStatusAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetUpdateQnasStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetUpdateQnasStatusAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = await client.GetUpdateQnasStatusAsync("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="GetUpdateQnasStatus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetUpdateQnasStatus and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetUpdateQnasStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call GetUpdateQnasStatus with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Response response = client.GetUpdateQnasStatus("<projectName>", "<jobId>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+Console.WriteLine(result.GetProperty("expirationDateTime").ToString());
+Console.WriteLine(result.GetProperty("jobId").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("details")[0].GetProperty("innererror").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("details").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("errors")[0].GetProperty("innererror").GetProperty("target").ToString());
+]]></code></example>
+    </member>
+    <member name="AddFeedbackAsync(string,ActiveLearningFeedback,CancellationToken)">
+      <example>
+This sample shows how to call AddFeedbackAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+ActiveLearningFeedback body = new ActiveLearningFeedback();
+Response response = await client.AddFeedbackAsync("<projectName>", body);
+]]></code>
+This sample shows how to call AddFeedbackAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+ActiveLearningFeedback body = new ActiveLearningFeedback
+{
+    Records = {new FeedbackRecord
+    {
+        UserId = "<userId>",
+        UserQuestion = "<userQuestion>",
+        QnaId = 1234,
+    }},
+};
+Response response = await client.AddFeedbackAsync("<projectName>", body);
+]]></code></example>
+    </member>
+    <member name="AddFeedback(string,ActiveLearningFeedback,CancellationToken)">
+      <example>
+This sample shows how to call AddFeedback.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+ActiveLearningFeedback body = new ActiveLearningFeedback();
+Response response = client.AddFeedback("<projectName>", body);
+]]></code>
+This sample shows how to call AddFeedback with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+ActiveLearningFeedback body = new ActiveLearningFeedback
+{
+    Records = {new FeedbackRecord
+    {
+        UserId = "<userId>",
+        UserQuestion = "<userQuestion>",
+        QnaId = 1234,
+    }},
+};
+Response response = client.AddFeedback("<projectName>", body);
+]]></code></example>
+    </member>
+    <member name="AddFeedbackAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AddFeedbackAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.AddFeedbackAsync("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddFeedbackAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    records = new object[]
+    {
+        new
+        {
+            userId = "<userId>",
+            userQuestion = "<userQuestion>",
+            qnaId = 1234,
+        }
+    },
+});
+Response response = await client.AddFeedbackAsync("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="AddFeedback(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AddFeedback.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.AddFeedback("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddFeedback with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    records = new object[]
+    {
+        new
+        {
+            userId = "<userId>",
+            userQuestion = "<userQuestion>",
+            qnaId = 1234,
+        }
+    },
+});
+Response response = client.AddFeedback("<projectName>", content);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetProjectsAsync(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetProjectsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (ProjectMetadata item in client.GetProjectsAsync())
+{
+}
+]]></code>
+This sample shows how to call GetProjectsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (ProjectMetadata item in client.GetProjectsAsync(maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetProjects(int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetProjects.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (ProjectMetadata item in client.GetProjects())
+{
+}
+]]></code>
+This sample shows how to call GetProjects with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (ProjectMetadata item in client.GetProjects(maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetProjectsAsync(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetProjectsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetProjectsAsync(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+}
+]]></code>
+This sample shows how to call GetProjectsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetProjectsAsync(1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("language").ToString());
+    Console.WriteLine(result.GetProperty("multilingualResource").ToString());
+    Console.WriteLine(result.GetProperty("settings").GetProperty("defaultAnswer").ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetProjects(int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetProjects and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetProjects(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+}
+]]></code>
+This sample shows how to call GetProjects with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetProjects(1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("projectName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("language").ToString());
+    Console.WriteLine(result.GetProperty("multilingualResource").ToString());
+    Console.WriteLine(result.GetProperty("settings").GetProperty("defaultAnswer").ToString());
+    Console.WriteLine(result.GetProperty("createdDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastModifiedDateTime").ToString());
+    Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentsAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeploymentsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (ProjectDeployment item in client.GetDeploymentsAsync("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetDeploymentsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (ProjectDeployment item in client.GetDeploymentsAsync("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeployments(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetDeployments.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (ProjectDeployment item in client.GetDeployments("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetDeployments with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (ProjectDeployment item in client.GetDeployments("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetDeploymentsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeploymentsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetDeploymentsAsync("<projectName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("deploymentName").ToString());
+}
+]]></code>
+This sample shows how to call GetDeploymentsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetDeploymentsAsync("<projectName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("deploymentName").ToString());
+    Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetDeployments(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetDeployments and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetDeployments("<projectName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("deploymentName").ToString());
+}
+]]></code>
+This sample shows how to call GetDeployments with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetDeployments("<projectName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("deploymentName").ToString());
+    Console.WriteLine(result.GetProperty("lastDeployedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSynonymsAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSynonymsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (WordAlterations item in client.GetSynonymsAsync("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetSynonymsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (WordAlterations item in client.GetSynonymsAsync("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSynonyms(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSynonyms.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (WordAlterations item in client.GetSynonyms("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetSynonyms with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (WordAlterations item in client.GetSynonyms("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSynonymsAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSynonymsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetSynonymsAsync("<projectName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("alterations")[0].ToString());
+}
+]]></code>
+This sample shows how to call GetSynonymsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetSynonymsAsync("<projectName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("alterations")[0].ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSynonyms(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSynonyms and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetSynonyms("<projectName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("alterations")[0].ToString());
+}
+]]></code>
+This sample shows how to call GetSynonyms with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetSynonyms("<projectName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("alterations")[0].ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSourcesAsync(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (QnaSourceRecord item in client.GetSourcesAsync("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetSourcesAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (QnaSourceRecord item in client.GetSourcesAsync("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSources(string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetSources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (QnaSourceRecord item in client.GetSources("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetSources with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (QnaSourceRecord item in client.GetSources("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSourcesAsync(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSourcesAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetSourcesAsync("<projectName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("sourceUri").ToString());
+    Console.WriteLine(result.GetProperty("sourceKind").ToString());
+}
+]]></code>
+This sample shows how to call GetSourcesAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetSourcesAsync("<projectName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("sourceUri").ToString());
+    Console.WriteLine(result.GetProperty("sourceKind").ToString());
+    Console.WriteLine(result.GetProperty("contentStructureKind").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSources(string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetSources and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetSources("<projectName>", null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("sourceUri").ToString());
+    Console.WriteLine(result.GetProperty("sourceKind").ToString());
+}
+]]></code>
+This sample shows how to call GetSources with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetSources("<projectName>", 1234, 1234, 1234, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("sourceUri").ToString());
+    Console.WriteLine(result.GetProperty("sourceKind").ToString());
+    Console.WriteLine(result.GetProperty("contentStructureKind").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetQnasAsync(string,int?,int?,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetQnasAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (RetrieveQnaRecord item in client.GetQnasAsync("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetQnasAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (RetrieveQnaRecord item in client.GetQnasAsync("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234, source: "<source>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetQnas(string,int?,int?,int?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetQnas.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (RetrieveQnaRecord item in client.GetQnas("<projectName>"))
+{
+}
+]]></code>
+This sample shows how to call GetQnas with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (RetrieveQnaRecord item in client.GetQnas("<projectName>", maxCount: 1234, skip: 1234, maxpagesize: 1234, source: "<source>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetQnasAsync(string,int?,int?,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetQnasAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetQnasAsync("<projectName>", null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+}
+]]></code>
+This sample shows how to call GetQnasAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+await foreach (BinaryData item in client.GetQnasAsync("<projectName>", 1234, 1234, 1234, "<source>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("answer").ToString());
+    Console.WriteLine(result.GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("questions")[0].ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("isContextOnly").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("displayOrder").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qnaId").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("answer").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("questions")[0].ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("metadata").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("clusterHead").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("question").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("userSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("autoSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("displayText").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("clusterHead").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("question").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("userSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("autoSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetQnas(string,int?,int?,int?,string,RequestContext)">
+      <example>
+This sample shows how to call GetQnas and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetQnas("<projectName>", null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+}
+]]></code>
+This sample shows how to call GetQnas with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+foreach (BinaryData item in client.GetQnas("<projectName>", 1234, 1234, 1234, "<source>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("answer").ToString());
+    Console.WriteLine(result.GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("questions")[0].ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("isContextOnly").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("displayOrder").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qnaId").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("answer").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("source").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("questions")[0].ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("metadata").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("clusterHead").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("question").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("userSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("qna").GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("autoSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("dialog").GetProperty("prompts")[0].GetProperty("displayText").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("clusterHead").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("question").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("userSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("activeLearningSuggestions")[0].GetProperty("suggestedQuestions")[0].GetProperty("autoSuggestedCount").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdatedDateTime").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="DeleteProjectAsync(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteProjectAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.DeleteProjectAsync(WaitUntil.Completed, "<projectName>");
+]]></code>
+This sample shows how to call DeleteProjectAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.DeleteProjectAsync(WaitUntil.Completed, "<projectName>");
+]]></code></example>
+    </member>
+    <member name="DeleteProject(WaitUntil,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteProject.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.DeleteProject(WaitUntil.Completed, "<projectName>");
+]]></code>
+This sample shows how to call DeleteProject with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.DeleteProject(WaitUntil.Completed, "<projectName>");
+]]></code></example>
+    </member>
+    <member name="ExportAsync(WaitUntil,string,ImportExportFormat?,AssestKind?,CancellationToken)">
+      <example>
+This sample shows how to call ExportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.ExportAsync(WaitUntil.Completed, "<projectName>");
+]]></code>
+This sample shows how to call ExportAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.ExportAsync(WaitUntil.Completed, "<projectName>", format: ImportExportFormat.Json, assetKind: AssestKind.Qnas);
+]]></code></example>
+    </member>
+    <member name="Export(WaitUntil,string,ImportExportFormat?,AssestKind?,CancellationToken)">
+      <example>
+This sample shows how to call Export.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.Export(WaitUntil.Completed, "<projectName>");
+]]></code>
+This sample shows how to call Export with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.Export(WaitUntil.Completed, "<projectName>", format: ImportExportFormat.Json, assetKind: AssestKind.Qnas);
+]]></code></example>
+    </member>
+    <member name="ExportAsync(WaitUntil,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call ExportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.ExportAsync(WaitUntil.Completed, "<projectName>", null, null, null);
+]]></code>
+This sample shows how to call ExportAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.ExportAsync(WaitUntil.Completed, "<projectName>", "json", "qnas", null);
+]]></code></example>
+    </member>
+    <member name="Export(WaitUntil,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call Export.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.Export(WaitUntil.Completed, "<projectName>", null, null, null);
+]]></code>
+This sample shows how to call Export with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.Export(WaitUntil.Completed, "<projectName>", "json", "qnas", null);
+]]></code></example>
+    </member>
+    <member name="ImportAsync(WaitUntil,string,ImportJobOptions,ImportExportFormat?,AssestKind?,CancellationToken)">
+      <example>
+This sample shows how to call ImportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.ImportAsync(WaitUntil.Completed, "<projectName>");
+]]></code>
+This sample shows how to call ImportAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+ImportJobOptions body = new ImportJobOptions
+{
+    Metadata = new CreateProjectOptions("<language>")
+    {
+        Description = "<description>",
+        MultilingualResource = true,
+        Settings = new ProjectSettings
+        {
+            DefaultAnswer = "<defaultAnswer>",
+        },
+    },
+    Assets = new Assets
+    {
+        Synonyms = { new WordAlterations(new string[] { "<alterations>" }) },
+        Qnas = {new ImportQnaRecord
+        {
+            Answer = "<answer>",
+            Source = "<source>",
+            Questions = {"<questions>"},
+            Metadata =
+            {
+                ["key"] = "<metadata>"
+            },
+            Dialog = new QnaDialog
+            {
+                IsContextOnly = true,
+                Prompts = {new QnaPrompt
+                {
+                    DisplayOrder = 1234,
+                    QnaId = 1234,
+                    Qna = new QnaRecord
+                    {
+                        Answer = "<answer>",
+                        Source = "<source>",
+                        Questions = {"<questions>"},
+                        Metadata =
+                        {
+                            ["key"] = "<metadata>"
+                        },
+                        Dialog = default,
+                        ActiveLearningSuggestions = {new SuggestedQuestionsCluster
+                        {
+                            ClusterHead = "<clusterHead>",
+                            SuggestedQuestions = {new SuggestedQuestion
+                            {
+                                Question = "<question>",
+                                UserSuggestedCount = 1234,
+                                AutoSuggestedCount = 1234,
+                            }},
+                        }},
+                    },
+                    DisplayText = "<displayText>",
+                }},
+            },
+            ActiveLearningSuggestions = {default},
+            LastUpdatedDateTime = DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"),
+            SourceDisplayName = "<sourceDisplayName>",
+        }},
+    },
+    FileUri = "<fileUri>",
+};
+Operation operation = await client.ImportAsync(WaitUntil.Completed, "<projectName>", body: body, format: ImportExportFormat.Json, assetKind: AssestKind.Qnas);
+]]></code></example>
+    </member>
+    <member name="Import(WaitUntil,string,ImportJobOptions,ImportExportFormat?,AssestKind?,CancellationToken)">
+      <example>
+This sample shows how to call Import.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.Import(WaitUntil.Completed, "<projectName>");
+]]></code>
+This sample shows how to call Import with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+ImportJobOptions body = new ImportJobOptions
+{
+    Metadata = new CreateProjectOptions("<language>")
+    {
+        Description = "<description>",
+        MultilingualResource = true,
+        Settings = new ProjectSettings
+        {
+            DefaultAnswer = "<defaultAnswer>",
+        },
+    },
+    Assets = new Assets
+    {
+        Synonyms = { new WordAlterations(new string[] { "<alterations>" }) },
+        Qnas = {new ImportQnaRecord
+        {
+            Answer = "<answer>",
+            Source = "<source>",
+            Questions = {"<questions>"},
+            Metadata =
+            {
+                ["key"] = "<metadata>"
+            },
+            Dialog = new QnaDialog
+            {
+                IsContextOnly = true,
+                Prompts = {new QnaPrompt
+                {
+                    DisplayOrder = 1234,
+                    QnaId = 1234,
+                    Qna = new QnaRecord
+                    {
+                        Answer = "<answer>",
+                        Source = "<source>",
+                        Questions = {"<questions>"},
+                        Metadata =
+                        {
+                            ["key"] = "<metadata>"
+                        },
+                        Dialog = default,
+                        ActiveLearningSuggestions = {new SuggestedQuestionsCluster
+                        {
+                            ClusterHead = "<clusterHead>",
+                            SuggestedQuestions = {new SuggestedQuestion
+                            {
+                                Question = "<question>",
+                                UserSuggestedCount = 1234,
+                                AutoSuggestedCount = 1234,
+                            }},
+                        }},
+                    },
+                    DisplayText = "<displayText>",
+                }},
+            },
+            ActiveLearningSuggestions = {default},
+            LastUpdatedDateTime = DateTimeOffset.Parse("2022-05-10T18:57:31.2311892Z"),
+            SourceDisplayName = "<sourceDisplayName>",
+        }},
+    },
+    FileUri = "<fileUri>",
+};
+Operation operation = client.Import(WaitUntil.Completed, "<projectName>", body: body, format: ImportExportFormat.Json, assetKind: AssestKind.Qnas);
+]]></code></example>
+    </member>
+    <member name="ImportAsync(WaitUntil,string,RequestContent,string,string,RequestContext)">
+      <example>
+This sample shows how to call ImportAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = null;
+Operation operation = await client.ImportAsync(WaitUntil.Completed, "<projectName>", content);
+]]></code>
+This sample shows how to call ImportAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    metadata = new
+    {
+        description = "<description>",
+        language = "<language>",
+        multilingualResource = true,
+        settings = new
+        {
+            defaultAnswer = "<defaultAnswer>",
+        },
+    },
+    assets = new
+    {
+        synonyms = new object[]
+        {
+            new
+            {
+                alterations = new object[]
+                {
+                    "<alterations>"
+                },
+            }
+        },
+        qnas = new object[]
+        {
+            new
+            {
+                answer = "<answer>",
+                source = "<source>",
+                questions = new object[]
+                {
+                    "<questions>"
+                },
+                metadata = new
+                {
+                    key = "<metadata>",
+                },
+                dialog = new
+                {
+                    isContextOnly = true,
+                    prompts = new object[]
+                    {
+                        new
+                        {
+                            displayOrder = 1234,
+                            qnaId = 1234,
+                            qna = new
+                            {
+                                answer = "<answer>",
+                                source = "<source>",
+                                questions = new object[]
+                                {
+                                    "<questions>"
+                                },
+                                metadata = new
+                                {
+                                    key = "<metadata>",
+                                },
+                                activeLearningSuggestions = new object[]
+                                {
+                                    new
+                                    {
+                                        clusterHead = "<clusterHead>",
+                                        suggestedQuestions = new object[]
+                                        {
+                                            new
+                                            {
+                                                question = "<question>",
+                                                userSuggestedCount = 1234,
+                                                autoSuggestedCount = 1234,
+                                            }
+                                        },
+                                    }
+                                },
+                            },
+                            displayText = "<displayText>",
+                        }
+                    },
+                },
+                activeLearningSuggestions = new object[]
+                {
+                    null
+                },
+                lastUpdatedDateTime = "2022-05-10T18:57:31.2311892Z",
+                sourceDisplayName = "<sourceDisplayName>",
+            }
+        },
+    },
+    fileUri = "<fileUri>",
+});
+Operation operation = await client.ImportAsync(WaitUntil.Completed, "<projectName>", content, format: "json", assetKind: "qnas");
+]]></code></example>
+    </member>
+    <member name="Import(WaitUntil,string,RequestContent,string,string,RequestContext)">
+      <example>
+This sample shows how to call Import.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = null;
+Operation operation = client.Import(WaitUntil.Completed, "<projectName>", content);
+]]></code>
+This sample shows how to call Import with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    metadata = new
+    {
+        description = "<description>",
+        language = "<language>",
+        multilingualResource = true,
+        settings = new
+        {
+            defaultAnswer = "<defaultAnswer>",
+        },
+    },
+    assets = new
+    {
+        synonyms = new object[]
+        {
+            new
+            {
+                alterations = new object[]
+                {
+                    "<alterations>"
+                },
+            }
+        },
+        qnas = new object[]
+        {
+            new
+            {
+                answer = "<answer>",
+                source = "<source>",
+                questions = new object[]
+                {
+                    "<questions>"
+                },
+                metadata = new
+                {
+                    key = "<metadata>",
+                },
+                dialog = new
+                {
+                    isContextOnly = true,
+                    prompts = new object[]
+                    {
+                        new
+                        {
+                            displayOrder = 1234,
+                            qnaId = 1234,
+                            qna = new
+                            {
+                                answer = "<answer>",
+                                source = "<source>",
+                                questions = new object[]
+                                {
+                                    "<questions>"
+                                },
+                                metadata = new
+                                {
+                                    key = "<metadata>",
+                                },
+                                activeLearningSuggestions = new object[]
+                                {
+                                    new
+                                    {
+                                        clusterHead = "<clusterHead>",
+                                        suggestedQuestions = new object[]
+                                        {
+                                            new
+                                            {
+                                                question = "<question>",
+                                                userSuggestedCount = 1234,
+                                                autoSuggestedCount = 1234,
+                                            }
+                                        },
+                                    }
+                                },
+                            },
+                            displayText = "<displayText>",
+                        }
+                    },
+                },
+                activeLearningSuggestions = new object[]
+                {
+                    null
+                },
+                lastUpdatedDateTime = "2022-05-10T18:57:31.2311892Z",
+                sourceDisplayName = "<sourceDisplayName>",
+            }
+        },
+    },
+    fileUri = "<fileUri>",
+});
+Operation operation = client.Import(WaitUntil.Completed, "<projectName>", content, format: "json", assetKind: "qnas");
+]]></code></example>
+    </member>
+    <member name="DeployProjectAsync(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeployProjectAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.DeployProjectAsync(WaitUntil.Completed, "<projectName>", "<deploymentName>");
+]]></code>
+This sample shows how to call DeployProjectAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = await client.DeployProjectAsync(WaitUntil.Completed, "<projectName>", "<deploymentName>");
+]]></code></example>
+    </member>
+    <member name="DeployProject(WaitUntil,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeployProject.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.DeployProject(WaitUntil.Completed, "<projectName>", "<deploymentName>");
+]]></code>
+This sample shows how to call DeployProject with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+Operation operation = client.DeployProject(WaitUntil.Completed, "<projectName>", "<deploymentName>");
+]]></code></example>
+    </member>
+    <member name="UpdateSourcesAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateSourcesAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new
+        {
+            source = "<source>",
+            sourceUri = "http://localhost:3000",
+            sourceKind = "file",
+        },
+    }
+});
+Operation operation = await client.UpdateSourcesAsync(WaitUntil.Completed, "<projectName>", content);
+]]></code>
+This sample shows how to call UpdateSourcesAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new
+        {
+            displayName = "<displayName>",
+            source = "<source>",
+            sourceUri = "http://localhost:3000",
+            sourceKind = "file",
+            contentStructureKind = "unstructured",
+            refresh = true,
+        },
+    }
+});
+Operation operation = await client.UpdateSourcesAsync(WaitUntil.Completed, "<projectName>", content);
+]]></code></example>
+    </member>
+    <member name="UpdateSources(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateSources.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new
+        {
+            source = "<source>",
+            sourceUri = "http://localhost:3000",
+            sourceKind = "file",
+        },
+    }
+});
+Operation operation = client.UpdateSources(WaitUntil.Completed, "<projectName>", content);
+]]></code>
+This sample shows how to call UpdateSources with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new
+        {
+            displayName = "<displayName>",
+            source = "<source>",
+            sourceUri = "http://localhost:3000",
+            sourceKind = "file",
+            contentStructureKind = "unstructured",
+            refresh = true,
+        },
+    }
+});
+Operation operation = client.UpdateSources(WaitUntil.Completed, "<projectName>", content);
+]]></code></example>
+    </member>
+    <member name="UpdateQnasAsync(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateQnasAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new object(),
+    }
+});
+Operation operation = await client.UpdateQnasAsync(WaitUntil.Completed, "<projectName>", content);
+]]></code>
+This sample shows how to call UpdateQnasAsync with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new
+        {
+            answer = "<answer>",
+            source = "<source>",
+            questions = new object[]
+            {
+                "<questions>"
+            },
+            metadata = new
+            {
+                key = "<metadata>",
+            },
+            dialog = new
+            {
+                isContextOnly = true,
+                prompts = new object[]
+                {
+                    new
+                    {
+                        displayOrder = 1234,
+                        qnaId = 1234,
+                        displayText = "<displayText>",
+                    }
+                },
+            },
+            activeLearningSuggestions = new object[]
+            {
+                new
+                {
+                    clusterHead = "<clusterHead>",
+                    suggestedQuestions = new object[]
+                    {
+                        new
+                        {
+                            question = "<question>",
+                            userSuggestedCount = 1234,
+                            autoSuggestedCount = 1234,
+                        }
+                    },
+                }
+            },
+        },
+    }
+});
+Operation operation = await client.UpdateQnasAsync(WaitUntil.Completed, "<projectName>", content);
+]]></code></example>
+    </member>
+    <member name="UpdateQnas(WaitUntil,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateQnas.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new object(),
+    }
+});
+Operation operation = client.UpdateQnas(WaitUntil.Completed, "<projectName>", content);
+]]></code>
+This sample shows how to call UpdateQnas with all parameters and request content.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+QuestionAnsweringProjects client = new AuthoringClient(endpoint, credential).GetQuestionAnsweringProjectsClient(apiVersion: "2023-04-01");
+
+using RequestContent content = RequestContent.Create(new object[]
+{
+    new
+    {
+        op = "add",
+        value = new
+        {
+            answer = "<answer>",
+            source = "<source>",
+            questions = new object[]
+            {
+                "<questions>"
+            },
+            metadata = new
+            {
+                key = "<metadata>",
+            },
+            dialog = new
+            {
+                isContextOnly = true,
+                prompts = new object[]
+                {
+                    new
+                    {
+                        displayOrder = 1234,
+                        qnaId = 1234,
+                        displayText = "<displayText>",
+                    }
+                },
+            },
+            activeLearningSuggestions = new object[]
+            {
+                new
+                {
+                    clusterHead = "<clusterHead>",
+                    suggestedQuestions = new object[]
+                    {
+                        new
+                        {
+                            question = "<question>",
+                            userSuggestedCount = 1234,
+                            autoSuggestedCount = 1234,
+                        }
+                    },
+                }
+            },
+        },
+    }
+});
+Operation operation = client.UpdateQnas(WaitUntil.Completed, "<projectName>", content);
+]]></code></example>
+    </member>
+  </members>
+</doc>
