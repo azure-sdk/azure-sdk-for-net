@@ -6,24 +6,11 @@
 #nullable disable
 
 using System.Text.Json;
-using Azure.Core;
 
-namespace Azure.AI.TextAnalytics
+namespace Azure.AI.TextAnalytics.Models
 {
-    public partial class SentimentConfidenceScores : IUtf8JsonSerializable
+    internal partial class SentimentConfidenceScores
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("positive"u8);
-            writer.WriteNumberValue(Positive);
-            writer.WritePropertyName("neutral"u8);
-            writer.WriteNumberValue(Neutral);
-            writer.WritePropertyName("negative"u8);
-            writer.WriteNumberValue(Negative);
-            writer.WriteEndObject();
-        }
-
         internal static SentimentConfidenceScores DeserializeSentimentConfidenceScores(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -60,14 +47,6 @@ namespace Azure.AI.TextAnalytics
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeSentimentConfidenceScores(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }
