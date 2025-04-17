@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/createOrUpdateModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/createOrUpdateModule.json
             // this example is just showing the usage of "Module_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/getModule.json
             // this example is just showing the usage of "Module_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListModulesByAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/listModulesByAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/listModulesByAutomationAccount.json
             // this example is just showing the usage of "Module_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/getModule.json
             // this example is just showing the usage of "Module_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getModule.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/getModule.json
             // this example is just showing the usage of "Module_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
