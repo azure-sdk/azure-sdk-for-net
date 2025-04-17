@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Automanage.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="configuration"> configuration dictionary of the configuration profile. </param>
+        /// <param name="configuration"> Properties of the best practice. </param>
         /// <returns> A new <see cref="Automanage.AutomanageBestPracticeData"/> instance for mocking. </returns>
         public static AutomanageBestPracticeData AutomanageBestPracticeData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, BinaryData configuration = null)
         {
@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.Automanage.Models
                 name,
                 resourceType,
                 systemData,
-                configuration,
+                configuration != null ? new ConfigurationProfileProperties(configuration, serializedAdditionalRawData: null) : null,
                 serializedAdditionalRawData: null);
         }
 
@@ -93,31 +93,41 @@ namespace Azure.ResourceManager.Automanage.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="startOn"> Start time of the configuration profile assignment processing. </param>
-        /// <param name="endOn"> End time of the configuration profile assignment processing. </param>
-        /// <param name="lastModifiedOn"> Last modified time of the configuration profile assignment processing. </param>
-        /// <param name="duration"> Duration of the configuration profile assignment processing. </param>
-        /// <param name="configurationProfileAssignmentProcessingType"> Type of the configuration profile assignment processing (Initial/Consistency). </param>
-        /// <param name="status"> The status of the configuration profile assignment. </param>
-        /// <param name="configurationProfile"> The configurationProfile linked to the assignment. </param>
-        /// <param name="resources"> List of resources processed by the configuration profile assignment. </param>
-        /// <param name="error"> Error message, if any, returned by the configuration profile assignment processing. </param>
-        /// <param name="reportFormatVersion"> Version of the report format. </param>
+        /// <param name="properties"> The properties for the report. </param>
         /// <returns> A new <see cref="Automanage.AutomanageConfigurationProfileAssignmentReportData"/> instance for mocking. </returns>
-        public static AutomanageConfigurationProfileAssignmentReportData AutomanageConfigurationProfileAssignmentReportData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DateTimeOffset? startOn = null, DateTimeOffset? endOn = null, DateTimeOffset? lastModifiedOn = null, TimeSpan? duration = null, string configurationProfileAssignmentProcessingType = null, string status = null, string configurationProfile = null, IEnumerable<ConfigurationProfileAssignmentReportResourceDetails> resources = null, ResponseError error = null, string reportFormatVersion = null)
+        public static AutomanageConfigurationProfileAssignmentReportData AutomanageConfigurationProfileAssignmentReportData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, AssignmentReportProperties properties = null)
         {
-            resources ??= new List<ConfigurationProfileAssignmentReportResourceDetails>();
-
             return new AutomanageConfigurationProfileAssignmentReportData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                startOn,
-                endOn,
-                lastModifiedOn,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.AssignmentReportProperties"/>. </summary>
+        /// <param name="startTime"> Start time of the configuration profile assignment processing. </param>
+        /// <param name="endTime"> End time of the configuration profile assignment processing. </param>
+        /// <param name="lastModifiedTime"> Last modified time of the configuration profile assignment processing. </param>
+        /// <param name="duration"> Duration of the configuration profile assignment processing. </param>
+        /// <param name="assignmentReportPropertiesType"> Type of the configuration profile assignment processing (Initial/Consistency). </param>
+        /// <param name="status"> The status of the configuration profile assignment. </param>
+        /// <param name="configurationProfile"> The configurationProfile linked to the assignment. </param>
+        /// <param name="resources"> List of resources processed by the configuration profile assignment. </param>
+        /// <param name="error"> Error message, if any, returned by the configuration profile assignment processing. </param>
+        /// <param name="reportFormatVersion"> Version of the report format. </param>
+        /// <returns> A new <see cref="Models.AssignmentReportProperties"/> instance for mocking. </returns>
+        public static AssignmentReportProperties AssignmentReportProperties(string startTime = null, string endTime = null, string lastModifiedTime = null, TimeSpan? duration = null, string assignmentReportPropertiesType = null, string status = null, string configurationProfile = null, IEnumerable<ConfigurationProfileAssignmentReportResourceDetails> resources = null, ResponseError error = null, string reportFormatVersion = null)
+        {
+            resources ??= new List<ConfigurationProfileAssignmentReportResourceDetails>();
+
+            return new AssignmentReportProperties(
+                startTime,
+                endTime,
+                lastModifiedTime,
                 duration,
-                configurationProfileAssignmentProcessingType,
+                assignmentReportPropertiesType,
                 status,
                 configurationProfile,
                 resources?.ToList(),
@@ -151,19 +161,26 @@ namespace Azure.ResourceManager.Automanage.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="servicePrincipalId"> The Service Principal Id for the subscription. </param>
-        /// <param name="isAuthorizationSet"> Returns the contributor RBAC Role exist or not for the Service Principal Id. </param>
+        /// <param name="properties"> The Service Principal properties for the subscription. </param>
         /// <returns> A new <see cref="Models.AutomanageServicePrincipalData"/> instance for mocking. </returns>
-        public static AutomanageServicePrincipalData AutomanageServicePrincipalData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string servicePrincipalId = null, bool? isAuthorizationSet = null)
+        public static AutomanageServicePrincipalData AutomanageServicePrincipalData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ServicePrincipalProperties properties = null)
         {
             return new AutomanageServicePrincipalData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                servicePrincipalId,
-                isAuthorizationSet,
+                properties,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ServicePrincipalProperties"/>. </summary>
+        /// <param name="servicePrincipalId"> The Service Principal Id for the subscription. </param>
+        /// <param name="authorizationSet"> Returns the contributor RBAC Role exist or not for the Service Principal Id. </param>
+        /// <returns> A new <see cref="Models.ServicePrincipalProperties"/> instance for mocking. </returns>
+        public static ServicePrincipalProperties ServicePrincipalProperties(string servicePrincipalId = null, bool? authorizationSet = null)
+        {
+            return new ServicePrincipalProperties(servicePrincipalId, authorizationSet, serializedAdditionalRawData: null);
         }
     }
 }
