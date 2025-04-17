@@ -8,10 +8,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.AI.Language.Text.Authoring
+namespace Azure.AI.Language.Conversations.Authoring
 {
-    /// <summary> Represents the connection info for the Azure resource to use during data generation as part of training a custom model. </summary>
-    public partial class DataGenerationConnectionInfo
+    /// <summary> Represents the connection info for the Azure resource to use during data generation. </summary>
+    public partial class AnalyzeConversationAuthoringDataGenerationConnectionInfo
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,43 +45,47 @@ namespace Azure.AI.Language.Text.Authoring
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="DataGenerationConnectionInfo"/>. </summary>
-        /// <param name="resourceId"> Resource ID for the data generation resource. Looks something like "/subscriptions/&lt;SUBSCRIPTION-ID-GUID&gt;/resourceGroups/&lt;RG-NAME&gt;/providers/Microsoft.CognitiveServices/accounts/&lt;AOAI-ACCOUNT-NAME&gt;". </param>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeConversationAuthoringDataGenerationConnectionInfo"/>. </summary>
+        /// <param name="kind"> Connection type for data generation settings. Currently only supports Azure OpenAI. </param>
         /// <param name="deploymentName"> Deployment name of model to be used for synthetic data generation. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceId"/> or <paramref name="deploymentName"/> is null. </exception>
-        public DataGenerationConnectionInfo(string resourceId, string deploymentName)
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
+        public AnalyzeConversationAuthoringDataGenerationConnectionInfo(AnalyzeConversationAuthoringDataGenerationConnectionKind kind, string deploymentName)
         {
-            Argument.AssertNotNull(resourceId, nameof(resourceId));
             Argument.AssertNotNull(deploymentName, nameof(deploymentName));
 
-            ResourceId = resourceId;
+            Kind = kind;
             DeploymentName = deploymentName;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataGenerationConnectionInfo"/>. </summary>
-        /// <param name="kind"> Connection type for data generation settings. Currently only supports Azure Open AI. </param>
-        /// <param name="resourceId"> Resource ID for the data generation resource. Looks something like "/subscriptions/&lt;SUBSCRIPTION-ID-GUID&gt;/resourceGroups/&lt;RG-NAME&gt;/providers/Microsoft.CognitiveServices/accounts/&lt;AOAI-ACCOUNT-NAME&gt;". </param>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeConversationAuthoringDataGenerationConnectionInfo"/>. </summary>
+        /// <param name="kind"> Connection type for data generation settings. Currently only supports Azure OpenAI. </param>
         /// <param name="deploymentName"> Deployment name of model to be used for synthetic data generation. </param>
+        /// <param name="resourceId">
+        /// Resource ID for the data generation resource. Looks something like
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{resourceName}".
+        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DataGenerationConnectionInfo(DataGenerationConnectionInfoKind kind, string resourceId, string deploymentName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeConversationAuthoringDataGenerationConnectionInfo(AnalyzeConversationAuthoringDataGenerationConnectionKind kind, string deploymentName, string resourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Kind = kind;
-            ResourceId = resourceId;
             DeploymentName = deploymentName;
+            ResourceId = resourceId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DataGenerationConnectionInfo"/> for deserialization. </summary>
-        internal DataGenerationConnectionInfo()
+        /// <summary> Initializes a new instance of <see cref="AnalyzeConversationAuthoringDataGenerationConnectionInfo"/> for deserialization. </summary>
+        internal AnalyzeConversationAuthoringDataGenerationConnectionInfo()
         {
         }
 
-        /// <summary> Connection type for data generation settings. Currently only supports Azure Open AI. </summary>
-        public DataGenerationConnectionInfoKind Kind { get; } = DataGenerationConnectionInfoKind.AzureOpenAI;
-
-        /// <summary> Resource ID for the data generation resource. Looks something like "/subscriptions/&lt;SUBSCRIPTION-ID-GUID&gt;/resourceGroups/&lt;RG-NAME&gt;/providers/Microsoft.CognitiveServices/accounts/&lt;AOAI-ACCOUNT-NAME&gt;". </summary>
-        public string ResourceId { get; set; }
+        /// <summary> Connection type for data generation settings. Currently only supports Azure OpenAI. </summary>
+        public AnalyzeConversationAuthoringDataGenerationConnectionKind Kind { get; set; }
         /// <summary> Deployment name of model to be used for synthetic data generation. </summary>
         public string DeploymentName { get; set; }
+        /// <summary>
+        /// Resource ID for the data generation resource. Looks something like
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{resourceName}".
+        /// </summary>
+        public string ResourceId { get; set; }
     }
 }
