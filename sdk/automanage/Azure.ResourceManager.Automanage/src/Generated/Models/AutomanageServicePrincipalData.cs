@@ -57,19 +57,15 @@ namespace Azure.ResourceManager.Automanage.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="servicePrincipalId"> The Service Principal Id for the subscription. </param>
-        /// <param name="isAuthorizationSet"> Returns the contributor RBAC Role exist or not for the Service Principal Id. </param>
+        /// <param name="properties"> The Service Principal properties for the subscription. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AutomanageServicePrincipalData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string servicePrincipalId, bool? isAuthorizationSet, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal AutomanageServicePrincipalData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ServicePrincipalProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            ServicePrincipalId = servicePrincipalId;
-            IsAuthorizationSet = isAuthorizationSet;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The Service Principal Id for the subscription. </summary>
-        public string ServicePrincipalId { get; }
-        /// <summary> Returns the contributor RBAC Role exist or not for the Service Principal Id. </summary>
-        public bool? IsAuthorizationSet { get; }
+        /// <summary> The Service Principal properties for the subscription. </summary>
+        public ServicePrincipalProperties Properties { get; set; }
     }
 }
