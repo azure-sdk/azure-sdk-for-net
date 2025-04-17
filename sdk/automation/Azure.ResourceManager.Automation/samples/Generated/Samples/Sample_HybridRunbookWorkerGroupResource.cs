@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetAHybridWorkerGroup()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-02-22/examples/getHybridRunbookWorkerGroup.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/getHybridRunbookWorkerGroup.json
             // this example is just showing the usage of "HybridRunbookWorkerGroup_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_DeleteAHybridWorkerGroup()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-02-22/examples/deleteHybridRunbookWorkerGroup.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/deleteHybridRunbookWorkerGroup.json
             // this example is just showing the usage of "HybridRunbookWorkerGroup_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_UpdateHybridWorkerGroup()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-02-22/examples/updateHybridRunbookWorkerGroup.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2024-10-23/examples/updateHybridRunbookWorkerGroup.json
             // this example is just showing the usage of "HybridRunbookWorkerGroup_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
