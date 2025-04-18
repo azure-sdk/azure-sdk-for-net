@@ -14,11 +14,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    public partial class SearchServiceSkuOffering : IUtf8JsonSerializable, IJsonModel<SearchServiceSkuOffering>
+    public partial class ResourceAssociation : IUtf8JsonSerializable, IJsonModel<ResourceAssociation>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SearchServiceSkuOffering>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ResourceAssociation>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<SearchServiceSkuOffering>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ResourceAssociation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -29,21 +29,21 @@ namespace Azure.ResourceManager.Search.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SearchServiceSkuOffering>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SearchServiceSkuOffering)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ResourceAssociation)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(Name))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku, options);
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
             }
-            if (Optional.IsDefined(Limits))
+            if (Optional.IsDefined(AccessMode))
             {
-                writer.WritePropertyName("limits"u8);
-                writer.WriteObjectValue(Limits, options);
+                writer.WritePropertyName("accessMode"u8);
+                writer.WriteStringValue(AccessMode.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -62,19 +62,19 @@ namespace Azure.ResourceManager.Search.Models
             }
         }
 
-        SearchServiceSkuOffering IJsonModel<SearchServiceSkuOffering>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ResourceAssociation IJsonModel<ResourceAssociation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SearchServiceSkuOffering>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SearchServiceSkuOffering)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ResourceAssociation)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSearchServiceSkuOffering(document.RootElement, options);
+            return DeserializeResourceAssociation(document.RootElement, options);
         }
 
-        internal static SearchServiceSkuOffering DeserializeSearchServiceSkuOffering(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ResourceAssociation DeserializeResourceAssociation(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -82,28 +82,24 @@ namespace Azure.ResourceManager.Search.Models
             {
                 return null;
             }
-            SearchSku sku = default;
-            SearchServiceSkuOfferingLimits limits = default;
+            string name = default;
+            ResourceAssociationAccessMode? accessMode = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sku"u8))
+                if (property.NameEquals("name"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sku = SearchSku.DeserializeSearchSku(property.Value, options);
+                    name = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("limits"u8))
+                if (property.NameEquals("accessMode"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    limits = SearchServiceSkuOfferingLimits.DeserializeSearchServiceSkuOfferingLimits(property.Value, options);
+                    accessMode = new ResourceAssociationAccessMode(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -112,7 +108,7 @@ namespace Azure.ResourceManager.Search.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SearchServiceSkuOffering(sku, limits, serializedAdditionalRawData);
+            return new ResourceAssociation(name, accessMode, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -126,36 +122,41 @@ namespace Azure.ResourceManager.Search.Models
 
             builder.AppendLine("{");
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("SkuName", out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Name), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  sku: ");
-                builder.AppendLine("{");
-                builder.Append("    name: ");
+                builder.Append("  name: ");
                 builder.AppendLine(propertyOverride);
-                builder.AppendLine("  }");
             }
             else
             {
-                if (Optional.IsDefined(Sku))
+                if (Optional.IsDefined(Name))
                 {
-                    builder.Append("  sku: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, Sku, options, 2, false, "  sku: ");
+                    builder.Append("  name: ");
+                    if (Name.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{Name}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{Name}'");
+                    }
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Limits), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AccessMode), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  limits: ");
+                builder.Append("  accessMode: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(Limits))
+                if (Optional.IsDefined(AccessMode))
                 {
-                    builder.Append("  limits: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, Limits, options, 2, false, "  limits: ");
+                    builder.Append("  accessMode: ");
+                    builder.AppendLine($"'{AccessMode.Value.ToString()}'");
                 }
             }
 
@@ -163,9 +164,9 @@ namespace Azure.ResourceManager.Search.Models
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<SearchServiceSkuOffering>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ResourceAssociation>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SearchServiceSkuOffering>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -174,26 +175,26 @@ namespace Azure.ResourceManager.Search.Models
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(SearchServiceSkuOffering)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ResourceAssociation)} does not support writing '{options.Format}' format.");
             }
         }
 
-        SearchServiceSkuOffering IPersistableModel<SearchServiceSkuOffering>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ResourceAssociation IPersistableModel<ResourceAssociation>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SearchServiceSkuOffering>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceAssociation>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeSearchServiceSkuOffering(document.RootElement, options);
+                        return DeserializeResourceAssociation(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SearchServiceSkuOffering)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ResourceAssociation)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SearchServiceSkuOffering>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ResourceAssociation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
