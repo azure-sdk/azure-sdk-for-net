@@ -1230,14 +1230,13 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="threadId"> The ID of the thread to modify. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         internal virtual async Task<Response> UpdateThreadAsync(string threadId, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
-            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = ClientDiagnostics.CreateScope("AssistantsClient.UpdateThread");
             scope.Start();
@@ -1266,14 +1265,13 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="threadId"> The ID of the thread to modify. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         internal virtual Response UpdateThread(string threadId, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
-            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = ClientDiagnostics.CreateScope("AssistantsClient.UpdateThread");
             scope.Start();
@@ -1783,7 +1781,7 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="messageId"> The ID of the message to modify on the specified thread. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="messageId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="messageId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="messageId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
@@ -1791,7 +1789,6 @@ namespace Azure.AI.OpenAI.Assistants
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(messageId, nameof(messageId));
-            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = ClientDiagnostics.CreateScope("AssistantsClient.UpdateMessage");
             scope.Start();
@@ -1821,7 +1818,7 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="messageId"> The ID of the message to modify on the specified thread. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="messageId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="messageId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="messageId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
@@ -1829,7 +1826,6 @@ namespace Azure.AI.OpenAI.Assistants
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(messageId, nameof(messageId));
-            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = ClientDiagnostics.CreateScope("AssistantsClient.UpdateMessage");
             scope.Start();
@@ -2469,7 +2465,7 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="runId"> The ID of the run to modify. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="runId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="runId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
@@ -2477,7 +2473,6 @@ namespace Azure.AI.OpenAI.Assistants
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
-            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = ClientDiagnostics.CreateScope("AssistantsClient.UpdateRun");
             scope.Start();
@@ -2507,7 +2502,7 @@ namespace Azure.AI.OpenAI.Assistants
         /// <param name="runId"> The ID of the run to modify. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="runId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="runId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
@@ -2515,7 +2510,6 @@ namespace Azure.AI.OpenAI.Assistants
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
-            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = ClientDiagnostics.CreateScope("AssistantsClient.UpdateRun");
             scope.Start();
