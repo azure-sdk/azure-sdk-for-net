@@ -1,0 +1,1569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetEvaluationAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetEvaluationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Evaluation > response = await client.GetEvaluationAsync("<name>");
+]]></code>
+This sample shows how to call GetEvaluationAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Evaluation > response = await client.GetEvaluationAsync("<name>");
+]]></code></example>
+    </member>
+    <member name="GetEvaluation(string,CancellationToken)">
+      <example>
+This sample shows how to call GetEvaluation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Evaluation > response = client.GetEvaluation("<name>");
+]]></code>
+This sample shows how to call GetEvaluation with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Evaluation > response = client.GetEvaluation("<name>");
+]]></code></example>
+    </member>
+    <member name="GetEvaluationAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetEvaluationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetEvaluationAsync("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call GetEvaluationAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetEvaluationAsync("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetEvaluation(string,RequestContext)">
+      <example>
+This sample shows how to call GetEvaluation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetEvaluation("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call GetEvaluation with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetEvaluation("<name>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateRunAsync(Evaluation,CancellationToken)">
+      <example>
+This sample shows how to call CreateRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.Evaluation evaluation = new Projects.1DP.Evaluation(new Projects.1DP.InputDataset("<id>"), new Dictionary<string, Projects.1DP.EvaluatorConfiguration >
+{
+    ["key"] = new Projects.1DP.EvaluatorConfiguration("<id>")
+});
+Azure.Response < AI.Projects.1DP.Evaluation > response = await client.CreateRunAsync(evaluation);
+]]></code>
+This sample shows how to call CreateRunAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.Evaluation evaluation = new Projects.1DP.Evaluation(new Projects.1DP.InputDataset("<id>"), new Dictionary<string, Projects.1DP.EvaluatorConfiguration >
+{
+    ["key"] = new Projects.1DP.EvaluatorConfiguration("<id>")
+    {
+        InitParams =
+        {
+            ["key"] = BinaryData.FromObjectAsJson(new object())
+        },
+        DataMapping =
+        {
+            ["key"] = "<dataMapping>"
+        },
+    }
+})
+{
+    Target = new Projects.1DP.EvaluationTarget("<systemMessage>", new Projects.1DP.AOAIModelConfig("<azureEndpoint>", "<apiKey>", "<azureDeployment>"))
+    {
+        ModelParams =
+        {
+            ["key"] = BinaryData.FromObjectAsJson(new object())
+        },
+    },
+    DisplayName = "<displayName>",
+    Description = "<description>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+};
+Azure.Response < AI.Projects.1DP.Evaluation > response = await client.CreateRunAsync(evaluation);
+]]></code></example>
+    </member>
+    <member name="CreateRun(Evaluation,CancellationToken)">
+      <example>
+This sample shows how to call CreateRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.Evaluation evaluation = new Projects.1DP.Evaluation(new Projects.1DP.InputDataset("<id>"), new Dictionary<string, Projects.1DP.EvaluatorConfiguration >
+{
+    ["key"] = new Projects.1DP.EvaluatorConfiguration("<id>")
+});
+Azure.Response < AI.Projects.1DP.Evaluation > response = client.CreateRun(evaluation);
+]]></code>
+This sample shows how to call CreateRun with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.Evaluation evaluation = new Projects.1DP.Evaluation(new Projects.1DP.InputDataset("<id>"), new Dictionary<string, Projects.1DP.EvaluatorConfiguration >
+{
+    ["key"] = new Projects.1DP.EvaluatorConfiguration("<id>")
+    {
+        InitParams =
+        {
+            ["key"] = BinaryData.FromObjectAsJson(new object())
+        },
+        DataMapping =
+        {
+            ["key"] = "<dataMapping>"
+        },
+    }
+})
+{
+    Target = new Projects.1DP.EvaluationTarget("<systemMessage>", new Projects.1DP.AOAIModelConfig("<azureEndpoint>", "<apiKey>", "<azureDeployment>"))
+    {
+        ModelParams =
+        {
+            ["key"] = BinaryData.FromObjectAsJson(new object())
+        },
+    },
+    DisplayName = "<displayName>",
+    Description = "<description>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+};
+Azure.Response < AI.Projects.1DP.Evaluation > response = client.CreateRun(evaluation);
+]]></code></example>
+    </member>
+    <member name="CreateRunAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+        },
+    },
+});
+Response response = await client.CreateRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call CreateRunAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    target = new
+    {
+        systemMessage = "<systemMessage>",
+        modelConfig = new
+        {
+            azureEndpoint = "<azureEndpoint>",
+            apiKey = "<apiKey>",
+            azureDeployment = "<azureDeployment>",
+            type = "AOAI",
+        },
+        modelParams = new
+        {
+            key = new object(),
+        },
+    },
+    displayName = "<displayName>",
+    description = "<description>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+            initParams = new
+            {
+                key = new object(),
+            },
+            dataMapping = new
+            {
+                key = "<dataMapping>",
+            },
+        },
+    },
+});
+Response response = await client.CreateRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateRun(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+        },
+    },
+});
+Response response = client.CreateRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call CreateRun with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    target = new
+    {
+        systemMessage = "<systemMessage>",
+        modelConfig = new
+        {
+            azureEndpoint = "<azureEndpoint>",
+            apiKey = "<apiKey>",
+            azureDeployment = "<azureDeployment>",
+            type = "AOAI",
+        },
+        modelParams = new
+        {
+            key = new object(),
+        },
+    },
+    displayName = "<displayName>",
+    description = "<description>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+            initParams = new
+            {
+                key = new object(),
+            },
+            dataMapping = new
+            {
+                key = "<dataMapping>",
+            },
+        },
+    },
+});
+Response response = client.CreateRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="CheckAnnotationAsync(CancellationToken)">
+      <example>
+This sample shows how to call CheckAnnotationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = await client.CheckAnnotationAsync();
+]]></code>
+This sample shows how to call CheckAnnotationAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = await client.CheckAnnotationAsync();
+]]></code></example>
+    </member>
+    <member name="CheckAnnotation(CancellationToken)">
+      <example>
+This sample shows how to call CheckAnnotation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = client.CheckAnnotation();
+]]></code>
+This sample shows how to call CheckAnnotation with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyList<string>> response = client.CheckAnnotation();
+]]></code></example>
+    </member>
+    <member name="CheckAnnotationAsync(RequestContext)">
+      <example>
+This sample shows how to call CheckAnnotationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.CheckAnnotationAsync((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code>
+This sample shows how to call CheckAnnotationAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.CheckAnnotationAsync((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code></example>
+    </member>
+    <member name="CheckAnnotation(RequestContext)">
+      <example>
+This sample shows how to call CheckAnnotation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.CheckAnnotation((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code>
+This sample shows how to call CheckAnnotation with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.CheckAnnotation((RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result[0].ToString());
+]]></code></example>
+    </member>
+    <member name="SubmitAnnotationAsync(AnnotationDTO,CancellationToken)">
+      <example>
+This sample shows how to call SubmitAnnotationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.AnnotationDTO annotationDTO = new Projects.1DP.AnnotationDTO(
+"<AnnotationTask>",
+"<ContentType>",
+new string[] { "<UserTextList>" },
+new Projects.1DP.Content[]
+{
+    new Projects.1DP.Content(new BinaryData[]
+    {
+        BinaryData.FromObjectAsJson(new object())
+    })
+},
+new string[] { "<MetricList>" },
+"<PromptVersion>",
+"<UserAgent>",
+"<PartnerId>",
+"<ModelId>",
+"<InferenceType>",
+"<ClientRequestId>");
+Response<string> response = await client.SubmitAnnotationAsync(annotationDTO);
+]]></code>
+This sample shows how to call SubmitAnnotationAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.AnnotationDTO annotationDTO = new Projects.1DP.AnnotationDTO(
+"<AnnotationTask>",
+"<ContentType>",
+new string[] { "<UserTextList>" },
+new Projects.1DP.Content[]
+{
+    new Projects.1DP.Content(new BinaryData[]
+    {
+        BinaryData.FromObjectAsJson(new object())
+    })
+},
+new string[] { "<MetricList>" },
+"<PromptVersion>",
+"<UserAgent>",
+"<PartnerId>",
+"<ModelId>",
+"<InferenceType>",
+"<ClientRequestId>");
+Response<string> response = await client.SubmitAnnotationAsync(annotationDTO);
+]]></code></example>
+    </member>
+    <member name="SubmitAnnotation(AnnotationDTO,CancellationToken)">
+      <example>
+This sample shows how to call SubmitAnnotation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.AnnotationDTO annotationDTO = new Projects.1DP.AnnotationDTO(
+"<AnnotationTask>",
+"<ContentType>",
+new string[] { "<UserTextList>" },
+new Projects.1DP.Content[]
+{
+    new Projects.1DP.Content(new BinaryData[]
+    {
+        BinaryData.FromObjectAsJson(new object())
+    })
+},
+new string[] { "<MetricList>" },
+"<PromptVersion>",
+"<UserAgent>",
+"<PartnerId>",
+"<ModelId>",
+"<InferenceType>",
+"<ClientRequestId>");
+Response<string> response = client.SubmitAnnotation(annotationDTO);
+]]></code>
+This sample shows how to call SubmitAnnotation with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.AnnotationDTO annotationDTO = new Projects.1DP.AnnotationDTO(
+"<AnnotationTask>",
+"<ContentType>",
+new string[] { "<UserTextList>" },
+new Projects.1DP.Content[]
+{
+    new Projects.1DP.Content(new BinaryData[]
+    {
+        BinaryData.FromObjectAsJson(new object())
+    })
+},
+new string[] { "<MetricList>" },
+"<PromptVersion>",
+"<UserAgent>",
+"<PartnerId>",
+"<ModelId>",
+"<InferenceType>",
+"<ClientRequestId>");
+Response<string> response = client.SubmitAnnotation(annotationDTO);
+]]></code></example>
+    </member>
+    <member name="SubmitAnnotationAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SubmitAnnotationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    AnnotationTask = "<AnnotationTask>",
+    ContentType = "<ContentType>",
+    UserTextList = new object[]
+    {
+        "<UserTextList>"
+    },
+    Contents = new object[]
+    {
+        new
+        {
+            Messages = new object[]
+            {
+                new object()
+            },
+        }
+    },
+    MetricList = new object[]
+    {
+        "<MetricList>"
+    },
+    PromptVersion = "<PromptVersion>",
+    UserAgent = "<UserAgent>",
+    PartnerId = "<PartnerId>",
+    ModelId = "<ModelId>",
+    InferenceType = "<InferenceType>",
+    ClientRequestId = "<ClientRequestId>",
+});
+Response response = await client.SubmitAnnotationAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call SubmitAnnotationAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    AnnotationTask = "<AnnotationTask>",
+    ContentType = "<ContentType>",
+    UserTextList = new object[]
+    {
+        "<UserTextList>"
+    },
+    Contents = new object[]
+    {
+        new
+        {
+            Messages = new object[]
+            {
+                new object()
+            },
+        }
+    },
+    MetricList = new object[]
+    {
+        "<MetricList>"
+    },
+    PromptVersion = "<PromptVersion>",
+    UserAgent = "<UserAgent>",
+    PartnerId = "<PartnerId>",
+    ModelId = "<ModelId>",
+    InferenceType = "<InferenceType>",
+    ClientRequestId = "<ClientRequestId>",
+});
+Response response = await client.SubmitAnnotationAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SubmitAnnotation(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SubmitAnnotation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    AnnotationTask = "<AnnotationTask>",
+    ContentType = "<ContentType>",
+    UserTextList = new object[]
+    {
+        "<UserTextList>"
+    },
+    Contents = new object[]
+    {
+        new
+        {
+            Messages = new object[]
+            {
+                new object()
+            },
+        }
+    },
+    MetricList = new object[]
+    {
+        "<MetricList>"
+    },
+    PromptVersion = "<PromptVersion>",
+    UserAgent = "<UserAgent>",
+    PartnerId = "<PartnerId>",
+    ModelId = "<ModelId>",
+    InferenceType = "<InferenceType>",
+    ClientRequestId = "<ClientRequestId>",
+});
+Response response = client.SubmitAnnotation(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call SubmitAnnotation with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    AnnotationTask = "<AnnotationTask>",
+    ContentType = "<ContentType>",
+    UserTextList = new object[]
+    {
+        "<UserTextList>"
+    },
+    Contents = new object[]
+    {
+        new
+        {
+            Messages = new object[]
+            {
+                new object()
+            },
+        }
+    },
+    MetricList = new object[]
+    {
+        "<MetricList>"
+    },
+    PromptVersion = "<PromptVersion>",
+    UserAgent = "<UserAgent>",
+    PartnerId = "<PartnerId>",
+    ModelId = "<ModelId>",
+    InferenceType = "<InferenceType>",
+    ClientRequestId = "<ClientRequestId>",
+});
+Response response = client.SubmitAnnotation(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="OperationResultsAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call OperationResultsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyDictionary<string, BinaryData>> response = await client.OperationResultsAsync("<operationId>");
+]]></code>
+This sample shows how to call OperationResultsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyDictionary<string, BinaryData>> response = await client.OperationResultsAsync("<operationId>");
+]]></code></example>
+    </member>
+    <member name="OperationResults(string,CancellationToken)">
+      <example>
+This sample shows how to call OperationResults.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyDictionary<string, BinaryData>> response = client.OperationResults("<operationId>");
+]]></code>
+This sample shows how to call OperationResults with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response<IReadOnlyDictionary<string, BinaryData>> response = client.OperationResults("<operationId>");
+]]></code></example>
+    </member>
+    <member name="OperationResultsAsync(string,RequestContext)">
+      <example>
+This sample shows how to call OperationResultsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.OperationResultsAsync("<operationId>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call OperationResultsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.OperationResultsAsync("<operationId>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="OperationResults(string,RequestContext)">
+      <example>
+This sample shows how to call OperationResults and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.OperationResults("<operationId>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call OperationResults with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.OperationResults("<operationId>", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadRunAsync(EvaluationUpload,CancellationToken)">
+      <example>
+This sample shows how to call UploadRunAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.EvaluationUpload evaluation = new Projects.1DP.EvaluationUpload();
+Azure.Response < AI.Projects.1DP.Evaluation > response = await client.UploadRunAsync(evaluation);
+]]></code>
+This sample shows how to call UploadRunAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.EvaluationUpload evaluation = new Projects.1DP.EvaluationUpload
+{
+    Data = new Projects.1DP.InputDataset("<id>"),
+    Target = new Projects.1DP.EvaluationTarget("<systemMessage>", new Projects.1DP.AOAIModelConfig("<azureEndpoint>", "<apiKey>", "<azureDeployment>"))
+    {
+        ModelParams =
+        {
+            ["key"] = BinaryData.FromObjectAsJson(new object())
+        },
+    },
+    DisplayName = "<displayName>",
+    Description = "<description>",
+    Status = "<status>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+    Evaluators =
+    {
+        ["key"] = new Projects.1DP.EvaluatorConfiguration("<id>")
+        {
+            InitParams =
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            },
+            DataMapping =
+            {
+                ["key"] = "<dataMapping>"
+            },
+        }
+    },
+    Outputs =
+    {
+        ["key"] = "<outputs>"
+    },
+};
+Azure.Response < AI.Projects.1DP.Evaluation > response = await client.UploadRunAsync(evaluation);
+]]></code></example>
+    </member>
+    <member name="UploadRun(EvaluationUpload,CancellationToken)">
+      <example>
+This sample shows how to call UploadRun.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.EvaluationUpload evaluation = new Projects.1DP.EvaluationUpload();
+Azure.Response < AI.Projects.1DP.Evaluation > response = client.UploadRun(evaluation);
+]]></code>
+This sample shows how to call UploadRun with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+AI.Projects.1DP.EvaluationUpload evaluation = new Projects.1DP.EvaluationUpload
+{
+    Data = new Projects.1DP.InputDataset("<id>"),
+    Target = new Projects.1DP.EvaluationTarget("<systemMessage>", new Projects.1DP.AOAIModelConfig("<azureEndpoint>", "<apiKey>", "<azureDeployment>"))
+    {
+        ModelParams =
+        {
+            ["key"] = BinaryData.FromObjectAsJson(new object())
+        },
+    },
+    DisplayName = "<displayName>",
+    Description = "<description>",
+    Status = "<status>",
+    Tags =
+    {
+        ["key"] = "<tags>"
+    },
+    Properties =
+    {
+        ["key"] = "<properties>"
+    },
+    Evaluators =
+    {
+        ["key"] = new Projects.1DP.EvaluatorConfiguration("<id>")
+        {
+            InitParams =
+            {
+                ["key"] = BinaryData.FromObjectAsJson(new object())
+            },
+            DataMapping =
+            {
+                ["key"] = "<dataMapping>"
+            },
+        }
+    },
+    Outputs =
+    {
+        ["key"] = "<outputs>"
+    },
+};
+Azure.Response < AI.Projects.1DP.Evaluation > response = client.UploadRun(evaluation);
+]]></code></example>
+    </member>
+    <member name="UploadRunAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.UploadRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadRunAsync with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    target = new
+    {
+        systemMessage = "<systemMessage>",
+        modelConfig = new
+        {
+            azureEndpoint = "<azureEndpoint>",
+            apiKey = "<apiKey>",
+            azureDeployment = "<azureDeployment>",
+            type = "AOAI",
+        },
+        modelParams = new
+        {
+            key = new object(),
+        },
+    },
+    displayName = "<displayName>",
+    description = "<description>",
+    status = "<status>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+            initParams = new
+            {
+                key = new object(),
+            },
+            dataMapping = new
+            {
+                key = "<dataMapping>",
+            },
+        },
+    },
+    outputs = new
+    {
+        key = "<outputs>",
+    },
+});
+Response response = await client.UploadRunAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadRun(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.UploadRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadRun with all request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    target = new
+    {
+        systemMessage = "<systemMessage>",
+        modelConfig = new
+        {
+            azureEndpoint = "<azureEndpoint>",
+            apiKey = "<apiKey>",
+            azureDeployment = "<azureDeployment>",
+            type = "AOAI",
+        },
+        modelParams = new
+        {
+            key = new object(),
+        },
+    },
+    displayName = "<displayName>",
+    description = "<description>",
+    status = "<status>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+            initParams = new
+            {
+                key = new object(),
+            },
+            dataMapping = new
+            {
+                key = "<dataMapping>",
+            },
+        },
+    },
+    outputs = new
+    {
+        key = "<outputs>",
+    },
+});
+Response response = client.UploadRun(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadUpdateRunAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadUpdateRunAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.UploadUpdateRunAsync("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadUpdateRunAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    target = new
+    {
+        systemMessage = "<systemMessage>",
+        modelConfig = new
+        {
+            azureEndpoint = "<azureEndpoint>",
+            apiKey = "<apiKey>",
+            azureDeployment = "<azureDeployment>",
+            type = "AOAI",
+        },
+        modelParams = new
+        {
+            key = new object(),
+        },
+    },
+    displayName = "<displayName>",
+    description = "<description>",
+    status = "<status>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+            initParams = new
+            {
+                key = new object(),
+            },
+            dataMapping = new
+            {
+                key = "<dataMapping>",
+            },
+        },
+    },
+    outputs = new
+    {
+        key = "<outputs>",
+    },
+});
+Response response = await client.UploadUpdateRunAsync("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="UploadUpdateRun(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UploadUpdateRun and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.UploadUpdateRun("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UploadUpdateRun with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    data = new
+    {
+        type = "dataset",
+        id = "<id>",
+    },
+    target = new
+    {
+        systemMessage = "<systemMessage>",
+        modelConfig = new
+        {
+            azureEndpoint = "<azureEndpoint>",
+            apiKey = "<apiKey>",
+            azureDeployment = "<azureDeployment>",
+            type = "AOAI",
+        },
+        modelParams = new
+        {
+            key = new object(),
+        },
+    },
+    displayName = "<displayName>",
+    description = "<description>",
+    status = "<status>",
+    tags = new
+    {
+        key = "<tags>",
+    },
+    properties = new
+    {
+        key = "<properties>",
+    },
+    evaluators = new
+    {
+        key = new
+        {
+            id = "<id>",
+            initParams = new
+            {
+                key = new object(),
+            },
+            dataMapping = new
+            {
+                key = "<dataMapping>",
+            },
+        },
+    },
+    outputs = new
+    {
+        key = "<outputs>",
+    },
+});
+Response response = client.UploadUpdateRun("<name>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetEvaluationsAsync(string,string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetEvaluationsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (Projects.1DP.Evaluation item in client.GetEvaluationsAsync())
+{
+}
+]]></code>
+This sample shows how to call GetEvaluationsAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (Projects.1DP.Evaluation item in client.GetEvaluationsAsync(tags: "<tags>", properties: "<properties>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetEvaluations(string,string,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetEvaluations.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+foreach (Projects.1DP.Evaluation item in client.GetEvaluations())
+{
+}
+]]></code>
+This sample shows how to call GetEvaluations with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+foreach (Projects.1DP.Evaluation item in client.GetEvaluations(tags: "<tags>", properties: "<properties>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetEvaluationsAsync(string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetEvaluationsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (BinaryData item in client.GetEvaluationsAsync((string)null, (string)null, (int?)null, (int?)null, (int?)null, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+}
+]]></code>
+This sample shows how to call GetEvaluationsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (BinaryData item in client.GetEvaluationsAsync("<tags>", "<properties>", 1234, 1234, 1234, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+    Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetEvaluations(string,string,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetEvaluations and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+foreach (BinaryData item in client.GetEvaluations((string)null, (string)null, (int?)null, (int?)null, (int?)null, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+}
+]]></code>
+This sample shows how to call GetEvaluations with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+AI.Projects.1DP.Evaluations client = new Projects.1DP.AIProjectClient(endpoint, credential).GetEvaluationsClient(apiVersion: "2025-05-15-preview");
+
+foreach (BinaryData item in client.GetEvaluations("<tags>", "<properties>", 1234, 1234, 1234, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("data").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("target").GetProperty("systemMessage").ToString());
+    Console.WriteLine(result.GetProperty("target").GetProperty("modelConfig").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("target").GetProperty("modelParams").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
+    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("tags").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("properties").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("initParams").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("evaluators").GetProperty("<key>").GetProperty("dataMapping").GetProperty("<key>").ToString());
+    Console.WriteLine(result.GetProperty("outputs").GetProperty("<key>").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
