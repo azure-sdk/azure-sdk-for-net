@@ -59,12 +59,18 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         /// <param name="diskId"> The disk Id. </param>
         /// <param name="targetDiskName"> The target disk name. </param>
         /// <param name="isOSDisk"> A value indicating whether the disk is the OS disk. </param>
+        /// <param name="iops"> The number of IOPS allowed for Premium V2 and Ultra disks. </param>
+        /// <param name="throughputInMbps"> The total throughput in Mbps for Premium V2 and Ultra disks. </param>
+        /// <param name="diskSizeInGB"> The target disk size in GB. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VMwareCbtUpdateDiskContent(string diskId, string targetDiskName, string isOSDisk, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VMwareCbtUpdateDiskContent(string diskId, string targetDiskName, string isOSDisk, long? iops, long? throughputInMbps, long? diskSizeInGB, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DiskId = diskId;
             TargetDiskName = targetDiskName;
             IsOSDisk = isOSDisk;
+            Iops = iops;
+            ThroughputInMbps = throughputInMbps;
+            DiskSizeInGB = diskSizeInGB;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -79,5 +85,11 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string TargetDiskName { get; set; }
         /// <summary> A value indicating whether the disk is the OS disk. </summary>
         public string IsOSDisk { get; set; }
+        /// <summary> The number of IOPS allowed for Premium V2 and Ultra disks. </summary>
+        public long? Iops { get; set; }
+        /// <summary> The total throughput in Mbps for Premium V2 and Ultra disks. </summary>
+        public long? ThroughputInMbps { get; set; }
+        /// <summary> The target disk size in GB. </summary>
+        public long? DiskSizeInGB { get; set; }
     }
 }
