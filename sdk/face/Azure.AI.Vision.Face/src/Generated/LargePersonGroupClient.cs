@@ -343,14 +343,11 @@ namespace Azure.AI.Vision.Face
         /// </summary>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargePersonGroupClient.xml" path="doc/members/member[@name='UpdateAsync(RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> UpdateAsync(RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargePersonGroupClient.Update");
             scope.Start();
             try
@@ -377,14 +374,11 @@ namespace Azure.AI.Vision.Face
         /// </summary>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargePersonGroupClient.xml" path="doc/members/member[@name='Update(RequestContent,RequestContext)']/*" />
         public virtual Response Update(RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargePersonGroupClient.Update");
             scope.Start();
             try
@@ -894,14 +888,11 @@ namespace Azure.AI.Vision.Face
         /// <param name="personId"> ID of the person. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargePersonGroupClient.xml" path="doc/members/member[@name='UpdatePersonAsync(Guid,RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> UpdatePersonAsync(Guid personId, RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargePersonGroupClient.UpdatePerson");
             scope.Start();
             try
@@ -929,14 +920,11 @@ namespace Azure.AI.Vision.Face
         /// <param name="personId"> ID of the person. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargePersonGroupClient.xml" path="doc/members/member[@name='UpdatePerson(Guid,RequestContent,RequestContext)']/*" />
         public virtual Response UpdatePerson(Guid personId, RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargePersonGroupClient.UpdatePerson");
             scope.Start();
             try
@@ -1489,14 +1477,11 @@ namespace Azure.AI.Vision.Face
         /// <param name="persistedFaceId"> Face ID of the face. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargePersonGroupClient.xml" path="doc/members/member[@name='UpdateFaceAsync(Guid,Guid,RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> UpdateFaceAsync(Guid personId, Guid persistedFaceId, RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargePersonGroupClient.UpdateFace");
             scope.Start();
             try
@@ -1525,14 +1510,11 @@ namespace Azure.AI.Vision.Face
         /// <param name="persistedFaceId"> Face ID of the face. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargePersonGroupClient.xml" path="doc/members/member[@name='UpdateFace(Guid,Guid,RequestContent,RequestContext)']/*" />
         public virtual Response UpdateFace(Guid personId, Guid persistedFaceId, RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargePersonGroupClient.UpdateFace");
             scope.Start();
             try

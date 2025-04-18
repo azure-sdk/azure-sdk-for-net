@@ -343,14 +343,11 @@ namespace Azure.AI.Vision.Face
         /// </summary>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargeFaceListClient.xml" path="doc/members/member[@name='UpdateAsync(RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> UpdateAsync(RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargeFaceListClient.Update");
             scope.Start();
             try
@@ -377,14 +374,11 @@ namespace Azure.AI.Vision.Face
         /// </summary>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargeFaceListClient.xml" path="doc/members/member[@name='Update(RequestContent,RequestContext)']/*" />
         public virtual Response Update(RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargeFaceListClient.Update");
             scope.Start();
             try
@@ -1016,14 +1010,11 @@ namespace Azure.AI.Vision.Face
         /// <param name="persistedFaceId"> Face ID of the face. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargeFaceListClient.xml" path="doc/members/member[@name='UpdateFaceAsync(Guid,RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> UpdateFaceAsync(Guid persistedFaceId, RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargeFaceListClient.UpdateFace");
             scope.Start();
             try
@@ -1051,14 +1042,11 @@ namespace Azure.AI.Vision.Face
         /// <param name="persistedFaceId"> Face ID of the face. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/LargeFaceListClient.xml" path="doc/members/member[@name='UpdateFace(Guid,RequestContent,RequestContext)']/*" />
         public virtual Response UpdateFace(Guid persistedFaceId, RequestContent content, RequestContext context = null)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
             using var scope = ClientDiagnostics.CreateScope("LargeFaceListClient.UpdateFace");
             scope.Start();
             try
