@@ -57,6 +57,7 @@ trigger:
     - sdk/cosmosdbforpostgresql/Azure.ResourceManager.CosmosDBForPostgreSql
     - sdk/costmanagement/Azure.ResourceManager.CostManagement
     - sdk/customer-insights/Azure.ResourceManager.CustomerInsights
+    - sdk/databasefleetmanager/Azure.ResourceManager.DatabaseFleetManager
     - sdk/databasewatcher/Azure.ResourceManager.DatabaseWatcher
     - sdk/databox/Azure.ResourceManager.DataBox
     - sdk/databoxedge/Azure.ResourceManager.DataBoxEdge
@@ -147,6 +148,7 @@ trigger:
     - sdk/openenergyplatform/Azure.ResourceManager.EnergyServices
     - sdk/operationalinsights/Azure.ResourceManager.OperationalInsights
     - sdk/oracle/Azure.ResourceManager.OracleDatabase
+    - sdk/oracledatabase/Azure.ResourceManager.OracleDatabase
     - sdk/orbital/Azure.ResourceManager.Orbital
     - sdk/paloaltonetworks.ngfw/Azure.ResourceManager.PaloAltoNetworks.Ngfw
     - sdk/peering/Azure.ResourceManager.Peering
@@ -164,6 +166,7 @@ trigger:
     - sdk/recoveryservices-backup/Azure.ResourceManager.RecoveryServicesBackup
     - sdk/recoveryservices-datareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/recoveryservices-siterecovery/Azure.ResourceManager.RecoveryServicesSiteRecovery
+    - sdk/recoveryservicesdatareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/redis/Azure.ResourceManager.Redis
     - sdk/redisenterprise/Azure.ResourceManager.RedisEnterprise
     - sdk/relay/Azure.ResourceManager.Relay
@@ -207,6 +210,7 @@ trigger:
     - sdk/websites/Azure.ResourceManager.AppService
     - sdk/workloadmonitor/Azure.ResourceManager.WorkloadMonitor
     - sdk/workloads/Azure.ResourceManager.Workloads
+    - sdk/workloadssapvirtualinstance/Azure.ResourceManager.SapVirtualInstances
 
 pr:
   branches:
@@ -266,6 +270,7 @@ pr:
     - sdk/cosmosdbforpostgresql/Azure.ResourceManager.CosmosDBForPostgreSql
     - sdk/costmanagement/Azure.ResourceManager.CostManagement
     - sdk/customer-insights/Azure.ResourceManager.CustomerInsights
+    - sdk/databasefleetmanager/Azure.ResourceManager.DatabaseFleetManager
     - sdk/databasewatcher/Azure.ResourceManager.DatabaseWatcher
     - sdk/databox/Azure.ResourceManager.DataBox
     - sdk/databoxedge/Azure.ResourceManager.DataBoxEdge
@@ -356,6 +361,7 @@ pr:
     - sdk/openenergyplatform/Azure.ResourceManager.EnergyServices
     - sdk/operationalinsights/Azure.ResourceManager.OperationalInsights
     - sdk/oracle/Azure.ResourceManager.OracleDatabase
+    - sdk/oracledatabase/Azure.ResourceManager.OracleDatabase
     - sdk/orbital/Azure.ResourceManager.Orbital
     - sdk/paloaltonetworks.ngfw/Azure.ResourceManager.PaloAltoNetworks.Ngfw
     - sdk/peering/Azure.ResourceManager.Peering
@@ -373,6 +379,7 @@ pr:
     - sdk/recoveryservices-backup/Azure.ResourceManager.RecoveryServicesBackup
     - sdk/recoveryservices-datareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/recoveryservices-siterecovery/Azure.ResourceManager.RecoveryServicesSiteRecovery
+    - sdk/recoveryservicesdatareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/redis/Azure.ResourceManager.Redis
     - sdk/redisenterprise/Azure.ResourceManager.RedisEnterprise
     - sdk/relay/Azure.ResourceManager.Relay
@@ -416,6 +423,7 @@ pr:
     - sdk/websites/Azure.ResourceManager.AppService
     - sdk/workloadmonitor/Azure.ResourceManager.WorkloadMonitor
     - sdk/workloads/Azure.ResourceManager.Workloads
+    - sdk/workloadssapvirtualinstance/Azure.ResourceManager.SapVirtualInstances
 
 extends:
   template: /eng/pipelines/templates/stages/archetype-sdk-client.yml
