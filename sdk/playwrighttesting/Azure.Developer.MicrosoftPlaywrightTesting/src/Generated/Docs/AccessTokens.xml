@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrReplaceAsync(string,Guid,AccessToken,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrReplaceAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+AccessToken resource = new AccessToken("sampleAccessToken", DateTimeOffset.Parse("2022-09-28T12:32:33Z"));
+Response<AccessToken> response = await client.CreateOrReplaceAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"), resource);
+]]></code></example>
+    </member>
+    <member name="CreateOrReplace(string,Guid,AccessToken,CancellationToken)">
+      <example>
+This sample shows how to call CreateOrReplace.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+AccessToken resource = new AccessToken("sampleAccessToken", DateTimeOffset.Parse("2022-09-28T12:32:33Z"));
+Response<AccessToken> response = client.CreateOrReplace("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"), resource);
+]]></code></example>
+    </member>
+    <member name="CreateOrReplaceAsync(string,Guid,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrReplaceAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    id = "00000000-0000-0000-0000-000000000000",
+    name = "sampleAccessToken",
+    expiryAt = "2022-09-28T12:32:33Z",
+});
+Response response = await client.CreateOrReplaceAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"), content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("expiryAt").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrReplace(string,Guid,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrReplace and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+using RequestContent content = RequestContent.Create(new
+{
+    id = "00000000-0000-0000-0000-000000000000",
+    name = "sampleAccessToken",
+    expiryAt = "2022-09-28T12:32:33Z",
+});
+Response response = client.CreateOrReplace("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"), content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("expiryAt").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAccessTokenAsync(string,Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetAccessTokenAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+Response<AccessToken> response = await client.GetAccessTokenAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"));
+]]></code></example>
+    </member>
+    <member name="GetAccessToken(string,Guid,CancellationToken)">
+      <example>
+This sample shows how to call GetAccessToken.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+Response<AccessToken> response = client.GetAccessToken("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"));
+]]></code></example>
+    </member>
+    <member name="GetAccessTokenAsync(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call GetAccessTokenAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+Response response = await client.GetAccessTokenAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("expiryAt").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAccessToken(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call GetAccessToken and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+Response response = client.GetAccessToken("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"), null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("expiryAt").ToString());
+Console.WriteLine(result.GetProperty("state").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+Response response = await client.DeleteAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,Guid,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+Response response = client.Delete("sampleAccountId_00000000-0000-0000-0000-000000000000", Guid.Parse("00000000-0000-0000-0000-000000000000"));
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetAccessTokensAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAccessTokensAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+await foreach (AccessToken item in client.GetAccessTokensAsync("sampleAccountId_00000000-0000-0000-0000-000000000000"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAccessTokens(string,CancellationToken)">
+      <example>
+This sample shows how to call GetAccessTokens.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+foreach (AccessToken item in client.GetAccessTokens("sampleAccountId_00000000-0000-0000-0000-000000000000"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetAccessTokensAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetAccessTokensAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+await foreach (BinaryData item in client.GetAccessTokensAsync("sampleAccountId_00000000-0000-0000-0000-000000000000", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("expiryAt").ToString());
+    Console.WriteLine(result.GetProperty("state").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetAccessTokens(string,RequestContext)">
+      <example>
+This sample shows how to call GetAccessTokens and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AccessTokens client = new AuthManagerClient(endpoint, credential).GetAccessTokensClient(apiVersion: "2024-12-01");
+
+foreach (BinaryData item in client.GetAccessTokens("sampleAccountId_00000000-0000-0000-0000-000000000000", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("expiryAt").ToString());
+    Console.WriteLine(result.GetProperty("state").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
