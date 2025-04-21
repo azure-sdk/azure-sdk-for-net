@@ -7,6 +7,7 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
@@ -62,7 +63,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-10-19</description>
+        /// <description>2025-01-21</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-10-19</description>
+        /// <description>2025-01-21</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -110,6 +111,90 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Mocking
         }
 
         /// <summary>
+        /// Checks that the pool name is valid and is not already in use.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DevOpsInfrastructure/checkNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Pools_CheckNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-01-21</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DevOpsPoolResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> The CheckAvailability request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<CheckNameAvailabilityResult>> CheckNameAvailabilityPoolAsync(CheckNameAvailability body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = DevOpsPoolPoolsClientDiagnostics.CreateScope("MockableDevOpsInfrastructureSubscriptionResource.CheckNameAvailabilityPool");
+            scope.Start();
+            try
+            {
+                var response = await DevOpsPoolPoolsRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Checks that the pool name is valid and is not already in use.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DevOpsInfrastructure/checkNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Pools_CheckNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-01-21</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DevOpsPoolResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> The CheckAvailability request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<CheckNameAvailabilityResult> CheckNameAvailabilityPool(CheckNameAvailability body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = DevOpsPoolPoolsClientDiagnostics.CreateScope("MockableDevOpsInfrastructureSubscriptionResource.CheckNameAvailabilityPool");
+            scope.Start();
+            try
+            {
+                var response = DevOpsPoolPoolsRestClient.CheckNameAvailability(Id.SubscriptionId, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// List ResourceSku resources by subscription ID
         /// <list type="bullet">
         /// <item>
@@ -122,7 +207,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-10-19</description>
+        /// <description>2025-01-21</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -153,7 +238,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-10-19</description>
+        /// <description>2025-01-21</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -184,7 +269,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-10-19</description>
+        /// <description>2025-01-21</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -211,7 +296,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-10-19</description>
+        /// <description>2025-01-21</description>
         /// </item>
         /// </list>
         /// </summary>
