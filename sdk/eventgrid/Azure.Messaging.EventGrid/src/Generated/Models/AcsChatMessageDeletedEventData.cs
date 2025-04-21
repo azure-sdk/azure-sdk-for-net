@@ -13,8 +13,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsChatMessageDeletedEventData : AcsChatMessageEventBaseProperties
     {
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageDeletedEventData"/>. </summary>
-        internal AcsChatMessageDeletedEventData()
+        /// <param name="messageId"> The chat message id. </param>
+        /// <param name="type"> The type of the message. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="messageId"/> or <paramref name="type"/> is null. </exception>
+        internal AcsChatMessageDeletedEventData(string messageId, string type) : base(messageId, type)
         {
+            Argument.AssertNotNull(messageId, nameof(messageId));
+            Argument.AssertNotNull(type, nameof(type));
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageDeletedEventData"/>. </summary>

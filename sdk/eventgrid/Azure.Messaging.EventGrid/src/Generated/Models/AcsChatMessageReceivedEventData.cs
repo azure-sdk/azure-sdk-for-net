@@ -14,8 +14,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsChatMessageReceivedEventData : AcsChatMessageEventBaseProperties
     {
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageReceivedEventData"/>. </summary>
-        internal AcsChatMessageReceivedEventData()
+        /// <param name="messageId"> The chat message id. </param>
+        /// <param name="type"> The type of the message. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="messageId"/> or <paramref name="type"/> is null. </exception>
+        internal AcsChatMessageReceivedEventData(string messageId, string type) : base(messageId, type)
         {
+            Argument.AssertNotNull(messageId, nameof(messageId));
+            Argument.AssertNotNull(type, nameof(type));
+
             Metadata = new ChangeTrackingDictionary<string, string>();
         }
 
