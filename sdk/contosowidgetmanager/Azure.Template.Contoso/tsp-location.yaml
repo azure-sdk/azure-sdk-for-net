@@ -1,4 +1,4 @@
-directory: specification/ai/Face
+directory: specification/contosowidgetmanager/Contoso.WidgetManager
 commit: 9ed37b09d0daec5e064834bdde5323490765e174
 repo: test-repo-billy/azure-rest-api-specs
 additionalDirectories: 
