@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ApiManagement.GatewayAPIRemoved event. </summary>
-    public partial class ApiManagementGatewayApiRemovedEventData
+    /// <summary> Schema of common properties of all participant event user. </summary>
+    public partial class AcsCallParticipantProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,21 +45,25 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayApiRemovedEventData"/>. </summary>
-        internal ApiManagementGatewayApiRemovedEventData()
+        /// <summary> Initializes a new instance of <see cref="AcsCallParticipantProperties"/>. </summary>
+        internal AcsCallParticipantProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ApiManagementGatewayApiRemovedEventData"/>. </summary>
-        /// <param name="resourceUri"> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/apis/&lt;ResourceName&gt;`. </param>
+        /// <summary> Initializes a new instance of <see cref="AcsCallParticipantProperties"/>. </summary>
+        /// <param name="communicationIdentifier"> The communication identifier of the participant user. </param>
+        /// <param name="role"> The role of the participant. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ApiManagementGatewayApiRemovedEventData(string resourceUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AcsCallParticipantProperties(CommunicationIdentifierModel communicationIdentifier, string role, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ResourceUri = resourceUri;
+            CommunicationIdentifier = communicationIdentifier;
+            Role = role;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/apis/&lt;ResourceName&gt;`. </summary>
-        public string ResourceUri { get; }
+        /// <summary> The communication identifier of the participant user. </summary>
+        public CommunicationIdentifierModel CommunicationIdentifier { get; }
+        /// <summary> The role of the participant. </summary>
+        public string Role { get; }
     }
 }
