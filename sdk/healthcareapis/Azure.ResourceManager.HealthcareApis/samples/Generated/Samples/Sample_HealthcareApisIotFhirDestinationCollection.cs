@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.HealthcareApis.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateOrUpdateAnIotConnectorFHIRDestination()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/iotconnectors/iotconnector_fhirdestination_Create.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/iotconnectors/iotconnector_fhirdestination_Create.json
             // this example is just showing the usage of "IotConnectorFhirDestination_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -94,7 +94,7 @@ templateType = "CodeValueFhir",
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetAnIoTConnectorDestination()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/iotconnectors/iotconnector_fhirdestination_Get.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/iotconnectors/iotconnector_fhirdestination_Get.json
             // this example is just showing the usage of "IotConnectorFhirDestination_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -129,7 +129,7 @@ templateType = "CodeValueFhir",
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListIoTConnectors()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/iotconnectors/iotconnector_fhirdestination_List.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/iotconnectors/iotconnector_fhirdestination_List.json
             // this example is just showing the usage of "FhirDestinations_ListByIotConnector" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ templateType = "CodeValueFhir",
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetAnIoTConnectorDestination()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/iotconnectors/iotconnector_fhirdestination_Get.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/iotconnectors/iotconnector_fhirdestination_Get.json
             // this example is just showing the usage of "IotConnectorFhirDestination_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -197,7 +197,7 @@ templateType = "CodeValueFhir",
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetAnIoTConnectorDestination()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/iotconnectors/iotconnector_fhirdestination_Get.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/iotconnectors/iotconnector_fhirdestination_Get.json
             // this example is just showing the usage of "IotConnectorFhirDestination_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

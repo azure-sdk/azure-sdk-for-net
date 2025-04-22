@@ -44,6 +44,11 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 writer.WritePropertyName("fileSystemName"u8);
                 writer.WriteStringValue(FileSystemName);
             }
+            if (Optional.IsDefined(StorageIndexingConfiguration))
+            {
+                writer.WritePropertyName("storageIndexingConfiguration"u8);
+                writer.WriteObjectValue(StorageIndexingConfiguration, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -83,6 +88,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
             }
             ResourceIdentifier storageResourceId = default;
             string fileSystemName = default;
+            StorageIndexingConfiguration storageIndexingConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -101,13 +107,22 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                     fileSystemName = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("storageIndexingConfiguration"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    storageIndexingConfiguration = StorageIndexingConfiguration.DeserializeStorageIndexingConfiguration(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new HealthcareApisServiceStorageConfiguration(storageResourceId, fileSystemName, serializedAdditionalRawData);
+            return new HealthcareApisServiceStorageConfiguration(storageResourceId, fileSystemName, storageIndexingConfiguration, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<HealthcareApisServiceStorageConfiguration>.Write(ModelReaderWriterOptions options)
