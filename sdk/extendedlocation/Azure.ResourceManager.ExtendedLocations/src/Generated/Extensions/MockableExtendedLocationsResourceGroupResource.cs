@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-15</description>
+        /// <description>2021-08-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-15</description>
+        /// <description>2021-08-31-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.ResourceManager.ExtendedLocations.Models
 {
-    /// <summary> The response of a CustomLocation list operation. </summary>
-    internal partial class CustomLocationListResult
+    /// <summary> The Find Target Resource Group operation request. </summary>
+    public partial class CustomLocationFindTargetResourceGroupProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,35 +45,22 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/>. </summary>
-        /// <param name="value"> The CustomLocation items on this page. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        internal CustomLocationListResult(IEnumerable<CustomLocationData> value)
+        /// <summary> Initializes a new instance of <see cref="CustomLocationFindTargetResourceGroupProperties"/>. </summary>
+        public CustomLocationFindTargetResourceGroupProperties()
         {
-            Argument.AssertNotNull(value, nameof(value));
-
-            Value = value.ToList();
+            Labels = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/>. </summary>
-        /// <param name="value"> The CustomLocation items on this page. </param>
-        /// <param name="nextLink"> The link to the next page of items. </param>
+        /// <summary> Initializes a new instance of <see cref="CustomLocationFindTargetResourceGroupProperties"/>. </summary>
+        /// <param name="labels"> Labels of the custom resource, this is a map of {key,value} pairs. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CustomLocationListResult(IReadOnlyList<CustomLocationData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CustomLocationFindTargetResourceGroupProperties(IDictionary<string, string> labels, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
+            Labels = labels;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/> for deserialization. </summary>
-        internal CustomLocationListResult()
-        {
-        }
-
-        /// <summary> The CustomLocation items on this page. </summary>
-        public IReadOnlyList<CustomLocationData> Value { get; }
-        /// <summary> The link to the next page of items. </summary>
-        public Uri NextLink { get; }
+        /// <summary> Labels of the custom resource, this is a map of {key,value} pairs. </summary>
+        public IDictionary<string, string> Labels { get; }
     }
 }

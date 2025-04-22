@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.ResourceManager.ExtendedLocations.Models
 {
-    /// <summary> The response of a CustomLocation list operation. </summary>
-    internal partial class CustomLocationListResult
+    /// <summary> Resource Sync Rules matchExpression property definition. </summary>
+    public partial class MatchExpressionsProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,35 +45,30 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/>. </summary>
-        /// <param name="value"> The CustomLocation items on this page. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        internal CustomLocationListResult(IEnumerable<CustomLocationData> value)
+        /// <summary> Initializes a new instance of <see cref="MatchExpressionsProperties"/>. </summary>
+        public MatchExpressionsProperties()
         {
-            Argument.AssertNotNull(value, nameof(value));
-
-            Value = value.ToList();
+            Values = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/>. </summary>
-        /// <param name="value"> The CustomLocation items on this page. </param>
-        /// <param name="nextLink"> The link to the next page of items. </param>
+        /// <summary> Initializes a new instance of <see cref="MatchExpressionsProperties"/>. </summary>
+        /// <param name="key"> Key is the label key that the selector applies to. </param>
+        /// <param name="operator"> The Operator field represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist. </param>
+        /// <param name="values"> The label value. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CustomLocationListResult(IReadOnlyList<CustomLocationData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MatchExpressionsProperties(string key, string @operator, IList<string> values, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
+            Key = key;
+            Operator = @operator;
+            Values = values;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/> for deserialization. </summary>
-        internal CustomLocationListResult()
-        {
-        }
-
-        /// <summary> The CustomLocation items on this page. </summary>
-        public IReadOnlyList<CustomLocationData> Value { get; }
-        /// <summary> The link to the next page of items. </summary>
-        public Uri NextLink { get; }
+        /// <summary> Key is the label key that the selector applies to. </summary>
+        public string Key { get; set; }
+        /// <summary> The Operator field represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist. </summary>
+        public string Operator { get; set; }
+        /// <summary> The label value. </summary>
+        public IList<string> Values { get; }
     }
 }

@@ -10,19 +10,71 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager.ExtendedLocations.Models;
-using Azure.ResourceManager.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.ExtendedLocations.Samples
 {
-    public partial class Sample_CustomLocationResource
+    public partial class Sample_ResourceSyncRuleCollection
     {
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateUpdateResourceSyncRule()
+        {
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/ResourceSyncRulesCreate_Update.json
+            // this example is just showing the usage of "ResourceSyncRules_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CustomLocationResource created on azure
+            // for more information of creating CustomLocationResource, please refer to the document of CustomLocationResource
+            string subscriptionId = "11111111-2222-3333-4444-555555555555";
+            string resourceGroupName = "testresourcegroup";
+            string resourceName = "customLocation01";
+            ResourceIdentifier customLocationResourceId = CustomLocationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
+            CustomLocationResource customLocation = client.GetCustomLocationResource(customLocationResourceId);
+
+            // get the collection of this ResourceSyncRuleResource
+            ResourceSyncRuleCollection collection = customLocation.GetResourceSyncRules();
+
+            // invoke the operation
+            string childResourceName = "resourceSyncRule01";
+            ResourceSyncRuleData data = new ResourceSyncRuleData(new AzureLocation("West US"))
+            {
+                Priority = 999,
+                Selector = new ResourceSyncRulePropertiesSelector
+                {
+                    MatchExpressions = {new MatchExpressionsProperties
+{
+Key = "key4",
+Operator = "In",
+Values = {"value4"},
+}},
+                    MatchLabels =
+{
+["key1"] = "value1"
+},
+                },
+                TargetResourceGroup = "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/testresourcegroup",
+            };
+            ArmOperation<ResourceSyncRuleResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, childResourceName, data);
+            ResourceSyncRuleResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ResourceSyncRuleData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
         [Test]
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetCustomLocation()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/CustomLocationsGet.json
-            // this example is just showing the usage of "CustomLocations_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/ResourceSyncRulesGet.json
+            // this example is just showing the usage of "ResourceSyncRules_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -37,22 +89,26 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
             ResourceIdentifier customLocationResourceId = CustomLocationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
             CustomLocationResource customLocation = client.GetCustomLocationResource(customLocationResourceId);
 
+            // get the collection of this ResourceSyncRuleResource
+            ResourceSyncRuleCollection collection = customLocation.GetResourceSyncRules();
+
             // invoke the operation
-            CustomLocationResource result = await customLocation.GetAsync();
+            string childResourceName = "resourceSyncRule01";
+            ResourceSyncRuleResource result = await collection.GetAsync(childResourceName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            CustomLocationData resourceData = result.Data;
+            ResourceSyncRuleData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Delete_DeleteCustomLocation()
+        public async Task GetAll_ListResourceSyncRulesBySubscription()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/CustomLocationsDelete.json
-            // this example is just showing the usage of "CustomLocations_Delete" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/ResourceSyncRulesListByCustomLocationID.json
+            // this example is just showing the usage of "ResourceSyncRules_ListByCustomLocationId" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -67,76 +123,17 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
             ResourceIdentifier customLocationResourceId = CustomLocationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
             CustomLocationResource customLocation = client.GetCustomLocationResource(customLocationResourceId);
 
-            // invoke the operation
-            await customLocation.DeleteAsync(WaitUntil.Completed);
-
-            Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Update_UpdateCustomLocation()
-        {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/CustomLocationsPatch.json
-            // this example is just showing the usage of "CustomLocations_Update" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this CustomLocationResource created on azure
-            // for more information of creating CustomLocationResource, please refer to the document of CustomLocationResource
-            string subscriptionId = "11111111-2222-3333-4444-555555555555";
-            string resourceGroupName = "testresourcegroup";
-            string resourceName = "customLocation01";
-            ResourceIdentifier customLocationResourceId = CustomLocationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
-            CustomLocationResource customLocation = client.GetCustomLocationResource(customLocationResourceId);
-
-            // invoke the operation
-            CustomLocationPatch patch = new CustomLocationPatch
-            {
-                Identity = new ManagedServiceIdentity("SystemAssigned"),
-                Tags =
-{
-["archv3"] = "",
-["tier"] = "testing"
-},
-                ClusterExtensionIds = { new ResourceIdentifier("/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/testresourcegroup/providers/Microsoft.ContainerService/managedClusters/cluster01/Microsoft.KubernetesConfiguration/clusterExtensions/fooExtension"), new ResourceIdentifier("/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/testresourcegroup/providers/Microsoft.ContainerService/managedClusters/cluster01/Microsoft.KubernetesConfiguration/clusterExtensions/barExtension") },
-            };
-            CustomLocationResource result = await customLocation.UpdateAsync(patch);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            CustomLocationData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetEnabledResourceTypes_GetCustomLocation()
-        {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/CustomLocationsListEnabledResourceTypes.json
-            // this example is just showing the usage of "CustomLocations_ListEnabledResourceTypes" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this CustomLocationResource created on azure
-            // for more information of creating CustomLocationResource, please refer to the document of CustomLocationResource
-            string subscriptionId = "11111111-2222-3333-4444-555555555555";
-            string resourceGroupName = "testresourcegroup";
-            string resourceName = "customLocation01";
-            ResourceIdentifier customLocationResourceId = CustomLocationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
-            CustomLocationResource customLocation = client.GetCustomLocationResource(customLocationResourceId);
+            // get the collection of this ResourceSyncRuleResource
+            ResourceSyncRuleCollection collection = customLocation.GetResourceSyncRules();
 
             // invoke the operation and iterate over the result
-            await foreach (CustomLocationEnabledResourceType item in customLocation.GetEnabledResourceTypesAsync())
+            await foreach (ResourceSyncRuleResource item in collection.GetAllAsync())
             {
-                Console.WriteLine($"Succeeded: {item}");
+                // the variable item is a resource, you could call other operations on this instance as well
+                // but just for demo, we get its data from this resource instance
+                ResourceSyncRuleData resourceData = item.Data;
+                // for demo we just print out the id
+                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
 
             Console.WriteLine("Succeeded");
@@ -144,10 +141,10 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task FindTargetResourceGroup_PostCustomLocationFindTargetResourceGroup()
+        public async Task Exists_GetCustomLocation()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/CustomLocationsFindTargetResourceGroup.json
-            // this example is just showing the usage of "CustomLocations_FindTargetResourceGroup" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/ResourceSyncRulesGet.json
+            // this example is just showing the usage of "ResourceSyncRules_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -162,18 +159,56 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
             ResourceIdentifier customLocationResourceId = CustomLocationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
             CustomLocationResource customLocation = client.GetCustomLocationResource(customLocationResourceId);
 
+            // get the collection of this ResourceSyncRuleResource
+            ResourceSyncRuleCollection collection = customLocation.GetResourceSyncRules();
+
             // invoke the operation
-            CustomLocationFindTargetResourceGroupProperties customLocationFindTargetResourceGroupProperties = new CustomLocationFindTargetResourceGroupProperties
-            {
-                Labels =
-{
-["key1"] = "value1",
-["key2"] = "value2"
-},
-            };
-            CustomLocationFindTargetResourceGroupResult result = await customLocation.FindTargetResourceGroupAsync(customLocationFindTargetResourceGroupProperties);
+            string childResourceName = "resourceSyncRule01";
+            bool result = await collection.ExistsAsync(childResourceName);
 
             Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetIfExists_GetCustomLocation()
+        {
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/ResourceSyncRulesGet.json
+            // this example is just showing the usage of "ResourceSyncRules_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this CustomLocationResource created on azure
+            // for more information of creating CustomLocationResource, please refer to the document of CustomLocationResource
+            string subscriptionId = "11111111-2222-3333-4444-555555555555";
+            string resourceGroupName = "testresourcegroup";
+            string resourceName = "customLocation01";
+            ResourceIdentifier customLocationResourceId = CustomLocationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
+            CustomLocationResource customLocation = client.GetCustomLocationResource(customLocationResourceId);
+
+            // get the collection of this ResourceSyncRuleResource
+            ResourceSyncRuleCollection collection = customLocation.GetResourceSyncRules();
+
+            // invoke the operation
+            string childResourceName = "resourceSyncRule01";
+            NullableResponse<ResourceSyncRuleResource> response = await collection.GetIfExistsAsync(childResourceName);
+            ResourceSyncRuleResource result = response.HasValue ? response.Value : null;
+
+            if (result == null)
+            {
+                Console.WriteLine("Succeeded with null as result");
+            }
+            else
+            {
+                // the variable result is a resource, you could call other operations on this instance as well
+                // but just for demo, we get its data from this resource instance
+                ResourceSyncRuleData resourceData = result.Data;
+                // for demo we just print out the id
+                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            }
         }
     }
 }

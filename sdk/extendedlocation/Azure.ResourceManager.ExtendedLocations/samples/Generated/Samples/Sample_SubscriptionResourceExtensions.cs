@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetCustomLocations_ListCustomLocationsBySubscription()
         {
-            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/stable/2021-08-15/examples/CustomLocationsListBySubscription.json
+            // Generated from example definition: specification/extendedlocation/resource-manager/Microsoft.ExtendedLocation/preview/2021-08-31-preview/examples/CustomLocationsListBySubscription.json
             // this example is just showing the usage of "CustomLocations_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

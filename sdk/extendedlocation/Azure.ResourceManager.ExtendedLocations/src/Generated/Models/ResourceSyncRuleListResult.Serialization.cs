@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ExtendedLocations.Models
 {
-    internal partial class CustomLocationListResult : IUtf8JsonSerializable, IJsonModel<CustomLocationListResult>
+    internal partial class ResourceSyncRuleListResult : IUtf8JsonSerializable, IJsonModel<ResourceSyncRuleListResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CustomLocationListResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ResourceSyncRuleListResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<CustomLocationListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ResourceSyncRuleListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,10 +28,10 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CustomLocationListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceSyncRuleListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CustomLocationListResult)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ResourceSyncRuleListResult)} does not support writing '{format}' format.");
             }
 
             writer.WritePropertyName("value"u8);
@@ -63,19 +63,19 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
             }
         }
 
-        CustomLocationListResult IJsonModel<CustomLocationListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ResourceSyncRuleListResult IJsonModel<ResourceSyncRuleListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CustomLocationListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceSyncRuleListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CustomLocationListResult)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ResourceSyncRuleListResult)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeCustomLocationListResult(document.RootElement, options);
+            return DeserializeResourceSyncRuleListResult(document.RootElement, options);
         }
 
-        internal static CustomLocationListResult DeserializeCustomLocationListResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ResourceSyncRuleListResult DeserializeResourceSyncRuleListResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
             {
                 return null;
             }
-            IReadOnlyList<CustomLocationData> value = default;
+            IReadOnlyList<ResourceSyncRuleData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -91,10 +91,10 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<CustomLocationData> array = new List<CustomLocationData>();
+                    List<ResourceSyncRuleData> array = new List<ResourceSyncRuleData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(CustomLocationData.DeserializeCustomLocationData(item, options));
+                        array.Add(ResourceSyncRuleData.DeserializeResourceSyncRuleData(item, options));
                     }
                     value = array;
                     continue;
@@ -114,38 +114,38 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new CustomLocationListResult(value, nextLink, serializedAdditionalRawData);
+            return new ResourceSyncRuleListResult(value, nextLink, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<CustomLocationListResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ResourceSyncRuleListResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CustomLocationListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceSyncRuleListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(CustomLocationListResult)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ResourceSyncRuleListResult)} does not support writing '{options.Format}' format.");
             }
         }
 
-        CustomLocationListResult IPersistableModel<CustomLocationListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ResourceSyncRuleListResult IPersistableModel<ResourceSyncRuleListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CustomLocationListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ResourceSyncRuleListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeCustomLocationListResult(document.RootElement, options);
+                        return DeserializeResourceSyncRuleListResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(CustomLocationListResult)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ResourceSyncRuleListResult)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<CustomLocationListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ResourceSyncRuleListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
