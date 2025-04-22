@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    /// <summary> Schema of common properties of node pool rolling events. </summary>
-    public partial class ContainerServiceNodePoolRollingEventData
+    /// <summary> Information related to the circuit breaker configured on the backend. </summary>
+    public partial class ApiManagementCircuitBreakerProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -43,33 +43,33 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/>. </summary>
-        /// <param name="nodePoolName"> The name of the node pool in the ManagedCluster resource. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nodePoolName"/> is null. </exception>
-        internal ContainerServiceNodePoolRollingEventData(string nodePoolName)
+        /// <summary> Initializes a new instance of <see cref="ApiManagementCircuitBreakerProperties"/>. </summary>
+        /// <param name="rules"> Overview of all configured rules and respective details. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="rules"/> is null. </exception>
+        internal ApiManagementCircuitBreakerProperties(IReadOnlyDictionary<string, ApiManagementCircuitBreakerPropertiesRule> rules)
         {
-            Argument.AssertNotNull(nodePoolName, nameof(nodePoolName));
+            Argument.AssertNotNull(rules, nameof(rules));
 
-            NodePoolName = nodePoolName;
+            Rules = rules;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/>. </summary>
-        /// <param name="nodePoolName"> The name of the node pool in the ManagedCluster resource. </param>
+        /// <summary> Initializes a new instance of <see cref="ApiManagementCircuitBreakerProperties"/>. </summary>
+        /// <param name="rules"> Overview of all configured rules and respective details. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceNodePoolRollingEventData(string nodePoolName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ApiManagementCircuitBreakerProperties(IReadOnlyDictionary<string, ApiManagementCircuitBreakerPropertiesRule> rules, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            NodePoolName = nodePoolName;
+            Rules = rules;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/> for deserialization. </summary>
-        internal ContainerServiceNodePoolRollingEventData()
+        /// <summary> Initializes a new instance of <see cref="ApiManagementCircuitBreakerProperties"/> for deserialization. </summary>
+        internal ApiManagementCircuitBreakerProperties()
         {
         }
 
-        /// <summary> The name of the node pool in the ManagedCluster resource. </summary>
-        public string NodePoolName { get; }
+        /// <summary> Overview of all configured rules and respective details. </summary>
+        public IReadOnlyDictionary<string, ApiManagementCircuitBreakerPropertiesRule> Rules { get; }
     }
 }

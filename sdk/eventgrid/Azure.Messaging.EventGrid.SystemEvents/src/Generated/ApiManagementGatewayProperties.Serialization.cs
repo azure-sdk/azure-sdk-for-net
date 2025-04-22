@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    public partial class ContainerServiceClusterSupportEventData : IUtf8JsonSerializable, IJsonModel<ContainerServiceClusterSupportEventData>
+    public partial class ApiManagementGatewayProperties : IUtf8JsonSerializable, IJsonModel<ApiManagementGatewayProperties>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ContainerServiceClusterSupportEventData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ApiManagementGatewayProperties>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ContainerServiceClusterSupportEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ApiManagementGatewayProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,14 +28,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ApiManagementGatewayProperties)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("kubernetesVersion"u8);
-            writer.WriteStringValue(KubernetesVersion);
+            writer.WritePropertyName("gatewayId"u8);
+            writer.WriteStringValue(GatewayId);
+            writer.WritePropertyName("instanceId"u8);
+            writer.WriteStringValue(InstanceId);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -53,19 +55,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
         }
 
-        ContainerServiceClusterSupportEventData IJsonModel<ContainerServiceClusterSupportEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ApiManagementGatewayProperties IJsonModel<ApiManagementGatewayProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ApiManagementGatewayProperties)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeContainerServiceClusterSupportEventData(document.RootElement, options);
+            return DeserializeApiManagementGatewayProperties(document.RootElement, options);
         }
 
-        internal static ContainerServiceClusterSupportEventData DeserializeContainerServiceClusterSupportEventData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ApiManagementGatewayProperties DeserializeApiManagementGatewayProperties(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -73,14 +75,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            string kubernetesVersion = default;
+            string gatewayId = default;
+            string instanceId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("kubernetesVersion"u8))
+                if (property.NameEquals("gatewayId"u8))
                 {
-                    kubernetesVersion = property.Value.GetString();
+                    gatewayId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("instanceId"u8))
+                {
+                    instanceId = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -89,46 +97,46 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ContainerServiceClusterSupportEventData(kubernetesVersion, serializedAdditionalRawData);
+            return new ApiManagementGatewayProperties(gatewayId, instanceId, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ContainerServiceClusterSupportEventData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ApiManagementGatewayProperties>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayProperties>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ApiManagementGatewayProperties)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ContainerServiceClusterSupportEventData IPersistableModel<ContainerServiceClusterSupportEventData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ApiManagementGatewayProperties IPersistableModel<ApiManagementGatewayProperties>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayProperties>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeContainerServiceClusterSupportEventData(document.RootElement, options);
+                        return DeserializeApiManagementGatewayProperties(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ApiManagementGatewayProperties)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ContainerServiceClusterSupportEventData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ApiManagementGatewayProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ContainerServiceClusterSupportEventData FromResponse(Response response)
+        internal static ApiManagementGatewayProperties FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeContainerServiceClusterSupportEventData(document.RootElement);
+            return DeserializeApiManagementGatewayProperties(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>

@@ -251,6 +251,77 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new ApiManagementGatewayApiRemovedEventData(resourceUri, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has opened. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerOpenedEventData ApiManagementCircuitBreakerOpenedEventData(string backendName = null, ApiManagementCircuitBreakerProperties circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerOpenedEventData(backendName, circuitBreaker, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerProperties"/>. </summary>
+        /// <param name="rules"> Overview of all configured rules and respective details. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerProperties"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerProperties ApiManagementCircuitBreakerProperties(IReadOnlyDictionary<string, ApiManagementCircuitBreakerPropertiesRule> rules = null)
+        {
+            rules ??= new Dictionary<string, ApiManagementCircuitBreakerPropertiesRule>();
+
+            return new ApiManagementCircuitBreakerProperties(rules, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has closed. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerClosedEventData ApiManagementCircuitBreakerClosedEventData(string backendName = null, ApiManagementCircuitBreakerProperties circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerClosedEventData(backendName, circuitBreaker, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a an expired gateway token for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenNearExpiryEventData ApiManagementGatewayTokenNearExpiryEventData(ApiManagementGatewayProperties gatewayInfo = null, ApiManagementNearExpiryGatewayTokenProperties tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenNearExpiryEventData(gatewayInfo, tokenInfo, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayProperties"/>. </summary>
+        /// <param name="gatewayId"> Id of Gateway that is used to deploy the gateway to get the configuration for. This is the ARM resource ID referenced in the Azure API Management instance. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateway/&lt;GatewayName&gt;`. </param>
+        /// <param name="instanceId"> Unique instance ID of the deployed gateway. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayProperties"/> instance for mocking. </returns>
+        public static ApiManagementGatewayProperties ApiManagementGatewayProperties(string gatewayId = null, string instanceId = null)
+        {
+            return new ApiManagementGatewayProperties(gatewayId, instanceId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementNearExpiryGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token will expire. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementNearExpiryGatewayTokenProperties"/> instance for mocking. </returns>
+        public static ApiManagementNearExpiryGatewayTokenProperties ApiManagementNearExpiryGatewayTokenProperties(DateTimeOffset expiredAtUtc = default)
+        {
+            return new ApiManagementNearExpiryGatewayTokenProperties(expiredAtUtc, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a an expired gateway token for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenExpiredEventData ApiManagementGatewayTokenExpiredEventData(ApiManagementGatewayProperties gatewayInfo = null, ApiManagementExpiredGatewayTokenProperties tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenExpiredEventData(gatewayInfo, tokenInfo, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementExpiredGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token has expired. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementExpiredGatewayTokenProperties"/> instance for mocking. </returns>
+        public static ApiManagementExpiredGatewayTokenProperties ApiManagementExpiredGatewayTokenProperties(DateTimeOffset expiredAtUtc = default)
+        {
+            return new ApiManagementExpiredGatewayTokenProperties(expiredAtUtc, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AppConfigurationKeyValueModifiedEventData"/>. </summary>
         /// <param name="key"> The key used to identify the key-value that was modified. </param>
         /// <param name="label"> The label, if any, used to identify the key-value that was modified. </param>

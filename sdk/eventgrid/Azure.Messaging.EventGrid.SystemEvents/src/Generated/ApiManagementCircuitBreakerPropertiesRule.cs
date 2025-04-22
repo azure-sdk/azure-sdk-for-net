@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    /// <summary> Schema of common properties of node pool rolling events. </summary>
-    public partial class ContainerServiceNodePoolRollingEventData
+    /// <summary> The ApiManagementCircuitBreakerPropertiesRule. </summary>
+    public partial class ApiManagementCircuitBreakerPropertiesRule
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -43,33 +43,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/>. </summary>
-        /// <param name="nodePoolName"> The name of the node pool in the ManagedCluster resource. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nodePoolName"/> is null. </exception>
-        internal ContainerServiceNodePoolRollingEventData(string nodePoolName)
+        /// <summary> Initializes a new instance of <see cref="ApiManagementCircuitBreakerPropertiesRule"/>. </summary>
+        internal ApiManagementCircuitBreakerPropertiesRule()
         {
-            Argument.AssertNotNull(nodePoolName, nameof(nodePoolName));
-
-            NodePoolName = nodePoolName;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/>. </summary>
-        /// <param name="nodePoolName"> The name of the node pool in the ManagedCluster resource. </param>
+        /// <summary> Initializes a new instance of <see cref="ApiManagementCircuitBreakerPropertiesRule"/>. </summary>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceNodePoolRollingEventData(string nodePoolName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ApiManagementCircuitBreakerPropertiesRule(IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            NodePoolName = nodePoolName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
-
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/> for deserialization. </summary>
-        internal ContainerServiceNodePoolRollingEventData()
-        {
-        }
-
-        /// <summary> The name of the node pool in the ManagedCluster resource. </summary>
-        public string NodePoolName { get; }
     }
 }

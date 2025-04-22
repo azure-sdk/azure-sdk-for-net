@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    /// <summary> Schema of common properties of node pool rolling events. </summary>
-    public partial class ContainerServiceNodePoolRollingEventData
+    /// <summary> Information related to a gateway token that is near expiry for a self-hosted gateway deployment. </summary>
+    public partial class ApiManagementNearExpiryGatewayTokenProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -43,33 +43,30 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/>. </summary>
-        /// <param name="nodePoolName"> The name of the node pool in the ManagedCluster resource. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nodePoolName"/> is null. </exception>
-        internal ContainerServiceNodePoolRollingEventData(string nodePoolName)
+        /// <summary> Initializes a new instance of <see cref="ApiManagementNearExpiryGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token will expire. </param>
+        internal ApiManagementNearExpiryGatewayTokenProperties(DateTimeOffset expiredAtUtc)
         {
-            Argument.AssertNotNull(nodePoolName, nameof(nodePoolName));
-
-            NodePoolName = nodePoolName;
+            ExpiredAtUtc = expiredAtUtc;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/>. </summary>
-        /// <param name="nodePoolName"> The name of the node pool in the ManagedCluster resource. </param>
+        /// <summary> Initializes a new instance of <see cref="ApiManagementNearExpiryGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token will expire. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ContainerServiceNodePoolRollingEventData(string nodePoolName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ApiManagementNearExpiryGatewayTokenProperties(DateTimeOffset expiredAtUtc, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            NodePoolName = nodePoolName;
+            ExpiredAtUtc = expiredAtUtc;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ContainerServiceNodePoolRollingEventData"/> for deserialization. </summary>
-        internal ContainerServiceNodePoolRollingEventData()
+        /// <summary> Initializes a new instance of <see cref="ApiManagementNearExpiryGatewayTokenProperties"/> for deserialization. </summary>
+        internal ApiManagementNearExpiryGatewayTokenProperties()
         {
         }
 
-        /// <summary> The name of the node pool in the ManagedCluster resource. </summary>
-        public string NodePoolName { get; }
+        /// <summary> Timestamp when the gateway token will expire. </summary>
+        public DateTimeOffset ExpiredAtUtc { get; }
     }
 }

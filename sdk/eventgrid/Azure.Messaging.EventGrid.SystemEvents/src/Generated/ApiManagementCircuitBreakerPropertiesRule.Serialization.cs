@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    public partial class ContainerServiceClusterSupportEventData : IUtf8JsonSerializable, IJsonModel<ContainerServiceClusterSupportEventData>
+    public partial class ApiManagementCircuitBreakerPropertiesRule : IUtf8JsonSerializable, IJsonModel<ApiManagementCircuitBreakerPropertiesRule>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ContainerServiceClusterSupportEventData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ApiManagementCircuitBreakerPropertiesRule>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ContainerServiceClusterSupportEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ApiManagementCircuitBreakerPropertiesRule>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,14 +28,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementCircuitBreakerPropertiesRule>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ApiManagementCircuitBreakerPropertiesRule)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("kubernetesVersion"u8);
-            writer.WriteStringValue(KubernetesVersion);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -53,19 +51,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
         }
 
-        ContainerServiceClusterSupportEventData IJsonModel<ContainerServiceClusterSupportEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ApiManagementCircuitBreakerPropertiesRule IJsonModel<ApiManagementCircuitBreakerPropertiesRule>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementCircuitBreakerPropertiesRule>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ApiManagementCircuitBreakerPropertiesRule)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeContainerServiceClusterSupportEventData(document.RootElement, options);
+            return DeserializeApiManagementCircuitBreakerPropertiesRule(document.RootElement, options);
         }
 
-        internal static ContainerServiceClusterSupportEventData DeserializeContainerServiceClusterSupportEventData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ApiManagementCircuitBreakerPropertiesRule DeserializeApiManagementCircuitBreakerPropertiesRule(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -73,62 +71,56 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            string kubernetesVersion = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("kubernetesVersion"u8))
-                {
-                    kubernetesVersion = property.Value.GetString();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ContainerServiceClusterSupportEventData(kubernetesVersion, serializedAdditionalRawData);
+            return new ApiManagementCircuitBreakerPropertiesRule(serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ContainerServiceClusterSupportEventData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ApiManagementCircuitBreakerPropertiesRule>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementCircuitBreakerPropertiesRule>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ApiManagementCircuitBreakerPropertiesRule)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ContainerServiceClusterSupportEventData IPersistableModel<ContainerServiceClusterSupportEventData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ApiManagementCircuitBreakerPropertiesRule IPersistableModel<ApiManagementCircuitBreakerPropertiesRule>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ContainerServiceClusterSupportEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementCircuitBreakerPropertiesRule>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeContainerServiceClusterSupportEventData(document.RootElement, options);
+                        return DeserializeApiManagementCircuitBreakerPropertiesRule(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ContainerServiceClusterSupportEventData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ApiManagementCircuitBreakerPropertiesRule)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ContainerServiceClusterSupportEventData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ApiManagementCircuitBreakerPropertiesRule>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ContainerServiceClusterSupportEventData FromResponse(Response response)
+        internal static ApiManagementCircuitBreakerPropertiesRule FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeContainerServiceClusterSupportEventData(document.RootElement);
+            return DeserializeApiManagementCircuitBreakerPropertiesRule(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
