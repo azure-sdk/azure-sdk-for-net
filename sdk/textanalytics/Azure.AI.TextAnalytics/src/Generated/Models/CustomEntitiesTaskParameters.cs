@@ -10,29 +10,41 @@ using System;
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary> Supported parameters for a Custom Entities task. </summary>
-    internal partial class CustomEntitiesTaskParameters : CustomTaskParameters
+    internal partial class CustomEntitiesTaskParameters
     {
         /// <summary> Initializes a new instance of <see cref="CustomEntitiesTaskParameters"/>. </summary>
         /// <param name="projectName"> This field indicates the project name for the model. </param>
         /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="projectName"/> or <paramref name="deploymentName"/> is null. </exception>
-        public CustomEntitiesTaskParameters(string projectName, string deploymentName) : base(projectName, deploymentName)
+        public CustomEntitiesTaskParameters(string projectName, string deploymentName)
         {
             Argument.AssertNotNull(projectName, nameof(projectName));
             Argument.AssertNotNull(deploymentName, nameof(deploymentName));
+
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
         }
 
         /// <summary> Initializes a new instance of <see cref="CustomEntitiesTaskParameters"/>. </summary>
-        /// <param name="loggingOptOut"></param>
+        /// <param name="loggingOptOut"> logging opt out. </param>
         /// <param name="projectName"> This field indicates the project name for the model. </param>
         /// <param name="deploymentName"> This field indicates the deployment name for the model. </param>
-        /// <param name="stringIndexType"> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </param>
-        internal CustomEntitiesTaskParameters(bool? loggingOptOut, string projectName, string deploymentName, StringIndexType? stringIndexType) : base(loggingOptOut, projectName, deploymentName)
+        /// <param name="stringIndexType"> Optional parameter to provide the string index type used to interpret string offsets. Defaults to TextElements (Graphemes). </param>
+        internal CustomEntitiesTaskParameters(bool? loggingOptOut, string projectName, string deploymentName, StringIndexType? stringIndexType)
         {
+            LoggingOptOut = loggingOptOut;
+            ProjectName = projectName;
+            DeploymentName = deploymentName;
             StringIndexType = stringIndexType;
         }
 
-        /// <summary> Specifies the method used to interpret string offsets.  Defaults to Text Elements (Graphemes) according to Unicode v8.0.0. For additional information see https://aka.ms/text-analytics-offsets. </summary>
+        /// <summary> logging opt out. </summary>
+        public bool? LoggingOptOut { get; set; }
+        /// <summary> This field indicates the project name for the model. </summary>
+        public string ProjectName { get; }
+        /// <summary> This field indicates the deployment name for the model. </summary>
+        public string DeploymentName { get; }
+        /// <summary> Optional parameter to provide the string index type used to interpret string offsets. Defaults to TextElements (Graphemes). </summary>
         public StringIndexType? StringIndexType { get; set; }
     }
 }

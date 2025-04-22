@@ -7,47 +7,11 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class Error : IUtf8JsonSerializable
+    internal partial class Error
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("code"u8);
-            writer.WriteStringValue(Code.ToString());
-            writer.WritePropertyName("message"u8);
-            writer.WriteStringValue(Message);
-            if (Optional.IsDefined(Target))
-            {
-                writer.WritePropertyName("target"u8);
-                writer.WriteStringValue(Target);
-            }
-            if (Optional.IsCollectionDefined(Details))
-            {
-                writer.WritePropertyName("details"u8);
-                writer.WriteStartArray();
-                foreach (var item in Details)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsDefined(Innererror))
-            {
-                writer.WritePropertyName("innererror"u8);
-                writer.WriteObjectValue(Innererror);
-            }
-            foreach (var item in AdditionalProperties)
-            {
-                writer.WritePropertyName(item.Key);
-                writer.WriteObjectValue<object>(item.Value);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static Error DeserializeError(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -57,10 +21,8 @@ namespace Azure.AI.TextAnalytics.Models
             ErrorCode code = default;
             string message = default;
             string target = default;
-            IList<Error> details = default;
+            IReadOnlyList<Error> details = default;
             InnerErrorModel innererror = default;
-            IDictionary<string, object> additionalProperties = default;
-            Dictionary<string, object> additionalPropertiesDictionary = new Dictionary<string, object>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("code"u8))
@@ -101,16 +63,8 @@ namespace Azure.AI.TextAnalytics.Models
                     innererror = InnerErrorModel.DeserializeInnerErrorModel(property.Value);
                     continue;
                 }
-                additionalPropertiesDictionary.Add(property.Name, property.Value.GetObject());
             }
-            additionalProperties = additionalPropertiesDictionary;
-            return new Error(
-                code,
-                message,
-                target,
-                details ?? new ChangeTrackingList<Error>(),
-                innererror,
-                additionalProperties);
+            return new Error(code, message, target, details ?? new ChangeTrackingList<Error>(), innererror);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
@@ -119,14 +73,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeError(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

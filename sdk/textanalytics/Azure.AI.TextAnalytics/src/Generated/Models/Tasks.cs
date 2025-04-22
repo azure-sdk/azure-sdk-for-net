@@ -9,15 +9,15 @@ using System.Collections.Generic;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The TasksStateTasks. </summary>
-    internal partial class AnalyzeTasks
+    /// <summary> Container for the tasks status for the LRO job. </summary>
+    internal partial class Tasks
     {
-        /// <summary> Initializes a new instance of <see cref="AnalyzeTasks"/>. </summary>
-        /// <param name="completed"></param>
-        /// <param name="failed"></param>
-        /// <param name="inProgress"></param>
-        /// <param name="total"></param>
-        internal AnalyzeTasks(int completed, int failed, int inProgress, int total)
+        /// <summary> Initializes a new instance of <see cref="Tasks"/>. </summary>
+        /// <param name="completed"> Count of completed tasks. </param>
+        /// <param name="failed"> Count of failed tasks. </param>
+        /// <param name="inProgress"> Count of inprogress tasks. </param>
+        /// <param name="total"> Count of total tasks. </param>
+        internal Tasks(int completed, int failed, int inProgress, int total)
         {
             Completed = completed;
             Failed = failed;
@@ -26,16 +26,17 @@ namespace Azure.AI.TextAnalytics.Models
             Items = new ChangeTrackingList<AnalyzeTextLROResult>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeTasks"/>. </summary>
-        /// <param name="completed"></param>
-        /// <param name="failed"></param>
-        /// <param name="inProgress"></param>
-        /// <param name="total"></param>
+        /// <summary> Initializes a new instance of <see cref="Tasks"/>. </summary>
+        /// <param name="completed"> Count of completed tasks. </param>
+        /// <param name="failed"> Count of failed tasks. </param>
+        /// <param name="inProgress"> Count of inprogress tasks. </param>
+        /// <param name="total"> Count of total tasks. </param>
         /// <param name="items">
+        /// Enumerable of Analyze text job results.
         /// Please note <see cref="AnalyzeTextLROResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AbstractiveSummarizationLROResult"/>, <see cref="CustomEntityRecognitionLROResult"/>, <see cref="CustomMultiLabelClassificationLROResult"/>, <see cref="CustomSingleLabelClassificationLROResult"/>, <see cref="EntityLinkingLROResult"/>, <see cref="EntityRecognitionLROResult"/>, <see cref="ExtractiveSummarizationLROResult"/>, <see cref="HealthcareLROResult"/>, <see cref="KeyPhraseExtractionLROResult"/>, <see cref="PiiEntityRecognitionLROResult"/> and <see cref="SentimentLROResult"/>.
         /// </param>
-        internal AnalyzeTasks(int completed, int failed, int inProgress, int total, IReadOnlyList<AnalyzeTextLROResult> items)
+        internal Tasks(int completed, int failed, int inProgress, int total, IReadOnlyList<AnalyzeTextLROResult> items)
         {
             Completed = completed;
             Failed = failed;
@@ -44,16 +45,16 @@ namespace Azure.AI.TextAnalytics.Models
             Items = items;
         }
 
-        /// <summary> Gets the completed. </summary>
+        /// <summary> Count of completed tasks. </summary>
         public int Completed { get; }
-        /// <summary> Gets the failed. </summary>
+        /// <summary> Count of failed tasks. </summary>
         public int Failed { get; }
-        /// <summary> Gets the in progress. </summary>
+        /// <summary> Count of inprogress tasks. </summary>
         public int InProgress { get; }
-        /// <summary> Gets the total. </summary>
+        /// <summary> Count of total tasks. </summary>
         public int Total { get; }
         /// <summary>
-        /// Gets the items
+        /// Enumerable of Analyze text job results.
         /// Please note <see cref="AnalyzeTextLROResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="AbstractiveSummarizationLROResult"/>, <see cref="CustomEntityRecognitionLROResult"/>, <see cref="CustomMultiLabelClassificationLROResult"/>, <see cref="CustomSingleLabelClassificationLROResult"/>, <see cref="EntityLinkingLROResult"/>, <see cref="EntityRecognitionLROResult"/>, <see cref="ExtractiveSummarizationLROResult"/>, <see cref="HealthcareLROResult"/>, <see cref="KeyPhraseExtractionLROResult"/>, <see cref="PiiEntityRecognitionLROResult"/> and <see cref="SentimentLROResult"/>.
         /// </summary>

@@ -7,7 +7,7 @@
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The AnalyzeTextKeyPhraseExtractionInput. </summary>
+    /// <summary> Contains the analyze text KeyPhraseExtraction task input. </summary>
     internal partial class AnalyzeTextKeyPhraseExtractionInput : AnalyzeTextTask
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextKeyPhraseExtractionInput"/>. </summary>
@@ -17,9 +17,9 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextKeyPhraseExtractionInput"/>. </summary>
-        /// <param name="kind"> Enumeration of supported Text Analysis tasks. </param>
-        /// <param name="analysisInput"></param>
-        /// <param name="parameters"> Supported parameters for a Key Phrase Extraction task. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        /// <param name="analysisInput"> Contains the input documents. </param>
+        /// <param name="parameters"> Key phrase extraction task parameters. </param>
         internal AnalyzeTextKeyPhraseExtractionInput(AnalyzeTextTaskKind kind, MultiLanguageAnalysisInput analysisInput, KeyPhraseTaskParameters parameters) : base(kind)
         {
             AnalysisInput = analysisInput;
@@ -27,9 +27,9 @@ namespace Azure.AI.TextAnalytics.Models
             Kind = kind;
         }
 
-        /// <summary> Gets or sets the analysis input. </summary>
+        /// <summary> Contains the input documents. </summary>
         public MultiLanguageAnalysisInput AnalysisInput { get; set; }
-        /// <summary> Supported parameters for a Key Phrase Extraction task. </summary>
+        /// <summary> Key phrase extraction task parameters. </summary>
         public KeyPhraseTaskParameters Parameters { get; set; }
     }
 }
