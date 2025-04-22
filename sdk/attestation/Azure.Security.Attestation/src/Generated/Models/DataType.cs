@@ -25,9 +25,9 @@ namespace Azure.Security.Attestation
         private const string BinaryValue = "Binary";
         private const string JsonValue = "JSON";
 
-        /// <summary> The contents of the field should be treated as binary and not interpreted by MAA. </summary>
+        /// <summary> The field's content should be treated as binary and not interpreted by MAA. </summary>
         public static DataType Binary { get; } = new DataType(BinaryValue);
-        /// <summary> The contents of the field should be treated as a JSON object and may be further interpreted by MAA. </summary>
+        /// <summary> The field's content should be treated as UTF-8 JSON text that may be further interpreted by MAA. Refer to RFC 8259 for a description of JSON serialization standards for interoperability. </summary>
         public static DataType Json { get; } = new DataType(JsonValue);
         /// <summary> Determines if two <see cref="DataType"/> values are the same. </summary>
         public static bool operator ==(DataType left, DataType right) => left.Equals(right);

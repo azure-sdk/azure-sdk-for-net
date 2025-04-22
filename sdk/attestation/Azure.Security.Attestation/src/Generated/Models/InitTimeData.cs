@@ -9,7 +9,7 @@ using System;
 
 namespace Azure.Security.Attestation
 {
-    /// <summary> Defines the "initialization time data" used to provision the attestation target for use by the MAA. </summary>
+    /// <summary> Initialization time data are a conduit for any configuration information that is unknown when building the Trusted Execution Environment (TEE) and is defined at TEE launch time. This data can be used with confidential container or VM scenarios to capture configuration settings such as disk volume content, network configuration, etc. </summary>
     internal partial class InitTimeData
     {
         /// <summary> Initializes a new instance of <see cref="InitTimeData"/>. </summary>
@@ -18,7 +18,7 @@ namespace Azure.Security.Attestation
         }
 
         /// <summary> Initializes a new instance of <see cref="InitTimeData"/>. </summary>
-        /// <param name="data"> UTF-8 encoded Initialization Data passed into the trusted environment when it is created. </param>
+        /// <param name="data"> Initialization time data are passed into the Trusted Execution Environment (TEE) when it is created. For an Icelake SGX quote, the SHA256 hash of the InitTimeData must match the lower 32 bytes of the quote's "config id" attribute. For a SEV-SNP quote, the SHA256 hash of the InitTimeData must match the quote's "host data" attribute. </param>
         /// <param name="dataType"> The type of data contained within the "data" field. </param>
         internal InitTimeData(byte[] data, DataType? dataType)
         {
@@ -26,7 +26,7 @@ namespace Azure.Security.Attestation
             DataType = dataType;
         }
 
-        /// <summary> UTF-8 encoded Initialization Data passed into the trusted environment when it is created. </summary>
+        /// <summary> Initialization time data are passed into the Trusted Execution Environment (TEE) when it is created. For an Icelake SGX quote, the SHA256 hash of the InitTimeData must match the lower 32 bytes of the quote's "config id" attribute. For a SEV-SNP quote, the SHA256 hash of the InitTimeData must match the quote's "host data" attribute. </summary>
         public byte[] Data { get; set; }
         /// <summary> The type of data contained within the "data" field. </summary>
         public DataType? DataType { get; set; }
