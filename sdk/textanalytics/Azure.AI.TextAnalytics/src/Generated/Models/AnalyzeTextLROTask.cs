@@ -8,11 +8,11 @@
 namespace Azure.AI.TextAnalytics.Models
 {
     /// <summary>
-    /// The AnalyzeTextLROTask.
+    /// The long running task to be performed by the service on the input documents.
     /// Please note <see cref="AnalyzeTextLROTask"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
     /// The available derived classes include <see cref="AbstractiveSummarizationLROTask"/>, <see cref="CustomEntitiesLROTask"/>, <see cref="CustomMultiLabelClassificationLROTask"/>, <see cref="CustomSingleLabelClassificationLROTask"/>, <see cref="EntityLinkingLROTask"/>, <see cref="EntitiesLROTask"/>, <see cref="ExtractiveSummarizationLROTask"/>, <see cref="HealthcareLROTask"/>, <see cref="KeyPhraseLROTask"/>, <see cref="PiiLROTask"/> and <see cref="SentimentAnalysisLROTask"/>.
     /// </summary>
-    internal abstract partial class AnalyzeTextLROTask : TaskIdentifier
+    internal abstract partial class AnalyzeTextLROTask
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextLROTask"/>. </summary>
         protected AnalyzeTextLROTask()
@@ -20,14 +20,17 @@ namespace Azure.AI.TextAnalytics.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextLROTask"/>. </summary>
-        /// <param name="taskName"></param>
-        /// <param name="kind"> Enumeration of supported long-running Text Analysis tasks. </param>
-        internal AnalyzeTextLROTask(string taskName, AnalyzeTextLROTaskKind kind) : base(taskName)
+        /// <param name="taskName"> task name. </param>
+        /// <param name="kind"> The kind of task to perform. </param>
+        internal AnalyzeTextLROTask(string taskName, AnalyzeTextLROTaskKind kind)
         {
+            TaskName = taskName;
             Kind = kind;
         }
 
-        /// <summary> Enumeration of supported long-running Text Analysis tasks. </summary>
+        /// <summary> task name. </summary>
+        public string TaskName { get; set; }
+        /// <summary> The kind of task to perform. </summary>
         internal AnalyzeTextLROTaskKind Kind { get; set; }
     }
 }

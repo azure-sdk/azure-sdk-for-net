@@ -7,51 +7,23 @@
 
 using System;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class UnknownAnalyzeTextLROResult : IUtf8JsonSerializable
+    internal partial class UnknownAnalyzeTextLROResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("kind"u8);
-            writer.WriteStringValue(Kind.ToString());
-            if (Optional.IsDefined(TaskName))
-            {
-                writer.WritePropertyName("taskName"u8);
-                writer.WriteStringValue(TaskName);
-            }
-            writer.WritePropertyName("lastUpdateDateTime"u8);
-            writer.WriteStringValue(LastUpdateDateTime, "O");
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToString());
-            writer.WriteEndObject();
-        }
-
         internal static UnknownAnalyzeTextLROResult DeserializeUnknownAnalyzeTextLROResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            AnalyzeTextLROResultsKind kind = "Unknown";
-            string taskName = default;
             DateTimeOffset lastUpdateDateTime = default;
             TextAnalyticsOperationStatus status = default;
+            string taskName = default;
+            AnalyzeTextLROResultsKind kind = "Unknown";
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("kind"u8))
-                {
-                    kind = new AnalyzeTextLROResultsKind(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("taskName"u8))
-                {
-                    taskName = property.Value.GetString();
-                    continue;
-                }
                 if (property.NameEquals("lastUpdateDateTime"u8))
                 {
                     lastUpdateDateTime = property.Value.GetDateTimeOffset("O");
@@ -62,8 +34,18 @@ namespace Azure.AI.TextAnalytics.Models
                     status = new TextAnalyticsOperationStatus(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("taskName"u8))
+                {
+                    taskName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("kind"u8))
+                {
+                    kind = new AnalyzeTextLROResultsKind(property.Value.GetString());
+                    continue;
+                }
             }
-            return new UnknownAnalyzeTextLROResult(lastUpdateDateTime, status, kind, taskName);
+            return new UnknownAnalyzeTextLROResult(lastUpdateDateTime, status, taskName, kind);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
@@ -72,14 +54,6 @@ namespace Azure.AI.TextAnalytics.Models
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeUnknownAnalyzeTextLROResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue<AnalyzeTextLROResult>(this);
-            return content;
         }
     }
 }

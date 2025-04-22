@@ -7,61 +7,23 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    internal partial class KeyPhrasesDocumentResult : IUtf8JsonSerializable
+    internal partial class KeyPhrasesDocumentResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("keyPhrases"u8);
-            writer.WriteStartArray();
-            foreach (var item in KeyPhrases)
-            {
-                writer.WriteStringValue(item);
-            }
-            writer.WriteEndArray();
-            writer.WritePropertyName("id"u8);
-            writer.WriteStringValue(Id);
-            writer.WritePropertyName("warnings"u8);
-            writer.WriteStartArray();
-            foreach (var item in Warnings)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
-            if (Optional.IsDefined(Statistics))
-            {
-                writer.WritePropertyName("statistics"u8);
-                writer.WriteObjectValue(Statistics);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static KeyPhrasesDocumentResult DeserializeKeyPhrasesDocumentResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IList<string> keyPhrases = default;
             string id = default;
-            IList<DocumentWarning> warnings = default;
+            IReadOnlyList<DocumentWarning> warnings = default;
             TextDocumentStatistics? statistics = default;
+            IReadOnlyList<string> keyPhrases = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("keyPhrases"u8))
-                {
-                    List<string> array = new List<string>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(item.GetString());
-                    }
-                    keyPhrases = array;
-                    continue;
-                }
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
@@ -86,24 +48,26 @@ namespace Azure.AI.TextAnalytics.Models
                     statistics = TextDocumentStatistics.DeserializeTextDocumentStatistics(property.Value);
                     continue;
                 }
+                if (property.NameEquals("keyPhrases"u8))
+                {
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    keyPhrases = array;
+                    continue;
+                }
             }
             return new KeyPhrasesDocumentResult(id, warnings, statistics, keyPhrases);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static new KeyPhrasesDocumentResult FromResponse(Response response)
+        internal static KeyPhrasesDocumentResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
             return DeserializeKeyPhrasesDocumentResult(document.RootElement);
-        }
-
-        /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
-        internal override RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
         }
     }
 }

@@ -10,43 +10,71 @@ using System.Collections.Generic;
 
 namespace Azure.AI.TextAnalytics.Models
 {
-    /// <summary> The AnalyzeTextJobState. </summary>
-    internal partial class AnalyzeTextJobState : JobState
+    /// <summary> The object containing the analyze job LRO job state. </summary>
+    internal partial class AnalyzeTextJobState
     {
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextJobState"/>. </summary>
-        /// <param name="createdDateTime"></param>
-        /// <param name="jobId"></param>
-        /// <param name="lastUpdatedDateTime"></param>
-        /// <param name="status"></param>
-        /// <param name="tasks"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> or <paramref name="tasks"/> is null. </exception>
-        internal AnalyzeTextJobState(DateTimeOffset createdDateTime, string jobId, DateTimeOffset lastUpdatedDateTime, TextAnalyticsOperationStatus status, AnalyzeTasks tasks) : base(createdDateTime, jobId, lastUpdatedDateTime, status)
+        /// <param name="createdDateTime"> Date and time job created. </param>
+        /// <param name="jobId"> job ID. </param>
+        /// <param name="lastUpdatedDateTime"> last updated date and time. </param>
+        /// <param name="status"> status. </param>
+        /// <param name="tasks"> List of tasks. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="tasks"/> is null. </exception>
+        internal AnalyzeTextJobState(DateTimeOffset createdDateTime, Guid jobId, DateTimeOffset lastUpdatedDateTime, TextAnalyticsOperationStatus status, Tasks tasks)
         {
-            Argument.AssertNotNull(jobId, nameof(jobId));
             Argument.AssertNotNull(tasks, nameof(tasks));
 
+            CreatedDateTime = createdDateTime;
+            JobId = jobId;
+            LastUpdatedDateTime = lastUpdatedDateTime;
+            Status = status;
+            Errors = new ChangeTrackingList<Error>();
             Tasks = tasks;
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextJobState"/>. </summary>
-        /// <param name="displayName"></param>
-        /// <param name="createdDateTime"></param>
-        /// <param name="expirationDateTime"></param>
-        /// <param name="jobId"></param>
-        /// <param name="lastUpdatedDateTime"></param>
-        /// <param name="status"></param>
-        /// <param name="errors"></param>
-        /// <param name="nextLink"></param>
-        /// <param name="tasks"></param>
+        /// <param name="displayName"> display name. </param>
+        /// <param name="createdDateTime"> Date and time job created. </param>
+        /// <param name="expirationDateTime"> Date and time job expires. </param>
+        /// <param name="jobId"> job ID. </param>
+        /// <param name="lastUpdatedDateTime"> last updated date and time. </param>
+        /// <param name="status"> status. </param>
+        /// <param name="errors"> errors. </param>
+        /// <param name="nextLink"> next link. </param>
+        /// <param name="tasks"> List of tasks. </param>
         /// <param name="statistics"> if showStats=true was specified in the request this field will contain information about the request payload. </param>
-        internal AnalyzeTextJobState(string displayName, DateTimeOffset createdDateTime, DateTimeOffset? expirationDateTime, string jobId, DateTimeOffset lastUpdatedDateTime, TextAnalyticsOperationStatus status, IReadOnlyList<Error> errors, string nextLink, AnalyzeTasks tasks, TextDocumentBatchStatistics statistics) : base(displayName, createdDateTime, expirationDateTime, jobId, lastUpdatedDateTime, status, errors, nextLink)
+        internal AnalyzeTextJobState(string displayName, DateTimeOffset createdDateTime, DateTimeOffset? expirationDateTime, Guid jobId, DateTimeOffset lastUpdatedDateTime, TextAnalyticsOperationStatus status, IReadOnlyList<Error> errors, string nextLink, Tasks tasks, TextDocumentBatchStatistics statistics)
         {
+            DisplayName = displayName;
+            CreatedDateTime = createdDateTime;
+            ExpirationDateTime = expirationDateTime;
+            JobId = jobId;
+            LastUpdatedDateTime = lastUpdatedDateTime;
+            Status = status;
+            Errors = errors;
+            NextLink = nextLink;
             Tasks = tasks;
             Statistics = statistics;
         }
 
-        /// <summary> Gets the tasks. </summary>
-        public AnalyzeTasks Tasks { get; }
+        /// <summary> display name. </summary>
+        public string DisplayName { get; }
+        /// <summary> Date and time job created. </summary>
+        public DateTimeOffset CreatedDateTime { get; }
+        /// <summary> Date and time job expires. </summary>
+        public DateTimeOffset? ExpirationDateTime { get; }
+        /// <summary> job ID. </summary>
+        public Guid JobId { get; }
+        /// <summary> last updated date and time. </summary>
+        public DateTimeOffset LastUpdatedDateTime { get; }
+        /// <summary> status. </summary>
+        public TextAnalyticsOperationStatus Status { get; }
+        /// <summary> errors. </summary>
+        public IReadOnlyList<Error> Errors { get; }
+        /// <summary> next link. </summary>
+        public string NextLink { get; }
+        /// <summary> List of tasks. </summary>
+        public Tasks Tasks { get; }
         /// <summary> if showStats=true was specified in the request this field will contain information about the request payload. </summary>
         public TextDocumentBatchStatistics Statistics { get; }
     }
