@@ -49,11 +49,8 @@ namespace Azure.ResourceManager.Support.Models
                 writer.WritePropertyName("sender"u8);
                 writer.WriteStringValue(Sender);
             }
-            if (Optional.IsDefined(Body))
-            {
-                writer.WritePropertyName("body"u8);
-                writer.WriteStringValue(Body);
-            }
+            writer.WritePropertyName("body"u8);
+            writer.WriteStringValue(Body);
             if (options.Format != "W" && Optional.IsDefined(CreatedOn))
             {
                 writer.WritePropertyName("createdDate"u8);
