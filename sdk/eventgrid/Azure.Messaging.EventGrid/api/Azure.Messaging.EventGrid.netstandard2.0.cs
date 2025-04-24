@@ -150,6 +150,10 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementApiReleaseDeletedEventData ApiManagementApiReleaseDeletedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementApiReleaseUpdatedEventData ApiManagementApiReleaseUpdatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementApiUpdatedEventData ApiManagementApiUpdatedEventData(string resourceUri = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementCircuitBreakerClosedEventData ApiManagementCircuitBreakerClosedEventData(string backendName = null, Azure.Messaging.EventGrid.SystemEvents.ApiManagementCircuitBreakerProperties circuitBreaker = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementCircuitBreakerOpenedEventData ApiManagementCircuitBreakerOpenedEventData(string backendName = null, Azure.Messaging.EventGrid.SystemEvents.ApiManagementCircuitBreakerProperties circuitBreaker = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementCircuitBreakerProperties ApiManagementCircuitBreakerProperties(System.Collections.Generic.IReadOnlyDictionary<string, object> rules = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementExpiredGatewayTokenProperties ApiManagementExpiredGatewayTokenProperties(System.DateTimeOffset? expiresOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayApiAddedEventData ApiManagementGatewayApiAddedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayApiRemovedEventData ApiManagementGatewayApiRemovedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayCertificateAuthorityCreatedEventData ApiManagementGatewayCertificateAuthorityCreatedEventData(string resourceUri = null) { throw null; }
@@ -160,6 +164,10 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayHostnameConfigurationCreatedEventData ApiManagementGatewayHostnameConfigurationCreatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayHostnameConfigurationDeletedEventData ApiManagementGatewayHostnameConfigurationDeletedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayHostnameConfigurationUpdatedEventData ApiManagementGatewayHostnameConfigurationUpdatedEventData(string resourceUri = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayProperties ApiManagementGatewayProperties(string gatewayId = null, string instanceId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayTokenExpiredEventData ApiManagementGatewayTokenExpiredEventData(Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayProperties gateway = null, Azure.Messaging.EventGrid.SystemEvents.ApiManagementExpiredGatewayTokenProperties token = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayTokenNearExpiryEventData ApiManagementGatewayTokenNearExpiryEventData(Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayProperties gateway = null, Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayTokenNearExpiryProperties token = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayTokenNearExpiryProperties ApiManagementGatewayTokenNearExpiryProperties(System.DateTimeOffset? expiresOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayUpdatedEventData ApiManagementGatewayUpdatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementProductCreatedEventData ApiManagementProductCreatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementProductDeletedEventData ApiManagementProductDeletedEventData(string resourceUri = null) { throw null; }
@@ -232,6 +240,7 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinInfoX509Thumbprint DeviceTwinInfoX509Thumbprint(string primaryThumbprint = null, string secondaryThumbprint = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata DeviceTwinMetadata(string lastUpdated = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceTwinProperties DeviceTwinProperties(Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata metadata = null, float? version = default(float?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.EdgeSolutionVersionPublishedEventData EdgeSolutionVersionPublishedEventData(string externalValidationId = null, string targetId = null, string solutionTemplateId = null, string solutionTemplateVersionId = null, string solutionVersionId = null, string apiVersion = null, System.Uri callbackUrl = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientCreatedOrUpdatedEventData EventGridMqttClientCreatedOrUpdatedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null, Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientState? state = default(Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? updatedOn = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, string> attributes = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientDeletedEventData EventGridMqttClientDeletedEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientEventData EventGridMqttClientEventData(string clientAuthenticationName = null, string clientName = null, string namespaceName = null) { throw null; }
@@ -496,6 +505,8 @@ namespace Azure.Messaging.EventGrid
         public const string ApiManagementApiReleaseDeleted = "Microsoft.ApiManagement.APIReleaseDeleted";
         public const string ApiManagementApiReleaseUpdated = "Microsoft.ApiManagement.APIReleaseUpdated";
         public const string ApiManagementApiUpdated = "Microsoft.ApiManagement.APIUpdated";
+        public const string ApiManagementCircuitBreakerClosed = "Microsoft.ApiManagement.CircuitBreaker.Closed";
+        public const string ApiManagementCircuitBreakerOpened = "Microsoft.ApiManagement.CircuitBreaker.Opened";
         public const string ApiManagementGatewayApiAdded = "Microsoft.ApiManagement.GatewayAPIAdded";
         public const string ApiManagementGatewayApiRemoved = "Microsoft.ApiManagement.GatewayAPIRemoved";
         public const string ApiManagementGatewayCertificateAuthorityCreated = "Microsoft.ApiManagement.GatewayCertificateAuthorityCreated";
@@ -506,6 +517,8 @@ namespace Azure.Messaging.EventGrid
         public const string ApiManagementGatewayHostnameConfigurationCreated = "Microsoft.ApiManagement.GatewayHostnameConfigurationCreated";
         public const string ApiManagementGatewayHostnameConfigurationDeleted = "Microsoft.ApiManagement.GatewayHostnameConfigurationDeleted";
         public const string ApiManagementGatewayHostnameConfigurationUpdated = "Microsoft.ApiManagement.GatewayHostnameConfigurationUpdated";
+        public const string ApiManagementGatewayTokenExpired = "Microsoft.ApiManagement.GatewayTokenExpired";
+        public const string ApiManagementGatewayTokenNearExpiry = "Microsoft.ApiManagement.GatewayTokenNearExpiry";
         public const string ApiManagementGatewayUpdated = "Microsoft.ApiManagement.GatewayUpdated";
         public const string ApiManagementProductCreated = "Microsoft.ApiManagement.ProductCreated";
         public const string ApiManagementProductDeleted = "Microsoft.ApiManagement.ProductDeleted";
@@ -545,6 +558,7 @@ namespace Azure.Messaging.EventGrid
         public const string DataBoxCopyCompleted = "Microsoft.DataBox.CopyCompleted";
         public const string DataBoxCopyStarted = "Microsoft.DataBox.CopyStarted";
         public const string DataBoxOrderCompleted = "Microsoft.DataBox.OrderCompleted";
+        public const string EdgeSolutionVersionPublished = "Microsoft.Edge.SolutionVersionPublished";
         public const string EventGridMqttClientCreatedOrUpdated = "Microsoft.EventGrid.MQTTClientCreatedOrUpdated";
         public const string EventGridMqttClientDeleted = "Microsoft.EventGrid.MQTTClientDeleted";
         public const string EventGridMqttClientSessionConnected = "Microsoft.EventGrid.MQTTClientSessionConnected";
@@ -1678,6 +1692,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         internal ApiManagementApiUpdatedEventData() { }
         public string ResourceUri { get { throw null; } }
     }
+    public partial class ApiManagementCircuitBreakerClosedEventData
+    {
+        internal ApiManagementCircuitBreakerClosedEventData() { }
+        public string BackendName { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ApiManagementCircuitBreakerProperties CircuitBreaker { get { throw null; } }
+    }
+    public partial class ApiManagementCircuitBreakerOpenedEventData
+    {
+        internal ApiManagementCircuitBreakerOpenedEventData() { }
+        public string BackendName { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ApiManagementCircuitBreakerProperties CircuitBreaker { get { throw null; } }
+    }
+    public partial class ApiManagementCircuitBreakerProperties
+    {
+        internal ApiManagementCircuitBreakerProperties() { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Rules { get { throw null; } }
+    }
+    public partial class ApiManagementExpiredGatewayTokenProperties
+    {
+        internal ApiManagementExpiredGatewayTokenProperties() { }
+        public System.DateTimeOffset? ExpiresOn { get { throw null; } }
+    }
     public partial class ApiManagementGatewayApiAddedEventData
     {
         internal ApiManagementGatewayApiAddedEventData() { }
@@ -1727,6 +1763,29 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     {
         internal ApiManagementGatewayHostnameConfigurationUpdatedEventData() { }
         public string ResourceUri { get { throw null; } }
+    }
+    public partial class ApiManagementGatewayProperties
+    {
+        internal ApiManagementGatewayProperties() { }
+        public string GatewayId { get { throw null; } }
+        public string InstanceId { get { throw null; } }
+    }
+    public partial class ApiManagementGatewayTokenExpiredEventData
+    {
+        internal ApiManagementGatewayTokenExpiredEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayProperties Gateway { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ApiManagementExpiredGatewayTokenProperties Token { get { throw null; } }
+    }
+    public partial class ApiManagementGatewayTokenNearExpiryEventData
+    {
+        internal ApiManagementGatewayTokenNearExpiryEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayProperties Gateway { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ApiManagementGatewayTokenNearExpiryProperties Token { get { throw null; } }
+    }
+    public partial class ApiManagementGatewayTokenNearExpiryProperties
+    {
+        internal ApiManagementGatewayTokenNearExpiryProperties() { }
+        public System.DateTimeOffset? ExpiresOn { get { throw null; } }
     }
     public partial class ApiManagementGatewayUpdatedEventData
     {
@@ -2213,6 +2272,17 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         internal DeviceTwinProperties() { }
         public Azure.Messaging.EventGrid.SystemEvents.DeviceTwinMetadata Metadata { get { throw null; } }
         public float? Version { get { throw null; } }
+    }
+    public partial class EdgeSolutionVersionPublishedEventData
+    {
+        internal EdgeSolutionVersionPublishedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public System.Uri CallbackUrl { get { throw null; } }
+        public string ExternalValidationId { get { throw null; } }
+        public string SolutionTemplateId { get { throw null; } }
+        public string SolutionTemplateVersionId { get { throw null; } }
+        public string SolutionVersionId { get { throw null; } }
+        public string TargetId { get { throw null; } }
     }
     public partial class EventGridMqttClientCreatedOrUpdatedEventData : Azure.Messaging.EventGrid.SystemEvents.EventGridMqttClientEventData
     {
