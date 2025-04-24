@@ -13,19 +13,19 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
-namespace Azure.AI.Projects
+namespace Azure.AI.Agents.Persistent
 {
-    // Data plane generated sub-client.
-    /// <summary> The Agents sub-client. </summary>
-    public partial class AgentsClient
+    // Data plane generated client.
+    /// <summary> The PersistentAgents service client. </summary>
+    public partial class PersistentAgentsClient
     {
-        private static readonly string[] AuthorizationScopes = new string[] { "https://management.azure.com/.default" };
+        private const string AuthorizationHeader = "Authorization";
+        private readonly AzureKeyCredential _keyCredential;
+        private const string AuthorizationApiKeyPrefix = "Bearer";
+        private static readonly string[] AuthorizationScopes = new string[] { "https://cognitiveservices.azure.com/.default" };
         private readonly TokenCredential _tokenCredential;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
-        private readonly string _subscriptionId;
-        private readonly string _resourceGroupName;
-        private readonly string _projectName;
         private readonly string _apiVersion;
 
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
@@ -34,30 +34,61 @@ namespace Azure.AI.Projects
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
 
-        /// <summary> Initializes a new instance of AgentsClient for mocking. </summary>
-        protected AgentsClient()
+        /// <summary> Initializes a new instance of PersistentAgentsClient for mocking. </summary>
+        protected PersistentAgentsClient()
         {
         }
 
-        /// <summary> Initializes a new instance of AgentsClient. </summary>
-        /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
-        /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
-        /// <param name="tokenCredential"> The token credential to copy. </param>
-        /// <param name="endpoint"> The Azure AI Foundry project endpoint, in the form `https://&lt;azure-region&gt;.api.azureml.ms` or `https://&lt;private-link-guid&gt;.&lt;azure-region&gt;.api.azureml.ms`, where &lt;azure-region&gt; is the Azure region where the project is deployed (e.g. westus) and &lt;private-link-guid&gt; is the GUID of the Enterprise private link. </param>
-        /// <param name="subscriptionId"> The Azure subscription ID. </param>
-        /// <param name="resourceGroupName"> The name of the Azure Resource Group. </param>
-        /// <param name="projectName"> The Azure AI Foundry project name. </param>
-        /// <param name="apiVersion"> The API version to use for this operation. </param>
-        internal AgentsClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, TokenCredential tokenCredential, Uri endpoint, string subscriptionId, string resourceGroupName, string projectName, string apiVersion)
+        /// <summary> Initializes a new instance of PersistentAgentsClient. </summary>
+        /// <param name="endpoint"> Project endpoint in the form of: https://&lt;aiservices-id&gt;.services.ai.azure.com/api/projects/&lt;project-name&gt;. </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public PersistentAgentsClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new PersistentAgentsClientOptions())
         {
-            ClientDiagnostics = clientDiagnostics;
-            _pipeline = pipeline;
-            _tokenCredential = tokenCredential;
+        }
+
+        /// <summary> Initializes a new instance of PersistentAgentsClient. </summary>
+        /// <param name="endpoint"> Project endpoint in the form of: https://&lt;aiservices-id&gt;.services.ai.azure.com/api/projects/&lt;project-name&gt;. </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public PersistentAgentsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new PersistentAgentsClientOptions())
+        {
+        }
+
+        /// <summary> Initializes a new instance of PersistentAgentsClient. </summary>
+        /// <param name="endpoint"> Project endpoint in the form of: https://&lt;aiservices-id&gt;.services.ai.azure.com/api/projects/&lt;project-name&gt;. </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public PersistentAgentsClient(Uri endpoint, AzureKeyCredential credential, PersistentAgentsClientOptions options)
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNull(credential, nameof(credential));
+            options ??= new PersistentAgentsClientOptions();
+
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+            _keyCredential = credential;
+            _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new AzureKeyCredentialPolicy(_keyCredential, AuthorizationHeader, AuthorizationApiKeyPrefix) }, new ResponseClassifier());
             _endpoint = endpoint;
-            _subscriptionId = subscriptionId;
-            _resourceGroupName = resourceGroupName;
-            _projectName = projectName;
-            _apiVersion = apiVersion;
+            _apiVersion = options.Version;
+        }
+
+        /// <summary> Initializes a new instance of PersistentAgentsClient. </summary>
+        /// <param name="endpoint"> Project endpoint in the form of: https://&lt;aiservices-id&gt;.services.ai.azure.com/api/projects/&lt;project-name&gt;. </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public PersistentAgentsClient(Uri endpoint, TokenCredential credential, PersistentAgentsClientOptions options)
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNull(credential, nameof(credential));
+            options ??= new PersistentAgentsClientOptions();
+
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+            _tokenCredential = credential;
+            _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
+            _endpoint = endpoint;
+            _apiVersion = options.Version;
         }
 
         /// <summary> Creates a new agent. </summary>
@@ -84,7 +115,7 @@ namespace Azure.AI.Projects
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="model"/> is null. </exception>
-        public virtual async Task<Response<Agent>> CreateAgentAsync(string model, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PersistentAgent>> CreateAgentAsync(string model, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(model, nameof(model));
 
@@ -102,7 +133,7 @@ namespace Azure.AI.Projects
                 null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await CreateAgentAsync(createAgentRequest.ToRequestContent(), context).ConfigureAwait(false);
-            return Response.FromValue(Agent.FromResponse(response), response);
+            return Response.FromValue(PersistentAgent.FromResponse(response), response);
         }
 
         /// <summary> Creates a new agent. </summary>
@@ -129,7 +160,7 @@ namespace Azure.AI.Projects
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="model"/> is null. </exception>
-        public virtual Response<Agent> CreateAgent(string model, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual Response<PersistentAgent> CreateAgent(string model, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(model, nameof(model));
 
@@ -147,7 +178,7 @@ namespace Azure.AI.Projects
                 null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = CreateAgent(createAgentRequest.ToRequestContent(), context);
-            return Response.FromValue(Agent.FromResponse(response), response);
+            return Response.FromValue(PersistentAgent.FromResponse(response), response);
         }
 
         /// <summary>
@@ -174,7 +205,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateAgent");
             scope.Start();
             try
             {
@@ -212,7 +243,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateAgent");
             scope.Start();
             try
             {
@@ -232,11 +263,11 @@ namespace Azure.AI.Projects
         /// <param name="after"> A cursor for use in pagination. after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. </param>
         /// <param name="before"> A cursor for use in pagination. before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        internal virtual async Task<Response<InternalOpenAIPageableListOfAgent>> InternalGetAgentsAsync(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response<OpenAIPageableListOfAgent>> InternalGetAgentsAsync(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await InternalGetAgentsAsync(limit, order?.ToString(), after, before, context).ConfigureAwait(false);
-            return Response.FromValue(InternalOpenAIPageableListOfAgent.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfAgent.FromResponse(response), response);
         }
 
         /// <summary> Gets a list of agents that were previously created. </summary>
@@ -245,11 +276,11 @@ namespace Azure.AI.Projects
         /// <param name="after"> A cursor for use in pagination. after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. </param>
         /// <param name="before"> A cursor for use in pagination. before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        internal virtual Response<InternalOpenAIPageableListOfAgent> InternalGetAgents(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual Response<OpenAIPageableListOfAgent> InternalGetAgents(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = InternalGetAgents(limit, order?.ToString(), after, before, context);
-            return Response.FromValue(InternalOpenAIPageableListOfAgent.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfAgent.FromResponse(response), response);
         }
 
         /// <summary>
@@ -276,7 +307,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         internal virtual async Task<Response> InternalGetAgentsAsync(int? limit, string order, string after, string before, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetAgents");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetAgents");
             scope.Start();
             try
             {
@@ -314,7 +345,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         internal virtual Response InternalGetAgents(int? limit, string order, string after, string before, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetAgents");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetAgents");
             scope.Start();
             try
             {
@@ -333,13 +364,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<Agent>> GetAgentAsync(string assistantId, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PersistentAgent>> GetAgentAsync(string assistantId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetAgentAsync(assistantId, context).ConfigureAwait(false);
-            return Response.FromValue(Agent.FromResponse(response), response);
+            return Response.FromValue(PersistentAgent.FromResponse(response), response);
         }
 
         /// <summary> Retrieves an existing agent. </summary>
@@ -347,13 +378,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<Agent> GetAgent(string assistantId, CancellationToken cancellationToken = default)
+        public virtual Response<PersistentAgent> GetAgent(string assistantId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetAgent(assistantId, context);
-            return Response.FromValue(Agent.FromResponse(response), response);
+            return Response.FromValue(PersistentAgent.FromResponse(response), response);
         }
 
         /// <summary>
@@ -381,7 +412,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetAgent");
             scope.Start();
             try
             {
@@ -420,7 +451,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetAgent");
             scope.Start();
             try
             {
@@ -460,7 +491,7 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<Agent>> UpdateAgentAsync(string assistantId, string model = null, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PersistentAgent>> UpdateAgentAsync(string assistantId, string model = null, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
@@ -478,7 +509,7 @@ namespace Azure.AI.Projects
                 null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await UpdateAgentAsync(assistantId, updateAgentRequest.ToRequestContent(), context).ConfigureAwait(false);
-            return Response.FromValue(Agent.FromResponse(response), response);
+            return Response.FromValue(PersistentAgent.FromResponse(response), response);
         }
 
         /// <summary> Modifies an existing agent. </summary>
@@ -507,7 +538,7 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<Agent> UpdateAgent(string assistantId, string model = null, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual Response<PersistentAgent> UpdateAgent(string assistantId, string model = null, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
@@ -525,7 +556,7 @@ namespace Azure.AI.Projects
                 null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = UpdateAgent(assistantId, updateAgentRequest.ToRequestContent(), context);
-            return Response.FromValue(Agent.FromResponse(response), response);
+            return Response.FromValue(PersistentAgent.FromResponse(response), response);
         }
 
         /// <summary>
@@ -555,7 +586,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateAgent");
             scope.Start();
             try
             {
@@ -596,7 +627,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateAgent");
             scope.Start();
             try
             {
@@ -663,7 +694,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalDeleteAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalDeleteAgent");
             scope.Start();
             try
             {
@@ -702,7 +733,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalDeleteAgent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalDeleteAgent");
             scope.Start();
             try
             {
@@ -725,12 +756,12 @@ namespace Azure.AI.Projects
         /// </param>
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<AgentThread>> CreateThreadAsync(IEnumerable<ThreadMessageOptions> messages = null, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PersistentAgentThread>> CreateThreadAsync(IEnumerable<ThreadMessageOptions> messages = null, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             CreateThreadRequest createThreadRequest = new CreateThreadRequest(messages?.ToList() as IReadOnlyList<ThreadMessageOptions> ?? new ChangeTrackingList<ThreadMessageOptions>(), toolResources, metadata ?? new ChangeTrackingDictionary<string, string>(), null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await CreateThreadAsync(createThreadRequest.ToRequestContent(), context).ConfigureAwait(false);
-            return Response.FromValue(AgentThread.FromResponse(response), response);
+            return Response.FromValue(PersistentAgentThread.FromResponse(response), response);
         }
 
         /// <summary> Creates a new thread. Threads contain messages and can be run by agents. </summary>
@@ -742,12 +773,12 @@ namespace Azure.AI.Projects
         /// </param>
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<AgentThread> CreateThread(IEnumerable<ThreadMessageOptions> messages = null, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual Response<PersistentAgentThread> CreateThread(IEnumerable<ThreadMessageOptions> messages = null, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             CreateThreadRequest createThreadRequest = new CreateThreadRequest(messages?.ToList() as IReadOnlyList<ThreadMessageOptions> ?? new ChangeTrackingList<ThreadMessageOptions>(), toolResources, metadata ?? new ChangeTrackingDictionary<string, string>(), null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = CreateThread(createThreadRequest.ToRequestContent(), context);
-            return Response.FromValue(AgentThread.FromResponse(response), response);
+            return Response.FromValue(PersistentAgentThread.FromResponse(response), response);
         }
 
         /// <summary>
@@ -774,7 +805,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateThread");
             scope.Start();
             try
             {
@@ -812,7 +843,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateThread");
             scope.Start();
             try
             {
@@ -831,13 +862,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<AgentThread>> GetThreadAsync(string threadId, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PersistentAgentThread>> GetThreadAsync(string threadId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetThreadAsync(threadId, context).ConfigureAwait(false);
-            return Response.FromValue(AgentThread.FromResponse(response), response);
+            return Response.FromValue(PersistentAgentThread.FromResponse(response), response);
         }
 
         /// <summary> Gets information about an existing thread. </summary>
@@ -845,13 +876,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<AgentThread> GetThread(string threadId, CancellationToken cancellationToken = default)
+        public virtual Response<PersistentAgentThread> GetThread(string threadId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetThread(threadId, context);
-            return Response.FromValue(AgentThread.FromResponse(response), response);
+            return Response.FromValue(PersistentAgentThread.FromResponse(response), response);
         }
 
         /// <summary>
@@ -879,7 +910,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetThread");
             scope.Start();
             try
             {
@@ -918,7 +949,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetThread");
             scope.Start();
             try
             {
@@ -943,14 +974,14 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<AgentThread>> UpdateThreadAsync(string threadId, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PersistentAgentThread>> UpdateThreadAsync(string threadId, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             UpdateThreadRequest updateThreadRequest = new UpdateThreadRequest(toolResources, metadata ?? new ChangeTrackingDictionary<string, string>(), null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await UpdateThreadAsync(threadId, updateThreadRequest.ToRequestContent(), context).ConfigureAwait(false);
-            return Response.FromValue(AgentThread.FromResponse(response), response);
+            return Response.FromValue(PersistentAgentThread.FromResponse(response), response);
         }
 
         /// <summary> Modifies an existing thread. </summary>
@@ -964,14 +995,14 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<AgentThread> UpdateThread(string threadId, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual Response<PersistentAgentThread> UpdateThread(string threadId, ToolResources toolResources = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             UpdateThreadRequest updateThreadRequest = new UpdateThreadRequest(toolResources, metadata ?? new ChangeTrackingDictionary<string, string>(), null);
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = UpdateThread(threadId, updateThreadRequest.ToRequestContent(), context);
-            return Response.FromValue(AgentThread.FromResponse(response), response);
+            return Response.FromValue(PersistentAgentThread.FromResponse(response), response);
         }
 
         /// <summary>
@@ -1001,7 +1032,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateThread");
             scope.Start();
             try
             {
@@ -1042,7 +1073,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateThread");
             scope.Start();
             try
             {
@@ -1109,7 +1140,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalDeleteThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalDeleteThread");
             scope.Start();
             try
             {
@@ -1148,7 +1179,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalDeleteThread");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalDeleteThread");
             scope.Start();
             try
             {
@@ -1212,7 +1243,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         internal virtual async Task<Response> InternalGetThreadsAsync(int? limit, string order, string after, string before, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetThreads");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetThreads");
             scope.Start();
             try
             {
@@ -1250,7 +1281,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         internal virtual Response InternalGetThreads(int? limit, string order, string after, string before, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetThreads");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetThreads");
             scope.Start();
             try
             {
@@ -1351,7 +1382,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateMessage");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateMessage");
             scope.Start();
             try
             {
@@ -1392,7 +1423,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateMessage");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateMessage");
             scope.Start();
             try
             {
@@ -1416,13 +1447,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual async Task<Response<InternalOpenAIPageableListOfThreadMessage>> InternalGetMessagesAsync(string threadId, string runId = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response<OpenAIPageableListOfThreadMessage>> InternalGetMessagesAsync(string threadId, string runId = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await InternalGetMessagesAsync(threadId, runId, limit, order?.ToString(), after, before, context).ConfigureAwait(false);
-            return Response.FromValue(InternalOpenAIPageableListOfThreadMessage.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfThreadMessage.FromResponse(response), response);
         }
 
         /// <summary> Gets a list of messages that exist on a thread. </summary>
@@ -1435,13 +1466,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual Response<InternalOpenAIPageableListOfThreadMessage> InternalGetMessages(string threadId, string runId = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual Response<OpenAIPageableListOfThreadMessage> InternalGetMessages(string threadId, string runId = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = InternalGetMessages(threadId, runId, limit, order?.ToString(), after, before, context);
-            return Response.FromValue(InternalOpenAIPageableListOfThreadMessage.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfThreadMessage.FromResponse(response), response);
         }
 
         /// <summary>
@@ -1474,7 +1505,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetMessages");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetMessages");
             scope.Start();
             try
             {
@@ -1518,7 +1549,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetMessages");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetMessages");
             scope.Start();
             try
             {
@@ -1591,7 +1622,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(messageId, nameof(messageId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetMessage");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetMessage");
             scope.Start();
             try
             {
@@ -1632,7 +1663,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(messageId, nameof(messageId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetMessage");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetMessage");
             scope.Start();
             try
             {
@@ -1711,7 +1742,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(messageId, nameof(messageId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateMessage");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateMessage");
             scope.Start();
             try
             {
@@ -1754,7 +1785,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(messageId, nameof(messageId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateMessage");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateMessage");
             scope.Start();
             try
             {
@@ -1951,7 +1982,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateRun");
             scope.Start();
             try
             {
@@ -1996,7 +2027,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateRun");
             scope.Start();
             try
             {
@@ -2019,13 +2050,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual async Task<Response<InternalOpenAIPageableListOfThreadRun>> InternalGetRunsAsync(string threadId, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response<OpenAIPageableListOfThreadRun>> InternalGetRunsAsync(string threadId, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await InternalGetRunsAsync(threadId, limit, order?.ToString(), after, before, context).ConfigureAwait(false);
-            return Response.FromValue(InternalOpenAIPageableListOfThreadRun.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfThreadRun.FromResponse(response), response);
         }
 
         /// <summary> Gets a list of runs for a specified thread. </summary>
@@ -2037,13 +2068,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual Response<InternalOpenAIPageableListOfThreadRun> InternalGetRuns(string threadId, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual Response<OpenAIPageableListOfThreadRun> InternalGetRuns(string threadId, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = InternalGetRuns(threadId, limit, order?.ToString(), after, before, context);
-            return Response.FromValue(InternalOpenAIPageableListOfThreadRun.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfThreadRun.FromResponse(response), response);
         }
 
         /// <summary>
@@ -2075,7 +2106,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetRuns");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetRuns");
             scope.Start();
             try
             {
@@ -2118,7 +2149,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetRuns");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetRuns");
             scope.Start();
             try
             {
@@ -2191,7 +2222,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetRun");
             scope.Start();
             try
             {
@@ -2232,7 +2263,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetRun");
             scope.Start();
             try
             {
@@ -2311,7 +2342,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateRun");
             scope.Start();
             try
             {
@@ -2354,11 +2385,137 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UpdateRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UpdateRun");
             scope.Start();
             try
             {
                 using HttpMessage message = CreateUpdateRunRequest(threadId, runId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Submits outputs from tools as requested by tool calls in a run. Runs that need submitted tool outputs will have a status of 'requires_action' with a required_action.type of 'submit_tool_outputs'. </summary>
+        /// <param name="threadId"> Identifier of the thread. </param>
+        /// <param name="runId"> Identifier of the run. </param>
+        /// <param name="toolOutputs"> A list of tools for which the outputs are being submitted. </param>
+        /// <param name="stream"> If true, returns a stream of events that happen during the Run as server-sent events, terminating when the run enters a terminal state. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="runId"/> or <paramref name="toolOutputs"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
+        public virtual async Task<Response<ThreadRun>> SubmitToolOutputsToRunAsync(string threadId, string runId, IEnumerable<ToolOutput> toolOutputs, bool? stream = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
+            Argument.AssertNotNullOrEmpty(runId, nameof(runId));
+            Argument.AssertNotNull(toolOutputs, nameof(toolOutputs));
+
+            SubmitToolOutputsToRunRequest submitToolOutputsToRunRequest = new SubmitToolOutputsToRunRequest(toolOutputs.ToList(), stream, null);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await SubmitToolOutputsToRunAsync(threadId, runId, submitToolOutputsToRunRequest.ToRequestContent(), context).ConfigureAwait(false);
+            return Response.FromValue(ThreadRun.FromResponse(response), response);
+        }
+
+        /// <summary> Submits outputs from tools as requested by tool calls in a run. Runs that need submitted tool outputs will have a status of 'requires_action' with a required_action.type of 'submit_tool_outputs'. </summary>
+        /// <param name="threadId"> Identifier of the thread. </param>
+        /// <param name="runId"> Identifier of the run. </param>
+        /// <param name="toolOutputs"> A list of tools for which the outputs are being submitted. </param>
+        /// <param name="stream"> If true, returns a stream of events that happen during the Run as server-sent events, terminating when the run enters a terminal state. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="runId"/> or <paramref name="toolOutputs"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
+        public virtual Response<ThreadRun> SubmitToolOutputsToRun(string threadId, string runId, IEnumerable<ToolOutput> toolOutputs, bool? stream = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
+            Argument.AssertNotNullOrEmpty(runId, nameof(runId));
+            Argument.AssertNotNull(toolOutputs, nameof(toolOutputs));
+
+            SubmitToolOutputsToRunRequest submitToolOutputsToRunRequest = new SubmitToolOutputsToRunRequest(toolOutputs.ToList(), stream, null);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = SubmitToolOutputsToRun(threadId, runId, submitToolOutputsToRunRequest.ToRequestContent(), context);
+            return Response.FromValue(ThreadRun.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// [Protocol Method] Submits outputs from tools as requested by tool calls in a run. Runs that need submitted tool outputs will have a status of 'requires_action' with a required_action.type of 'submit_tool_outputs'.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="SubmitToolOutputsToRunAsync(string,string,IEnumerable{ToolOutput},bool?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="threadId"> Identifier of the thread. </param>
+        /// <param name="runId"> Identifier of the run. </param>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="runId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual async Task<Response> SubmitToolOutputsToRunAsync(string threadId, string runId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
+            Argument.AssertNotNullOrEmpty(runId, nameof(runId));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.SubmitToolOutputsToRun");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateSubmitToolOutputsToRunRequest(threadId, runId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// [Protocol Method] Submits outputs from tools as requested by tool calls in a run. Runs that need submitted tool outputs will have a status of 'requires_action' with a required_action.type of 'submit_tool_outputs'.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="SubmitToolOutputsToRun(string,string,IEnumerable{ToolOutput},bool?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="threadId"> Identifier of the thread. </param>
+        /// <param name="runId"> Identifier of the run. </param>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="threadId"/>, <paramref name="runId"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual Response SubmitToolOutputsToRun(string threadId, string runId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
+            Argument.AssertNotNullOrEmpty(runId, nameof(runId));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.SubmitToolOutputsToRun");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateSubmitToolOutputsToRunRequest(threadId, runId, content, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -2427,7 +2584,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CancelRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CancelRun");
             scope.Start();
             try
             {
@@ -2468,7 +2625,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CancelRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CancelRun");
             scope.Start();
             try
             {
@@ -2521,7 +2678,7 @@ namespace Azure.AI.Projects
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
-        public virtual async Task<Response<ThreadRun>> CreateThreadAndRunAsync(string assistantId, AgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, UpdateToolResourcesOptions toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, TruncationObject truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ThreadRun>> CreateThreadAndRunAsync(string assistantId, PersistentAgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, UpdateToolResourcesOptions toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, TruncationObject truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(assistantId, nameof(assistantId));
 
@@ -2587,7 +2744,7 @@ namespace Azure.AI.Projects
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
-        public virtual Response<ThreadRun> CreateThreadAndRun(string assistantId, AgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, UpdateToolResourcesOptions toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, TruncationObject truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        public virtual Response<ThreadRun> CreateThreadAndRun(string assistantId, PersistentAgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, UpdateToolResourcesOptions toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, TruncationObject truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(assistantId, nameof(assistantId));
 
@@ -2624,7 +2781,7 @@ namespace Azure.AI.Projects
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="CreateThreadAndRunAsync(string,AgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},UpdateToolResourcesOptions,bool?,float?,float?,int?,int?,TruncationObject,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="CreateThreadAndRunAsync(string,PersistentAgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},UpdateToolResourcesOptions,bool?,float?,float?,int?,int?,TruncationObject,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -2638,7 +2795,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateThreadAndRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateThreadAndRun");
             scope.Start();
             try
             {
@@ -2662,7 +2819,7 @@ namespace Azure.AI.Projects
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="CreateThreadAndRun(string,AgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},UpdateToolResourcesOptions,bool?,float?,float?,int?,int?,TruncationObject,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="CreateThreadAndRun(string,PersistentAgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},UpdateToolResourcesOptions,bool?,float?,float?,int?,int?,TruncationObject,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -2676,7 +2833,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateThreadAndRun");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateThreadAndRun");
             scope.Start();
             try
             {
@@ -2767,7 +2924,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
             Argument.AssertNotNullOrEmpty(stepId, nameof(stepId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetRunStep");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetRunStep");
             scope.Start();
             try
             {
@@ -2814,7 +2971,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
             Argument.AssertNotNullOrEmpty(stepId, nameof(stepId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetRunStep");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetRunStep");
             scope.Start();
             try
             {
@@ -2842,14 +2999,14 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="runId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual async Task<Response<InternalOpenAIPageableListOfRunStep>> InternalGetRunStepsAsync(string threadId, string runId, IEnumerable<RunAdditionalFieldList> include = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response<OpenAIPageableListOfRunStep>> InternalGetRunStepsAsync(string threadId, string runId, IEnumerable<RunAdditionalFieldList> include = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await InternalGetRunStepsAsync(threadId, runId, include, limit, order?.ToString(), after, before, context).ConfigureAwait(false);
-            return Response.FromValue(InternalOpenAIPageableListOfRunStep.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfRunStep.FromResponse(response), response);
         }
 
         /// <summary> Gets a list of run steps from a thread run. </summary>
@@ -2866,14 +3023,14 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="threadId"/> or <paramref name="runId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="threadId"/> or <paramref name="runId"/> is an empty string, and was expected to be non-empty. </exception>
-        internal virtual Response<InternalOpenAIPageableListOfRunStep> InternalGetRunSteps(string threadId, string runId, IEnumerable<RunAdditionalFieldList> include = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        internal virtual Response<OpenAIPageableListOfRunStep> InternalGetRunSteps(string threadId, string runId, IEnumerable<RunAdditionalFieldList> include = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = InternalGetRunSteps(threadId, runId, include, limit, order?.ToString(), after, before, context);
-            return Response.FromValue(InternalOpenAIPageableListOfRunStep.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfRunStep.FromResponse(response), response);
         }
 
         /// <summary>
@@ -2911,7 +3068,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetRunSteps");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetRunSteps");
             scope.Start();
             try
             {
@@ -2960,7 +3117,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalGetRunSteps");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalGetRunSteps");
             scope.Start();
             try
             {
@@ -2977,7 +3134,7 @@ namespace Azure.AI.Projects
         /// <summary> Gets a list of previously uploaded files. </summary>
         /// <param name="purpose"> The purpose of the file. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        internal virtual async Task<Response<InternalFileListResponse>> InternalListFilesAsync(AgentFilePurpose? purpose = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response<InternalFileListResponse>> InternalListFilesAsync(OpenAIFilePurpose? purpose = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await InternalListFilesAsync(purpose?.ToString(), context).ConfigureAwait(false);
@@ -2987,7 +3144,7 @@ namespace Azure.AI.Projects
         /// <summary> Gets a list of previously uploaded files. </summary>
         /// <param name="purpose"> The purpose of the file. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        internal virtual Response<InternalFileListResponse> InternalListFiles(AgentFilePurpose? purpose = null, CancellationToken cancellationToken = default)
+        internal virtual Response<InternalFileListResponse> InternalListFiles(OpenAIFilePurpose? purpose = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = InternalListFiles(purpose?.ToString(), context);
@@ -3004,7 +3161,7 @@ namespace Azure.AI.Projects
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="InternalListFilesAsync(AgentFilePurpose?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="InternalListFilesAsync(OpenAIFilePurpose?,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -3015,7 +3172,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         internal virtual async Task<Response> InternalListFilesAsync(string purpose, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalListFiles");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalListFiles");
             scope.Start();
             try
             {
@@ -3039,7 +3196,7 @@ namespace Azure.AI.Projects
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="InternalListFiles(AgentFilePurpose?,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="InternalListFiles(OpenAIFilePurpose?,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -3050,7 +3207,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         internal virtual Response InternalListFiles(string purpose, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalListFiles");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalListFiles");
             scope.Start();
             try
             {
@@ -3062,6 +3219,34 @@ namespace Azure.AI.Projects
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary> Uploads a file for use by other operations. </summary>
+        /// <param name="body"> Multipart body. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<OpenAIFile>> UploadFileAsync(UploadFileRequest body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using MultipartFormDataRequestContent content = body.ToMultipartRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await UploadFileAsync(content, content.ContentType, context).ConfigureAwait(false);
+            return Response.FromValue(OpenAIFile.FromResponse(response), response);
+        }
+
+        /// <summary> Uploads a file for use by other operations. </summary>
+        /// <param name="body"> Multipart body. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<OpenAIFile> UploadFile(UploadFileRequest body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using MultipartFormDataRequestContent content = body.ToMultipartRequestContent();
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = UploadFile(content, content.ContentType, context);
+            return Response.FromValue(OpenAIFile.FromResponse(response), response);
         }
 
         /// <summary>
@@ -3089,7 +3274,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UploadFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UploadFile");
             scope.Start();
             try
             {
@@ -3128,7 +3313,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.UploadFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.UploadFile");
             scope.Start();
             try
             {
@@ -3195,7 +3380,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalDeleteFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalDeleteFile");
             scope.Start();
             try
             {
@@ -3234,7 +3419,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.InternalDeleteFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.InternalDeleteFile");
             scope.Start();
             try
             {
@@ -3253,13 +3438,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="fileId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="fileId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<AgentFile>> GetFileAsync(string fileId, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<OpenAIFile>> GetFileAsync(string fileId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetFileAsync(fileId, context).ConfigureAwait(false);
-            return Response.FromValue(AgentFile.FromResponse(response), response);
+            return Response.FromValue(OpenAIFile.FromResponse(response), response);
         }
 
         /// <summary> Returns information about a specific file. Does not retrieve file content. </summary>
@@ -3267,13 +3452,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="fileId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="fileId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<AgentFile> GetFile(string fileId, CancellationToken cancellationToken = default)
+        public virtual Response<OpenAIFile> GetFile(string fileId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetFile(fileId, context);
-            return Response.FromValue(AgentFile.FromResponse(response), response);
+            return Response.FromValue(OpenAIFile.FromResponse(response), response);
         }
 
         /// <summary>
@@ -3301,7 +3486,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetFile");
             scope.Start();
             try
             {
@@ -3340,7 +3525,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetFile");
             scope.Start();
             try
             {
@@ -3407,7 +3592,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetFileContent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetFileContent");
             scope.Start();
             try
             {
@@ -3446,7 +3631,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetFileContent");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetFileContent");
             scope.Start();
             try
             {
@@ -3466,11 +3651,11 @@ namespace Azure.AI.Projects
         /// <param name="after"> A cursor for use in pagination. after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. </param>
         /// <param name="before"> A cursor for use in pagination. before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<AgentPageableListOfVectorStore>> GetVectorStoresAsync(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<OpenAIPageableListOfVectorStore>> GetVectorStoresAsync(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetVectorStoresAsync(limit, order?.ToString(), after, before, context).ConfigureAwait(false);
-            return Response.FromValue(AgentPageableListOfVectorStore.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfVectorStore.FromResponse(response), response);
         }
 
         /// <summary> Returns a list of vector stores. </summary>
@@ -3479,11 +3664,11 @@ namespace Azure.AI.Projects
         /// <param name="after"> A cursor for use in pagination. after is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. </param>
         /// <param name="before"> A cursor for use in pagination. before is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<AgentPageableListOfVectorStore> GetVectorStores(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        public virtual Response<OpenAIPageableListOfVectorStore> GetVectorStores(int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetVectorStores(limit, order?.ToString(), after, before, context);
-            return Response.FromValue(AgentPageableListOfVectorStore.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfVectorStore.FromResponse(response), response);
         }
 
         /// <summary>
@@ -3510,7 +3695,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         public virtual async Task<Response> GetVectorStoresAsync(int? limit, string order, string after, string before, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStores");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStores");
             scope.Start();
             try
             {
@@ -3548,7 +3733,7 @@ namespace Azure.AI.Projects
         /// <returns> The response returned from the service. </returns>
         public virtual Response GetVectorStores(int? limit, string order, string after, string before, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStores");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStores");
             scope.Start();
             try
             {
@@ -3632,7 +3817,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateVectorStore");
             scope.Start();
             try
             {
@@ -3670,7 +3855,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateVectorStore");
             scope.Start();
             try
             {
@@ -3737,7 +3922,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStore");
             scope.Start();
             try
             {
@@ -3776,7 +3961,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStore");
             scope.Start();
             try
             {
@@ -3853,7 +4038,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.ModifyVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.ModifyVectorStore");
             scope.Start();
             try
             {
@@ -3894,7 +4079,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.ModifyVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.ModifyVectorStore");
             scope.Start();
             try
             {
@@ -3961,7 +4146,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.DeleteVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.DeleteVectorStore");
             scope.Start();
             try
             {
@@ -4000,7 +4185,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.DeleteVectorStore");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.DeleteVectorStore");
             scope.Start();
             try
             {
@@ -4024,13 +4209,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vectorStoreId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="vectorStoreId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<AgentPageableListOfVectorStoreFile>> GetVectorStoreFilesAsync(string vectorStoreId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<OpenAIPageableListOfVectorStoreFile>> GetVectorStoreFilesAsync(string vectorStoreId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetVectorStoreFilesAsync(vectorStoreId, filter?.ToString(), limit, order?.ToString(), after, before, context).ConfigureAwait(false);
-            return Response.FromValue(AgentPageableListOfVectorStoreFile.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfVectorStoreFile.FromResponse(response), response);
         }
 
         /// <summary> Returns a list of vector store files. </summary>
@@ -4043,13 +4228,13 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vectorStoreId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="vectorStoreId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<AgentPageableListOfVectorStoreFile> GetVectorStoreFiles(string vectorStoreId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        public virtual Response<OpenAIPageableListOfVectorStoreFile> GetVectorStoreFiles(string vectorStoreId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetVectorStoreFiles(vectorStoreId, filter?.ToString(), limit, order?.ToString(), after, before, context);
-            return Response.FromValue(AgentPageableListOfVectorStoreFile.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfVectorStoreFile.FromResponse(response), response);
         }
 
         /// <summary>
@@ -4082,7 +4267,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFiles");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFiles");
             scope.Start();
             try
             {
@@ -4126,7 +4311,7 @@ namespace Azure.AI.Projects
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFiles");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFiles");
             scope.Start();
             try
             {
@@ -4203,7 +4388,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateVectorStoreFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateVectorStoreFile");
             scope.Start();
             try
             {
@@ -4244,7 +4429,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateVectorStoreFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateVectorStoreFile");
             scope.Start();
             try
             {
@@ -4317,7 +4502,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFile");
             scope.Start();
             try
             {
@@ -4358,7 +4543,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFile");
             scope.Start();
             try
             {
@@ -4438,7 +4623,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.DeleteVectorStoreFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.DeleteVectorStoreFile");
             scope.Start();
             try
             {
@@ -4480,7 +4665,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(fileId, nameof(fileId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.DeleteVectorStoreFile");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.DeleteVectorStoreFile");
             scope.Start();
             try
             {
@@ -4557,7 +4742,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateVectorStoreFileBatch");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateVectorStoreFileBatch");
             scope.Start();
             try
             {
@@ -4598,7 +4783,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CreateVectorStoreFileBatch");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CreateVectorStoreFileBatch");
             scope.Start();
             try
             {
@@ -4671,7 +4856,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFileBatch");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFileBatch");
             scope.Start();
             try
             {
@@ -4712,7 +4897,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFileBatch");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFileBatch");
             scope.Start();
             try
             {
@@ -4785,7 +4970,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CancelVectorStoreFileBatch");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CancelVectorStoreFileBatch");
             scope.Start();
             try
             {
@@ -4826,7 +5011,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.CancelVectorStoreFileBatch");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.CancelVectorStoreFileBatch");
             scope.Start();
             try
             {
@@ -4851,14 +5036,14 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vectorStoreId"/> or <paramref name="batchId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="vectorStoreId"/> or <paramref name="batchId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<AgentPageableListOfVectorStoreFile>> GetVectorStoreFileBatchFilesAsync(string vectorStoreId, string batchId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<OpenAIPageableListOfVectorStoreFile>> GetVectorStoreFileBatchFilesAsync(string vectorStoreId, string batchId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = await GetVectorStoreFileBatchFilesAsync(vectorStoreId, batchId, filter?.ToString(), limit, order?.ToString(), after, before, context).ConfigureAwait(false);
-            return Response.FromValue(AgentPageableListOfVectorStoreFile.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfVectorStoreFile.FromResponse(response), response);
         }
 
         /// <summary> Returns a list of vector store files in a batch. </summary>
@@ -4872,14 +5057,14 @@ namespace Azure.AI.Projects
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vectorStoreId"/> or <paramref name="batchId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="vectorStoreId"/> or <paramref name="batchId"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<AgentPageableListOfVectorStoreFile> GetVectorStoreFileBatchFiles(string vectorStoreId, string batchId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
+        public virtual Response<OpenAIPageableListOfVectorStoreFile> GetVectorStoreFileBatchFiles(string vectorStoreId, string batchId, VectorStoreFileStatusFilter? filter = null, int? limit = null, ListSortOrder? order = null, string after = null, string before = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
             Response response = GetVectorStoreFileBatchFiles(vectorStoreId, batchId, filter?.ToString(), limit, order?.ToString(), after, before, context);
-            return Response.FromValue(AgentPageableListOfVectorStoreFile.FromResponse(response), response);
+            return Response.FromValue(OpenAIPageableListOfVectorStoreFile.FromResponse(response), response);
         }
 
         /// <summary>
@@ -4914,7 +5099,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFileBatchFiles");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFileBatchFiles");
             scope.Start();
             try
             {
@@ -4960,7 +5145,7 @@ namespace Azure.AI.Projects
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
 
-            using var scope = ClientDiagnostics.CreateScope("AgentsClient.GetVectorStoreFileBatchFiles");
+            using var scope = ClientDiagnostics.CreateScope("PersistentAgentsClient.GetVectorStoreFileBatchFiles");
             scope.Start();
             try
             {
@@ -4981,12 +5166,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/assistants", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -5003,12 +5182,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/assistants", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (limit != null)
@@ -5039,12 +5212,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/assistants/", false);
             uri.AppendPath(assistantId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5060,12 +5227,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/assistants/", false);
             uri.AppendPath(assistantId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5083,12 +5244,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/assistants/", false);
             uri.AppendPath(assistantId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5104,12 +5259,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -5126,12 +5275,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5147,12 +5290,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5170,12 +5307,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5191,12 +5322,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (limit != null)
@@ -5227,12 +5352,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/messages", false);
@@ -5251,19 +5370,13 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/messages", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (runId != null)
             {
-                uri.AppendQuery("runId", runId, true);
+                uri.AppendQuery("run_id", runId, true);
             }
             if (limit != null)
             {
@@ -5293,12 +5406,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/messages/", false);
@@ -5316,12 +5423,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/messages/", false);
@@ -5341,12 +5442,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs", false);
@@ -5369,12 +5464,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs", false);
@@ -5407,12 +5496,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs/", false);
@@ -5430,12 +5513,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs/", false);
@@ -5455,12 +5532,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs/", false);
@@ -5481,12 +5552,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs/", false);
@@ -5505,12 +5570,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/runs", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -5527,12 +5586,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs/", false);
@@ -5556,12 +5609,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/threads/", false);
             uri.AppendPath(threadId, true);
             uri.AppendPath("/runs/", false);
@@ -5600,12 +5647,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/files", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (purpose != null)
@@ -5624,12 +5665,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/files", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -5646,12 +5681,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/files/", false);
             uri.AppendPath(fileId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5667,12 +5696,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/files/", false);
             uri.AppendPath(fileId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5688,12 +5711,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/files/", false);
             uri.AppendPath(fileId, true);
             uri.AppendPath("/content", false);
@@ -5710,12 +5727,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (limit != null)
@@ -5746,12 +5757,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -5768,12 +5773,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5789,12 +5788,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5812,12 +5805,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -5833,12 +5820,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/files", false);
@@ -5875,12 +5856,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/files", false);
@@ -5899,12 +5874,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/files/", false);
@@ -5922,12 +5891,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/files/", false);
@@ -5945,12 +5908,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/file_batches", false);
@@ -5969,12 +5926,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/file_batches/", false);
@@ -5992,12 +5943,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/file_batches/", false);
@@ -6016,12 +5961,6 @@ namespace Azure.AI.Projects
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRaw("/agents/v1.0/subscriptions/", false);
-            uri.AppendRaw(_subscriptionId, true);
-            uri.AppendRaw("/resourceGroups/", false);
-            uri.AppendRaw(_resourceGroupName, true);
-            uri.AppendRaw("/providers/Microsoft.MachineLearningServices/workspaces/", false);
-            uri.AppendRaw(_projectName, true);
             uri.AppendPath("/vector_stores/", false);
             uri.AppendPath(vectorStoreId, true);
             uri.AppendPath("/file_batches/", false);
