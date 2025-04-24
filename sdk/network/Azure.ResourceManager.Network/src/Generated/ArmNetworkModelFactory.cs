@@ -4436,11 +4436,11 @@ namespace Azure.ResourceManager.Network.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.LoadBalancerHealthPerRulePerBackendAddress"/>. </summary>
         /// <param name="ipAddress"> The IP address belonging to the backend address. </param>
-        /// <param name="networkInterfaceIPConfigurationId"> The id of the network interface ip configuration belonging to the backend address. </param>
+        /// <param name="networkInterfaceIPConfigurationId"> Resource ID of the Network Interface IP Configuration. </param>
         /// <param name="state"> The current health of the backend instances that is associated to the LB rule. </param>
         /// <param name="reason"> The explanation of the State. </param>
         /// <returns> A new <see cref="Models.LoadBalancerHealthPerRulePerBackendAddress"/> instance for mocking. </returns>
-        public static LoadBalancerHealthPerRulePerBackendAddress LoadBalancerHealthPerRulePerBackendAddress(string ipAddress = null, NetworkInterfaceIPConfigurationData networkInterfaceIPConfigurationId = null, string state = null, string reason = null)
+        public static LoadBalancerHealthPerRulePerBackendAddress LoadBalancerHealthPerRulePerBackendAddress(string ipAddress = null, string networkInterfaceIPConfigurationId = null, string state = null, string reason = null)
         {
             return new LoadBalancerHealthPerRulePerBackendAddress(ipAddress, networkInterfaceIPConfigurationId, state, reason, serializedAdditionalRawData: null);
         }
