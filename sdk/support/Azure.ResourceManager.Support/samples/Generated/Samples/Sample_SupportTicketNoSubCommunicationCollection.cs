@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_AddCommunicationToNoSubscriptionTicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/CreateNoSubscriptionSupportTicketCommunication.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/CreateNoSubscriptionSupportTicketCommunication.json
             // this example is just showing the usage of "CommunicationsNoSubscription_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -38,9 +38,11 @@ namespace Azure.ResourceManager.Support.Samples
 
             // invoke the operation
             string communicationName = "testcommunication";
-            SupportTicketCommunicationData data = new SupportTicketCommunicationData("This is a test message from a customer!", "This is a test message from a customer!")
+            SupportTicketCommunicationData data = new SupportTicketCommunicationData
             {
                 Sender = "user@contoso.com",
+                Subject = "This is a test message from a customer!",
+                Body = "This is a test message from a customer!",
             };
             ArmOperation<SupportTicketNoSubCommunicationResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, communicationName, data);
             SupportTicketNoSubCommunicationResource result = lro.Value;
@@ -56,7 +58,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetCommunicationDetailsForANoSubscriptionSupportTicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetCommunicationDetailsForSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetCommunicationDetailsForSupportTicket.json
             // this example is just showing the usage of "CommunicationsNoSubscription_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -88,7 +90,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListCommunicationsForANoSubscriptionSupportTicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListCommunicationsForSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListCommunicationsForSupportTicket.json
             // this example is just showing the usage of "CommunicationsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -122,7 +124,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListWebCommunicationCreatedOnOrAfterASpecificDateForANoSubscriptionSupportTicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListWebCommunicationsForSupportTicketCreatedOnOrAfter.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListWebCommunicationsForSupportTicketCreatedOnOrAfter.json
             // this example is just showing the usage of "CommunicationsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -157,7 +159,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListWebCommunicationsForANoSubscriptionSupportTicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/ListWebCommunicationsForSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/ListWebCommunicationsForSupportTicket.json
             // this example is just showing the usage of "CommunicationsNoSubscription_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -192,7 +194,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetCommunicationDetailsForANoSubscriptionSupportTicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetCommunicationDetailsForSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetCommunicationDetailsForSupportTicket.json
             // this example is just showing the usage of "CommunicationsNoSubscription_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -220,7 +222,7 @@ namespace Azure.ResourceManager.Support.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetCommunicationDetailsForANoSubscriptionSupportTicket()
         {
-            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/stable/2024-04-01/examples/GetCommunicationDetailsForSupportTicket.json
+            // Generated from example definition: specification/support/resource-manager/Microsoft.Support/preview/2023-06-01-preview/examples/GetCommunicationDetailsForSupportTicket.json
             // this example is just showing the usage of "CommunicationsNoSubscription_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
