@@ -40,10 +40,10 @@ namespace Azure.ResourceManager.StorageActions
 
         private readonly ClientDiagnostics _storageTaskClientDiagnostics;
         private readonly StorageTasksRestOperations _storageTaskRestClient;
-        private readonly ClientDiagnostics _storageTaskAssignmentClientDiagnostics;
-        private readonly StorageTaskAssignmentRestOperations _storageTaskAssignmentRestClient;
         private readonly ClientDiagnostics _storageTasksReportClientDiagnostics;
         private readonly StorageTasksReportRestOperations _storageTasksReportRestClient;
+        private readonly ClientDiagnostics _storageTaskAssignmentClientDiagnostics;
+        private readonly StorageTaskAssignmentRestOperations _storageTaskAssignmentRestClient;
         private readonly StorageTaskData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -71,10 +71,10 @@ namespace Azure.ResourceManager.StorageActions
             _storageTaskClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.StorageActions", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string storageTaskApiVersion);
             _storageTaskRestClient = new StorageTasksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, storageTaskApiVersion);
-            _storageTaskAssignmentClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.StorageActions", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-            _storageTaskAssignmentRestClient = new StorageTaskAssignmentRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _storageTasksReportClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.StorageActions", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _storageTasksReportRestClient = new StorageTasksReportRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _storageTaskAssignmentClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.StorageActions", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _storageTaskAssignmentRestClient = new StorageTaskAssignmentRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -358,60 +358,6 @@ namespace Azure.ResourceManager.StorageActions
         }
 
         /// <summary>
-        /// Lists Resource IDs of the Storage Task Assignments associated with this Storage Task.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}/storageTaskAssignments</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>StorageTaskAssignment_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="maxpagesize"> Optional, specifies the maximum number of Storage Task Assignment Resource IDs to be included in the list response. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SubResource> GetStorageTaskAssignmentsAsync(int? maxpagesize = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _storageTaskAssignmentRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _storageTaskAssignmentRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => JsonSerializer.Deserialize<SubResource>(e.GetRawText()), _storageTaskAssignmentClientDiagnostics, Pipeline, "StorageTaskResource.GetStorageTaskAssignments", "value", "nextLink", maxpagesize, cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists Resource IDs of the Storage Task Assignments associated with this Storage Task.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}/storageTaskAssignments</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>StorageTaskAssignment_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-01-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="maxpagesize"> Optional, specifies the maximum number of Storage Task Assignment Resource IDs to be included in the list response. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SubResource> GetStorageTaskAssignments(int? maxpagesize = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _storageTaskAssignmentRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _storageTaskAssignmentRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => JsonSerializer.Deserialize<SubResource>(e.GetRawText()), _storageTaskAssignmentClientDiagnostics, Pipeline, "StorageTaskResource.GetStorageTaskAssignments", "value", "nextLink", maxpagesize, cancellationToken);
-        }
-
-        /// <summary>
         /// Fetch the storage tasks run report summary for each assignment.
         /// <list type="bullet">
         /// <item>
@@ -465,6 +411,60 @@ namespace Azure.ResourceManager.StorageActions
             HttpMessage FirstPageRequest(int? pageSizeHint) => _storageTasksReportRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint, filter);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _storageTasksReportRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint, filter);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => StorageTaskReportInstance.DeserializeStorageTaskReportInstance(e), _storageTasksReportClientDiagnostics, Pipeline, "StorageTaskResource.GetStorageTasksReports", "value", "nextLink", maxpagesize, cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists Resource IDs of the Storage Task Assignments associated with this Storage Task.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}/storageTaskAssignments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StorageTaskAssignment_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-01-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="maxpagesize"> Optional, specifies the maximum number of Storage Task Assignment Resource IDs to be included in the list response. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SubResource> GetStorageTaskAssignmentsAsync(int? maxpagesize = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _storageTaskAssignmentRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _storageTaskAssignmentRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => JsonSerializer.Deserialize<SubResource>(e.GetRawText()), _storageTaskAssignmentClientDiagnostics, Pipeline, "StorageTaskResource.GetStorageTaskAssignments", "value", "nextLink", maxpagesize, cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists Resource IDs of the Storage Task Assignments associated with this Storage Task.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}/storageTaskAssignments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StorageTaskAssignment_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-01-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="maxpagesize"> Optional, specifies the maximum number of Storage Task Assignment Resource IDs to be included in the list response. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SubResource> GetStorageTaskAssignments(int? maxpagesize = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _storageTaskAssignmentRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _storageTaskAssignmentRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, pageSizeHint);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => JsonSerializer.Deserialize<SubResource>(e.GetRawText()), _storageTaskAssignmentClientDiagnostics, Pipeline, "StorageTaskResource.GetStorageTaskAssignments", "value", "nextLink", maxpagesize, cancellationToken);
         }
 
         /// <summary>
