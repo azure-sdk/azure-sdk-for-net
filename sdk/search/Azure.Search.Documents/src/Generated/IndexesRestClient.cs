@@ -18,7 +18,7 @@ namespace Azure.Search.Documents
     internal partial class IndexesRestClient
     {
         private readonly HttpPipeline _pipeline;
-        private readonly string _endpoint;
+        private readonly Uri _endpoint;
         private readonly Guid? _xMsClientRequestId;
         private readonly string _apiVersion;
 
@@ -32,7 +32,7 @@ namespace Azure.Search.Documents
         /// <param name="xMsClientRequestId"> The tracking ID sent with the request to help with debugging. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="clientDiagnostics"/>, <paramref name="pipeline"/>, <paramref name="endpoint"/> or <paramref name="apiVersion"/> is null. </exception>
-        public IndexesRestClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string endpoint, Guid? xMsClientRequestId = null, string apiVersion = "2025-03-01-preview")
+        public IndexesRestClient(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Uri endpoint, Guid? xMsClientRequestId = null, string apiVersion = "2025-05-01-preview")
         {
             ClientDiagnostics = clientDiagnostics ?? throw new ArgumentNullException(nameof(clientDiagnostics));
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
@@ -47,7 +47,7 @@ namespace Azure.Search.Documents
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/indexes", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -119,7 +119,7 @@ namespace Azure.Search.Documents
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/indexes", false);
             if (select != null)
             {
@@ -179,7 +179,7 @@ namespace Azure.Search.Documents
             var request = message.Request;
             request.Method = RequestMethod.Put;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/indexes('", false);
             uri.AppendPath(indexName, true);
             uri.AppendPath("')", false);
@@ -284,7 +284,7 @@ namespace Azure.Search.Documents
             var request = message.Request;
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/indexes('", false);
             uri.AppendPath(indexName, true);
             uri.AppendPath("')", false);
@@ -358,7 +358,7 @@ namespace Azure.Search.Documents
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/indexes('", false);
             uri.AppendPath(indexName, true);
             uri.AppendPath("')", false);
@@ -428,7 +428,7 @@ namespace Azure.Search.Documents
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/indexes('", false);
             uri.AppendPath(indexName, true);
             uri.AppendPath("')/search.stats", false);
@@ -498,7 +498,7 @@ namespace Azure.Search.Documents
             var request0 = message.Request;
             request0.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/indexes('", false);
             uri.AppendPath(indexName, true);
             uri.AppendPath("')/search.analyze", false);
