@@ -130,6 +130,7 @@ namespace Azure.ResourceManager.Sql.Samples
                 PublicNetworkAccess = ServerNetworkAccessFlag.Disabled,
                 RestrictOutboundNetworkAccess = ServerNetworkAccessFlag.Enabled,
                 IsIPv6Enabled = ServerNetworkAccessFlag.Enabled,
+                RetentionDays = 7,
             };
             ArmOperation<SqlServerResource> lro = await sqlServer.UpdateAsync(WaitUntil.Completed, patch);
             SqlServerResource result = lro.Value;

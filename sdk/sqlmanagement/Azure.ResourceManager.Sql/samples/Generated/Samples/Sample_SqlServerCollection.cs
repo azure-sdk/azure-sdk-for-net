@@ -56,6 +56,7 @@ namespace Azure.ResourceManager.Sql.Samples
                 },
                 RestrictOutboundNetworkAccess = ServerNetworkAccessFlag.Enabled,
                 IsIPv6Enabled = ServerNetworkAccessFlag.Enabled,
+                RetentionDays = 7,
             };
             ArmOperation<SqlServerResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, serverName, data);
             SqlServerResource result = lro.Value;
