@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetConnectionAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetConnectionAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Connection > response = await client.GetConnectionAsync("ijxjmv");
+]]></code></example>
+    </member>
+    <member name="GetConnection(string,CancellationToken)">
+      <example>
+This sample shows how to call GetConnection.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Connection > response = client.GetConnection("ijxjmv");
+]]></code></example>
+    </member>
+    <member name="GetConnectionAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetConnectionAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetConnectionAsync("ijxjmv", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("isDefault").ToString());
+Console.WriteLine(result.GetProperty("credentials").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetConnection(string,RequestContext)">
+      <example>
+This sample shows how to call GetConnection and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetConnection("ijxjmv", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("isDefault").ToString());
+Console.WriteLine(result.GetProperty("credentials").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetWithCredentialsAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetWithCredentialsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Connection > response = await client.GetWithCredentialsAsync("bblabqcnrjcbxlyjsejqiyixfoil");
+]]></code></example>
+    </member>
+    <member name="GetWithCredentials(string,CancellationToken)">
+      <example>
+This sample shows how to call GetWithCredentials.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Azure.Response < AI.Projects.1DP.Connection > response = client.GetWithCredentials("bblabqcnrjcbxlyjsejqiyixfoil");
+]]></code></example>
+    </member>
+    <member name="GetWithCredentialsAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetWithCredentialsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Response response = await client.GetWithCredentialsAsync("bblabqcnrjcbxlyjsejqiyixfoil", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("isDefault").ToString());
+Console.WriteLine(result.GetProperty("credentials").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetWithCredentials(string,RequestContext)">
+      <example>
+This sample shows how to call GetWithCredentials and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+Response response = client.GetWithCredentials("bblabqcnrjcbxlyjsejqiyixfoil", (RequestContext)null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("isDefault").ToString());
+Console.WriteLine(result.GetProperty("credentials").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetConnectionsAsync(ConnectionType?,bool?,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetConnectionsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (Projects.1DP.Connection item in client.GetConnectionsAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetConnections(ConnectionType?,bool?,int?,int?,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetConnections.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+foreach (Projects.1DP.Connection item in client.GetConnections())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetConnectionsAsync(string,bool?,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetConnectionsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+await foreach (BinaryData item in client.GetConnectionsAsync("AzureOpenAI", true, (int?)null, 8, 21, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("isDefault").ToString());
+    Console.WriteLine(result.GetProperty("credentials").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetConnections(string,bool?,int?,int?,int?,RequestContext)">
+      <example>
+This sample shows how to call GetConnections and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+AI.Projects.1DP.Connections client = new Projects.1DP.AIProjectClient(endpoint, credential).GetConnectionsClient(apiVersion: "2025-05-15-preview");
+
+foreach (BinaryData item in client.GetConnections("AzureOpenAI", true, (int?)null, 8, 21, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("isDefault").ToString());
+    Console.WriteLine(result.GetProperty("credentials").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
