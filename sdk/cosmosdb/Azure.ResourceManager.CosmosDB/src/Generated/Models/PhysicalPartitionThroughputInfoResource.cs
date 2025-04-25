@@ -58,11 +58,13 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <summary> Initializes a new instance of <see cref="PhysicalPartitionThroughputInfoResource"/>. </summary>
         /// <param name="id"> Id of a physical partition. </param>
         /// <param name="throughput"> Throughput of a physical partition. </param>
+        /// <param name="targetThroughput"> Target throughput of a physical partition. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PhysicalPartitionThroughputInfoResource(string id, double? throughput, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PhysicalPartitionThroughputInfoResource(string id, double? throughput, double? targetThroughput, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             Throughput = throughput;
+            TargetThroughput = targetThroughput;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -77,5 +79,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <summary> Throughput of a physical partition. </summary>
         [WirePath("throughput")]
         public double? Throughput { get; set; }
+        /// <summary> Target throughput of a physical partition. </summary>
+        [WirePath("targetThroughput")]
+        public double? TargetThroughput { get; set; }
     }
 }

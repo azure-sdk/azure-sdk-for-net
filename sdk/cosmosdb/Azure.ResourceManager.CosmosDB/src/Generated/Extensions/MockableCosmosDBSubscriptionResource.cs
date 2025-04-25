@@ -24,6 +24,8 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         private RestorableDatabaseAccountsRestOperations _restorableCosmosDBAccountRestorableDatabaseAccountsRestClient;
         private ClientDiagnostics _cosmosDBThroughputPoolThroughputPoolsClientDiagnostics;
         private ThroughputPoolsRestOperations _cosmosDBThroughputPoolThroughputPoolsRestClient;
+        private ClientDiagnostics _fleetResourceFleetClientDiagnostics;
+        private FleetRestOperations _fleetResourceFleetRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableCosmosDBSubscriptionResource"/> class for mocking. </summary>
         protected MockableCosmosDBSubscriptionResource()
@@ -45,6 +47,8 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         private RestorableDatabaseAccountsRestOperations RestorableCosmosDBAccountRestorableDatabaseAccountsRestClient => _restorableCosmosDBAccountRestorableDatabaseAccountsRestClient ??= new RestorableDatabaseAccountsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(RestorableCosmosDBAccountResource.ResourceType));
         private ClientDiagnostics CosmosDBThroughputPoolThroughputPoolsClientDiagnostics => _cosmosDBThroughputPoolThroughputPoolsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.CosmosDB", CosmosDBThroughputPoolResource.ResourceType.Namespace, Diagnostics);
         private ThroughputPoolsRestOperations CosmosDBThroughputPoolThroughputPoolsRestClient => _cosmosDBThroughputPoolThroughputPoolsRestClient ??= new ThroughputPoolsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(CosmosDBThroughputPoolResource.ResourceType));
+        private ClientDiagnostics FleetResourceFleetClientDiagnostics => _fleetResourceFleetClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.CosmosDB", FleetResource.ResourceType.Namespace, Diagnostics);
+        private FleetRestOperations FleetResourceFleetRestClient => _fleetResourceFleetRestClient ??= new FleetRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(FleetResource.ResourceType));
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -72,7 +76,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -101,7 +105,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -130,7 +134,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -159,7 +163,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -188,7 +192,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -217,7 +221,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -246,7 +250,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -275,7 +279,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -304,7 +308,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -334,7 +338,7 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-12-01-preview</description>
+        /// <description>2025-05-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -349,6 +353,66 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
             HttpMessage FirstPageRequest(int? pageSizeHint) => CosmosDBThroughputPoolThroughputPoolsRestClient.CreateListRequest(Id.SubscriptionId);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CosmosDBThroughputPoolThroughputPoolsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new CosmosDBThroughputPoolResource(Client, CosmosDBThroughputPoolData.DeserializeCosmosDBThroughputPoolData(e)), CosmosDBThroughputPoolThroughputPoolsClientDiagnostics, Pipeline, "MockableCosmosDBSubscriptionResource.GetCosmosDBThroughputPools", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all the fleets under the subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DocumentDB/fleets</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Fleet_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-05-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="FleetResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="FleetResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<FleetResource> GetFleetResourcesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => FleetResourceFleetRestClient.CreateListRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => FleetResourceFleetRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new FleetResource(Client, FleetResourceData.DeserializeFleetResourceData(e)), FleetResourceFleetClientDiagnostics, Pipeline, "MockableCosmosDBSubscriptionResource.GetFleetResources", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all the fleets under the subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DocumentDB/fleets</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Fleet_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-05-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="FleetResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="FleetResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<FleetResource> GetFleetResources(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => FleetResourceFleetRestClient.CreateListRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => FleetResourceFleetRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new FleetResource(Client, FleetResourceData.DeserializeFleetResourceData(e)), FleetResourceFleetClientDiagnostics, Pipeline, "MockableCosmosDBSubscriptionResource.GetFleetResources", "value", "nextLink", cancellationToken);
         }
     }
 }

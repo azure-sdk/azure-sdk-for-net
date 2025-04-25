@@ -269,6 +269,11 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("enablePerRegionPerPartitionAutoscale"u8);
                 writer.WriteBooleanValue(EnablePerRegionPerPartitionAutoscale.Value);
             }
+            if (Optional.IsDefined(EnableAllVersionsAndDeletesChangeFeed))
+            {
+                writer.WritePropertyName("enableAllVersionsAndDeletesChangeFeed"u8);
+                writer.WriteBooleanValue(EnableAllVersionsAndDeletesChangeFeed.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -345,6 +350,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
             bool? enablePriorityBasedExecution = default;
             DefaultPriorityLevel? defaultPriorityLevel = default;
             bool? enablePerRegionPerPartitionAutoscale = default;
+            bool? enableAllVersionsAndDeletesChangeFeed = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -735,6 +741,15 @@ namespace Azure.ResourceManager.CosmosDB.Models
                             enablePerRegionPerPartitionAutoscale = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("enableAllVersionsAndDeletesChangeFeed"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableAllVersionsAndDeletesChangeFeed = property0.Value.GetBoolean();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -783,6 +798,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 enablePriorityBasedExecution,
                 defaultPriorityLevel,
                 enablePerRegionPerPartitionAutoscale,
+                enableAllVersionsAndDeletesChangeFeed,
                 serializedAdditionalRawData);
         }
 

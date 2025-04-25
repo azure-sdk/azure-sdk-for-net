@@ -88,6 +88,16 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("materializedViewDefinition"u8);
                 writer.WriteObjectValue(MaterializedViewDefinition, options);
             }
+            if (Optional.IsCollectionDefined(MaterializedViews))
+            {
+                writer.WritePropertyName("materializedViews"u8);
+                writer.WriteStartArray();
+                foreach (var item in MaterializedViews)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsCollectionDefined(ComputedProperties))
             {
                 writer.WritePropertyName("computedProperties"u8);
@@ -102,6 +112,11 @@ namespace Azure.ResourceManager.CosmosDB.Models
             {
                 writer.WritePropertyName("vectorEmbeddingPolicy"u8);
                 writer.WriteObjectValue(VectorEmbeddingPolicy, options);
+            }
+            if (Optional.IsDefined(FullTextPolicy))
+            {
+                writer.WritePropertyName("fullTextPolicy"u8);
+                writer.WriteObjectValue(FullTextPolicy, options);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -151,8 +166,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
             ResourceRestoreParameters restoreParameters = default;
             CosmosDBAccountCreateMode? createMode = default;
             MaterializedViewDefinition materializedViewDefinition = default;
+            IList<MaterializedViewDetails> materializedViews = default;
             IList<ComputedProperty> computedProperties = default;
             VectorEmbeddingPolicy vectorEmbeddingPolicy = default;
+            FullTextPolicy fullTextPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -252,6 +269,20 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     materializedViewDefinition = MaterializedViewDefinition.DeserializeMaterializedViewDefinition(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("materializedViews"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<MaterializedViewDetails> array = new List<MaterializedViewDetails>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(MaterializedViewDetails.DeserializeMaterializedViewDetails(item, options));
+                    }
+                    materializedViews = array;
+                    continue;
+                }
                 if (property.NameEquals("computedProperties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -275,6 +306,15 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     vectorEmbeddingPolicy = VectorEmbeddingPolicy.DeserializeVectorEmbeddingPolicy(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("fullTextPolicy"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    fullTextPolicy = FullTextPolicy.DeserializeFullTextPolicy(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -293,8 +333,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 restoreParameters,
                 createMode,
                 materializedViewDefinition,
+                materializedViews ?? new ChangeTrackingList<MaterializedViewDetails>(),
                 computedProperties ?? new ChangeTrackingList<ComputedProperty>(),
                 vectorEmbeddingPolicy,
+                fullTextPolicy,
                 serializedAdditionalRawData);
         }
 
@@ -485,6 +527,29 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(MaterializedViews), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  materializedViews: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsCollectionDefined(MaterializedViews))
+                {
+                    if (MaterializedViews.Any())
+                    {
+                        builder.Append("  materializedViews: ");
+                        builder.AppendLine("[");
+                        foreach (var item in MaterializedViews)
+                        {
+                            BicepSerializationHelpers.AppendChildObject(builder, item, options, 4, true, "  materializedViews: ");
+                        }
+                        builder.AppendLine("  ]");
+                    }
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ComputedProperties), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -523,6 +588,21 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 {
                     builder.Append("  vectorEmbeddingPolicy: ");
                     BicepSerializationHelpers.AppendChildObject(builder, VectorEmbeddingPolicy, options, 2, false, "  vectorEmbeddingPolicy: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(FullTextPolicy), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  fullTextPolicy: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(FullTextPolicy))
+                {
+                    builder.Append("  fullTextPolicy: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, FullTextPolicy, options, 2, false, "  fullTextPolicy: ");
                 }
             }
 

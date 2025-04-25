@@ -31,6 +31,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
         private const string FailedValue = "Failed";
         private const string CanceledValue = "Canceled";
         private const string UpdatingValue = "Updating";
+        private const string CreatingValue = "Creating";
 
         /// <summary> Uninitialized. </summary>
         public static CosmosDBStatus Uninitialized { get; } = new CosmosDBStatus(UninitializedValue);
@@ -50,6 +51,8 @@ namespace Azure.ResourceManager.CosmosDB.Models
         public static CosmosDBStatus Canceled { get; } = new CosmosDBStatus(CanceledValue);
         /// <summary> Updating. </summary>
         public static CosmosDBStatus Updating { get; } = new CosmosDBStatus(UpdatingValue);
+        /// <summary> Creating. </summary>
+        public static CosmosDBStatus Creating { get; } = new CosmosDBStatus(CreatingValue);
         /// <summary> Determines if two <see cref="CosmosDBStatus"/> values are the same. </summary>
         public static bool operator ==(CosmosDBStatus left, CosmosDBStatus right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CosmosDBStatus"/> values are not the same. </summary>

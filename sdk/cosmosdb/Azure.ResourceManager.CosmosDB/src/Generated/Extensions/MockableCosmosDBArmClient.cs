@@ -47,6 +47,18 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="CopyJobGetResultResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CopyJobGetResultResource.CreateResourceIdentifier" /> to create a <see cref="CopyJobGetResultResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="CopyJobGetResultResource"/> object. </returns>
+        public virtual CopyJobGetResultResource GetCopyJobGetResultResource(ResourceIdentifier id)
+        {
+            CopyJobGetResultResource.ValidateResourceId(id);
+            return new CopyJobGetResultResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="CosmosDBAccountResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="CosmosDBAccountResource.CreateResourceIdentifier" /> to create a <see cref="CosmosDBAccountResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -407,6 +419,30 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="CassandraRoleDefinitionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CassandraRoleDefinitionResource.CreateResourceIdentifier" /> to create a <see cref="CassandraRoleDefinitionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="CassandraRoleDefinitionResource"/> object. </returns>
+        public virtual CassandraRoleDefinitionResource GetCassandraRoleDefinitionResource(ResourceIdentifier id)
+        {
+            CassandraRoleDefinitionResource.ValidateResourceId(id);
+            return new CassandraRoleDefinitionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="CassandraRoleAssignmentResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CassandraRoleAssignmentResource.CreateResourceIdentifier" /> to create a <see cref="CassandraRoleAssignmentResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="CassandraRoleAssignmentResource"/> object. </returns>
+        public virtual CassandraRoleAssignmentResource GetCassandraRoleAssignmentResource(ResourceIdentifier id)
+        {
+            CassandraRoleAssignmentResource.ValidateResourceId(id);
+            return new CassandraRoleAssignmentResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="GremlinDatabaseResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="GremlinDatabaseResource.CreateResourceIdentifier" /> to create a <see cref="GremlinDatabaseResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -428,6 +464,30 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         {
             GremlinGraphResource.ValidateResourceId(id);
             return new GremlinGraphResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="GremlinRoleDefinitionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="GremlinRoleDefinitionResource.CreateResourceIdentifier" /> to create a <see cref="GremlinRoleDefinitionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GremlinRoleDefinitionResource"/> object. </returns>
+        public virtual GremlinRoleDefinitionResource GetGremlinRoleDefinitionResource(ResourceIdentifier id)
+        {
+            GremlinRoleDefinitionResource.ValidateResourceId(id);
+            return new GremlinRoleDefinitionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="GremlinRoleAssignmentResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="GremlinRoleAssignmentResource.CreateResourceIdentifier" /> to create a <see cref="GremlinRoleAssignmentResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GremlinRoleAssignmentResource"/> object. </returns>
+        public virtual GremlinRoleAssignmentResource GetGremlinRoleAssignmentResource(ResourceIdentifier id)
+        {
+            GremlinRoleAssignmentResource.ValidateResourceId(id);
+            return new GremlinRoleAssignmentResource(Client, id);
         }
 
         /// <summary>
@@ -560,6 +620,78 @@ namespace Azure.ResourceManager.CosmosDB.Mocking
         {
             CosmosDBThroughputPoolAccountResource.ValidateResourceId(id);
             return new CosmosDBThroughputPoolAccountResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="MongoMIRoleDefinitionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MongoMIRoleDefinitionResource.CreateResourceIdentifier" /> to create a <see cref="MongoMIRoleDefinitionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="MongoMIRoleDefinitionResource"/> object. </returns>
+        public virtual MongoMIRoleDefinitionResource GetMongoMIRoleDefinitionResource(ResourceIdentifier id)
+        {
+            MongoMIRoleDefinitionResource.ValidateResourceId(id);
+            return new MongoMIRoleDefinitionResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="MongoMIRoleAssignmentResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MongoMIRoleAssignmentResource.CreateResourceIdentifier" /> to create a <see cref="MongoMIRoleAssignmentResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="MongoMIRoleAssignmentResource"/> object. </returns>
+        public virtual MongoMIRoleAssignmentResource GetMongoMIRoleAssignmentResource(ResourceIdentifier id)
+        {
+            MongoMIRoleAssignmentResource.ValidateResourceId(id);
+            return new MongoMIRoleAssignmentResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="FleetResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="FleetResource.CreateResourceIdentifier" /> to create a <see cref="FleetResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="FleetResource"/> object. </returns>
+        public virtual FleetResource GetFleetResource(ResourceIdentifier id)
+        {
+            FleetResource.ValidateResourceId(id);
+            return new FleetResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="FleetAnalyticsResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="FleetAnalyticsResource.CreateResourceIdentifier" /> to create a <see cref="FleetAnalyticsResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="FleetAnalyticsResource"/> object. </returns>
+        public virtual FleetAnalyticsResource GetFleetAnalyticsResource(ResourceIdentifier id)
+        {
+            FleetAnalyticsResource.ValidateResourceId(id);
+            return new FleetAnalyticsResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="FleetspaceResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="FleetspaceResource.CreateResourceIdentifier" /> to create a <see cref="FleetspaceResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="FleetspaceResource"/> object. </returns>
+        public virtual FleetspaceResource GetFleetspaceResource(ResourceIdentifier id)
+        {
+            FleetspaceResource.ValidateResourceId(id);
+            return new FleetspaceResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="FleetspaceAccountResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="FleetspaceAccountResource.CreateResourceIdentifier" /> to create a <see cref="FleetspaceAccountResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="FleetspaceAccountResource"/> object. </returns>
+        public virtual FleetspaceAccountResource GetFleetspaceAccountResource(ResourceIdentifier id)
+        {
+            FleetspaceAccountResource.ValidateResourceId(id);
+            return new FleetspaceAccountResource(Client, id);
         }
     }
 }

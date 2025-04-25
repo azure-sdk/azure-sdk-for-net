@@ -43,6 +43,63 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.CopyJobGetResultData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="properties"> The properties of a Copy Job. </param>
+        /// <returns> A new <see cref="CosmosDB.CopyJobGetResultData"/> instance for mocking. </returns>
+        public static CopyJobGetResultData CopyJobGetResultData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CopyJobProperties properties = null)
+        {
+            return new CopyJobGetResultData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CopyJobProperties"/>. </summary>
+        /// <param name="jobProperties">
+        /// Job Properties
+        /// Please note <see cref="BaseCopyJobProperties"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="BlobToCassandraRUCopyJobProperties"/>, <see cref="CassandraRUToBlobCopyJobProperties"/>, <see cref="CassandraRUToCassandraRUCopyJobProperties"/>, <see cref="MongoRUToMongoRUCopyJobProperties"/>, <see cref="MongoRUToMongoVCoreCopyJobProperties"/> and <see cref="NoSqlRUToNoSqlRUCopyJobProperties"/>.
+        /// </param>
+        /// <param name="status"> Job Status. </param>
+        /// <param name="processedCount"> Processed Count. </param>
+        /// <param name="totalCount"> Total Count. </param>
+        /// <param name="lastUpdatedUtcOn"> Last Updated Time (ISO-8601 format). </param>
+        /// <param name="workerCount"> Worker count. </param>
+        /// <param name="error"> Error response for Faulted job. </param>
+        /// <param name="duration"> Total Duration of Job. </param>
+        /// <param name="mode"> Mode of job execution. </param>
+        /// <returns> A new <see cref="Models.CopyJobProperties"/> instance for mocking. </returns>
+        public static CopyJobProperties CopyJobProperties(BaseCopyJobProperties jobProperties = null, CopyJobStatus? status = null, long? processedCount = null, long? totalCount = null, DateTimeOffset? lastUpdatedUtcOn = null, int? workerCount = null, CosmosDBErrorResult error = null, TimeSpan? duration = null, CopyJobMode? mode = null)
+        {
+            return new CopyJobProperties(
+                jobProperties,
+                status,
+                processedCount,
+                totalCount,
+                lastUpdatedUtcOn,
+                workerCount,
+                error,
+                duration,
+                mode,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CosmosDBErrorResult"/>. </summary>
+        /// <param name="code"> Error code. </param>
+        /// <param name="message"> Error message indicating why the operation failed. </param>
+        /// <returns> A new <see cref="Models.CosmosDBErrorResult"/> instance for mocking. </returns>
+        public static CosmosDBErrorResult CosmosDBErrorResult(string code = null, string message = null)
+        {
+            return new CosmosDBErrorResult(code, message, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="CosmosDB.CosmosDBAccountData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -101,9 +158,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="enablePriorityBasedExecution"> Flag to indicate enabling/disabling of Priority Based Execution Preview feature on the account. </param>
         /// <param name="defaultPriorityLevel"> Enum to indicate default Priority Level of request for Priority Based Execution. </param>
         /// <param name="enablePerRegionPerPartitionAutoscale"> Flag to indicate enabling/disabling of Per-Region Per-partition autoscale Preview feature on the account. </param>
+        /// <param name="enableAllVersionsAndDeletesChangeFeed"> Flag to indicate if All Versions and Deletes Change feed feature is enabled on the account. </param>
         /// <param name="identity"> Identity for the resource. </param>
         /// <returns> A new <see cref="CosmosDB.CosmosDBAccountData"/> instance for mocking. </returns>
-        public static CosmosDBAccountData CosmosDBAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, CosmosDBAccountKind? kind = null, string provisioningState = null, string documentEndpoint = null, CosmosDBAccountOfferType? databaseAccountOfferType = null, IEnumerable<CosmosDBIPAddressOrRange> ipRules = null, bool? isVirtualNetworkFilterEnabled = null, bool? enableAutomaticFailover = null, ConsistencyPolicy consistencyPolicy = null, IEnumerable<CosmosDBAccountCapability> capabilities = null, IEnumerable<CosmosDBAccountLocation> writeLocations = null, IEnumerable<CosmosDBAccountLocation> readLocations = null, IEnumerable<CosmosDBAccountLocation> locations = null, IEnumerable<CosmosDBFailoverPolicy> failoverPolicies = null, IEnumerable<CosmosDBVirtualNetworkRule> virtualNetworkRules = null, IEnumerable<CosmosDBPrivateEndpointConnectionData> privateEndpointConnections = null, bool? enableMultipleWriteLocations = null, bool? enableCassandraConnector = null, ConnectorOffer? connectorOffer = null, bool? disableKeyBasedMetadataWriteAccess = null, Uri keyVaultKeyUri = null, string defaultIdentity = null, CosmosDBPublicNetworkAccess? publicNetworkAccess = null, bool? isFreeTierEnabled = null, CosmosDBServerVersion? apiServerVersion = null, bool? isAnalyticalStorageEnabled = null, AnalyticalStorageSchemaType? analyticalStorageSchemaType = null, Guid? instanceId = null, CosmosDBAccountCreateMode? createMode = null, CosmosDBAccountRestoreParameters restoreParameters = null, CosmosDBAccountBackupPolicy backupPolicy = null, IEnumerable<CosmosDBAccountCorsPolicy> cors = null, NetworkAclBypass? networkAclBypass = null, IEnumerable<ResourceIdentifier> networkAclBypassResourceIds = null, EnableFullTextQuery? diagnosticLogEnableFullTextQuery = null, bool? disableLocalAuth = null, int? capacityTotalThroughputLimit = null, CapacityMode? capacityMode = null, CapacityModeChangeTransitionState capacityModeChangeTransitionState = null, bool? enableMaterializedViews = null, DatabaseAccountKeysMetadata keysMetadata = null, bool? enablePartitionMerge = null, bool? enableBurstCapacity = null, CosmosDBMinimalTlsVersion? minimalTlsVersion = null, string customerManagedKeyStatus = null, bool? enablePriorityBasedExecution = null, DefaultPriorityLevel? defaultPriorityLevel = null, bool? enablePerRegionPerPartitionAutoscale = null, ManagedServiceIdentity identity = null)
+        public static CosmosDBAccountData CosmosDBAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, CosmosDBAccountKind? kind = null, string provisioningState = null, string documentEndpoint = null, CosmosDBAccountOfferType? databaseAccountOfferType = null, IEnumerable<CosmosDBIPAddressOrRange> ipRules = null, bool? isVirtualNetworkFilterEnabled = null, bool? enableAutomaticFailover = null, ConsistencyPolicy consistencyPolicy = null, IEnumerable<CosmosDBAccountCapability> capabilities = null, IEnumerable<CosmosDBAccountLocation> writeLocations = null, IEnumerable<CosmosDBAccountLocation> readLocations = null, IEnumerable<CosmosDBAccountLocation> locations = null, IEnumerable<CosmosDBFailoverPolicy> failoverPolicies = null, IEnumerable<CosmosDBVirtualNetworkRule> virtualNetworkRules = null, IEnumerable<CosmosDBPrivateEndpointConnectionData> privateEndpointConnections = null, bool? enableMultipleWriteLocations = null, bool? enableCassandraConnector = null, ConnectorOffer? connectorOffer = null, bool? disableKeyBasedMetadataWriteAccess = null, Uri keyVaultKeyUri = null, string defaultIdentity = null, CosmosDBPublicNetworkAccess? publicNetworkAccess = null, bool? isFreeTierEnabled = null, CosmosDBServerVersion? apiServerVersion = null, bool? isAnalyticalStorageEnabled = null, AnalyticalStorageSchemaType? analyticalStorageSchemaType = null, Guid? instanceId = null, CosmosDBAccountCreateMode? createMode = null, CosmosDBAccountRestoreParameters restoreParameters = null, CosmosDBAccountBackupPolicy backupPolicy = null, IEnumerable<CosmosDBAccountCorsPolicy> cors = null, NetworkAclBypass? networkAclBypass = null, IEnumerable<ResourceIdentifier> networkAclBypassResourceIds = null, EnableFullTextQuery? diagnosticLogEnableFullTextQuery = null, bool? disableLocalAuth = null, int? capacityTotalThroughputLimit = null, CapacityMode? capacityMode = null, CapacityModeChangeTransitionState capacityModeChangeTransitionState = null, bool? enableMaterializedViews = null, DatabaseAccountKeysMetadata keysMetadata = null, bool? enablePartitionMerge = null, bool? enableBurstCapacity = null, CosmosDBMinimalTlsVersion? minimalTlsVersion = null, string customerManagedKeyStatus = null, bool? enablePriorityBasedExecution = null, DefaultPriorityLevel? defaultPriorityLevel = null, bool? enablePerRegionPerPartitionAutoscale = null, bool? enableAllVersionsAndDeletesChangeFeed = null, ManagedServiceIdentity identity = null)
         {
             tags ??= new Dictionary<string, string>();
             ipRules ??= new List<CosmosDBIPAddressOrRange>();
@@ -171,6 +229,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 enablePriorityBasedExecution,
                 defaultPriorityLevel,
                 enablePerRegionPerPartitionAutoscale,
+                enableAllVersionsAndDeletesChangeFeed,
                 identity,
                 serializedAdditionalRawData: null);
         }
@@ -313,8 +372,9 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="enablePriorityBasedExecution"> Flag to indicate enabling/disabling of Priority Based Execution Preview feature on the account. </param>
         /// <param name="defaultPriorityLevel"> Enum to indicate default Priority Level of request for Priority Based Execution. </param>
         /// <param name="enablePerRegionPerPartitionAutoscale"> Flag to indicate enabling/disabling of Per-Region Per-partition autoscale Preview feature on the account. </param>
+        /// <param name="enableAllVersionsAndDeletesChangeFeed"> Flag to indicate if All Versions and Deletes Change feed feature is enabled on the account. </param>
         /// <returns> A new <see cref="Models.CosmosDBAccountPatch"/> instance for mocking. </returns>
-        public static CosmosDBAccountPatch CosmosDBAccountPatch(IDictionary<string, string> tags = null, AzureLocation? location = null, ManagedServiceIdentity identity = null, ConsistencyPolicy consistencyPolicy = null, IEnumerable<CosmosDBAccountLocation> locations = null, IEnumerable<CosmosDBIPAddressOrRange> ipRules = null, bool? isVirtualNetworkFilterEnabled = null, bool? enableAutomaticFailover = null, IEnumerable<CosmosDBAccountCapability> capabilities = null, IEnumerable<CosmosDBVirtualNetworkRule> virtualNetworkRules = null, bool? enableMultipleWriteLocations = null, bool? enableCassandraConnector = null, ConnectorOffer? connectorOffer = null, bool? disableKeyBasedMetadataWriteAccess = null, Uri keyVaultKeyUri = null, string defaultIdentity = null, CosmosDBPublicNetworkAccess? publicNetworkAccess = null, bool? isFreeTierEnabled = null, CosmosDBServerVersion? apiServerVersion = null, bool? isAnalyticalStorageEnabled = null, AnalyticalStorageSchemaType? analyticalStorageSchemaType = null, CosmosDBAccountBackupPolicy backupPolicy = null, IEnumerable<CosmosDBAccountCorsPolicy> cors = null, NetworkAclBypass? networkAclBypass = null, IEnumerable<ResourceIdentifier> networkAclBypassResourceIds = null, EnableFullTextQuery? diagnosticLogEnableFullTextQuery = null, bool? disableLocalAuth = null, int? capacityTotalThroughputLimit = null, CapacityMode? capacityMode = null, bool? enableMaterializedViews = null, DatabaseAccountKeysMetadata keysMetadata = null, bool? enablePartitionMerge = null, bool? enableBurstCapacity = null, CosmosDBMinimalTlsVersion? minimalTlsVersion = null, string customerManagedKeyStatus = null, bool? enablePriorityBasedExecution = null, DefaultPriorityLevel? defaultPriorityLevel = null, bool? enablePerRegionPerPartitionAutoscale = null)
+        public static CosmosDBAccountPatch CosmosDBAccountPatch(IDictionary<string, string> tags = null, AzureLocation? location = null, ManagedServiceIdentity identity = null, ConsistencyPolicy consistencyPolicy = null, IEnumerable<CosmosDBAccountLocation> locations = null, IEnumerable<CosmosDBIPAddressOrRange> ipRules = null, bool? isVirtualNetworkFilterEnabled = null, bool? enableAutomaticFailover = null, IEnumerable<CosmosDBAccountCapability> capabilities = null, IEnumerable<CosmosDBVirtualNetworkRule> virtualNetworkRules = null, bool? enableMultipleWriteLocations = null, bool? enableCassandraConnector = null, ConnectorOffer? connectorOffer = null, bool? disableKeyBasedMetadataWriteAccess = null, Uri keyVaultKeyUri = null, string defaultIdentity = null, CosmosDBPublicNetworkAccess? publicNetworkAccess = null, bool? isFreeTierEnabled = null, CosmosDBServerVersion? apiServerVersion = null, bool? isAnalyticalStorageEnabled = null, AnalyticalStorageSchemaType? analyticalStorageSchemaType = null, CosmosDBAccountBackupPolicy backupPolicy = null, IEnumerable<CosmosDBAccountCorsPolicy> cors = null, NetworkAclBypass? networkAclBypass = null, IEnumerable<ResourceIdentifier> networkAclBypassResourceIds = null, EnableFullTextQuery? diagnosticLogEnableFullTextQuery = null, bool? disableLocalAuth = null, int? capacityTotalThroughputLimit = null, CapacityMode? capacityMode = null, bool? enableMaterializedViews = null, DatabaseAccountKeysMetadata keysMetadata = null, bool? enablePartitionMerge = null, bool? enableBurstCapacity = null, CosmosDBMinimalTlsVersion? minimalTlsVersion = null, string customerManagedKeyStatus = null, bool? enablePriorityBasedExecution = null, DefaultPriorityLevel? defaultPriorityLevel = null, bool? enablePerRegionPerPartitionAutoscale = null, bool? enableAllVersionsAndDeletesChangeFeed = null)
         {
             tags ??= new Dictionary<string, string>();
             locations ??= new List<CosmosDBAccountLocation>();
@@ -363,6 +423,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 enablePriorityBasedExecution,
                 defaultPriorityLevel,
                 enablePerRegionPerPartitionAutoscale,
+                enableAllVersionsAndDeletesChangeFeed,
                 serializedAdditionalRawData: null);
         }
 
@@ -416,9 +477,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="enablePriorityBasedExecution"> Flag to indicate enabling/disabling of Priority Based Execution Preview feature on the account. </param>
         /// <param name="defaultPriorityLevel"> Enum to indicate default Priority Level of request for Priority Based Execution. </param>
         /// <param name="enablePerRegionPerPartitionAutoscale"> Flag to indicate enabling/disabling of Per-Region Per-partition autoscale Preview feature on the account. </param>
+        /// <param name="enableAllVersionsAndDeletesChangeFeed"> Flag to indicate if All Versions and Deletes Change feed feature is enabled on the account. </param>
         /// <param name="identity"> Identity for the resource. </param>
         /// <returns> A new <see cref="Models.CosmosDBAccountCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static CosmosDBAccountCreateOrUpdateContent CosmosDBAccountCreateOrUpdateContent(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, CosmosDBAccountKind? kind = null, ConsistencyPolicy consistencyPolicy = null, IEnumerable<CosmosDBAccountLocation> locations = null, CosmosDBAccountOfferType databaseAccountOfferType = default, IEnumerable<CosmosDBIPAddressOrRange> ipRules = null, bool? isVirtualNetworkFilterEnabled = null, bool? enableAutomaticFailover = null, IEnumerable<CosmosDBAccountCapability> capabilities = null, IEnumerable<CosmosDBVirtualNetworkRule> virtualNetworkRules = null, bool? enableMultipleWriteLocations = null, bool? enableCassandraConnector = null, ConnectorOffer? connectorOffer = null, bool? disableKeyBasedMetadataWriteAccess = null, Uri keyVaultKeyUri = null, string defaultIdentity = null, CosmosDBPublicNetworkAccess? publicNetworkAccess = null, bool? isFreeTierEnabled = null, CosmosDBServerVersion? apiServerVersion = null, bool? isAnalyticalStorageEnabled = null, AnalyticalStorageSchemaType? analyticalStorageSchemaType = null, CosmosDBAccountCreateMode? createMode = null, CosmosDBAccountBackupPolicy backupPolicy = null, IEnumerable<CosmosDBAccountCorsPolicy> cors = null, NetworkAclBypass? networkAclBypass = null, IEnumerable<ResourceIdentifier> networkAclBypassResourceIds = null, EnableFullTextQuery? diagnosticLogEnableFullTextQuery = null, bool? disableLocalAuth = null, CosmosDBAccountRestoreParameters restoreParameters = null, int? capacityTotalThroughputLimit = null, CapacityMode? capacityMode = null, bool? enableMaterializedViews = null, DatabaseAccountKeysMetadata keysMetadata = null, bool? enablePartitionMerge = null, bool? enableBurstCapacity = null, CosmosDBMinimalTlsVersion? minimalTlsVersion = null, string customerManagedKeyStatus = null, bool? enablePriorityBasedExecution = null, DefaultPriorityLevel? defaultPriorityLevel = null, bool? enablePerRegionPerPartitionAutoscale = null, ManagedServiceIdentity identity = null)
+        public static CosmosDBAccountCreateOrUpdateContent CosmosDBAccountCreateOrUpdateContent(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, CosmosDBAccountKind? kind = null, ConsistencyPolicy consistencyPolicy = null, IEnumerable<CosmosDBAccountLocation> locations = null, CosmosDBAccountOfferType databaseAccountOfferType = default, IEnumerable<CosmosDBIPAddressOrRange> ipRules = null, bool? isVirtualNetworkFilterEnabled = null, bool? enableAutomaticFailover = null, IEnumerable<CosmosDBAccountCapability> capabilities = null, IEnumerable<CosmosDBVirtualNetworkRule> virtualNetworkRules = null, bool? enableMultipleWriteLocations = null, bool? enableCassandraConnector = null, ConnectorOffer? connectorOffer = null, bool? disableKeyBasedMetadataWriteAccess = null, Uri keyVaultKeyUri = null, string defaultIdentity = null, CosmosDBPublicNetworkAccess? publicNetworkAccess = null, bool? isFreeTierEnabled = null, CosmosDBServerVersion? apiServerVersion = null, bool? isAnalyticalStorageEnabled = null, AnalyticalStorageSchemaType? analyticalStorageSchemaType = null, CosmosDBAccountCreateMode? createMode = null, CosmosDBAccountBackupPolicy backupPolicy = null, IEnumerable<CosmosDBAccountCorsPolicy> cors = null, NetworkAclBypass? networkAclBypass = null, IEnumerable<ResourceIdentifier> networkAclBypassResourceIds = null, EnableFullTextQuery? diagnosticLogEnableFullTextQuery = null, bool? disableLocalAuth = null, CosmosDBAccountRestoreParameters restoreParameters = null, int? capacityTotalThroughputLimit = null, CapacityMode? capacityMode = null, bool? enableMaterializedViews = null, DatabaseAccountKeysMetadata keysMetadata = null, bool? enablePartitionMerge = null, bool? enableBurstCapacity = null, CosmosDBMinimalTlsVersion? minimalTlsVersion = null, string customerManagedKeyStatus = null, bool? enablePriorityBasedExecution = null, DefaultPriorityLevel? defaultPriorityLevel = null, bool? enablePerRegionPerPartitionAutoscale = null, bool? enableAllVersionsAndDeletesChangeFeed = null, ManagedServiceIdentity identity = null)
         {
             tags ??= new Dictionary<string, string>();
             locations ??= new List<CosmosDBAccountLocation>();
@@ -474,6 +536,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 enablePriorityBasedExecution,
                 defaultPriorityLevel,
                 enablePerRegionPerPartitionAutoscale,
+                enableAllVersionsAndDeletesChangeFeed,
                 identity,
                 serializedAdditionalRawData: null);
         }
@@ -507,15 +570,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
         public static CosmosDBAccountConnectionString CosmosDBAccountConnectionString(string connectionString = null, string description = null, CosmosDBKind? keyKind = null, CosmosDBType? keyType = null)
         {
             return new CosmosDBAccountConnectionString(connectionString, description, keyKind, keyType, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.CosmosDBErrorResult"/>. </summary>
-        /// <param name="code"> Error code. </param>
-        /// <param name="message"> Error message indicating why the operation failed. </param>
-        /// <returns> A new <see cref="Models.CosmosDBErrorResult"/> instance for mocking. </returns>
-        public static CosmosDBErrorResult CosmosDBErrorResult(string code = null, string message = null)
-        {
-            return new CosmosDBErrorResult(code, message, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.CosmosDBBaseMetric"/>. </summary>
@@ -1052,15 +1106,18 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="restoreParameters"> Parameters to indicate the information about the restore. </param>
         /// <param name="createMode"> Enum to indicate the mode of resource creation. </param>
         /// <param name="materializedViewDefinition"> The configuration for defining Materialized Views. This must be specified only for creating a Materialized View container. </param>
+        /// <param name="materializedViews"> Materialized Views defined on the container. </param>
         /// <param name="computedProperties"> List of computed properties. </param>
         /// <param name="vectorEmbeddings"> The vector embedding policy for the container. </param>
+        /// <param name="fullTextPolicy"> The FullText policy for the container. </param>
         /// <param name="rid"> A system generated property. A unique identifier. </param>
         /// <param name="timestamp"> A system generated property that denotes the last updated timestamp of the resource. </param>
         /// <param name="etag"> A system generated property representing the resource etag required for optimistic concurrency control. </param>
         /// <returns> A new <see cref="Models.ExtendedCosmosDBSqlContainerResourceInfo"/> instance for mocking. </returns>
-        public static ExtendedCosmosDBSqlContainerResourceInfo ExtendedCosmosDBSqlContainerResourceInfo(string containerName = null, CosmosDBIndexingPolicy indexingPolicy = null, CosmosDBContainerPartitionKey partitionKey = null, int? defaultTtl = null, IEnumerable<CosmosDBUniqueKey> uniqueKeys = null, ConflictResolutionPolicy conflictResolutionPolicy = null, CosmosDBClientEncryptionPolicy clientEncryptionPolicy = null, long? analyticalStorageTtl = null, ResourceRestoreParameters restoreParameters = null, CosmosDBAccountCreateMode? createMode = null, MaterializedViewDefinition materializedViewDefinition = null, IEnumerable<ComputedProperty> computedProperties = null, IEnumerable<CosmosDBVectorEmbedding> vectorEmbeddings = null, string rid = null, float? timestamp = null, ETag? etag = null)
+        public static ExtendedCosmosDBSqlContainerResourceInfo ExtendedCosmosDBSqlContainerResourceInfo(string containerName = null, CosmosDBIndexingPolicy indexingPolicy = null, CosmosDBContainerPartitionKey partitionKey = null, int? defaultTtl = null, IEnumerable<CosmosDBUniqueKey> uniqueKeys = null, ConflictResolutionPolicy conflictResolutionPolicy = null, CosmosDBClientEncryptionPolicy clientEncryptionPolicy = null, long? analyticalStorageTtl = null, ResourceRestoreParameters restoreParameters = null, CosmosDBAccountCreateMode? createMode = null, MaterializedViewDefinition materializedViewDefinition = null, IEnumerable<MaterializedViewDetails> materializedViews = null, IEnumerable<ComputedProperty> computedProperties = null, IEnumerable<CosmosDBVectorEmbedding> vectorEmbeddings = null, FullTextPolicy fullTextPolicy = null, string rid = null, float? timestamp = null, ETag? etag = null)
         {
             uniqueKeys ??= new List<CosmosDBUniqueKey>();
+            materializedViews ??= new List<MaterializedViewDetails>();
             computedProperties ??= new List<ComputedProperty>();
             vectorEmbeddings ??= new List<CosmosDBVectorEmbedding>();
 
@@ -1076,8 +1133,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 restoreParameters,
                 createMode,
                 materializedViewDefinition,
+                materializedViews?.ToList(),
                 computedProperties?.ToList(),
                 vectorEmbeddings != null ? new VectorEmbeddingPolicy(vectorEmbeddings?.ToList(), serializedAdditionalRawData: null) : null,
+                fullTextPolicy,
                 serializedAdditionalRawData: null,
                 rid,
                 timestamp,
@@ -2933,16 +2992,19 @@ namespace Azure.ResourceManager.CosmosDB.Models
         /// <param name="restoreParameters"> Parameters to indicate the information about the restore. </param>
         /// <param name="createMode"> Enum to indicate the mode of resource creation. </param>
         /// <param name="materializedViewDefinition"> The configuration for defining Materialized Views. This must be specified only for creating a Materialized View container. </param>
+        /// <param name="materializedViews"> Materialized Views defined on the container. </param>
         /// <param name="computedProperties"> List of computed properties. </param>
         /// <param name="vectorEmbeddings"> The vector embedding policy for the container. </param>
+        /// <param name="fullTextPolicy"> The FullText policy for the container. </param>
         /// <param name="self"> A system generated property that specifies the addressable path of the container resource. </param>
         /// <param name="rid"> A system generated property. A unique identifier. </param>
         /// <param name="timestamp"> A system generated property that denotes the last updated timestamp of the resource. </param>
         /// <param name="etag"> A system generated property representing the resource etag required for optimistic concurrency control. </param>
         /// <returns> A new <see cref="Models.RestorableSqlContainerPropertiesResourceContainer"/> instance for mocking. </returns>
-        public static RestorableSqlContainerPropertiesResourceContainer RestorableSqlContainerPropertiesResourceContainer(string containerName = null, CosmosDBIndexingPolicy indexingPolicy = null, CosmosDBContainerPartitionKey partitionKey = null, int? defaultTtl = null, IEnumerable<CosmosDBUniqueKey> uniqueKeys = null, ConflictResolutionPolicy conflictResolutionPolicy = null, CosmosDBClientEncryptionPolicy clientEncryptionPolicy = null, long? analyticalStorageTtl = null, ResourceRestoreParameters restoreParameters = null, CosmosDBAccountCreateMode? createMode = null, MaterializedViewDefinition materializedViewDefinition = null, IEnumerable<ComputedProperty> computedProperties = null, IEnumerable<CosmosDBVectorEmbedding> vectorEmbeddings = null, string self = null, string rid = null, float? timestamp = null, ETag? etag = null)
+        public static RestorableSqlContainerPropertiesResourceContainer RestorableSqlContainerPropertiesResourceContainer(string containerName = null, CosmosDBIndexingPolicy indexingPolicy = null, CosmosDBContainerPartitionKey partitionKey = null, int? defaultTtl = null, IEnumerable<CosmosDBUniqueKey> uniqueKeys = null, ConflictResolutionPolicy conflictResolutionPolicy = null, CosmosDBClientEncryptionPolicy clientEncryptionPolicy = null, long? analyticalStorageTtl = null, ResourceRestoreParameters restoreParameters = null, CosmosDBAccountCreateMode? createMode = null, MaterializedViewDefinition materializedViewDefinition = null, IEnumerable<MaterializedViewDetails> materializedViews = null, IEnumerable<ComputedProperty> computedProperties = null, IEnumerable<CosmosDBVectorEmbedding> vectorEmbeddings = null, FullTextPolicy fullTextPolicy = null, string self = null, string rid = null, float? timestamp = null, ETag? etag = null)
         {
             uniqueKeys ??= new List<CosmosDBUniqueKey>();
+            materializedViews ??= new List<MaterializedViewDetails>();
             computedProperties ??= new List<ComputedProperty>();
             vectorEmbeddings ??= new List<CosmosDBVectorEmbedding>();
 
@@ -2958,8 +3020,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 restoreParameters,
                 createMode,
                 materializedViewDefinition,
+                materializedViews?.ToList(),
                 computedProperties?.ToList(),
                 vectorEmbeddings != null ? new VectorEmbeddingPolicy(vectorEmbeddings?.ToList(), serializedAdditionalRawData: null) : null,
+                fullTextPolicy,
                 serializedAdditionalRawData: null,
                 self,
                 rid,
@@ -3286,56 +3350,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 additionalProperties);
         }
 
-        /// <summary> Initializes a new instance of <see cref="CosmosDB.CosmosDBThroughputPoolData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="provisioningState"> A provisioning state of the ThroughputPool. </param>
-        /// <param name="maxThroughput"> Value for throughput to be shared among CosmosDB resources in the pool. </param>
-        /// <returns> A new <see cref="CosmosDB.CosmosDBThroughputPoolData"/> instance for mocking. </returns>
-        public static CosmosDBThroughputPoolData CosmosDBThroughputPoolData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, CosmosDBStatus? provisioningState = null, int? maxThroughput = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new CosmosDBThroughputPoolData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                provisioningState,
-                maxThroughput,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="CosmosDB.CosmosDBThroughputPoolAccountData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="provisioningState"> A provisioning state of the ThroughputPool Account. </param>
-        /// <param name="accountResourceIdentifier"> The resource identifier of global database account in the throughputPool. </param>
-        /// <param name="accountLocation"> The location of  global database account in the throughputPool. </param>
-        /// <param name="accountInstanceId"> The instance id of global database account in the throughputPool. </param>
-        /// <returns> A new <see cref="CosmosDB.CosmosDBThroughputPoolAccountData"/> instance for mocking. </returns>
-        public static CosmosDBThroughputPoolAccountData CosmosDBThroughputPoolAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CosmosDBStatus? provisioningState = null, ResourceIdentifier accountResourceIdentifier = null, AzureLocation? accountLocation = null, string accountInstanceId = null)
-        {
-            return new CosmosDBThroughputPoolAccountData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                provisioningState,
-                accountResourceIdentifier,
-                accountLocation,
-                accountInstanceId,
-                serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="CosmosDB.CosmosDBTableRoleDefinitionData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -3387,6 +3401,380 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 principalId,
                 provisioningState,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.CosmosDBThroughputPoolData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="provisioningState"> A provisioning state of the ThroughputPool. </param>
+        /// <param name="maxThroughput"> Value for throughput to be shared among CosmosDB resources in the pool. </param>
+        /// <returns> A new <see cref="CosmosDB.CosmosDBThroughputPoolData"/> instance for mocking. </returns>
+        public static CosmosDBThroughputPoolData CosmosDBThroughputPoolData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, CosmosDBStatus? provisioningState = null, int? maxThroughput = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new CosmosDBThroughputPoolData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                provisioningState,
+                maxThroughput,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.CosmosDBThroughputPoolAccountData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="provisioningState"> A provisioning state of the ThroughputPool Account. </param>
+        /// <param name="accountResourceIdentifier"> The resource identifier of global database account in the throughputPool. </param>
+        /// <param name="accountLocation"> The location of  global database account in the throughputPool. </param>
+        /// <param name="accountInstanceId"> The instance id of global database account in the throughputPool. </param>
+        /// <returns> A new <see cref="CosmosDB.CosmosDBThroughputPoolAccountData"/> instance for mocking. </returns>
+        public static CosmosDBThroughputPoolAccountData CosmosDBThroughputPoolAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CosmosDBStatus? provisioningState = null, ResourceIdentifier accountResourceIdentifier = null, AzureLocation? accountLocation = null, string accountInstanceId = null)
+        {
+            return new CosmosDBThroughputPoolAccountData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                provisioningState,
+                accountResourceIdentifier,
+                accountLocation,
+                accountInstanceId,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.CassandraRoleDefinitionResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="idPropertiesId"> The path id for the Role Definition. </param>
+        /// <param name="roleName"> A user-friendly name for the Role Definition. Must be unique for the database account. </param>
+        /// <param name="typePropertiesType"> Indicates whether the Role Definition was built-in or user created. </param>
+        /// <param name="assignableScopes"> A set of fully qualified Scopes at or below which Cassandra Role Assignments may be created using this Role Definition. This will allow application of this Role Definition on the entire database account or any underlying Database / Collection. Must have at least one element. Scopes higher than Database account are not enforceable as assignable Scopes. Note that resources referenced in assignable Scopes need not exist. </param>
+        /// <param name="permissions"> The set of operations allowed through this Role Definition. </param>
+        /// <returns> A new <see cref="CosmosDB.CassandraRoleDefinitionResourceData"/> instance for mocking. </returns>
+        public static CassandraRoleDefinitionResourceData CassandraRoleDefinitionResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string idPropertiesId = null, string roleName = null, CosmosDBSqlRoleDefinitionType? typePropertiesType = null, IEnumerable<string> assignableScopes = null, IEnumerable<Permission> permissions = null)
+        {
+            assignableScopes ??= new List<string>();
+            permissions ??= new List<Permission>();
+
+            return new CassandraRoleDefinitionResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                idPropertiesId,
+                roleName,
+                typePropertiesType,
+                assignableScopes?.ToList(),
+                permissions?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.CassandraRoleAssignmentResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="roleDefinitionId"> The unique identifier for the associated Role Definition. </param>
+        /// <param name="scope"> The data plane resource path for which access is being granted through this Cassandra Role Assignment. </param>
+        /// <param name="principalId"> The unique identifier for the associated AAD principal in the AAD graph to which access is being granted through this Cassandra Role Assignment. Tenant ID for the principal is inferred using the tenant associated with the subscription. </param>
+        /// <param name="provisioningState"> Provisioning state of the resource. </param>
+        /// <returns> A new <see cref="CosmosDB.CassandraRoleAssignmentResourceData"/> instance for mocking. </returns>
+        public static CassandraRoleAssignmentResourceData CassandraRoleAssignmentResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string roleDefinitionId = null, string scope = null, Guid? principalId = null, string provisioningState = null)
+        {
+            return new CassandraRoleAssignmentResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                roleDefinitionId,
+                scope,
+                principalId,
+                provisioningState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.MongoMIRoleDefinitionResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="idPropertiesId"> The path id for the Role Definition. </param>
+        /// <param name="roleName"> A user-friendly name for the Role Definition. Must be unique for the database account. </param>
+        /// <param name="typePropertiesType"> Indicates whether the Role Definition was built-in or user created. </param>
+        /// <param name="assignableScopes"> A set of fully qualified Scopes at or below which MongoMI Role Assignments may be created using this Role Definition. This will allow application of this Role Definition on the entire database account or any underlying Database / Collection. Must have at least one element. Scopes higher than Database account are not enforceable as assignable Scopes. Note that resources referenced in assignable Scopes need not exist. </param>
+        /// <param name="permissions"> The set of operations allowed through this Role Definition. </param>
+        /// <returns> A new <see cref="CosmosDB.MongoMIRoleDefinitionResourceData"/> instance for mocking. </returns>
+        public static MongoMIRoleDefinitionResourceData MongoMIRoleDefinitionResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string idPropertiesId = null, string roleName = null, CosmosDBSqlRoleDefinitionType? typePropertiesType = null, IEnumerable<string> assignableScopes = null, IEnumerable<Permission> permissions = null)
+        {
+            assignableScopes ??= new List<string>();
+            permissions ??= new List<Permission>();
+
+            return new MongoMIRoleDefinitionResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                idPropertiesId,
+                roleName,
+                typePropertiesType,
+                assignableScopes?.ToList(),
+                permissions?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.MongoMIRoleAssignmentResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="roleDefinitionId"> The unique identifier for the associated Role Definition. </param>
+        /// <param name="scope"> The data plane resource path for which access is being granted through this MongoMI Role Assignment. </param>
+        /// <param name="principalId"> The unique identifier for the associated AAD principal in the AAD graph to which access is being granted through this MongoMI Role Assignment. Tenant ID for the principal is inferred using the tenant associated with the subscription. </param>
+        /// <param name="provisioningState"> Provisioning state of the resource. </param>
+        /// <returns> A new <see cref="CosmosDB.MongoMIRoleAssignmentResourceData"/> instance for mocking. </returns>
+        public static MongoMIRoleAssignmentResourceData MongoMIRoleAssignmentResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string roleDefinitionId = null, string scope = null, Guid? principalId = null, string provisioningState = null)
+        {
+            return new MongoMIRoleAssignmentResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                roleDefinitionId,
+                scope,
+                principalId,
+                provisioningState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.GremlinRoleDefinitionResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="idPropertiesId"> The path id for the Role Definition. </param>
+        /// <param name="roleName"> A user-friendly name for the Role Definition. Must be unique for the database account. </param>
+        /// <param name="typePropertiesType"> Indicates whether the Role Definition was built-in or user created. </param>
+        /// <param name="assignableScopes"> A set of fully qualified Scopes at or below which Gremlin Role Assignments may be created using this Role Definition. This will allow application of this Role Definition on the entire database account or any underlying Database / Collection. Must have at least one element. Scopes higher than Database account are not enforceable as assignable Scopes. Note that resources referenced in assignable Scopes need not exist. </param>
+        /// <param name="permissions"> The set of operations allowed through this Role Definition. </param>
+        /// <returns> A new <see cref="CosmosDB.GremlinRoleDefinitionResourceData"/> instance for mocking. </returns>
+        public static GremlinRoleDefinitionResourceData GremlinRoleDefinitionResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string idPropertiesId = null, string roleName = null, CosmosDBSqlRoleDefinitionType? typePropertiesType = null, IEnumerable<string> assignableScopes = null, IEnumerable<Permission> permissions = null)
+        {
+            assignableScopes ??= new List<string>();
+            permissions ??= new List<Permission>();
+
+            return new GremlinRoleDefinitionResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                idPropertiesId,
+                roleName,
+                typePropertiesType,
+                assignableScopes?.ToList(),
+                permissions?.ToList(),
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.GremlinRoleAssignmentResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="roleDefinitionId"> The unique identifier for the associated Role Definition. </param>
+        /// <param name="scope"> The data plane resource path for which access is being granted through this Gremlin Role Assignment. </param>
+        /// <param name="principalId"> The unique identifier for the associated AAD principal in the AAD graph to which access is being granted through this Gremlin Role Assignment. Tenant ID for the principal is inferred using the tenant associated with the subscription. </param>
+        /// <param name="provisioningState"> Provisioning state of the resource. </param>
+        /// <returns> A new <see cref="CosmosDB.GremlinRoleAssignmentResourceData"/> instance for mocking. </returns>
+        public static GremlinRoleAssignmentResourceData GremlinRoleAssignmentResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string roleDefinitionId = null, string scope = null, Guid? principalId = null, string provisioningState = null)
+        {
+            return new GremlinRoleAssignmentResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                roleDefinitionId,
+                scope,
+                principalId,
+                provisioningState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.FleetResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="provisioningState"> A provisioning state of the Fleet. </param>
+        /// <returns> A new <see cref="CosmosDB.FleetResourceData"/> instance for mocking. </returns>
+        public static FleetResourceData FleetResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, CosmosDBStatus? provisioningState = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new FleetResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                provisioningState,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.FleetAnalyticsResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="provisioningState"> A provisioning state of the FleetAnalytics. </param>
+        /// <param name="storageLocationType"> The type of the fleet analytics resource. </param>
+        /// <param name="storageLocationUri"> The unique identifier of the fleet analytics resource. </param>
+        /// <returns> A new <see cref="CosmosDB.FleetAnalyticsResourceData"/> instance for mocking. </returns>
+        public static FleetAnalyticsResourceData FleetAnalyticsResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CosmosDBStatus? provisioningState = null, FleetAnalyticsPropertiesStorageLocationType? storageLocationType = null, Uri storageLocationUri = null)
+        {
+            return new FleetAnalyticsResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                provisioningState,
+                storageLocationType,
+                storageLocationUri,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.FleetspaceResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="provisioningState"> A provisioning state of the Fleetspace. </param>
+        /// <param name="fleetspaceApiKind"> The kind of API this fleetspace belongs to. Acceptable values: 'NoSQL'. </param>
+        /// <param name="throughputPoolConfiguration"> Configuration for throughput pool in the fleetspace. </param>
+        /// <returns> A new <see cref="CosmosDB.FleetspaceResourceData"/> instance for mocking. </returns>
+        public static FleetspaceResourceData FleetspaceResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CosmosDBStatus? provisioningState = null, FleetspacePropertiesFleetspaceApiKind? fleetspaceApiKind = null, FleetspacePropertiesThroughputPoolConfiguration throughputPoolConfiguration = null)
+        {
+            return new FleetspaceResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                provisioningState,
+                fleetspaceApiKind,
+                throughputPoolConfiguration,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="CosmosDB.FleetspaceAccountResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="provisioningState"> A provisioning state of the Fleetspace Account. </param>
+        /// <param name="accountResourceIdentifier"> The resource identifier of global database account in the Fleetspace Account. </param>
+        /// <param name="accountLocation"> The location of  global database account in the Fleetspace Account. </param>
+        /// <returns> A new <see cref="CosmosDB.FleetspaceAccountResourceData"/> instance for mocking. </returns>
+        public static FleetspaceAccountResourceData FleetspaceAccountResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CosmosDBStatus? provisioningState = null, string accountResourceIdentifier = null, string accountLocation = null)
+        {
+            return new FleetspaceAccountResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                provisioningState,
+                accountResourceIdentifier,
+                accountLocation,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BaseCopyJobTask"/>. </summary>
+        /// <param name="totalCount"> Task level Total Count. </param>
+        /// <param name="processedCount"> Task level Processed Count. </param>
+        /// <returns> A new <see cref="Models.BaseCopyJobTask"/> instance for mocking. </returns>
+        public static BaseCopyJobTask BaseCopyJobTask(long? totalCount = null, long? processedCount = null)
+        {
+            return new BaseCopyJobTask(totalCount, processedCount, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BlobToCassandraRUCopyJobTask"/>. </summary>
+        /// <param name="totalCount"> Task level Total Count. </param>
+        /// <param name="processedCount"> Task level Processed Count. </param>
+        /// <param name="sourceContainerName"> Source Azure Blob container. </param>
+        /// <param name="destination"> Destination Cassandra table. </param>
+        /// <returns> A new <see cref="Models.BlobToCassandraRUCopyJobTask"/> instance for mocking. </returns>
+        public static BlobToCassandraRUCopyJobTask BlobToCassandraRUCopyJobTask(long? totalCount = null, long? processedCount = null, string sourceContainerName = null, CosmosDBCassandraTable destination = null)
+        {
+            return new BlobToCassandraRUCopyJobTask(totalCount, processedCount, serializedAdditionalRawData: null, sourceContainerName != null ? new AzureBlobContainer(sourceContainerName, serializedAdditionalRawData: null) : null, destination);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CassandraRUToBlobCopyJobTask"/>. </summary>
+        /// <param name="totalCount"> Task level Total Count. </param>
+        /// <param name="processedCount"> Task level Processed Count. </param>
+        /// <param name="source"> Source Cassandra table. </param>
+        /// <param name="destinationContainerName"> Destination Azure Blob container. </param>
+        /// <returns> A new <see cref="Models.CassandraRUToBlobCopyJobTask"/> instance for mocking. </returns>
+        public static CassandraRUToBlobCopyJobTask CassandraRUToBlobCopyJobTask(long? totalCount = null, long? processedCount = null, CosmosDBCassandraTable source = null, string destinationContainerName = null)
+        {
+            return new CassandraRUToBlobCopyJobTask(totalCount, processedCount, serializedAdditionalRawData: null, source, destinationContainerName != null ? new AzureBlobContainer(destinationContainerName, serializedAdditionalRawData: null) : null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CassandraRUToCassandraRUCopyJobTask"/>. </summary>
+        /// <param name="totalCount"> Task level Total Count. </param>
+        /// <param name="processedCount"> Task level Processed Count. </param>
+        /// <param name="source"> Source Cassandra table. </param>
+        /// <param name="destination"> Destination Cassandra table. </param>
+        /// <returns> A new <see cref="Models.CassandraRUToCassandraRUCopyJobTask"/> instance for mocking. </returns>
+        public static CassandraRUToCassandraRUCopyJobTask CassandraRUToCassandraRUCopyJobTask(long? totalCount = null, long? processedCount = null, CosmosDBCassandraTable source = null, CosmosDBCassandraTable destination = null)
+        {
+            return new CassandraRUToCassandraRUCopyJobTask(totalCount, processedCount, serializedAdditionalRawData: null, source, destination);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.MongoRUToMongoRUCopyJobTask"/>. </summary>
+        /// <param name="totalCount"> Task level Total Count. </param>
+        /// <param name="processedCount"> Task level Processed Count. </param>
+        /// <param name="source"> Source Mongo (RU) collection. </param>
+        /// <param name="destination"> Destination Mongo (RU) collection. </param>
+        /// <returns> A new <see cref="Models.MongoRUToMongoRUCopyJobTask"/> instance for mocking. </returns>
+        public static MongoRUToMongoRUCopyJobTask MongoRUToMongoRUCopyJobTask(long? totalCount = null, long? processedCount = null, CosmosDBMongoCollection source = null, CosmosDBMongoCollection destination = null)
+        {
+            return new MongoRUToMongoRUCopyJobTask(totalCount, processedCount, serializedAdditionalRawData: null, source, destination);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.MongoRUToMongoVCoreCopyJobTask"/>. </summary>
+        /// <param name="totalCount"> Task level Total Count. </param>
+        /// <param name="processedCount"> Task level Processed Count. </param>
+        /// <param name="source"> Source Mongo (RU) collection. </param>
+        /// <param name="destination"> Destination Mongo (vCore) collection. </param>
+        /// <returns> A new <see cref="Models.MongoRUToMongoVCoreCopyJobTask"/> instance for mocking. </returns>
+        public static MongoRUToMongoVCoreCopyJobTask MongoRUToMongoVCoreCopyJobTask(long? totalCount = null, long? processedCount = null, CosmosDBMongoCollection source = null, CosmosDBMongoVCoreCollection destination = null)
+        {
+            return new MongoRUToMongoVCoreCopyJobTask(totalCount, processedCount, serializedAdditionalRawData: null, source, destination);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.NoSqlRUToNoSqlRUCopyJobTask"/>. </summary>
+        /// <param name="totalCount"> Task level Total Count. </param>
+        /// <param name="processedCount"> Task level Processed Count. </param>
+        /// <param name="source"> Source SQL container. </param>
+        /// <param name="destination"> Destination SQL container. </param>
+        /// <returns> A new <see cref="Models.NoSqlRUToNoSqlRUCopyJobTask"/> instance for mocking. </returns>
+        public static NoSqlRUToNoSqlRUCopyJobTask NoSqlRUToNoSqlRUCopyJobTask(long? totalCount = null, long? processedCount = null, CosmosDBNoSqlContainer source = null, CosmosDBNoSqlContainer destination = null)
+        {
+            return new NoSqlRUToNoSqlRUCopyJobTask(totalCount, processedCount, serializedAdditionalRawData: null, source, destination);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.DataTransferServiceProperties"/>. </summary>

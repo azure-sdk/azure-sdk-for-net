@@ -42,6 +42,11 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("throughput"u8);
                 writer.WriteNumberValue(Throughput.Value);
             }
+            if (Optional.IsDefined(TargetThroughput))
+            {
+                writer.WritePropertyName("targetThroughput"u8);
+                writer.WriteNumberValue(TargetThroughput.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -81,6 +86,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
             }
             string id = default;
             double? throughput = default;
+            double? targetThroughput = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -99,13 +105,22 @@ namespace Azure.ResourceManager.CosmosDB.Models
                     throughput = property.Value.GetDouble();
                     continue;
                 }
+                if (property.NameEquals("targetThroughput"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    targetThroughput = property.Value.GetDouble();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new PhysicalPartitionThroughputInfoResource(id, throughput, serializedAdditionalRawData);
+            return new PhysicalPartitionThroughputInfoResource(id, throughput, targetThroughput, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -154,6 +169,21 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 {
                     builder.Append("  throughput: ");
                     builder.AppendLine($"'{Throughput.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(TargetThroughput), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  targetThroughput: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(TargetThroughput))
+                {
+                    builder.Append("  targetThroughput: ");
+                    builder.AppendLine($"'{TargetThroughput.Value.ToString()}'");
                 }
             }
 

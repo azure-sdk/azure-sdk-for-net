@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.CosmosDB.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CosmosDBTableRoleDefinitionCreateUpdate()
         {
-            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2024-12-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionCreateUpdate.json
+            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2025-05-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionCreateUpdate.json
             // this example is just showing the usage of "TableResources_CreateUpdateTableRoleDefinition" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -66,7 +66,7 @@ NotDataActions = {},
         [Ignore("Only validating compilation of examples")]
         public async Task Get_CosmosDBTableRoleDefinitionGet()
         {
-            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2024-12-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionGet.json
+            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2025-05-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionGet.json
             // this example is just showing the usage of "TableResources_GetTableRoleDefinition" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -100,7 +100,7 @@ NotDataActions = {},
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_CosmosDBTableRoleDefinitionList()
         {
-            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2024-12-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionList.json
+            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2025-05-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionList.json
             // this example is just showing the usage of "TableResources_ListTableRoleDefinitions" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -136,7 +136,7 @@ NotDataActions = {},
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_CosmosDBTableRoleDefinitionGet()
         {
-            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2024-12-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionGet.json
+            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2025-05-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionGet.json
             // this example is just showing the usage of "TableResources_GetTableRoleDefinition" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ NotDataActions = {},
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_CosmosDBTableRoleDefinitionGet()
         {
-            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2024-12-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionGet.json
+            // Generated from example definition: specification/cosmos-db/resource-manager/Microsoft.DocumentDB/preview/2025-05-01-preview/examples/tablerbac/CosmosDBTableRoleDefinitionGet.json
             // this example is just showing the usage of "TableResources_GetTableRoleDefinition" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
