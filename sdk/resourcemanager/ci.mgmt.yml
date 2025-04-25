@@ -117,6 +117,7 @@ trigger:
     - sdk/kusto/Azure.ResourceManager.Kusto
     - sdk/labservices/Azure.ResourceManager.LabServices
     - sdk/lambdatesthyperexecute/Azure.ResourceManager.LambdaTestHyperExecute
+    - sdk/liftrarize/Azure.ResourceManager.ArizeAIObservabilityEval
     - sdk/loadtestservice/Azure.ResourceManager.LoadTesting
     - sdk/logic/Azure.ResourceManager.Logic
     - sdk/machinelearningcompute/Azure.ResourceManager.MachineLearningCompute
@@ -332,6 +333,7 @@ pr:
     - sdk/kusto/Azure.ResourceManager.Kusto
     - sdk/labservices/Azure.ResourceManager.LabServices
     - sdk/lambdatesthyperexecute/Azure.ResourceManager.LambdaTestHyperExecute
+    - sdk/liftrarize/Azure.ResourceManager.ArizeAIObservabilityEval
     - sdk/loadtestservice/Azure.ResourceManager.LoadTesting
     - sdk/logic/Azure.ResourceManager.Logic
     - sdk/machinelearningcompute/Azure.ResourceManager.MachineLearningCompute
