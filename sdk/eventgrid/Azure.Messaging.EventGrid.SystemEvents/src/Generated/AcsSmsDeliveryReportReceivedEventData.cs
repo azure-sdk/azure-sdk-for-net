@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
@@ -15,13 +14,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsSmsDeliveryReportReceivedEventData : AcsSmsEventBaseProperties
     {
         /// <summary> Initializes a new instance of <see cref="AcsSmsDeliveryReportReceivedEventData"/>. </summary>
-        /// <param name="deliveryAttempts"> List of details of delivery attempts made. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="deliveryAttempts"/> is null. </exception>
-        internal AcsSmsDeliveryReportReceivedEventData(IEnumerable<AcsSmsDeliveryAttemptProperties> deliveryAttempts)
+        internal AcsSmsDeliveryReportReceivedEventData()
         {
-            Argument.AssertNotNull(deliveryAttempts, nameof(deliveryAttempts));
-
-            DeliveryAttempts = deliveryAttempts.ToList();
+            DeliveryAttempts = new ChangeTrackingList<AcsSmsDeliveryAttemptProperties>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsSmsDeliveryReportReceivedEventData"/>. </summary>
@@ -41,11 +36,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             DeliveryAttempts = deliveryAttempts;
             ReceivedTimestamp = receivedTimestamp;
             Tag = tag;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="AcsSmsDeliveryReportReceivedEventData"/> for deserialization. </summary>
-        internal AcsSmsDeliveryReportReceivedEventData()
-        {
         }
 
         /// <summary> Status of Delivery. </summary>
