@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
@@ -48,15 +47,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterCommunicationError"/>. </summary>
         /// <param name="innererror"> Router Communication Inner Error. </param>
-        /// <param name="details"> List of Router Communication Errors. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="innererror"/> or <paramref name="details"/> is null. </exception>
-        internal AcsRouterCommunicationError(AcsRouterCommunicationError innererror, IEnumerable<AcsRouterCommunicationError> details)
+        /// <exception cref="ArgumentNullException"> <paramref name="innererror"/> is null. </exception>
+        internal AcsRouterCommunicationError(AcsRouterCommunicationError innererror)
         {
             Argument.AssertNotNull(innererror, nameof(innererror));
-            Argument.AssertNotNull(details, nameof(details));
 
             Innererror = innererror;
-            Details = details.ToList();
+            Errors = new ChangeTrackingList<AcsRouterCommunicationError>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsRouterCommunicationError"/>. </summary>
@@ -64,15 +61,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="message"> Router Communication Error Message. </param>
         /// <param name="target"> Router Communication Error Target. </param>
         /// <param name="innererror"> Router Communication Inner Error. </param>
-        /// <param name="details"> List of Router Communication Errors. </param>
+        /// <param name="errors"> List of Router Communication Errors. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcsRouterCommunicationError(string code, string message, string target, AcsRouterCommunicationError innererror, IReadOnlyList<AcsRouterCommunicationError> details, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AcsRouterCommunicationError(string code, string message, string target, AcsRouterCommunicationError innererror, IReadOnlyList<AcsRouterCommunicationError> errors, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Code = code;
             Message = message;
             Target = target;
             Innererror = innererror;
-            Details = details;
+            Errors = errors;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -90,6 +87,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Router Communication Inner Error. </summary>
         public AcsRouterCommunicationError Innererror { get; }
         /// <summary> List of Router Communication Errors. </summary>
-        public IReadOnlyList<AcsRouterCommunicationError> Details { get; }
+        public IReadOnlyList<AcsRouterCommunicationError> Errors { get; }
     }
 }
