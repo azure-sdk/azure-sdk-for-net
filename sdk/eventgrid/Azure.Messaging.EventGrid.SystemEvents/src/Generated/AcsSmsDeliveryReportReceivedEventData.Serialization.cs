@@ -45,13 +45,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("deliveryStatusDetails"u8);
                 writer.WriteStringValue(DeliveryStatusDetails);
             }
-            writer.WritePropertyName("deliveryAttempts"u8);
-            writer.WriteStartArray();
-            foreach (var item in DeliveryAttempts)
+            if (options.Format != "W")
             {
-                writer.WriteObjectValue(item, options);
+                writer.WritePropertyName("deliveryAttempts"u8);
+                writer.WriteStartArray();
+                foreach (var item in DeliveryAttempts)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
             }
-            writer.WriteEndArray();
             if (Optional.IsDefined(ReceivedTimestamp))
             {
                 writer.WritePropertyName("receivedTimestamp"u8);
