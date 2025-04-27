@@ -33,11 +33,15 @@ namespace Azure.ResourceManager.Terraform.Models
         /// <param name="query"> The ARG where predicate. Note that you can combine multiple conditions in one `where` predicate, e.g. `resourceGroup =~ "my-rg" and type =~ "microsoft.network/virtualnetworks"`. </param>
         /// <param name="namePattern"> The name pattern of the Terraform resources. </param>
         /// <param name="isRecursive"> Whether to recursively list child resources of the query result. </param>
-        internal ExportQueryTerraform(CommonExportType type, TargetTerraformProvider? targetProvider, bool? isOutputFullPropertiesEnabled, bool? isMaskSensitiveEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData, string query, string namePattern, bool? isRecursive) : base(type, targetProvider, isOutputFullPropertiesEnabled, isMaskSensitiveEnabled, serializedAdditionalRawData)
+        /// <param name="table"> The ARG table name. </param>
+        /// <param name="authorizationScopeFilter"> The ARG Scope Filter parameter. </param>
+        internal ExportQueryTerraform(CommonExportType type, TargetTerraformProvider? targetProvider, bool? isOutputFullPropertiesEnabled, bool? isMaskSensitiveEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData, string query, string namePattern, bool? isRecursive, string table, AuthorizationScopeFilter? authorizationScopeFilter) : base(type, targetProvider, isOutputFullPropertiesEnabled, isMaskSensitiveEnabled, serializedAdditionalRawData)
         {
             Query = query;
             NamePattern = namePattern;
             IsRecursive = isRecursive;
+            Table = table;
+            AuthorizationScopeFilter = authorizationScopeFilter;
             Type = type;
         }
 
@@ -52,5 +56,9 @@ namespace Azure.ResourceManager.Terraform.Models
         public string NamePattern { get; set; }
         /// <summary> Whether to recursively list child resources of the query result. </summary>
         public bool? IsRecursive { get; set; }
+        /// <summary> The ARG table name. </summary>
+        public string Table { get; set; }
+        /// <summary> The ARG Scope Filter parameter. </summary>
+        public AuthorizationScopeFilter? AuthorizationScopeFilter { get; set; }
     }
 }
