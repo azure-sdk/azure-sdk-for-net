@@ -65,13 +65,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WriteStringValue(item.Value);
             }
             writer.WriteEndObject();
-            writer.WritePropertyName("participants"u8);
-            writer.WriteStartArray();
-            foreach (var item in Participants)
+            if (options.Format != "W")
             {
-                writer.WriteObjectValue(item, options);
+                writer.WritePropertyName("participants"u8);
+                writer.WriteStartArray();
+                foreach (var item in Participants)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
             }
-            writer.WriteEndArray();
         }
 
         AcsChatThreadCreatedEventData IJsonModel<AcsChatThreadCreatedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
