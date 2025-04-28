@@ -54,7 +54,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// Dns name used for the service. If this is specified, then the DNS name can be used to return the IP addresses of service endpoints for application layer protocols (e.g., HTTP).
         /// When updating serviceDnsName, old name may be temporarily resolvable. However, rely on new name.
         /// When removing serviceDnsName, removed name may temporarily be resolvable. Do not rely on the name being unresolvable.
-        ///
         /// </param>
         /// <param name="hasPersistedState"> A flag indicating whether this is a persistent service which stores states on the local disk. If it is then the value of this property is true, if not it is false. </param>
         /// <param name="targetReplicaSetSize"> The target replica set size as a number. </param>
@@ -63,7 +62,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <param name="quorumLossWaitDuration"> The maximum duration for which a partition is allowed to be in a state of quorum loss, represented in ISO 8601 format "hh:mm:ss". </param>
         /// <param name="standByReplicaKeepDuration"> The definition on how long StandBy replicas should be maintained before being removed, represented in ISO 8601 format "hh:mm:ss". </param>
         /// <param name="servicePlacementTimeLimit"> The duration for which replicas can stay InBuild before reporting that build is stuck, represented in ISO 8601 format "hh:mm:ss". </param>
-        internal StatefulServiceProperties(string placementConstraints, IList<ManagedServiceCorrelation> correlationScheme, IList<ManagedServiceLoadMetric> serviceLoadMetrics, IList<ManagedServicePlacementPolicy> servicePlacementPolicies, ServiceFabricManagedServiceMoveCost? defaultMoveCost, IList<ManagedServiceScalingPolicy> scalingPolicies, IDictionary<string, BinaryData> serializedAdditionalRawData, string provisioningState, ServiceKind serviceKind, string serviceTypeName, ManagedServicePartitionScheme partitionDescription, ManagedServicePackageActivationMode? servicePackageActivationMode, string serviceDnsName, bool? hasPersistedState, int? targetReplicaSetSize, int? minReplicaSetSize, TimeSpan? replicaRestartWaitDuration, TimeSpan? quorumLossWaitDuration, TimeSpan? standByReplicaKeepDuration, TimeSpan? servicePlacementTimeLimit) : base(placementConstraints, correlationScheme, serviceLoadMetrics, servicePlacementPolicies, defaultMoveCost, scalingPolicies, serializedAdditionalRawData, provisioningState, serviceKind, serviceTypeName, partitionDescription, servicePackageActivationMode, serviceDnsName)
+        internal StatefulServiceProperties(string placementConstraints, IList<ManagedServiceCorrelation> correlationScheme, IList<ManagedServiceLoadMetric> serviceLoadMetrics, IList<ManagedServicePlacementPolicy> servicePlacementPolicies, ServiceFabricManagedServiceMoveCost? defaultMoveCost, IList<ManagedServiceScalingPolicy> scalingPolicies, IDictionary<string, BinaryData> serializedAdditionalRawData, string provisioningState, ServiceKind serviceKind, string serviceTypeName, ManagedServicePartitionScheme partitionDescription, ManagedServicePackageActivationMode? servicePackageActivationMode, string serviceDnsName, bool? hasPersistedState, int? targetReplicaSetSize, int? minReplicaSetSize, string replicaRestartWaitDuration, string quorumLossWaitDuration, string standByReplicaKeepDuration, string servicePlacementTimeLimit) : base(placementConstraints, correlationScheme, serviceLoadMetrics, servicePlacementPolicies, defaultMoveCost, scalingPolicies, serializedAdditionalRawData, provisioningState, serviceKind, serviceTypeName, partitionDescription, servicePackageActivationMode, serviceDnsName)
         {
             HasPersistedState = hasPersistedState;
             TargetReplicaSetSize = targetReplicaSetSize;
@@ -87,12 +86,12 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <summary> The minimum replica set size as a number. </summary>
         public int? MinReplicaSetSize { get; set; }
         /// <summary> The duration between when a replica goes down and when a new replica is created, represented in ISO 8601 format "hh:mm:ss". </summary>
-        public TimeSpan? ReplicaRestartWaitDuration { get; set; }
+        public string ReplicaRestartWaitDuration { get; set; }
         /// <summary> The maximum duration for which a partition is allowed to be in a state of quorum loss, represented in ISO 8601 format "hh:mm:ss". </summary>
-        public TimeSpan? QuorumLossWaitDuration { get; set; }
+        public string QuorumLossWaitDuration { get; set; }
         /// <summary> The definition on how long StandBy replicas should be maintained before being removed, represented in ISO 8601 format "hh:mm:ss". </summary>
-        public TimeSpan? StandByReplicaKeepDuration { get; set; }
+        public string StandByReplicaKeepDuration { get; set; }
         /// <summary> The duration for which replicas can stay InBuild before reporting that build is stuck, represented in ISO 8601 format "hh:mm:ss". </summary>
-        public TimeSpan? ServicePlacementTimeLimit { get; set; }
+        public string ServicePlacementTimeLimit { get; set; }
     }
 }
