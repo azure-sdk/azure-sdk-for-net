@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_BrokerListenerGet()
         {
-            // Generated from example definition: 2024-11-01/BrokerListener_Get_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/BrokerListener_Get_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerListenerResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_BrokerListenerDelete()
         {
-            // Generated from example definition: 2024-11-01/BrokerListener_Delete_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/BrokerListener_Delete_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerListenerResource_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_BrokerListenerCreateOrUpdateComplex()
         {
-            // Generated from example definition: 2024-11-01/BrokerListener_CreateOrUpdate_Complex.json
+            // Generated from example definition: 2025-04-01/BrokerListener_CreateOrUpdate_Complex.json
             // this example is just showing the usage of "BrokerListenerResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -148,7 +148,7 @@ ManualSecretRef = "example-secret",
         [Ignore("Only validating compilation of examples")]
         public async Task Update_BrokerListenerCreateOrUpdate()
         {
-            // Generated from example definition: 2024-11-01/BrokerListener_CreateOrUpdate_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/BrokerListener_CreateOrUpdate_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerListenerResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -210,7 +210,7 @@ ManualSecretRef = "secret-name",
         [Ignore("Only validating compilation of examples")]
         public async Task Update_BrokerListenerCreateOrUpdateSimple()
         {
-            // Generated from example definition: 2024-11-01/BrokerListener_CreateOrUpdate_Simple.json
+            // Generated from example definition: 2025-04-01/BrokerListener_CreateOrUpdate_Simple.json
             // this example is just showing the usage of "BrokerListenerResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
