@@ -53,22 +53,22 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             if (Optional.IsDefined(ReplicaRestartWaitDuration))
             {
                 writer.WritePropertyName("replicaRestartWaitDuration"u8);
-                writer.WriteStringValue(ReplicaRestartWaitDuration.Value, "c");
+                writer.WriteStringValue(ReplicaRestartWaitDuration);
             }
             if (Optional.IsDefined(QuorumLossWaitDuration))
             {
                 writer.WritePropertyName("quorumLossWaitDuration"u8);
-                writer.WriteStringValue(QuorumLossWaitDuration.Value, "c");
+                writer.WriteStringValue(QuorumLossWaitDuration);
             }
             if (Optional.IsDefined(StandByReplicaKeepDuration))
             {
                 writer.WritePropertyName("standByReplicaKeepDuration"u8);
-                writer.WriteStringValue(StandByReplicaKeepDuration.Value, "c");
+                writer.WriteStringValue(StandByReplicaKeepDuration);
             }
             if (Optional.IsDefined(ServicePlacementTimeLimit))
             {
                 writer.WritePropertyName("servicePlacementTimeLimit"u8);
-                writer.WriteStringValue(ServicePlacementTimeLimit.Value, "c");
+                writer.WriteStringValue(ServicePlacementTimeLimit);
             }
         }
 
@@ -95,10 +95,10 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             bool? hasPersistedState = default;
             int? targetReplicaSetSize = default;
             int? minReplicaSetSize = default;
-            TimeSpan? replicaRestartWaitDuration = default;
-            TimeSpan? quorumLossWaitDuration = default;
-            TimeSpan? standByReplicaKeepDuration = default;
-            TimeSpan? servicePlacementTimeLimit = default;
+            string replicaRestartWaitDuration = default;
+            string quorumLossWaitDuration = default;
+            string standByReplicaKeepDuration = default;
+            string servicePlacementTimeLimit = default;
             string provisioningState = default;
             ServiceKind serviceKind = default;
             string serviceTypeName = default;
@@ -144,38 +144,22 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 }
                 if (property.NameEquals("replicaRestartWaitDuration"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    replicaRestartWaitDuration = property.Value.GetTimeSpan("c");
+                    replicaRestartWaitDuration = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("quorumLossWaitDuration"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    quorumLossWaitDuration = property.Value.GetTimeSpan("c");
+                    quorumLossWaitDuration = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("standByReplicaKeepDuration"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    standByReplicaKeepDuration = property.Value.GetTimeSpan("c");
+                    standByReplicaKeepDuration = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("servicePlacementTimeLimit"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    servicePlacementTimeLimit = property.Value.GetTimeSpan("c");
+                    servicePlacementTimeLimit = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("provisioningState"u8))

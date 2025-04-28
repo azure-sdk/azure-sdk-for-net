@@ -51,9 +51,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <param name="healthCheckRetryTimeout"> The amount of time to retry health evaluation when the application or cluster is unhealthy before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </param>
         /// <param name="upgradeTimeout"> The amount of time the overall upgrade has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </param>
         /// <param name="upgradeDomainTimeout"> The amount of time each upgrade domain has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="healthCheckRetryTimeout"/>, <paramref name="upgradeTimeout"/> or <paramref name="upgradeDomainTimeout"/> is null. </exception>
-        public ManagedClusterMonitoringPolicy(TimeSpan healthCheckWaitDuration, TimeSpan healthCheckStableDuration, string healthCheckRetryTimeout, string upgradeTimeout, string upgradeDomainTimeout)
+        /// <exception cref="ArgumentNullException"> <paramref name="healthCheckWaitDuration"/>, <paramref name="healthCheckStableDuration"/>, <paramref name="healthCheckRetryTimeout"/>, <paramref name="upgradeTimeout"/> or <paramref name="upgradeDomainTimeout"/> is null. </exception>
+        public ManagedClusterMonitoringPolicy(string healthCheckWaitDuration, string healthCheckStableDuration, string healthCheckRetryTimeout, string upgradeTimeout, string upgradeDomainTimeout)
         {
+            Argument.AssertNotNull(healthCheckWaitDuration, nameof(healthCheckWaitDuration));
+            Argument.AssertNotNull(healthCheckStableDuration, nameof(healthCheckStableDuration));
             Argument.AssertNotNull(healthCheckRetryTimeout, nameof(healthCheckRetryTimeout));
             Argument.AssertNotNull(upgradeTimeout, nameof(upgradeTimeout));
             Argument.AssertNotNull(upgradeDomainTimeout, nameof(upgradeDomainTimeout));
@@ -72,7 +74,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <param name="upgradeTimeout"> The amount of time the overall upgrade has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </param>
         /// <param name="upgradeDomainTimeout"> The amount of time each upgrade domain has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedClusterMonitoringPolicy(TimeSpan healthCheckWaitDuration, TimeSpan healthCheckStableDuration, string healthCheckRetryTimeout, string upgradeTimeout, string upgradeDomainTimeout, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterMonitoringPolicy(string healthCheckWaitDuration, string healthCheckStableDuration, string healthCheckRetryTimeout, string upgradeTimeout, string upgradeDomainTimeout, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             HealthCheckWaitDuration = healthCheckWaitDuration;
             HealthCheckStableDuration = healthCheckStableDuration;
@@ -88,9 +90,9 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         }
 
         /// <summary> The length of time to wait after completing an upgrade domain before performing health checks. The duration can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </summary>
-        public TimeSpan HealthCheckWaitDuration { get; set; }
+        public string HealthCheckWaitDuration { get; set; }
         /// <summary> The amount of time that the application or cluster must remain healthy before the upgrade proceeds to the next upgrade domain. The duration can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </summary>
-        public TimeSpan HealthCheckStableDuration { get; set; }
+        public string HealthCheckStableDuration { get; set; }
         /// <summary> The amount of time to retry health evaluation when the application or cluster is unhealthy before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </summary>
         public string HealthCheckRetryTimeout { get; set; }
         /// <summary> The amount of time the overall upgrade has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format. </summary>
