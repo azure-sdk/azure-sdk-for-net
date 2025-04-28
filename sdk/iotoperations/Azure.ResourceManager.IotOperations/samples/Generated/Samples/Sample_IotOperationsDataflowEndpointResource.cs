@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_DataflowEndpointGet()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_Get_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_Get_MaximumSet_Gen.json
             // this example is just showing the usage of "DataflowEndpointResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_DataflowEndpointDelete()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_Delete_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_Delete_MaximumSet_Gen.json
             // this example is just showing the usage of "DataflowEndpointResource_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateADLSv2()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_ADLSv2.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_ADLSv2.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateADX()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_ADX.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_ADX.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateAIO()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_AIO.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_AIO.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -216,7 +216,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateEventGrid()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_EventGrid.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_EventGrid.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -262,7 +262,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateEventHub()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_EventHub.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_EventHub.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -308,7 +308,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateFabric()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_Fabric.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_Fabric.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -347,7 +347,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateKafka()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_Kafka.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_Kafka.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -409,7 +409,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateLocalStorage()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_LocalStorage.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_LocalStorage.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -448,7 +448,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdateMQTT()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_MQTT.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_MQTT.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -504,7 +504,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DataflowEndpointCreateOrUpdate()
         {
-            // Generated from example definition: 2024-11-01/DataflowEndpoint_CreateOrUpdate_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/DataflowEndpoint_CreateOrUpdate_MaximumSet_Gen.json
             // this example is just showing the usage of "DataflowEndpointResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
