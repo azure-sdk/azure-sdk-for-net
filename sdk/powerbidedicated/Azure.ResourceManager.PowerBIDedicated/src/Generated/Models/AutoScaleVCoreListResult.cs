@@ -58,10 +58,12 @@ namespace Azure.ResourceManager.PowerBIDedicated.Models
 
         /// <summary> Initializes a new instance of <see cref="AutoScaleVCoreListResult"/>. </summary>
         /// <param name="value"> An array of auto scale v-core resources. </param>
+        /// <param name="nextLink"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AutoScaleVCoreListResult(IReadOnlyList<AutoScaleVCoreData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AutoScaleVCoreListResult(IReadOnlyList<AutoScaleVCoreData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
+            NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -72,5 +74,7 @@ namespace Azure.ResourceManager.PowerBIDedicated.Models
 
         /// <summary> An array of auto scale v-core resources. </summary>
         public IReadOnlyList<AutoScaleVCoreData> Value { get; }
+        /// <summary> Gets the next link. </summary>
+        public string NextLink { get; }
     }
 }

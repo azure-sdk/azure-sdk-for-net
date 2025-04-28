@@ -270,7 +270,8 @@ namespace Azure.ResourceManager.PowerBIDedicated
         public virtual AsyncPageable<AutoScaleVCoreResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _autoScaleVCoreRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new AutoScaleVCoreResource(Client, AutoScaleVCoreData.DeserializeAutoScaleVCoreData(e)), _autoScaleVCoreClientDiagnostics, Pipeline, "AutoScaleVCoreCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _autoScaleVCoreRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new AutoScaleVCoreResource(Client, AutoScaleVCoreData.DeserializeAutoScaleVCoreData(e)), _autoScaleVCoreClientDiagnostics, Pipeline, "AutoScaleVCoreCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -299,7 +300,8 @@ namespace Azure.ResourceManager.PowerBIDedicated
         public virtual Pageable<AutoScaleVCoreResource> GetAll(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _autoScaleVCoreRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new AutoScaleVCoreResource(Client, AutoScaleVCoreData.DeserializeAutoScaleVCoreData(e)), _autoScaleVCoreClientDiagnostics, Pipeline, "AutoScaleVCoreCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _autoScaleVCoreRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new AutoScaleVCoreResource(Client, AutoScaleVCoreData.DeserializeAutoScaleVCoreData(e)), _autoScaleVCoreClientDiagnostics, Pipeline, "AutoScaleVCoreCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>

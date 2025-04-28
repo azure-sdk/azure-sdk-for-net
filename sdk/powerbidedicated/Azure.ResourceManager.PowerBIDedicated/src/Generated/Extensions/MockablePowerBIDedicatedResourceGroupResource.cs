@@ -33,75 +33,6 @@ namespace Azure.ResourceManager.PowerBIDedicated.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of DedicatedCapacityResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of DedicatedCapacityResources and their operations over a DedicatedCapacityResource. </returns>
-        public virtual DedicatedCapacityCollection GetDedicatedCapacities()
-        {
-            return GetCachedClient(client => new DedicatedCapacityCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets details about the specified dedicated capacity.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBIDedicated/capacities/{dedicatedCapacityName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Capacities_GetDetails</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-01-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="DedicatedCapacityResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dedicatedCapacityName"> The name of the dedicated capacity. It must be a minimum of 3 characters, and a maximum of 63. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dedicatedCapacityName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dedicatedCapacityName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<DedicatedCapacityResource>> GetDedicatedCapacityAsync(string dedicatedCapacityName, CancellationToken cancellationToken = default)
-        {
-            return await GetDedicatedCapacities().GetAsync(dedicatedCapacityName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets details about the specified dedicated capacity.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBIDedicated/capacities/{dedicatedCapacityName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Capacities_GetDetails</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-01-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="DedicatedCapacityResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dedicatedCapacityName"> The name of the dedicated capacity. It must be a minimum of 3 characters, and a maximum of 63. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dedicatedCapacityName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dedicatedCapacityName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<DedicatedCapacityResource> GetDedicatedCapacity(string dedicatedCapacityName, CancellationToken cancellationToken = default)
-        {
-            return GetDedicatedCapacities().Get(dedicatedCapacityName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of AutoScaleVCoreResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of AutoScaleVCoreResources and their operations over a AutoScaleVCoreResource. </returns>
         public virtual AutoScaleVCoreCollection GetAutoScaleVCores()
@@ -169,6 +100,75 @@ namespace Azure.ResourceManager.PowerBIDedicated.Mocking
         public virtual Response<AutoScaleVCoreResource> GetAutoScaleVCore(string vcoreName, CancellationToken cancellationToken = default)
         {
             return GetAutoScaleVCores().Get(vcoreName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of DedicatedCapacityResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of DedicatedCapacityResources and their operations over a DedicatedCapacityResource. </returns>
+        public virtual DedicatedCapacityCollection GetDedicatedCapacities()
+        {
+            return GetCachedClient(client => new DedicatedCapacityCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets details about the specified dedicated capacity.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBIDedicated/capacities/{dedicatedCapacityName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Capacities_GetDetails</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DedicatedCapacityResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dedicatedCapacityName"> The name of the dedicated capacity. It must be a minimum of 3 characters, and a maximum of 63. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="dedicatedCapacityName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="dedicatedCapacityName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<DedicatedCapacityResource>> GetDedicatedCapacityAsync(string dedicatedCapacityName, CancellationToken cancellationToken = default)
+        {
+            return await GetDedicatedCapacities().GetAsync(dedicatedCapacityName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets details about the specified dedicated capacity.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PowerBIDedicated/capacities/{dedicatedCapacityName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Capacities_GetDetails</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2021-01-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DedicatedCapacityResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dedicatedCapacityName"> The name of the dedicated capacity. It must be a minimum of 3 characters, and a maximum of 63. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="dedicatedCapacityName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="dedicatedCapacityName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<DedicatedCapacityResource> GetDedicatedCapacity(string dedicatedCapacityName, CancellationToken cancellationToken = default)
+        {
+            return GetDedicatedCapacities().Get(dedicatedCapacityName, cancellationToken);
         }
     }
 }

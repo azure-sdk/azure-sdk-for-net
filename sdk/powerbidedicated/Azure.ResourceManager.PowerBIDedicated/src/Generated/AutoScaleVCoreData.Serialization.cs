@@ -10,6 +10,7 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Models;
 using Azure.ResourceManager.PowerBIDedicated.Models;
 
 namespace Azure.ResourceManager.PowerBIDedicated
@@ -79,11 +80,11 @@ namespace Azure.ResourceManager.PowerBIDedicated
                 return null;
             }
             AutoScaleVCoreSku sku = default;
-            string id = default;
-            string name = default;
-            string type = default;
-            AzureLocation location = default;
             IDictionary<string, string> tags = default;
+            AzureLocation location = default;
+            ResourceIdentifier id = default;
+            string name = default;
+            ResourceType type = default;
             SystemData systemData = default;
             int? capacityLimit = default;
             string capacityObjectId = default;
@@ -95,26 +96,6 @@ namespace Azure.ResourceManager.PowerBIDedicated
                 if (property.NameEquals("sku"u8))
                 {
                     sku = AutoScaleVCoreSku.DeserializeAutoScaleVCoreSku(property.Value, options);
-                    continue;
-                }
-                if (property.NameEquals("id"u8))
-                {
-                    id = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("name"u8))
-                {
-                    name = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("type"u8))
-                {
-                    type = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("location"u8))
-                {
-                    location = new AzureLocation(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -131,13 +112,33 @@ namespace Azure.ResourceManager.PowerBIDedicated
                     tags = dictionary;
                     continue;
                 }
+                if (property.NameEquals("location"u8))
+                {
+                    location = new AzureLocation(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("id"u8))
+                {
+                    id = new ResourceIdentifier(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("name"u8))
+                {
+                    name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("type"u8))
+                {
+                    type = new ResourceType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("systemData"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    systemData = SystemData.DeserializeSystemData(property.Value, options);
+                    systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -185,14 +186,14 @@ namespace Azure.ResourceManager.PowerBIDedicated
                 id,
                 name,
                 type,
-                location,
-                tags ?? new ChangeTrackingDictionary<string, string>(),
                 systemData,
-                serializedAdditionalRawData,
+                tags ?? new ChangeTrackingDictionary<string, string>(),
+                location,
                 sku,
                 capacityLimit,
                 capacityObjectId,
-                provisioningState);
+                provisioningState,
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AutoScaleVCoreData>.Write(ModelReaderWriterOptions options)
