@@ -595,6 +595,213 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new AcsUserDisconnectedEventData(userCommunicationIdentifier, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallingEventProperties"/>. </summary>
+        /// <param name="startedBy"> The call participant who initiated the call. </param>
+        /// <param name="serverCallId"> The call id of the server. </param>
+        /// <param name="group"> The group metadata. </param>
+        /// <param name="room"> The room metadata. </param>
+        /// <param name="isTwoParty"> Is two-party in calling event. </param>
+        /// <param name="correlationId"> The correlationId of calling event. </param>
+        /// <param name="isRoomsCall"> Is the calling event a room call. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallingEventProperties"/> instance for mocking. </returns>
+        public static AcsCallingEventProperties AcsCallingEventProperties(AcsCallParticipantProperties startedBy = null, string serverCallId = null, AcsCallGroupProperties group = null, AcsCallRoomProperties room = null, bool? isTwoParty = null, string correlationId = null, bool? isRoomsCall = null)
+        {
+            return new AcsCallingEventProperties(
+                startedBy,
+                serverCallId,
+                group,
+                room,
+                isTwoParty,
+                correlationId,
+                isRoomsCall,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallParticipantProperties"/>. </summary>
+        /// <param name="communicationIdentifier"> The communication identifier of the participant user. </param>
+        /// <param name="role"> The role of the participant. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallParticipantProperties"/> instance for mocking. </returns>
+        public static AcsCallParticipantProperties AcsCallParticipantProperties(CommunicationIdentifierModel communicationIdentifier = null, string role = null)
+        {
+            return new AcsCallParticipantProperties(communicationIdentifier, role, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallGroupProperties"/>. </summary>
+        /// <param name="id"> Group Id. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallGroupProperties"/> instance for mocking. </returns>
+        public static AcsCallGroupProperties AcsCallGroupProperties(string id = null)
+        {
+            return new AcsCallGroupProperties(id, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallRoomProperties"/>. </summary>
+        /// <param name="id"> Room Id. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallRoomProperties"/> instance for mocking. </returns>
+        public static AcsCallRoomProperties AcsCallRoomProperties(string id = null)
+        {
+            return new AcsCallRoomProperties(id, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallStartedEventData"/>. </summary>
+        /// <param name="startedBy"> The call participant who initiated the call. </param>
+        /// <param name="serverCallId"> The call id of the server. </param>
+        /// <param name="group"> The group metadata. </param>
+        /// <param name="room"> The room metadata. </param>
+        /// <param name="isTwoParty"> Is two-party in calling event. </param>
+        /// <param name="correlationId"> The correlationId of calling event. </param>
+        /// <param name="isRoomsCall"> Is the calling event a room call. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallStartedEventData"/> instance for mocking. </returns>
+        public static AcsCallStartedEventData AcsCallStartedEventData(AcsCallParticipantProperties startedBy = null, string serverCallId = null, AcsCallGroupProperties group = null, AcsCallRoomProperties room = null, bool? isTwoParty = null, string correlationId = null, bool? isRoomsCall = null)
+        {
+            return new AcsCallStartedEventData(
+                startedBy,
+                serverCallId,
+                group,
+                room,
+                isTwoParty,
+                correlationId,
+                isRoomsCall,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallEndedEventData"/>. </summary>
+        /// <param name="startedBy"> The call participant who initiated the call. </param>
+        /// <param name="serverCallId"> The call id of the server. </param>
+        /// <param name="group"> The group metadata. </param>
+        /// <param name="room"> The room metadata. </param>
+        /// <param name="isTwoParty"> Is two-party in calling event. </param>
+        /// <param name="correlationId"> The correlationId of calling event. </param>
+        /// <param name="isRoomsCall"> Is the calling event a room call. </param>
+        /// <param name="endedBy"> The communication identifier of the user who was disconnected. </param>
+        /// <param name="reason"> The reason for ending the call. </param>
+        /// <param name="callDurationInSeconds"> Duration of the call in seconds. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallEndedEventData"/> instance for mocking. </returns>
+        public static AcsCallEndedEventData AcsCallEndedEventData(AcsCallParticipantProperties startedBy = null, string serverCallId = null, AcsCallGroupProperties group = null, AcsCallRoomProperties room = null, bool? isTwoParty = null, string correlationId = null, bool? isRoomsCall = null, AcsCallEndedByProperties endedBy = null, AcsCallEndReasonProperties reason = null, TimeSpan? callDurationInSeconds = null)
+        {
+            return new AcsCallEndedEventData(
+                startedBy,
+                serverCallId,
+                group,
+                room,
+                isTwoParty,
+                correlationId,
+                isRoomsCall,
+                serializedAdditionalRawData: null,
+                endedBy,
+                reason,
+                callDurationInSeconds);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallEndedByProperties"/>. </summary>
+        /// <param name="communicationIdentifier"> The communication identifier of the call ended by. </param>
+        /// <param name="type"> The type of call ended by. </param>
+        /// <param name="name"> The name of the call ended by. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallEndedByProperties"/> instance for mocking. </returns>
+        public static AcsCallEndedByProperties AcsCallEndedByProperties(CommunicationIdentifierModel communicationIdentifier = null, AcsCallEndedByKind type = default, string name = null)
+        {
+            return new AcsCallEndedByProperties(communicationIdentifier, type, name, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallEndReasonProperties"/>. </summary>
+        /// <param name="code"> Reason code for ending the call. </param>
+        /// <param name="subCode"> Reason subcode for ending the call. </param>
+        /// <param name="phrase"> Reason for the ending the call. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallEndReasonProperties"/> instance for mocking. </returns>
+        public static AcsCallEndReasonProperties AcsCallEndReasonProperties(int? code = null, int? subCode = null, string phrase = null)
+        {
+            return new AcsCallEndReasonProperties(code, subCode, phrase, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallParticipantEventProperties"/>. </summary>
+        /// <param name="startedBy"> The call participant who initiated the call. </param>
+        /// <param name="serverCallId"> The call id of the server. </param>
+        /// <param name="group"> The group metadata. </param>
+        /// <param name="room"> The room metadata. </param>
+        /// <param name="isTwoParty"> Is two-party in calling event. </param>
+        /// <param name="correlationId"> The correlationId of calling event. </param>
+        /// <param name="isRoomsCall"> Is the calling event a room call. </param>
+        /// <param name="user"> The user of the call participant. </param>
+        /// <param name="displayName"> The display name of the participant. </param>
+        /// <param name="participantId"> The id of the participant. </param>
+        /// <param name="userAgent"> The user agent of the participant. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallParticipantEventProperties"/> instance for mocking. </returns>
+        public static AcsCallParticipantEventProperties AcsCallParticipantEventProperties(AcsCallParticipantProperties startedBy = null, string serverCallId = null, AcsCallGroupProperties group = null, AcsCallRoomProperties room = null, bool? isTwoParty = null, string correlationId = null, bool? isRoomsCall = null, AcsCallParticipantProperties user = null, string displayName = null, string participantId = null, string userAgent = null)
+        {
+            return new AcsCallParticipantEventProperties(
+                startedBy,
+                serverCallId,
+                group,
+                room,
+                isTwoParty,
+                correlationId,
+                isRoomsCall,
+                serializedAdditionalRawData: null,
+                user,
+                displayName,
+                participantId,
+                userAgent);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallParticipantAddedEventData"/>. </summary>
+        /// <param name="startedBy"> The call participant who initiated the call. </param>
+        /// <param name="serverCallId"> The call id of the server. </param>
+        /// <param name="group"> The group metadata. </param>
+        /// <param name="room"> The room metadata. </param>
+        /// <param name="isTwoParty"> Is two-party in calling event. </param>
+        /// <param name="correlationId"> The correlationId of calling event. </param>
+        /// <param name="isRoomsCall"> Is the calling event a room call. </param>
+        /// <param name="user"> The user of the call participant. </param>
+        /// <param name="displayName"> The display name of the participant. </param>
+        /// <param name="participantId"> The id of the participant. </param>
+        /// <param name="userAgent"> The user agent of the participant. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallParticipantAddedEventData"/> instance for mocking. </returns>
+        public static AcsCallParticipantAddedEventData AcsCallParticipantAddedEventData(AcsCallParticipantProperties startedBy = null, string serverCallId = null, AcsCallGroupProperties group = null, AcsCallRoomProperties room = null, bool? isTwoParty = null, string correlationId = null, bool? isRoomsCall = null, AcsCallParticipantProperties user = null, string displayName = null, string participantId = null, string userAgent = null)
+        {
+            return new AcsCallParticipantAddedEventData(
+                startedBy,
+                serverCallId,
+                group,
+                room,
+                isTwoParty,
+                correlationId,
+                isRoomsCall,
+                serializedAdditionalRawData: null,
+                user,
+                displayName,
+                participantId,
+                userAgent);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsCallParticipantRemovedEventData"/>. </summary>
+        /// <param name="startedBy"> The call participant who initiated the call. </param>
+        /// <param name="serverCallId"> The call id of the server. </param>
+        /// <param name="group"> The group metadata. </param>
+        /// <param name="room"> The room metadata. </param>
+        /// <param name="isTwoParty"> Is two-party in calling event. </param>
+        /// <param name="correlationId"> The correlationId of calling event. </param>
+        /// <param name="isRoomsCall"> Is the calling event a room call. </param>
+        /// <param name="user"> The user of the call participant. </param>
+        /// <param name="displayName"> The display name of the participant. </param>
+        /// <param name="participantId"> The id of the participant. </param>
+        /// <param name="userAgent"> The user agent of the participant. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsCallParticipantRemovedEventData"/> instance for mocking. </returns>
+        public static AcsCallParticipantRemovedEventData AcsCallParticipantRemovedEventData(AcsCallParticipantProperties startedBy = null, string serverCallId = null, AcsCallGroupProperties group = null, AcsCallRoomProperties room = null, bool? isTwoParty = null, string correlationId = null, bool? isRoomsCall = null, AcsCallParticipantProperties user = null, string displayName = null, string participantId = null, string userAgent = null)
+        {
+            return new AcsCallParticipantRemovedEventData(
+                startedBy,
+                serverCallId,
+                group,
+                room,
+                isTwoParty,
+                correlationId,
+                isRoomsCall,
+                serializedAdditionalRawData: null,
+                user,
+                displayName,
+                participantId,
+                userAgent);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsChatEventBaseProperties"/>. </summary>
         /// <param name="recipientCommunicationIdentifier"> The communication identifier of the target user. </param>
         /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
@@ -694,6 +901,66 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 composeTime,
                 type,
                 version);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsChatAzureBotCommandReceivedInThreadEventData"/>. </summary>
+        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
+        /// <param name="threadId"> The chat thread id. </param>
+        /// <param name="messageId"> The chat message id. </param>
+        /// <param name="senderCommunicationIdentifier"> The communication identifier of the sender. </param>
+        /// <param name="senderDisplayName"> The display name of the sender. </param>
+        /// <param name="composeTime"> The original compose time of the message. </param>
+        /// <param name="type"> The type of the message. </param>
+        /// <param name="version"> The version of the message. </param>
+        /// <param name="messageBody"> The body of the chat message. </param>
+        /// <param name="metadata"> The chat message metadata. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsChatAzureBotCommandReceivedInThreadEventData"/> instance for mocking. </returns>
+        public static AcsChatAzureBotCommandReceivedInThreadEventData AcsChatAzureBotCommandReceivedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+
+            return new AcsChatAzureBotCommandReceivedInThreadEventData(
+                transactionId,
+                threadId,
+                serializedAdditionalRawData: null,
+                messageId,
+                senderCommunicationIdentifier,
+                senderDisplayName,
+                composeTime,
+                type,
+                version,
+                messageBody,
+                metadata);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsChatTypingIndicatorReceivedInThreadEventData"/>. </summary>
+        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
+        /// <param name="threadId"> The chat thread id. </param>
+        /// <param name="messageId"> The chat message id. </param>
+        /// <param name="senderCommunicationIdentifier"> The communication identifier of the sender. </param>
+        /// <param name="senderDisplayName"> The display name of the sender. </param>
+        /// <param name="composeTime"> The original compose time of the message. </param>
+        /// <param name="type"> The type of the message. </param>
+        /// <param name="version"> The version of the message. </param>
+        /// <param name="messageBody"> The body of the chat message. </param>
+        /// <param name="metadata"> The chat message metadata. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsChatTypingIndicatorReceivedInThreadEventData"/> instance for mocking. </returns>
+        public static AcsChatTypingIndicatorReceivedInThreadEventData AcsChatTypingIndicatorReceivedInThreadEventData(string transactionId = null, string threadId = null, string messageId = null, CommunicationIdentifierModel senderCommunicationIdentifier = null, string senderDisplayName = null, DateTimeOffset? composeTime = null, string type = null, long? version = null, string messageBody = null, IReadOnlyDictionary<string, string> metadata = null)
+        {
+            metadata ??= new Dictionary<string, string>();
+
+            return new AcsChatTypingIndicatorReceivedInThreadEventData(
+                transactionId,
+                threadId,
+                serializedAdditionalRawData: null,
+                messageId,
+                senderCommunicationIdentifier,
+                senderDisplayName,
+                composeTime,
+                type,
+                version,
+                messageBody,
+                metadata);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AcsChatMessageReceivedInThreadEventData"/>. </summary>
