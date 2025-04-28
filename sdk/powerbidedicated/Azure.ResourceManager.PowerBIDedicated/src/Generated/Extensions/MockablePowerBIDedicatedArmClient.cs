@@ -35,18 +35,6 @@ namespace Azure.ResourceManager.PowerBIDedicated.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="DedicatedCapacityResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DedicatedCapacityResource.CreateResourceIdentifier" /> to create a <see cref="DedicatedCapacityResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DedicatedCapacityResource"/> object. </returns>
-        public virtual DedicatedCapacityResource GetDedicatedCapacityResource(ResourceIdentifier id)
-        {
-            DedicatedCapacityResource.ValidateResourceId(id);
-            return new DedicatedCapacityResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing an <see cref="AutoScaleVCoreResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="AutoScaleVCoreResource.CreateResourceIdentifier" /> to create an <see cref="AutoScaleVCoreResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -56,6 +44,18 @@ namespace Azure.ResourceManager.PowerBIDedicated.Mocking
         {
             AutoScaleVCoreResource.ValidateResourceId(id);
             return new AutoScaleVCoreResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DedicatedCapacityResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DedicatedCapacityResource.CreateResourceIdentifier" /> to create a <see cref="DedicatedCapacityResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DedicatedCapacityResource"/> object. </returns>
+        public virtual DedicatedCapacityResource GetDedicatedCapacityResource(ResourceIdentifier id)
+        {
+            DedicatedCapacityResource.ValidateResourceId(id);
+            return new DedicatedCapacityResource(Client, id);
         }
     }
 }
