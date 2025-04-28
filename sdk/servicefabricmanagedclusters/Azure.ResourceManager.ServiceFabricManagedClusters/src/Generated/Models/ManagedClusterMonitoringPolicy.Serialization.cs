@@ -35,9 +35,9 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             }
 
             writer.WritePropertyName("healthCheckWaitDuration"u8);
-            writer.WriteStringValue(HealthCheckWaitDuration, "c");
+            writer.WriteStringValue(HealthCheckWaitDuration);
             writer.WritePropertyName("healthCheckStableDuration"u8);
-            writer.WriteStringValue(HealthCheckStableDuration, "c");
+            writer.WriteStringValue(HealthCheckStableDuration);
             writer.WritePropertyName("healthCheckRetryTimeout"u8);
             writer.WriteStringValue(HealthCheckRetryTimeout);
             writer.WritePropertyName("upgradeTimeout"u8);
@@ -81,8 +81,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 return null;
             }
-            TimeSpan healthCheckWaitDuration = default;
-            TimeSpan healthCheckStableDuration = default;
+            string healthCheckWaitDuration = default;
+            string healthCheckStableDuration = default;
             string healthCheckRetryTimeout = default;
             string upgradeTimeout = default;
             string upgradeDomainTimeout = default;
@@ -92,12 +92,12 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 if (property.NameEquals("healthCheckWaitDuration"u8))
                 {
-                    healthCheckWaitDuration = property.Value.GetTimeSpan("c");
+                    healthCheckWaitDuration = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("healthCheckStableDuration"u8))
                 {
-                    healthCheckStableDuration = property.Value.GetTimeSpan("c");
+                    healthCheckStableDuration = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("healthCheckRetryTimeout"u8))
