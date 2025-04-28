@@ -55,11 +55,13 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <summary> Initializes a new instance of <see cref="IstioComponents"/>. </summary>
         /// <param name="ingressGateways"> Istio ingress gateways. </param>
         /// <param name="egressGateways"> Istio egress gateways. </param>
+        /// <param name="proxyRedirectionMechanism"> Mode of traffic redirection. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IstioComponents(IList<IstioIngressGateway> ingressGateways, IList<IstioEgressGateway> egressGateways, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IstioComponents(IList<IstioIngressGateway> ingressGateways, IList<IstioEgressGateway> egressGateways, ProxyRedirectionMechanism? proxyRedirectionMechanism, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             IngressGateways = ingressGateways;
             EgressGateways = egressGateways;
+            ProxyRedirectionMechanism = proxyRedirectionMechanism;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -69,5 +71,8 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <summary> Istio egress gateways. </summary>
         [WirePath("egressGateways")]
         public IList<IstioEgressGateway> EgressGateways { get; }
+        /// <summary> Mode of traffic redirection. </summary>
+        [WirePath("proxyRedirectionMechanism")]
+        public ProxyRedirectionMechanism? ProxyRedirectionMechanism { get; set; }
     }
 }
