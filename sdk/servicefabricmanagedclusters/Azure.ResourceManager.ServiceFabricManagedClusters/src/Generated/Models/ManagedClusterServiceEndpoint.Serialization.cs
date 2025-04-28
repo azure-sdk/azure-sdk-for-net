@@ -36,11 +36,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 
             writer.WritePropertyName("service"u8);
             writer.WriteStringValue(Service);
-            if (Optional.IsCollectionDefined(Locations))
+            if (Optional.IsCollectionDefined(AzureLocation))
             {
                 writer.WritePropertyName("locations"u8);
                 writer.WriteStartArray();
-                foreach (var item in Locations)
+                foreach (var item in AzureLocation)
                 {
                     writer.WriteStringValue(item);
                 }
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 return null;
             }
             string service = default;
-            IList<AzureLocation> locations = default;
+            IList<string> locations = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -100,10 +100,10 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                     {
                         continue;
                     }
-                    List<AzureLocation> array = new List<AzureLocation>();
+                    List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(new AzureLocation(item.GetString()));
+                        array.Add(item.GetString());
                     }
                     locations = array;
                     continue;
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ManagedClusterServiceEndpoint(service, locations ?? new ChangeTrackingList<AzureLocation>(), serializedAdditionalRawData);
+            return new ManagedClusterServiceEndpoint(service, locations ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedClusterServiceEndpoint>.Write(ModelReaderWriterOptions options)
