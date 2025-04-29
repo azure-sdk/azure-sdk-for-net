@@ -6,7 +6,7 @@ Run `dotnet build /t:GenerateCode` to generate code.
 azure-arm: true
 library-name: Dns
 namespace: Azure.ResourceManager.Dns
-require: https://github.com/Azure/azure-rest-api-specs/blob/d3e4c8f48c995bfd0f1efbe1558f92f02335b81b/specification/dns/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/dns/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
