@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetBrowsersAsync(Guid,OS?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetBrowsersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = await client.GetBrowsersAsync(Guid.Parse("00000000-0000-0000-0000-000000000000"));
+]]></code></example>
+    </member>
+    <member name="GetBrowsers(Guid,OS?,string,CancellationToken)">
+      <example>
+This sample shows how to call GetBrowsers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = client.GetBrowsers(Guid.Parse("00000000-0000-0000-0000-000000000000"));
+]]></code></example>
+    </member>
+    <member name="GetBrowsersAsync(Guid,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetBrowsersAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = await client.GetBrowsersAsync(Guid.Parse("00000000-0000-0000-0000-000000000000"), "Linux", null, null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetBrowsers(Guid,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetBrowsers.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Workspaces client = new PlaywrightClient(endpoint, credential).GetWorkspacesClient(apiVersion: "2025-07-01-preview");
+
+Response response = client.GetBrowsers(Guid.Parse("00000000-0000-0000-0000-000000000000"), "Linux", null, null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+  </members>
+</doc>
