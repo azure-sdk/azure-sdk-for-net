@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.Avs.Models
             {
                 return null;
             }
-            IReadOnlyList<WorkloadNetworkDhcpData> value = default;
+            IReadOnlyList<WorkloadNetworkDhcp> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -91,10 +91,10 @@ namespace Azure.ResourceManager.Avs.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<WorkloadNetworkDhcpData> array = new List<WorkloadNetworkDhcpData>();
+                    List<WorkloadNetworkDhcp> array = new List<WorkloadNetworkDhcp>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(WorkloadNetworkDhcpData.DeserializeWorkloadNetworkDhcpData(item, options));
+                        array.Add(WorkloadNetworkDhcp.DeserializeWorkloadNetworkDhcp(item, options));
                     }
                     value = array;
                     continue;

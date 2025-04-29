@@ -33,8 +33,8 @@ namespace Azure.ResourceManager.Avs
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics;
-        private readonly WorkloadNetworksRestOperations _workloadNetworkVirtualMachineWorkloadNetworksRestClient;
+        private readonly ClientDiagnostics _workloadNetworkVirtualMachineClientDiagnostics;
+        private readonly WorkloadNetworkVirtualMachinesRestOperations _workloadNetworkVirtualMachineRestClient;
         private readonly WorkloadNetworkVirtualMachineData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -59,9 +59,9 @@ namespace Azure.ResourceManager.Avs
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal WorkloadNetworkVirtualMachineResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string workloadNetworkVirtualMachineWorkloadNetworksApiVersion);
-            _workloadNetworkVirtualMachineWorkloadNetworksRestClient = new WorkloadNetworksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkVirtualMachineWorkloadNetworksApiVersion);
+            _workloadNetworkVirtualMachineClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string workloadNetworkVirtualMachineApiVersion);
+            _workloadNetworkVirtualMachineRestClient = new WorkloadNetworkVirtualMachinesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkVirtualMachineApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -97,11 +97,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -112,11 +112,11 @@ namespace Azure.ResourceManager.Avs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<WorkloadNetworkVirtualMachineResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineResource.Get");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineResource.Get");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachineAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkVirtualMachineRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());
@@ -137,11 +137,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -152,11 +152,11 @@ namespace Azure.ResourceManager.Avs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<WorkloadNetworkVirtualMachineResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineResource.Get");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineResource.Get");
             scope.Start();
             try
             {
-                var response = _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachine(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken);
+                var response = _workloadNetworkVirtualMachineRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());

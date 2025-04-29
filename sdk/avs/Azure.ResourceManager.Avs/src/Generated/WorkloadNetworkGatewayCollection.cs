@@ -24,8 +24,8 @@ namespace Azure.ResourceManager.Avs
     /// </summary>
     public partial class WorkloadNetworkGatewayCollection : ArmCollection, IEnumerable<WorkloadNetworkGatewayResource>, IAsyncEnumerable<WorkloadNetworkGatewayResource>
     {
-        private readonly ClientDiagnostics _workloadNetworkGatewayWorkloadNetworksClientDiagnostics;
-        private readonly WorkloadNetworksRestOperations _workloadNetworkGatewayWorkloadNetworksRestClient;
+        private readonly ClientDiagnostics _workloadNetworkGatewayClientDiagnostics;
+        private readonly WorkloadNetworkGatewaysRestOperations _workloadNetworkGatewayRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="WorkloadNetworkGatewayCollection"/> class for mocking. </summary>
         protected WorkloadNetworkGatewayCollection()
@@ -37,9 +37,9 @@ namespace Azure.ResourceManager.Avs
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
         internal WorkloadNetworkGatewayCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _workloadNetworkGatewayWorkloadNetworksClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", WorkloadNetworkGatewayResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(WorkloadNetworkGatewayResource.ResourceType, out string workloadNetworkGatewayWorkloadNetworksApiVersion);
-            _workloadNetworkGatewayWorkloadNetworksRestClient = new WorkloadNetworksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkGatewayWorkloadNetworksApiVersion);
+            _workloadNetworkGatewayClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", WorkloadNetworkGatewayResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(WorkloadNetworkGatewayResource.ResourceType, out string workloadNetworkGatewayApiVersion);
+            _workloadNetworkGatewayRestClient = new WorkloadNetworkGatewaysRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkGatewayApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -60,11 +60,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -80,11 +80,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(gatewayId, nameof(gatewayId));
 
-            using var scope = _workloadNetworkGatewayWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Get");
+            using var scope = _workloadNetworkGatewayClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Get");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkGatewayWorkloadNetworksRestClient.GetGatewayAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkGatewayRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkGatewayResource(Client, response.Value), response.GetRawResponse());
@@ -105,11 +105,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -125,11 +125,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(gatewayId, nameof(gatewayId));
 
-            using var scope = _workloadNetworkGatewayWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Get");
+            using var scope = _workloadNetworkGatewayClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Get");
             scope.Start();
             try
             {
-                var response = _workloadNetworkGatewayWorkloadNetworksRestClient.GetGateway(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken);
+                var response = _workloadNetworkGatewayRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkGatewayResource(Client, response.Value), response.GetRawResponse());
@@ -150,11 +150,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListGateways</description>
+        /// <description>WorkloadNetworkGateway_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -166,9 +166,9 @@ namespace Azure.ResourceManager.Avs
         /// <returns> An async collection of <see cref="WorkloadNetworkGatewayResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<WorkloadNetworkGatewayResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkGatewayWorkloadNetworksRestClient.CreateListGatewaysRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkGatewayWorkloadNetworksRestClient.CreateListGatewaysNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkGatewayResource(Client, WorkloadNetworkGatewayData.DeserializeWorkloadNetworkGatewayData(e)), _workloadNetworkGatewayWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkGatewayCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkGatewayRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkGatewayRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkGatewayResource(Client, WorkloadNetworkGatewayData.DeserializeWorkloadNetworkGatewayData(e)), _workloadNetworkGatewayClientDiagnostics, Pipeline, "WorkloadNetworkGatewayCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -180,11 +180,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListGateways</description>
+        /// <description>WorkloadNetworkGateway_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -196,9 +196,9 @@ namespace Azure.ResourceManager.Avs
         /// <returns> A collection of <see cref="WorkloadNetworkGatewayResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<WorkloadNetworkGatewayResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkGatewayWorkloadNetworksRestClient.CreateListGatewaysRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkGatewayWorkloadNetworksRestClient.CreateListGatewaysNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkGatewayResource(Client, WorkloadNetworkGatewayData.DeserializeWorkloadNetworkGatewayData(e)), _workloadNetworkGatewayWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkGatewayCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkGatewayRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkGatewayRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkGatewayResource(Client, WorkloadNetworkGatewayData.DeserializeWorkloadNetworkGatewayData(e)), _workloadNetworkGatewayClientDiagnostics, Pipeline, "WorkloadNetworkGatewayCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -210,11 +210,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -230,11 +230,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(gatewayId, nameof(gatewayId));
 
-            using var scope = _workloadNetworkGatewayWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Exists");
+            using var scope = _workloadNetworkGatewayClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkGatewayWorkloadNetworksRestClient.GetGatewayAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkGatewayRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -253,11 +253,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -273,11 +273,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(gatewayId, nameof(gatewayId));
 
-            using var scope = _workloadNetworkGatewayWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Exists");
+            using var scope = _workloadNetworkGatewayClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.Exists");
             scope.Start();
             try
             {
-                var response = _workloadNetworkGatewayWorkloadNetworksRestClient.GetGateway(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkGatewayRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -296,11 +296,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -316,11 +316,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(gatewayId, nameof(gatewayId));
 
-            using var scope = _workloadNetworkGatewayWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.GetIfExists");
+            using var scope = _workloadNetworkGatewayClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkGatewayWorkloadNetworksRestClient.GetGatewayAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkGatewayRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkGatewayResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkGatewayResource(Client, response.Value), response.GetRawResponse());
@@ -341,11 +341,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -361,11 +361,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(gatewayId, nameof(gatewayId));
 
-            using var scope = _workloadNetworkGatewayWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.GetIfExists");
+            using var scope = _workloadNetworkGatewayClientDiagnostics.CreateScope("WorkloadNetworkGatewayCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _workloadNetworkGatewayWorkloadNetworksRestClient.GetGateway(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkGatewayRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, gatewayId, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkGatewayResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkGatewayResource(Client, response.Value), response.GetRawResponse());
