@@ -9,8 +9,10 @@ using System;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.Avs.Models;
 
 namespace Azure.ResourceManager.Avs
 {
@@ -18,7 +20,7 @@ namespace Azure.ResourceManager.Avs
     /// A Class representing a WorkloadNetwork along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="WorkloadNetworkResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetWorkloadNetworkResource method.
-    /// Otherwise you can get one from its parent resource <see cref="AvsPrivateCloudResource"/> using the GetWorkloadNetwork method.
+    /// Otherwise you can get one from its parent resource <see cref="PrivateCloudResource"/> using the GetWorkloadNetwork method.
     /// </summary>
     public partial class WorkloadNetworkResource : ArmResource
     {
@@ -34,6 +36,18 @@ namespace Azure.ResourceManager.Avs
 
         private readonly ClientDiagnostics _workloadNetworkClientDiagnostics;
         private readonly WorkloadNetworksRestOperations _workloadNetworkRestClient;
+        private readonly ClientDiagnostics _workloadNetworkDhcpConfigurationsClientDiagnostics;
+        private readonly WorkloadNetworkDhcpConfigurationsRestOperations _workloadNetworkDhcpConfigurationsRestClient;
+        private readonly ClientDiagnostics _workloadNetworkDnsServicesClientDiagnostics;
+        private readonly WorkloadNetworkDnsServicesRestOperations _workloadNetworkDnsServicesRestClient;
+        private readonly ClientDiagnostics _workloadNetworkDnsZonesClientDiagnostics;
+        private readonly WorkloadNetworkDnsZonesRestOperations _workloadNetworkDnsZonesRestClient;
+        private readonly ClientDiagnostics _workloadNetworkPortMirroringProfilesClientDiagnostics;
+        private readonly WorkloadNetworkPortMirroringProfilesRestOperations _workloadNetworkPortMirroringProfilesRestClient;
+        private readonly ClientDiagnostics _workloadNetworkPublicIPsClientDiagnostics;
+        private readonly WorkloadNetworkPublicIpsRestOperations _workloadNetworkPublicIPsRestClient;
+        private readonly ClientDiagnostics _workloadNetworkVmGroupsClientDiagnostics;
+        private readonly WorkloadNetworkVmGroupsRestOperations _workloadNetworkVmGroupsRestClient;
         private readonly WorkloadNetworkData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -61,6 +75,18 @@ namespace Azure.ResourceManager.Avs
             _workloadNetworkClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string workloadNetworkApiVersion);
             _workloadNetworkRestClient = new WorkloadNetworksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkApiVersion);
+            _workloadNetworkDhcpConfigurationsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _workloadNetworkDhcpConfigurationsRestClient = new WorkloadNetworkDhcpConfigurationsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _workloadNetworkDnsServicesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _workloadNetworkDnsServicesRestClient = new WorkloadNetworkDnsServicesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _workloadNetworkDnsZonesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _workloadNetworkDnsZonesRestClient = new WorkloadNetworkDnsZonesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _workloadNetworkPortMirroringProfilesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _workloadNetworkPortMirroringProfilesRestClient = new WorkloadNetworkPortMirroringProfilesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _workloadNetworkPublicIPsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _workloadNetworkPublicIPsRestClient = new WorkloadNetworkPublicIpsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _workloadNetworkVmGroupsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _workloadNetworkVmGroupsRestClient = new WorkloadNetworkVmGroupsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -87,213 +113,6 @@ namespace Azure.ResourceManager.Avs
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of WorkloadNetworkDhcpResources in the WorkloadNetwork. </summary>
-        /// <returns> An object representing collection of WorkloadNetworkDhcpResources and their operations over a WorkloadNetworkDhcpResource. </returns>
-        public virtual WorkloadNetworkDhcpCollection GetWorkloadNetworkDhcps()
-        {
-            return GetCachedClient(client => new WorkloadNetworkDhcpCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkDhcp
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDhcp</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkDhcpResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<WorkloadNetworkDhcpResource>> GetWorkloadNetworkDhcpAsync(string dhcpId, CancellationToken cancellationToken = default)
-        {
-            return await GetWorkloadNetworkDhcps().GetAsync(dhcpId, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkDhcp
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDhcp</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkDhcpResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<WorkloadNetworkDhcpResource> GetWorkloadNetworkDhcp(string dhcpId, CancellationToken cancellationToken = default)
-        {
-            return GetWorkloadNetworkDhcps().Get(dhcpId, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of WorkloadNetworkDnsServiceResources in the WorkloadNetwork. </summary>
-        /// <returns> An object representing collection of WorkloadNetworkDnsServiceResources and their operations over a WorkloadNetworkDnsServiceResource. </returns>
-        public virtual WorkloadNetworkDnsServiceCollection GetWorkloadNetworkDnsServices()
-        {
-            return GetCachedClient(client => new WorkloadNetworkDnsServiceCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkDnsService
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkDnsServiceResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dnsServiceId"> ID of the DNS service. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<WorkloadNetworkDnsServiceResource>> GetWorkloadNetworkDnsServiceAsync(string dnsServiceId, CancellationToken cancellationToken = default)
-        {
-            return await GetWorkloadNetworkDnsServices().GetAsync(dnsServiceId, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkDnsService
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkDnsServiceResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dnsServiceId"> ID of the DNS service. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<WorkloadNetworkDnsServiceResource> GetWorkloadNetworkDnsService(string dnsServiceId, CancellationToken cancellationToken = default)
-        {
-            return GetWorkloadNetworkDnsServices().Get(dnsServiceId, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of WorkloadNetworkDnsZoneResources in the WorkloadNetwork. </summary>
-        /// <returns> An object representing collection of WorkloadNetworkDnsZoneResources and their operations over a WorkloadNetworkDnsZoneResource. </returns>
-        public virtual WorkloadNetworkDnsZoneCollection GetWorkloadNetworkDnsZones()
-        {
-            return GetCachedClient(client => new WorkloadNetworkDnsZoneCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkDnsZone
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsZone</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkDnsZoneResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<WorkloadNetworkDnsZoneResource>> GetWorkloadNetworkDnsZoneAsync(string dnsZoneId, CancellationToken cancellationToken = default)
-        {
-            return await GetWorkloadNetworkDnsZones().GetAsync(dnsZoneId, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkDnsZone
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsZone</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkDnsZoneResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<WorkloadNetworkDnsZoneResource> GetWorkloadNetworkDnsZone(string dnsZoneId, CancellationToken cancellationToken = default)
-        {
-            return GetWorkloadNetworkDnsZones().Get(dnsZoneId, cancellationToken);
-        }
-
         /// <summary> Gets a collection of WorkloadNetworkGatewayResources in the WorkloadNetwork. </summary>
         /// <returns> An object representing collection of WorkloadNetworkGatewayResources and their operations over a WorkloadNetworkGatewayResource. </returns>
         public virtual WorkloadNetworkGatewayCollection GetWorkloadNetworkGateways()
@@ -310,11 +129,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -341,11 +160,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetGateway</description>
+        /// <description>WorkloadNetworkGateway_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -361,144 +180,6 @@ namespace Azure.ResourceManager.Avs
         public virtual Response<WorkloadNetworkGatewayResource> GetWorkloadNetworkGateway(string gatewayId, CancellationToken cancellationToken = default)
         {
             return GetWorkloadNetworkGateways().Get(gatewayId, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of WorkloadNetworkPortMirroringProfileResources in the WorkloadNetwork. </summary>
-        /// <returns> An object representing collection of WorkloadNetworkPortMirroringProfileResources and their operations over a WorkloadNetworkPortMirroringProfileResource. </returns>
-        public virtual WorkloadNetworkPortMirroringProfileCollection GetWorkloadNetworkPortMirroringProfiles()
-        {
-            return GetCachedClient(client => new WorkloadNetworkPortMirroringProfileCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkPortMirroring
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetPortMirroring</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkPortMirroringProfileResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<WorkloadNetworkPortMirroringProfileResource>> GetWorkloadNetworkPortMirroringProfileAsync(string portMirroringId, CancellationToken cancellationToken = default)
-        {
-            return await GetWorkloadNetworkPortMirroringProfiles().GetAsync(portMirroringId, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkPortMirroring
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetPortMirroring</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkPortMirroringProfileResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<WorkloadNetworkPortMirroringProfileResource> GetWorkloadNetworkPortMirroringProfile(string portMirroringId, CancellationToken cancellationToken = default)
-        {
-            return GetWorkloadNetworkPortMirroringProfiles().Get(portMirroringId, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of WorkloadNetworkPublicIPResources in the WorkloadNetwork. </summary>
-        /// <returns> An object representing collection of WorkloadNetworkPublicIPResources and their operations over a WorkloadNetworkPublicIPResource. </returns>
-        public virtual WorkloadNetworkPublicIPCollection GetWorkloadNetworkPublicIPs()
-        {
-            return GetCachedClient(client => new WorkloadNetworkPublicIPCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkPublicIP
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetPublicIP</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkPublicIPResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="publicIPId"> ID of the DNS zone. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<WorkloadNetworkPublicIPResource>> GetWorkloadNetworkPublicIPAsync(string publicIPId, CancellationToken cancellationToken = default)
-        {
-            return await GetWorkloadNetworkPublicIPs().GetAsync(publicIPId, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkPublicIP
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetPublicIP</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkPublicIPResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="publicIPId"> ID of the DNS zone. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<WorkloadNetworkPublicIPResource> GetWorkloadNetworkPublicIP(string publicIPId, CancellationToken cancellationToken = default)
-        {
-            return GetWorkloadNetworkPublicIPs().Get(publicIPId, cancellationToken);
         }
 
         /// <summary> Gets a collection of WorkloadNetworkSegmentResources in the WorkloadNetwork. </summary>
@@ -517,11 +198,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -548,11 +229,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -586,11 +267,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -617,11 +298,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -639,75 +320,6 @@ namespace Azure.ResourceManager.Avs
             return GetWorkloadNetworkVirtualMachines().Get(virtualMachineId, cancellationToken);
         }
 
-        /// <summary> Gets a collection of WorkloadNetworkVmGroupResources in the WorkloadNetwork. </summary>
-        /// <returns> An object representing collection of WorkloadNetworkVmGroupResources and their operations over a WorkloadNetworkVmGroupResource. </returns>
-        public virtual WorkloadNetworkVmGroupCollection GetWorkloadNetworkVmGroups()
-        {
-            return GetCachedClient(client => new WorkloadNetworkVmGroupCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkVMGroup
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVmGroup</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkVmGroupResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="vmGroupId"> ID of the VM group. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<WorkloadNetworkVmGroupResource>> GetWorkloadNetworkVmGroupAsync(string vmGroupId, CancellationToken cancellationToken = default)
-        {
-            return await GetWorkloadNetworkVmGroups().GetAsync(vmGroupId, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a WorkloadNetworkVMGroup
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVmGroup</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WorkloadNetworkVmGroupResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="vmGroupId"> ID of the VM group. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<WorkloadNetworkVmGroupResource> GetWorkloadNetworkVmGroup(string vmGroupId, CancellationToken cancellationToken = default)
-        {
-            return GetWorkloadNetworkVmGroups().Get(vmGroupId, cancellationToken);
-        }
-
         /// <summary>
         /// Get a WorkloadNetwork
         /// <list type="bullet">
@@ -717,11 +329,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_Get</description>
+        /// <description>WorkloadNetwork_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -757,11 +369,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_Get</description>
+        /// <description>WorkloadNetwork_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -780,6 +392,2292 @@ namespace Azure.ResourceManager.Avs
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkDhcp resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="WorkloadNetworkDhcp"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<WorkloadNetworkDhcp> GetWorkloadNetworkDhcpConfigurationsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDhcpConfigurationsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDhcpConfigurationsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkDhcp.DeserializeWorkloadNetworkDhcp(e), _workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkDhcpConfigurations", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkDhcp resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="WorkloadNetworkDhcp"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<WorkloadNetworkDhcp> GetWorkloadNetworkDhcpConfigurations(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDhcpConfigurationsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDhcpConfigurationsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkDhcp.DeserializeWorkloadNetworkDhcp(e), _workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkDhcpConfigurations", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcpConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> is null. </exception>
+        public virtual async Task<Response<WorkloadNetworkDhcp>> GetWorkloadNetworkDhcpConfigurationAsync(string dhcpId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDhcpConfigurationsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, dhcpId, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcpConfigurations_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> is null. </exception>
+        public virtual Response<WorkloadNetworkDhcp> GetWorkloadNetworkDhcpConfiguration(string dhcpId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDhcpConfigurationsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, dhcpId, Id.Parent.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="workloadNetworkDhcp"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> or <paramref name="workloadNetworkDhcp"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkDhcp>> CreateWorkloadNetworkDhcpConfigurationAsync(WaitUntil waitUntil, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+            Argument.AssertNotNull(workloadNetworkDhcp, nameof(workloadNetworkDhcp));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDhcpConfigurationsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkDhcp>(new WorkloadNetworkDhcpOperationSource(), _workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, _workloadNetworkDhcpConfigurationsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="workloadNetworkDhcp"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> or <paramref name="workloadNetworkDhcp"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkDhcp> CreateWorkloadNetworkDhcpConfiguration(WaitUntil waitUntil, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+            Argument.AssertNotNull(workloadNetworkDhcp, nameof(workloadNetworkDhcp));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDhcpConfigurationsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkDhcp>(new WorkloadNetworkDhcpOperationSource(), _workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, _workloadNetworkDhcpConfigurationsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="workloadNetworkDhcp"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> or <paramref name="workloadNetworkDhcp"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkDhcp>> UpdateWorkloadNetworkDhcpConfigurationAsync(WaitUntil waitUntil, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+            Argument.AssertNotNull(workloadNetworkDhcp, nameof(workloadNetworkDhcp));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDhcpConfigurationsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkDhcp>(new WorkloadNetworkDhcpOperationSource(), _workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, _workloadNetworkDhcpConfigurationsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="workloadNetworkDhcp"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> or <paramref name="workloadNetworkDhcp"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkDhcp> UpdateWorkloadNetworkDhcpConfiguration(WaitUntil waitUntil, string dhcpId, WorkloadNetworkDhcp workloadNetworkDhcp, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+            Argument.AssertNotNull(workloadNetworkDhcp, nameof(workloadNetworkDhcp));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDhcpConfigurationsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkDhcp>(new WorkloadNetworkDhcpOperationSource(), _workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, _workloadNetworkDhcpConfigurationsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, workloadNetworkDhcp).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> is null. </exception>
+        public virtual async Task<ArmOperation> DeleteWorkloadNetworkDhcpConfigurationAsync(WaitUntil waitUntil, string dhcpId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDhcpConfigurationsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation(_workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, _workloadNetworkDhcpConfigurationsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkDhcp
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dhcpConfigurations/{dhcpId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDhcp_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dhcpId"> The ID of the DHCP configuration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dhcpId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dhcpId"/> is null. </exception>
+        public virtual ArmOperation DeleteWorkloadNetworkDhcpConfiguration(WaitUntil waitUntil, string dhcpId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dhcpId, nameof(dhcpId));
+
+            using var scope = _workloadNetworkDhcpConfigurationsClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkDhcpConfiguration");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDhcpConfigurationsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId, cancellationToken);
+                var operation = new AvsArmOperation(_workloadNetworkDhcpConfigurationsClientDiagnostics, Pipeline, _workloadNetworkDhcpConfigurationsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dhcpId).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkDnsService resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="WorkloadNetworkDnsService"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<WorkloadNetworkDnsService> GetWorkloadNetworkDnsServicesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsServicesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsServicesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkDnsService.DeserializeWorkloadNetworkDnsService(e), _workloadNetworkDnsServicesClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkDnsServices", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkDnsService resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="WorkloadNetworkDnsService"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<WorkloadNetworkDnsService> GetWorkloadNetworkDnsServices(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsServicesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsServicesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkDnsService.DeserializeWorkloadNetworkDnsService(e), _workloadNetworkDnsServicesClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkDnsServices", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> is null. </exception>
+        public virtual async Task<Response<WorkloadNetworkDnsService>> GetWorkloadNetworkDnsServiceAsync(string dnsServiceId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsServicesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> is null. </exception>
+        public virtual Response<WorkloadNetworkDnsService> GetWorkloadNetworkDnsService(string dnsServiceId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsServicesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="workloadNetworkDnsService"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> or <paramref name="workloadNetworkDnsService"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkDnsService>> CreateWorkloadNetworkDnsServiceAsync(WaitUntil waitUntil, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+            Argument.AssertNotNull(workloadNetworkDnsService, nameof(workloadNetworkDnsService));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsServicesRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsService>(new WorkloadNetworkDnsServiceOperationSource(), _workloadNetworkDnsServicesClientDiagnostics, Pipeline, _workloadNetworkDnsServicesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="workloadNetworkDnsService"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> or <paramref name="workloadNetworkDnsService"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkDnsService> CreateWorkloadNetworkDnsService(WaitUntil waitUntil, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+            Argument.AssertNotNull(workloadNetworkDnsService, nameof(workloadNetworkDnsService));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsServicesRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsService>(new WorkloadNetworkDnsServiceOperationSource(), _workloadNetworkDnsServicesClientDiagnostics, Pipeline, _workloadNetworkDnsServicesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="workloadNetworkDnsService"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> or <paramref name="workloadNetworkDnsService"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkDnsService>> UpdateWorkloadNetworkDnsServiceAsync(WaitUntil waitUntil, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+            Argument.AssertNotNull(workloadNetworkDnsService, nameof(workloadNetworkDnsService));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsServicesRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsService>(new WorkloadNetworkDnsServiceOperationSource(), _workloadNetworkDnsServicesClientDiagnostics, Pipeline, _workloadNetworkDnsServicesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="workloadNetworkDnsService"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> or <paramref name="workloadNetworkDnsService"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkDnsService> UpdateWorkloadNetworkDnsService(WaitUntil waitUntil, string dnsServiceId, WorkloadNetworkDnsService workloadNetworkDnsService, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+            Argument.AssertNotNull(workloadNetworkDnsService, nameof(workloadNetworkDnsService));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsServicesRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsService>(new WorkloadNetworkDnsServiceOperationSource(), _workloadNetworkDnsServicesClientDiagnostics, Pipeline, _workloadNetworkDnsServicesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, workloadNetworkDnsService).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> is null. </exception>
+        public virtual async Task<ArmOperation> DeleteWorkloadNetworkDnsServiceAsync(WaitUntil waitUntil, string dnsServiceId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsServicesRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, dnsServiceId, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation(_workloadNetworkDnsServicesClientDiagnostics, Pipeline, _workloadNetworkDnsServicesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, dnsServiceId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkDnsService
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsService_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsServiceId"> ID of the DNS service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsServiceId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsServiceId"/> is null. </exception>
+        public virtual ArmOperation DeleteWorkloadNetworkDnsService(WaitUntil waitUntil, string dnsServiceId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsServiceId, nameof(dnsServiceId));
+
+            using var scope = _workloadNetworkDnsServicesClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkDnsService");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsServicesRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, dnsServiceId, Id.Parent.Name, cancellationToken);
+                var operation = new AvsArmOperation(_workloadNetworkDnsServicesClientDiagnostics, Pipeline, _workloadNetworkDnsServicesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, dnsServiceId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="WorkloadNetworkDnsZone"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<WorkloadNetworkDnsZone> GetWorkloadNetworkDnsZonesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsZonesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsZonesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkDnsZone.DeserializeWorkloadNetworkDnsZone(e), _workloadNetworkDnsZonesClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkDnsZones", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkDnsZone resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="WorkloadNetworkDnsZone"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<WorkloadNetworkDnsZone> GetWorkloadNetworkDnsZones(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsZonesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsZonesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkDnsZone.DeserializeWorkloadNetworkDnsZone(e), _workloadNetworkDnsZonesClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkDnsZones", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> is null. </exception>
+        public virtual async Task<Response<WorkloadNetworkDnsZone>> GetWorkloadNetworkDnsZoneAsync(string dnsZoneId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsZonesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> is null. </exception>
+        public virtual Response<WorkloadNetworkDnsZone> GetWorkloadNetworkDnsZone(string dnsZoneId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsZonesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="workloadNetworkDnsZone"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> or <paramref name="workloadNetworkDnsZone"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkDnsZone>> CreateWorkloadNetworkDnsZoneAsync(WaitUntil waitUntil, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+            Argument.AssertNotNull(workloadNetworkDnsZone, nameof(workloadNetworkDnsZone));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsZonesRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsZone>(new WorkloadNetworkDnsZoneOperationSource(), _workloadNetworkDnsZonesClientDiagnostics, Pipeline, _workloadNetworkDnsZonesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="workloadNetworkDnsZone"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> or <paramref name="workloadNetworkDnsZone"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkDnsZone> CreateWorkloadNetworkDnsZone(WaitUntil waitUntil, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+            Argument.AssertNotNull(workloadNetworkDnsZone, nameof(workloadNetworkDnsZone));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsZonesRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsZone>(new WorkloadNetworkDnsZoneOperationSource(), _workloadNetworkDnsZonesClientDiagnostics, Pipeline, _workloadNetworkDnsZonesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="workloadNetworkDnsZone"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> or <paramref name="workloadNetworkDnsZone"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkDnsZone>> UpdateWorkloadNetworkDnsZoneAsync(WaitUntil waitUntil, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+            Argument.AssertNotNull(workloadNetworkDnsZone, nameof(workloadNetworkDnsZone));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsZonesRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsZone>(new WorkloadNetworkDnsZoneOperationSource(), _workloadNetworkDnsZonesClientDiagnostics, Pipeline, _workloadNetworkDnsZonesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="workloadNetworkDnsZone"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> or <paramref name="workloadNetworkDnsZone"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkDnsZone> UpdateWorkloadNetworkDnsZone(WaitUntil waitUntil, string dnsZoneId, WorkloadNetworkDnsZone workloadNetworkDnsZone, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+            Argument.AssertNotNull(workloadNetworkDnsZone, nameof(workloadNetworkDnsZone));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsZonesRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsZone>(new WorkloadNetworkDnsZoneOperationSource(), _workloadNetworkDnsZonesClientDiagnostics, Pipeline, _workloadNetworkDnsZonesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsZoneId, workloadNetworkDnsZone).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> is null. </exception>
+        public virtual async Task<ArmOperation> DeleteWorkloadNetworkDnsZoneAsync(WaitUntil waitUntil, string dnsZoneId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkDnsZonesRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, dnsZoneId, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation(_workloadNetworkDnsZonesClientDiagnostics, Pipeline, _workloadNetworkDnsZonesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, dnsZoneId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkDnsZone
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsZones/{dnsZoneId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkDnsZone_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="dnsZoneId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="dnsZoneId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="dnsZoneId"/> is null. </exception>
+        public virtual ArmOperation DeleteWorkloadNetworkDnsZone(WaitUntil waitUntil, string dnsZoneId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(dnsZoneId, nameof(dnsZoneId));
+
+            using var scope = _workloadNetworkDnsZonesClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkDnsZone");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkDnsZonesRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, dnsZoneId, Id.Parent.Name, cancellationToken);
+                var operation = new AvsArmOperation(_workloadNetworkDnsZonesClientDiagnostics, Pipeline, _workloadNetworkDnsZonesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, dnsZoneId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="WorkloadNetworkPortMirroring"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<WorkloadNetworkPortMirroring> GetWorkloadNetworkPortMirroringProfilesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkPortMirroringProfilesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkPortMirroringProfilesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkPortMirroring.DeserializeWorkloadNetworkPortMirroring(e), _workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkPortMirroringProfiles", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkPortMirroring resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="WorkloadNetworkPortMirroring"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<WorkloadNetworkPortMirroring> GetWorkloadNetworkPortMirroringProfiles(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkPortMirroringProfilesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkPortMirroringProfilesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkPortMirroring.DeserializeWorkloadNetworkPortMirroring(e), _workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkPortMirroringProfiles", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> is null. </exception>
+        public virtual async Task<Response<WorkloadNetworkPortMirroring>> GetWorkloadNetworkPortMirroringProfileAsync(string portMirroringId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkPortMirroringProfilesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> is null. </exception>
+        public virtual Response<WorkloadNetworkPortMirroring> GetWorkloadNetworkPortMirroringProfile(string portMirroringId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkPortMirroringProfilesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="workloadNetworkPortMirroring"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> or <paramref name="workloadNetworkPortMirroring"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkPortMirroring>> CreateWorkloadNetworkPortMirroringProfileAsync(WaitUntil waitUntil, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+            Argument.AssertNotNull(workloadNetworkPortMirroring, nameof(workloadNetworkPortMirroring));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkPortMirroringProfilesRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkPortMirroring>(new WorkloadNetworkPortMirroringOperationSource(), _workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, _workloadNetworkPortMirroringProfilesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="workloadNetworkPortMirroring"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> or <paramref name="workloadNetworkPortMirroring"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkPortMirroring> CreateWorkloadNetworkPortMirroringProfile(WaitUntil waitUntil, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+            Argument.AssertNotNull(workloadNetworkPortMirroring, nameof(workloadNetworkPortMirroring));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkPortMirroringProfilesRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkPortMirroring>(new WorkloadNetworkPortMirroringOperationSource(), _workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, _workloadNetworkPortMirroringProfilesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="workloadNetworkPortMirroring"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> or <paramref name="workloadNetworkPortMirroring"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkPortMirroring>> UpdateWorkloadNetworkPortMirroringProfileAsync(WaitUntil waitUntil, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+            Argument.AssertNotNull(workloadNetworkPortMirroring, nameof(workloadNetworkPortMirroring));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkPortMirroringProfilesRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkPortMirroring>(new WorkloadNetworkPortMirroringOperationSource(), _workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, _workloadNetworkPortMirroringProfilesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="workloadNetworkPortMirroring"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> or <paramref name="workloadNetworkPortMirroring"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkPortMirroring> UpdateWorkloadNetworkPortMirroringProfile(WaitUntil waitUntil, string portMirroringId, WorkloadNetworkPortMirroring workloadNetworkPortMirroring, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+            Argument.AssertNotNull(workloadNetworkPortMirroring, nameof(workloadNetworkPortMirroring));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkPortMirroringProfilesRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkPortMirroring>(new WorkloadNetworkPortMirroringOperationSource(), _workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, _workloadNetworkPortMirroringProfilesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, portMirroringId, workloadNetworkPortMirroring).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> is null. </exception>
+        public virtual async Task<ArmOperation> DeleteWorkloadNetworkPortMirroringProfileAsync(WaitUntil waitUntil, string portMirroringId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkPortMirroringProfilesRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, portMirroringId, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation(_workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, _workloadNetworkPortMirroringProfilesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, portMirroringId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkPortMirroring
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/portMirroringProfiles/{portMirroringId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPortMirroring_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="portMirroringId"> ID of the NSX port mirroring profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="portMirroringId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="portMirroringId"/> is null. </exception>
+        public virtual ArmOperation DeleteWorkloadNetworkPortMirroringProfile(WaitUntil waitUntil, string portMirroringId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(portMirroringId, nameof(portMirroringId));
+
+            using var scope = _workloadNetworkPortMirroringProfilesClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkPortMirroringProfile");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkPortMirroringProfilesRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, portMirroringId, Id.Parent.Name, cancellationToken);
+                var operation = new AvsArmOperation(_workloadNetworkPortMirroringProfilesClientDiagnostics, Pipeline, _workloadNetworkPortMirroringProfilesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, portMirroringId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="WorkloadNetworkPublicIP"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<WorkloadNetworkPublicIP> GetWorkloadNetworkPublicIpsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkPublicIPsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkPublicIPsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkPublicIP.DeserializeWorkloadNetworkPublicIP(e), _workloadNetworkPublicIPsClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkPublicIps", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkPublicIP resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="WorkloadNetworkPublicIP"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<WorkloadNetworkPublicIP> GetWorkloadNetworkPublicIps(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkPublicIPsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkPublicIPsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkPublicIP.DeserializeWorkloadNetworkPublicIP(e), _workloadNetworkPublicIPsClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkPublicIps", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkPublicIP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="publicIPId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> is null. </exception>
+        public virtual async Task<Response<WorkloadNetworkPublicIP>> GetWorkloadNetworkPublicIpAsync(string publicIPId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(publicIPId, nameof(publicIPId));
+
+            using var scope = _workloadNetworkPublicIPsClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkPublicIp");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkPublicIPsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, publicIPId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkPublicIP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="publicIPId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> is null. </exception>
+        public virtual Response<WorkloadNetworkPublicIP> GetWorkloadNetworkPublicIp(string publicIPId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(publicIPId, nameof(publicIPId));
+
+            using var scope = _workloadNetworkPublicIPsClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkPublicIp");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkPublicIPsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, publicIPId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkPublicIP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="publicIPId"> ID of the DNS zone. </param>
+        /// <param name="workloadNetworkPublicIP"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> or <paramref name="workloadNetworkPublicIP"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkPublicIP>> CreateWorkloadNetworkPublicIpAsync(WaitUntil waitUntil, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(publicIPId, nameof(publicIPId));
+            Argument.AssertNotNull(workloadNetworkPublicIP, nameof(workloadNetworkPublicIP));
+
+            using var scope = _workloadNetworkPublicIPsClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkPublicIp");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkPublicIPsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, publicIPId, workloadNetworkPublicIP, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkPublicIP>(new WorkloadNetworkPublicIPOperationSource(), _workloadNetworkPublicIPsClientDiagnostics, Pipeline, _workloadNetworkPublicIPsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, publicIPId, workloadNetworkPublicIP).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkPublicIP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="publicIPId"> ID of the DNS zone. </param>
+        /// <param name="workloadNetworkPublicIP"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> or <paramref name="workloadNetworkPublicIP"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkPublicIP> CreateWorkloadNetworkPublicIp(WaitUntil waitUntil, string publicIPId, WorkloadNetworkPublicIP workloadNetworkPublicIP, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(publicIPId, nameof(publicIPId));
+            Argument.AssertNotNull(workloadNetworkPublicIP, nameof(workloadNetworkPublicIP));
+
+            using var scope = _workloadNetworkPublicIPsClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkPublicIp");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkPublicIPsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, publicIPId, workloadNetworkPublicIP, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkPublicIP>(new WorkloadNetworkPublicIPOperationSource(), _workloadNetworkPublicIPsClientDiagnostics, Pipeline, _workloadNetworkPublicIPsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, publicIPId, workloadNetworkPublicIP).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkPublicIP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="publicIPId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> is null. </exception>
+        public virtual async Task<ArmOperation> DeleteWorkloadNetworkPublicIpAsync(WaitUntil waitUntil, string publicIPId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(publicIPId, nameof(publicIPId));
+
+            using var scope = _workloadNetworkPublicIPsClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkPublicIp");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkPublicIPsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, publicIPId, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation(_workloadNetworkPublicIPsClientDiagnostics, Pipeline, _workloadNetworkPublicIPsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, publicIPId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkPublicIP
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/publicIPs/{publicIPId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkPublicIP_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="publicIPId"> ID of the DNS zone. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="publicIPId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="publicIPId"/> is null. </exception>
+        public virtual ArmOperation DeleteWorkloadNetworkPublicIp(WaitUntil waitUntil, string publicIPId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(publicIPId, nameof(publicIPId));
+
+            using var scope = _workloadNetworkPublicIPsClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkPublicIp");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkPublicIPsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, publicIPId, Id.Parent.Name, cancellationToken);
+                var operation = new AvsArmOperation(_workloadNetworkPublicIPsClientDiagnostics, Pipeline, _workloadNetworkPublicIPsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, publicIPId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="WorkloadNetworkVmGroup"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<WorkloadNetworkVmGroup> GetWorkloadNetworkVmGroupsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkVmGroupsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkVmGroupsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkVmGroup.DeserializeWorkloadNetworkVmGroup(e), _workloadNetworkVmGroupsClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkVmGroups", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List WorkloadNetworkVMGroup resources by WorkloadNetwork
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="WorkloadNetworkVmGroup"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<WorkloadNetworkVmGroup> GetWorkloadNetworkVmGroups(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkVmGroupsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkVmGroupsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => WorkloadNetworkVmGroup.DeserializeWorkloadNetworkVmGroup(e), _workloadNetworkVmGroupsClientDiagnostics, Pipeline, "WorkloadNetworkResource.GetWorkloadNetworkVmGroups", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> is null. </exception>
+        public virtual async Task<Response<WorkloadNetworkVmGroup>> GetWorkloadNetworkVmGroupAsync(string vmGroupId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkVmGroupsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> is null. </exception>
+        public virtual Response<WorkloadNetworkVmGroup> GetWorkloadNetworkVmGroup(string vmGroupId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.GetWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkVmGroupsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="workloadNetworkVmGroup"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> or <paramref name="workloadNetworkVmGroup"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkVmGroup>> CreateWorkloadNetworkVmGroupAsync(WaitUntil waitUntil, string vmGroupId, WorkloadNetworkVmGroup workloadNetworkVmGroup, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+            Argument.AssertNotNull(workloadNetworkVmGroup, nameof(workloadNetworkVmGroup));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkVmGroupsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkVmGroup>(new WorkloadNetworkVmGroupOperationSource(), _workloadNetworkVmGroupsClientDiagnostics, Pipeline, _workloadNetworkVmGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Create</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="workloadNetworkVmGroup"> Resource create parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> or <paramref name="workloadNetworkVmGroup"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkVmGroup> CreateWorkloadNetworkVmGroup(WaitUntil waitUntil, string vmGroupId, WorkloadNetworkVmGroup workloadNetworkVmGroup, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+            Argument.AssertNotNull(workloadNetworkVmGroup, nameof(workloadNetworkVmGroup));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.CreateWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkVmGroupsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkVmGroup>(new WorkloadNetworkVmGroupOperationSource(), _workloadNetworkVmGroupsClientDiagnostics, Pipeline, _workloadNetworkVmGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="workloadNetworkVmGroup"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> or <paramref name="workloadNetworkVmGroup"/> is null. </exception>
+        public virtual async Task<ArmOperation<WorkloadNetworkVmGroup>> UpdateWorkloadNetworkVmGroupAsync(WaitUntil waitUntil, string vmGroupId, WorkloadNetworkVmGroup workloadNetworkVmGroup, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+            Argument.AssertNotNull(workloadNetworkVmGroup, nameof(workloadNetworkVmGroup));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkVmGroupsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkVmGroup>(new WorkloadNetworkVmGroupOperationSource(), _workloadNetworkVmGroupsClientDiagnostics, Pipeline, _workloadNetworkVmGroupsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Update</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="workloadNetworkVmGroup"> The resource properties to be updated. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> or <paramref name="workloadNetworkVmGroup"/> is null. </exception>
+        public virtual ArmOperation<WorkloadNetworkVmGroup> UpdateWorkloadNetworkVmGroup(WaitUntil waitUntil, string vmGroupId, WorkloadNetworkVmGroup workloadNetworkVmGroup, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+            Argument.AssertNotNull(workloadNetworkVmGroup, nameof(workloadNetworkVmGroup));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.UpdateWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkVmGroupsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkVmGroup>(new WorkloadNetworkVmGroupOperationSource(), _workloadNetworkVmGroupsClientDiagnostics, Pipeline, _workloadNetworkVmGroupsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, vmGroupId, workloadNetworkVmGroup).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> is null. </exception>
+        public virtual async Task<ArmOperation> DeleteWorkloadNetworkVmGroupAsync(WaitUntil waitUntil, string vmGroupId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = await _workloadNetworkVmGroupsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, vmGroupId, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation(_workloadNetworkVmGroupsClientDiagnostics, Pipeline, _workloadNetworkVmGroupsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, vmGroupId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a WorkloadNetworkVMGroup
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkloadNetworkVMGroup_Delete</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-09-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="vmGroupId"> ID of the VM group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="vmGroupId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmGroupId"/> is null. </exception>
+        public virtual ArmOperation DeleteWorkloadNetworkVmGroup(WaitUntil waitUntil, string vmGroupId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(vmGroupId, nameof(vmGroupId));
+
+            using var scope = _workloadNetworkVmGroupsClientDiagnostics.CreateScope("WorkloadNetworkResource.DeleteWorkloadNetworkVmGroup");
+            scope.Start();
+            try
+            {
+                var response = _workloadNetworkVmGroupsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, vmGroupId, Id.Parent.Name, cancellationToken);
+                var operation = new AvsArmOperation(_workloadNetworkVmGroupsClientDiagnostics, Pipeline, _workloadNetworkVmGroupsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, vmGroupId, Id.Parent.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
             }
             catch (Exception e)
             {

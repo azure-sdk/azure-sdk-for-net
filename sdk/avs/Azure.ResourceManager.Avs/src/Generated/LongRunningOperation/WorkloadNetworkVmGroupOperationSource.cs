@@ -5,32 +5,26 @@
 
 #nullable disable
 
-using System.ClientModel.Primitives;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
+using Azure.ResourceManager.Avs.Models;
 
 namespace Azure.ResourceManager.Avs
 {
-    internal class WorkloadNetworkVmGroupOperationSource : IOperationSource<WorkloadNetworkVmGroupResource>
+    internal class WorkloadNetworkVmGroupOperationSource : IOperationSource<WorkloadNetworkVmGroup>
     {
-        private readonly ArmClient _client;
-
-        internal WorkloadNetworkVmGroupOperationSource(ArmClient client)
+        WorkloadNetworkVmGroup IOperationSource<WorkloadNetworkVmGroup>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            _client = client;
+            using var document = JsonDocument.Parse(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
+            return WorkloadNetworkVmGroup.DeserializeWorkloadNetworkVmGroup(document.RootElement);
         }
 
-        WorkloadNetworkVmGroupResource IOperationSource<WorkloadNetworkVmGroupResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        async ValueTask<WorkloadNetworkVmGroup> IOperationSource<WorkloadNetworkVmGroup>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            var data = ModelReaderWriter.Read<WorkloadNetworkVmGroupData>(response.Content);
-            return new WorkloadNetworkVmGroupResource(_client, data);
-        }
-
-        async ValueTask<WorkloadNetworkVmGroupResource> IOperationSource<WorkloadNetworkVmGroupResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
-        {
-            var data = ModelReaderWriter.Read<WorkloadNetworkVmGroupData>(response.Content);
-            return await Task.FromResult(new WorkloadNetworkVmGroupResource(_client, data)).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
+            return WorkloadNetworkVmGroup.DeserializeWorkloadNetworkVmGroup(document.RootElement);
         }
     }
 }

@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
+using Azure.ResourceManager.Avs.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Avs.Samples
@@ -19,8 +20,8 @@ namespace Azure.ResourceManager.Avs.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_WorkloadNetworksGet()
         {
-            // Generated from example definition: specification/vmware/resource-manager/Microsoft.AVS/stable/2023-09-01/examples/WorkloadNetworks_Get.json
-            // this example is just showing the usage of "WorkloadNetworks_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_Get.json
+            // this example is just showing the usage of "WorkloadNetwork_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -43,6 +44,823 @@ namespace Azure.ResourceManager.Avs.Samples
             WorkloadNetworkData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkDhcpConfigurations_WorkloadNetworksListDhcp()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_ListDhcp.json
+            // this example is just showing the usage of "WorkloadNetworkDhcp_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (WorkloadNetworkDhcp item in workloadNetwork.GetWorkloadNetworkDhcpConfigurationsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkDhcpConfiguration_WorkloadNetworksGetDhcp()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_GetDhcp.json
+            // this example is just showing the usage of "WorkloadNetworkDhcpConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dhcpId = "dhcp1";
+            WorkloadNetworkDhcp result = await workloadNetwork.GetWorkloadNetworkDhcpConfigurationAsync(dhcpId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateWorkloadNetworkDhcpConfiguration_WorkloadNetworksCreateDhcp()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_CreateDhcp.json
+            // this example is just showing the usage of "WorkloadNetworkDhcp_Create" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dhcpId = "dhcp1";
+            WorkloadNetworkDhcp workloadNetworkDhcp = new WorkloadNetworkDhcp();
+            ArmOperation<WorkloadNetworkDhcp> lro = await workloadNetwork.CreateWorkloadNetworkDhcpConfigurationAsync(WaitUntil.Completed, dhcpId, workloadNetworkDhcp);
+            WorkloadNetworkDhcp result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task UpdateWorkloadNetworkDhcpConfiguration_WorkloadNetworksUpdateDhcp()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_UpdateDhcp.json
+            // this example is just showing the usage of "WorkloadNetworkDhcp_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dhcpId = "dhcp1";
+            WorkloadNetworkDhcp workloadNetworkDhcp = new WorkloadNetworkDhcp();
+            ArmOperation<WorkloadNetworkDhcp> lro = await workloadNetwork.UpdateWorkloadNetworkDhcpConfigurationAsync(WaitUntil.Completed, dhcpId, workloadNetworkDhcp);
+            WorkloadNetworkDhcp result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeleteWorkloadNetworkDhcpConfiguration_WorkloadNetworksDeleteDhcp()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_DeleteDhcp.json
+            // this example is just showing the usage of "WorkloadNetworkDhcp_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dhcpId = "dhcp1";
+            await workloadNetwork.DeleteWorkloadNetworkDhcpConfigurationAsync(WaitUntil.Completed, dhcpId);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkDnsServices_WorkloadNetworksListDnsServices()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_ListDnsServices.json
+            // this example is just showing the usage of "WorkloadNetworkDnsService_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (WorkloadNetworkDnsService item in workloadNetwork.GetWorkloadNetworkDnsServicesAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkDnsService_WorkloadNetworksGetDnsService()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_GetDnsService.json
+            // this example is just showing the usage of "WorkloadNetworkDnsService_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsServiceId = "dnsService1";
+            WorkloadNetworkDnsService result = await workloadNetwork.GetWorkloadNetworkDnsServiceAsync(dnsServiceId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateWorkloadNetworkDnsService_WorkloadNetworksCreateDnsService()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_CreateDnsService.json
+            // this example is just showing the usage of "WorkloadNetworkDnsService_Create" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsServiceId = "dnsService1";
+            WorkloadNetworkDnsService workloadNetworkDnsService = new WorkloadNetworkDnsService();
+            ArmOperation<WorkloadNetworkDnsService> lro = await workloadNetwork.CreateWorkloadNetworkDnsServiceAsync(WaitUntil.Completed, dnsServiceId, workloadNetworkDnsService);
+            WorkloadNetworkDnsService result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task UpdateWorkloadNetworkDnsService_WorkloadNetworksUpdateDnsService()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_UpdateDnsService.json
+            // this example is just showing the usage of "WorkloadNetworkDnsService_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsServiceId = "dnsService1";
+            WorkloadNetworkDnsService workloadNetworkDnsService = new WorkloadNetworkDnsService();
+            ArmOperation<WorkloadNetworkDnsService> lro = await workloadNetwork.UpdateWorkloadNetworkDnsServiceAsync(WaitUntil.Completed, dnsServiceId, workloadNetworkDnsService);
+            WorkloadNetworkDnsService result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeleteWorkloadNetworkDnsService_WorkloadNetworksDeleteDnsService()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_DeleteDnsService.json
+            // this example is just showing the usage of "WorkloadNetworkDnsService_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsServiceId = "dnsService1";
+            await workloadNetwork.DeleteWorkloadNetworkDnsServiceAsync(WaitUntil.Completed, dnsServiceId);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkDnsZones_WorkloadNetworksListDnsZones()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_ListDnsZones.json
+            // this example is just showing the usage of "WorkloadNetworkDnsZone_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (WorkloadNetworkDnsZone item in workloadNetwork.GetWorkloadNetworkDnsZonesAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkDnsZone_WorkloadNetworksGetDnsZone()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_GetDnsZone.json
+            // this example is just showing the usage of "WorkloadNetworkDnsZone_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsZoneId = "dnsZone1";
+            WorkloadNetworkDnsZone result = await workloadNetwork.GetWorkloadNetworkDnsZoneAsync(dnsZoneId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateWorkloadNetworkDnsZone_WorkloadNetworksCreateDnsZone()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_CreateDnsZone.json
+            // this example is just showing the usage of "WorkloadNetworkDnsZone_Create" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsZoneId = "dnsZone1";
+            WorkloadNetworkDnsZone workloadNetworkDnsZone = new WorkloadNetworkDnsZone();
+            ArmOperation<WorkloadNetworkDnsZone> lro = await workloadNetwork.CreateWorkloadNetworkDnsZoneAsync(WaitUntil.Completed, dnsZoneId, workloadNetworkDnsZone);
+            WorkloadNetworkDnsZone result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task UpdateWorkloadNetworkDnsZone_WorkloadNetworksUpdateDnsZone()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_UpdateDnsZone.json
+            // this example is just showing the usage of "WorkloadNetworkDnsZone_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsZoneId = "dnsZone1";
+            WorkloadNetworkDnsZone workloadNetworkDnsZone = new WorkloadNetworkDnsZone();
+            ArmOperation<WorkloadNetworkDnsZone> lro = await workloadNetwork.UpdateWorkloadNetworkDnsZoneAsync(WaitUntil.Completed, dnsZoneId, workloadNetworkDnsZone);
+            WorkloadNetworkDnsZone result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeleteWorkloadNetworkDnsZone_WorkloadNetworksDeleteDnsZone()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_DeleteDnsZone.json
+            // this example is just showing the usage of "WorkloadNetworkDnsZone_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string dnsZoneId = "dnsZone1";
+            await workloadNetwork.DeleteWorkloadNetworkDnsZoneAsync(WaitUntil.Completed, dnsZoneId);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkPortMirroringProfiles_WorkloadNetworksListPortMirroring()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_ListPortMirroring.json
+            // this example is just showing the usage of "WorkloadNetworkPortMirroring_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (WorkloadNetworkPortMirroring item in workloadNetwork.GetWorkloadNetworkPortMirroringProfilesAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkPortMirroringProfile_WorkloadNetworksGetPortMirroring()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_GetPortMirroring.json
+            // this example is just showing the usage of "WorkloadNetworkPortMirroring_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string portMirroringId = "portMirroring1";
+            WorkloadNetworkPortMirroring result = await workloadNetwork.GetWorkloadNetworkPortMirroringProfileAsync(portMirroringId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateWorkloadNetworkPortMirroringProfile_WorkloadNetworksCreatePortMirroring()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_CreatePortMirroring.json
+            // this example is just showing the usage of "WorkloadNetworkPortMirroring_Create" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string portMirroringId = "portMirroring1";
+            WorkloadNetworkPortMirroring workloadNetworkPortMirroring = new WorkloadNetworkPortMirroring();
+            ArmOperation<WorkloadNetworkPortMirroring> lro = await workloadNetwork.CreateWorkloadNetworkPortMirroringProfileAsync(WaitUntil.Completed, portMirroringId, workloadNetworkPortMirroring);
+            WorkloadNetworkPortMirroring result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task UpdateWorkloadNetworkPortMirroringProfile_WorkloadNetworksUpdatePortMirroring()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_UpdatePortMirroring.json
+            // this example is just showing the usage of "WorkloadNetworkPortMirroring_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string portMirroringId = "portMirroring1";
+            WorkloadNetworkPortMirroring workloadNetworkPortMirroring = new WorkloadNetworkPortMirroring();
+            ArmOperation<WorkloadNetworkPortMirroring> lro = await workloadNetwork.UpdateWorkloadNetworkPortMirroringProfileAsync(WaitUntil.Completed, portMirroringId, workloadNetworkPortMirroring);
+            WorkloadNetworkPortMirroring result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeleteWorkloadNetworkPortMirroringProfile_WorkloadNetworksDeletePortMirroring()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_DeletePortMirroring.json
+            // this example is just showing the usage of "WorkloadNetworkPortMirroring_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string portMirroringId = "portMirroring1";
+            await workloadNetwork.DeleteWorkloadNetworkPortMirroringProfileAsync(WaitUntil.Completed, portMirroringId);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkPublicIps_WorkloadNetworksListPublicIPs()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_ListPublicIPs.json
+            // this example is just showing the usage of "WorkloadNetworkPublicIP_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (WorkloadNetworkPublicIP item in workloadNetwork.GetWorkloadNetworkPublicIpsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkPublicIp_WorkloadNetworksGetPublicIP()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_GetPublicIP.json
+            // this example is just showing the usage of "WorkloadNetworkPublicIP_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string publicIPId = "publicIP1";
+            WorkloadNetworkPublicIP result = await workloadNetwork.GetWorkloadNetworkPublicIpAsync(publicIPId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateWorkloadNetworkPublicIp_WorkloadNetworksCreatePublicIP()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_CreatePublicIP.json
+            // this example is just showing the usage of "WorkloadNetworkPublicIP_Create" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string publicIPId = "publicIP1";
+            WorkloadNetworkPublicIP workloadNetworkPublicIP = new WorkloadNetworkPublicIP();
+            ArmOperation<WorkloadNetworkPublicIP> lro = await workloadNetwork.CreateWorkloadNetworkPublicIpAsync(WaitUntil.Completed, publicIPId, workloadNetworkPublicIP);
+            WorkloadNetworkPublicIP result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeleteWorkloadNetworkPublicIp_WorkloadNetworksDeletePublicIP()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_DeletePublicIP.json
+            // this example is just showing the usage of "WorkloadNetworkPublicIP_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string publicIPId = "publicIP1";
+            await workloadNetwork.DeleteWorkloadNetworkPublicIpAsync(WaitUntil.Completed, publicIPId);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkVmGroups_WorkloadNetworksListVMGroups()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_ListVMGroups.json
+            // this example is just showing the usage of "WorkloadNetworkVMGroup_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (WorkloadNetworkVmGroup item in workloadNetwork.GetWorkloadNetworkVmGroupsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetWorkloadNetworkVmGroup_WorkloadNetworksGetVMGroup()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_GetVMGroup.json
+            // this example is just showing the usage of "WorkloadNetworkVMGroup_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string vmGroupId = "vmGroup1";
+            WorkloadNetworkVmGroup result = await workloadNetwork.GetWorkloadNetworkVmGroupAsync(vmGroupId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateWorkloadNetworkVmGroup_WorkloadNetworksCreateVMGroup()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_CreateVMGroup.json
+            // this example is just showing the usage of "WorkloadNetworkVMGroup_Create" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string vmGroupId = "vmGroup1";
+            WorkloadNetworkVmGroup workloadNetworkVmGroup = new WorkloadNetworkVmGroup();
+            ArmOperation<WorkloadNetworkVmGroup> lro = await workloadNetwork.CreateWorkloadNetworkVmGroupAsync(WaitUntil.Completed, vmGroupId, workloadNetworkVmGroup);
+            WorkloadNetworkVmGroup result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task UpdateWorkloadNetworkVmGroup_WorkloadNetworksUpdateVMGroup()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_UpdateVMGroup.json
+            // this example is just showing the usage of "WorkloadNetworkVMGroup_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string vmGroupId = "vmGroup1";
+            WorkloadNetworkVmGroup workloadNetworkVmGroup = new WorkloadNetworkVmGroup();
+            ArmOperation<WorkloadNetworkVmGroup> lro = await workloadNetwork.UpdateWorkloadNetworkVmGroupAsync(WaitUntil.Completed, vmGroupId, workloadNetworkVmGroup);
+            WorkloadNetworkVmGroup result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeleteWorkloadNetworkVmGroup_WorkloadNetworksDeleteVMGroup()
+        {
+            // Generated from example definition: 2024-09-01/WorkloadNetworks_DeleteVMGroup.json
+            // this example is just showing the usage of "WorkloadNetworkVMGroup_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this WorkloadNetworkResource created on azure
+            // for more information of creating WorkloadNetworkResource, please refer to the document of WorkloadNetworkResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "group1";
+            string privateCloudName = "cloud1";
+            ResourceIdentifier workloadNetworkResourceId = WorkloadNetworkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName);
+            WorkloadNetworkResource workloadNetwork = client.GetWorkloadNetworkResource(workloadNetworkResourceId);
+
+            // invoke the operation
+            string vmGroupId = "vmGroup1";
+            await workloadNetwork.DeleteWorkloadNetworkVmGroupAsync(WaitUntil.Completed, vmGroupId);
+
+            Console.WriteLine("Succeeded");
         }
     }
 }
