@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
@@ -20,9 +21,168 @@ namespace Azure.ResourceManager.ContainerService.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_AssociateManagedClusterWithCapacityReservationGroup()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersAssociate_CRG.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+EnableNodePublicIP = true,
+CapacityReservationGroupId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/capacityReservationGroups/crg1"),
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                WindowsProfile = new ManagedClusterWindowsProfile("azureuser")
+                {
+                    AdminPassword = "replacePassword1234$",
+                },
+                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
+                {
+                    Secret = "secret",
+                },
+                AddonProfiles = { },
+                EnableRbac = true,
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                AutoScalerProfile = new ManagedClusterAutoScalerProfile
+                {
+                    ScanIntervalInSeconds = "20s",
+                    ScaleDownDelayAfterAdd = "15m",
+                },
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateManagedClusterUsingAManagedClusterSnapshot()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_MCSnapshot.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                CreationDataSourceResourceId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedclustersnapshots/snapshot1"),
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+EnableNodePublicIP = true,
+EnableFips = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
+                {
+                    Secret = "secret",
+                },
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterUsingAnAgentPoolSnapshot()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_Snapshot.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_Snapshot.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -60,7 +220,7 @@ AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
 Mode = AgentPoolMode.System,
 EnableNodePublicIP = true,
 EnableFips = true,
-CreationDataSourceResourceId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.ContainerService/snapshots/snapshot1"),
+CreationDataSourceResourceId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/snapshots/snapshot1"),
 }},
                 LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
             {
@@ -76,7 +236,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = false,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -94,7 +253,91 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateManagedClusterWithAIToolchainOperatorEnabled()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_EnableAIToolchainOperator.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+EnableNodePublicIP = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
+                {
+                    Secret = "secret",
+                },
+                AddonProfiles = { },
+                EnableRbac = true,
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    NetworkPlugin = ContainerServiceNetworkPlugin.Azure,
+                    NetworkPluginMode = ContainerServiceNetworkPluginMode.Overlay,
+                    NetworkDataplane = NetworkDataplane.Cilium,
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                AiToolchainOperatorProfileEnabled = true,
                 Tags =
 {
 ["archv2"] = "",
@@ -115,7 +358,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithAKSManagedNATGatewayAsOutboundType()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_ManagedNATGateway.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_ManagedNATGateway.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -167,7 +410,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.ManagedNatGateway,
@@ -182,7 +424,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -203,7 +445,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithAzureKeyVaultSecretsProviderAddon()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_AzureKeyvaultSecretsProvider.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_AzureKeyvaultSecretsProvider.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -265,99 +507,6 @@ Config =
 }
 },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
-                NetworkProfile = new ContainerServiceNetworkProfile
-                {
-                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
-                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
-                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
-                    {
-                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
-                        {
-                            Count = 2,
-                        },
-                    },
-                },
-                AutoScalerProfile = new ManagedClusterAutoScalerProfile
-                {
-                    ScanIntervalInSeconds = "20s",
-                    ScaleDownDelayAfterAdd = "15m",
-                },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
-                Tags =
-{
-["archv2"] = "",
-["tier"] = "production"
-},
-            };
-            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
-            ContainerServiceManagedClusterResource result = lro.Value;
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            ContainerServiceManagedClusterData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_CreateManagedClusterWithCapacityReservationGroup()
-        {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_CRG.json
-            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "rg1";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // get the collection of this ContainerServiceManagedClusterResource
-            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
-
-            // invoke the operation
-            string resourceName = "clustername1";
-            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
-            {
-                Sku = new ManagedClusterSku
-                {
-                    Name = new ManagedClusterSkuName("Basic"),
-                    Tier = ManagedClusterSkuTier.Free,
-                },
-                KubernetesVersion = "",
-                DnsPrefix = "dnsprefix1",
-                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
-{
-Count = 3,
-VmSize = "Standard_DS2_v2",
-OSType = ContainerServiceOSType.Linux,
-AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
-Mode = AgentPoolMode.System,
-EnableNodePublicIP = true,
-CapacityReservationGroupId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/capacityReservationGroups/crg1"),
-}},
-                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
-            {
-new ContainerServiceSshPublicKey("keydata")
-            })),
-                WindowsProfile = new ManagedClusterWindowsProfile("azureuser")
-                {
-                    AdminPassword = "replacePassword1234$",
-                },
-                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
-                {
-                    Secret = "secret",
-                },
-                AddonProfiles = { },
-                EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -394,9 +543,104 @@ new ContainerServiceSshPublicKey("keydata")
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateManagedClusterWithCustomCATrustCertificatesPopulatedAndCustomCATrustEnabled()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_EnableCustomCATrust.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+EnableNodePublicIP = true,
+EnableCustomCATrust = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                WindowsProfile = new ManagedClusterWindowsProfile("azureuser")
+                {
+                    AdminPassword = "replacePassword1234$",
+                },
+                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
+                {
+                    Secret = "secret",
+                },
+                AddonProfiles = { },
+                EnableRbac = true,
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                AutoScalerProfile = new ManagedClusterAutoScalerProfile
+                {
+                    ScanIntervalInSeconds = "20s",
+                    ScaleDownDelayAfterAdd = "15m",
+                },
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                SecurityProfile = new ManagedClusterSecurityProfile
+                {
+                    CustomCATrustCertificates = { Encoding.UTF8.GetBytes("ZHVtbXlFeGFtcGxlVGVzdFZhbHVlRm9yQ2VydGlmaWNhdGVUb0JlQWRkZWQ=") },
+                },
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithDedicatedHostGroup()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_DedicatedHostGroup.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_DedicatedHostGroup.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -448,7 +692,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = false,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -466,7 +709,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -487,7 +730,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithEncryptionAtHostEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_EnableEncryptionAtHost.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_EnableEncryptionAtHost.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -540,7 +783,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -558,7 +800,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -579,7 +821,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithFIPSEnabledOS()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_EnabledFIPS.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_EnabledFIPS.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -632,7 +874,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = false,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -650,7 +891,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -671,7 +912,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithGPUMIG()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_GPUMIG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_GPUMIG.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -724,7 +965,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -742,7 +982,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 HttpProxyConfig = new ManagedClusterHttpProxyConfig
                 {
                     HttpProxy = "http://myproxy.server.com:8080",
@@ -770,7 +1010,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithHTTPProxyConfigured()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_HTTPProxy.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_HTTPProxy.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -822,7 +1062,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -840,7 +1079,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 HttpProxyConfig = new ManagedClusterHttpProxyConfig
                 {
                     HttpProxy = "http://myproxy.server.com:8080",
@@ -868,7 +1107,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithLongTermSupport()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_Premium.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_Premium.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -922,7 +1161,6 @@ new ContainerServiceSshPublicKey("keydata")
                 AddonProfiles = { },
                 EnableRbac = true,
                 SupportPlan = KubernetesSupportPlan.AKSLongTermSupport,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -962,9 +1200,92 @@ new ContainerServiceSshPublicKey("keydata")
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateManagedClusterWithNodeAutoProvisioning()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_NodeAutoProvisioning.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+EnableNodePublicIP = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
+                {
+                    Secret = "secret",
+                },
+                AddonProfiles = { },
+                EnableRbac = true,
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    NetworkPlugin = ContainerServiceNetworkPlugin.Azure,
+                    NetworkPluginMode = ContainerServiceNetworkPluginMode.Overlay,
+                    NetworkDataplane = NetworkDataplane.Cilium,
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithNodePublicIPPrefix()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_NodePublicIPPrefix.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_NodePublicIPPrefix.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1017,7 +1338,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1035,7 +1355,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -1056,7 +1376,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithOSSKU()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_OSSKU.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_OSSKU.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1109,7 +1429,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1127,7 +1446,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 HttpProxyConfig = new ManagedClusterHttpProxyConfig
                 {
                     HttpProxy = "http://myproxy.server.com:8080",
@@ -1155,7 +1474,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithPPG()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PPG.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_PPG.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1208,7 +1527,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1226,7 +1544,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -1247,7 +1565,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithPodIdentityEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PodIdentity.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_PodIdentity.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1304,7 +1622,6 @@ new ContainerServiceSshPublicKey("keydata")
                     AllowNetworkPluginKubenet = true,
                 },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1322,7 +1639,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -1343,7 +1660,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithRunCommandDisabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_DisableRunCommand.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_DisableRunCommand.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1396,7 +1713,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1438,7 +1754,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithSecurityProfileConfigured()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_SecurityProfile.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_SecurityProfile.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1498,8 +1814,21 @@ new ContainerServiceSshPublicKey("keydata")
                     {
                         LogAnalyticsWorkspaceResourceId = new ResourceIdentifier("/subscriptions/SUB_ID/resourcegroups/RG_NAME/providers/microsoft.operationalinsights/workspaces/WORKSPACE_NAME"),
                         IsSecurityMonitoringEnabled = true,
+                        SecurityGating = new ManagedClusterSecurityProfileDefenderSecurityGating
+                        {
+                            Enabled = true,
+                            Identities = {new ManagedClusterSecurityProfileDefenderSecurityGatingIdentitiesItem
+{
+AzureContainerRegistry = "registry1",
+Identity = new ContainerServiceUserAssignedIdentity
+{
+ResourceId = new ResourceIdentifier("/subscriptions/SUB_ID/resourceGroups/RG_NAME/providers/Microsoft.ManagedIdentity/userAssignedIdentities/IDENTITY_NAME"),
+ClientId = Guid.Parse("client1"),
+},
+}},
+                            AllowSecretAccess = true,
+                        },
                     },
-                    IsWorkloadIdentityEnabled = true,
                 },
                 Tags =
 {
@@ -1521,7 +1850,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithUltraSSDEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_EnableUltraSSD.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_EnableUltraSSD.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1574,7 +1903,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1592,7 +1920,167 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateManagedClusterWithVirtualMachinesPoolType()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_VirtualMachines.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachines,
+Mode = AgentPoolMode.System,
+EnableFips = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
+                {
+                    Secret = "secret",
+                },
+                AddonProfiles = { },
+                EnableRbac = true,
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateManagedClusterWithWebAppRoutingIngressProfileConfigured()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_IngressProfile_WebAppRouting.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS2_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+EnableNodePublicIP = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                IngressWebAppRouting = new ManagedClusterIngressProfileWebAppRouting
+                {
+                    Enabled = true,
+                    DnsZoneResourceIds = { new ResourceIdentifier("/subscriptions/SUB_ID/resourceGroups/RG_NAME/providers/Microsoft.Network/dnszones/DNS_ZONE_NAME") },
+                },
                 Tags =
 {
 ["archv2"] = "",
@@ -1613,7 +2101,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedClusterWithUserAssignedNATGatewayAsOutboundType()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UserAssignedNATGateway.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_UserAssignedNATGateway.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1665,7 +2153,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.UserAssignedNatGateway,
@@ -1676,7 +2163,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -1697,7 +2184,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedPrivateClusterWithPublicFQDNSpecified()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PrivateClusterPublicFQDN.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_PrivateClusterPublicFQDN.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1750,7 +2237,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1793,7 +2279,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateManagedPrivateClusterWithFqdnSubdomainSpecified()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_PrivateClusterFQDNSubdomain.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_PrivateClusterFQDNSubdomain.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1846,7 +2332,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1889,7 +2374,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateAADManagedClusterWithEnableAzureRBAC()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UpdateWithEnableAzureRBAC.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_UpdateWithEnableAzureRBAC.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1942,7 +2427,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -1965,7 +2449,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -1986,7 +2470,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_Update.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_Update.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2018,7 +2502,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ResourceIdentityType = "UserAssigned",
                     UserAssignedIdentities =
 {
-[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
+[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
 },
                 },
                 KubernetesVersion = "",
@@ -2048,7 +2532,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -2063,7 +2546,7 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 UpgradeOverrideSettings = new UpgradeOverrideSettings
                 {
-                    ForceUpgrade = false,
+                    ForceUpgrade = true,
                     Until = DateTimeOffset.Parse("2022-11-01T13:00:00Z"),
                 },
                 AutoScalerProfile = new ManagedClusterAutoScalerProfile
@@ -2076,7 +2559,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScaleDownDelayAfterAdd = "15m",
                     SkipNodesWithSystemPods = "false",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -2097,7 +2580,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithAzureServiceMesh()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_AzureServiceMesh.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_AzureServiceMesh.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2159,7 +2642,6 @@ Config =
 }
 },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -2177,7 +2659,7 @@ Config =
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 ServiceMeshProfile = new ServiceMeshProfile(ServiceMeshMode.Istio)
                 {
                     Istio = new IstioServiceMesh
@@ -2185,13 +2667,7 @@ Config =
                         Components = new IstioComponents
                         {
                             IngressGateways = { new IstioIngressGateway(IstioIngressGatewayMode.Internal, true) },
-                            EgressGateways = {new IstioEgressGateway(true)
-{
-NodeSelector =
-{
-["istio"] = "egress"
-},
-}},
+                            EgressGateways = { new IstioEgressGateway(true, "istioegress1") },
                         },
                         CertificateAuthorityPlugin = new IstioPluginCertificateAuthority
                         {
@@ -2223,7 +2699,7 @@ NodeSelector =
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithEnableAHUB()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UpdateWithAHUB.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_UpdateWithAHUB.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2255,7 +2731,7 @@ NodeSelector =
                     ResourceIdentityType = "UserAssigned",
                     UserAssignedIdentities =
 {
-[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
+[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
 },
                 },
                 KubernetesVersion = "",
@@ -2285,7 +2761,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -2303,7 +2778,99 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                Tags =
+{
+["archv2"] = "",
+["tier"] = "production"
+},
+            };
+            ArmOperation<ContainerServiceManagedClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, resourceName, data);
+            ContainerServiceManagedClusterResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ContainerServiceManagedClusterData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdate_CreateUpdateManagedClusterWithEnableNamespaceResources()
+        {
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_UpdateWithEnableNamespaceResources.json
+            // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "rg1";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // get the collection of this ContainerServiceManagedClusterResource
+            ContainerServiceManagedClusterCollection collection = resourceGroupResource.GetContainerServiceManagedClusters();
+
+            // invoke the operation
+            string resourceName = "clustername1";
+            ContainerServiceManagedClusterData data = new ContainerServiceManagedClusterData(new AzureLocation("location1"))
+            {
+                Sku = new ManagedClusterSku
+                {
+                    Name = new ManagedClusterSkuName("Basic"),
+                    Tier = ManagedClusterSkuTier.Free,
+                },
+                KubernetesVersion = "",
+                DnsPrefix = "dnsprefix1",
+                AgentPoolProfiles = {new ManagedClusterAgentPoolProfile("nodepool1")
+{
+Count = 3,
+VmSize = "Standard_DS1_v2",
+OSType = ContainerServiceOSType.Linux,
+AgentPoolType = AgentPoolType.VirtualMachineScaleSets,
+Mode = AgentPoolMode.System,
+AvailabilityZones = {"1", "2", "3"},
+EnableNodePublicIP = true,
+}},
+                LinuxProfile = new ContainerServiceLinuxProfile("azureuser", new ContainerServiceSshConfiguration(new ContainerServiceSshPublicKey[]
+            {
+new ContainerServiceSshPublicKey("keydata")
+            })),
+                WindowsProfile = new ManagedClusterWindowsProfile("azureuser")
+                {
+                    AdminPassword = "replacePassword1234$",
+                },
+                ServicePrincipalProfile = new ManagedClusterServicePrincipalProfile("clientid")
+                {
+                    Secret = "secret",
+                },
+                AddonProfiles = { },
+                EnableRbac = true,
+                EnableNamespaceResources = true,
+                NetworkProfile = new ContainerServiceNetworkProfile
+                {
+                    OutboundType = ContainerServiceOutboundType.LoadBalancer,
+                    LoadBalancerSku = ContainerServiceLoadBalancerSku.Standard,
+                    LoadBalancerProfile = new ManagedClusterLoadBalancerProfile
+                    {
+                        ManagedOutboundIPs = new ManagedClusterLoadBalancerProfileManagedOutboundIPs
+                        {
+                            Count = 2,
+                        },
+                    },
+                },
+                AutoScalerProfile = new ManagedClusterAutoScalerProfile
+                {
+                    ScanIntervalInSeconds = "20s",
+                    ScaleDownDelayAfterAdd = "15m",
+                },
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -2324,7 +2891,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithWindowsGMSAEnabled()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_UpdateWindowsGmsa.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_UpdateWindowsGmsa.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2356,7 +2923,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ResourceIdentityType = "UserAssigned",
                     UserAssignedIdentities =
 {
-[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
+[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
 },
                 },
                 KubernetesVersion = "",
@@ -2389,7 +2956,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -2407,7 +2973,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScanIntervalInSeconds = "20s",
                     ScaleDownDelayAfterAdd = "15m",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -2428,7 +2994,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_CreateUpdateManagedClusterWithDualStackNetworking()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersCreate_DualStackNetworking.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersCreate_DualStackNetworking.json
             // this example is just showing the usage of "ManagedClusters_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2460,7 +3026,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ResourceIdentityType = "UserAssigned",
                     UserAssignedIdentities =
 {
-[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
+[new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rgName1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity1")] = new UserAssignedIdentity()
 },
                 },
                 KubernetesVersion = "",
@@ -2490,7 +3056,6 @@ new ContainerServiceSshPublicKey("keydata")
                 },
                 AddonProfiles = { },
                 EnableRbac = true,
-                EnablePodSecurityPolicy = true,
                 NetworkProfile = new ContainerServiceNetworkProfile
                 {
                     OutboundType = ContainerServiceOutboundType.LoadBalancer,
@@ -2514,7 +3079,7 @@ new ContainerServiceSshPublicKey("keydata")
                     ScaleDownDelayAfterAdd = "15m",
                     SkipNodesWithSystemPods = "false",
                 },
-                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
+                DiskEncryptionSetId = new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Compute/diskEncryptionSets/des"),
                 Tags =
 {
 ["archv2"] = "",
@@ -2535,7 +3100,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersGet.json
             // this example is just showing the usage of "ManagedClusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2568,7 +3133,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_GetManagedClustersByResourceGroup()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersListByResourceGroup.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersListByResourceGroup.json
             // this example is just showing the usage of "ManagedClusters_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2603,7 +3168,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_GetManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersGet.json
             // this example is just showing the usage of "ManagedClusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -2632,7 +3197,7 @@ new ContainerServiceSshPublicKey("keydata")
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_GetManagedCluster()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/stable/2023-10-01/examples/ManagedClustersGet.json
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/aks/preview/2025-03-02-preview/examples/ManagedClustersGet.json
             // this example is just showing the usage of "ManagedClusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
