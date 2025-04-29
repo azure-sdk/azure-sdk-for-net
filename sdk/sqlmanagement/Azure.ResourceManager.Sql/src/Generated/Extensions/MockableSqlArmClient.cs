@@ -995,18 +995,6 @@ namespace Azure.ResourceManager.Sql.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="DistributedAvailabilityGroupResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="DistributedAvailabilityGroupResource.CreateResourceIdentifier" /> to create a <see cref="DistributedAvailabilityGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DistributedAvailabilityGroupResource"/> object. </returns>
-        public virtual DistributedAvailabilityGroupResource GetDistributedAvailabilityGroupResource(ResourceIdentifier id)
-        {
-            DistributedAvailabilityGroupResource.ValidateResourceId(id);
-            return new DistributedAvailabilityGroupResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="ManagedInstanceServerTrustCertificateResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ManagedInstanceServerTrustCertificateResource.CreateResourceIdentifier" /> to create a <see cref="ManagedInstanceServerTrustCertificateResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -1244,18 +1232,6 @@ namespace Azure.ResourceManager.Sql.Mocking
         {
             ManagedDatabaseResource.ValidateResourceId(id);
             return new ManagedDatabaseResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="ManagedInstanceResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ManagedInstanceResource.CreateResourceIdentifier" /> to create a <see cref="ManagedInstanceResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ManagedInstanceResource"/> object. </returns>
-        public virtual ManagedInstanceResource GetManagedInstanceResource(ResourceIdentifier id)
-        {
-            ManagedInstanceResource.ValidateResourceId(id);
-            return new ManagedInstanceResource(Client, id);
         }
 
         /// <summary>
@@ -1523,6 +1499,18 @@ namespace Azure.ResourceManager.Sql.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="ManagedInstanceResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ManagedInstanceResource.CreateResourceIdentifier" /> to create a <see cref="ManagedInstanceResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ManagedInstanceResource"/> object. </returns>
+        public virtual ManagedInstanceResource GetManagedInstanceResource(ResourceIdentifier id)
+        {
+            ManagedInstanceResource.ValidateResourceId(id);
+            return new ManagedInstanceResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="SqlServerResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="SqlServerResource.CreateResourceIdentifier" /> to create a <see cref="SqlServerResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -1544,6 +1532,18 @@ namespace Azure.ResourceManager.Sql.Mocking
         {
             SqlServerDatabaseReplicationLinkResource.ValidateResourceId(id);
             return new SqlServerDatabaseReplicationLinkResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DistributedAvailabilityGroupResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DistributedAvailabilityGroupResource.CreateResourceIdentifier" /> to create a <see cref="DistributedAvailabilityGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DistributedAvailabilityGroupResource"/> object. </returns>
+        public virtual DistributedAvailabilityGroupResource GetDistributedAvailabilityGroupResource(ResourceIdentifier id)
+        {
+            DistributedAvailabilityGroupResource.ValidateResourceId(id);
+            return new DistributedAvailabilityGroupResource(Client, id);
         }
     }
 }
