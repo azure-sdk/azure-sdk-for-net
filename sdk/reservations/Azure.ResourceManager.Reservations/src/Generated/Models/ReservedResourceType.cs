@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Reservations.Models
 {
-    /// <summary> The type of the resource that is being reserved. </summary>
+    /// <summary> The type of the resource that is being reserved. In addition to below types we have also added the following: OpenAIPTU, MDC, Sentinel. </summary>
     public readonly partial struct ReservedResourceType : IEquatable<ReservedResourceType>
     {
         private readonly string _value;

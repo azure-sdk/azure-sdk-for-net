@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Reservations.Models
         /// <summary> Initializes a new instance of <see cref="ReservationPurchaseContent"/>. </summary>
         /// <param name="sku"> The name of sku. </param>
         /// <param name="location"> The Azure region where the reserved resource lives. </param>
-        /// <param name="reservedResourceType"> The type of the resource that is being reserved. </param>
+        /// <param name="reservedResourceType"> The type of the resource that is being reserved. In addition to below types we have also added the following: OpenAIPTU, MDC, Sentinel. </param>
         /// <param name="billingScopeId"> Subscription that will be charged for purchasing reservation or savings plan. </param>
         /// <param name="term"> Represent the term of reservation. </param>
         /// <param name="billingPlan"> Represent the billing plans. </param>
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.Reservations.Models
 
         /// <summary> The Azure region where the reserved resource lives. </summary>
         public AzureLocation? Location { get; set; }
-        /// <summary> The type of the resource that is being reserved. </summary>
+        /// <summary> The type of the resource that is being reserved. In addition to below types we have also added the following: OpenAIPTU, MDC, Sentinel. </summary>
         public ReservedResourceType? ReservedResourceType { get; set; }
         /// <summary> Subscription that will be charged for purchasing reservation or savings plan. </summary>
         public ResourceIdentifier BillingScopeId { get; set; }
