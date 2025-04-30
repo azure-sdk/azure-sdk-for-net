@@ -80,11 +80,12 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <param name="publicNetworkAccess"> Control permission for data plane traffic coming from public networks while private endpoint is enabled. </param>
         /// <param name="disableLocalAuth"> Disables all authentication methods other than AAD authentication. </param>
         /// <param name="softDeleteRetentionInDays"> The amount of time in days that the configuration store will be retained when it is soft deleted. </param>
+        /// <param name="defaultKeyValueRevisionRetentionPeriodInSeconds"> The duration in seconds to retain new key value revisions. Defaults to 604800 (7 days) for Free SKU stores and 2592000 (30 days) for Standard SKU stores and Premium SKU stores. </param>
         /// <param name="enablePurgeProtection"> Property specifying whether protection against purge is enabled for this configuration store. </param>
         /// <param name="dataPlaneProxy"> Property specifying the configuration of data plane proxy for Azure Resource Manager (ARM). </param>
         /// <param name="createMode"> Indicates whether the configuration store need to be recovered. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppConfigurationStoreData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, AppConfigurationSku sku, AppConfigurationProvisioningState? provisioningState, DateTimeOffset? createdOn, string endpoint, AppConfigurationStoreEncryptionProperties encryption, IReadOnlyList<AppConfigurationPrivateEndpointConnectionReference> privateEndpointConnections, AppConfigurationPublicNetworkAccess? publicNetworkAccess, bool? disableLocalAuth, int? softDeleteRetentionInDays, bool? enablePurgeProtection, AppConfigurationDataPlaneProxyProperties dataPlaneProxy, AppConfigurationCreateMode? createMode, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal AppConfigurationStoreData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, AppConfigurationSku sku, AppConfigurationProvisioningState? provisioningState, DateTimeOffset? createdOn, string endpoint, AppConfigurationStoreEncryptionProperties encryption, IReadOnlyList<AppConfigurationPrivateEndpointConnectionReference> privateEndpointConnections, AppConfigurationPublicNetworkAccess? publicNetworkAccess, bool? disableLocalAuth, int? softDeleteRetentionInDays, long? defaultKeyValueRevisionRetentionPeriodInSeconds, bool? enablePurgeProtection, AppConfigurationDataPlaneProxyProperties dataPlaneProxy, AppConfigurationCreateMode? createMode, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Sku = sku;
@@ -96,6 +97,7 @@ namespace Azure.ResourceManager.AppConfiguration
             PublicNetworkAccess = publicNetworkAccess;
             DisableLocalAuth = disableLocalAuth;
             SoftDeleteRetentionInDays = softDeleteRetentionInDays;
+            DefaultKeyValueRevisionRetentionPeriodInSeconds = defaultKeyValueRevisionRetentionPeriodInSeconds;
             EnablePurgeProtection = enablePurgeProtection;
             DataPlaneProxy = dataPlaneProxy;
             CreateMode = createMode;
@@ -156,6 +158,9 @@ namespace Azure.ResourceManager.AppConfiguration
         /// <summary> The amount of time in days that the configuration store will be retained when it is soft deleted. </summary>
         [WirePath("properties.softDeleteRetentionInDays")]
         public int? SoftDeleteRetentionInDays { get; set; }
+        /// <summary> The duration in seconds to retain new key value revisions. Defaults to 604800 (7 days) for Free SKU stores and 2592000 (30 days) for Standard SKU stores and Premium SKU stores. </summary>
+        [WirePath("properties.defaultKeyValueRevisionRetentionPeriodInSeconds")]
+        public long? DefaultKeyValueRevisionRetentionPeriodInSeconds { get; set; }
         /// <summary> Property specifying whether protection against purge is enabled for this configuration store. </summary>
         [WirePath("properties.enablePurgeProtection")]
         public bool? EnablePurgeProtection { get; set; }
