@@ -8,9 +8,9 @@ trigger:
     - release/*
   paths:
     include:
-    - sdk/pineconevectordb
-    - sdk/pineconevectordb/ci.yml
-    - sdk/pineconevectordb/Azure.ResourceManager.PineconeVectorDb
+    - sdk/contosowidgetmanager
+    - sdk/contosowidgetmanager/ci.yml
+    - sdk/contosowidgetmanager/Azure.Template.Contoso
 
 pr:
   branches:
@@ -21,15 +21,15 @@ pr:
     - release/*
   paths:
     include:
-    - sdk/pineconevectordb
-    - sdk/pineconevectordb/ci.yml
-    - sdk/pineconevectordb/Azure.ResourceManager.PineconeVectorDb
+    - sdk/contosowidgetmanager
+    - sdk/contosowidgetmanager/ci.yml
+    - sdk/contosowidgetmanager/Azure.Template.Contoso
 
 extends:
   template: /eng/pipelines/templates/stages/archetype-sdk-client.yml
   parameters:
-    ServiceDirectory: pineconevectordb
+    ServiceDirectory: contosowidgetmanager
     ArtifactName: packages
     Artifacts:
-    - name: Azure.ResourceManager.PineconeVectorDb
-      safeName: AzureResourceManagerPineconeVectorDb
+    - name: Azure.Template.Contoso
+      safeName: AzureTemplateContoso
