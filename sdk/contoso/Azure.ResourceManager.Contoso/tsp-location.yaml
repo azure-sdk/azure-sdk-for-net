@@ -1,4 +1,4 @@
-directory: specification/informatica/Informatica.DataManagement.Management
+directory: specification/contosowidgetmanager/Contoso.Management
 commit: f46d918cc0e20b9187649cadc482343d58463bfb
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
