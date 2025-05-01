@@ -83,6 +83,16 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 writer.WritePropertyName("dataPlaneProxy"u8);
                 writer.WriteObjectValue(DataPlaneProxy, options);
             }
+            if (Optional.IsDefined(Telemetry))
+            {
+                writer.WritePropertyName("telemetry"u8);
+                writer.WriteObjectValue(Telemetry, options);
+            }
+            if (Optional.IsDefined(DefaultKeyValueRevisionRetentionPeriodInSeconds))
+            {
+                writer.WritePropertyName("defaultKeyValueRevisionRetentionPeriodInSeconds"u8);
+                writer.WriteNumberValue(DefaultKeyValueRevisionRetentionPeriodInSeconds.Value);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -129,6 +139,8 @@ namespace Azure.ResourceManager.AppConfiguration.Models
             AppConfigurationPublicNetworkAccess? publicNetworkAccess = default;
             bool? enablePurgeProtection = default;
             AppConfigurationDataPlaneProxyProperties dataPlaneProxy = default;
+            TelemetryProperties telemetry = default;
+            long? defaultKeyValueRevisionRetentionPeriodInSeconds = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -219,6 +231,24 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                             dataPlaneProxy = AppConfigurationDataPlaneProxyProperties.DeserializeAppConfigurationDataPlaneProxyProperties(property0.Value, options);
                             continue;
                         }
+                        if (property0.NameEquals("telemetry"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            telemetry = TelemetryProperties.DeserializeTelemetryProperties(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("defaultKeyValueRevisionRetentionPeriodInSeconds"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            defaultKeyValueRevisionRetentionPeriodInSeconds = property0.Value.GetInt64();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -237,6 +267,8 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 publicNetworkAccess,
                 enablePurgeProtection,
                 dataPlaneProxy,
+                telemetry,
+                defaultKeyValueRevisionRetentionPeriodInSeconds,
                 serializedAdditionalRawData);
         }
 
