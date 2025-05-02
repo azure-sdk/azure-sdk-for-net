@@ -49,10 +49,19 @@ namespace Azure.ResourceManager.IotOperations.Models
         /// <param name="provisioningState"> The status of the last operation. </param>
         /// <param name="version"> The Azure IoT Operations version. </param>
         /// <param name="schemaRegistryRefResourceId"> The reference to the Schema Registry for this AIO Instance. </param>
+        /// <param name="features"> The features of the AIO Instance. </param>
         /// <returns> A new <see cref="Models.IotOperationsInstanceProperties"/> instance for mocking. </returns>
-        public static IotOperationsInstanceProperties IotOperationsInstanceProperties(string description = null, IotOperationsProvisioningState? provisioningState = null, string version = null, ResourceIdentifier schemaRegistryRefResourceId = null)
+        public static IotOperationsInstanceProperties IotOperationsInstanceProperties(string description = null, IotOperationsProvisioningState? provisioningState = null, string version = null, ResourceIdentifier schemaRegistryRefResourceId = null, IDictionary<string, InstanceFeature> features = null)
         {
-            return new IotOperationsInstanceProperties(description, provisioningState, version, schemaRegistryRefResourceId != null ? new SchemaRegistryRef(schemaRegistryRefResourceId, serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null);
+            features ??= new Dictionary<string, InstanceFeature>();
+
+            return new IotOperationsInstanceProperties(
+                description,
+                provisioningState,
+                version,
+                schemaRegistryRefResourceId != null ? new SchemaRegistryRef(schemaRegistryRefResourceId, serializedAdditionalRawData: null) : null,
+                features,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="IotOperations.IotOperationsBrokerData"/>. </summary>
