@@ -103,6 +103,7 @@ namespace Azure.ResourceManager.AgriculturePlatform.Models
         public static Azure.ResourceManager.AgriculturePlatform.Models.AgriculturePlatformProvisioningState Provisioning { get { throw null; } }
         public static Azure.ResourceManager.AgriculturePlatform.Models.AgriculturePlatformProvisioningState Succeeded { get { throw null; } }
         public static Azure.ResourceManager.AgriculturePlatform.Models.AgriculturePlatformProvisioningState Updating { get { throw null; } }
+        public static Azure.ResourceManager.AgriculturePlatform.Models.AgriculturePlatformProvisioningState VAlidationFailed { get { throw null; } }
         public bool Equals(Azure.ResourceManager.AgriculturePlatform.Models.AgriculturePlatformProvisioningState other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }

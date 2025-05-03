@@ -29,6 +29,7 @@ namespace Azure.ResourceManager.AgriculturePlatform.Models
         private const string UpdatingValue = "Updating";
         private const string DeletingValue = "Deleting";
         private const string AcceptedValue = "Accepted";
+        private const string VAlidationFailedValue = "Validation Failed";
 
         /// <summary> Resource has been created. </summary>
         public static AgriculturePlatformProvisioningState Succeeded { get; } = new AgriculturePlatformProvisioningState(SucceededValue);
@@ -44,6 +45,8 @@ namespace Azure.ResourceManager.AgriculturePlatform.Models
         public static AgriculturePlatformProvisioningState Deleting { get; } = new AgriculturePlatformProvisioningState(DeletingValue);
         /// <summary> The resource create request has been accepted. </summary>
         public static AgriculturePlatformProvisioningState Accepted { get; } = new AgriculturePlatformProvisioningState(AcceptedValue);
+        /// <summary> Resource validation failed. </summary>
+        public static AgriculturePlatformProvisioningState VAlidationFailed { get; } = new AgriculturePlatformProvisioningState(VAlidationFailedValue);
         /// <summary> Determines if two <see cref="AgriculturePlatformProvisioningState"/> values are the same. </summary>
         public static bool operator ==(AgriculturePlatformProvisioningState left, AgriculturePlatformProvisioningState right) => left.Equals(right);
         /// <summary> Determines if two <see cref="AgriculturePlatformProvisioningState"/> values are not the same. </summary>
