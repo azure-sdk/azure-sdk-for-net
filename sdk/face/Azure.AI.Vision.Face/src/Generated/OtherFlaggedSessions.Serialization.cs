@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Vision.Face
 {
-    public partial class LivenessWithVerifyImage : IUtf8JsonSerializable, IJsonModel<LivenessWithVerifyImage>
+    public partial class OtherFlaggedSessions : IUtf8JsonSerializable, IJsonModel<OtherFlaggedSessions>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<LivenessWithVerifyImage>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<OtherFlaggedSessions>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<LivenessWithVerifyImage>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<OtherFlaggedSessions>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,16 +28,21 @@ namespace Azure.AI.Vision.Face
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LivenessWithVerifyImage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OtherFlaggedSessions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LivenessWithVerifyImage)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(OtherFlaggedSessions)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("faceRectangle"u8);
-            writer.WriteObjectValue(FaceRectangle, options);
-            writer.WritePropertyName("qualityForRecognition"u8);
-            writer.WriteStringValue(QualityForRecognition.ToString());
+            writer.WritePropertyName("attemptId"u8);
+            writer.WriteNumberValue(AttemptId);
+            writer.WritePropertyName("sessionId"u8);
+            writer.WriteStringValue(SessionId);
+            if (Optional.IsDefined(SessionImageId))
+            {
+                writer.WritePropertyName("sessionImageId"u8);
+                writer.WriteStringValue(SessionImageId);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -55,19 +60,19 @@ namespace Azure.AI.Vision.Face
             }
         }
 
-        LivenessWithVerifyImage IJsonModel<LivenessWithVerifyImage>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        OtherFlaggedSessions IJsonModel<OtherFlaggedSessions>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LivenessWithVerifyImage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OtherFlaggedSessions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LivenessWithVerifyImage)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(OtherFlaggedSessions)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeLivenessWithVerifyImage(document.RootElement, options);
+            return DeserializeOtherFlaggedSessions(document.RootElement, options);
         }
 
-        internal static LivenessWithVerifyImage DeserializeLivenessWithVerifyImage(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static OtherFlaggedSessions DeserializeOtherFlaggedSessions(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -75,20 +80,26 @@ namespace Azure.AI.Vision.Face
             {
                 return null;
             }
-            FaceRectangle faceRectangle = default;
-            QualityForRecognition qualityForRecognition = default;
+            int attemptId = default;
+            string sessionId = default;
+            string sessionImageId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("faceRectangle"u8))
+                if (property.NameEquals("attemptId"u8))
                 {
-                    faceRectangle = FaceRectangle.DeserializeFaceRectangle(property.Value, options);
+                    attemptId = property.Value.GetInt32();
                     continue;
                 }
-                if (property.NameEquals("qualityForRecognition"u8))
+                if (property.NameEquals("sessionId"u8))
                 {
-                    qualityForRecognition = new QualityForRecognition(property.Value.GetString());
+                    sessionId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("sessionImageId"u8))
+                {
+                    sessionImageId = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -97,46 +108,46 @@ namespace Azure.AI.Vision.Face
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new LivenessWithVerifyImage(faceRectangle, qualityForRecognition, serializedAdditionalRawData);
+            return new OtherFlaggedSessions(attemptId, sessionId, sessionImageId, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<LivenessWithVerifyImage>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<OtherFlaggedSessions>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LivenessWithVerifyImage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OtherFlaggedSessions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(LivenessWithVerifyImage)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(OtherFlaggedSessions)} does not support writing '{options.Format}' format.");
             }
         }
 
-        LivenessWithVerifyImage IPersistableModel<LivenessWithVerifyImage>.Create(BinaryData data, ModelReaderWriterOptions options)
+        OtherFlaggedSessions IPersistableModel<OtherFlaggedSessions>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<LivenessWithVerifyImage>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<OtherFlaggedSessions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeLivenessWithVerifyImage(document.RootElement, options);
+                        return DeserializeOtherFlaggedSessions(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(LivenessWithVerifyImage)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(OtherFlaggedSessions)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<LivenessWithVerifyImage>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<OtherFlaggedSessions>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static LivenessWithVerifyImage FromResponse(Response response)
+        internal static OtherFlaggedSessions FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeLivenessWithVerifyImage(document.RootElement);
+            return DeserializeOtherFlaggedSessions(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
