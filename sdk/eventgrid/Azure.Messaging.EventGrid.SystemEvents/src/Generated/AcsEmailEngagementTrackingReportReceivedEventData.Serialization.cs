@@ -49,6 +49,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 writer.WritePropertyName("messageId"u8);
                 writer.WriteStringValue(MessageId);
             }
+            writer.WritePropertyName("internetMessageId"u8);
+            writer.WriteStringValue(InternetMessageId);
             if (Optional.IsDefined(UserActionTimestamp))
             {
                 writer.WritePropertyName("userActionTimestamp"u8);
@@ -109,6 +111,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string sender = default;
             string recipient = default;
             string messageId = default;
+            string internetMessageId = default;
             DateTimeOffset? userActionTimestamp = default;
             string engagementContext = default;
             string userAgent = default;
@@ -130,6 +133,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 if (property.NameEquals("messageId"u8))
                 {
                     messageId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("internetMessageId"u8))
+                {
+                    internetMessageId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("userActionTimestamp"u8))
@@ -170,6 +178,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 sender,
                 recipient,
                 messageId,
+                internetMessageId,
                 userActionTimestamp,
                 engagementContext,
                 userAgent,
