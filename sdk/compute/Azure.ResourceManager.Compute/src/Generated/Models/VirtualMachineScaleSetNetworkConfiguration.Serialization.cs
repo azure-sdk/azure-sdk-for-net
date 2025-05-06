@@ -38,6 +38,17 @@ namespace Azure.ResourceManager.Compute.Models
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("name"u8);
             writer.WriteStringValue(Name);
+            if (Optional.IsCollectionDefined(Tags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(Primary))
@@ -124,6 +135,7 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             string name = default;
+            IDictionary<string, string> tags = default;
             ResourceIdentifier id = default;
             bool? primary = default;
             bool? enableAcceleratedNetworking = default;
@@ -143,6 +155,20 @@ namespace Azure.ResourceManager.Compute.Models
                 if (property.NameEquals("name"u8))
                 {
                     name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("tags"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tags = dictionary;
                     continue;
                 }
                 if (property.NameEquals("id"u8))
@@ -280,6 +306,7 @@ namespace Azure.ResourceManager.Compute.Models
                 id,
                 serializedAdditionalRawData,
                 name,
+                tags ?? new ChangeTrackingDictionary<string, string>(),
                 primary,
                 enableAcceleratedNetworking,
                 disableTcpStateTracking,
