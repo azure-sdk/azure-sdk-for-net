@@ -46,29 +46,41 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailEngagementTrackingReportReceivedEventData"/>. </summary>
-        internal AcsEmailEngagementTrackingReportReceivedEventData()
+        /// <param name="internetMessageId"> The Internet Message Id of the email that has been sent. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="internetMessageId"/> is null. </exception>
+        internal AcsEmailEngagementTrackingReportReceivedEventData(string internetMessageId)
         {
+            Argument.AssertNotNull(internetMessageId, nameof(internetMessageId));
+
+            InternetMessageId = internetMessageId;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsEmailEngagementTrackingReportReceivedEventData"/>. </summary>
         /// <param name="sender"> The Sender Email Address. </param>
         /// <param name="recipient"> The Recipient Email Address. </param>
         /// <param name="messageId"> The Id of the email that has been sent. </param>
+        /// <param name="internetMessageId"> The Internet Message Id of the email that has been sent. </param>
         /// <param name="userActionTimestamp"> The time at which the user interacted with the email. </param>
         /// <param name="engagementContext"> The context of the type of engagement user had with email. </param>
         /// <param name="userAgent"> The user agent interacting with the email. </param>
         /// <param name="engagement"> The type of engagement user have with email. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcsEmailEngagementTrackingReportReceivedEventData(string sender, string recipient, string messageId, DateTimeOffset? userActionTimestamp, string engagementContext, string userAgent, AcsUserEngagement? engagement, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AcsEmailEngagementTrackingReportReceivedEventData(string sender, string recipient, string messageId, string internetMessageId, DateTimeOffset? userActionTimestamp, string engagementContext, string userAgent, AcsUserEngagement? engagement, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Sender = sender;
             Recipient = recipient;
             MessageId = messageId;
+            InternetMessageId = internetMessageId;
             UserActionTimestamp = userActionTimestamp;
             EngagementContext = engagementContext;
             UserAgent = userAgent;
             Engagement = engagement;
             _serializedAdditionalRawData = serializedAdditionalRawData;
+        }
+
+        /// <summary> Initializes a new instance of <see cref="AcsEmailEngagementTrackingReportReceivedEventData"/> for deserialization. </summary>
+        internal AcsEmailEngagementTrackingReportReceivedEventData()
+        {
         }
 
         /// <summary> The Sender Email Address. </summary>
@@ -77,6 +89,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string Recipient { get; }
         /// <summary> The Id of the email that has been sent. </summary>
         public string MessageId { get; }
+        /// <summary> The Internet Message Id of the email that has been sent. </summary>
+        public string InternetMessageId { get; }
         /// <summary> The time at which the user interacted with the email. </summary>
         public DateTimeOffset? UserActionTimestamp { get; }
         /// <summary> The context of the type of engagement user had with email. </summary>

@@ -251,6 +251,77 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new ApiManagementGatewayApiRemovedEventData(resourceUri, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has opened. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerOpenedEventData ApiManagementCircuitBreakerOpenedEventData(string backendName = null, ApiManagementCircuitBreakerProperties circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerOpenedEventData(backendName, circuitBreaker, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerProperties"/>. </summary>
+        /// <param name="rules"> Overview of all configured rules and respective details. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerProperties"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerProperties ApiManagementCircuitBreakerProperties(IReadOnlyDictionary<string, ApiManagementCircuitBreakerPropertiesRule> rules = null)
+        {
+            rules ??= new Dictionary<string, ApiManagementCircuitBreakerPropertiesRule>();
+
+            return new ApiManagementCircuitBreakerProperties(rules, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has closed. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerClosedEventData ApiManagementCircuitBreakerClosedEventData(string backendName = null, ApiManagementCircuitBreakerProperties circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerClosedEventData(backendName, circuitBreaker, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a an expired gateway token for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenNearExpiryEventData ApiManagementGatewayTokenNearExpiryEventData(ApiManagementGatewayProperties gatewayInfo = null, ApiManagementNearExpiryGatewayTokenProperties tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenNearExpiryEventData(gatewayInfo, tokenInfo, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayProperties"/>. </summary>
+        /// <param name="gatewayId"> Id of Gateway that is used to deploy the gateway to get the configuration for. This is the ARM resource ID referenced in the Azure API Management instance. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateway/&lt;GatewayName&gt;`. </param>
+        /// <param name="instanceId"> Unique instance ID of the deployed gateway. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayProperties"/> instance for mocking. </returns>
+        public static ApiManagementGatewayProperties ApiManagementGatewayProperties(string gatewayId = null, string instanceId = null)
+        {
+            return new ApiManagementGatewayProperties(gatewayId, instanceId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementNearExpiryGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token will expire. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementNearExpiryGatewayTokenProperties"/> instance for mocking. </returns>
+        public static ApiManagementNearExpiryGatewayTokenProperties ApiManagementNearExpiryGatewayTokenProperties(DateTimeOffset expiredAtUtc = default)
+        {
+            return new ApiManagementNearExpiryGatewayTokenProperties(expiredAtUtc, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a an expired gateway token for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenExpiredEventData ApiManagementGatewayTokenExpiredEventData(ApiManagementGatewayProperties gatewayInfo = null, ApiManagementExpiredGatewayTokenProperties tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenExpiredEventData(gatewayInfo, tokenInfo, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementExpiredGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token has expired. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementExpiredGatewayTokenProperties"/> instance for mocking. </returns>
+        public static ApiManagementExpiredGatewayTokenProperties ApiManagementExpiredGatewayTokenProperties(DateTimeOffset expiredAtUtc = default)
+        {
+            return new ApiManagementExpiredGatewayTokenProperties(expiredAtUtc, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AppConfigurationKeyValueModifiedEventData"/>. </summary>
         /// <param name="key"> The key used to identify the key-value that was modified. </param>
         /// <param name="label"> The label, if any, used to identify the key-value that was modified. </param>
@@ -1284,17 +1355,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="sender"> The Sender Email Address. </param>
         /// <param name="recipient"> The Recipient Email Address. </param>
         /// <param name="messageId"> The Id of the email that has been sent. </param>
+        /// <param name="internetMessageId"> The Internet Message Id of the email that has been sent. </param>
         /// <param name="userActionTimestamp"> The time at which the user interacted with the email. </param>
         /// <param name="engagementContext"> The context of the type of engagement user had with email. </param>
         /// <param name="userAgent"> The user agent interacting with the email. </param>
         /// <param name="engagement"> The type of engagement user have with email. </param>
         /// <returns> A new <see cref="SystemEvents.AcsEmailEngagementTrackingReportReceivedEventData"/> instance for mocking. </returns>
-        public static AcsEmailEngagementTrackingReportReceivedEventData AcsEmailEngagementTrackingReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, DateTimeOffset? userActionTimestamp = null, string engagementContext = null, string userAgent = null, AcsUserEngagement? engagement = null)
+        public static AcsEmailEngagementTrackingReportReceivedEventData AcsEmailEngagementTrackingReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, string internetMessageId = null, DateTimeOffset? userActionTimestamp = null, string engagementContext = null, string userAgent = null, AcsUserEngagement? engagement = null)
         {
             return new AcsEmailEngagementTrackingReportReceivedEventData(
                 sender,
                 recipient,
                 messageId,
+                internetMessageId,
                 userActionTimestamp,
                 engagementContext,
                 userAgent,
@@ -1395,18 +1468,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="message"> Router Communication Error Message. </param>
         /// <param name="target"> Router Communication Error Target. </param>
         /// <param name="innererror"> Router Communication Inner Error. </param>
-        /// <param name="details"> List of Router Communication Errors. </param>
+        /// <param name="errors"> List of Router Communication Errors. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterCommunicationError"/> instance for mocking. </returns>
-        public static AcsRouterCommunicationError AcsRouterCommunicationError(string code = null, string message = null, string target = null, AcsRouterCommunicationError innererror = null, IEnumerable<AcsRouterCommunicationError> details = null)
+        public static AcsRouterCommunicationError AcsRouterCommunicationError(string code = null, string message = null, string target = null, AcsRouterCommunicationError innererror = null, IEnumerable<AcsRouterCommunicationError> errors = null)
         {
-            details ??= new List<AcsRouterCommunicationError>();
+            errors ??= new List<AcsRouterCommunicationError>();
 
             return new AcsRouterCommunicationError(
                 code,
                 message,
                 target,
                 innererror,
-                details?.ToList(),
+                errors?.ToList(),
                 serializedAdditionalRawData: null);
         }
 
@@ -2472,6 +2545,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static DataBoxOrderCompletedEventData DataBoxOrderCompletedEventData(string serialNumber = null, DataBoxStageName? stageName = null, DateTimeOffset? stageTime = null)
         {
             return new DataBoxOrderCompletedEventData(serialNumber, stageName, stageTime, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/>. </summary>
+        /// <param name="externalValidationId"> A GUID to uniquely track External Solution Validation. </param>
+        /// <param name="targetId"> ARM ID of the Target resource. </param>
+        /// <param name="solutionTemplateId"> ARM ID of the Solution Template resource. </param>
+        /// <param name="solutionTemplateVersionId"> ARM ID of the Solution Template Version resource. </param>
+        /// <param name="solutionVersionId"> ARM ID of the Solution Version resource. </param>
+        /// <param name="apiVersion"> API Version supported for the resources. </param>
+        /// <param name="callbackUrl"> Direct URL to callback for updating validation status. </param>
+        /// <returns> A new <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/> instance for mocking. </returns>
+        public static EdgeSolutionVersionPublishedEventData EdgeSolutionVersionPublishedEventData(string externalValidationId = null, string targetId = null, string solutionTemplateId = null, string solutionTemplateVersionId = null, string solutionVersionId = null, string apiVersion = null, Uri callbackUrl = null)
+        {
+            return new EdgeSolutionVersionPublishedEventData(
+                externalValidationId,
+                targetId,
+                solutionTemplateId,
+                solutionTemplateVersionId,
+                solutionVersionId,
+                apiVersion,
+                callbackUrl,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.EventHubCaptureFileCreatedEventData"/>. </summary>
