@@ -10,9 +10,8 @@ See the [Contributing guidelines](https://github.com/Azure/azure-sdk-for-net/blo
 ## Swagger Source(s)
 ```yaml
 title: SearchServiceClient
-input-file:
- - https://github.com/Azure/azure-rest-api-specs/blob/8c53aa7023e66a9ec24ede6a9fad0ed730d62515/specification/search/data-plane/Azure.Search/preview/2025-03-01-preview/searchindex.json
- - https://github.com/Azure/azure-rest-api-specs/blob/8c53aa7023e66a9ec24ede6a9fad0ed730d62515/specification/search/data-plane/Azure.Search/preview/2025-03-01-preview/searchservice.json
+require:
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/search/data-plane/Azure.Search/readme.md
 generation1-convenience-client: true
 deserialize-null-collection-as-null-value: true
 ```
@@ -549,3 +548,4 @@ directive:
       "modelAsString": false
     }
 ```
+
