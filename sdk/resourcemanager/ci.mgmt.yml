@@ -47,6 +47,7 @@ trigger:
     - sdk/computeschedule/Azure.ResourceManager.ComputeSchedule
     - sdk/confidentialledger/Azure.ResourceManager.ConfidentialLedger
     - sdk/confluent/Azure.ResourceManager.Confluent
+    - sdk/connectedcache/Azure.ResourceManager.ConnectedCache
     - sdk/connectedvmwarevsphere/Azure.ResourceManager.ConnectedVMwarevSphere
     - sdk/consumption/Azure.ResourceManager.Consumption
     - sdk/containerapps/Azure.ResourceManager.AppContainers
@@ -263,6 +264,7 @@ pr:
     - sdk/computeschedule/Azure.ResourceManager.ComputeSchedule
     - sdk/confidentialledger/Azure.ResourceManager.ConfidentialLedger
     - sdk/confluent/Azure.ResourceManager.Confluent
+    - sdk/connectedcache/Azure.ResourceManager.ConnectedCache
     - sdk/connectedvmwarevsphere/Azure.ResourceManager.ConnectedVMwarevSphere
     - sdk/consumption/Azure.ResourceManager.Consumption
     - sdk/containerapps/Azure.ResourceManager.AppContainers
