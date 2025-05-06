@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.Avs.Models
             {
                 return null;
             }
-            IReadOnlyList<WorkloadNetworkDnsServiceData> value = default;
+            IReadOnlyList<WorkloadNetworkDnsService> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -91,10 +91,10 @@ namespace Azure.ResourceManager.Avs.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<WorkloadNetworkDnsServiceData> array = new List<WorkloadNetworkDnsServiceData>();
+                    List<WorkloadNetworkDnsService> array = new List<WorkloadNetworkDnsService>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(WorkloadNetworkDnsServiceData.DeserializeWorkloadNetworkDnsServiceData(item, options));
+                        array.Add(WorkloadNetworkDnsService.DeserializeWorkloadNetworkDnsService(item, options));
                     }
                     value = array;
                     continue;

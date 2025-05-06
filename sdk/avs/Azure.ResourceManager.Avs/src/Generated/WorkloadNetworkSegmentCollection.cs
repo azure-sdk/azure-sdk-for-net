@@ -24,8 +24,8 @@ namespace Azure.ResourceManager.Avs
     /// </summary>
     public partial class WorkloadNetworkSegmentCollection : ArmCollection, IEnumerable<WorkloadNetworkSegmentResource>, IAsyncEnumerable<WorkloadNetworkSegmentResource>
     {
-        private readonly ClientDiagnostics _workloadNetworkSegmentWorkloadNetworksClientDiagnostics;
-        private readonly WorkloadNetworksRestOperations _workloadNetworkSegmentWorkloadNetworksRestClient;
+        private readonly ClientDiagnostics _workloadNetworkSegmentClientDiagnostics;
+        private readonly WorkloadNetworkSegmentsRestOperations _workloadNetworkSegmentRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="WorkloadNetworkSegmentCollection"/> class for mocking. </summary>
         protected WorkloadNetworkSegmentCollection()
@@ -37,9 +37,9 @@ namespace Azure.ResourceManager.Avs
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
         internal WorkloadNetworkSegmentCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _workloadNetworkSegmentWorkloadNetworksClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", WorkloadNetworkSegmentResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(WorkloadNetworkSegmentResource.ResourceType, out string workloadNetworkSegmentWorkloadNetworksApiVersion);
-            _workloadNetworkSegmentWorkloadNetworksRestClient = new WorkloadNetworksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkSegmentWorkloadNetworksApiVersion);
+            _workloadNetworkSegmentClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", WorkloadNetworkSegmentResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(WorkloadNetworkSegmentResource.ResourceType, out string workloadNetworkSegmentApiVersion);
+            _workloadNetworkSegmentRestClient = new WorkloadNetworkSegmentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkSegmentApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -60,11 +60,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_CreateSegments</description>
+        /// <description>WorkloadNetworkSegment_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -83,12 +83,12 @@ namespace Azure.ResourceManager.Avs
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.CreateOrUpdate");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkSegmentWorkloadNetworksRestClient.CreateSegmentsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data, cancellationToken).ConfigureAwait(false);
-                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkSegmentWorkloadNetworksRestClient.CreateCreateSegmentsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _workloadNetworkSegmentRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentClientDiagnostics, Pipeline, _workloadNetworkSegmentRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -109,11 +109,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_CreateSegments</description>
+        /// <description>WorkloadNetworkSegment_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -132,12 +132,12 @@ namespace Azure.ResourceManager.Avs
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.CreateOrUpdate");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _workloadNetworkSegmentWorkloadNetworksRestClient.CreateSegments(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data, cancellationToken);
-                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkSegmentWorkloadNetworksRestClient.CreateCreateSegmentsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _workloadNetworkSegmentRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentClientDiagnostics, Pipeline, _workloadNetworkSegmentRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -158,11 +158,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -178,11 +178,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Get");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Get");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegmentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkSegmentRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkSegmentResource(Client, response.Value), response.GetRawResponse());
@@ -203,11 +203,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -223,11 +223,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Get");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Get");
             scope.Start();
             try
             {
-                var response = _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegment(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken);
+                var response = _workloadNetworkSegmentRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkSegmentResource(Client, response.Value), response.GetRawResponse());
@@ -248,11 +248,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListSegments</description>
+        /// <description>WorkloadNetworkSegment_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -264,9 +264,9 @@ namespace Azure.ResourceManager.Avs
         /// <returns> An async collection of <see cref="WorkloadNetworkSegmentResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<WorkloadNetworkSegmentResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkSegmentWorkloadNetworksRestClient.CreateListSegmentsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkSegmentWorkloadNetworksRestClient.CreateListSegmentsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkSegmentResource(Client, WorkloadNetworkSegmentData.DeserializeWorkloadNetworkSegmentData(e)), _workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkSegmentCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkSegmentRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkSegmentRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkSegmentResource(Client, WorkloadNetworkSegmentData.DeserializeWorkloadNetworkSegmentData(e)), _workloadNetworkSegmentClientDiagnostics, Pipeline, "WorkloadNetworkSegmentCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -278,11 +278,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListSegments</description>
+        /// <description>WorkloadNetworkSegment_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -294,9 +294,9 @@ namespace Azure.ResourceManager.Avs
         /// <returns> A collection of <see cref="WorkloadNetworkSegmentResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<WorkloadNetworkSegmentResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkSegmentWorkloadNetworksRestClient.CreateListSegmentsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkSegmentWorkloadNetworksRestClient.CreateListSegmentsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkSegmentResource(Client, WorkloadNetworkSegmentData.DeserializeWorkloadNetworkSegmentData(e)), _workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkSegmentCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkSegmentRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkSegmentRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkSegmentResource(Client, WorkloadNetworkSegmentData.DeserializeWorkloadNetworkSegmentData(e)), _workloadNetworkSegmentClientDiagnostics, Pipeline, "WorkloadNetworkSegmentCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -308,11 +308,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -328,11 +328,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Exists");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegmentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkSegmentRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -351,11 +351,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -371,11 +371,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Exists");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.Exists");
             scope.Start();
             try
             {
-                var response = _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegment(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkSegmentRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -394,11 +394,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -414,11 +414,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.GetIfExists");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegmentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkSegmentRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkSegmentResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkSegmentResource(Client, response.Value), response.GetRawResponse());
@@ -439,11 +439,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -459,11 +459,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(segmentId, nameof(segmentId));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.GetIfExists");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegment(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkSegmentRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, segmentId, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkSegmentResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkSegmentResource(Client, response.Value), response.GetRawResponse());

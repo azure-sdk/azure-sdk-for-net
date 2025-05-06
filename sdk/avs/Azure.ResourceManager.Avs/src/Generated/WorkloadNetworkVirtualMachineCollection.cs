@@ -24,8 +24,8 @@ namespace Azure.ResourceManager.Avs
     /// </summary>
     public partial class WorkloadNetworkVirtualMachineCollection : ArmCollection, IEnumerable<WorkloadNetworkVirtualMachineResource>, IAsyncEnumerable<WorkloadNetworkVirtualMachineResource>
     {
-        private readonly ClientDiagnostics _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics;
-        private readonly WorkloadNetworksRestOperations _workloadNetworkVirtualMachineWorkloadNetworksRestClient;
+        private readonly ClientDiagnostics _workloadNetworkVirtualMachineClientDiagnostics;
+        private readonly WorkloadNetworkVirtualMachinesRestOperations _workloadNetworkVirtualMachineRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="WorkloadNetworkVirtualMachineCollection"/> class for mocking. </summary>
         protected WorkloadNetworkVirtualMachineCollection()
@@ -37,9 +37,9 @@ namespace Azure.ResourceManager.Avs
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
         internal WorkloadNetworkVirtualMachineCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", WorkloadNetworkVirtualMachineResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(WorkloadNetworkVirtualMachineResource.ResourceType, out string workloadNetworkVirtualMachineWorkloadNetworksApiVersion);
-            _workloadNetworkVirtualMachineWorkloadNetworksRestClient = new WorkloadNetworksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkVirtualMachineWorkloadNetworksApiVersion);
+            _workloadNetworkVirtualMachineClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", WorkloadNetworkVirtualMachineResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(WorkloadNetworkVirtualMachineResource.ResourceType, out string workloadNetworkVirtualMachineApiVersion);
+            _workloadNetworkVirtualMachineRestClient = new WorkloadNetworkVirtualMachinesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkVirtualMachineApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -60,11 +60,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -80,11 +80,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(virtualMachineId, nameof(virtualMachineId));
 
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Get");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Get");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachineAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkVirtualMachineRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());
@@ -105,11 +105,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -125,11 +125,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(virtualMachineId, nameof(virtualMachineId));
 
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Get");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Get");
             scope.Start();
             try
             {
-                var response = _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachine(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken);
+                var response = _workloadNetworkVirtualMachineRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());
@@ -150,11 +150,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListVirtualMachines</description>
+        /// <description>WorkloadNetworkVirtualMachine_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -166,9 +166,9 @@ namespace Azure.ResourceManager.Avs
         /// <returns> An async collection of <see cref="WorkloadNetworkVirtualMachineResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<WorkloadNetworkVirtualMachineResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkVirtualMachineWorkloadNetworksRestClient.CreateListVirtualMachinesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkVirtualMachineWorkloadNetworksRestClient.CreateListVirtualMachinesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkVirtualMachineResource(Client, WorkloadNetworkVirtualMachineData.DeserializeWorkloadNetworkVirtualMachineData(e)), _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkVirtualMachineCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkVirtualMachineRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkVirtualMachineRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkVirtualMachineResource(Client, WorkloadNetworkVirtualMachineData.DeserializeWorkloadNetworkVirtualMachineData(e)), _workloadNetworkVirtualMachineClientDiagnostics, Pipeline, "WorkloadNetworkVirtualMachineCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -180,11 +180,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListVirtualMachines</description>
+        /// <description>WorkloadNetworkVirtualMachine_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -196,9 +196,9 @@ namespace Azure.ResourceManager.Avs
         /// <returns> A collection of <see cref="WorkloadNetworkVirtualMachineResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<WorkloadNetworkVirtualMachineResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkVirtualMachineWorkloadNetworksRestClient.CreateListVirtualMachinesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkVirtualMachineWorkloadNetworksRestClient.CreateListVirtualMachinesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkVirtualMachineResource(Client, WorkloadNetworkVirtualMachineData.DeserializeWorkloadNetworkVirtualMachineData(e)), _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkVirtualMachineCollection.GetAll", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkVirtualMachineRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkVirtualMachineRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkVirtualMachineResource(Client, WorkloadNetworkVirtualMachineData.DeserializeWorkloadNetworkVirtualMachineData(e)), _workloadNetworkVirtualMachineClientDiagnostics, Pipeline, "WorkloadNetworkVirtualMachineCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -210,11 +210,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -230,11 +230,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(virtualMachineId, nameof(virtualMachineId));
 
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Exists");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachineAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkVirtualMachineRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -253,11 +253,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -273,11 +273,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(virtualMachineId, nameof(virtualMachineId));
 
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Exists");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.Exists");
             scope.Start();
             try
             {
-                var response = _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachine(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkVirtualMachineRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -296,11 +296,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -316,11 +316,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(virtualMachineId, nameof(virtualMachineId));
 
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.GetIfExists");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachineAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkVirtualMachineRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkVirtualMachineResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());
@@ -341,11 +341,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -361,11 +361,11 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNullOrEmpty(virtualMachineId, nameof(virtualMachineId));
 
-            using var scope = _workloadNetworkVirtualMachineWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.GetIfExists");
+            using var scope = _workloadNetworkVirtualMachineClientDiagnostics.CreateScope("WorkloadNetworkVirtualMachineCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachine(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkVirtualMachineRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, virtualMachineId, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkVirtualMachineResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());

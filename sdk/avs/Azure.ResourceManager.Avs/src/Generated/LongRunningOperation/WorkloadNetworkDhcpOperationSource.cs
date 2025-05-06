@@ -5,32 +5,26 @@
 
 #nullable disable
 
-using System.ClientModel.Primitives;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
+using Azure.ResourceManager.Avs.Models;
 
 namespace Azure.ResourceManager.Avs
 {
-    internal class WorkloadNetworkDhcpOperationSource : IOperationSource<WorkloadNetworkDhcpResource>
+    internal class WorkloadNetworkDhcpOperationSource : IOperationSource<WorkloadNetworkDhcp>
     {
-        private readonly ArmClient _client;
-
-        internal WorkloadNetworkDhcpOperationSource(ArmClient client)
+        WorkloadNetworkDhcp IOperationSource<WorkloadNetworkDhcp>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            _client = client;
+            using var document = JsonDocument.Parse(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
+            return WorkloadNetworkDhcp.DeserializeWorkloadNetworkDhcp(document.RootElement);
         }
 
-        WorkloadNetworkDhcpResource IOperationSource<WorkloadNetworkDhcpResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        async ValueTask<WorkloadNetworkDhcp> IOperationSource<WorkloadNetworkDhcp>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            var data = ModelReaderWriter.Read<WorkloadNetworkDhcpData>(response.Content);
-            return new WorkloadNetworkDhcpResource(_client, data);
-        }
-
-        async ValueTask<WorkloadNetworkDhcpResource> IOperationSource<WorkloadNetworkDhcpResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
-        {
-            var data = ModelReaderWriter.Read<WorkloadNetworkDhcpData>(response.Content);
-            return await Task.FromResult(new WorkloadNetworkDhcpResource(_client, data)).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
+            return WorkloadNetworkDhcp.DeserializeWorkloadNetworkDhcp(document.RootElement);
         }
     }
 }

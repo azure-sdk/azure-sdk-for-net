@@ -33,8 +33,8 @@ namespace Azure.ResourceManager.Avs
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _workloadNetworkSegmentWorkloadNetworksClientDiagnostics;
-        private readonly WorkloadNetworksRestOperations _workloadNetworkSegmentWorkloadNetworksRestClient;
+        private readonly ClientDiagnostics _workloadNetworkSegmentClientDiagnostics;
+        private readonly WorkloadNetworkSegmentsRestOperations _workloadNetworkSegmentRestClient;
         private readonly WorkloadNetworkSegmentData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -59,9 +59,9 @@ namespace Azure.ResourceManager.Avs
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal WorkloadNetworkSegmentResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _workloadNetworkSegmentWorkloadNetworksClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string workloadNetworkSegmentWorkloadNetworksApiVersion);
-            _workloadNetworkSegmentWorkloadNetworksRestClient = new WorkloadNetworksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkSegmentWorkloadNetworksApiVersion);
+            _workloadNetworkSegmentClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Avs", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string workloadNetworkSegmentApiVersion);
+            _workloadNetworkSegmentRestClient = new WorkloadNetworkSegmentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, workloadNetworkSegmentApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -97,11 +97,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -112,11 +112,11 @@ namespace Azure.ResourceManager.Avs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<WorkloadNetworkSegmentResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Get");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Get");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegmentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkSegmentRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkSegmentResource(Client, response.Value), response.GetRawResponse());
@@ -137,11 +137,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetSegment</description>
+        /// <description>WorkloadNetworkSegment_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -152,11 +152,11 @@ namespace Azure.ResourceManager.Avs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<WorkloadNetworkSegmentResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Get");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Get");
             scope.Start();
             try
             {
-                var response = _workloadNetworkSegmentWorkloadNetworksRestClient.GetSegment(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken);
+                var response = _workloadNetworkSegmentRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkSegmentResource(Client, response.Value), response.GetRawResponse());
@@ -177,11 +177,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_DeleteSegment</description>
+        /// <description>WorkloadNetworkSegment_DeleteSegment</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -193,12 +193,12 @@ namespace Azure.ResourceManager.Avs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Delete");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Delete");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkSegmentWorkloadNetworksRestClient.DeleteSegmentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new AvsArmOperation(_workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkSegmentWorkloadNetworksRestClient.CreateDeleteSegmentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = await _workloadNetworkSegmentRestClient.DeleteSegmentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation(_workloadNetworkSegmentClientDiagnostics, Pipeline, _workloadNetworkSegmentRestClient.CreateDeleteSegmentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -219,11 +219,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_DeleteSegment</description>
+        /// <description>WorkloadNetworkSegment_DeleteSegment</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -235,12 +235,12 @@ namespace Azure.ResourceManager.Avs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Delete");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Delete");
             scope.Start();
             try
             {
-                var response = _workloadNetworkSegmentWorkloadNetworksRestClient.DeleteSegment(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken);
-                var operation = new AvsArmOperation(_workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkSegmentWorkloadNetworksRestClient.CreateDeleteSegmentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = _workloadNetworkSegmentRestClient.DeleteSegment(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken);
+                var operation = new AvsArmOperation(_workloadNetworkSegmentClientDiagnostics, Pipeline, _workloadNetworkSegmentRestClient.CreateDeleteSegmentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -261,11 +261,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_UpdateSegments</description>
+        /// <description>WorkloadNetworkSegment_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -281,12 +281,12 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Update");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Update");
             scope.Start();
             try
             {
-                var response = await _workloadNetworkSegmentWorkloadNetworksRestClient.UpdateSegmentsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkSegmentWorkloadNetworksRestClient.CreateUpdateSegmentsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _workloadNetworkSegmentRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentClientDiagnostics, Pipeline, _workloadNetworkSegmentRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -307,11 +307,11 @@ namespace Azure.ResourceManager.Avs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_UpdateSegments</description>
+        /// <description>WorkloadNetworkSegment_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -327,12 +327,12 @@ namespace Azure.ResourceManager.Avs
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _workloadNetworkSegmentWorkloadNetworksClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Update");
+            using var scope = _workloadNetworkSegmentClientDiagnostics.CreateScope("WorkloadNetworkSegmentResource.Update");
             scope.Start();
             try
             {
-                var response = _workloadNetworkSegmentWorkloadNetworksRestClient.UpdateSegments(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data, cancellationToken);
-                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkSegmentWorkloadNetworksRestClient.CreateUpdateSegmentsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
+                var response = _workloadNetworkSegmentRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkSegmentResource>(new WorkloadNetworkSegmentOperationSource(Client), _workloadNetworkSegmentClientDiagnostics, Pipeline, _workloadNetworkSegmentRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

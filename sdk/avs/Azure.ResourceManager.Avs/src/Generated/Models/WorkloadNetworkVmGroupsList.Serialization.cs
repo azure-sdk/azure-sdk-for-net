@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.Avs.Models
             {
                 return null;
             }
-            IReadOnlyList<WorkloadNetworkVmGroupData> value = default;
+            IReadOnlyList<WorkloadNetworkVmGroup> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -91,10 +91,10 @@ namespace Azure.ResourceManager.Avs.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<WorkloadNetworkVmGroupData> array = new List<WorkloadNetworkVmGroupData>();
+                    List<WorkloadNetworkVmGroup> array = new List<WorkloadNetworkVmGroup>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(WorkloadNetworkVmGroupData.DeserializeWorkloadNetworkVmGroupData(item, options));
+                        array.Add(WorkloadNetworkVmGroup.DeserializeWorkloadNetworkVmGroup(item, options));
                     }
                     value = array;
                     continue;

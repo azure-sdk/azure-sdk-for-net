@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.Avs.Models
             }
 
             writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(PolicyType.ToString());
+            writer.WriteStringValue(Type.ToString());
             if (Optional.IsDefined(State))
             {
                 writer.WritePropertyName("state"u8);
@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.Avs.Models
                 switch (discriminator.GetString())
                 {
                     case "VmHost": return VmHostPlacementPolicyProperties.DeserializeVmHostPlacementPolicyProperties(element, options);
-                    case "VmVm": return VmPlacementPolicyProperties.DeserializeVmPlacementPolicyProperties(element, options);
+                    case "VmVm": return VmVmPlacementPolicyProperties.DeserializeVmVmPlacementPolicyProperties(element, options);
                 }
             }
             return UnknownPlacementPolicyProperties.DeserializeUnknownPlacementPolicyProperties(element, options);
