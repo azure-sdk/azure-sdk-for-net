@@ -55,11 +55,13 @@ namespace Azure.ResourceManager.Compute.Models
             Argument.AssertNotNull(name, nameof(name));
 
             Name = name;
+            Tags = new ChangeTrackingDictionary<string, string>();
             IPTags = new ChangeTrackingList<VirtualMachineIPTag>();
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualMachinePublicIPAddressConfiguration"/>. </summary>
         /// <param name="name"> The publicIP address configuration name. </param>
+        /// <param name="tags"> Specifies tags for the publicIP address configuration. </param>
         /// <param name="sku"> Describes the public IP Sku. It can only be set with OrchestrationMode as Flexible. </param>
         /// <param name="idleTimeoutInMinutes"> The idle timeout of the public IP address. </param>
         /// <param name="deleteOption"> Specify what happens to the public IP address when the VM is deleted. </param>
@@ -69,9 +71,10 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="publicIPAddressVersion"> Available from Api-Version 2019-07-01 onwards, it represents whether the specific ipconfiguration is IPv4 or IPv6. Default is taken as IPv4. Possible values are: 'IPv4' and 'IPv6'. </param>
         /// <param name="publicIPAllocationMethod"> Specify the public IP allocation type. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualMachinePublicIPAddressConfiguration(string name, ComputePublicIPAddressSku sku, int? idleTimeoutInMinutes, ComputeDeleteOption? deleteOption, VirtualMachinePublicIPAddressDnsSettingsConfiguration dnsSettings, IList<VirtualMachineIPTag> ipTags, WritableSubResource publicIPPrefix, IPVersion? publicIPAddressVersion, PublicIPAllocationMethod? publicIPAllocationMethod, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VirtualMachinePublicIPAddressConfiguration(string name, IDictionary<string, string> tags, ComputePublicIPAddressSku sku, int? idleTimeoutInMinutes, ComputeDeleteOption? deleteOption, VirtualMachinePublicIPAddressDnsSettingsConfiguration dnsSettings, IList<VirtualMachineIPTag> ipTags, WritableSubResource publicIPPrefix, IPVersion? publicIPAddressVersion, PublicIPAllocationMethod? publicIPAllocationMethod, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
+            Tags = tags;
             Sku = sku;
             IdleTimeoutInMinutes = idleTimeoutInMinutes;
             DeleteOption = deleteOption;
@@ -90,6 +93,8 @@ namespace Azure.ResourceManager.Compute.Models
 
         /// <summary> The publicIP address configuration name. </summary>
         public string Name { get; set; }
+        /// <summary> Specifies tags for the publicIP address configuration. </summary>
+        public IDictionary<string, string> Tags { get; }
         /// <summary> Describes the public IP Sku. It can only be set with OrchestrationMode as Flexible. </summary>
         public ComputePublicIPAddressSku Sku { get; set; }
         /// <summary> The idle timeout of the public IP address. </summary>
