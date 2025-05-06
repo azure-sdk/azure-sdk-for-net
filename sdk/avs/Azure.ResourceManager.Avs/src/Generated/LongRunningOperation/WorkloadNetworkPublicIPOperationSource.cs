@@ -5,32 +5,26 @@
 
 #nullable disable
 
-using System.ClientModel.Primitives;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
+using Azure.ResourceManager.Avs.Models;
 
 namespace Azure.ResourceManager.Avs
 {
-    internal class WorkloadNetworkPublicIPOperationSource : IOperationSource<WorkloadNetworkPublicIPResource>
+    internal class WorkloadNetworkPublicIPOperationSource : IOperationSource<WorkloadNetworkPublicIP>
     {
-        private readonly ArmClient _client;
-
-        internal WorkloadNetworkPublicIPOperationSource(ArmClient client)
+        WorkloadNetworkPublicIP IOperationSource<WorkloadNetworkPublicIP>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            _client = client;
+            using var document = JsonDocument.Parse(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
+            return WorkloadNetworkPublicIP.DeserializeWorkloadNetworkPublicIP(document.RootElement);
         }
 
-        WorkloadNetworkPublicIPResource IOperationSource<WorkloadNetworkPublicIPResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        async ValueTask<WorkloadNetworkPublicIP> IOperationSource<WorkloadNetworkPublicIP>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            var data = ModelReaderWriter.Read<WorkloadNetworkPublicIPData>(response.Content);
-            return new WorkloadNetworkPublicIPResource(_client, data);
-        }
-
-        async ValueTask<WorkloadNetworkPublicIPResource> IOperationSource<WorkloadNetworkPublicIPResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
-        {
-            var data = ModelReaderWriter.Read<WorkloadNetworkPublicIPData>(response.Content);
-            return await Task.FromResult(new WorkloadNetworkPublicIPResource(_client, data)).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
+            return WorkloadNetworkPublicIP.DeserializeWorkloadNetworkPublicIP(document.RootElement);
         }
     }
 }

@@ -9,7 +9,6 @@ using System;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
-using Azure.ResourceManager.Avs.Models;
 using NUnit.Framework;
 
 namespace Azure.ResourceManager.Avs.Samples
@@ -20,36 +19,29 @@ namespace Azure.ResourceManager.Avs.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_PlacementPoliciesCreateOrUpdate()
         {
-            // Generated from example definition: specification/vmware/resource-manager/Microsoft.AVS/stable/2023-09-01/examples/PlacementPolicies_CreateOrUpdate.json
-            // this example is just showing the usage of "PlacementPolicies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-09-01/PlacementPolicies_CreateOrUpdate.json
+            // this example is just showing the usage of "PlacementPolicy_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AvsPrivateCloudClusterResource created on azure
-            // for more information of creating AvsPrivateCloudClusterResource, please refer to the document of AvsPrivateCloudClusterResource
+            // this example assumes you already have this ClusterResource created on azure
+            // for more information of creating ClusterResource, please refer to the document of ClusterResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "group1";
             string privateCloudName = "cloud1";
             string clusterName = "cluster1";
-            ResourceIdentifier avsPrivateCloudClusterResourceId = AvsPrivateCloudClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
-            AvsPrivateCloudClusterResource avsPrivateCloudCluster = client.GetAvsPrivateCloudClusterResource(avsPrivateCloudClusterResourceId);
+            ResourceIdentifier clusterResourceId = ClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
+            ClusterResource cluster = client.GetClusterResource(clusterResourceId);
 
             // get the collection of this PlacementPolicyResource
-            PlacementPolicyCollection collection = avsPrivateCloudCluster.GetPlacementPolicies();
+            PlacementPolicyCollection collection = cluster.GetPlacementPolicies();
 
             // invoke the operation
             string placementPolicyName = "policy1";
-            PlacementPolicyData data = new PlacementPolicyData
-            {
-                Properties = new VmHostPlacementPolicyProperties(new ResourceIdentifier[] { new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/clusters/cluster1/virtualMachines/vm-128"), new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/group1/providers/Microsoft.AVS/privateClouds/cloud1/clusters/cluster1/virtualMachines/vm-256") }, new string[] { "fakehost22.nyc1.kubernetes.center", "fakehost23.nyc1.kubernetes.center", "fakehost24.nyc1.kubernetes.center" }, AvsPlacementPolicyAffinityType.AntiAffinity)
-                {
-                    AffinityStrength = VmHostPlacementPolicyAffinityStrength.Must,
-                    AzureHybridBenefitType = AzureHybridBenefitType.SqlHost,
-                },
-            };
+            PlacementPolicyData data = new PlacementPolicyData();
             ArmOperation<PlacementPolicyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, placementPolicyName, data);
             PlacementPolicyResource result = lro.Value;
 
@@ -64,25 +56,25 @@ namespace Azure.ResourceManager.Avs.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_PlacementPoliciesGet()
         {
-            // Generated from example definition: specification/vmware/resource-manager/Microsoft.AVS/stable/2023-09-01/examples/PlacementPolicies_Get.json
-            // this example is just showing the usage of "PlacementPolicies_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-09-01/PlacementPolicies_Get.json
+            // this example is just showing the usage of "PlacementPolicy_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AvsPrivateCloudClusterResource created on azure
-            // for more information of creating AvsPrivateCloudClusterResource, please refer to the document of AvsPrivateCloudClusterResource
+            // this example assumes you already have this ClusterResource created on azure
+            // for more information of creating ClusterResource, please refer to the document of ClusterResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "group1";
             string privateCloudName = "cloud1";
             string clusterName = "cluster1";
-            ResourceIdentifier avsPrivateCloudClusterResourceId = AvsPrivateCloudClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
-            AvsPrivateCloudClusterResource avsPrivateCloudCluster = client.GetAvsPrivateCloudClusterResource(avsPrivateCloudClusterResourceId);
+            ResourceIdentifier clusterResourceId = ClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
+            ClusterResource cluster = client.GetClusterResource(clusterResourceId);
 
             // get the collection of this PlacementPolicyResource
-            PlacementPolicyCollection collection = avsPrivateCloudCluster.GetPlacementPolicies();
+            PlacementPolicyCollection collection = cluster.GetPlacementPolicies();
 
             // invoke the operation
             string placementPolicyName = "policy1";
@@ -99,25 +91,25 @@ namespace Azure.ResourceManager.Avs.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_PlacementPoliciesList()
         {
-            // Generated from example definition: specification/vmware/resource-manager/Microsoft.AVS/stable/2023-09-01/examples/PlacementPolicies_List.json
-            // this example is just showing the usage of "PlacementPolicies_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-09-01/PlacementPolicies_List.json
+            // this example is just showing the usage of "PlacementPolicy_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AvsPrivateCloudClusterResource created on azure
-            // for more information of creating AvsPrivateCloudClusterResource, please refer to the document of AvsPrivateCloudClusterResource
+            // this example assumes you already have this ClusterResource created on azure
+            // for more information of creating ClusterResource, please refer to the document of ClusterResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "group1";
             string privateCloudName = "cloud1";
             string clusterName = "cluster1";
-            ResourceIdentifier avsPrivateCloudClusterResourceId = AvsPrivateCloudClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
-            AvsPrivateCloudClusterResource avsPrivateCloudCluster = client.GetAvsPrivateCloudClusterResource(avsPrivateCloudClusterResourceId);
+            ResourceIdentifier clusterResourceId = ClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
+            ClusterResource cluster = client.GetClusterResource(clusterResourceId);
 
             // get the collection of this PlacementPolicyResource
-            PlacementPolicyCollection collection = avsPrivateCloudCluster.GetPlacementPolicies();
+            PlacementPolicyCollection collection = cluster.GetPlacementPolicies();
 
             // invoke the operation and iterate over the result
             await foreach (PlacementPolicyResource item in collection.GetAllAsync())
@@ -136,25 +128,25 @@ namespace Azure.ResourceManager.Avs.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_PlacementPoliciesGet()
         {
-            // Generated from example definition: specification/vmware/resource-manager/Microsoft.AVS/stable/2023-09-01/examples/PlacementPolicies_Get.json
-            // this example is just showing the usage of "PlacementPolicies_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-09-01/PlacementPolicies_Get.json
+            // this example is just showing the usage of "PlacementPolicy_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AvsPrivateCloudClusterResource created on azure
-            // for more information of creating AvsPrivateCloudClusterResource, please refer to the document of AvsPrivateCloudClusterResource
+            // this example assumes you already have this ClusterResource created on azure
+            // for more information of creating ClusterResource, please refer to the document of ClusterResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "group1";
             string privateCloudName = "cloud1";
             string clusterName = "cluster1";
-            ResourceIdentifier avsPrivateCloudClusterResourceId = AvsPrivateCloudClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
-            AvsPrivateCloudClusterResource avsPrivateCloudCluster = client.GetAvsPrivateCloudClusterResource(avsPrivateCloudClusterResourceId);
+            ResourceIdentifier clusterResourceId = ClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
+            ClusterResource cluster = client.GetClusterResource(clusterResourceId);
 
             // get the collection of this PlacementPolicyResource
-            PlacementPolicyCollection collection = avsPrivateCloudCluster.GetPlacementPolicies();
+            PlacementPolicyCollection collection = cluster.GetPlacementPolicies();
 
             // invoke the operation
             string placementPolicyName = "policy1";
@@ -167,25 +159,25 @@ namespace Azure.ResourceManager.Avs.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_PlacementPoliciesGet()
         {
-            // Generated from example definition: specification/vmware/resource-manager/Microsoft.AVS/stable/2023-09-01/examples/PlacementPolicies_Get.json
-            // this example is just showing the usage of "PlacementPolicies_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-09-01/PlacementPolicies_Get.json
+            // this example is just showing the usage of "PlacementPolicy_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this AvsPrivateCloudClusterResource created on azure
-            // for more information of creating AvsPrivateCloudClusterResource, please refer to the document of AvsPrivateCloudClusterResource
+            // this example assumes you already have this ClusterResource created on azure
+            // for more information of creating ClusterResource, please refer to the document of ClusterResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "group1";
             string privateCloudName = "cloud1";
             string clusterName = "cluster1";
-            ResourceIdentifier avsPrivateCloudClusterResourceId = AvsPrivateCloudClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
-            AvsPrivateCloudClusterResource avsPrivateCloudCluster = client.GetAvsPrivateCloudClusterResource(avsPrivateCloudClusterResourceId);
+            ResourceIdentifier clusterResourceId = ClusterResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, privateCloudName, clusterName);
+            ClusterResource cluster = client.GetClusterResource(clusterResourceId);
 
             // get the collection of this PlacementPolicyResource
-            PlacementPolicyCollection collection = avsPrivateCloudCluster.GetPlacementPolicies();
+            PlacementPolicyCollection collection = cluster.GetPlacementPolicies();
 
             // invoke the operation
             string placementPolicyName = "policy1";

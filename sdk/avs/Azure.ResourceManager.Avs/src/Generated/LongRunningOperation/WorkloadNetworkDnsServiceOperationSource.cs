@@ -5,32 +5,26 @@
 
 #nullable disable
 
-using System.ClientModel.Primitives;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
+using Azure.ResourceManager.Avs.Models;
 
 namespace Azure.ResourceManager.Avs
 {
-    internal class WorkloadNetworkDnsServiceOperationSource : IOperationSource<WorkloadNetworkDnsServiceResource>
+    internal class WorkloadNetworkDnsServiceOperationSource : IOperationSource<WorkloadNetworkDnsService>
     {
-        private readonly ArmClient _client;
-
-        internal WorkloadNetworkDnsServiceOperationSource(ArmClient client)
+        WorkloadNetworkDnsService IOperationSource<WorkloadNetworkDnsService>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            _client = client;
+            using var document = JsonDocument.Parse(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
+            return WorkloadNetworkDnsService.DeserializeWorkloadNetworkDnsService(document.RootElement);
         }
 
-        WorkloadNetworkDnsServiceResource IOperationSource<WorkloadNetworkDnsServiceResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        async ValueTask<WorkloadNetworkDnsService> IOperationSource<WorkloadNetworkDnsService>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            var data = ModelReaderWriter.Read<WorkloadNetworkDnsServiceData>(response.Content);
-            return new WorkloadNetworkDnsServiceResource(_client, data);
-        }
-
-        async ValueTask<WorkloadNetworkDnsServiceResource> IOperationSource<WorkloadNetworkDnsServiceResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
-        {
-            var data = ModelReaderWriter.Read<WorkloadNetworkDnsServiceData>(response.Content);
-            return await Task.FromResult(new WorkloadNetworkDnsServiceResource(_client, data)).ConfigureAwait(false);
+            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
+            return WorkloadNetworkDnsService.DeserializeWorkloadNetworkDnsService(document.RootElement);
         }
     }
 }
