@@ -36,10 +36,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
             writer.WritePropertyName("title"u8);
             writer.WriteStringValue(Title);
-            if (Optional.IsDefined(Description))
+            if (Optional.IsDefined(Word))
             {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
+                writer.WritePropertyName("word"u8);
+                writer.WriteObjectValue<object>(Word, options);
             }
             if (Optional.IsDefined(Specification))
             {
@@ -84,7 +84,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             string title = default;
-            string description = default;
+            object word = default;
             ApiCenterApiSpecification specification = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -95,9 +95,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     title = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("description"u8))
+                if (property.NameEquals("word"u8))
                 {
-                    description = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    word = property.Value.GetObject();
                     continue;
                 }
                 if (property.NameEquals("specification"u8))
@@ -115,7 +119,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ApiCenterApiDefinitionUpdatedEventData(title, description, specification, serializedAdditionalRawData);
+            return new ApiCenterApiDefinitionUpdatedEventData(title, word, specification, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ApiCenterApiDefinitionUpdatedEventData>.Write(ModelReaderWriterOptions options)

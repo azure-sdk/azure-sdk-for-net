@@ -34,8 +34,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 throw new FormatException($"The model {nameof(ApiCenterApiSpecification)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("name"u8);
-            writer.WriteStringValue(Name);
+            writer.WritePropertyName("word"u8);
+            writer.WriteStringValue(Word);
             if (Optional.IsDefined(Version))
             {
                 writer.WritePropertyName("version"u8);
@@ -78,15 +78,15 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            string name = default;
+            string word = default;
             string version = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("name"u8))
+                if (property.NameEquals("word"u8))
                 {
-                    name = property.Value.GetString();
+                    word = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("version"u8))
@@ -100,7 +100,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ApiCenterApiSpecification(name, version, serializedAdditionalRawData);
+            return new ApiCenterApiSpecification(word, version, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ApiCenterApiSpecification>.Write(ModelReaderWriterOptions options)

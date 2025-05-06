@@ -57,13 +57,13 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of <see cref="ApiCenterApiDefinitionUpdatedEventData"/>. </summary>
         /// <param name="title"> API definition title. </param>
-        /// <param name="description"> API definition description. </param>
+        /// <param name="word"> API definition description. </param>
         /// <param name="specification"> API definition specification. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ApiCenterApiDefinitionUpdatedEventData(string title, string description, ApiCenterApiSpecification specification, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ApiCenterApiDefinitionUpdatedEventData(string title, object word, ApiCenterApiSpecification specification, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Title = title;
-            Description = description;
+            Word = word;
             Specification = specification;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -76,7 +76,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> API definition title. </summary>
         public string Title { get; }
         /// <summary> API definition description. </summary>
-        public string Description { get; }
+        public object Word { get; }
         /// <summary> API definition specification. </summary>
         public ApiCenterApiSpecification Specification { get; }
     }

@@ -46,22 +46,22 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ApiCenterApiSpecification"/>. </summary>
-        /// <param name="name"> Specification name. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
-        internal ApiCenterApiSpecification(string name)
+        /// <param name="word"> Specification name. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="word"/> is null. </exception>
+        internal ApiCenterApiSpecification(string word)
         {
-            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(word, nameof(word));
 
-            Name = name;
+            Word = word;
         }
 
         /// <summary> Initializes a new instance of <see cref="ApiCenterApiSpecification"/>. </summary>
-        /// <param name="name"> Specification name. </param>
+        /// <param name="word"> Specification name. </param>
         /// <param name="version"> Specification version. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ApiCenterApiSpecification(string name, string version, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ApiCenterApiSpecification(string word, string version, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
+            Word = word;
             Version = version;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -72,7 +72,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         }
 
         /// <summary> Specification name. </summary>
-        public string Name { get; }
+        public string Word { get; }
         /// <summary> Specification version. </summary>
         public string Version { get; }
     }
