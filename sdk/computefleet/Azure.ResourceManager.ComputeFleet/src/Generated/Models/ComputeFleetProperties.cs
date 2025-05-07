@@ -69,8 +69,9 @@ namespace Azure.ResourceManager.ComputeFleet.Models
         /// <param name="computeProfile"> Compute Profile to use for running user's workloads. </param>
         /// <param name="createdOn"> Specifies the time at which the Compute Fleet is created. </param>
         /// <param name="uniqueId"> Specifies the ID which uniquely identifies a Compute Fleet. </param>
+        /// <param name="displayName"> Specifies the display name a Compute Fleet. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ComputeFleetProperties(ComputeFleetProvisioningState? provisioningState, SpotPriorityProfile spotPriorityProfile, RegularPriorityProfile regularPriorityProfile, IList<ComputeFleetVmSizeProfile> vmSizesProfile, ComputeFleetVmAttributes vmAttributes, AdditionalLocationsProfile additionalLocationsProfile, ComputeFleetComputeProfile computeProfile, DateTimeOffset? createdOn, string uniqueId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ComputeFleetProperties(ComputeFleetProvisioningState? provisioningState, SpotPriorityProfile spotPriorityProfile, RegularPriorityProfile regularPriorityProfile, IList<ComputeFleetVmSizeProfile> vmSizesProfile, ComputeFleetVmAttributes vmAttributes, AdditionalLocationsProfile additionalLocationsProfile, ComputeFleetComputeProfile computeProfile, DateTimeOffset? createdOn, string uniqueId, string displayName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             SpotPriorityProfile = spotPriorityProfile;
@@ -81,6 +82,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
             ComputeProfile = computeProfile;
             CreatedOn = createdOn;
             UniqueId = uniqueId;
+            DisplayName = displayName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -114,5 +116,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
         public DateTimeOffset? CreatedOn { get; }
         /// <summary> Specifies the ID which uniquely identifies a Compute Fleet. </summary>
         public string UniqueId { get; }
+        /// <summary> Specifies the display name a Compute Fleet. </summary>
+        public string DisplayName { get; set; }
     }
 }

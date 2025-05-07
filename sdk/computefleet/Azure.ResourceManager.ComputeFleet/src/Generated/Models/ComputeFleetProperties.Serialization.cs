@@ -78,6 +78,11 @@ namespace Azure.ResourceManager.ComputeFleet.Models
                 writer.WritePropertyName("uniqueId"u8);
                 writer.WriteStringValue(UniqueId);
             }
+            if (Optional.IsDefined(DisplayName))
+            {
+                writer.WritePropertyName("displayName"u8);
+                writer.WriteStringValue(DisplayName);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -124,6 +129,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
             ComputeFleetComputeProfile computeProfile = default;
             DateTimeOffset? timeCreated = default;
             string uniqueId = default;
+            string displayName = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -202,6 +208,11 @@ namespace Azure.ResourceManager.ComputeFleet.Models
                     uniqueId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("displayName"u8))
+                {
+                    displayName = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -218,6 +229,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
                 computeProfile,
                 timeCreated,
                 uniqueId,
+                displayName,
                 serializedAdditionalRawData);
         }
 
