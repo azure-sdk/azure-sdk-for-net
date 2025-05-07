@@ -41,6 +41,7 @@ trigger:
     - sdk/changeanalysis/Azure.ResourceManager.ChangeAnalysis
     - sdk/chaos/Azure.ResourceManager.Chaos
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
+    - sdk/commonedgesitemanageroperations/Azure.ResourceManager.CommonEdgeSiteManagerOperations
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
     - sdk/computefleet/Azure.ResourceManager.ComputeFleet
@@ -189,6 +190,7 @@ trigger:
     - sdk/servicelinker/Azure.ResourceManager.ServiceLinker
     - sdk/servicenetworking/Azure.ResourceManager.ServiceNetworking
     - sdk/signalr/Azure.ResourceManager.SignalR
+    - sdk/sitemanager/Azure.ResourceManager.SiteManager
     - sdk/sphere/Azure.ResourceManager.Sphere
     - sdk/springappdiscovery/Azure.ResourceManager.SpringAppDiscovery
     - sdk/sqlmanagement/Azure.ResourceManager.Sql
@@ -257,6 +259,7 @@ pr:
     - sdk/changeanalysis/Azure.ResourceManager.ChangeAnalysis
     - sdk/chaos/Azure.ResourceManager.Chaos
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
+    - sdk/commonedgesitemanageroperations/Azure.ResourceManager.CommonEdgeSiteManagerOperations
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
     - sdk/computefleet/Azure.ResourceManager.ComputeFleet
@@ -405,6 +408,7 @@ pr:
     - sdk/servicelinker/Azure.ResourceManager.ServiceLinker
     - sdk/servicenetworking/Azure.ResourceManager.ServiceNetworking
     - sdk/signalr/Azure.ResourceManager.SignalR
+    - sdk/sitemanager/Azure.ResourceManager.SiteManager
     - sdk/sphere/Azure.ResourceManager.Sphere
     - sdk/springappdiscovery/Azure.ResourceManager.SpringAppDiscovery
     - sdk/sqlmanagement/Azure.ResourceManager.Sql
