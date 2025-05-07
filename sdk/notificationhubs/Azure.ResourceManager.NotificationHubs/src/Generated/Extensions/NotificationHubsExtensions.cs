@@ -34,41 +34,22 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="NotificationHubResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NotificationHubResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing a <see cref="NotificationHubNamespaceResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NotificationHubNamespaceResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubNamespaceResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableNotificationHubsArmClient.GetNotificationHubResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableNotificationHubsArmClient.GetNotificationHubNamespaceResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="NotificationHubResource"/> object. </returns>
-        public static NotificationHubResource GetNotificationHubResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="NotificationHubNamespaceResource"/> object. </returns>
+        public static NotificationHubNamespaceResource GetNotificationHubNamespaceResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableNotificationHubsArmClient(client).GetNotificationHubResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="NotificationHubAuthorizationRuleResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NotificationHubAuthorizationRuleResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubAuthorizationRuleResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableNotificationHubsArmClient.GetNotificationHubAuthorizationRuleResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="NotificationHubAuthorizationRuleResource"/> object. </returns>
-        public static NotificationHubAuthorizationRuleResource GetNotificationHubAuthorizationRuleResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableNotificationHubsArmClient(client).GetNotificationHubAuthorizationRuleResource(id);
+            return GetMockableNotificationHubsArmClient(client).GetNotificationHubNamespaceResource(id);
         }
 
         /// <summary>
@@ -91,22 +72,41 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="NotificationHubNamespaceResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NotificationHubNamespaceResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubNamespaceResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing a <see cref="NotificationHubAuthorizationRuleResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NotificationHubAuthorizationRuleResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubAuthorizationRuleResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
         /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableNotificationHubsArmClient.GetNotificationHubNamespaceResource(ResourceIdentifier)"/> instead.</description>
+        /// <description>To mock this method, please mock <see cref="MockableNotificationHubsArmClient.GetNotificationHubAuthorizationRuleResource(ResourceIdentifier)"/> instead.</description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="NotificationHubNamespaceResource"/> object. </returns>
-        public static NotificationHubNamespaceResource GetNotificationHubNamespaceResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="NotificationHubAuthorizationRuleResource"/> object. </returns>
+        public static NotificationHubAuthorizationRuleResource GetNotificationHubAuthorizationRuleResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableNotificationHubsArmClient(client).GetNotificationHubNamespaceResource(id);
+            return GetMockableNotificationHubsArmClient(client).GetNotificationHubAuthorizationRuleResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="NotificationHubResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NotificationHubResource.CreateResourceIdentifier" /> to create a <see cref="NotificationHubResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableNotificationHubsArmClient.GetNotificationHubResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="NotificationHubResource"/> object. </returns>
+        public static NotificationHubResource GetNotificationHubResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableNotificationHubsArmClient(client).GetNotificationHubResource(id);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="content"> Request content. </param>
+        /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="content"/> is null. </exception>
         public static async Task<Response<NotificationHubAvailabilityResult>> CheckNotificationHubNamespaceAvailabilityAsync(this SubscriptionResource subscriptionResource, NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
@@ -302,7 +302,7 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="content"> Request content. </param>
+        /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="content"/> is null. </exception>
         public static Response<NotificationHubAvailabilityResult> CheckNotificationHubNamespaceAvailability(this SubscriptionResource subscriptionResource, NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)

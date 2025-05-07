@@ -94,6 +94,75 @@ namespace Azure.ResourceManager.NotificationHubs
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
+        /// <summary> Gets a collection of NotificationHubNamespaceAuthorizationRuleResources in the NotificationHubNamespace. </summary>
+        /// <returns> An object representing collection of NotificationHubNamespaceAuthorizationRuleResources and their operations over a NotificationHubNamespaceAuthorizationRuleResource. </returns>
+        public virtual NotificationHubNamespaceAuthorizationRuleCollection GetNotificationHubNamespaceAuthorizationRules()
+        {
+            return GetCachedClient(client => new NotificationHubNamespaceAuthorizationRuleCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets an authorization rule for a namespace by name.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/authorizationRules/{authorizationRuleName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Namespaces_GetAuthorizationRule</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="NotificationHubNamespaceAuthorizationRuleResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="authorizationRuleName"> The name of the SharedAccessAuthorizationRuleResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<NotificationHubNamespaceAuthorizationRuleResource>> GetNotificationHubNamespaceAuthorizationRuleAsync(string authorizationRuleName, CancellationToken cancellationToken = default)
+        {
+            return await GetNotificationHubNamespaceAuthorizationRules().GetAsync(authorizationRuleName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets an authorization rule for a namespace by name.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/authorizationRules/{authorizationRuleName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Namespaces_GetAuthorizationRule</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="NotificationHubNamespaceAuthorizationRuleResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="authorizationRuleName"> The name of the SharedAccessAuthorizationRuleResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<NotificationHubNamespaceAuthorizationRuleResource> GetNotificationHubNamespaceAuthorizationRule(string authorizationRuleName, CancellationToken cancellationToken = default)
+        {
+            return GetNotificationHubNamespaceAuthorizationRules().Get(authorizationRuleName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of NotificationHubResources in the NotificationHubNamespace. </summary>
         /// <returns> An object representing collection of NotificationHubResources and their operations over a NotificationHubResource. </returns>
         public virtual NotificationHubCollection GetNotificationHubs()
@@ -161,75 +230,6 @@ namespace Azure.ResourceManager.NotificationHubs
         public virtual Response<NotificationHubResource> GetNotificationHub(string notificationHubName, CancellationToken cancellationToken = default)
         {
             return GetNotificationHubs().Get(notificationHubName, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of NotificationHubNamespaceAuthorizationRuleResources in the NotificationHubNamespace. </summary>
-        /// <returns> An object representing collection of NotificationHubNamespaceAuthorizationRuleResources and their operations over a NotificationHubNamespaceAuthorizationRuleResource. </returns>
-        public virtual NotificationHubNamespaceAuthorizationRuleCollection GetNotificationHubNamespaceAuthorizationRules()
-        {
-            return GetCachedClient(client => new NotificationHubNamespaceAuthorizationRuleCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets an authorization rule for a namespace by name.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/authorizationRules/{authorizationRuleName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Namespaces_GetAuthorizationRule</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="NotificationHubNamespaceAuthorizationRuleResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<NotificationHubNamespaceAuthorizationRuleResource>> GetNotificationHubNamespaceAuthorizationRuleAsync(string authorizationRuleName, CancellationToken cancellationToken = default)
-        {
-            return await GetNotificationHubNamespaceAuthorizationRules().GetAsync(authorizationRuleName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets an authorization rule for a namespace by name.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/authorizationRules/{authorizationRuleName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Namespaces_GetAuthorizationRule</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="NotificationHubNamespaceAuthorizationRuleResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<NotificationHubNamespaceAuthorizationRuleResource> GetNotificationHubNamespaceAuthorizationRule(string authorizationRuleName, CancellationToken cancellationToken = default)
-        {
-            return GetNotificationHubNamespaceAuthorizationRules().Get(authorizationRuleName, cancellationToken);
         }
 
         /// <summary> Gets a collection of NotificationHubPrivateEndpointConnectionResources in the NotificationHubNamespace. </summary>
@@ -627,82 +627,6 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// Checks the availability of the given notificationHub in a namespace.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/checkNotificationHubAvailability</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>NotificationHubs_CheckNotificationHubAvailability</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01-preview</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="content"> Request content. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<Response<NotificationHubAvailabilityResult>> CheckNotificationHubAvailabilityAsync(NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(content, nameof(content));
-
-            using var scope = _notificationHubsClientDiagnostics.CreateScope("NotificationHubNamespaceResource.CheckNotificationHubAvailability");
-            scope.Start();
-            try
-            {
-                var response = await _notificationHubsRestClient.CheckNotificationHubAvailabilityAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Checks the availability of the given notificationHub in a namespace.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/checkNotificationHubAvailability</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>NotificationHubs_CheckNotificationHubAvailability</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-01-preview</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="content"> Request content. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual Response<NotificationHubAvailabilityResult> CheckNotificationHubAvailability(NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(content, nameof(content));
-
-            using var scope = _notificationHubsClientDiagnostics.CreateScope("NotificationHubNamespaceResource.CheckNotificationHubAvailability");
-            scope.Start();
-            try
-            {
-                var response = _notificationHubsRestClient.CheckNotificationHubAvailability(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Lists the PNS credentials associated with a namespace.
         /// <list type="bullet">
         /// <item>
@@ -769,6 +693,82 @@ namespace Azure.ResourceManager.NotificationHubs
             try
             {
                 var response = _notificationHubNamespaceNamespacesRestClient.GetPnsCredentials(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Checks the availability of the given notificationHub in a namespace.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/checkNotificationHubAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NotificationHubs_CheckNotificationHubAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Request content. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response<NotificationHubAvailabilityResult>> CheckNotificationHubAvailabilityAsync(NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _notificationHubsClientDiagnostics.CreateScope("NotificationHubNamespaceResource.CheckNotificationHubAvailability");
+            scope.Start();
+            try
+            {
+                var response = await _notificationHubsRestClient.CheckNotificationHubAvailabilityAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Checks the availability of the given notificationHub in a namespace.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/checkNotificationHubAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NotificationHubs_CheckNotificationHubAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Request content. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response<NotificationHubAvailabilityResult> CheckNotificationHubAvailability(NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _notificationHubsClientDiagnostics.CreateScope("NotificationHubNamespaceResource.CheckNotificationHubAvailability");
+            scope.Start();
+            try
+            {
+                var response = _notificationHubsRestClient.CheckNotificationHubAvailability(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
                 return response;
             }
             catch (Exception e)
