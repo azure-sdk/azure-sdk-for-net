@@ -57,8 +57,9 @@ namespace Azure.ResourceManager.ComputeFleet.Models
         /// <param name="computeProfile"> Compute Profile to use for running user's workloads. </param>
         /// <param name="createdOn"> Specifies the time at which the Compute Fleet is created. </param>
         /// <param name="uniqueId"> Specifies the ID which uniquely identifies a Compute Fleet. </param>
+        /// <param name="displayName"> Specifies the display name a Compute Fleet. </param>
         /// <returns> A new <see cref="Models.ComputeFleetProperties"/> instance for mocking. </returns>
-        public static ComputeFleetProperties ComputeFleetProperties(ComputeFleetProvisioningState? provisioningState = null, SpotPriorityProfile spotPriorityProfile = null, RegularPriorityProfile regularPriorityProfile = null, IEnumerable<ComputeFleetVmSizeProfile> vmSizesProfile = null, ComputeFleetVmAttributes vmAttributes = null, IEnumerable<LocationProfile> additionalLocationsLocationProfiles = null, ComputeFleetComputeProfile computeProfile = null, DateTimeOffset? createdOn = null, string uniqueId = null)
+        public static ComputeFleetProperties ComputeFleetProperties(ComputeFleetProvisioningState? provisioningState = null, SpotPriorityProfile spotPriorityProfile = null, RegularPriorityProfile regularPriorityProfile = null, IEnumerable<ComputeFleetVmSizeProfile> vmSizesProfile = null, ComputeFleetVmAttributes vmAttributes = null, IEnumerable<LocationProfile> additionalLocationsLocationProfiles = null, ComputeFleetComputeProfile computeProfile = null, DateTimeOffset? createdOn = null, string uniqueId = null, string displayName = null)
         {
             vmSizesProfile ??= new List<ComputeFleetVmSizeProfile>();
             additionalLocationsLocationProfiles ??= new List<LocationProfile>();
@@ -73,6 +74,7 @@ namespace Azure.ResourceManager.ComputeFleet.Models
                 computeProfile,
                 createdOn,
                 uniqueId,
+                displayName,
                 serializedAdditionalRawData: null);
         }
 
