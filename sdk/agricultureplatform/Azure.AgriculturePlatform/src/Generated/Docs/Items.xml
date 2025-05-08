@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateAsync(string,string,IReadOnlyDictionary{string,BinaryData},IEnumerable{Link},string,string,string,string,IReadOnlyDictionary{string,BinaryData},string,IEnumerable{Asset},CancellationToken)">
+      <example>
+This sample shows how to call CreateAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<ItemResponse> response = await client.CreateAsync("CATALOG123", "COLLECTION123", new Dictionary<string, BinaryData>
+{
+    ["additionalProp1"] = BinaryData.FromObjectAsJson("string"),
+    ["additionalProp2"] = BinaryData.FromObjectAsJson("string"),
+    ["additionalProp3"] = BinaryData.FromObjectAsJson("string")
+});
+]]></code></example>
+    </member>
+    <member name="Create(string,string,IReadOnlyDictionary{string,BinaryData},IEnumerable{Link},string,string,string,string,IReadOnlyDictionary{string,BinaryData},string,IEnumerable{Asset},CancellationToken)">
+      <example>
+This sample shows how to call Create.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<ItemResponse> response = client.Create("CATALOG123", "COLLECTION123", new Dictionary<string, BinaryData>
+{
+    ["additionalProp1"] = BinaryData.FromObjectAsJson("string"),
+    ["additionalProp2"] = BinaryData.FromObjectAsJson("string"),
+    ["additionalProp3"] = BinaryData.FromObjectAsJson("string")
+});
+]]></code></example>
+    </member>
+    <member name="CreateAsync(string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    links = new object[]
+    {
+        new
+        {
+            rel = "DerivedFrom",
+            href = "string",
+            type = "Catalog",
+        }
+    },
+    data = new
+    {
+        additionalProp1 = "string",
+        additionalProp2 = "string",
+        additionalProp3 = "string",
+    },
+    assets = new object[]
+    {
+        new
+        {
+            type = "Image",
+            name = "string",
+            href = "string",
+        }
+    },
+    status = "string",
+    source = "string",
+    name = "string",
+    description = "string",
+    properties = new
+    {
+        key1 = "value1",
+        key2 = 123.45F,
+    },
+});
+Response response = await client.CreateAsync("CATALOG123", "COLLECTION123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("data").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="Create(string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Create and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    links = new object[]
+    {
+        new
+        {
+            rel = "DerivedFrom",
+            href = "string",
+            type = "Catalog",
+        }
+    },
+    data = new
+    {
+        additionalProp1 = "string",
+        additionalProp2 = "string",
+        additionalProp3 = "string",
+    },
+    assets = new object[]
+    {
+        new
+        {
+            type = "Image",
+            name = "string",
+            href = "string",
+        }
+    },
+    status = "string",
+    source = "string",
+    name = "string",
+    description = "string",
+    properties = new
+    {
+        key1 = "value1",
+        key2 = 123.45F,
+    },
+});
+Response response = client.Create("CATALOG123", "COLLECTION123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("data").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetItemAsync(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetItemAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<Item> response = await client.GetItemAsync("CATALOG123", "COLLECTION123", "ITEM123");
+]]></code></example>
+    </member>
+    <member name="GetItem(string,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetItem.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<Item> response = client.GetItem("CATALOG123", "COLLECTION123", "ITEM123");
+]]></code></example>
+    </member>
+    <member name="GetItemAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetItemAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response response = await client.GetItemAsync("CATALOG123", "COLLECTION123", "ITEM123", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="GetItem(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetItem and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response response = client.GetItem("CATALOG123", "COLLECTION123", "ITEM123", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateAsync(string,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    links = new object[]
+    {
+        new
+        {
+            rel = "DerivedFrom",
+            href = "string",
+            type = "Catalog",
+        }
+    },
+    data = new
+    {
+        Company = "string",
+        name = "string",
+    },
+    ownerItemId = "lavi-item",
+    assets = new object[]
+    {
+        new
+        {
+            type = "Image",
+            name = "string",
+            href = "string",
+        }
+    },
+    status = "string",
+    source = "string",
+    name = "string",
+    description = "string",
+    properties = new
+    {
+        key1 = "value1",
+        key2 = 123.45F,
+    },
+});
+Response response = await client.CreateOrUpdateAsync("CATALOG123", "COLLECTION123", "ITEM123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdate(string,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdate and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    links = new object[]
+    {
+        new
+        {
+            rel = "DerivedFrom",
+            href = "string",
+            type = "Catalog",
+        }
+    },
+    data = new
+    {
+        Company = "string",
+        name = "string",
+    },
+    ownerItemId = "lavi-item",
+    assets = new object[]
+    {
+        new
+        {
+            type = "Image",
+            name = "string",
+            href = "string",
+        }
+    },
+    status = "string",
+    source = "string",
+    name = "string",
+    description = "string",
+    properties = new
+    {
+        key1 = "value1",
+        key2 = 123.45F,
+    },
+});
+Response response = client.CreateOrUpdate("CATALOG123", "COLLECTION123", "ITEM123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response response = await client.DeleteAsync("CATALOG123", "COLLECTION123", "ITEM123");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,string,string,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response response = client.Delete("CATALOG123", "COLLECTION123", "ITEM123");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetAllUnderCollectionAsync(string,string,IEnumerable{string},IEnumerable{string},GeoJsonObject,IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetAllUnderCollectionAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<ItemListResponse> response = await client.GetAllUnderCollectionAsync("CATALOG123", "COLLECTION123");
+]]></code></example>
+    </member>
+    <member name="GetAllUnderCollection(string,string,IEnumerable{string},IEnumerable{string},GeoJsonObject,IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,int?,CancellationToken)">
+      <example>
+This sample shows how to call GetAllUnderCollection.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<ItemListResponse> response = client.GetAllUnderCollection("CATALOG123", "COLLECTION123");
+]]></code></example>
+    </member>
+    <member name="GetAllUnderCollectionAsync(string,string,RequestContent,int?,RequestContext)">
+      <example>
+This sample shows how to call GetAllUnderCollectionAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.GetAllUnderCollectionAsync("CATALOG123", "COLLECTION123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAllUnderCollection(string,string,RequestContent,int?,RequestContext)">
+      <example>
+This sample shows how to call GetAllUnderCollection and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.GetAllUnderCollection("CATALOG123", "COLLECTION123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="SearchAcrossCollectionAsync(string,IEnumerable{string},IEnumerable{string},GeoJsonObject,IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,IEnumerable{string},int?,CancellationToken)">
+      <example>
+This sample shows how to call SearchAcrossCollectionAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<ItemListResponse> response = await client.SearchAcrossCollectionAsync("CATALOG123");
+]]></code></example>
+    </member>
+    <member name="SearchAcrossCollection(string,IEnumerable{string},IEnumerable{string},GeoJsonObject,IEnumerable{string},DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,DateTimeOffset?,int?,string,IEnumerable{string},int?,CancellationToken)">
+      <example>
+This sample shows how to call SearchAcrossCollection.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+Response<ItemListResponse> response = client.SearchAcrossCollection("CATALOG123");
+]]></code></example>
+    </member>
+    <member name="SearchAcrossCollectionAsync(string,RequestContent,int?,RequestContext)">
+      <example>
+This sample shows how to call SearchAcrossCollectionAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.SearchAcrossCollectionAsync("CATALOG123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+]]></code></example>
+    </member>
+    <member name="SearchAcrossCollection(string,RequestContent,int?,RequestContext)">
+      <example>
+This sample shows how to call SearchAcrossCollection and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Items client = new AgriculturePlatformClient(endpoint, credential).GetItemsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.SearchAcrossCollection("CATALOG123", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("data").GetProperty("<key>").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

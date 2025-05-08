@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CancelJobAsync(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call CancelJobAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = await client.CancelJobAsync("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="CancelJob(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call CancelJob.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = client.CancelJob("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="CancelJobAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CancelJobAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = await client.CancelJobAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="CancelJob(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CancelJob and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = client.CancelJob(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="CreateJobAsync(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call CreateJobAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = await client.CreateJobAsync("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="CreateJob(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call CreateJob.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = client.CreateJob("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="CreateJobAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateJobAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputData = new object(),
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = await client.CreateJobAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="CreateJob(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateJob and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputData = new object(),
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = client.CreateJob(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetDataAsync(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call GetDataAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = await client.GetDataAsync("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="GetData(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call GetData.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = client.GetData("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="GetDataAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetDataAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputData = new object(),
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = await client.GetDataAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetData(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetData and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    inputData = new object(),
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = client.GetData(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetJobAsync(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call GetJobAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = await client.GetJobAsync("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="GetJob(string,string,IReadOnlyDictionary{string,BinaryData},IReadOnlyDictionary{string,BinaryData},CancellationToken)">
+      <example>
+This sample shows how to call GetJob.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+Response<SamplePartnerResponse> response = client.GetJob("string", "string", new Dictionary<string, BinaryData>(), new Dictionary<string, BinaryData>());
+]]></code></example>
+    </member>
+    <member name="GetJobAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetJobAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = await client.GetJobAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetJob(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetJob and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Solutions client = new AgriculturePlatformClient(endpoint, credential).GetSolutionsClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    solutionId = "string",
+    requestPath = "string",
+    partnerRequestBody = new object(),
+    partnerRequestHeaders = new object(),
+});
+Response response = client.GetJob(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
