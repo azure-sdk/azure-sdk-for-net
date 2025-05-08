@@ -144,62 +144,6 @@ namespace Azure.ResourceManager.EventHubs.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetNetworkSecurityPerimeterConfigurations_NamspaceNetworkSecurityPerimeterConfigurationList()
-        {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/NetworkSecurityPerimeterConfigurationList.json
-            // this example is just showing the usage of "NetworkSecurityPerimeterConfiguration_List" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "SDK-EventHub-4794";
-            string namespaceName = "sdk-Namespace-5828";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
-
-            // invoke the operation and iterate over the result
-            await foreach (EventHubsNetworkSecurityPerimeterConfiguration item in eventHubsNamespace.GetNetworkSecurityPerimeterConfigurationsAsync())
-            {
-                Console.WriteLine($"Succeeded: {item}");
-            }
-
-            Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdateNetworkSecurityPerimeterConfiguration_NetworkSecurityPerimeterConfigurationList()
-        {
-            // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/NameSpaces/NetworkSecurityPerimeterConfigurationReconcile.json
-            // this example is just showing the usage of "NetworkSecurityPerimeterConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this EventHubsNamespaceResource created on azure
-            // for more information of creating EventHubsNamespaceResource, please refer to the document of EventHubsNamespaceResource
-            string subscriptionId = "subID";
-            string resourceGroupName = "SDK-EventHub-4794";
-            string namespaceName = "sdk-Namespace-5828";
-            ResourceIdentifier eventHubsNamespaceResourceId = EventHubsNamespaceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, namespaceName);
-            EventHubsNamespaceResource eventHubsNamespace = client.GetEventHubsNamespaceResource(eventHubsNamespaceResourceId);
-
-            // invoke the operation
-            string resourceAssociationName = "resourceAssociation1";
-            await eventHubsNamespace.CreateOrUpdateNetworkSecurityPerimeterConfigurationAsync(WaitUntil.Completed, resourceAssociationName);
-
-            Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
         public async Task CheckEventHubsDisasterRecoveryNameAvailability_NamespacesCheckNameAvailability()
         {
             // Generated from example definition: specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01/examples/disasterRecoveryConfigs/EHAliasCheckNameAvailability.json

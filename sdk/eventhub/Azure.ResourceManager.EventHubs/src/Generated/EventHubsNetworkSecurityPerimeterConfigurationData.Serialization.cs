@@ -12,15 +12,16 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.EventHubs.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.EventHubs.Models
+namespace Azure.ResourceManager.EventHubs
 {
-    public partial class EventHubsNetworkSecurityPerimeterConfiguration : IUtf8JsonSerializable, IJsonModel<EventHubsNetworkSecurityPerimeterConfiguration>
+    public partial class EventHubsNetworkSecurityPerimeterConfigurationData : IUtf8JsonSerializable, IJsonModel<EventHubsNetworkSecurityPerimeterConfigurationData>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EventHubsNetworkSecurityPerimeterConfiguration>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<EventHubsNetworkSecurityPerimeterConfigurationData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<EventHubsNetworkSecurityPerimeterConfiguration>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<EventHubsNetworkSecurityPerimeterConfigurationData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -31,10 +32,10 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfiguration)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfigurationData)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
@@ -103,19 +104,19 @@ namespace Azure.ResourceManager.EventHubs.Models
             writer.WriteEndObject();
         }
 
-        EventHubsNetworkSecurityPerimeterConfiguration IJsonModel<EventHubsNetworkSecurityPerimeterConfiguration>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        EventHubsNetworkSecurityPerimeterConfigurationData IJsonModel<EventHubsNetworkSecurityPerimeterConfigurationData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfiguration)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfigurationData)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeEventHubsNetworkSecurityPerimeterConfiguration(document.RootElement, options);
+            return DeserializeEventHubsNetworkSecurityPerimeterConfigurationData(document.RootElement, options);
         }
 
-        internal static EventHubsNetworkSecurityPerimeterConfiguration DeserializeEventHubsNetworkSecurityPerimeterConfiguration(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static EventHubsNetworkSecurityPerimeterConfigurationData DeserializeEventHubsNetworkSecurityPerimeterConfigurationData(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -279,7 +280,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new EventHubsNetworkSecurityPerimeterConfiguration(
+            return new EventHubsNetworkSecurityPerimeterConfigurationData(
                 id,
                 name,
                 type,
@@ -556,9 +557,9 @@ namespace Azure.ResourceManager.EventHubs.Models
             return BinaryData.FromString(builder.ToString());
         }
 
-        BinaryData IPersistableModel<EventHubsNetworkSecurityPerimeterConfiguration>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<EventHubsNetworkSecurityPerimeterConfigurationData>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
@@ -567,26 +568,26 @@ namespace Azure.ResourceManager.EventHubs.Models
                 case "bicep":
                     return SerializeBicep(options);
                 default:
-                    throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfiguration)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfigurationData)} does not support writing '{options.Format}' format.");
             }
         }
 
-        EventHubsNetworkSecurityPerimeterConfiguration IPersistableModel<EventHubsNetworkSecurityPerimeterConfiguration>.Create(BinaryData data, ModelReaderWriterOptions options)
+        EventHubsNetworkSecurityPerimeterConfigurationData IPersistableModel<EventHubsNetworkSecurityPerimeterConfigurationData>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<EventHubsNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeEventHubsNetworkSecurityPerimeterConfiguration(document.RootElement, options);
+                        return DeserializeEventHubsNetworkSecurityPerimeterConfigurationData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfiguration)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EventHubsNetworkSecurityPerimeterConfigurationData)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<EventHubsNetworkSecurityPerimeterConfiguration>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<EventHubsNetworkSecurityPerimeterConfigurationData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
