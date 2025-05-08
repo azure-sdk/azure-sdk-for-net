@@ -63,19 +63,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 foreach (var item in Properties)
                 {
                     writer.WritePropertyName(item.Key);
-                    if (item.Value == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
-#else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        JsonSerializer.Serialize(writer, document.RootElement);
-                    }
-#endif
+                    writer.WriteObjectValue(item.Value, options);
                 }
                 writer.WriteEndObject();
             }
@@ -121,7 +109,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string type = default;
             string location = default;
             IReadOnlyDictionary<string, string> tags = default;
-            IReadOnlyDictionary<string, BinaryData> properties = default;
+            IReadOnlyDictionary<string, ResourceNotificationsResourceUpdatedDetailsProperty> properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -166,17 +154,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     {
                         continue;
                     }
-                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    Dictionary<string, ResourceNotificationsResourceUpdatedDetailsProperty> dictionary = new Dictionary<string, ResourceNotificationsResourceUpdatedDetailsProperty>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.Value.ValueKind == JsonValueKind.Null)
-                        {
-                            dictionary.Add(property0.Name, null);
-                        }
-                        else
-                        {
-                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
-                        }
+                        dictionary.Add(property0.Name, ResourceNotificationsResourceUpdatedDetailsProperty.DeserializeResourceNotificationsResourceUpdatedDetailsProperty(property0.Value, options));
                     }
                     properties = dictionary;
                     continue;
@@ -193,7 +174,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 type,
                 location,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
-                properties ?? new ChangeTrackingDictionary<string, BinaryData>(),
+                properties ?? new ChangeTrackingDictionary<string, ResourceNotificationsResourceUpdatedDetailsProperty>(),
                 serializedAdditionalRawData);
         }
 
