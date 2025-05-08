@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string AutomaticValue = "Automatic";
         private const string DirectValue = "Direct";
 
-        /// <summary> Automatic. </summary>
+        /// <summary> Automatically assigns an available personal desktop to the user. </summary>
         public static PersonalDesktopAssignmentType Automatic { get; } = new PersonalDesktopAssignmentType(AutomaticValue);
-        /// <summary> Direct. </summary>
+        /// <summary> Manually assigns a specific personal desktop to the user. </summary>
         public static PersonalDesktopAssignmentType Direct { get; } = new PersonalDesktopAssignmentType(DirectValue);
         /// <summary> Determines if two <see cref="PersonalDesktopAssignmentType"/> values are the same. </summary>
         public static bool operator ==(PersonalDesktopAssignmentType left, PersonalDesktopAssignmentType right) => left.Equals(right);

@@ -39,35 +39,36 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(ManagedBy))
+            if (Optional.IsDefined(Identity))
             {
-                writer.WritePropertyName("managedBy"u8);
-                writer.WriteStringValue(ManagedBy);
-            }
-            if (Optional.IsDefined(Kind))
-            {
-                writer.WritePropertyName("kind"u8);
-                writer.WriteStringValue(Kind);
+                writer.WritePropertyName("identity"u8);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
             if (options.Format != "W" && Optional.IsDefined(ETag))
             {
                 writer.WritePropertyName("etag"u8);
                 writer.WriteStringValue(ETag.Value.ToString());
             }
-            if (Optional.IsDefined(Identity))
+            if (Optional.IsDefined(Kind))
             {
-                writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                writer.WritePropertyName("kind"u8);
+                writer.WriteStringValue(Kind);
             }
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(ManagedBy))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku, options);
+                writer.WritePropertyName("managedBy"u8);
+                writer.WriteStringValue(ManagedBy);
             }
             if (Optional.IsDefined(Plan))
             {
                 writer.WritePropertyName("plan"u8);
                 JsonSerializer.Serialize(writer, Plan);
+            }
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku, options);
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
@@ -141,12 +142,12 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 return null;
             }
-            ResourceIdentifier managedBy = default;
-            string kind = default;
-            ETag? etag = default;
             ManagedServiceIdentity identity = default;
-            DesktopVirtualizationSku sku = default;
+            ETag? etag = default;
+            string kind = default;
+            string managedBy = default;
             ArmPlan plan = default;
+            DesktopVirtualizationSku sku = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -165,18 +166,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("managedBy"u8))
+                if (property.NameEquals("identity"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    managedBy = new ResourceIdentifier(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("kind"u8))
-                {
-                    kind = property.Value.GetString();
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("etag"u8))
@@ -188,22 +185,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     etag = new ETag(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("identity"u8))
+                if (property.NameEquals("kind"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    kind = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("sku"u8))
+                if (property.NameEquals("managedBy"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sku = DesktopVirtualizationSku.DeserializeDesktopVirtualizationSku(property.Value, options);
+                    managedBy = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("plan"u8))
@@ -213,6 +202,15 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         continue;
                     }
                     plan = JsonSerializer.Deserialize<ArmPlan>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("sku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sku = DesktopVirtualizationSku.DeserializeDesktopVirtualizationSku(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -345,6 +343,12 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
+                identity,
+                etag,
+                kind,
+                managedBy,
+                plan,
+                sku,
                 objectId,
                 description,
                 friendlyName,
@@ -353,12 +357,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 exclusionTag,
                 schedules ?? new ChangeTrackingList<ScalingSchedule>(),
                 hostPoolReferences ?? new ChangeTrackingList<ScalingHostPoolReference>(),
-                managedBy,
-                kind,
-                etag,
-                identity,
-                sku,
-                plan,
                 serializedAdditionalRawData);
         }
 
@@ -445,18 +443,33 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagedBy), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Identity), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  managedBy: ");
+                builder.Append("  identity: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(ManagedBy))
+                if (Optional.IsDefined(Identity))
                 {
-                    builder.Append("  managedBy: ");
-                    builder.AppendLine($"'{ManagedBy.ToString()}'");
+                    builder.Append("  identity: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Identity, options, 2, false, "  identity: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ETag), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  etag: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ETag))
+                {
+                    builder.Append("  etag: ");
+                    builder.AppendLine($"'{ETag.Value.ToString()}'");
                 }
             }
 
@@ -483,48 +496,26 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ETag), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagedBy), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  etag: ");
+                builder.Append("  managedBy: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(ETag))
+                if (Optional.IsDefined(ManagedBy))
                 {
-                    builder.Append("  etag: ");
-                    builder.AppendLine($"'{ETag.Value.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Identity), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  identity: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(Identity))
-                {
-                    builder.Append("  identity: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, Identity, options, 2, false, "  identity: ");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Sku), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  sku: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(Sku))
-                {
-                    builder.Append("  sku: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, Sku, options, 2, false, "  sku: ");
+                    builder.Append("  managedBy: ");
+                    if (ManagedBy.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{ManagedBy}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{ManagedBy}'");
+                    }
                 }
             }
 
@@ -540,6 +531,21 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     builder.Append("  plan: ");
                     BicepSerializationHelpers.AppendChildObject(builder, Plan, options, 2, false, "  plan: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Sku), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  sku: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Sku))
+                {
+                    builder.Append("  sku: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Sku, options, 2, false, "  sku: ");
                 }
             }
 

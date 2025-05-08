@@ -62,27 +62,13 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (Optional.IsDefined(MsixPackageFamilyName))
             {
-                if (MsixPackageFamilyName != null)
-                {
-                    writer.WritePropertyName("msixPackageFamilyName"u8);
-                    writer.WriteStringValue(MsixPackageFamilyName);
-                }
-                else
-                {
-                    writer.WriteNull("msixPackageFamilyName");
-                }
+                writer.WritePropertyName("msixPackageFamilyName"u8);
+                writer.WriteStringValue(MsixPackageFamilyName);
             }
             if (Optional.IsDefined(MsixPackageApplicationId))
             {
-                if (MsixPackageApplicationId != null)
-                {
-                    writer.WritePropertyName("msixPackageApplicationId"u8);
-                    writer.WriteStringValue(MsixPackageApplicationId);
-                }
-                else
-                {
-                    writer.WriteNull("msixPackageApplicationId");
-                }
+                writer.WritePropertyName("msixPackageApplicationId"u8);
+                writer.WriteStringValue(MsixPackageApplicationId);
             }
             if (Optional.IsDefined(ApplicationType))
             {
@@ -228,21 +214,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         if (property0.NameEquals("msixPackageFamilyName"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                msixPackageFamilyName = null;
-                                continue;
-                            }
                             msixPackageFamilyName = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("msixPackageApplicationId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                msixPackageApplicationId = null;
-                                continue;
-                            }
                             msixPackageApplicationId = property0.Value.GetString();
                             continue;
                         }

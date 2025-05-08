@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_ScalingPlansGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlan_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/ScalingPlans_Get.json
             // this example is just showing the usage of "ScalingPlans_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_ScalingPlansDelete()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlan_Delete.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/ScalingPlans_Delete.json
             // this example is just showing the usage of "ScalingPlans_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_ScalingPlansUpdate()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlan_Update.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/ScalingPlans_Update.json
             // this example is just showing the usage of "ScalingPlans_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -93,7 +93,46 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
             ScalingPlanResource scalingPlan = client.GetScalingPlanResource(scalingPlanResourceId);
 
             // invoke the operation
-            ScalingPlanPatch patch = new ScalingPlanPatch();
+            ScalingPlanPatch patch = new ScalingPlanPatch
+            {
+                Tags =
+{
+["tag1"] = "value1",
+["tag2"] = "value2"
+},
+                Properties = new ScalingPlanPatchProperties
+                {
+                    Description = "Description of Scaling Plan",
+                    FriendlyName = "Scaling Plan 1",
+                    TimeZone = "Central Standard Time",
+                    ExclusionTag = "value",
+                    Schedules = {new ScalingSchedule
+{
+Name = "schedule1",
+DaysOfWeek = {DesktopVirtualizationDayOfWeek.Monday, DesktopVirtualizationDayOfWeek.Tuesday, DesktopVirtualizationDayOfWeek.Wednesday, DesktopVirtualizationDayOfWeek.Thursday, DesktopVirtualizationDayOfWeek.Friday},
+RampUpStartTime = new ScalingActionTime(6, 0),
+RampUpLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.DepthFirst,
+RampUpMinimumHostsPct = 20,
+RampUpCapacityThresholdPct = 80,
+PeakStartTime = new ScalingActionTime(8, 0),
+PeakLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.BreadthFirst,
+RampDownStartTime = new ScalingActionTime(18, 0),
+RampDownLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.DepthFirst,
+RampDownMinimumHostsPct = 20,
+RampDownCapacityThresholdPct = 50,
+RampDownForceLogoffUsers = true,
+RampDownWaitTimeMinutes = 30,
+RampDownNotificationMessage = "message",
+OffPeakStartTime = new ScalingActionTime(20, 0),
+OffPeakLoadBalancingAlgorithm = SessionHostLoadBalancingAlgorithm.DepthFirst,
+}},
+                    HostPoolReferences = {new ScalingHostPoolReference
+{
+HostPoolId = new ResourceIdentifier("/subscriptions/daefabc0-95b4-48b3-b645-8a753a63c4fa/resourceGroups/resourceGroup1/providers/Microsoft.DesktopVirtualization/hostPools/hostPool1"),
+IsScalingPlanEnabled = true,
+}},
+                },
+            };
             ScalingPlanResource result = await scalingPlan.UpdateAsync(patch);
 
             // the variable result is a resource, you could call other operations on this instance as well

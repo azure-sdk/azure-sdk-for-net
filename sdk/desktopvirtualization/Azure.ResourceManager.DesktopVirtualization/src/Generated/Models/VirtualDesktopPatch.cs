@@ -48,30 +48,19 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> Initializes a new instance of <see cref="VirtualDesktopPatch"/>. </summary>
         public VirtualDesktopPatch()
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualDesktopPatch"/>. </summary>
-        /// <param name="tags"> tags to be updated. </param>
-        /// <param name="description"> Description of Desktop. </param>
-        /// <param name="friendlyName"> Friendly name of Desktop. </param>
+        /// <param name="properties"> Detailed properties for Desktop. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualDesktopPatch(IDictionary<string, string> tags, string description, string friendlyName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VirtualDesktopPatch(DesktopPatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Tags = tags;
-            Description = description;
-            FriendlyName = friendlyName;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> tags to be updated. </summary>
-        [WirePath("tags")]
-        public IDictionary<string, string> Tags { get; set; }
-        /// <summary> Description of Desktop. </summary>
-        [WirePath("properties.description")]
-        public string Description { get; set; }
-        /// <summary> Friendly name of Desktop. </summary>
-        [WirePath("properties.friendlyName")]
-        public string FriendlyName { get; set; }
+        /// <summary> Detailed properties for Desktop. </summary>
+        [WirePath("properties")]
+        public DesktopPatchProperties Properties { get; set; }
     }
 }

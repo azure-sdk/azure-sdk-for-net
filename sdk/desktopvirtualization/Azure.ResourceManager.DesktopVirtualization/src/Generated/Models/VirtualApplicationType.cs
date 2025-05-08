@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string RemoteAppValue = "RemoteApp";
         private const string DesktopValue = "Desktop";
 
-        /// <summary> RemoteApp. </summary>
+        /// <summary> Remote Applications (non-desktop). </summary>
         public static VirtualApplicationType RemoteApp { get; } = new VirtualApplicationType(RemoteAppValue);
-        /// <summary> Desktop. </summary>
+        /// <summary> Desktop Applications. </summary>
         public static VirtualApplicationType Desktop { get; } = new VirtualApplicationType(DesktopValue);
         /// <summary> Determines if two <see cref="VirtualApplicationType"/> values are the same. </summary>
         public static bool operator ==(VirtualApplicationType left, VirtualApplicationType right) => left.Equals(right);

@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string DesktopValue = "Desktop";
         private const string RailApplicationsValue = "RailApplications";
 
-        /// <summary> None. </summary>
+        /// <summary> Internal Use Only. </summary>
         public static PreferredAppGroupType None { get; } = new PreferredAppGroupType(NoneValue);
-        /// <summary> Desktop. </summary>
+        /// <summary> Use Desktop Application Group. </summary>
         public static PreferredAppGroupType Desktop { get; } = new PreferredAppGroupType(DesktopValue);
-        /// <summary> RailApplications. </summary>
+        /// <summary> Use RailApplications (RemoteApp). </summary>
         public static PreferredAppGroupType RailApplications { get; } = new PreferredAppGroupType(RailApplicationsValue);
         /// <summary> Determines if two <see cref="PreferredAppGroupType"/> values are the same. </summary>
         public static bool operator ==(PreferredAppGroupType left, PreferredAppGroupType right) => left.Equals(right);

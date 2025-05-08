@@ -40,7 +40,53 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("properties"u8);
-            writer.WriteObjectValue(Properties, options);
+            writer.WriteStartObject();
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
+            {
+                writer.WritePropertyName("provisioningState"u8);
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
+            }
+            if (Optional.IsDefined(Image))
+            {
+                writer.WritePropertyName("image"u8);
+                writer.WriteObjectValue(Image, options);
+            }
+            if (Optional.IsCollectionDefined(HostPoolReferences))
+            {
+                writer.WritePropertyName("hostPoolReferences"u8);
+                writer.WriteStartArray();
+                foreach (var item in HostPoolReferences)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(KeyVaultURL))
+            {
+                writer.WritePropertyName("keyVaultURL"u8);
+                writer.WriteStringValue(KeyVaultURL);
+            }
+            if (Optional.IsDefined(FailHealthCheckOnStagingFailure))
+            {
+                writer.WritePropertyName("failHealthCheckOnStagingFailure"u8);
+                writer.WriteStringValue(FailHealthCheckOnStagingFailure.Value.ToString());
+            }
+            if (Optional.IsDefined(PackageOwnerName))
+            {
+                writer.WritePropertyName("packageOwnerName"u8);
+                writer.WriteStringValue(PackageOwnerName);
+            }
+            if (Optional.IsDefined(PackageLookbackUri))
+            {
+                writer.WritePropertyName("packageLookbackUrl"u8);
+                writer.WriteStringValue(PackageLookbackUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(CustomData))
+            {
+                writer.WritePropertyName("customData"u8);
+                writer.WriteStringValue(CustomData);
+            }
+            writer.WriteEndObject();
         }
 
         AppAttachPackageData IJsonModel<AppAttachPackageData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -63,22 +109,24 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 return null;
             }
-            AppAttachPackageProperties properties = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            AppAttachPackageProvisioningState? provisioningState = default;
+            AppAttachPackageInfoProperties image = default;
+            IList<string> hostPoolReferences = default;
+            string keyVaultURL = default;
+            FailHealthCheckOnStagingFailure? failHealthCheckOnStagingFailure = default;
+            string packageOwnerName = default;
+            Uri packageLookbackUrl = default;
+            string customData = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("properties"u8))
-                {
-                    properties = AppAttachPackageProperties.DeserializeAppAttachPackageProperties(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -122,6 +170,83 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            provisioningState = new AppAttachPackageProvisioningState(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("image"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            image = AppAttachPackageInfoProperties.DeserializeAppAttachPackageInfoProperties(property0.Value, options);
+                            continue;
+                        }
+                        if (property0.NameEquals("hostPoolReferences"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            hostPoolReferences = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("keyVaultURL"u8))
+                        {
+                            keyVaultURL = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("failHealthCheckOnStagingFailure"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            failHealthCheckOnStagingFailure = new FailHealthCheckOnStagingFailure(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("packageOwnerName"u8))
+                        {
+                            packageOwnerName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("packageLookbackUrl"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            packageLookbackUrl = new Uri(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("customData"u8))
+                        {
+                            customData = property0.Value.GetString();
+                            continue;
+                        }
+                    }
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -135,7 +260,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                properties,
+                provisioningState,
+                image,
+                hostPoolReferences ?? new ChangeTrackingList<string>(),
+                keyVaultURL,
+                failHealthCheckOnStagingFailure,
+                packageOwnerName,
+                packageLookbackUrl,
+                customData,
                 serializedAdditionalRawData);
         }
 
@@ -222,21 +354,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Properties), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  properties: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(Properties))
-                {
-                    builder.Append("  properties: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, Properties, options, 2, false, "  properties: ");
-                }
-            }
-
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Id), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -267,6 +384,174 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 }
             }
 
+            builder.Append("  properties:");
+            builder.AppendLine(" {");
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ProvisioningState), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    provisioningState: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ProvisioningState))
+                {
+                    builder.Append("    provisioningState: ");
+                    builder.AppendLine($"'{ProvisioningState.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Image), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    image: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Image))
+                {
+                    builder.Append("    image: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Image, options, 4, false, "    image: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(HostPoolReferences), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    hostPoolReferences: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsCollectionDefined(HostPoolReferences))
+                {
+                    if (HostPoolReferences.Any())
+                    {
+                        builder.Append("    hostPoolReferences: ");
+                        builder.AppendLine("[");
+                        foreach (var item in HostPoolReferences)
+                        {
+                            if (item == null)
+                            {
+                                builder.Append("null");
+                                continue;
+                            }
+                            if (item.Contains(Environment.NewLine))
+                            {
+                                builder.AppendLine("      '''");
+                                builder.AppendLine($"{item}'''");
+                            }
+                            else
+                            {
+                                builder.AppendLine($"      '{item}'");
+                            }
+                        }
+                        builder.AppendLine("    ]");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(KeyVaultURL), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    keyVaultURL: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(KeyVaultURL))
+                {
+                    builder.Append("    keyVaultURL: ");
+                    if (KeyVaultURL.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{KeyVaultURL}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{KeyVaultURL}'");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(FailHealthCheckOnStagingFailure), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    failHealthCheckOnStagingFailure: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(FailHealthCheckOnStagingFailure))
+                {
+                    builder.Append("    failHealthCheckOnStagingFailure: ");
+                    builder.AppendLine($"'{FailHealthCheckOnStagingFailure.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageOwnerName), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    packageOwnerName: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PackageOwnerName))
+                {
+                    builder.Append("    packageOwnerName: ");
+                    if (PackageOwnerName.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{PackageOwnerName}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{PackageOwnerName}'");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageLookbackUri), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    packageLookbackUrl: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PackageLookbackUri))
+                {
+                    builder.Append("    packageLookbackUrl: ");
+                    builder.AppendLine($"'{PackageLookbackUri.AbsoluteUri}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CustomData), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    customData: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(CustomData))
+                {
+                    builder.Append("    customData: ");
+                    if (CustomData.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{CustomData}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{CustomData}'");
+                    }
+                }
+            }
+
+            builder.AppendLine("  }");
             builder.AppendLine("}");
             return BinaryData.FromString(builder.ToString());
         }

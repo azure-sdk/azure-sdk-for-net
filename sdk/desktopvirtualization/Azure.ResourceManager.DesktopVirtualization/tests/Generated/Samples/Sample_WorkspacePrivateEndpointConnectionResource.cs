@@ -18,9 +18,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_PrivateEndpointConnectionGetByWorkspace()
+        public async Task Get_PrivateEndpointConnectionsGetByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_GetByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_GetByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_GetByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -49,9 +49,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Delete_PrivateEndpointConnectionDeleteByWorkspace()
+        public async Task Delete_PrivateEndpointConnectionsDeleteByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_DeleteByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_DeleteByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_DeleteByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -76,9 +76,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Update_PrivateEndpointConnectionUpdateByWorkspace()
+        public async Task Update_PrivateEndpointConnectionsUpdateByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_UpdateByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_UpdateByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_UpdateByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
             WorkspacePrivateEndpointConnectionResource workspacePrivateEndpointConnection = client.GetWorkspacePrivateEndpointConnectionResource(workspacePrivateEndpointConnectionResourceId);
 
             // invoke the operation
-            DesktopVirtualizationPrivateEndpointConnection connection = new DesktopVirtualizationPrivateEndpointConnection
+            DesktopVirtualizationPrivateEndpointConnectionDataData data = new DesktopVirtualizationPrivateEndpointConnectionDataData
             {
                 ConnectionState = new DesktopVirtualizationPrivateLinkServiceConnectionState
                 {
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
                     ActionsRequired = "None",
                 },
             };
-            ArmOperation<WorkspacePrivateEndpointConnectionResource> lro = await workspacePrivateEndpointConnection.UpdateAsync(WaitUntil.Completed, connection);
+            ArmOperation<WorkspacePrivateEndpointConnectionResource> lro = await workspacePrivateEndpointConnection.UpdateAsync(WaitUntil.Completed, data);
             WorkspacePrivateEndpointConnectionResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well

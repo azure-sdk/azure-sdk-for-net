@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string AllowValue = "Allow";
         private const string RequireValue = "Require";
 
-        /// <summary> DoNotAllow. </summary>
+        /// <summary> Cannot be launched with command line arguments. </summary>
         public static VirtualApplicationCommandLineSetting DoNotAllow { get; } = new VirtualApplicationCommandLineSetting(DoNotAllowValue);
-        /// <summary> Allow. </summary>
+        /// <summary> Can optionally be launched with command line arguments. </summary>
         public static VirtualApplicationCommandLineSetting Allow { get; } = new VirtualApplicationCommandLineSetting(AllowValue);
-        /// <summary> Require. </summary>
+        /// <summary> Required to be launched with command line arguments. </summary>
         public static VirtualApplicationCommandLineSetting Require { get; } = new VirtualApplicationCommandLineSetting(RequireValue);
         /// <summary> Determines if two <see cref="VirtualApplicationCommandLineSetting"/> values are the same. </summary>
         public static bool operator ==(VirtualApplicationCommandLineSetting left, VirtualApplicationCommandLineSetting right) => left.Equals(right);

@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string ZeroSessionsValue = "ZeroSessions";
         private const string ZeroActiveSessionsValue = "ZeroActiveSessions";
 
-        /// <summary> ZeroSessions. </summary>
+        /// <summary> Zero Total Sessions. </summary>
         public static DesktopVirtualizationStopHostsWhen ZeroSessions { get; } = new DesktopVirtualizationStopHostsWhen(ZeroSessionsValue);
-        /// <summary> ZeroActiveSessions. </summary>
+        /// <summary> Zero Active Sessions. </summary>
         public static DesktopVirtualizationStopHostsWhen ZeroActiveSessions { get; } = new DesktopVirtualizationStopHostsWhen(ZeroActiveSessionsValue);
         /// <summary> Determines if two <see cref="DesktopVirtualizationStopHostsWhen"/> values are the same. </summary>
         public static bool operator ==(DesktopVirtualizationStopHostsWhen left, DesktopVirtualizationStopHostsWhen right) => left.Equals(right);

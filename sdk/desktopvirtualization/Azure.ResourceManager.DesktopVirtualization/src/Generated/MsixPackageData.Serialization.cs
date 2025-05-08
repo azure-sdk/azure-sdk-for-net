@@ -58,15 +58,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (Optional.IsDefined(DisplayName))
             {
-                if (DisplayName != null)
-                {
-                    writer.WritePropertyName("displayName"u8);
-                    writer.WriteStringValue(DisplayName);
-                }
-                else
-                {
-                    writer.WriteNull("displayName");
-                }
+                writer.WritePropertyName("displayName"u8);
+                writer.WriteStringValue(DisplayName);
             }
             if (Optional.IsDefined(PackageRelativePath))
             {
@@ -205,11 +198,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         if (property0.NameEquals("displayName"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                displayName = null;
-                                continue;
-                            }
                             displayName = property0.Value.GetString();
                             continue;
                         }

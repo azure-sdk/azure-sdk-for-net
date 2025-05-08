@@ -33,142 +33,73 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of VirtualWorkspaceResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of VirtualWorkspaceResources and their operations over a VirtualWorkspaceResource. </returns>
-        public virtual VirtualWorkspaceCollection GetVirtualWorkspaces()
+        /// <summary> Gets a collection of AppAttachPackageResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of AppAttachPackageResources and their operations over a AppAttachPackageResource. </returns>
+        public virtual AppAttachPackageCollection GetAppAttachPackages()
         {
-            return GetCachedClient(client => new VirtualWorkspaceCollection(client, Id));
+            return GetCachedClient(client => new AppAttachPackageCollection(client, Id));
         }
 
         /// <summary>
-        /// Get a workspace.
+        /// Get an app attach package.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/workspaces/{workspaceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Workspaces_Get</description>
+        /// <description>AppAttachPackage_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="VirtualWorkspaceResource"/></description>
+        /// <description><see cref="AppAttachPackageResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<VirtualWorkspaceResource>> GetVirtualWorkspaceAsync(string workspaceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AppAttachPackageResource>> GetAppAttachPackageAsync(string appAttachPackageName, CancellationToken cancellationToken = default)
         {
-            return await GetVirtualWorkspaces().GetAsync(workspaceName, cancellationToken).ConfigureAwait(false);
+            return await GetAppAttachPackages().GetAsync(appAttachPackageName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Get a workspace.
+        /// Get an app attach package.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/workspaces/{workspaceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Workspaces_Get</description>
+        /// <description>AppAttachPackage_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="VirtualWorkspaceResource"/></description>
+        /// <description><see cref="AppAttachPackageResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<VirtualWorkspaceResource> GetVirtualWorkspace(string workspaceName, CancellationToken cancellationToken = default)
+        public virtual Response<AppAttachPackageResource> GetAppAttachPackage(string appAttachPackageName, CancellationToken cancellationToken = default)
         {
-            return GetVirtualWorkspaces().Get(workspaceName, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of ScalingPlanResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ScalingPlanResources and their operations over a ScalingPlanResource. </returns>
-        public virtual ScalingPlanCollection GetScalingPlans()
-        {
-            return GetCachedClient(client => new ScalingPlanCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a scaling plan.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/scalingPlans/{scalingPlanName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ScalingPlans_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ScalingPlanResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="scalingPlanName"> The name of the scaling plan. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="scalingPlanName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="scalingPlanName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<ScalingPlanResource>> GetScalingPlanAsync(string scalingPlanName, CancellationToken cancellationToken = default)
-        {
-            return await GetScalingPlans().GetAsync(scalingPlanName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a scaling plan.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/scalingPlans/{scalingPlanName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ScalingPlans_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ScalingPlanResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="scalingPlanName"> The name of the scaling plan. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="scalingPlanName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="scalingPlanName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<ScalingPlanResource> GetScalingPlan(string scalingPlanName, CancellationToken cancellationToken = default)
-        {
-            return GetScalingPlans().Get(scalingPlanName, cancellationToken);
+            return GetAppAttachPackages().Get(appAttachPackageName, cancellationToken);
         }
 
         /// <summary> Gets a collection of VirtualApplicationGroupResources in the ResourceGroupResource. </summary>
@@ -191,7 +122,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -222,7 +153,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -260,7 +191,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -291,7 +222,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -309,73 +240,142 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
             return GetHostPools().Get(hostPoolName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of AppAttachPackageResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of AppAttachPackageResources and their operations over a AppAttachPackageResource. </returns>
-        public virtual AppAttachPackageCollection GetAppAttachPackages()
+        /// <summary> Gets a collection of ScalingPlanResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of ScalingPlanResources and their operations over a ScalingPlanResource. </returns>
+        public virtual ScalingPlanCollection GetScalingPlans()
         {
-            return GetCachedClient(client => new AppAttachPackageCollection(client, Id));
+            return GetCachedClient(client => new ScalingPlanCollection(client, Id));
         }
 
         /// <summary>
-        /// Get an app attach package.
+        /// Get a scaling plan.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/scalingPlans/{scalingPlanName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AppAttachPackage_Get</description>
+        /// <description>ScalingPlans_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="AppAttachPackageResource"/></description>
+        /// <description><see cref="ScalingPlanResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="scalingPlanName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="scalingPlanName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<AppAttachPackageResource>> GetAppAttachPackageAsync(string appAttachPackageName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ScalingPlanResource>> GetScalingPlanAsync(string scalingPlanName, CancellationToken cancellationToken = default)
         {
-            return await GetAppAttachPackages().GetAsync(appAttachPackageName, cancellationToken).ConfigureAwait(false);
+            return await GetScalingPlans().GetAsync(scalingPlanName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Get an app attach package.
+        /// Get a scaling plan.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/scalingPlans/{scalingPlanName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AppAttachPackage_Get</description>
+        /// <description>ScalingPlans_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="AppAttachPackageResource"/></description>
+        /// <description><see cref="ScalingPlanResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="scalingPlanName"> The name of the scaling plan. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="scalingPlanName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="scalingPlanName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<AppAttachPackageResource> GetAppAttachPackage(string appAttachPackageName, CancellationToken cancellationToken = default)
+        public virtual Response<ScalingPlanResource> GetScalingPlan(string scalingPlanName, CancellationToken cancellationToken = default)
         {
-            return GetAppAttachPackages().Get(appAttachPackageName, cancellationToken);
+            return GetScalingPlans().Get(scalingPlanName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of VirtualWorkspaceResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of VirtualWorkspaceResources and their operations over a VirtualWorkspaceResource. </returns>
+        public virtual VirtualWorkspaceCollection GetVirtualWorkspaces()
+        {
+            return GetCachedClient(client => new VirtualWorkspaceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get a workspace.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/workspaces/{workspaceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workspaces_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-04-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="VirtualWorkspaceResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<VirtualWorkspaceResource>> GetVirtualWorkspaceAsync(string workspaceName, CancellationToken cancellationToken = default)
+        {
+            return await GetVirtualWorkspaces().GetAsync(workspaceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a workspace.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/workspaces/{workspaceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workspaces_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-04-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="VirtualWorkspaceResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<VirtualWorkspaceResource> GetVirtualWorkspace(string workspaceName, CancellationToken cancellationToken = default)
+        {
+            return GetVirtualWorkspaces().Get(workspaceName, cancellationToken);
         }
     }
 }

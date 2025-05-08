@@ -57,26 +57,16 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="isActive"> Set a version of the package to be active across hostpool. </param>
-        /// <param name="isRegularRegistration"> Set Registration mode. Regular or Delayed. </param>
-        /// <param name="displayName"> Display name for MSIX Package. </param>
+        /// <param name="properties"> Detailed properties for MSIX Package. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MsixPackagePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, bool? isActive, bool? isRegularRegistration, string displayName, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal MsixPackagePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, MsixPackagePatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            IsActive = isActive;
-            IsRegularRegistration = isRegularRegistration;
-            DisplayName = displayName;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Set a version of the package to be active across hostpool. </summary>
-        [WirePath("properties.isActive")]
-        public bool? IsActive { get; set; }
-        /// <summary> Set Registration mode. Regular or Delayed. </summary>
-        [WirePath("properties.isRegularRegistration")]
-        public bool? IsRegularRegistration { get; set; }
-        /// <summary> Display name for MSIX Package. </summary>
-        [WirePath("properties.displayName")]
-        public string DisplayName { get; set; }
+        /// <summary> Detailed properties for MSIX Package. </summary>
+        [WirePath("properties")]
+        public MsixPackagePatchProperties Properties { get; set; }
     }
 }

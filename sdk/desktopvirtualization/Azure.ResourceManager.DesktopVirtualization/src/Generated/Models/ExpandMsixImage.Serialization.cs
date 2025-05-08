@@ -8,7 +8,6 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
@@ -38,122 +37,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(PackageAlias))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("packageAlias"u8);
-                writer.WriteStringValue(PackageAlias);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (Optional.IsDefined(ImagePath))
-            {
-                writer.WritePropertyName("imagePath"u8);
-                writer.WriteStringValue(ImagePath);
-            }
-            if (Optional.IsDefined(PackageName))
-            {
-                writer.WritePropertyName("packageName"u8);
-                writer.WriteStringValue(PackageName);
-            }
-            if (Optional.IsDefined(PackageFamilyName))
-            {
-                writer.WritePropertyName("packageFamilyName"u8);
-                writer.WriteStringValue(PackageFamilyName);
-            }
-            if (Optional.IsDefined(PackageFullName))
-            {
-                writer.WritePropertyName("packageFullName"u8);
-                writer.WriteStringValue(PackageFullName);
-            }
-            if (Optional.IsDefined(DisplayName))
-            {
-                if (DisplayName != null)
-                {
-                    writer.WritePropertyName("displayName"u8);
-                    writer.WriteStringValue(DisplayName);
-                }
-                else
-                {
-                    writer.WriteNull("displayName");
-                }
-            }
-            if (Optional.IsDefined(PackageRelativePath))
-            {
-                writer.WritePropertyName("packageRelativePath"u8);
-                writer.WriteStringValue(PackageRelativePath);
-            }
-            if (Optional.IsDefined(IsRegularRegistration))
-            {
-                writer.WritePropertyName("isRegularRegistration"u8);
-                writer.WriteBooleanValue(IsRegularRegistration.Value);
-            }
-            if (Optional.IsDefined(IsActive))
-            {
-                writer.WritePropertyName("isActive"u8);
-                writer.WriteBooleanValue(IsActive.Value);
-            }
-            if (Optional.IsCollectionDefined(PackageDependencies))
-            {
-                if (PackageDependencies != null)
-                {
-                    writer.WritePropertyName("packageDependencies"u8);
-                    writer.WriteStartArray();
-                    foreach (var item in PackageDependencies)
-                    {
-                        writer.WriteObjectValue(item, options);
-                    }
-                    writer.WriteEndArray();
-                }
-                else
-                {
-                    writer.WriteNull("packageDependencies");
-                }
-            }
-            if (Optional.IsDefined(Version))
-            {
-                writer.WritePropertyName("version"u8);
-                writer.WriteStringValue(Version);
-            }
-            if (Optional.IsDefined(LastUpdatedOn))
-            {
-                writer.WritePropertyName("lastUpdated"u8);
-                writer.WriteStringValue(LastUpdatedOn.Value, "O");
-            }
-            if (Optional.IsCollectionDefined(PackageApplications))
-            {
-                writer.WritePropertyName("packageApplications"u8);
-                writer.WriteStartArray();
-                foreach (var item in PackageApplications)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsDefined(CertificateName))
-            {
-                if (CertificateName != null)
-                {
-                    writer.WritePropertyName("certificateName"u8);
-                    writer.WriteStringValue(CertificateName);
-                }
-                else
-                {
-                    writer.WriteNull("certificateName");
-                }
-            }
-            if (Optional.IsDefined(CertificateExpiry))
-            {
-                if (CertificateExpiry != null)
-                {
-                    writer.WritePropertyName("certificateExpiry"u8);
-                    writer.WriteStringValue(CertificateExpiry.Value, "O");
-                }
-                else
-                {
-                    writer.WriteNull("certificateExpiry");
-                }
-            }
-            writer.WriteEndObject();
         }
 
         ExpandMsixImage IJsonModel<ExpandMsixImage>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -176,29 +64,24 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             {
                 return null;
             }
+            ExpandMsixImageProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string packageAlias = default;
-            string imagePath = default;
-            string packageName = default;
-            string packageFamilyName = default;
-            string packageFullName = default;
-            string displayName = default;
-            string packageRelativePath = default;
-            bool? isRegularRegistration = default;
-            bool? isActive = default;
-            IList<MsixPackageDependencies> packageDependencies = default;
-            string version = default;
-            DateTimeOffset? lastUpdated = default;
-            IList<MsixPackageApplications> packageApplications = default;
-            string certificateName = default;
-            DateTimeOffset? certificateExpiry = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = ExpandMsixImageProperties.DeserializeExpandMsixImageProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -223,139 +106,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("packageAlias"u8))
-                        {
-                            packageAlias = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("imagePath"u8))
-                        {
-                            imagePath = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("packageName"u8))
-                        {
-                            packageName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("packageFamilyName"u8))
-                        {
-                            packageFamilyName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("packageFullName"u8))
-                        {
-                            packageFullName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("displayName"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                displayName = null;
-                                continue;
-                            }
-                            displayName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("packageRelativePath"u8))
-                        {
-                            packageRelativePath = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("isRegularRegistration"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            isRegularRegistration = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("isActive"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            isActive = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("packageDependencies"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                packageDependencies = null;
-                                continue;
-                            }
-                            List<MsixPackageDependencies> array = new List<MsixPackageDependencies>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(MsixPackageDependencies.DeserializeMsixPackageDependencies(item, options));
-                            }
-                            packageDependencies = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("version"u8))
-                        {
-                            version = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("lastUpdated"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            lastUpdated = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("packageApplications"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<MsixPackageApplications> array = new List<MsixPackageApplications>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(MsixPackageApplications.DeserializeMsixPackageApplications(item, options));
-                            }
-                            packageApplications = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("certificateName"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                certificateName = null;
-                                continue;
-                            }
-                            certificateName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("certificateExpiry"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                certificateExpiry = null;
-                                continue;
-                            }
-                            certificateExpiry = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -367,21 +117,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 name,
                 type,
                 systemData,
-                packageAlias,
-                imagePath,
-                packageName,
-                packageFamilyName,
-                packageFullName,
-                displayName,
-                packageRelativePath,
-                isRegularRegistration,
-                isActive,
-                packageDependencies ?? new ChangeTrackingList<MsixPackageDependencies>(),
-                version,
-                lastUpdated,
-                packageApplications ?? new ChangeTrackingList<MsixPackageApplications>(),
-                certificateName,
-                certificateExpiry,
+                properties,
                 serializedAdditionalRawData);
         }
 
@@ -419,6 +155,21 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Properties), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  properties: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Properties))
+                {
+                    builder.Append("  properties: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Properties, options, 2, false, "  properties: ");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Id), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -449,326 +200,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
-            builder.Append("  properties:");
-            builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageAlias), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    packageAlias: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(PackageAlias))
-                {
-                    builder.Append("    packageAlias: ");
-                    if (PackageAlias.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{PackageAlias}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{PackageAlias}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ImagePath), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    imagePath: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(ImagePath))
-                {
-                    builder.Append("    imagePath: ");
-                    if (ImagePath.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{ImagePath}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{ImagePath}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageName), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    packageName: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(PackageName))
-                {
-                    builder.Append("    packageName: ");
-                    if (PackageName.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{PackageName}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{PackageName}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageFamilyName), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    packageFamilyName: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(PackageFamilyName))
-                {
-                    builder.Append("    packageFamilyName: ");
-                    if (PackageFamilyName.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{PackageFamilyName}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{PackageFamilyName}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageFullName), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    packageFullName: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(PackageFullName))
-                {
-                    builder.Append("    packageFullName: ");
-                    if (PackageFullName.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{PackageFullName}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{PackageFullName}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DisplayName), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    displayName: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(DisplayName))
-                {
-                    builder.Append("    displayName: ");
-                    if (DisplayName.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{DisplayName}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{DisplayName}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageRelativePath), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    packageRelativePath: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(PackageRelativePath))
-                {
-                    builder.Append("    packageRelativePath: ");
-                    if (PackageRelativePath.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{PackageRelativePath}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{PackageRelativePath}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(IsRegularRegistration), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    isRegularRegistration: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(IsRegularRegistration))
-                {
-                    builder.Append("    isRegularRegistration: ");
-                    var boolValue = IsRegularRegistration.Value == true ? "true" : "false";
-                    builder.AppendLine($"{boolValue}");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(IsActive), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    isActive: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(IsActive))
-                {
-                    builder.Append("    isActive: ");
-                    var boolValue = IsActive.Value == true ? "true" : "false";
-                    builder.AppendLine($"{boolValue}");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageDependencies), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    packageDependencies: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsCollectionDefined(PackageDependencies))
-                {
-                    if (PackageDependencies.Any())
-                    {
-                        builder.Append("    packageDependencies: ");
-                        builder.AppendLine("[");
-                        foreach (var item in PackageDependencies)
-                        {
-                            BicepSerializationHelpers.AppendChildObject(builder, item, options, 6, true, "    packageDependencies: ");
-                        }
-                        builder.AppendLine("    ]");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Version), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    version: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(Version))
-                {
-                    builder.Append("    version: ");
-                    if (Version.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{Version}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{Version}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(LastUpdatedOn), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    lastUpdated: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(LastUpdatedOn))
-                {
-                    builder.Append("    lastUpdated: ");
-                    var formattedDateTimeString = TypeFormatters.ToString(LastUpdatedOn.Value, "o");
-                    builder.AppendLine($"'{formattedDateTimeString}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PackageApplications), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    packageApplications: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsCollectionDefined(PackageApplications))
-                {
-                    if (PackageApplications.Any())
-                    {
-                        builder.Append("    packageApplications: ");
-                        builder.AppendLine("[");
-                        foreach (var item in PackageApplications)
-                        {
-                            BicepSerializationHelpers.AppendChildObject(builder, item, options, 6, true, "    packageApplications: ");
-                        }
-                        builder.AppendLine("    ]");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CertificateName), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    certificateName: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(CertificateName))
-                {
-                    builder.Append("    certificateName: ");
-                    if (CertificateName.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{CertificateName}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{CertificateName}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CertificateExpiry), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    certificateExpiry: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(CertificateExpiry))
-                {
-                    builder.Append("    certificateExpiry: ");
-                    var formattedDateTimeString = TypeFormatters.ToString(CertificateExpiry.Value, "o");
-                    builder.AppendLine($"'{formattedDateTimeString}'");
-                }
-            }
-
-            builder.AppendLine("  }");
             builder.AppendLine("}");
             return BinaryData.FromString(builder.ToString());
         }

@@ -37,34 +37,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(AppAlias))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("appAlias"u8);
-                writer.WriteStringValue(AppAlias);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (Optional.IsDefined(FilePath))
-            {
-                writer.WritePropertyName("filePath"u8);
-                writer.WriteStringValue(FilePath);
-            }
-            if (Optional.IsDefined(CommandLineArguments))
-            {
-                writer.WritePropertyName("commandLineArguments"u8);
-                writer.WriteStringValue(CommandLineArguments);
-            }
-            if (Optional.IsDefined(IconPath))
-            {
-                writer.WritePropertyName("iconPath"u8);
-                writer.WriteStringValue(IconPath);
-            }
-            if (Optional.IsDefined(IconIndex))
-            {
-                writer.WritePropertyName("iconIndex"u8);
-                writer.WriteNumberValue(IconIndex.Value);
-            }
-            writer.WriteEndObject();
         }
 
         DesktopVirtualizationStartMenuItem IJsonModel<DesktopVirtualizationStartMenuItem>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -87,19 +64,24 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             {
                 return null;
             }
+            StartMenuItemProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string appAlias = default;
-            string filePath = default;
-            string commandLineArguments = default;
-            string iconPath = default;
-            int? iconIndex = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = StartMenuItemProperties.DeserializeStartMenuItemProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -124,47 +106,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("appAlias"u8))
-                        {
-                            appAlias = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("filePath"u8))
-                        {
-                            filePath = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("commandLineArguments"u8))
-                        {
-                            commandLineArguments = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("iconPath"u8))
-                        {
-                            iconPath = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("iconIndex"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            iconIndex = property0.Value.GetInt32();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -176,11 +117,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 name,
                 type,
                 systemData,
-                appAlias,
-                filePath,
-                commandLineArguments,
-                iconPath,
-                iconIndex,
+                properties,
                 serializedAdditionalRawData);
         }
 
@@ -218,6 +155,21 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Properties), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  properties: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Properties))
+                {
+                    builder.Append("  properties: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Properties, options, 2, false, "  properties: ");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Id), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -248,116 +200,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
-            builder.Append("  properties:");
-            builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AppAlias), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    appAlias: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(AppAlias))
-                {
-                    builder.Append("    appAlias: ");
-                    if (AppAlias.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{AppAlias}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{AppAlias}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(FilePath), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    filePath: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(FilePath))
-                {
-                    builder.Append("    filePath: ");
-                    if (FilePath.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{FilePath}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{FilePath}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CommandLineArguments), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    commandLineArguments: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(CommandLineArguments))
-                {
-                    builder.Append("    commandLineArguments: ");
-                    if (CommandLineArguments.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{CommandLineArguments}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{CommandLineArguments}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(IconPath), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    iconPath: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(IconPath))
-                {
-                    builder.Append("    iconPath: ");
-                    if (IconPath.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{IconPath}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{IconPath}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(IconIndex), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    iconIndex: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(IconIndex))
-                {
-                    builder.Append("    iconIndex: ");
-                    builder.AppendLine($"{IconIndex.Value}");
-                }
-            }
-
-            builder.AppendLine("  }");
             builder.AppendLine("}");
             return BinaryData.FromString(builder.ToString());
         }

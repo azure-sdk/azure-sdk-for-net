@@ -18,9 +18,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_PrivateEndpointConnectionUpdateByWorkspace()
+        public async Task CreateOrUpdate_PrivateEndpointConnectionsUpdateByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_UpdateByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_UpdateByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_UpdateByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
             // invoke the operation
             string privateEndpointConnectionName = "workspace1.377103f1-5179-4bdf-8556-4cdd3207cc5b";
-            DesktopVirtualizationPrivateEndpointConnection connection = new DesktopVirtualizationPrivateEndpointConnection
+            DesktopVirtualizationPrivateEndpointConnectionDataData data = new DesktopVirtualizationPrivateEndpointConnectionDataData
             {
                 ConnectionState = new DesktopVirtualizationPrivateLinkServiceConnectionState
                 {
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
                     ActionsRequired = "None",
                 },
             };
-            ArmOperation<WorkspacePrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, connection);
+            ArmOperation<WorkspacePrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
             WorkspacePrivateEndpointConnectionResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -62,9 +62,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_PrivateEndpointConnectionGetByWorkspace()
+        public async Task Get_PrivateEndpointConnectionsGetByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_GetByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_GetByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_GetByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -96,9 +96,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetAll_PrivateEndpointConnectionListByWorkspace()
+        public async Task GetAll_PrivateEndpointConnectionsListByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_ListByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_ListByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_ListByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,9 +132,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_PrivateEndpointConnectionGetByWorkspace()
+        public async Task Exists_PrivateEndpointConnectionsGetByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_GetByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_GetByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_GetByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -162,9 +162,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_PrivateEndpointConnectionGetByWorkspace()
+        public async Task GetIfExists_PrivateEndpointConnectionsGetByWorkspace()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_GetByWorkspace.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_GetByWorkspace.json
             // this example is just showing the usage of "PrivateEndpointConnections_GetByWorkspace" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

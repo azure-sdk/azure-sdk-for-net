@@ -41,15 +41,8 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
             if (Optional.IsDefined(PackageArchitecture))
             {
-                if (PackageArchitecture != null)
-                {
-                    writer.WritePropertyName("packageArchitecture"u8);
-                    writer.WriteStringValue(PackageArchitecture.Value.ToString());
-                }
-                else
-                {
-                    writer.WriteNull("packageArchitecture");
-                }
+                writer.WritePropertyName("packageArchitecture"u8);
+                writer.WriteStringValue(PackageArchitecture.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -103,7 +96,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        packageArchitecture = null;
                         continue;
                     }
                     packageArchitecture = new AppAttachPackageArchitecture(property.Value.GetString());

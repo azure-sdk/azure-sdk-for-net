@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string SharedKeyInKeyVaultValue = "SharedKeyInKeyVault";
         private const string CertificateInKeyVaultValue = "CertificateInKeyVault";
 
-        /// <summary> SharedKey. </summary>
+        /// <summary> The SSO Secret is a Shared Key. </summary>
         public static HostPoolSsoSecretType SharedKey { get; } = new HostPoolSsoSecretType(SharedKeyValue);
-        /// <summary> Certificate. </summary>
+        /// <summary> The SSO Secret is a Certificate. </summary>
         public static HostPoolSsoSecretType Certificate { get; } = new HostPoolSsoSecretType(CertificateValue);
-        /// <summary> SharedKeyInKeyVault. </summary>
+        /// <summary> The SSO Secret is a SharedKey that is stored in KeyVault. </summary>
         public static HostPoolSsoSecretType SharedKeyInKeyVault { get; } = new HostPoolSsoSecretType(SharedKeyInKeyVaultValue);
-        /// <summary> CertificateInKeyVault. </summary>
+        /// <summary> The SSO Secret is a Certificate that is stored in KeyVault. </summary>
         public static HostPoolSsoSecretType CertificateInKeyVault { get; } = new HostPoolSsoSecretType(CertificateInKeyVaultValue);
         /// <summary> Determines if two <see cref="HostPoolSsoSecretType"/> values are the same. </summary>
         public static bool operator ==(HostPoolSsoSecretType left, HostPoolSsoSecretType right) => left.Equals(right);

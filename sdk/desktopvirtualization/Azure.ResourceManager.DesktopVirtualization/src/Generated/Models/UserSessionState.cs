@@ -29,17 +29,17 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string LogOffValue = "LogOff";
         private const string UserProfileDiskMountedValue = "UserProfileDiskMounted";
 
-        /// <summary> Unknown. </summary>
+        /// <summary> SessionState is unknown. </summary>
         public static UserSessionState Unknown { get; } = new UserSessionState(UnknownValue);
-        /// <summary> Active. </summary>
+        /// <summary> Session is active. </summary>
         public static UserSessionState Active { get; } = new UserSessionState(ActiveValue);
-        /// <summary> Disconnected. </summary>
+        /// <summary> Session is disconnected. </summary>
         public static UserSessionState Disconnected { get; } = new UserSessionState(DisconnectedValue);
-        /// <summary> Pending. </summary>
+        /// <summary> Session is pending connection. </summary>
         public static UserSessionState Pending { get; } = new UserSessionState(PendingValue);
-        /// <summary> LogOff. </summary>
+        /// <summary> Session is logging off. </summary>
         public static UserSessionState LogOff { get; } = new UserSessionState(LogOffValue);
-        /// <summary> UserProfileDiskMounted. </summary>
+        /// <summary> Session has mounted user profile disk. </summary>
         public static UserSessionState UserProfileDiskMounted { get; } = new UserSessionState(UserProfileDiskMountedValue);
         /// <summary> Determines if two <see cref="UserSessionState"/> values are the same. </summary>
         public static bool operator ==(UserSessionState left, UserSessionState right) => left.Equals(right);

@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string InBuiltValue = "InBuilt";
         private const string MsixApplicationValue = "MsixApplication";
 
-        /// <summary> InBuilt. </summary>
+        /// <summary> Built-in applications. </summary>
         public static RemoteApplicationType InBuilt { get; } = new RemoteApplicationType(InBuiltValue);
-        /// <summary> MsixApplication. </summary>
+        /// <summary> Imported MSIX application packages. </summary>
         public static RemoteApplicationType MsixApplication { get; } = new RemoteApplicationType(MsixApplicationValue);
         /// <summary> Determines if two <see cref="RemoteApplicationType"/> values are the same. </summary>
         public static bool operator ==(RemoteApplicationType left, RemoteApplicationType right) => left.Equals(right);

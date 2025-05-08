@@ -39,35 +39,36 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
 
             base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(ManagedBy))
+            if (Optional.IsDefined(Identity))
             {
-                writer.WritePropertyName("managedBy"u8);
-                writer.WriteStringValue(ManagedBy);
-            }
-            if (Optional.IsDefined(Kind))
-            {
-                writer.WritePropertyName("kind"u8);
-                writer.WriteStringValue(Kind);
+                writer.WritePropertyName("identity"u8);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
             }
             if (options.Format != "W" && Optional.IsDefined(ETag))
             {
                 writer.WritePropertyName("etag"u8);
                 writer.WriteStringValue(ETag.Value.ToString());
             }
-            if (Optional.IsDefined(Identity))
+            if (Optional.IsDefined(Kind))
             {
-                writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                writer.WritePropertyName("kind"u8);
+                writer.WriteStringValue(Kind);
             }
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(ManagedBy))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku, options);
+                writer.WritePropertyName("managedBy"u8);
+                writer.WriteStringValue(ManagedBy);
             }
             if (Optional.IsDefined(Plan))
             {
                 writer.WritePropertyName("plan"u8);
                 JsonSerializer.Serialize(writer, Plan);
+            }
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku, options);
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
@@ -90,15 +91,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             writer.WriteStringValue(HostPoolType.ToString());
             if (Optional.IsDefined(PersonalDesktopAssignmentType))
             {
-                if (PersonalDesktopAssignmentType != null)
-                {
-                    writer.WritePropertyName("personalDesktopAssignmentType"u8);
-                    writer.WriteStringValue(PersonalDesktopAssignmentType.Value.ToString());
-                }
-                else
-                {
-                    writer.WriteNull("personalDesktopAssignmentType");
-                }
+                writer.WritePropertyName("personalDesktopAssignmentType"u8);
+                writer.WriteStringValue(PersonalDesktopAssignmentType.Value.ToString());
             }
             if (Optional.IsDefined(CustomRdpProperty))
             {
@@ -107,53 +101,25 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (Optional.IsDefined(MaxSessionLimit))
             {
-                if (MaxSessionLimit != null)
-                {
-                    writer.WritePropertyName("maxSessionLimit"u8);
-                    writer.WriteNumberValue(MaxSessionLimit.Value);
-                }
-                else
-                {
-                    writer.WriteNull("maxSessionLimit");
-                }
+                writer.WritePropertyName("maxSessionLimit"u8);
+                writer.WriteNumberValue(MaxSessionLimit.Value);
             }
             writer.WritePropertyName("loadBalancerType"u8);
             writer.WriteStringValue(LoadBalancerType.ToString());
             if (Optional.IsDefined(Ring))
             {
-                if (Ring != null)
-                {
-                    writer.WritePropertyName("ring"u8);
-                    writer.WriteNumberValue(Ring.Value);
-                }
-                else
-                {
-                    writer.WriteNull("ring");
-                }
+                writer.WritePropertyName("ring"u8);
+                writer.WriteNumberValue(Ring.Value);
             }
             if (Optional.IsDefined(IsValidationEnvironment))
             {
-                if (IsValidationEnvironment != null)
-                {
-                    writer.WritePropertyName("validationEnvironment"u8);
-                    writer.WriteBooleanValue(IsValidationEnvironment.Value);
-                }
-                else
-                {
-                    writer.WriteNull("validationEnvironment");
-                }
+                writer.WritePropertyName("validationEnvironment"u8);
+                writer.WriteBooleanValue(IsValidationEnvironment.Value);
             }
             if (Optional.IsDefined(RegistrationInfo))
             {
-                if (RegistrationInfo != null)
-                {
-                    writer.WritePropertyName("registrationInfo"u8);
-                    writer.WriteObjectValue(RegistrationInfo, options);
-                }
-                else
-                {
-                    writer.WriteNull("registrationInfo");
-                }
+                writer.WritePropertyName("registrationInfo"u8);
+                writer.WriteObjectValue(RegistrationInfo, options);
             }
             if (Optional.IsDefined(VmTemplate))
             {
@@ -162,20 +128,13 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(ApplicationGroupReferences))
             {
-                if (ApplicationGroupReferences != null)
+                writer.WritePropertyName("applicationGroupReferences"u8);
+                writer.WriteStartArray();
+                foreach (var item in ApplicationGroupReferences)
                 {
-                    writer.WritePropertyName("applicationGroupReferences"u8);
-                    writer.WriteStartArray();
-                    foreach (var item in ApplicationGroupReferences)
-                    {
-                        writer.WriteStringValue(item);
-                    }
-                    writer.WriteEndArray();
+                    writer.WriteStringValue(item);
                 }
-                else
-                {
-                    writer.WriteNull("applicationGroupReferences");
-                }
+                writer.WriteEndArray();
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(AppAttachPackageReferences))
             {
@@ -204,82 +163,65 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
             if (Optional.IsDefined(SsoSecretType))
             {
-                if (SsoSecretType != null)
-                {
-                    writer.WritePropertyName("ssoSecretType"u8);
-                    writer.WriteStringValue(SsoSecretType.Value.ToString());
-                }
-                else
-                {
-                    writer.WriteNull("ssoSecretType");
-                }
+                writer.WritePropertyName("ssoSecretType"u8);
+                writer.WriteStringValue(SsoSecretType.Value.ToString());
             }
             writer.WritePropertyName("preferredAppGroupType"u8);
             writer.WriteStringValue(PreferredAppGroupType.ToString());
             if (Optional.IsDefined(StartVmOnConnect))
             {
-                if (StartVmOnConnect != null)
-                {
-                    writer.WritePropertyName("startVMOnConnect"u8);
-                    writer.WriteBooleanValue(StartVmOnConnect.Value);
-                }
-                else
-                {
-                    writer.WriteNull("startVMOnConnect");
-                }
+                writer.WritePropertyName("startVMOnConnect"u8);
+                writer.WriteBooleanValue(StartVmOnConnect.Value);
             }
             if (options.Format != "W" && Optional.IsDefined(IsCloudPCResource))
             {
-                if (IsCloudPCResource != null)
-                {
-                    writer.WritePropertyName("cloudPcResource"u8);
-                    writer.WriteBooleanValue(IsCloudPCResource.Value);
-                }
-                else
-                {
-                    writer.WriteNull("cloudPcResource");
-                }
+                writer.WritePropertyName("cloudPcResource"u8);
+                writer.WriteBooleanValue(IsCloudPCResource.Value);
             }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
-                if (PublicNetworkAccess != null)
-                {
-                    writer.WritePropertyName("publicNetworkAccess"u8);
-                    writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
-                }
-                else
-                {
-                    writer.WriteNull("publicNetworkAccess");
-                }
+                writer.WritePropertyName("publicNetworkAccess"u8);
+                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
             }
             if (Optional.IsDefined(AgentUpdate))
             {
-                if (AgentUpdate != null)
-                {
-                    writer.WritePropertyName("agentUpdate"u8);
-                    writer.WriteObjectValue(AgentUpdate, options);
-                }
-                else
-                {
-                    writer.WriteNull("agentUpdate");
-                }
+                writer.WritePropertyName("agentUpdate"u8);
+                writer.WriteObjectValue(AgentUpdate, options);
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
             {
-                if (PrivateEndpointConnections != null)
+                writer.WritePropertyName("privateEndpointConnections"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateEndpointConnections)
                 {
-                    writer.WritePropertyName("privateEndpointConnections"u8);
-                    writer.WriteStartArray();
-                    foreach (var item in PrivateEndpointConnections)
-                    {
-                        writer.WriteObjectValue(item, options);
-                    }
-                    writer.WriteEndArray();
+                    writer.WriteObjectValue(item, options);
                 }
-                else
-                {
-                    writer.WriteNull("privateEndpointConnections");
-                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ManagedPrivateUDP))
+            {
+                writer.WritePropertyName("managedPrivateUDP"u8);
+                writer.WriteStringValue(ManagedPrivateUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(DirectUDP))
+            {
+                writer.WritePropertyName("directUDP"u8);
+                writer.WriteStringValue(DirectUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(PublicUDP))
+            {
+                writer.WritePropertyName("publicUDP"u8);
+                writer.WriteStringValue(PublicUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(RelayUDP))
+            {
+                writer.WritePropertyName("relayUDP"u8);
+                writer.WriteStringValue(RelayUDP.Value.ToString());
+            }
+            if (Optional.IsDefined(ManagementType))
+            {
+                writer.WritePropertyName("managementType"u8);
+                writer.WriteStringValue(ManagementType.Value.ToString());
             }
             writer.WriteEndObject();
         }
@@ -304,12 +246,12 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 return null;
             }
-            ResourceIdentifier managedBy = default;
-            string kind = default;
-            ETag? etag = default;
             ManagedServiceIdentity identity = default;
-            DesktopVirtualizationSku sku = default;
+            ETag? etag = default;
+            string kind = default;
+            string managedBy = default;
             ArmPlan plan = default;
+            DesktopVirtualizationSku sku = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -340,22 +282,23 @@ namespace Azure.ResourceManager.DesktopVirtualization
             HostPoolPublicNetworkAccess? publicNetworkAccess = default;
             SessionHostAgentUpdateProperties agentUpdate = default;
             IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections = default;
+            ManagedPrivateUDP? managedPrivateUDP = default;
+            DirectUDP? directUDP = default;
+            PublicUDP? publicUDP = default;
+            RelayUDP? relayUDP = default;
+            ManagementType? managementType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("managedBy"u8))
+                if (property.NameEquals("identity"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    managedBy = new ResourceIdentifier(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("kind"u8))
-                {
-                    kind = property.Value.GetString();
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("etag"u8))
@@ -367,22 +310,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     etag = new ETag(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("identity"u8))
+                if (property.NameEquals("kind"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    kind = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("sku"u8))
+                if (property.NameEquals("managedBy"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sku = DesktopVirtualizationSku.DeserializeDesktopVirtualizationSku(property.Value, options);
+                    managedBy = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("plan"u8))
@@ -392,6 +327,15 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         continue;
                     }
                     plan = JsonSerializer.Deserialize<ArmPlan>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("sku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sku = DesktopVirtualizationSku.DeserializeDesktopVirtualizationSku(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -470,7 +414,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                personalDesktopAssignmentType = null;
                                 continue;
                             }
                             personalDesktopAssignmentType = new PersonalDesktopAssignmentType(property0.Value.GetString());
@@ -485,7 +428,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                maxSessionLimit = null;
                                 continue;
                             }
                             maxSessionLimit = property0.Value.GetInt32();
@@ -500,7 +442,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                ring = null;
                                 continue;
                             }
                             ring = property0.Value.GetInt32();
@@ -510,7 +451,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                validationEnvironment = null;
                                 continue;
                             }
                             validationEnvironment = property0.Value.GetBoolean();
@@ -520,7 +460,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                registrationInfo = null;
                                 continue;
                             }
                             registrationInfo = HostPoolRegistrationInfo.DeserializeHostPoolRegistrationInfo(property0.Value, options);
@@ -535,7 +474,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                applicationGroupReferences = null;
                                 continue;
                             }
                             List<string> array = new List<string>();
@@ -579,7 +517,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                ssoSecretType = null;
                                 continue;
                             }
                             ssoSecretType = new HostPoolSsoSecretType(property0.Value.GetString());
@@ -594,7 +531,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                startVmOnConnect = null;
                                 continue;
                             }
                             startVmOnConnect = property0.Value.GetBoolean();
@@ -604,7 +540,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                cloudPCResource = null;
                                 continue;
                             }
                             cloudPCResource = property0.Value.GetBoolean();
@@ -614,7 +549,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                publicNetworkAccess = null;
                                 continue;
                             }
                             publicNetworkAccess = new HostPoolPublicNetworkAccess(property0.Value.GetString());
@@ -624,7 +558,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                agentUpdate = null;
                                 continue;
                             }
                             agentUpdate = SessionHostAgentUpdateProperties.DeserializeSessionHostAgentUpdateProperties(property0.Value, options);
@@ -634,7 +567,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                privateEndpointConnections = null;
                                 continue;
                             }
                             List<DesktopVirtualizationPrivateEndpointConnection> array = new List<DesktopVirtualizationPrivateEndpointConnection>();
@@ -643,6 +575,51 @@ namespace Azure.ResourceManager.DesktopVirtualization
                                 array.Add(DesktopVirtualizationPrivateEndpointConnection.DeserializeDesktopVirtualizationPrivateEndpointConnection(item, options));
                             }
                             privateEndpointConnections = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("managedPrivateUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managedPrivateUDP = new ManagedPrivateUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("directUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            directUDP = new DirectUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("publicUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            publicUDP = new PublicUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("relayUDP"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            relayUDP = new RelayUDP(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("managementType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            managementType = new ManagementType(property0.Value.GetString());
                             continue;
                         }
                     }
@@ -661,6 +638,12 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
+                identity,
+                etag,
+                kind,
+                managedBy,
+                plan,
+                sku,
                 objectId,
                 friendlyName,
                 description,
@@ -685,12 +668,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 publicNetworkAccess,
                 agentUpdate,
                 privateEndpointConnections ?? new ChangeTrackingList<DesktopVirtualizationPrivateEndpointConnection>(),
-                managedBy,
-                kind,
-                etag,
-                identity,
-                sku,
-                plan,
+                managedPrivateUDP,
+                directUDP,
+                publicUDP,
+                relayUDP,
+                managementType,
                 serializedAdditionalRawData);
         }
 
@@ -777,18 +759,33 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagedBy), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Identity), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  managedBy: ");
+                builder.Append("  identity: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(ManagedBy))
+                if (Optional.IsDefined(Identity))
                 {
-                    builder.Append("  managedBy: ");
-                    builder.AppendLine($"'{ManagedBy.ToString()}'");
+                    builder.Append("  identity: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Identity, options, 2, false, "  identity: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ETag), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  etag: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ETag))
+                {
+                    builder.Append("  etag: ");
+                    builder.AppendLine($"'{ETag.Value.ToString()}'");
                 }
             }
 
@@ -815,48 +812,26 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 }
             }
 
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ETag), out propertyOverride);
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagedBy), out propertyOverride);
             if (hasPropertyOverride)
             {
-                builder.Append("  etag: ");
+                builder.Append("  managedBy: ");
                 builder.AppendLine(propertyOverride);
             }
             else
             {
-                if (Optional.IsDefined(ETag))
+                if (Optional.IsDefined(ManagedBy))
                 {
-                    builder.Append("  etag: ");
-                    builder.AppendLine($"'{ETag.Value.ToString()}'");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Identity), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  identity: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(Identity))
-                {
-                    builder.Append("  identity: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, Identity, options, 2, false, "  identity: ");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Sku), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  sku: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(Sku))
-                {
-                    builder.Append("  sku: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, Sku, options, 2, false, "  sku: ");
+                    builder.Append("  managedBy: ");
+                    if (ManagedBy.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{ManagedBy}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{ManagedBy}'");
+                    }
                 }
             }
 
@@ -872,6 +847,21 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     builder.Append("  plan: ");
                     BicepSerializationHelpers.AppendChildObject(builder, Plan, options, 2, false, "  plan: ");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Sku), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  sku: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Sku))
+                {
+                    builder.Append("  sku: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Sku, options, 2, false, "  sku: ");
                 }
             }
 
@@ -1372,6 +1362,81 @@ namespace Azure.ResourceManager.DesktopVirtualization
                         }
                         builder.AppendLine("    ]");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagedPrivateUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    managedPrivateUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ManagedPrivateUDP))
+                {
+                    builder.Append("    managedPrivateUDP: ");
+                    builder.AppendLine($"'{ManagedPrivateUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DirectUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    directUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(DirectUDP))
+                {
+                    builder.Append("    directUDP: ");
+                    builder.AppendLine($"'{DirectUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PublicUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    publicUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PublicUDP))
+                {
+                    builder.Append("    publicUDP: ");
+                    builder.AppendLine($"'{PublicUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(RelayUDP), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    relayUDP: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(RelayUDP))
+                {
+                    builder.Append("    relayUDP: ");
+                    builder.AppendLine($"'{RelayUDP.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ManagementType), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    managementType: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ManagementType))
+                {
+                    builder.Append("    managementType: ");
+                    builder.AppendLine($"'{ManagementType.Value.ToString()}'");
                 }
             }
 

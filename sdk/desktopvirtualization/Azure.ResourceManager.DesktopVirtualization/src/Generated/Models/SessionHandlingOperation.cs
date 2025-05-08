@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string DeallocateValue = "Deallocate";
         private const string HibernateValue = "Hibernate";
 
-        /// <summary> None. </summary>
+        /// <summary> No action will be taken after disconnect. </summary>
         public static SessionHandlingOperation None { get; } = new SessionHandlingOperation(NoneValue);
-        /// <summary> Deallocate. </summary>
+        /// <summary> Session Host will be deallocated after disconnect. </summary>
         public static SessionHandlingOperation Deallocate { get; } = new SessionHandlingOperation(DeallocateValue);
-        /// <summary> Hibernate. </summary>
+        /// <summary> Session Host will hibernate after disconnect. </summary>
         public static SessionHandlingOperation Hibernate { get; } = new SessionHandlingOperation(HibernateValue);
         /// <summary> Determines if two <see cref="SessionHandlingOperation"/> values are the same. </summary>
         public static bool operator ==(SessionHandlingOperation left, SessionHandlingOperation right) => left.Equals(right);

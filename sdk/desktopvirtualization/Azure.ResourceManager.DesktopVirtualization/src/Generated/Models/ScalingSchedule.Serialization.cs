@@ -47,9 +47,26 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 writer.WriteStartArray();
                 foreach (var item in DaysOfWeek)
                 {
-                    writer.WriteStringValue(item.ToString());
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ScalingMethod))
+            {
+                writer.WritePropertyName("scalingMethod"u8);
+                writer.WriteStringValue(ScalingMethod.Value.ToString());
+            }
+            if (Optional.IsDefined(CreateDelete))
+            {
+                if (CreateDelete != null)
+                {
+                    writer.WritePropertyName("createDelete"u8);
+                    writer.WriteObjectValue(CreateDelete, options);
+                }
+                else
+                {
+                    writer.WriteNull("createDelete");
+                }
             }
             if (Optional.IsDefined(RampUpStartTime))
             {
@@ -169,7 +186,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 return null;
             }
             string name = default;
-            IList<ScalingScheduleDaysOfWeekItem> daysOfWeek = default;
+            IList<DesktopVirtualizationDayOfWeek> daysOfWeek = default;
+            ScalingMethodType? scalingMethod = default;
+            CreateDeleteProperties createDelete = default;
             ScalingActionTime rampUpStartTime = default;
             SessionHostLoadBalancingAlgorithm? rampUpLoadBalancingAlgorithm = default;
             int? rampUpMinimumHostsPct = default;
@@ -201,12 +220,31 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     {
                         continue;
                     }
-                    List<ScalingScheduleDaysOfWeekItem> array = new List<ScalingScheduleDaysOfWeekItem>();
+                    List<DesktopVirtualizationDayOfWeek> array = new List<DesktopVirtualizationDayOfWeek>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(new ScalingScheduleDaysOfWeekItem(item.GetString()));
+                        array.Add(item.GetString().ToDesktopVirtualizationDayOfWeek());
                     }
                     daysOfWeek = array;
+                    continue;
+                }
+                if (property.NameEquals("scalingMethod"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    scalingMethod = new ScalingMethodType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("createDelete"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        createDelete = null;
+                        continue;
+                    }
+                    createDelete = CreateDeleteProperties.DeserializeCreateDeleteProperties(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("rampUpStartTime"u8))
@@ -357,7 +395,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new ScalingSchedule(
                 name,
-                daysOfWeek ?? new ChangeTrackingList<ScalingScheduleDaysOfWeekItem>(),
+                daysOfWeek ?? new ChangeTrackingList<DesktopVirtualizationDayOfWeek>(),
+                scalingMethod,
+                createDelete,
                 rampUpStartTime,
                 rampUpLoadBalancingAlgorithm,
                 rampUpMinimumHostsPct,
@@ -427,10 +467,40 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                         builder.AppendLine("[");
                         foreach (var item in DaysOfWeek)
                         {
-                            builder.AppendLine($"    '{item.ToString()}'");
+                            builder.AppendLine($"    '{item.ToSerialString()}'");
                         }
                         builder.AppendLine("  ]");
                     }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ScalingMethod), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  scalingMethod: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ScalingMethod))
+                {
+                    builder.Append("  scalingMethod: ");
+                    builder.AppendLine($"'{ScalingMethod.Value.ToString()}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(CreateDelete), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  createDelete: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(CreateDelete))
+                {
+                    builder.Append("  createDelete: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, CreateDelete, options, 2, false, "  createDelete: ");
                 }
             }
 

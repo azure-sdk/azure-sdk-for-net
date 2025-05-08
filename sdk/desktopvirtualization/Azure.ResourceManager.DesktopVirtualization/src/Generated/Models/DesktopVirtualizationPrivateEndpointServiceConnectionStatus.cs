@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string ApprovedValue = "Approved";
         private const string RejectedValue = "Rejected";
 
-        /// <summary> Pending. </summary>
+        /// <summary> Connection is Pending. </summary>
         public static DesktopVirtualizationPrivateEndpointServiceConnectionStatus Pending { get; } = new DesktopVirtualizationPrivateEndpointServiceConnectionStatus(PendingValue);
-        /// <summary> Approved. </summary>
+        /// <summary> Connection was Approved. </summary>
         public static DesktopVirtualizationPrivateEndpointServiceConnectionStatus Approved { get; } = new DesktopVirtualizationPrivateEndpointServiceConnectionStatus(ApprovedValue);
-        /// <summary> Rejected. </summary>
+        /// <summary> Connection was rejected. </summary>
         public static DesktopVirtualizationPrivateEndpointServiceConnectionStatus Rejected { get; } = new DesktopVirtualizationPrivateEndpointServiceConnectionStatus(RejectedValue);
         /// <summary> Determines if two <see cref="DesktopVirtualizationPrivateEndpointServiceConnectionStatus"/> values are the same. </summary>
         public static bool operator ==(DesktopVirtualizationPrivateEndpointServiceConnectionStatus left, DesktopVirtualizationPrivateEndpointServiceConnectionStatus right) => left.Equals(right);

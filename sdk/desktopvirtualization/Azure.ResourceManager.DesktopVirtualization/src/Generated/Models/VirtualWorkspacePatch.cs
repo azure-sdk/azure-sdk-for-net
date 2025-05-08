@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.DesktopVirtualization.Models
 {
-    /// <summary> Workspace properties that can be patched. </summary>
+    /// <summary> Workspace properties that can be patched.A patch model. </summary>
     public partial class VirtualWorkspacePatch
     {
         /// <summary>
@@ -49,40 +49,24 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         public VirtualWorkspacePatch()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
-            ApplicationGroupReferences = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualWorkspacePatch"/>. </summary>
         /// <param name="tags"> tags to be updated. </param>
-        /// <param name="description"> Description of Workspace. </param>
-        /// <param name="friendlyName"> Friendly name of Workspace. </param>
-        /// <param name="applicationGroupReferences"> List of applicationGroup links. </param>
-        /// <param name="publicNetworkAccess"> Enabled to allow this resource to be access from the public network. </param>
+        /// <param name="properties"> Detailed properties for Workspace. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualWorkspacePatch(IDictionary<string, string> tags, string description, string friendlyName, IList<string> applicationGroupReferences, DesktopVirtualizationPublicNetworkAccess? publicNetworkAccess, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VirtualWorkspacePatch(IDictionary<string, string> tags, WorkspacePatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Tags = tags;
-            Description = description;
-            FriendlyName = friendlyName;
-            ApplicationGroupReferences = applicationGroupReferences;
-            PublicNetworkAccess = publicNetworkAccess;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> tags to be updated. </summary>
         [WirePath("tags")]
-        public IDictionary<string, string> Tags { get; set; }
-        /// <summary> Description of Workspace. </summary>
-        [WirePath("properties.description")]
-        public string Description { get; set; }
-        /// <summary> Friendly name of Workspace. </summary>
-        [WirePath("properties.friendlyName")]
-        public string FriendlyName { get; set; }
-        /// <summary> List of applicationGroup links. </summary>
-        [WirePath("properties.applicationGroupReferences")]
-        public IList<string> ApplicationGroupReferences { get; set; }
-        /// <summary> Enabled to allow this resource to be access from the public network. </summary>
-        [WirePath("properties.publicNetworkAccess")]
-        public DesktopVirtualizationPublicNetworkAccess? PublicNetworkAccess { get; set; }
+        public IDictionary<string, string> Tags { get; }
+        /// <summary> Detailed properties for Workspace. </summary>
+        [WirePath("properties")]
+        public WorkspacePatchProperties Properties { get; set; }
     }
 }

@@ -77,6 +77,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         public string MaintenanceWindowTimeZone { get; set; }
         /// <summary> List of maintenance windows. Maintenance windows are 2 hours long. </summary>
         [WirePath("maintenanceWindows")]
-        public IList<SessionHostMaintenanceWindowProperties> MaintenanceWindows { get; set; }
+        public IList<SessionHostMaintenanceWindowProperties> MaintenanceWindows { get; }
     }
 }

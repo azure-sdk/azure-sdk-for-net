@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string NeedsAssistanceValue = "NeedsAssistance";
         private const string DoNotFailValue = "DoNotFail";
 
-        /// <summary> Unhealthy. </summary>
+        /// <summary> Health Check will report unhealthy. </summary>
         public static FailHealthCheckOnStagingFailure Unhealthy { get; } = new FailHealthCheckOnStagingFailure(UnhealthyValue);
-        /// <summary> NeedsAssistance. </summary>
+        /// <summary> Health Check will report NeedsAssistance. </summary>
         public static FailHealthCheckOnStagingFailure NeedsAssistance { get; } = new FailHealthCheckOnStagingFailure(NeedsAssistanceValue);
-        /// <summary> DoNotFail. </summary>
+        /// <summary> Health Check will not report failure. </summary>
         public static FailHealthCheckOnStagingFailure DoNotFail { get; } = new FailHealthCheckOnStagingFailure(DoNotFailValue);
         /// <summary> Determines if two <see cref="FailHealthCheckOnStagingFailure"/> values are the same. </summary>
         public static bool operator ==(FailHealthCheckOnStagingFailure left, FailHealthCheckOnStagingFailure right) => left.Equals(right);

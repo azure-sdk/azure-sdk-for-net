@@ -53,13 +53,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
         /// <summary> Initializes a new instance of <see cref="AppAttachPackageData"/>. </summary>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> Detailed properties for App Attach Package. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
-        public AppAttachPackageData(AzureLocation location, AppAttachPackageProperties properties) : base(location)
+        public AppAttachPackageData(AzureLocation location) : base(location)
         {
-            Argument.AssertNotNull(properties, nameof(properties));
-
-            Properties = properties;
+            HostPoolReferences = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AppAttachPackageData"/>. </summary>
@@ -69,11 +65,25 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="properties"> Detailed properties for App Attach Package. </param>
+        /// <param name="provisioningState"> The provisioning state of the App Attach Package. </param>
+        /// <param name="image"> Detailed properties for App Attach Package. </param>
+        /// <param name="hostPoolReferences"> List of Hostpool resource Ids. </param>
+        /// <param name="keyVaultURL"> URL path to certificate name located in keyVault. </param>
+        /// <param name="failHealthCheckOnStagingFailure"> Parameter indicating how the health check should behave if this package fails staging. </param>
+        /// <param name="packageOwnerName"> Specific name of package owner, is "AppAttach" for native app attach packages. </param>
+        /// <param name="packageLookbackUri"> Lookback url to third party control plane, is null for native app attach packages. </param>
+        /// <param name="customData"> Field that can be populated with custom data and filtered on in list GET calls. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppAttachPackageData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, AppAttachPackageProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal AppAttachPackageData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, AppAttachPackageProvisioningState? provisioningState, AppAttachPackageInfoProperties image, IList<string> hostPoolReferences, string keyVaultURL, FailHealthCheckOnStagingFailure? failHealthCheckOnStagingFailure, string packageOwnerName, Uri packageLookbackUri, string customData, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
-            Properties = properties;
+            ProvisioningState = provisioningState;
+            Image = image;
+            HostPoolReferences = hostPoolReferences;
+            KeyVaultURL = keyVaultURL;
+            FailHealthCheckOnStagingFailure = failHealthCheckOnStagingFailure;
+            PackageOwnerName = packageOwnerName;
+            PackageLookbackUri = packageLookbackUri;
+            CustomData = customData;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -82,8 +92,29 @@ namespace Azure.ResourceManager.DesktopVirtualization
         {
         }
 
+        /// <summary> The provisioning state of the App Attach Package. </summary>
+        [WirePath("properties.provisioningState")]
+        public AppAttachPackageProvisioningState? ProvisioningState { get; }
         /// <summary> Detailed properties for App Attach Package. </summary>
-        [WirePath("properties")]
-        public AppAttachPackageProperties Properties { get; set; }
+        [WirePath("properties.image")]
+        public AppAttachPackageInfoProperties Image { get; set; }
+        /// <summary> List of Hostpool resource Ids. </summary>
+        [WirePath("properties.hostPoolReferences")]
+        public IList<string> HostPoolReferences { get; }
+        /// <summary> URL path to certificate name located in keyVault. </summary>
+        [WirePath("properties.keyVaultURL")]
+        public string KeyVaultURL { get; set; }
+        /// <summary> Parameter indicating how the health check should behave if this package fails staging. </summary>
+        [WirePath("properties.failHealthCheckOnStagingFailure")]
+        public FailHealthCheckOnStagingFailure? FailHealthCheckOnStagingFailure { get; set; }
+        /// <summary> Specific name of package owner, is "AppAttach" for native app attach packages. </summary>
+        [WirePath("properties.packageOwnerName")]
+        public string PackageOwnerName { get; set; }
+        /// <summary> Lookback url to third party control plane, is null for native app attach packages. </summary>
+        [WirePath("properties.packageLookbackUrl")]
+        public Uri PackageLookbackUri { get; set; }
+        /// <summary> Field that can be populated with custom data and filtered on in list GET calls. </summary>
+        [WirePath("properties.customData")]
+        public string CustomData { get; set; }
     }
 }

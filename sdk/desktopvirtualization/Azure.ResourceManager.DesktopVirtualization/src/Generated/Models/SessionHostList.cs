@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.DesktopVirtualization.Models
 {
@@ -46,25 +47,34 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="SessionHostList"/>. </summary>
-        internal SessionHostList()
+        /// <param name="value"> The SessionHost items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal SessionHostList(IEnumerable<SessionHostData> value)
         {
-            Value = new ChangeTrackingList<SessionHostData>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="SessionHostList"/>. </summary>
-        /// <param name="value"> List of SessionHost definitions. </param>
-        /// <param name="nextLink"> Link to the next page of results. </param>
+        /// <param name="value"> The SessionHost items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SessionHostList(IReadOnlyList<SessionHostData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SessionHostList(IReadOnlyList<SessionHostData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> List of SessionHost definitions. </summary>
+        /// <summary> Initializes a new instance of <see cref="SessionHostList"/> for deserialization. </summary>
+        internal SessionHostList()
+        {
+        }
+
+        /// <summary> The SessionHost items on this page. </summary>
         public IReadOnlyList<SessionHostData> Value { get; }
-        /// <summary> Link to the next page of results. </summary>
-        public string NextLink { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }

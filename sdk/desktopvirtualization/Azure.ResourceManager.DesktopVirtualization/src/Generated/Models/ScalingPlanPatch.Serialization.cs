@@ -36,65 +36,20 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
 
             if (Optional.IsCollectionDefined(Tags))
             {
-                if (Tags != null)
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
                 {
-                    writer.WritePropertyName("tags"u8);
-                    writer.WriteStartObject();
-                    foreach (var item in Tags)
-                    {
-                        writer.WritePropertyName(item.Key);
-                        writer.WriteStringValue(item.Value);
-                    }
-                    writer.WriteEndObject();
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
                 }
-                else
-                {
-                    writer.WriteNull("tags");
-                }
+                writer.WriteEndObject();
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Description))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (Optional.IsDefined(FriendlyName))
-            {
-                writer.WritePropertyName("friendlyName"u8);
-                writer.WriteStringValue(FriendlyName);
-            }
-            if (Optional.IsDefined(TimeZone))
-            {
-                writer.WritePropertyName("timeZone"u8);
-                writer.WriteStringValue(TimeZone);
-            }
-            if (Optional.IsDefined(ExclusionTag))
-            {
-                writer.WritePropertyName("exclusionTag"u8);
-                writer.WriteStringValue(ExclusionTag);
-            }
-            if (Optional.IsCollectionDefined(Schedules))
-            {
-                writer.WritePropertyName("schedules"u8);
-                writer.WriteStartArray();
-                foreach (var item in Schedules)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsCollectionDefined(HostPoolReferences))
-            {
-                writer.WritePropertyName("hostPoolReferences"u8);
-                writer.WriteStartArray();
-                foreach (var item in HostPoolReferences)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -133,12 +88,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 return null;
             }
             IDictionary<string, string> tags = default;
-            string description = default;
-            string friendlyName = default;
-            string timeZone = default;
-            string exclusionTag = default;
-            IList<ScalingSchedule> schedules = default;
-            IList<ScalingHostPoolReference> hostPoolReferences = default;
+            ScalingPlanPatchProperties properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -147,7 +97,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        tags = null;
                         continue;
                     }
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
@@ -162,60 +111,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("description"u8))
-                        {
-                            description = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("friendlyName"u8))
-                        {
-                            friendlyName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("timeZone"u8))
-                        {
-                            timeZone = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("exclusionTag"u8))
-                        {
-                            exclusionTag = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("schedules"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<ScalingSchedule> array = new List<ScalingSchedule>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(ScalingSchedule.DeserializeScalingSchedule(item, options));
-                            }
-                            schedules = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("hostPoolReferences"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<ScalingHostPoolReference> array = new List<ScalingHostPoolReference>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(ScalingHostPoolReference.DeserializeScalingHostPoolReference(item, options));
-                            }
-                            hostPoolReferences = array;
-                            continue;
-                        }
-                    }
+                    properties = ScalingPlanPatchProperties.DeserializeScalingPlanPatchProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -224,15 +122,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ScalingPlanPatch(
-                tags ?? new ChangeTrackingDictionary<string, string>(),
-                description,
-                friendlyName,
-                timeZone,
-                exclusionTag,
-                schedules ?? new ChangeTrackingList<ScalingSchedule>(),
-                hostPoolReferences ?? new ChangeTrackingList<ScalingHostPoolReference>(),
-                serializedAdditionalRawData);
+            return new ScalingPlanPatch(tags ?? new ChangeTrackingDictionary<string, string>(), properties, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ScalingPlanPatch>.Write(ModelReaderWriterOptions options)
