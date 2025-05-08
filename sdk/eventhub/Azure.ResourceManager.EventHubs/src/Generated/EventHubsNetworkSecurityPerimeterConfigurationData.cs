@@ -8,12 +8,16 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventHubs.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.EventHubs.Models
+namespace Azure.ResourceManager.EventHubs
 {
-    /// <summary> Network Security Perimeter related configurations of a given namespace. </summary>
-    public partial class EventHubsNetworkSecurityPerimeterConfiguration : ResourceData
+    /// <summary>
+    /// A class representing the EventHubsNetworkSecurityPerimeterConfiguration data model.
+    /// Network Security Perimeter related configurations of a given namespace
+    /// </summary>
+    public partial class EventHubsNetworkSecurityPerimeterConfigurationData : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,14 +51,14 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="EventHubsNetworkSecurityPerimeterConfiguration"/>. </summary>
-        public EventHubsNetworkSecurityPerimeterConfiguration()
+        /// <summary> Initializes a new instance of <see cref="EventHubsNetworkSecurityPerimeterConfigurationData"/>. </summary>
+        public EventHubsNetworkSecurityPerimeterConfigurationData()
         {
             ProvisioningIssues = new ChangeTrackingList<EventHubsProvisioningIssue>();
             ApplicableFeatures = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventHubsNetworkSecurityPerimeterConfiguration"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EventHubsNetworkSecurityPerimeterConfigurationData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -70,7 +74,7 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// <param name="sourceResourceId"> ARM Id of source resource. </param>
         /// <param name="location"> The geo-location where the resource lives. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal EventHubsNetworkSecurityPerimeterConfiguration(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EventHubsNetworkSecurityPerimeterConfigurationProvisioningState? provisioningState, IList<EventHubsProvisioningIssue> provisioningIssues, EventHubsNetworkSecurityPerimeter networkSecurityPerimeter, EventHubsNetworkSecurityPerimeterConfigurationPropertiesResourceAssociation resourceAssociation, EventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile profile, bool? isBackingResource, IReadOnlyList<string> applicableFeatures, string parentAssociationName, ResourceIdentifier sourceResourceId, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal EventHubsNetworkSecurityPerimeterConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EventHubsNetworkSecurityPerimeterConfigurationProvisioningState? provisioningState, IList<EventHubsProvisioningIssue> provisioningIssues, EventHubsNetworkSecurityPerimeter networkSecurityPerimeter, EventHubsNetworkSecurityPerimeterConfigurationPropertiesResourceAssociation resourceAssociation, EventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile profile, bool? isBackingResource, IReadOnlyList<string> applicableFeatures, string parentAssociationName, ResourceIdentifier sourceResourceId, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             ProvisioningIssues = provisioningIssues;

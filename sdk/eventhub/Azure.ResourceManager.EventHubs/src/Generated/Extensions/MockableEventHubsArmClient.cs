@@ -119,6 +119,18 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="EventHubsNetworkSecurityPerimeterConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="EventHubsNetworkSecurityPerimeterConfigurationResource.CreateResourceIdentifier" /> to create an <see cref="EventHubsNetworkSecurityPerimeterConfigurationResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="EventHubsNetworkSecurityPerimeterConfigurationResource"/> object. </returns>
+        public virtual EventHubsNetworkSecurityPerimeterConfigurationResource GetEventHubsNetworkSecurityPerimeterConfigurationResource(ResourceIdentifier id)
+        {
+            EventHubsNetworkSecurityPerimeterConfigurationResource.ValidateResourceId(id);
+            return new EventHubsNetworkSecurityPerimeterConfigurationResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing an <see cref="EventHubsDisasterRecoveryResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="EventHubsDisasterRecoveryResource.CreateResourceIdentifier" /> to create an <see cref="EventHubsDisasterRecoveryResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

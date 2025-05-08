@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             {
                 return null;
             }
-            IReadOnlyList<EventHubsNetworkSecurityPerimeterConfiguration> value = default;
+            IReadOnlyList<EventHubsNetworkSecurityPerimeterConfigurationData> value = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,10 +94,10 @@ namespace Azure.ResourceManager.EventHubs.Models
                     {
                         continue;
                     }
-                    List<EventHubsNetworkSecurityPerimeterConfiguration> array = new List<EventHubsNetworkSecurityPerimeterConfiguration>();
+                    List<EventHubsNetworkSecurityPerimeterConfigurationData> array = new List<EventHubsNetworkSecurityPerimeterConfigurationData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EventHubsNetworkSecurityPerimeterConfiguration.DeserializeEventHubsNetworkSecurityPerimeterConfiguration(item, options));
+                        array.Add(EventHubsNetworkSecurityPerimeterConfigurationData.DeserializeEventHubsNetworkSecurityPerimeterConfigurationData(item, options));
                     }
                     value = array;
                     continue;
@@ -108,7 +108,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new NetworkSecurityPerimeterConfigurationList(value ?? new ChangeTrackingList<EventHubsNetworkSecurityPerimeterConfiguration>(), serializedAdditionalRawData);
+            return new NetworkSecurityPerimeterConfigurationList(value ?? new ChangeTrackingList<EventHubsNetworkSecurityPerimeterConfigurationData>(), serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)

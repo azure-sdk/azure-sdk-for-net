@@ -48,13 +48,13 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationList"/>. </summary>
         internal NetworkSecurityPerimeterConfigurationList()
         {
-            Value = new ChangeTrackingList<EventHubsNetworkSecurityPerimeterConfiguration>();
+            Value = new ChangeTrackingList<EventHubsNetworkSecurityPerimeterConfigurationData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationList"/>. </summary>
         /// <param name="value"> A collection of NetworkSecurityPerimeterConfigurations. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NetworkSecurityPerimeterConfigurationList(IReadOnlyList<EventHubsNetworkSecurityPerimeterConfiguration> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal NetworkSecurityPerimeterConfigurationList(IReadOnlyList<EventHubsNetworkSecurityPerimeterConfigurationData> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -62,6 +62,6 @@ namespace Azure.ResourceManager.EventHubs.Models
 
         /// <summary> A collection of NetworkSecurityPerimeterConfigurations. </summary>
         [WirePath("value")]
-        public IReadOnlyList<EventHubsNetworkSecurityPerimeterConfiguration> Value { get; }
+        public IReadOnlyList<EventHubsNetworkSecurityPerimeterConfigurationData> Value { get; }
     }
 }
