@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetWeatherOperationAsync(string,string,string,string,ApiKeyAuthCredentials,IEnumerable{WeatherLocation},CancellationToken)">
+      <example>
+This sample shows how to call GetWeatherOperationAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Weather client = new AgriculturePlatformClient(endpoint, credential).GetWeatherClient(apiVersion: "2024-11-01-preview");
+
+Response<WeatherResponse> response = await client.GetWeatherOperationAsync("string", "string", "string");
+]]></code></example>
+    </member>
+    <member name="GetWeatherOperation(string,string,string,string,ApiKeyAuthCredentials,IEnumerable{WeatherLocation},CancellationToken)">
+      <example>
+This sample shows how to call GetWeatherOperation.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Weather client = new AgriculturePlatformClient(endpoint, credential).GetWeatherClient(apiVersion: "2024-11-01-preview");
+
+Response<WeatherResponse> response = client.GetWeatherOperation("string", "string", "string");
+]]></code></example>
+    </member>
+    <member name="GetWeatherOperationAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetWeatherOperationAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Weather client = new AgriculturePlatformClient(endpoint, credential).GetWeatherClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    credentials = new
+    {
+        apiKey = new
+        {
+            keyVaultUri = "string",
+            keyName = "string",
+            keyVersion = "string",
+        },
+    },
+    locations = new object[]
+    {
+        new
+        {
+            type = "string",
+            value = "string",
+        }
+    },
+    providerName = "string",
+    providerApiName = "string",
+    language = "en-US",
+    units = "string",
+});
+Response response = await client.GetWeatherOperationAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("providerName").ToString());
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("providerApiName").ToString());
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("units").ToString());
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("weatherDataType").ToString());
+]]></code></example>
+    </member>
+    <member name="GetWeatherOperation(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetWeatherOperation and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+Weather client = new AgriculturePlatformClient(endpoint, credential).GetWeatherClient(apiVersion: "2024-11-01-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    credentials = new
+    {
+        apiKey = new
+        {
+            keyVaultUri = "string",
+            keyName = "string",
+            keyVersion = "string",
+        },
+    },
+    locations = new object[]
+    {
+        new
+        {
+            type = "string",
+            value = "string",
+        }
+    },
+    providerName = "string",
+    providerApiName = "string",
+    language = "en-US",
+    units = "string",
+});
+Response response = client.GetWeatherOperation(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("providerName").ToString());
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("providerApiName").ToString());
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("units").ToString());
+Console.WriteLine(result.GetProperty("weatherMetadata").GetProperty("weatherDataType").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
