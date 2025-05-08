@@ -56,8 +56,8 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="version"> The current version of ACR runtime on the connected registry. </param>
         /// <param name="connectionState"> The current connection state of the connected registry. </param>
         /// <param name="lastActivityOn"> The last activity time of the connected registry. </param>
-        /// <param name="activationStatus"></param>
-        /// <param name="parent"> The properties of the connected registry parent. </param>
+        /// <param name="activationStatus"> The activation properties of the connected registry. </param>
+        /// <param name="parent"> The parent of the connected registry. </param>
         /// <param name="clientTokenIds"> The list of the ACR token resource IDs used to authenticate clients to the connected registry. </param>
         /// <param name="loginServer"> The login server properties of the connected registry. </param>
         /// <param name="logging"> The logging properties of the connected registry. </param>
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 version,
                 connectionState,
                 lastActivityOn,
-                activationStatus != null ? new ConnectedRegistryPropertiesActivation(activationStatus, serializedAdditionalRawData: null) : null,
+                activationStatus != null ? new ConnectedRegistryActivation(activationStatus, serializedAdditionalRawData: null) : null,
                 parent,
                 clientTokenIds?.ToList(),
                 loginServer,
