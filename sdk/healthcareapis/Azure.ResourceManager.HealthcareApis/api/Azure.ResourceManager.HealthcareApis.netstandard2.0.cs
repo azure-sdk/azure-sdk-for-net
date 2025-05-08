@@ -1128,6 +1128,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
     {
         public HealthcareApisServiceStorageConfiguration() { }
         public string FileSystemName { get { throw null; } set { } }
+        public string StorageEventQueueName { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier StorageResourceId { get { throw null; } set { } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.HealthcareApis.Models.HealthcareApisServiceStorageConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.HealthcareApisServiceStorageConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
