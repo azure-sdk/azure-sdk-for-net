@@ -78,5 +78,64 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
                 typesMetadata?.ToList(),
                 serializedAdditionalRawData: null);
         }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CustomLocationFindTargetResourceGroupResult"/>. </summary>
+        /// <param name="matchedResourceSyncRule"> The matching resource sync rule is the particular resource sync rule that matched the match expressions and labels and had lowest priority. This is the rule responsible for mapping the target resource to the target resource group. </param>
+        /// <param name="targetResourceGroup"> The target resource group of matching resource sync rule. The labels from the request will be used to find out matching resource sync rule against the selector property of the resource sync rule. The one with highest priority will be returned if there are multiple matching rules. </param>
+        /// <returns> A new <see cref="Models.CustomLocationFindTargetResourceGroupResult"/> instance for mocking. </returns>
+        public static CustomLocationFindTargetResourceGroupResult CustomLocationFindTargetResourceGroupResult(string matchedResourceSyncRule = null, string targetResourceGroup = null)
+        {
+            return new CustomLocationFindTargetResourceGroupResult(matchedResourceSyncRule, targetResourceGroup, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ExtendedLocations.ResourceSyncRuleData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="priority"> Priority represents a priority of the Resource Sync Rule. </param>
+        /// <param name="provisioningState"> Provisioning State for the Resource Sync Rule. </param>
+        /// <param name="selector"> A label selector is composed of two parts, matchLabels and matchExpressions. The first part, matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is 'key', the operator is 'In', and the values array contains only 'value'. The second part, matchExpressions is a list of resource selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. The values set must be empty in the case of Exists and DoesNotExist. All of the requirements, from both matchLabels and matchExpressions must all be satisfied in order to match. </param>
+        /// <param name="targetResourceGroup"> For an unmapped custom resource, its labels will be used to find matching resource sync rules. If this resource sync rule is one of the matching rules with highest priority, then the unmapped custom resource will be projected to the target resource group associated with this resource sync rule. The user creating this resource sync rule should have write permissions on the target resource group and this write permission will be validated when creating the resource sync rule. </param>
+        /// <returns> A new <see cref="ExtendedLocations.ResourceSyncRuleData"/> instance for mocking. </returns>
+        public static ResourceSyncRuleData ResourceSyncRuleData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, int? priority = null, string provisioningState = null, ResourceSyncRulePropertiesSelector selector = null, string targetResourceGroup = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new ResourceSyncRuleData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                priority,
+                provisioningState,
+                selector,
+                targetResourceGroup,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ResourceSyncRulePatch"/>. </summary>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="priority"> Priority represents a priority of the Resource Sync Rule. </param>
+        /// <param name="provisioningState"> Provisioning State for the Resource Sync Rule. </param>
+        /// <param name="selector"> A label selector is composed of two parts, matchLabels and matchExpressions. The first part, matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is 'key', the operator is 'In', and the values array contains only 'value'. The second part, matchExpressions is a list of resource selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. The values set must be empty in the case of Exists and DoesNotExist. All of the requirements, from both matchLabels and matchExpressions must all be satisfied in order to match. </param>
+        /// <param name="targetResourceGroup"> For an unmapped custom resource, its labels will be used to find matching resource sync rules. If this resource sync rule is one of the matching rules with highest priority, then the unmapped custom resource will be projected to the target resource group associated with this resource sync rule. The user creating this resource sync rule should have write permissions on the target resource group and this write permission will be validated when creating the resource sync rule. </param>
+        /// <returns> A new <see cref="Models.ResourceSyncRulePatch"/> instance for mocking. </returns>
+        public static ResourceSyncRulePatch ResourceSyncRulePatch(IDictionary<string, string> tags = null, int? priority = null, string provisioningState = null, ResourceSyncRulePropertiesSelector selector = null, string targetResourceGroup = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new ResourceSyncRulePatch(
+                tags,
+                priority,
+                provisioningState,
+                selector,
+                targetResourceGroup,
+                serializedAdditionalRawData: null);
+        }
     }
 }

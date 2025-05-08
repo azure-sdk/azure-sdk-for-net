@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace Azure.ResourceManager.ExtendedLocations.Models
 {
-    /// <summary> The response of a CustomLocation list operation. </summary>
-    internal partial class CustomLocationListResult
+    /// <summary> The response of a EnabledResourceType list operation. </summary>
+    internal partial class EnabledResourceTypeListResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,34 +46,34 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/>. </summary>
-        /// <param name="value"> The CustomLocation items on this page. </param>
+        /// <summary> Initializes a new instance of <see cref="EnabledResourceTypeListResult"/>. </summary>
+        /// <param name="value"> The EnabledResourceType items on this page. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        internal CustomLocationListResult(IEnumerable<CustomLocationData> value)
+        internal EnabledResourceTypeListResult(IEnumerable<CustomLocationEnabledResourceType> value)
         {
             Argument.AssertNotNull(value, nameof(value));
 
             Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/>. </summary>
-        /// <param name="value"> The CustomLocation items on this page. </param>
+        /// <summary> Initializes a new instance of <see cref="EnabledResourceTypeListResult"/>. </summary>
+        /// <param name="value"> The EnabledResourceType items on this page. </param>
         /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CustomLocationListResult(IReadOnlyList<CustomLocationData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal EnabledResourceTypeListResult(IReadOnlyList<CustomLocationEnabledResourceType> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="CustomLocationListResult"/> for deserialization. </summary>
-        internal CustomLocationListResult()
+        /// <summary> Initializes a new instance of <see cref="EnabledResourceTypeListResult"/> for deserialization. </summary>
+        internal EnabledResourceTypeListResult()
         {
         }
 
-        /// <summary> The CustomLocation items on this page. </summary>
-        public IReadOnlyList<CustomLocationData> Value { get; }
+        /// <summary> The EnabledResourceType items on this page. </summary>
+        public IReadOnlyList<CustomLocationEnabledResourceType> Value { get; }
         /// <summary> The link to the next page of items. </summary>
         public Uri NextLink { get; }
     }
