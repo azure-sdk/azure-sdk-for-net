@@ -47,6 +47,7 @@ namespace Azure.ResourceManager.StorageActions
             uri.AppendPath("/providers/Microsoft.StorageActions/storageTasks/", false);
             uri.AppendPath(storageTaskName, true);
             uri.AppendPath("/reports", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {
                 uri.AppendQuery("$maxpagesize", maxpagesize.Value, true);
@@ -55,7 +56,6 @@ namespace Azure.ResourceManager.StorageActions
             {
                 uri.AppendQuery("$filter", filter, true);
             }
-            uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
@@ -73,6 +73,7 @@ namespace Azure.ResourceManager.StorageActions
             uri.AppendPath("/providers/Microsoft.StorageActions/storageTasks/", false);
             uri.AppendPath(storageTaskName, true);
             uri.AppendPath("/reports", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {
                 uri.AppendQuery("$maxpagesize", maxpagesize.Value, true);
@@ -81,7 +82,6 @@ namespace Azure.ResourceManager.StorageActions
             {
                 uri.AppendQuery("$filter", filter, true);
             }
-            uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
