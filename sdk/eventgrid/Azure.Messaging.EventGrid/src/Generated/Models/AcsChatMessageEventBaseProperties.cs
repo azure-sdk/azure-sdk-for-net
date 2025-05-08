@@ -13,8 +13,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     public partial class AcsChatMessageEventBaseProperties : AcsChatEventBaseProperties
     {
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageEventBaseProperties"/>. </summary>
-        internal AcsChatMessageEventBaseProperties()
+        /// <param name="messageId"> The chat message id. </param>
+        /// <param name="type"> The type of the message. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="messageId"/> or <paramref name="type"/> is null. </exception>
+        internal AcsChatMessageEventBaseProperties(string messageId, string type)
         {
+            Argument.AssertNotNull(messageId, nameof(messageId));
+            Argument.AssertNotNull(type, nameof(type));
+
+            MessageId = messageId;
+            Type = type;
         }
 
         /// <summary> Initializes a new instance of <see cref="AcsChatMessageEventBaseProperties"/>. </summary>
