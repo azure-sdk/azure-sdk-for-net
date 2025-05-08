@@ -37,24 +37,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(AllowNewSession))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("allowNewSession"u8);
-                writer.WriteBooleanValue(AllowNewSession.Value);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (Optional.IsDefined(AssignedUser))
-            {
-                writer.WritePropertyName("assignedUser"u8);
-                writer.WriteStringValue(AssignedUser);
-            }
-            if (Optional.IsDefined(FriendlyName))
-            {
-                writer.WritePropertyName("friendlyName"u8);
-                writer.WriteStringValue(FriendlyName);
-            }
-            writer.WriteEndObject();
         }
 
         SessionHostPatch IJsonModel<SessionHostPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -77,17 +64,24 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             {
                 return null;
             }
+            SessionHostPatchProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            bool? allowNewSession = default;
-            string assignedUser = default;
-            string friendlyName = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = SessionHostPatchProperties.DeserializeSessionHostPatchProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -112,37 +106,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("allowNewSession"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            allowNewSession = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("assignedUser"u8))
-                        {
-                            assignedUser = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("friendlyName"u8))
-                        {
-                            friendlyName = property0.Value.GetString();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -154,9 +117,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 name,
                 type,
                 systemData,
-                allowNewSession,
-                assignedUser,
-                friendlyName,
+                properties,
                 serializedAdditionalRawData);
         }
 
@@ -194,6 +155,21 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Properties), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  properties: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Properties))
+                {
+                    builder.Append("  properties: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Properties, options, 2, false, "  properties: ");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Id), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -224,71 +200,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
-            builder.Append("  properties:");
-            builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AllowNewSession), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    allowNewSession: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(AllowNewSession))
-                {
-                    builder.Append("    allowNewSession: ");
-                    var boolValue = AllowNewSession.Value == true ? "true" : "false";
-                    builder.AppendLine($"{boolValue}");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AssignedUser), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    assignedUser: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(AssignedUser))
-                {
-                    builder.Append("    assignedUser: ");
-                    if (AssignedUser.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{AssignedUser}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{AssignedUser}'");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(FriendlyName), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    friendlyName: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(FriendlyName))
-                {
-                    builder.Append("    friendlyName: ");
-                    if (FriendlyName.Contains(Environment.NewLine))
-                    {
-                        builder.AppendLine("'''");
-                        builder.AppendLine($"{FriendlyName}'''");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"'{FriendlyName}'");
-                    }
-                }
-            }
-
-            builder.AppendLine("  }");
             builder.AppendLine("}");
             return BinaryData.FromString(builder.ToString());
         }

@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string RemoteAppValue = "RemoteApp";
         private const string DesktopValue = "Desktop";
 
-        /// <summary> RemoteApp. </summary>
+        /// <summary> Application group is Remote and can launch individual applications without a Desktop. </summary>
         public static VirtualApplicationGroupType RemoteApp { get; } = new VirtualApplicationGroupType(RemoteAppValue);
-        /// <summary> Desktop. </summary>
+        /// <summary> Application Group delivers a full expected Desktop experience. </summary>
         public static VirtualApplicationGroupType Desktop { get; } = new VirtualApplicationGroupType(DesktopValue);
         /// <summary> Determines if two <see cref="VirtualApplicationGroupType"/> values are the same. </summary>
         public static bool operator ==(VirtualApplicationGroupType left, VirtualApplicationGroupType right) => left.Equals(right);

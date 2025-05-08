@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string DeletingValue = "Deleting";
         private const string FailedValue = "Failed";
 
-        /// <summary> Succeeded. </summary>
+        /// <summary> Provisioning was successful. </summary>
         public static DesktopVirtualizationPrivateEndpointConnectionProvisioningState Succeeded { get; } = new DesktopVirtualizationPrivateEndpointConnectionProvisioningState(SucceededValue);
-        /// <summary> Creating. </summary>
+        /// <summary> A PrivateEndpointConnection is being created. </summary>
         public static DesktopVirtualizationPrivateEndpointConnectionProvisioningState Creating { get; } = new DesktopVirtualizationPrivateEndpointConnectionProvisioningState(CreatingValue);
-        /// <summary> Deleting. </summary>
+        /// <summary> A PrivateEndpointConnection is being deleted. </summary>
         public static DesktopVirtualizationPrivateEndpointConnectionProvisioningState Deleting { get; } = new DesktopVirtualizationPrivateEndpointConnectionProvisioningState(DeletingValue);
-        /// <summary> Failed. </summary>
+        /// <summary> Provisioning failed. </summary>
         public static DesktopVirtualizationPrivateEndpointConnectionProvisioningState Failed { get; } = new DesktopVirtualizationPrivateEndpointConnectionProvisioningState(FailedValue);
         /// <summary> Determines if two <see cref="DesktopVirtualizationPrivateEndpointConnectionProvisioningState"/> values are the same. </summary>
         public static bool operator ==(DesktopVirtualizationPrivateEndpointConnectionProvisioningState left, DesktopVirtualizationPrivateEndpointConnectionProvisioningState right) => left.Equals(right);

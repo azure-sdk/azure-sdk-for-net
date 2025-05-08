@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string BreadthFirstValue = "BreadthFirst";
         private const string DepthFirstValue = "DepthFirst";
 
-        /// <summary> BreadthFirst. </summary>
+        /// <summary> Breadth First Algorithm for Load Balancing. </summary>
         public static SessionHostLoadBalancingAlgorithm BreadthFirst { get; } = new SessionHostLoadBalancingAlgorithm(BreadthFirstValue);
-        /// <summary> DepthFirst. </summary>
+        /// <summary> Depth First Algorithm for Load Balancing. </summary>
         public static SessionHostLoadBalancingAlgorithm DepthFirst { get; } = new SessionHostLoadBalancingAlgorithm(DepthFirstValue);
         /// <summary> Determines if two <see cref="SessionHostLoadBalancingAlgorithm"/> values are the same. </summary>
         public static bool operator ==(SessionHostLoadBalancingAlgorithm left, SessionHostLoadBalancingAlgorithm right) => left.Equals(right);

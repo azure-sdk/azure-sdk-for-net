@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.DesktopVirtualization.Models
 {
-    /// <summary> Enabled allows this resource to be accessed from both public and private networks, Disabled allows this resource to only be accessed via private endpoints. </summary>
+    /// <summary> Enabled to allow this resource to be access from the public network. </summary>
     public readonly partial struct DesktopVirtualizationPublicNetworkAccess : IEquatable<DesktopVirtualizationPublicNetworkAccess>
     {
         private readonly string _value;
@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string EnabledValue = "Enabled";
         private const string DisabledValue = "Disabled";
 
-        /// <summary> Enabled. </summary>
+        /// <summary> This resource is accessible from the public network. </summary>
         public static DesktopVirtualizationPublicNetworkAccess Enabled { get; } = new DesktopVirtualizationPublicNetworkAccess(EnabledValue);
-        /// <summary> Disabled. </summary>
+        /// <summary> This resource is not accessible from the public network. </summary>
         public static DesktopVirtualizationPublicNetworkAccess Disabled { get; } = new DesktopVirtualizationPublicNetworkAccess(DisabledValue);
         /// <summary> Determines if two <see cref="DesktopVirtualizationPublicNetworkAccess"/> values are the same. </summary>
         public static bool operator ==(DesktopVirtualizationPublicNetworkAccess left, DesktopVirtualizationPublicNetworkAccess right) => left.Equals(right);

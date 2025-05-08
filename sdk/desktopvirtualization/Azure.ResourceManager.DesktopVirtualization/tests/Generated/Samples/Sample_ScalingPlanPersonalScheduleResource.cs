@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_ScalingPlanPersonalSchedulesGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPersonalSchedule_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/ScalingPlanPersonalSchedules_Get.json
             // this example is just showing the usage of "ScalingPlanPersonalSchedules_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_ScalingPlanPersonalSchedulesDelete()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPersonalSchedule_Delete.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/ScalingPlanPersonalSchedules_Delete.json
             // this example is just showing the usage of "ScalingPlanPersonalSchedules_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_ScalingPlanPersonalSchedulesUpdate()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/ScalingPlanPersonalSchedule_Update.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/ScalingPlanPersonalSchedules_Update.json
             // this example is just showing the usage of "ScalingPlanPersonalSchedules_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -98,22 +98,25 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
             // invoke the operation
             ScalingPlanPersonalSchedulePatch patch = new ScalingPlanPersonalSchedulePatch
             {
-                PeakStartTime = new ScalingActionTime(8, 0),
-                PeakActionOnDisconnect = SessionHandlingOperation.None,
-                PeakMinutesToWaitOnDisconnect = 10,
-                PeakActionOnLogoff = SessionHandlingOperation.Deallocate,
-                PeakMinutesToWaitOnLogoff = 10,
-                RampDownStartTime = new ScalingActionTime(18, 0),
-                RampDownActionOnDisconnect = SessionHandlingOperation.None,
-                RampDownMinutesToWaitOnDisconnect = 10,
-                RampDownActionOnLogoff = SessionHandlingOperation.Deallocate,
-                RampDownMinutesToWaitOnLogoff = 10,
-                OffPeakStartTime = new ScalingActionTime(20, 0),
-                OffPeakStartVmOnConnect = SetStartVmOnConnect.Disable,
-                OffPeakActionOnDisconnect = SessionHandlingOperation.None,
-                OffPeakMinutesToWaitOnDisconnect = 10,
-                OffPeakActionOnLogoff = SessionHandlingOperation.Deallocate,
-                OffPeakMinutesToWaitOnLogoff = 10,
+                Properties = new ScalingPlanPersonalSchedulePatchProperties
+                {
+                    PeakStartTime = new ScalingActionTime(8, 0),
+                    PeakActionOnDisconnect = SessionHandlingOperation.None,
+                    PeakMinutesToWaitOnDisconnect = 10,
+                    PeakActionOnLogoff = SessionHandlingOperation.Deallocate,
+                    PeakMinutesToWaitOnLogoff = 10,
+                    RampDownStartTime = new ScalingActionTime(18, 0),
+                    RampDownActionOnDisconnect = SessionHandlingOperation.None,
+                    RampDownMinutesToWaitOnDisconnect = 10,
+                    RampDownActionOnLogoff = SessionHandlingOperation.Deallocate,
+                    RampDownMinutesToWaitOnLogoff = 10,
+                    OffPeakStartTime = new ScalingActionTime(20, 0),
+                    OffPeakStartVmOnConnect = SetStartVmOnConnect.Disable,
+                    OffPeakActionOnDisconnect = SessionHandlingOperation.None,
+                    OffPeakMinutesToWaitOnDisconnect = 10,
+                    OffPeakActionOnLogoff = SessionHandlingOperation.Deallocate,
+                    OffPeakMinutesToWaitOnLogoff = 10,
+                },
             };
             ScalingPlanPersonalScheduleResource result = await scalingPlanPersonalSchedule.UpdateAsync(patch);
 

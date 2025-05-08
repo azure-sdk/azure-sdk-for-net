@@ -57,36 +57,16 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="appAlias"> Alias of StartMenuItem. </param>
-        /// <param name="filePath"> Path to the file of StartMenuItem. </param>
-        /// <param name="commandLineArguments"> Command line arguments for StartMenuItem. </param>
-        /// <param name="iconPath"> Path to the icon. </param>
-        /// <param name="iconIndex"> Index of the icon. </param>
+        /// <param name="properties"> Detailed properties for StartMenuItem. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DesktopVirtualizationStartMenuItem(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string appAlias, string filePath, string commandLineArguments, string iconPath, int? iconIndex, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal DesktopVirtualizationStartMenuItem(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, StartMenuItemProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            AppAlias = appAlias;
-            FilePath = filePath;
-            CommandLineArguments = commandLineArguments;
-            IconPath = iconPath;
-            IconIndex = iconIndex;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Alias of StartMenuItem. </summary>
-        [WirePath("properties.appAlias")]
-        public string AppAlias { get; set; }
-        /// <summary> Path to the file of StartMenuItem. </summary>
-        [WirePath("properties.filePath")]
-        public string FilePath { get; set; }
-        /// <summary> Command line arguments for StartMenuItem. </summary>
-        [WirePath("properties.commandLineArguments")]
-        public string CommandLineArguments { get; set; }
-        /// <summary> Path to the icon. </summary>
-        [WirePath("properties.iconPath")]
-        public string IconPath { get; set; }
-        /// <summary> Index of the icon. </summary>
-        [WirePath("properties.iconIndex")]
-        public int? IconIndex { get; set; }
+        /// <summary> Detailed properties for StartMenuItem. </summary>
+        [WirePath("properties")]
+        public StartMenuItemProperties Properties { get; set; }
     }
 }

@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string NoneValue = "None";
         private const string UpdateValue = "Update";
 
-        /// <summary> Delete. </summary>
+        /// <summary> Delete operation. </summary>
         public static HostPoolRegistrationTokenOperation Delete { get; } = new HostPoolRegistrationTokenOperation(DeleteValue);
-        /// <summary> None. </summary>
+        /// <summary> No Operation. </summary>
         public static HostPoolRegistrationTokenOperation None { get; } = new HostPoolRegistrationTokenOperation(NoneValue);
-        /// <summary> Update. </summary>
+        /// <summary> Update Operation. </summary>
         public static HostPoolRegistrationTokenOperation Update { get; } = new HostPoolRegistrationTokenOperation(UpdateValue);
         /// <summary> Determines if two <see cref="HostPoolRegistrationTokenOperation"/> values are the same. </summary>
         public static bool operator ==(HostPoolRegistrationTokenOperation left, HostPoolRegistrationTokenOperation right) => left.Equals(right);

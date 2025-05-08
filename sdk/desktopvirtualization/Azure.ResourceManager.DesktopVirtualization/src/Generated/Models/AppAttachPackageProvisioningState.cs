@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string FailedValue = "Failed";
         private const string CanceledValue = "Canceled";
 
-        /// <summary> Succeeded. </summary>
+        /// <summary> Provisioning Successful. </summary>
         public static AppAttachPackageProvisioningState Succeeded { get; } = new AppAttachPackageProvisioningState(SucceededValue);
-        /// <summary> Provisioning. </summary>
+        /// <summary> Provisioning in Progress. </summary>
         public static AppAttachPackageProvisioningState Provisioning { get; } = new AppAttachPackageProvisioningState(ProvisioningValue);
-        /// <summary> Failed. </summary>
+        /// <summary> Provisioning Failed. </summary>
         public static AppAttachPackageProvisioningState Failed { get; } = new AppAttachPackageProvisioningState(FailedValue);
-        /// <summary> Canceled. </summary>
+        /// <summary> Provisioning was Canceled. </summary>
         public static AppAttachPackageProvisioningState Canceled { get; } = new AppAttachPackageProvisioningState(CanceledValue);
         /// <summary> Determines if two <see cref="AppAttachPackageProvisioningState"/> values are the same. </summary>
         public static bool operator ==(AppAttachPackageProvisioningState left, AppAttachPackageProvisioningState right) => left.Equals(right);

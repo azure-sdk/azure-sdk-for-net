@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -270,7 +270,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -278,7 +278,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Object containing Application definitions. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<VirtualApplicationResource>> UpdateAsync(VirtualApplicationPatch patch, CancellationToken cancellationToken = default)
@@ -312,7 +312,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -320,7 +320,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Object containing Application definitions. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<VirtualApplicationResource> Update(VirtualApplicationPatch patch, CancellationToken cancellationToken = default)

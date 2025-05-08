@@ -50,7 +50,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> Initializes a new instance of <see cref="ScalingPlanPooledSchedulePatch"/>. </summary>
         public ScalingPlanPooledSchedulePatch()
         {
-            DaysOfWeek = new ChangeTrackingList<DesktopVirtualizationDayOfWeek>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ScalingPlanPooledSchedulePatch"/>. </summary>
@@ -58,96 +57,16 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="daysOfWeek"> Set of days of the week on which this schedule is active. </param>
-        /// <param name="rampUpStartTime"> Starting time for ramp up period. </param>
-        /// <param name="rampUpLoadBalancingAlgorithm"> Load balancing algorithm for ramp up period. </param>
-        /// <param name="rampUpMinimumHostsPct"> Minimum host percentage for ramp up period. </param>
-        /// <param name="rampUpCapacityThresholdPct"> Capacity threshold for ramp up period. </param>
-        /// <param name="peakStartTime"> Starting time for peak period. </param>
-        /// <param name="peakLoadBalancingAlgorithm"> Load balancing algorithm for peak period. </param>
-        /// <param name="rampDownStartTime"> Starting time for ramp down period. </param>
-        /// <param name="rampDownLoadBalancingAlgorithm"> Load balancing algorithm for ramp down period. </param>
-        /// <param name="rampDownMinimumHostsPct"> Minimum host percentage for ramp down period. </param>
-        /// <param name="rampDownCapacityThresholdPct"> Capacity threshold for ramp down period. </param>
-        /// <param name="rampDownForceLogoffUsers"> Should users be logged off forcefully from hosts. </param>
-        /// <param name="rampDownStopHostsWhen"> Specifies when to stop hosts during ramp down period. </param>
-        /// <param name="rampDownWaitTimeMinutes"> Number of minutes to wait to stop hosts during ramp down period. </param>
-        /// <param name="rampDownNotificationMessage"> Notification message for users during ramp down period. </param>
-        /// <param name="offPeakStartTime"> Starting time for off-peak period. </param>
-        /// <param name="offPeakLoadBalancingAlgorithm"> Load balancing algorithm for off-peak period. </param>
+        /// <param name="properties"> Detailed properties for ScalingPlanPooledSchedule. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScalingPlanPooledSchedulePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IList<DesktopVirtualizationDayOfWeek> daysOfWeek, ScalingActionTime rampUpStartTime, SessionHostLoadBalancingAlgorithm? rampUpLoadBalancingAlgorithm, int? rampUpMinimumHostsPct, int? rampUpCapacityThresholdPct, ScalingActionTime peakStartTime, SessionHostLoadBalancingAlgorithm? peakLoadBalancingAlgorithm, ScalingActionTime rampDownStartTime, SessionHostLoadBalancingAlgorithm? rampDownLoadBalancingAlgorithm, int? rampDownMinimumHostsPct, int? rampDownCapacityThresholdPct, bool? rampDownForceLogoffUsers, DesktopVirtualizationStopHostsWhen? rampDownStopHostsWhen, int? rampDownWaitTimeMinutes, string rampDownNotificationMessage, ScalingActionTime offPeakStartTime, SessionHostLoadBalancingAlgorithm? offPeakLoadBalancingAlgorithm, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal ScalingPlanPooledSchedulePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ScalingPlanPooledSchedulePatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            DaysOfWeek = daysOfWeek;
-            RampUpStartTime = rampUpStartTime;
-            RampUpLoadBalancingAlgorithm = rampUpLoadBalancingAlgorithm;
-            RampUpMinimumHostsPct = rampUpMinimumHostsPct;
-            RampUpCapacityThresholdPct = rampUpCapacityThresholdPct;
-            PeakStartTime = peakStartTime;
-            PeakLoadBalancingAlgorithm = peakLoadBalancingAlgorithm;
-            RampDownStartTime = rampDownStartTime;
-            RampDownLoadBalancingAlgorithm = rampDownLoadBalancingAlgorithm;
-            RampDownMinimumHostsPct = rampDownMinimumHostsPct;
-            RampDownCapacityThresholdPct = rampDownCapacityThresholdPct;
-            RampDownForceLogoffUsers = rampDownForceLogoffUsers;
-            RampDownStopHostsWhen = rampDownStopHostsWhen;
-            RampDownWaitTimeMinutes = rampDownWaitTimeMinutes;
-            RampDownNotificationMessage = rampDownNotificationMessage;
-            OffPeakStartTime = offPeakStartTime;
-            OffPeakLoadBalancingAlgorithm = offPeakLoadBalancingAlgorithm;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Set of days of the week on which this schedule is active. </summary>
-        [WirePath("properties.daysOfWeek")]
-        public IList<DesktopVirtualizationDayOfWeek> DaysOfWeek { get; }
-        /// <summary> Starting time for ramp up period. </summary>
-        [WirePath("properties.rampUpStartTime")]
-        public ScalingActionTime RampUpStartTime { get; set; }
-        /// <summary> Load balancing algorithm for ramp up period. </summary>
-        [WirePath("properties.rampUpLoadBalancingAlgorithm")]
-        public SessionHostLoadBalancingAlgorithm? RampUpLoadBalancingAlgorithm { get; set; }
-        /// <summary> Minimum host percentage for ramp up period. </summary>
-        [WirePath("properties.rampUpMinimumHostsPct")]
-        public int? RampUpMinimumHostsPct { get; set; }
-        /// <summary> Capacity threshold for ramp up period. </summary>
-        [WirePath("properties.rampUpCapacityThresholdPct")]
-        public int? RampUpCapacityThresholdPct { get; set; }
-        /// <summary> Starting time for peak period. </summary>
-        [WirePath("properties.peakStartTime")]
-        public ScalingActionTime PeakStartTime { get; set; }
-        /// <summary> Load balancing algorithm for peak period. </summary>
-        [WirePath("properties.peakLoadBalancingAlgorithm")]
-        public SessionHostLoadBalancingAlgorithm? PeakLoadBalancingAlgorithm { get; set; }
-        /// <summary> Starting time for ramp down period. </summary>
-        [WirePath("properties.rampDownStartTime")]
-        public ScalingActionTime RampDownStartTime { get; set; }
-        /// <summary> Load balancing algorithm for ramp down period. </summary>
-        [WirePath("properties.rampDownLoadBalancingAlgorithm")]
-        public SessionHostLoadBalancingAlgorithm? RampDownLoadBalancingAlgorithm { get; set; }
-        /// <summary> Minimum host percentage for ramp down period. </summary>
-        [WirePath("properties.rampDownMinimumHostsPct")]
-        public int? RampDownMinimumHostsPct { get; set; }
-        /// <summary> Capacity threshold for ramp down period. </summary>
-        [WirePath("properties.rampDownCapacityThresholdPct")]
-        public int? RampDownCapacityThresholdPct { get; set; }
-        /// <summary> Should users be logged off forcefully from hosts. </summary>
-        [WirePath("properties.rampDownForceLogoffUsers")]
-        public bool? RampDownForceLogoffUsers { get; set; }
-        /// <summary> Specifies when to stop hosts during ramp down period. </summary>
-        [WirePath("properties.rampDownStopHostsWhen")]
-        public DesktopVirtualizationStopHostsWhen? RampDownStopHostsWhen { get; set; }
-        /// <summary> Number of minutes to wait to stop hosts during ramp down period. </summary>
-        [WirePath("properties.rampDownWaitTimeMinutes")]
-        public int? RampDownWaitTimeMinutes { get; set; }
-        /// <summary> Notification message for users during ramp down period. </summary>
-        [WirePath("properties.rampDownNotificationMessage")]
-        public string RampDownNotificationMessage { get; set; }
-        /// <summary> Starting time for off-peak period. </summary>
-        [WirePath("properties.offPeakStartTime")]
-        public ScalingActionTime OffPeakStartTime { get; set; }
-        /// <summary> Load balancing algorithm for off-peak period. </summary>
-        [WirePath("properties.offPeakLoadBalancingAlgorithm")]
-        public SessionHostLoadBalancingAlgorithm? OffPeakLoadBalancingAlgorithm { get; set; }
+        /// <summary> Detailed properties for ScalingPlanPooledSchedule. </summary>
+        [WirePath("properties")]
+        public ScalingPlanPooledSchedulePatchProperties Properties { get; set; }
     }
 }

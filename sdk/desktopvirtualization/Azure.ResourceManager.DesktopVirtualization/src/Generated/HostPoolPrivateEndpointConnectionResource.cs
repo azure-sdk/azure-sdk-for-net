@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
-using Azure.ResourceManager.DesktopVirtualization.Models;
 
 namespace Azure.ResourceManager.DesktopVirtualization
 {
@@ -90,7 +89,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary>
-        /// Get a private endpoint connection.
+        /// Get a PrivateEndpointConnectionWithSystemData
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -102,7 +101,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -130,7 +129,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary>
-        /// Get a private endpoint connection.
+        /// Get a PrivateEndpointConnectionWithSystemData
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -142,7 +141,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -170,7 +169,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary>
-        /// Remove a connection.
+        /// Delete a PrivateEndpointConnectionWithSystemData
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -182,7 +181,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -214,7 +213,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary>
-        /// Remove a connection.
+        /// Delete a PrivateEndpointConnectionWithSystemData
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -226,7 +225,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -270,7 +269,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -279,19 +278,19 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="connection"> Object containing the updated connection. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="connection"/> is null. </exception>
-        public virtual async Task<ArmOperation<HostPoolPrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, DesktopVirtualizationPrivateEndpointConnection connection, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
+        public virtual async Task<ArmOperation<HostPoolPrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, DesktopVirtualizationPrivateEndpointConnectionDataData data, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(connection, nameof(connection));
+            Argument.AssertNotNull(data, nameof(data));
 
             using var scope = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsClientDiagnostics.CreateScope("HostPoolPrivateEndpointConnectionResource.Update");
             scope.Start();
             try
             {
-                var response = await _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.UpdateByHostPoolAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, connection, cancellationToken).ConfigureAwait(false);
-                var uri = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.CreateUpdateByHostPoolRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, connection);
+                var response = await _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.UpdateByHostPoolAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
+                var uri = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.CreateUpdateByHostPoolRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new DesktopVirtualizationArmOperation<HostPoolPrivateEndpointConnectionResource>(Response.FromValue(new HostPoolPrivateEndpointConnectionResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -318,7 +317,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -327,19 +326,19 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="connection"> Object containing the updated connection. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="connection"/> is null. </exception>
-        public virtual ArmOperation<HostPoolPrivateEndpointConnectionResource> Update(WaitUntil waitUntil, DesktopVirtualizationPrivateEndpointConnection connection, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
+        public virtual ArmOperation<HostPoolPrivateEndpointConnectionResource> Update(WaitUntil waitUntil, DesktopVirtualizationPrivateEndpointConnectionDataData data, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(connection, nameof(connection));
+            Argument.AssertNotNull(data, nameof(data));
 
             using var scope = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsClientDiagnostics.CreateScope("HostPoolPrivateEndpointConnectionResource.Update");
             scope.Start();
             try
             {
-                var response = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.UpdateByHostPool(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, connection, cancellationToken);
-                var uri = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.CreateUpdateByHostPoolRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, connection);
+                var response = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.UpdateByHostPool(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken);
+                var uri = _hostPoolPrivateEndpointConnectionPrivateEndpointConnectionsRestClient.CreateUpdateByHostPoolRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new DesktopVirtualizationArmOperation<HostPoolPrivateEndpointConnectionResource>(Response.FromValue(new HostPoolPrivateEndpointConnectionResource(Client, response), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)

@@ -18,9 +18,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_DesktopGet()
+        public async Task Get_DesktopsGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/Desktop_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/Desktops_Get.json
             // this example is just showing the usage of "Desktops_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -49,9 +49,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Update_DesktopUpdate()
+        public async Task Update_DesktopsUpdate()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/Desktop_Update.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/Desktops_Update.json
             // this example is just showing the usage of "Desktops_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -71,8 +71,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
             // invoke the operation
             VirtualDesktopPatch patch = new VirtualDesktopPatch
             {
-                Description = "des1",
-                FriendlyName = "friendly",
+                Properties = new DesktopPatchProperties
+                {
+                    Description = "des1",
+                    FriendlyName = "friendly",
+                },
             };
             VirtualDesktopResource result = await virtualDesktop.UpdateAsync(patch);
 

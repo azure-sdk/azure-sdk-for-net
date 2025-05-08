@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -251,7 +251,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -296,7 +296,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -341,7 +341,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -349,7 +349,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Object containing SessionHost definitions. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="force"> Force flag to update assign, unassign or reassign personal desktop. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
@@ -384,7 +384,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -392,7 +392,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Object containing SessionHost definitions. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="force"> Force flag to update assign, unassign or reassign personal desktop. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
@@ -406,6 +406,82 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 var response = _sessionHostRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, force, cancellationToken);
                 return Response.FromValue(new SessionHostResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retry provisioning on a SessionHost.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/sessionHosts/{sessionHostName}/retryProvisioning</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SessionHosts_RetryProvisioning</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-04-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SessionHostResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> RetryProvisioningAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _sessionHostClientDiagnostics.CreateScope("SessionHostResource.RetryProvisioning");
+            scope.Start();
+            try
+            {
+                var response = await _sessionHostRestClient.RetryProvisioningAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retry provisioning on a SessionHost.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/sessionHosts/{sessionHostName}/retryProvisioning</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SessionHosts_RetryProvisioning</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-04-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SessionHostResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response RetryProvisioning(CancellationToken cancellationToken = default)
+        {
+            using var scope = _sessionHostClientDiagnostics.CreateScope("SessionHostResource.RetryProvisioning");
+            scope.Start();
+            try
+            {
+                var response = _sessionHostRestClient.RetryProvisioning(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {

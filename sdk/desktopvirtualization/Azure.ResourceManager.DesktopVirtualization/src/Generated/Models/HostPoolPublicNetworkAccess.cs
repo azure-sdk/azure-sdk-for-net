@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.DesktopVirtualization.Models
 {
-    /// <summary> Enabled allows this resource to be accessed from both public and private networks, Disabled allows this resource to only be accessed via private endpoints. </summary>
+    /// <summary> Enabled to allow this resource to be access from the public network. </summary>
     public readonly partial struct HostPoolPublicNetworkAccess : IEquatable<HostPoolPublicNetworkAccess>
     {
         private readonly string _value;
@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string EnabledForSessionHostsOnlyValue = "EnabledForSessionHostsOnly";
         private const string EnabledForClientsOnlyValue = "EnabledForClientsOnly";
 
-        /// <summary> Enabled. </summary>
+        /// <summary> Allows this resource to be accessed from the public network. </summary>
         public static HostPoolPublicNetworkAccess Enabled { get; } = new HostPoolPublicNetworkAccess(EnabledValue);
-        /// <summary> Disabled. </summary>
+        /// <summary> Prevents this resource from being accessed from the public network. </summary>
         public static HostPoolPublicNetworkAccess Disabled { get; } = new HostPoolPublicNetworkAccess(DisabledValue);
-        /// <summary> EnabledForSessionHostsOnly. </summary>
+        /// <summary> Allows SessionHosts to be accessed from the public network. </summary>
         public static HostPoolPublicNetworkAccess EnabledForSessionHostsOnly { get; } = new HostPoolPublicNetworkAccess(EnabledForSessionHostsOnlyValue);
-        /// <summary> EnabledForClientsOnly. </summary>
+        /// <summary> Allows Clients to be accessed from the public network. </summary>
         public static HostPoolPublicNetworkAccess EnabledForClientsOnly { get; } = new HostPoolPublicNetworkAccess(EnabledForClientsOnlyValue);
         /// <summary> Determines if two <see cref="HostPoolPublicNetworkAccess"/> values are the same. </summary>
         public static bool operator ==(HostPoolPublicNetworkAccess left, HostPoolPublicNetworkAccess right) => left.Equals(right);

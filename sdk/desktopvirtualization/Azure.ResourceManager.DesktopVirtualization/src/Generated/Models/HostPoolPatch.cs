@@ -59,105 +59,20 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> tags to be updated. </param>
-        /// <param name="friendlyName"> Friendly name of HostPool. </param>
-        /// <param name="description"> Description of HostPool. </param>
-        /// <param name="customRdpProperty"> Custom rdp property of HostPool. </param>
-        /// <param name="maxSessionLimit"> The max session limit of HostPool. </param>
-        /// <param name="personalDesktopAssignmentType"> PersonalDesktopAssignment type for HostPool. </param>
-        /// <param name="loadBalancerType"> The type of the load balancer. </param>
-        /// <param name="ring"> The ring number of HostPool. </param>
-        /// <param name="isValidationEnvironment"> Is validation environment. </param>
-        /// <param name="registrationInfo"> The registration info of HostPool. </param>
-        /// <param name="vmTemplate"> VM template for sessionhosts configuration within hostpool. </param>
-        /// <param name="ssoAdfsAuthority"> URL to customer ADFS server for signing WVD SSO certificates. </param>
-        /// <param name="ssoClientId"> ClientId for the registered Relying Party used to issue WVD SSO certificates. </param>
-        /// <param name="ssoClientSecretKeyVaultPath"> Path to Azure KeyVault storing the secret used for communication to ADFS. </param>
-        /// <param name="ssoSecretType"> The type of single sign on Secret Type. </param>
-        /// <param name="preferredAppGroupType"> The type of preferred application group type, default to Desktop Application Group. </param>
-        /// <param name="startVmOnConnect"> The flag to turn on/off StartVMOnConnect feature. </param>
-        /// <param name="publicNetworkAccess"> Enabled to allow this resource to be access from the public network. </param>
-        /// <param name="agentUpdate"> The session host configuration for updating agent, monitoring agent, and stack component. </param>
+        /// <param name="properties"> HostPool properties that can be patched. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HostPoolPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, string friendlyName, string description, string customRdpProperty, int? maxSessionLimit, PersonalDesktopAssignmentType? personalDesktopAssignmentType, HostPoolLoadBalancerType? loadBalancerType, int? ring, bool? isValidationEnvironment, HostPoolRegistrationInfoPatch registrationInfo, string vmTemplate, string ssoAdfsAuthority, string ssoClientId, string ssoClientSecretKeyVaultPath, HostPoolSsoSecretType? ssoSecretType, PreferredAppGroupType? preferredAppGroupType, bool? startVmOnConnect, HostPoolPublicNetworkAccess? publicNetworkAccess, SessionHostAgentUpdatePatchProperties agentUpdate, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal HostPoolPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, HostPoolPatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             Tags = tags;
-            FriendlyName = friendlyName;
-            Description = description;
-            CustomRdpProperty = customRdpProperty;
-            MaxSessionLimit = maxSessionLimit;
-            PersonalDesktopAssignmentType = personalDesktopAssignmentType;
-            LoadBalancerType = loadBalancerType;
-            Ring = ring;
-            IsValidationEnvironment = isValidationEnvironment;
-            RegistrationInfo = registrationInfo;
-            VmTemplate = vmTemplate;
-            SsoAdfsAuthority = ssoAdfsAuthority;
-            SsoClientId = ssoClientId;
-            SsoClientSecretKeyVaultPath = ssoClientSecretKeyVaultPath;
-            SsoSecretType = ssoSecretType;
-            PreferredAppGroupType = preferredAppGroupType;
-            StartVmOnConnect = startVmOnConnect;
-            PublicNetworkAccess = publicNetworkAccess;
-            AgentUpdate = agentUpdate;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> tags to be updated. </summary>
         [WirePath("tags")]
-        public IDictionary<string, string> Tags { get; set; }
-        /// <summary> Friendly name of HostPool. </summary>
-        [WirePath("properties.friendlyName")]
-        public string FriendlyName { get; set; }
-        /// <summary> Description of HostPool. </summary>
-        [WirePath("properties.description")]
-        public string Description { get; set; }
-        /// <summary> Custom rdp property of HostPool. </summary>
-        [WirePath("properties.customRdpProperty")]
-        public string CustomRdpProperty { get; set; }
-        /// <summary> The max session limit of HostPool. </summary>
-        [WirePath("properties.maxSessionLimit")]
-        public int? MaxSessionLimit { get; set; }
-        /// <summary> PersonalDesktopAssignment type for HostPool. </summary>
-        [WirePath("properties.personalDesktopAssignmentType")]
-        public PersonalDesktopAssignmentType? PersonalDesktopAssignmentType { get; set; }
-        /// <summary> The type of the load balancer. </summary>
-        [WirePath("properties.loadBalancerType")]
-        public HostPoolLoadBalancerType? LoadBalancerType { get; set; }
-        /// <summary> The ring number of HostPool. </summary>
-        [WirePath("properties.ring")]
-        public int? Ring { get; set; }
-        /// <summary> Is validation environment. </summary>
-        [WirePath("properties.validationEnvironment")]
-        public bool? IsValidationEnvironment { get; set; }
-        /// <summary> The registration info of HostPool. </summary>
-        [WirePath("properties.registrationInfo")]
-        public HostPoolRegistrationInfoPatch RegistrationInfo { get; set; }
-        /// <summary> VM template for sessionhosts configuration within hostpool. </summary>
-        [WirePath("properties.vmTemplate")]
-        public string VmTemplate { get; set; }
-        /// <summary> URL to customer ADFS server for signing WVD SSO certificates. </summary>
-        [WirePath("properties.ssoadfsAuthority")]
-        public string SsoAdfsAuthority { get; set; }
-        /// <summary> ClientId for the registered Relying Party used to issue WVD SSO certificates. </summary>
-        [WirePath("properties.ssoClientId")]
-        public string SsoClientId { get; set; }
-        /// <summary> Path to Azure KeyVault storing the secret used for communication to ADFS. </summary>
-        [WirePath("properties.ssoClientSecretKeyVaultPath")]
-        public string SsoClientSecretKeyVaultPath { get; set; }
-        /// <summary> The type of single sign on Secret Type. </summary>
-        [WirePath("properties.ssoSecretType")]
-        public HostPoolSsoSecretType? SsoSecretType { get; set; }
-        /// <summary> The type of preferred application group type, default to Desktop Application Group. </summary>
-        [WirePath("properties.preferredAppGroupType")]
-        public PreferredAppGroupType? PreferredAppGroupType { get; set; }
-        /// <summary> The flag to turn on/off StartVMOnConnect feature. </summary>
-        [WirePath("properties.startVMOnConnect")]
-        public bool? StartVmOnConnect { get; set; }
-        /// <summary> Enabled to allow this resource to be access from the public network. </summary>
-        [WirePath("properties.publicNetworkAccess")]
-        public HostPoolPublicNetworkAccess? PublicNetworkAccess { get; set; }
-        /// <summary> The session host configuration for updating agent, monitoring agent, and stack component. </summary>
-        [WirePath("properties.agentUpdate")]
-        public SessionHostAgentUpdatePatchProperties AgentUpdate { get; set; }
+        public IDictionary<string, string> Tags { get; }
+        /// <summary> HostPool properties that can be patched. </summary>
+        [WirePath("properties")]
+        public HostPoolPatchProperties Properties { get; set; }
     }
 }

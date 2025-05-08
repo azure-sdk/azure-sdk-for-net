@@ -63,15 +63,8 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
             if (Optional.IsDefined(DisplayName))
             {
-                if (DisplayName != null)
-                {
-                    writer.WritePropertyName("displayName"u8);
-                    writer.WriteStringValue(DisplayName);
-                }
-                else
-                {
-                    writer.WriteNull("displayName");
-                }
+                writer.WritePropertyName("displayName"u8);
+                writer.WriteStringValue(DisplayName);
             }
             if (Optional.IsDefined(PackageRelativePath))
             {
@@ -90,20 +83,13 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
             if (Optional.IsCollectionDefined(PackageDependencies))
             {
-                if (PackageDependencies != null)
+                writer.WritePropertyName("packageDependencies"u8);
+                writer.WriteStartArray();
+                foreach (var item in PackageDependencies)
                 {
-                    writer.WritePropertyName("packageDependencies"u8);
-                    writer.WriteStartArray();
-                    foreach (var item in PackageDependencies)
-                    {
-                        writer.WriteObjectValue(item, options);
-                    }
-                    writer.WriteEndArray();
+                    writer.WriteObjectValue(item, options);
                 }
-                else
-                {
-                    writer.WriteNull("packageDependencies");
-                }
+                writer.WriteEndArray();
             }
             if (Optional.IsDefined(Version))
             {
@@ -127,39 +113,18 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
             if (Optional.IsDefined(CertificateName))
             {
-                if (CertificateName != null)
-                {
-                    writer.WritePropertyName("certificateName"u8);
-                    writer.WriteStringValue(CertificateName);
-                }
-                else
-                {
-                    writer.WriteNull("certificateName");
-                }
+                writer.WritePropertyName("certificateName"u8);
+                writer.WriteStringValue(CertificateName);
             }
             if (Optional.IsDefined(CertificateExpireOn))
             {
-                if (CertificateExpireOn != null)
-                {
-                    writer.WritePropertyName("certificateExpiry"u8);
-                    writer.WriteStringValue(CertificateExpireOn.Value, "O");
-                }
-                else
-                {
-                    writer.WriteNull("certificateExpiry");
-                }
+                writer.WritePropertyName("certificateExpiry"u8);
+                writer.WriteStringValue(CertificateExpireOn.Value, "O");
             }
             if (Optional.IsDefined(IsPackageTimestamped))
             {
-                if (IsPackageTimestamped != null)
-                {
-                    writer.WritePropertyName("isPackageTimestamped"u8);
-                    writer.WriteStringValue(IsPackageTimestamped.Value.ToString());
-                }
-                else
-                {
-                    writer.WriteNull("isPackageTimestamped");
-                }
+                writer.WritePropertyName("isPackageTimestamped"u8);
+                writer.WriteStringValue(IsPackageTimestamped.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -245,11 +210,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
                 if (property.NameEquals("displayName"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        displayName = null;
-                        continue;
-                    }
                     displayName = property.Value.GetString();
                     continue;
                 }
@@ -280,7 +240,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        packageDependencies = null;
                         continue;
                     }
                     List<MsixPackageDependencies> array = new List<MsixPackageDependencies>();
@@ -321,11 +280,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
                 if (property.NameEquals("certificateName"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        certificateName = null;
-                        continue;
-                    }
                     certificateName = property.Value.GetString();
                     continue;
                 }
@@ -333,7 +287,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        certificateExpiry = null;
                         continue;
                     }
                     certificateExpiry = property.Value.GetDateTimeOffset("O");
@@ -343,7 +296,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        isPackageTimestamped = null;
                         continue;
                     }
                     isPackageTimestamped = new PackageTimestamped(property.Value.GetString());

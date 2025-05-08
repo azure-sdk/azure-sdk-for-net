@@ -59,30 +59,20 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> tags to be updated. </param>
-        /// <param name="description"> Description of ApplicationGroup. </param>
-        /// <param name="friendlyName"> Friendly name of ApplicationGroup. </param>
-        /// <param name="showInFeed"> Boolean representing whether the applicationGroup is show in the feed. </param>
+        /// <param name="properties"> ApplicationGroup properties that can be patched. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualApplicationGroupPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, string description, string friendlyName, bool? showInFeed, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal VirtualApplicationGroupPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, ApplicationGroupPatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             Tags = tags;
-            Description = description;
-            FriendlyName = friendlyName;
-            ShowInFeed = showInFeed;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> tags to be updated. </summary>
         [WirePath("tags")]
-        public IDictionary<string, string> Tags { get; set; }
-        /// <summary> Description of ApplicationGroup. </summary>
-        [WirePath("properties.description")]
-        public string Description { get; set; }
-        /// <summary> Friendly name of ApplicationGroup. </summary>
-        [WirePath("properties.friendlyName")]
-        public string FriendlyName { get; set; }
-        /// <summary> Boolean representing whether the applicationGroup is show in the feed. </summary>
-        [WirePath("properties.showInFeed")]
-        public bool? ShowInFeed { get; set; }
+        public IDictionary<string, string> Tags { get; }
+        /// <summary> ApplicationGroup properties that can be patched. </summary>
+        [WirePath("properties")]
+        public ApplicationGroupPatchProperties Properties { get; set; }
     }
 }

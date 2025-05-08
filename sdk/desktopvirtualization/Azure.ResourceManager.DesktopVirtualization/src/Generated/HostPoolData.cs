@@ -73,6 +73,12 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="identity"> The managed service identities assigned to this resource. </param>
+        /// <param name="etag"> If etag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="kind"> Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value. </param>
+        /// <param name="managedBy"> The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource. </param>
+        /// <param name="plan"> Details of the resource plan. </param>
+        /// <param name="sku"> The SKU (Stock Keeping Unit) assigned to this resource. </param>
         /// <param name="objectId"> ObjectId of HostPool. (internal use). </param>
         /// <param name="friendlyName"> Friendly name of HostPool. </param>
         /// <param name="description"> Description of HostPool. </param>
@@ -97,15 +103,20 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="publicNetworkAccess"> Enabled allows this resource to be accessed from both public and private networks, Disabled allows this resource to only be accessed via private endpoints. </param>
         /// <param name="agentUpdate"> The session host configuration for updating agent, monitoring agent, and stack component. </param>
         /// <param name="privateEndpointConnections"> List of private endpoint connection associated with the specified resource. </param>
-        /// <param name="managedBy"> The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource. </param>
-        /// <param name="kind"> Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value. </param>
-        /// <param name="etag"> The etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
-        /// <param name="identity"> Gets or sets the identity. Current supported identity types: SystemAssigned. </param>
-        /// <param name="sku"> The resource model definition representing SKU. </param>
-        /// <param name="plan"> Gets or sets the plan. </param>
+        /// <param name="managedPrivateUDP"> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </param>
+        /// <param name="directUDP"> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </param>
+        /// <param name="publicUDP"> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </param>
+        /// <param name="relayUDP"> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </param>
+        /// <param name="managementType"> The type of management for this hostpool, Automated or Standard. The default value is Automated. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HostPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string objectId, string friendlyName, string description, HostPoolType hostPoolType, PersonalDesktopAssignmentType? personalDesktopAssignmentType, string customRdpProperty, int? maxSessionLimit, HostPoolLoadBalancerType loadBalancerType, int? ring, bool? isValidationEnvironment, HostPoolRegistrationInfo registrationInfo, string vmTemplate, IReadOnlyList<string> applicationGroupReferences, IReadOnlyList<string> appAttachPackageReferences, string ssoAdfsAuthority, string ssoClientId, string ssoClientSecretKeyVaultPath, HostPoolSsoSecretType? ssoSecretType, PreferredAppGroupType preferredAppGroupType, bool? startVmOnConnect, bool? isCloudPCResource, HostPoolPublicNetworkAccess? publicNetworkAccess, SessionHostAgentUpdateProperties agentUpdate, IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections, ResourceIdentifier managedBy, string kind, ETag? etag, ManagedServiceIdentity identity, DesktopVirtualizationSku sku, ArmPlan plan, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal HostPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, ETag? etag, string kind, string managedBy, ArmPlan plan, DesktopVirtualizationSku sku, string objectId, string friendlyName, string description, HostPoolType hostPoolType, PersonalDesktopAssignmentType? personalDesktopAssignmentType, string customRdpProperty, int? maxSessionLimit, HostPoolLoadBalancerType loadBalancerType, int? ring, bool? isValidationEnvironment, HostPoolRegistrationInfo registrationInfo, string vmTemplate, IReadOnlyList<string> applicationGroupReferences, IReadOnlyList<string> appAttachPackageReferences, string ssoAdfsAuthority, string ssoClientId, string ssoClientSecretKeyVaultPath, HostPoolSsoSecretType? ssoSecretType, PreferredAppGroupType preferredAppGroupType, bool? startVmOnConnect, bool? isCloudPCResource, HostPoolPublicNetworkAccess? publicNetworkAccess, SessionHostAgentUpdateProperties agentUpdate, IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections, ManagedPrivateUDP? managedPrivateUDP, DirectUDP? directUDP, PublicUDP? publicUDP, RelayUDP? relayUDP, ManagementType? managementType, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
+            Identity = identity;
+            ETag = etag;
+            Kind = kind;
+            ManagedBy = managedBy;
+            Plan = plan;
+            Sku = sku;
             ObjectId = objectId;
             FriendlyName = friendlyName;
             Description = description;
@@ -130,12 +141,11 @@ namespace Azure.ResourceManager.DesktopVirtualization
             PublicNetworkAccess = publicNetworkAccess;
             AgentUpdate = agentUpdate;
             PrivateEndpointConnections = privateEndpointConnections;
-            ManagedBy = managedBy;
-            Kind = kind;
-            ETag = etag;
-            Identity = identity;
-            Sku = sku;
-            Plan = plan;
+            ManagedPrivateUDP = managedPrivateUDP;
+            DirectUDP = directUDP;
+            PublicUDP = publicUDP;
+            RelayUDP = relayUDP;
+            ManagementType = managementType;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -144,6 +154,24 @@ namespace Azure.ResourceManager.DesktopVirtualization
         {
         }
 
+        /// <summary> The managed service identities assigned to this resource. </summary>
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
+        /// <summary> If etag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </summary>
+        [WirePath("etag")]
+        public ETag? ETag { get; }
+        /// <summary> Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value. </summary>
+        [WirePath("kind")]
+        public string Kind { get; set; }
+        /// <summary> The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource. </summary>
+        [WirePath("managedBy")]
+        public string ManagedBy { get; set; }
+        /// <summary> Details of the resource plan. </summary>
+        [WirePath("plan")]
+        public ArmPlan Plan { get; set; }
+        /// <summary> The SKU (Stock Keeping Unit) assigned to this resource. </summary>
+        [WirePath("sku")]
+        public DesktopVirtualizationSku Sku { get; set; }
         /// <summary> ObjectId of HostPool. (internal use). </summary>
         [WirePath("properties.objectId")]
         public string ObjectId { get; }
@@ -216,23 +244,20 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <summary> List of private endpoint connection associated with the specified resource. </summary>
         [WirePath("properties.privateEndpointConnections")]
         public IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> PrivateEndpointConnections { get; }
-        /// <summary> The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource. </summary>
-        [WirePath("managedBy")]
-        public ResourceIdentifier ManagedBy { get; set; }
-        /// <summary> Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value. </summary>
-        [WirePath("kind")]
-        public string Kind { get; set; }
-        /// <summary> The etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </summary>
-        [WirePath("etag")]
-        public ETag? ETag { get; }
-        /// <summary> Gets or sets the identity. Current supported identity types: SystemAssigned. </summary>
-        [WirePath("identity")]
-        public ManagedServiceIdentity Identity { get; set; }
-        /// <summary> The resource model definition representing SKU. </summary>
-        [WirePath("sku")]
-        public DesktopVirtualizationSku Sku { get; set; }
-        /// <summary> Gets or sets the plan. </summary>
-        [WirePath("plan")]
-        public ArmPlan Plan { get; set; }
+        /// <summary> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </summary>
+        [WirePath("properties.managedPrivateUDP")]
+        public ManagedPrivateUDP? ManagedPrivateUDP { get; set; }
+        /// <summary> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </summary>
+        [WirePath("properties.directUDP")]
+        public DirectUDP? DirectUDP { get; set; }
+        /// <summary> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </summary>
+        [WirePath("properties.publicUDP")]
+        public PublicUDP? PublicUDP { get; set; }
+        /// <summary> Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type when making connections. This means that this connection is possible, but is not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection type when making connections. </summary>
+        [WirePath("properties.relayUDP")]
+        public RelayUDP? RelayUDP { get; set; }
+        /// <summary> The type of management for this hostpool, Automated or Standard. The default value is Automated. </summary>
+        [WirePath("properties.managementType")]
+        public ManagementType? ManagementType { get; set; }
     }
 }

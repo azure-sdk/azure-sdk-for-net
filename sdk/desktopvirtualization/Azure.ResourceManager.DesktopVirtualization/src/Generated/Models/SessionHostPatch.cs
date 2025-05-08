@@ -57,26 +57,16 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="allowNewSession"> Allow a new session. </param>
-        /// <param name="assignedUser"> User assigned to SessionHost. </param>
-        /// <param name="friendlyName"> Friendly name of SessionHost. </param>
+        /// <param name="properties"> Detailed properties for SessionHost. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SessionHostPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, bool? allowNewSession, string assignedUser, string friendlyName, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal SessionHostPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SessionHostPatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            AllowNewSession = allowNewSession;
-            AssignedUser = assignedUser;
-            FriendlyName = friendlyName;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Allow a new session. </summary>
-        [WirePath("properties.allowNewSession")]
-        public bool? AllowNewSession { get; set; }
-        /// <summary> User assigned to SessionHost. </summary>
-        [WirePath("properties.assignedUser")]
-        public string AssignedUser { get; set; }
-        /// <summary> Friendly name of SessionHost. </summary>
-        [WirePath("properties.friendlyName")]
-        public string FriendlyName { get; set; }
+        /// <summary> Detailed properties for SessionHost. </summary>
+        [WirePath("properties")]
+        public SessionHostPatchProperties Properties { get; set; }
     }
 }

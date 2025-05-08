@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -273,7 +273,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -311,7 +311,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -349,7 +349,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -357,7 +357,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="sendMessage"> Object containing message includes title and message body. </param>
+        /// <param name="sendMessage"> Represents message sent to a UserSession. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response> SendMessageAsync(UserSessionMessage sendMessage = null, CancellationToken cancellationToken = default)
         {
@@ -388,7 +388,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-04-03</description>
+        /// <description>2025-04-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -396,7 +396,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="sendMessage"> Object containing message includes title and message body. </param>
+        /// <param name="sendMessage"> Represents message sent to a UserSession. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response SendMessage(UserSessionMessage sendMessage = null, CancellationToken cancellationToken = default)
         {

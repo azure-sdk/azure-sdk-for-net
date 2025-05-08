@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string TimestampedValue = "Timestamped";
         private const string NotTimestampedValue = "NotTimestamped";
 
-        /// <summary> Timestamped. </summary>
+        /// <summary> Package is timestamped. </summary>
         public static PackageTimestamped Timestamped { get; } = new PackageTimestamped(TimestampedValue);
-        /// <summary> NotTimestamped. </summary>
+        /// <summary> Package is not timestamped, use certificate expiry date. </summary>
         public static PackageTimestamped NotTimestamped { get; } = new PackageTimestamped(NotTimestampedValue);
         /// <summary> Determines if two <see cref="PackageTimestamped"/> values are the same. </summary>
         public static bool operator ==(PackageTimestamped left, PackageTimestamped right) => left.Equals(right);

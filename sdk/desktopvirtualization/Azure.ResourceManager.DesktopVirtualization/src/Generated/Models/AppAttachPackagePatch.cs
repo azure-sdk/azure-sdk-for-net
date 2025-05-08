@@ -50,6 +50,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> Initializes a new instance of <see cref="AppAttachPackagePatch"/>. </summary>
         public AppAttachPackagePatch()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AppAttachPackagePatch"/>. </summary>
@@ -57,14 +58,19 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> tags to be updated. </param>
         /// <param name="properties"> Detailed properties for App Attach Package. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppAttachPackagePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, AppAttachPackagePatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal AppAttachPackagePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AppAttachPackagePatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
+            Tags = tags;
             Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> tags to be updated. </summary>
+        [WirePath("tags")]
+        public IDictionary<string, string> Tags { get; }
         /// <summary> Detailed properties for App Attach Package. </summary>
         [WirePath("properties")]
         public AppAttachPackagePatchProperties Properties { get; set; }

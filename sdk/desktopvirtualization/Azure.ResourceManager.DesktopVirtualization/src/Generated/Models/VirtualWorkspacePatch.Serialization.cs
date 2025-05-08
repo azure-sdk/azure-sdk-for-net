@@ -36,64 +36,20 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
 
             if (Optional.IsCollectionDefined(Tags))
             {
-                if (Tags != null)
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
                 {
-                    writer.WritePropertyName("tags"u8);
-                    writer.WriteStartObject();
-                    foreach (var item in Tags)
-                    {
-                        writer.WritePropertyName(item.Key);
-                        writer.WriteStringValue(item.Value);
-                    }
-                    writer.WriteEndObject();
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
                 }
-                else
-                {
-                    writer.WriteNull("tags");
-                }
+                writer.WriteEndObject();
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Description))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (Optional.IsDefined(FriendlyName))
-            {
-                writer.WritePropertyName("friendlyName"u8);
-                writer.WriteStringValue(FriendlyName);
-            }
-            if (Optional.IsCollectionDefined(ApplicationGroupReferences))
-            {
-                if (ApplicationGroupReferences != null)
-                {
-                    writer.WritePropertyName("applicationGroupReferences"u8);
-                    writer.WriteStartArray();
-                    foreach (var item in ApplicationGroupReferences)
-                    {
-                        writer.WriteStringValue(item);
-                    }
-                    writer.WriteEndArray();
-                }
-                else
-                {
-                    writer.WriteNull("applicationGroupReferences");
-                }
-            }
-            if (Optional.IsDefined(PublicNetworkAccess))
-            {
-                if (PublicNetworkAccess != null)
-                {
-                    writer.WritePropertyName("publicNetworkAccess"u8);
-                    writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
-                }
-                else
-                {
-                    writer.WriteNull("publicNetworkAccess");
-                }
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -132,10 +88,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 return null;
             }
             IDictionary<string, string> tags = default;
-            string description = default;
-            string friendlyName = default;
-            IList<string> applicationGroupReferences = default;
-            DesktopVirtualizationPublicNetworkAccess? publicNetworkAccess = default;
+            WorkspacePatchProperties properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -144,7 +97,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        tags = null;
                         continue;
                     }
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
@@ -159,47 +111,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("description"u8))
-                        {
-                            description = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("friendlyName"u8))
-                        {
-                            friendlyName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("applicationGroupReferences"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                applicationGroupReferences = null;
-                                continue;
-                            }
-                            List<string> array = new List<string>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(item.GetString());
-                            }
-                            applicationGroupReferences = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("publicNetworkAccess"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                publicNetworkAccess = null;
-                                continue;
-                            }
-                            publicNetworkAccess = new DesktopVirtualizationPublicNetworkAccess(property0.Value.GetString());
-                            continue;
-                        }
-                    }
+                    properties = WorkspacePatchProperties.DeserializeWorkspacePatchProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -208,13 +122,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new VirtualWorkspacePatch(
-                tags ?? new ChangeTrackingDictionary<string, string>(),
-                description,
-                friendlyName,
-                applicationGroupReferences ?? new ChangeTrackingList<string>(),
-                publicNetworkAccess,
-                serializedAdditionalRawData);
+            return new VirtualWorkspacePatch(tags ?? new ChangeTrackingDictionary<string, string>(), properties, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VirtualWorkspacePatch>.Write(ModelReaderWriterOptions options)

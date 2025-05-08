@@ -28,15 +28,15 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string SucceededValue = "Succeeded";
         private const string FailedValue = "Failed";
 
-        /// <summary> Initial. </summary>
+        /// <summary> Update is initializing. </summary>
         public static SessionHostUpdateState Initial { get; } = new SessionHostUpdateState(InitialValue);
-        /// <summary> Pending. </summary>
+        /// <summary> Update is pending. </summary>
         public static SessionHostUpdateState Pending { get; } = new SessionHostUpdateState(PendingValue);
-        /// <summary> Started. </summary>
+        /// <summary> Update has started. </summary>
         public static SessionHostUpdateState Started { get; } = new SessionHostUpdateState(StartedValue);
-        /// <summary> Succeeded. </summary>
+        /// <summary> Update has succeeded. </summary>
         public static SessionHostUpdateState Succeeded { get; } = new SessionHostUpdateState(SucceededValue);
-        /// <summary> Failed. </summary>
+        /// <summary> Update has failed. </summary>
         public static SessionHostUpdateState Failed { get; } = new SessionHostUpdateState(FailedValue);
         /// <summary> Determines if two <see cref="SessionHostUpdateState"/> values are the same. </summary>
         public static bool operator ==(SessionHostUpdateState left, SessionHostUpdateState right) => left.Equals(right);

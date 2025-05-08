@@ -32,8 +32,192 @@ namespace Azure.ResourceManager.DesktopVirtualization
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-04-03";
+            _apiVersion = apiVersion ?? "2025-04-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
+        }
+
+        internal RequestUriBuilder CreateListBySubscriptionRequestUri(string subscriptionId, string filter)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (filter != null)
+            {
+                uri.AppendQuery("$filter", filter, true);
+            }
+            return uri;
+        }
+
+        internal HttpMessage CreateListBySubscriptionRequest(string subscriptionId, string filter)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (filter != null)
+            {
+                uri.AppendQuery("$filter", filter, true);
+            }
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List App Attach packages in subscription. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AppAttachPackageList>> ListBySubscriptionAsync(string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+
+            using var message = CreateListBySubscriptionRequest(subscriptionId, filter);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        AppAttachPackageList value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
+                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List App Attach packages in subscription. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AppAttachPackageList> ListBySubscription(string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+
+            using var message = CreateListBySubscriptionRequest(subscriptionId, filter);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        AppAttachPackageList value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
+                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal RequestUriBuilder CreateListByResourceGroupRequestUri(string subscriptionId, string resourceGroupName, string filter)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (filter != null)
+            {
+                uri.AppendQuery("$filter", filter, true);
+            }
+            return uri;
+        }
+
+        internal HttpMessage CreateListByResourceGroupRequest(string subscriptionId, string resourceGroupName, string filter)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (filter != null)
+            {
+                uri.AppendQuery("$filter", filter, true);
+            }
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List App Attach packages in resource group. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AppAttachPackageList>> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName, string filter = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+
+            using var message = CreateListByResourceGroupRequest(subscriptionId, resourceGroupName, filter);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        AppAttachPackageList value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
+                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List App Attach packages in resource group. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AppAttachPackageList> ListByResourceGroup(string subscriptionId, string resourceGroupName, string filter = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+
+            using var message = CreateListByResourceGroupRequest(subscriptionId, resourceGroupName, filter);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        AppAttachPackageList value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
+                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
         }
 
         internal RequestUriBuilder CreateGetRequestUri(string subscriptionId, string resourceGroupName, string appAttachPackageName)
@@ -234,90 +418,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
         }
 
-        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string resourceGroupName, string appAttachPackageName)
-        {
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages/", false);
-            uri.AppendPath(appAttachPackageName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            return uri;
-        }
-
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string appAttachPackageName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Delete;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages/", false);
-            uri.AppendPath(appAttachPackageName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Remove an App Attach Package. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string appAttachPackageName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(appAttachPackageName, nameof(appAttachPackageName));
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 204:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Remove an App Attach Package. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string appAttachPackageName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(appAttachPackageName, nameof(appAttachPackageName));
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 204:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
         internal RequestUriBuilder CreateUpdateRequestUri(string subscriptionId, string resourceGroupName, string appAttachPackageName, AppAttachPackagePatch patch)
         {
             var uri = new RawRequestUriBuilder();
@@ -360,7 +460,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
-        /// <param name="patch"> Object containing App Attach Package definition. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="appAttachPackageName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -391,7 +491,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
-        /// <param name="patch"> Object containing App Attach Package definition. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="appAttachPackageName"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -418,7 +518,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
         }
 
-        internal RequestUriBuilder CreateListByResourceGroupRequestUri(string subscriptionId, string resourceGroupName, string filter)
+        internal RequestUriBuilder CreateDeleteRequestUri(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -426,31 +526,33 @@ namespace Azure.ResourceManager.DesktopVirtualization
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages/", false);
+            uri.AppendPath(appAttachPackageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
-            if (filter != null)
+            if (force != null)
             {
-                uri.AppendQuery("$filter", filter, true);
+                uri.AppendQuery("force", force.Value, true);
             }
             return uri;
         }
 
-        internal HttpMessage CreateListByResourceGroupRequest(string subscriptionId, string resourceGroupName, string filter)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
-            request.Method = RequestMethod.Get;
+            request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages/", false);
+            uri.AppendPath(appAttachPackageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
-            if (filter != null)
+            if (force != null)
             {
-                uri.AppendQuery("$filter", filter, true);
+                uri.AppendQuery("force", force.Value, true);
             }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -458,92 +560,74 @@ namespace Azure.ResourceManager.DesktopVirtualization
             return message;
         }
 
-        /// <summary> List App Attach packages in resource group. </summary>
+        /// <summary> Remove an App Attach Package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="force"> Allows force delete. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AppAttachPackageList>> ListByResourceGroupAsync(string subscriptionId, string resourceGroupName, string filter = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(appAttachPackageName, nameof(appAttachPackageName));
 
-            using var message = CreateListByResourceGroupRequest(subscriptionId, resourceGroupName, filter);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName, force);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
-                    {
-                        AppAttachPackageList value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
+                case 204:
+                    return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> List App Attach packages in resource group. </summary>
+        /// <summary> Remove an App Attach Package. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name and host pool. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package. </param>
+        /// <param name="force"> Allows force delete. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AppAttachPackageList> ListByResourceGroup(string subscriptionId, string resourceGroupName, string filter = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(string subscriptionId, string resourceGroupName, string appAttachPackageName, bool? force = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(appAttachPackageName, nameof(appAttachPackageName));
 
-            using var message = CreateListByResourceGroupRequest(subscriptionId, resourceGroupName, filter);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, appAttachPackageName, force);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
-                    {
-                        AppAttachPackageList value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
+                case 204:
+                    return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal RequestUriBuilder CreateListBySubscriptionRequestUri(string subscriptionId, string filter)
+        internal RequestUriBuilder CreateListBySubscriptionNextPageRequestUri(string nextLink, string subscriptionId, string filter)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            if (filter != null)
-            {
-                uri.AppendQuery("$filter", filter, true);
-            }
+            uri.AppendRawNextLink(nextLink, false);
             return uri;
         }
 
-        internal HttpMessage CreateListBySubscriptionRequest(string subscriptionId, string filter)
+        internal HttpMessage CreateListBySubscriptionNextPageRequest(string nextLink, string subscriptionId, string filter)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/appAttachPackages", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            if (filter != null)
-            {
-                uri.AppendQuery("$filter", filter, true);
-            }
+            uri.AppendRawNextLink(nextLink, false);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
@@ -551,16 +635,18 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> List App Attach packages in subscription. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AppAttachPackageList>> ListBySubscriptionAsync(string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<AppAttachPackageList>> ListBySubscriptionNextPageAsync(string nextLink, string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
         {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
-            using var message = CreateListBySubscriptionRequest(subscriptionId, filter);
+            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, filter);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -577,16 +663,18 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> List App Attach packages in subscription. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AppAttachPackageList> ListBySubscription(string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
+        public Response<AppAttachPackageList> ListBySubscriptionNextPage(string nextLink, string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
         {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
-            using var message = CreateListBySubscriptionRequest(subscriptionId, filter);
+            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, filter);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -669,84 +757,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
 
             using var message = CreateListByResourceGroupNextPageRequest(nextLink, subscriptionId, resourceGroupName, filter);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        AppAttachPackageList value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal RequestUriBuilder CreateListBySubscriptionNextPageRequestUri(string nextLink, string subscriptionId, string filter)
-        {
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRawNextLink(nextLink, false);
-            return uri;
-        }
-
-        internal HttpMessage CreateListBySubscriptionNextPageRequest(string nextLink, string subscriptionId, string filter)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Get;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRawNextLink(nextLink, false);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> List App Attach packages in subscription. </summary>
-        /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AppAttachPackageList>> ListBySubscriptionNextPageAsync(string nextLink, string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-
-            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, filter);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        AppAttachPackageList value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = AppAttachPackageList.DeserializeAppAttachPackageList(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> List App Attach packages in subscription. </summary>
-        /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="subscriptionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AppAttachPackageList> ListBySubscriptionNextPage(string nextLink, string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-
-            using var message = CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId, filter);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {

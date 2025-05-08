@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_AppAttachPackageGet()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_Get.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/AppAttachPackage_Get.json
             // this example is just showing the usage of "AppAttachPackage_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_AppAttachPackageDelete()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_Delete.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/AppAttachPackage_Delete.json
             // this example is just showing the usage of "AppAttachPackage_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_AppAttachPackageUpdate()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/AppAttachPackage_Update.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/AppAttachPackage_Update.json
             // this example is just showing the usage of "AppAttachPackage_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -93,7 +93,47 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
             AppAttachPackageResource appAttachPackage = client.GetAppAttachPackageResource(appAttachPackageResourceId);
 
             // invoke the operation
-            AppAttachPackagePatch patch = new AppAttachPackagePatch();
+            AppAttachPackagePatch patch = new AppAttachPackagePatch
+            {
+                Properties = new AppAttachPackagePatchProperties
+                {
+                    Image = new AppAttachPackageInfoProperties
+                    {
+                        PackageAlias = "msixpackagealias",
+                        ImagePath = "imagepath",
+                        PackageName = "MsixPackageName",
+                        PackageFamilyName = "MsixPackage_FamilyName",
+                        PackageFullName = "MsixPackage_FullName",
+                        DisplayName = "displayname",
+                        PackageRelativePath = "packagerelativepath",
+                        IsRegularRegistration = false,
+                        IsActive = false,
+                        PackageDependencies = {new MsixPackageDependencies
+{
+DependencyName = "MsixPackage_Dependency_Name",
+Publisher = "MsixPackage_Dependency_Publisher",
+MinVersion = "packageDep_version",
+}},
+                        Version = "packageversion",
+                        LastUpdatedOn = DateTimeOffset.Parse("2008-09-22T14:01:54.9571247Z"),
+                        PackageApplications = {new MsixPackageApplications
+{
+AppId = "AppId",
+Description = "PackageApplicationDescription",
+AppUserModelId = "AppUserModelId",
+FriendlyName = "FriendlyName",
+IconImageName = "Iconimagename",
+RawIcon = BinaryData.FromObjectAsJson("VGhpcyBpcyBhIHN0cmluZyB0byBoYXNo"),
+RawPng = BinaryData.FromObjectAsJson("VGhpcyBpcyBhIHN0cmluZyB0byBoYXNo"),
+}},
+                        CertificateName = "certName",
+                        CertificateExpireOn = DateTimeOffset.Parse("2023-01-02T17:18:19.1234567Z"),
+                    },
+                    HostPoolReferences = { new ResourceIdentifier("/subscriptions/d15725f7-6577-4a8c-95f1-3da903b42364/resourcegroups/charlesk-southcentralus/providers/Microsoft.DesktopVirtualization/hostPool/hp1"), new ResourceIdentifier("/subscriptions/d15725f7-6577-4a8c-95f1-3da903b42364/resourcegroups/charlesk-southcentralus/providers/Microsoft.DesktopVirtualization/hostPool/hp2") },
+                    KeyVaultUri = new Uri("url"),
+                    FailHealthCheckOnStagingFailure = FailHealthCheckOnStagingFailure.DoNotFail,
+                },
+            };
             AppAttachPackageResource result = await appAttachPackage.UpdateAsync(patch);
 
             // the variable result is a resource, you could call other operations on this instance as well

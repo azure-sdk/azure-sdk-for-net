@@ -49,51 +49,24 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         public ScalingPlanPatch()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
-            Schedules = new ChangeTrackingList<ScalingSchedule>();
-            HostPoolReferences = new ChangeTrackingList<ScalingHostPoolReference>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ScalingPlanPatch"/>. </summary>
         /// <param name="tags"> tags to be updated. </param>
-        /// <param name="description"> Description of scaling plan. </param>
-        /// <param name="friendlyName"> User friendly name of scaling plan. </param>
-        /// <param name="timeZone"> Timezone of the scaling plan. </param>
-        /// <param name="exclusionTag"> Exclusion tag for scaling plan. </param>
-        /// <param name="schedules"> List of ScalingSchedule definitions. </param>
-        /// <param name="hostPoolReferences"> List of ScalingHostPoolReference definitions. </param>
+        /// <param name="properties"> Detailed properties for scaling plan. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScalingPlanPatch(IDictionary<string, string> tags, string description, string friendlyName, string timeZone, string exclusionTag, IList<ScalingSchedule> schedules, IList<ScalingHostPoolReference> hostPoolReferences, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScalingPlanPatch(IDictionary<string, string> tags, ScalingPlanPatchProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Tags = tags;
-            Description = description;
-            FriendlyName = friendlyName;
-            TimeZone = timeZone;
-            ExclusionTag = exclusionTag;
-            Schedules = schedules;
-            HostPoolReferences = hostPoolReferences;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> tags to be updated. </summary>
         [WirePath("tags")]
-        public IDictionary<string, string> Tags { get; set; }
-        /// <summary> Description of scaling plan. </summary>
-        [WirePath("properties.description")]
-        public string Description { get; set; }
-        /// <summary> User friendly name of scaling plan. </summary>
-        [WirePath("properties.friendlyName")]
-        public string FriendlyName { get; set; }
-        /// <summary> Timezone of the scaling plan. </summary>
-        [WirePath("properties.timeZone")]
-        public string TimeZone { get; set; }
-        /// <summary> Exclusion tag for scaling plan. </summary>
-        [WirePath("properties.exclusionTag")]
-        public string ExclusionTag { get; set; }
-        /// <summary> List of ScalingSchedule definitions. </summary>
-        [WirePath("properties.schedules")]
-        public IList<ScalingSchedule> Schedules { get; }
-        /// <summary> List of ScalingHostPoolReference definitions. </summary>
-        [WirePath("properties.hostPoolReferences")]
-        public IList<ScalingHostPoolReference> HostPoolReferences { get; }
+        public IDictionary<string, string> Tags { get; }
+        /// <summary> Detailed properties for scaling plan. </summary>
+        [WirePath("properties")]
+        public ScalingPlanPatchProperties Properties { get; set; }
     }
 }

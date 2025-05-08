@@ -18,9 +18,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CreateOrUpdate_PrivateEndpointConnectionUpdateByHostPool()
+        public async Task CreateOrUpdate_PrivateEndpointConnectionsUpdateByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_UpdateByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_UpdateByHostPool.json
             // this example is just showing the usage of "PrivateEndpointConnections_UpdateByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
             // invoke the operation
             string privateEndpointConnectionName = "hostPool1.377103f1-5179-4bdf-8556-4cdd3207cc5b";
-            DesktopVirtualizationPrivateEndpointConnection connection = new DesktopVirtualizationPrivateEndpointConnection
+            DesktopVirtualizationPrivateEndpointConnectionDataData data = new DesktopVirtualizationPrivateEndpointConnectionDataData
             {
                 ConnectionState = new DesktopVirtualizationPrivateLinkServiceConnectionState
                 {
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
                     ActionsRequired = "None",
                 },
             };
-            ArmOperation<HostPoolPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, connection);
+            ArmOperation<HostPoolPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
             HostPoolPrivateEndpointConnectionResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -62,9 +62,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_PrivateEndpointConnectionGetByHostPool()
+        public async Task Get_PrivateEndpointConnectionsGetByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_GetByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_GetByHostPool.json
             // this example is just showing the usage of "PrivateEndpointConnections_GetByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -96,9 +96,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetAll_PrivateEndpointConnectionListByHostPool()
+        public async Task GetAll_PrivateEndpointConnectionsListByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_ListByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_ListByHostPool.json
             // this example is just showing the usage of "PrivateEndpointConnections_ListByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,9 +132,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_PrivateEndpointConnectionGetByHostPool()
+        public async Task Exists_PrivateEndpointConnectionsGetByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_GetByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_GetByHostPool.json
             // this example is just showing the usage of "PrivateEndpointConnections_GetByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -162,9 +162,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_PrivateEndpointConnectionGetByHostPool()
+        public async Task GetIfExists_PrivateEndpointConnectionsGetByHostPool()
         {
-            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/stable/2024-04-03/examples/PrivateEndpointConnection_GetByHostPool.json
+            // Generated from example definition: specification/desktopvirtualization/resource-manager/Microsoft.DesktopVirtualization/preview/2025-04-01-preview/examples/PrivateEndpointConnections_GetByHostPool.json
             // this example is just showing the usage of "PrivateEndpointConnections_GetByHostPool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

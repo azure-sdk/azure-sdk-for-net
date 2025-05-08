@@ -41,6 +41,21 @@ namespace Azure.ResourceManager.DesktopVirtualization
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(ActiveSessions))
+            {
+                writer.WritePropertyName("activeSessions"u8);
+                writer.WriteNumberValue(ActiveSessions.Value);
+            }
+            if (Optional.IsDefined(DisconnectedSessions))
+            {
+                writer.WritePropertyName("disconnectedSessions"u8);
+                writer.WriteNumberValue(DisconnectedSessions.Value);
+            }
+            if (Optional.IsDefined(PendingSessions))
+            {
+                writer.WritePropertyName("pendingSessions"u8);
+                writer.WriteNumberValue(PendingSessions.Value);
+            }
             if (options.Format != "W" && Optional.IsDefined(ObjectId))
             {
                 writer.WritePropertyName("objectId"u8);
@@ -106,7 +121,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 writer.WritePropertyName("sxSStackVersion"u8);
                 writer.WriteStringValue(SxsStackVersion);
             }
-            if (Optional.IsDefined(UpdateState))
+            if (options.Format != "W" && Optional.IsDefined(UpdateState))
             {
                 writer.WritePropertyName("updateState"u8);
                 writer.WriteStringValue(UpdateState.Value.ToString());
@@ -120,6 +135,16 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 writer.WritePropertyName("updateErrorMessage"u8);
                 writer.WriteStringValue(UpdateErrorMessage);
+            }
+            if (options.Format != "W" && Optional.IsDefined(LastSessionHostUpdateOn))
+            {
+                writer.WritePropertyName("lastSessionHostUpdateTime"u8);
+                writer.WriteStringValue(LastSessionHostUpdateOn.Value, "O");
+            }
+            if (options.Format != "W" && Optional.IsDefined(SessionHostConfiguration))
+            {
+                writer.WritePropertyName("sessionHostConfiguration"u8);
+                writer.WriteStringValue(SessionHostConfiguration);
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(SessionHostHealthCheckResults))
             {
@@ -158,6 +183,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
+            int? activeSessions = default;
+            int? disconnectedSessions = default;
+            int? pendingSessions = default;
             string objectId = default;
             DateTimeOffset? lastHeartBeat = default;
             int? sessions = default;
@@ -174,6 +202,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             SessionHostUpdateState? updateState = default;
             DateTimeOffset? lastUpdateTime = default;
             string updateErrorMessage = default;
+            DateTimeOffset? lastSessionHostUpdateTime = default;
+            string sessionHostConfiguration = default;
             IReadOnlyList<SessionHostHealthCheckReport> sessionHostHealthCheckResults = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -212,6 +242,33 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("activeSessions"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            activeSessions = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("disconnectedSessions"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            disconnectedSessions = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("pendingSessions"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            pendingSessions = property0.Value.GetInt32();
+                            continue;
+                        }
                         if (property0.NameEquals("objectId"u8))
                         {
                             objectId = property0.Value.GetString();
@@ -324,6 +381,20 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             updateErrorMessage = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("lastSessionHostUpdateTime"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null || property0.Value.ValueKind == JsonValueKind.String && property0.Value.GetString().Length == 0)
+                            {
+                                continue;
+                            }
+                            lastSessionHostUpdateTime = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("sessionHostConfiguration"u8))
+                        {
+                            sessionHostConfiguration = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("sessionHostHealthCheckResults"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -352,6 +423,9 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 name,
                 type,
                 systemData,
+                activeSessions,
+                disconnectedSessions,
+                pendingSessions,
                 objectId,
                 lastHeartBeat,
                 sessions,
@@ -368,6 +442,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 updateState,
                 lastUpdateTime,
                 updateErrorMessage,
+                lastSessionHostUpdateTime,
+                sessionHostConfiguration,
                 sessionHostHealthCheckResults ?? new ChangeTrackingList<SessionHostHealthCheckReport>(),
                 serializedAdditionalRawData);
         }
@@ -438,6 +514,51 @@ namespace Azure.ResourceManager.DesktopVirtualization
 
             builder.Append("  properties:");
             builder.AppendLine(" {");
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ActiveSessions), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    activeSessions: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(ActiveSessions))
+                {
+                    builder.Append("    activeSessions: ");
+                    builder.AppendLine($"{ActiveSessions.Value}");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(DisconnectedSessions), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    disconnectedSessions: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(DisconnectedSessions))
+                {
+                    builder.Append("    disconnectedSessions: ");
+                    builder.AppendLine($"{DisconnectedSessions.Value}");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(PendingSessions), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    pendingSessions: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(PendingSessions))
+                {
+                    builder.Append("    pendingSessions: ");
+                    builder.AppendLine($"{PendingSessions.Value}");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ObjectId), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -742,6 +863,45 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     else
                     {
                         builder.AppendLine($"'{UpdateErrorMessage}'");
+                    }
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(LastSessionHostUpdateOn), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    lastSessionHostUpdateTime: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(LastSessionHostUpdateOn))
+                {
+                    builder.Append("    lastSessionHostUpdateTime: ");
+                    var formattedDateTimeString = TypeFormatters.ToString(LastSessionHostUpdateOn.Value, "o");
+                    builder.AppendLine($"'{formattedDateTimeString}'");
+                }
+            }
+
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(SessionHostConfiguration), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("    sessionHostConfiguration: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(SessionHostConfiguration))
+                {
+                    builder.Append("    sessionHostConfiguration: ");
+                    if (SessionHostConfiguration.Contains(Environment.NewLine))
+                    {
+                        builder.AppendLine("'''");
+                        builder.AppendLine($"{SessionHostConfiguration}'''");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"'{SessionHostConfiguration}'");
                     }
                 }
             }

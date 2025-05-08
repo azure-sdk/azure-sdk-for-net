@@ -30,19 +30,19 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string X86A64Value = "x86a64";
         private const string AllValue = "ALL";
 
-        /// <summary> ARM. </summary>
+        /// <summary> ARM 32-bit. </summary>
         public static AppAttachPackageArchitecture Arm { get; } = new AppAttachPackageArchitecture(ArmValue);
-        /// <summary> ARM64. </summary>
+        /// <summary> ARM 64-bit. </summary>
         public static AppAttachPackageArchitecture Arm64 { get; } = new AppAttachPackageArchitecture(Arm64Value);
-        /// <summary> x86. </summary>
+        /// <summary> 32-bit x86. </summary>
         public static AppAttachPackageArchitecture X86 { get; } = new AppAttachPackageArchitecture(X86Value);
-        /// <summary> x64. </summary>
+        /// <summary> 64-bit. </summary>
         public static AppAttachPackageArchitecture X64 { get; } = new AppAttachPackageArchitecture(X64Value);
-        /// <summary> Neutral. </summary>
+        /// <summary> Any architecture can be used. </summary>
         public static AppAttachPackageArchitecture Neutral { get; } = new AppAttachPackageArchitecture(NeutralValue);
-        /// <summary> x86a64. </summary>
+        /// <summary> X86 Compiled Hybrid Portable Executable for ARM64. </summary>
         public static AppAttachPackageArchitecture X86A64 { get; } = new AppAttachPackageArchitecture(X86A64Value);
-        /// <summary> ALL. </summary>
+        /// <summary> Select all listed applications, no filters. </summary>
         public static AppAttachPackageArchitecture All { get; } = new AppAttachPackageArchitecture(AllValue);
         /// <summary> Determines if two <see cref="AppAttachPackageArchitecture"/> values are the same. </summary>
         public static bool operator ==(AppAttachPackageArchitecture left, AppAttachPackageArchitecture right) => left.Equals(right);

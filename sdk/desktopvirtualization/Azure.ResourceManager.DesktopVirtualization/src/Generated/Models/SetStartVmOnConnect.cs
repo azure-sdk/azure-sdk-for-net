@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         private const string EnableValue = "Enable";
         private const string DisableValue = "Disable";
 
-        /// <summary> Enable. </summary>
+        /// <summary> Start VM on Connect is enabled. </summary>
         public static SetStartVmOnConnect Enable { get; } = new SetStartVmOnConnect(EnableValue);
-        /// <summary> Disable. </summary>
+        /// <summary> Start VM on Connect is disabled, must use rampUpAutoStartHosts or turn on manually. </summary>
         public static SetStartVmOnConnect Disable { get; } = new SetStartVmOnConnect(DisableValue);
         /// <summary> Determines if two <see cref="SetStartVmOnConnect"/> values are the same. </summary>
         public static bool operator ==(SetStartVmOnConnect left, SetStartVmOnConnect right) => left.Equals(right);

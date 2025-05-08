@@ -8,12 +8,10 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.DesktopVirtualization.Models
 {
@@ -39,34 +37,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             }
 
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsCollectionDefined(GroupIds))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("groupIds"u8);
-                writer.WriteStartArray();
-                foreach (var item in GroupIds)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
             }
-            if (Optional.IsDefined(PrivateEndpoint))
-            {
-                writer.WritePropertyName("privateEndpoint"u8);
-                JsonSerializer.Serialize(writer, PrivateEndpoint);
-            }
-            if (Optional.IsDefined(ConnectionState))
-            {
-                writer.WritePropertyName("privateLinkServiceConnectionState"u8);
-                writer.WriteObjectValue(ConnectionState, options);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            writer.WriteEndObject();
         }
 
         DesktopVirtualizationPrivateEndpointConnection IJsonModel<DesktopVirtualizationPrivateEndpointConnection>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -89,18 +64,24 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             {
                 return null;
             }
+            PrivateEndpointConnectionProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            IReadOnlyList<string> groupIds = default;
-            SubResource privateEndpoint = default;
-            DesktopVirtualizationPrivateLinkServiceConnectionState privateLinkServiceConnectionState = default;
-            DesktopVirtualizationPrivateEndpointConnectionProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = PrivateEndpointConnectionProperties.DeserializePrivateEndpointConnectionProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -125,59 +106,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("groupIds"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<string> array = new List<string>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(item.GetString());
-                            }
-                            groupIds = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("privateEndpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            privateEndpoint = JsonSerializer.Deserialize<SubResource>(property0.Value.GetRawText());
-                            continue;
-                        }
-                        if (property0.NameEquals("privateLinkServiceConnectionState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            privateLinkServiceConnectionState = DesktopVirtualizationPrivateLinkServiceConnectionState.DeserializeDesktopVirtualizationPrivateLinkServiceConnectionState(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new DesktopVirtualizationPrivateEndpointConnectionProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -189,10 +117,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 name,
                 type,
                 systemData,
-                groupIds ?? new ChangeTrackingList<string>(),
-                privateEndpoint,
-                privateLinkServiceConnectionState,
-                provisioningState,
+                properties,
                 serializedAdditionalRawData);
         }
 
@@ -230,6 +155,21 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
+            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Properties), out propertyOverride);
+            if (hasPropertyOverride)
+            {
+                builder.Append("  properties: ");
+                builder.AppendLine(propertyOverride);
+            }
+            else
+            {
+                if (Optional.IsDefined(Properties))
+                {
+                    builder.Append("  properties: ");
+                    BicepSerializationHelpers.AppendChildObject(builder, Properties, options, 2, false, "  properties: ");
+                }
+            }
+
             hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(Id), out propertyOverride);
             if (hasPropertyOverride)
             {
@@ -260,95 +200,6 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
             }
 
-            builder.Append("  properties:");
-            builder.AppendLine(" {");
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(GroupIds), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    groupIds: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsCollectionDefined(GroupIds))
-                {
-                    if (GroupIds.Any())
-                    {
-                        builder.Append("    groupIds: ");
-                        builder.AppendLine("[");
-                        foreach (var item in GroupIds)
-                        {
-                            if (item == null)
-                            {
-                                builder.Append("null");
-                                continue;
-                            }
-                            if (item.Contains(Environment.NewLine))
-                            {
-                                builder.AppendLine("      '''");
-                                builder.AppendLine($"{item}'''");
-                            }
-                            else
-                            {
-                                builder.AppendLine($"      '{item}'");
-                            }
-                        }
-                        builder.AppendLine("    ]");
-                    }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue("PrivateEndpointId", out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    privateEndpoint: ");
-                builder.AppendLine("{");
-                builder.AppendLine("      privateEndpoint: {");
-                builder.Append("        id: ");
-                builder.AppendLine(propertyOverride);
-                builder.AppendLine("      }");
-                builder.AppendLine("    }");
-            }
-            else
-            {
-                if (Optional.IsDefined(PrivateEndpoint))
-                {
-                    builder.Append("    privateEndpoint: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, PrivateEndpoint, options, 4, false, "    privateEndpoint: ");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ConnectionState), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    privateLinkServiceConnectionState: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(ConnectionState))
-                {
-                    builder.Append("    privateLinkServiceConnectionState: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, ConnectionState, options, 4, false, "    privateLinkServiceConnectionState: ");
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(ProvisioningState), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("    provisioningState: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(ProvisioningState))
-                {
-                    builder.Append("    provisioningState: ");
-                    builder.AppendLine($"'{ProvisioningState.Value.ToString()}'");
-                }
-            }
-
-            builder.AppendLine("  }");
             builder.AppendLine("}");
             return BinaryData.FromString(builder.ToString());
         }

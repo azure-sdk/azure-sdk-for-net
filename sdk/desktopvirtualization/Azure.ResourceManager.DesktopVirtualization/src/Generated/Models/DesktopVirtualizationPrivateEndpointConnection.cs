@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.DesktopVirtualization.Models
 {
@@ -46,12 +45,11 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DesktopVirtualizationPrivateEndpointConnection"/>. </summary>
         public DesktopVirtualizationPrivateEndpointConnection()
         {
-            GroupIds = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DesktopVirtualizationPrivateEndpointConnection"/>. </summary>
@@ -59,37 +57,16 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="groupIds"> The group ids for the private endpoint resource. </param>
-        /// <param name="privateEndpoint"> The private endpoint resource. </param>
-        /// <param name="connectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
-        /// <param name="provisioningState"> The provisioning state of the private endpoint connection resource. </param>
+        /// <param name="properties"> Resource properties. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DesktopVirtualizationPrivateEndpointConnection(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IReadOnlyList<string> groupIds, SubResource privateEndpoint, DesktopVirtualizationPrivateLinkServiceConnectionState connectionState, DesktopVirtualizationPrivateEndpointConnectionProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal DesktopVirtualizationPrivateEndpointConnection(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, PrivateEndpointConnectionProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            GroupIds = groupIds;
-            PrivateEndpoint = privateEndpoint;
-            ConnectionState = connectionState;
-            ProvisioningState = provisioningState;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The group ids for the private endpoint resource. </summary>
-        [WirePath("properties.groupIds")]
-        public IReadOnlyList<string> GroupIds { get; }
-        /// <summary> The private endpoint resource. </summary>
-        internal SubResource PrivateEndpoint { get; set; }
-        /// <summary> Gets Id. </summary>
-        [WirePath("properties.privateEndpoint.id")]
-        public ResourceIdentifier PrivateEndpointId
-        {
-            get => PrivateEndpoint is null ? default : PrivateEndpoint.Id;
-        }
-
-        /// <summary> A collection of information about the state of the connection between service consumer and provider. </summary>
-        [WirePath("properties.privateLinkServiceConnectionState")]
-        public DesktopVirtualizationPrivateLinkServiceConnectionState ConnectionState { get; set; }
-        /// <summary> The provisioning state of the private endpoint connection resource. </summary>
-        [WirePath("properties.provisioningState")]
-        public DesktopVirtualizationPrivateEndpointConnectionProvisioningState? ProvisioningState { get; }
+        /// <summary> Resource properties. </summary>
+        [WirePath("properties")]
+        public PrivateEndpointConnectionProperties Properties { get; set; }
     }
 }

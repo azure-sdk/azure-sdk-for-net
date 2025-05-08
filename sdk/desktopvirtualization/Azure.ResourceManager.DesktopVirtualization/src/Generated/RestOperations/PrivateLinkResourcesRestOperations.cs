@@ -32,132 +32,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2024-04-03";
+            _apiVersion = apiVersion ?? "2025-04-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
-        }
-
-        internal RequestUriBuilder CreateListByWorkspaceRequestUri(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
-        {
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/workspaces/", false);
-            uri.AppendPath(workspaceName, true);
-            uri.AppendPath("/privateLinkResources", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            if (pageSize != null)
-            {
-                uri.AppendQuery("pageSize", pageSize.Value, true);
-            }
-            if (isDescending != null)
-            {
-                uri.AppendQuery("isDescending", isDescending.Value, true);
-            }
-            if (initialSkip != null)
-            {
-                uri.AppendQuery("initialSkip", initialSkip.Value, true);
-            }
-            return uri;
-        }
-
-        internal HttpMessage CreateListByWorkspaceRequest(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Get;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/workspaces/", false);
-            uri.AppendPath(workspaceName, true);
-            uri.AppendPath("/privateLinkResources", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            if (pageSize != null)
-            {
-                uri.AppendQuery("pageSize", pageSize.Value, true);
-            }
-            if (isDescending != null)
-            {
-                uri.AppendQuery("isDescending", isDescending.Value, true);
-            }
-            if (initialSkip != null)
-            {
-                uri.AppendQuery("initialSkip", initialSkip.Value, true);
-            }
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> List the private link resources available for this workspace. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="workspaceName"> The name of the workspace. </param>
-        /// <param name="pageSize"> Number of items per page. </param>
-        /// <param name="isDescending"> Indicates whether the collection is descending. </param>
-        /// <param name="initialSkip"> Initial number of items to skip. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DesktopVirtualizationPrivateLinkResourceListResult>> ListByWorkspaceAsync(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-
-            using var message = CreateListByWorkspaceRequest(subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        DesktopVirtualizationPrivateLinkResourceListResult value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = DesktopVirtualizationPrivateLinkResourceListResult.DeserializeDesktopVirtualizationPrivateLinkResourceListResult(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> List the private link resources available for this workspace. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="workspaceName"> The name of the workspace. </param>
-        /// <param name="pageSize"> Number of items per page. </param>
-        /// <param name="isDescending"> Indicates whether the collection is descending. </param>
-        /// <param name="initialSkip"> Initial number of items to skip. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DesktopVirtualizationPrivateLinkResourceListResult> ListByWorkspace(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-
-            using var message = CreateListByWorkspaceRequest(subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        DesktopVirtualizationPrivateLinkResourceListResult value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = DesktopVirtualizationPrivateLinkResourceListResult.DeserializeDesktopVirtualizationPrivateLinkResourceListResult(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
         }
 
         internal RequestUriBuilder CreateListByHostPoolRequestUri(string subscriptionId, string resourceGroupName, string hostPoolName, int? pageSize, bool? isDescending, int? initialSkip)
@@ -284,22 +160,60 @@ namespace Azure.ResourceManager.DesktopVirtualization
             }
         }
 
-        internal RequestUriBuilder CreateListByWorkspaceNextPageRequestUri(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
+        internal RequestUriBuilder CreateListByWorkspaceRequestUri(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRawNextLink(nextLink, false);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/workspaces/", false);
+            uri.AppendPath(workspaceName, true);
+            uri.AppendPath("/privateLinkResources", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (pageSize != null)
+            {
+                uri.AppendQuery("pageSize", pageSize.Value, true);
+            }
+            if (isDescending != null)
+            {
+                uri.AppendQuery("isDescending", isDescending.Value, true);
+            }
+            if (initialSkip != null)
+            {
+                uri.AppendQuery("initialSkip", initialSkip.Value, true);
+            }
             return uri;
         }
 
-        internal HttpMessage CreateListByWorkspaceNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
+        internal HttpMessage CreateListByWorkspaceRequest(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendRawNextLink(nextLink, false);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.DesktopVirtualization/workspaces/", false);
+            uri.AppendPath(workspaceName, true);
+            uri.AppendPath("/privateLinkResources", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (pageSize != null)
+            {
+                uri.AppendQuery("pageSize", pageSize.Value, true);
+            }
+            if (isDescending != null)
+            {
+                uri.AppendQuery("isDescending", isDescending.Value, true);
+            }
+            if (initialSkip != null)
+            {
+                uri.AppendQuery("initialSkip", initialSkip.Value, true);
+            }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
@@ -307,7 +221,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> List the private link resources available for this workspace. </summary>
-        /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workspaceName"> The name of the workspace. </param>
@@ -315,16 +228,15 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="isDescending"> Indicates whether the collection is descending. </param>
         /// <param name="initialSkip"> Initial number of items to skip. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DesktopVirtualizationPrivateLinkResourceListResult>> ListByWorkspaceNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
+        public async Task<Response<DesktopVirtualizationPrivateLinkResourceListResult>> ListByWorkspaceAsync(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
 
-            using var message = CreateListByWorkspaceNextPageRequest(nextLink, subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
+            using var message = CreateListByWorkspaceRequest(subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -341,7 +253,6 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary> List the private link resources available for this workspace. </summary>
-        /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="workspaceName"> The name of the workspace. </param>
@@ -349,16 +260,15 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="isDescending"> Indicates whether the collection is descending. </param>
         /// <param name="initialSkip"> Initial number of items to skip. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DesktopVirtualizationPrivateLinkResourceListResult> ListByWorkspaceNextPage(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
+        public Response<DesktopVirtualizationPrivateLinkResourceListResult> ListByWorkspace(string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
 
-            using var message = CreateListByWorkspaceNextPageRequest(nextLink, subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
+            using var message = CreateListByWorkspaceRequest(subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -449,6 +359,96 @@ namespace Azure.ResourceManager.DesktopVirtualization
             Argument.AssertNotNullOrEmpty(hostPoolName, nameof(hostPoolName));
 
             using var message = CreateListByHostPoolNextPageRequest(nextLink, subscriptionId, resourceGroupName, hostPoolName, pageSize, isDescending, initialSkip);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        DesktopVirtualizationPrivateLinkResourceListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
+                        value = DesktopVirtualizationPrivateLinkResourceListResult.DeserializeDesktopVirtualizationPrivateLinkResourceListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal RequestUriBuilder CreateListByWorkspaceNextPageRequestUri(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            return uri;
+        }
+
+        internal HttpMessage CreateListByWorkspaceNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize, bool? isDescending, int? initialSkip)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List the private link resources available for this workspace. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="pageSize"> Number of items per page. </param>
+        /// <param name="isDescending"> Indicates whether the collection is descending. </param>
+        /// <param name="initialSkip"> Initial number of items to skip. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<DesktopVirtualizationPrivateLinkResourceListResult>> ListByWorkspaceNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
+
+            using var message = CreateListByWorkspaceNextPageRequest(nextLink, subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        DesktopVirtualizationPrivateLinkResourceListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
+                        value = DesktopVirtualizationPrivateLinkResourceListResult.DeserializeDesktopVirtualizationPrivateLinkResourceListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List the private link resources available for this workspace. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="workspaceName"> The name of the workspace. </param>
+        /// <param name="pageSize"> Number of items per page. </param>
+        /// <param name="isDescending"> Indicates whether the collection is descending. </param>
+        /// <param name="initialSkip"> Initial number of items to skip. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<DesktopVirtualizationPrivateLinkResourceListResult> ListByWorkspaceNextPage(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
+
+            using var message = CreateListByWorkspaceNextPageRequest(nextLink, subscriptionId, resourceGroupName, workspaceName, pageSize, isDescending, initialSkip);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
