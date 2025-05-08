@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    public partial class ApiManagementGatewayApiRemovedEventData : IUtf8JsonSerializable, IJsonModel<ApiManagementGatewayApiRemovedEventData>
+    public partial class AcsCallRoomProperties : IUtf8JsonSerializable, IJsonModel<AcsCallRoomProperties>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ApiManagementGatewayApiRemovedEventData>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AcsCallRoomProperties>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ApiManagementGatewayApiRemovedEventData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AcsCallRoomProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,16 +28,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayApiRemovedEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AcsCallRoomProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ApiManagementGatewayApiRemovedEventData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AcsCallRoomProperties)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(ResourceUri))
+            if (Optional.IsDefined(Id))
             {
-                writer.WritePropertyName("resourceUri"u8);
-                writer.WriteStringValue(ResourceUri);
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -56,19 +56,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
         }
 
-        ApiManagementGatewayApiRemovedEventData IJsonModel<ApiManagementGatewayApiRemovedEventData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AcsCallRoomProperties IJsonModel<AcsCallRoomProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayApiRemovedEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AcsCallRoomProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ApiManagementGatewayApiRemovedEventData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AcsCallRoomProperties)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeApiManagementGatewayApiRemovedEventData(document.RootElement, options);
+            return DeserializeAcsCallRoomProperties(document.RootElement, options);
         }
 
-        internal static ApiManagementGatewayApiRemovedEventData DeserializeApiManagementGatewayApiRemovedEventData(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AcsCallRoomProperties DeserializeAcsCallRoomProperties(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -76,14 +76,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             {
                 return null;
             }
-            string resourceUri = default;
+            string id = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("resourceUri"u8))
+                if (property.NameEquals("id"u8))
                 {
-                    resourceUri = property.Value.GetString();
+                    id = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -92,46 +92,46 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ApiManagementGatewayApiRemovedEventData(resourceUri, serializedAdditionalRawData);
+            return new AcsCallRoomProperties(id, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ApiManagementGatewayApiRemovedEventData>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AcsCallRoomProperties>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayApiRemovedEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AcsCallRoomProperties>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ApiManagementGatewayApiRemovedEventData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AcsCallRoomProperties)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ApiManagementGatewayApiRemovedEventData IPersistableModel<ApiManagementGatewayApiRemovedEventData>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AcsCallRoomProperties IPersistableModel<AcsCallRoomProperties>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ApiManagementGatewayApiRemovedEventData>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AcsCallRoomProperties>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeApiManagementGatewayApiRemovedEventData(document.RootElement, options);
+                        return DeserializeAcsCallRoomProperties(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ApiManagementGatewayApiRemovedEventData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AcsCallRoomProperties)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ApiManagementGatewayApiRemovedEventData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AcsCallRoomProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ApiManagementGatewayApiRemovedEventData FromResponse(Response response)
+        internal static AcsCallRoomProperties FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeApiManagementGatewayApiRemovedEventData(document.RootElement);
+            return DeserializeAcsCallRoomProperties(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
