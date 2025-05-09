@@ -15,8 +15,8 @@ namespace Azure.ResourceManager.HealthBot.Mocking
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     public partial class MockableHealthBotSubscriptionResource : ArmResource
     {
-        private ClientDiagnostics _healthBotBotsClientDiagnostics;
-        private BotsRestOperations _healthBotBotsRestClient;
+        private ClientDiagnostics _healthBotClientDiagnostics;
+        private HealthBotsRestOperations _healthBotRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableHealthBotSubscriptionResource"/> class for mocking. </summary>
         protected MockableHealthBotSubscriptionResource()
@@ -30,8 +30,8 @@ namespace Azure.ResourceManager.HealthBot.Mocking
         {
         }
 
-        private ClientDiagnostics HealthBotBotsClientDiagnostics => _healthBotBotsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.HealthBot", HealthBotResource.ResourceType.Namespace, Diagnostics);
-        private BotsRestOperations HealthBotBotsRestClient => _healthBotBotsRestClient ??= new BotsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(HealthBotResource.ResourceType));
+        private ClientDiagnostics HealthBotClientDiagnostics => _healthBotClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.HealthBot", HealthBotResource.ResourceType.Namespace, Diagnostics);
+        private HealthBotsRestOperations HealthBotRestClient => _healthBotRestClient ??= new HealthBotsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(HealthBotResource.ResourceType));
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -48,11 +48,11 @@ namespace Azure.ResourceManager.HealthBot.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_List</description>
+        /// <description>HealthBot_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -64,9 +64,9 @@ namespace Azure.ResourceManager.HealthBot.Mocking
         /// <returns> An async collection of <see cref="HealthBotResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<HealthBotResource> GetHealthBotsAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => HealthBotBotsRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => HealthBotBotsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new HealthBotResource(Client, HealthBotData.DeserializeHealthBotData(e)), HealthBotBotsClientDiagnostics, Pipeline, "MockableHealthBotSubscriptionResource.GetHealthBots", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => HealthBotRestClient.CreateListRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => HealthBotRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new HealthBotResource(Client, HealthBotData.DeserializeHealthBotData(e)), HealthBotClientDiagnostics, Pipeline, "MockableHealthBotSubscriptionResource.GetHealthBots", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -78,11 +78,11 @@ namespace Azure.ResourceManager.HealthBot.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_List</description>
+        /// <description>HealthBot_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -94,9 +94,9 @@ namespace Azure.ResourceManager.HealthBot.Mocking
         /// <returns> A collection of <see cref="HealthBotResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<HealthBotResource> GetHealthBots(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => HealthBotBotsRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => HealthBotBotsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new HealthBotResource(Client, HealthBotData.DeserializeHealthBotData(e)), HealthBotBotsClientDiagnostics, Pipeline, "MockableHealthBotSubscriptionResource.GetHealthBots", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => HealthBotRestClient.CreateListRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => HealthBotRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new HealthBotResource(Client, HealthBotData.DeserializeHealthBotData(e)), HealthBotClientDiagnostics, Pipeline, "MockableHealthBotSubscriptionResource.GetHealthBots", "value", "nextLink", cancellationToken);
         }
     }
 }

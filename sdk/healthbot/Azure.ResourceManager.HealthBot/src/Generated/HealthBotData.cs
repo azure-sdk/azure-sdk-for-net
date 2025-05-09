@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.HealthBot
         /// <param name="identity"> The identity of the Azure Health Bot. </param>
         /// <param name="properties"> The set of properties specific to Azure Health Bot resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthBotData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, HealthBotSku sku, ManagedServiceIdentity identity, HealthBotProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal HealthBotData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, HealthBotSku sku, Identity identity, HealthBotProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             Identity = identity;
@@ -99,7 +99,7 @@ namespace Azure.ResourceManager.HealthBot
         }
 
         /// <summary> The identity of the Azure Health Bot. </summary>
-        public ManagedServiceIdentity Identity { get; set; }
+        public Identity Identity { get; set; }
         /// <summary> The set of properties specific to Azure Health Bot resource. </summary>
         public HealthBotProperties Properties { get; set; }
     }

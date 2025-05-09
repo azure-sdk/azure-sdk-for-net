@@ -35,8 +35,8 @@ namespace Azure.ResourceManager.HealthBot
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _healthBotBotsClientDiagnostics;
-        private readonly BotsRestOperations _healthBotBotsRestClient;
+        private readonly ClientDiagnostics _healthBotClientDiagnostics;
+        private readonly HealthBotsRestOperations _healthBotRestClient;
         private readonly HealthBotData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -61,9 +61,9 @@ namespace Azure.ResourceManager.HealthBot
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal HealthBotResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _healthBotBotsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.HealthBot", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string healthBotBotsApiVersion);
-            _healthBotBotsRestClient = new BotsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, healthBotBotsApiVersion);
+            _healthBotClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.HealthBot", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string healthBotApiVersion);
+            _healthBotRestClient = new HealthBotsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, healthBotApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -99,11 +99,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -114,11 +114,11 @@ namespace Azure.ResourceManager.HealthBot
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<HealthBotResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.Get");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.Get");
             scope.Start();
             try
             {
-                var response = await _healthBotBotsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _healthBotRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new HealthBotResource(Client, response.Value), response.GetRawResponse());
@@ -139,11 +139,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -154,11 +154,11 @@ namespace Azure.ResourceManager.HealthBot
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<HealthBotResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.Get");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.Get");
             scope.Start();
             try
             {
-                var response = _healthBotBotsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var response = _healthBotRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new HealthBotResource(Client, response.Value), response.GetRawResponse());
@@ -179,11 +179,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Delete</description>
+        /// <description>HealthBot_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -195,12 +195,12 @@ namespace Azure.ResourceManager.HealthBot
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.Delete");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.Delete");
             scope.Start();
             try
             {
-                var response = await _healthBotBotsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new HealthBotArmOperation(_healthBotBotsClientDiagnostics, Pipeline, _healthBotBotsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = await _healthBotRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new HealthBotArmOperation(_healthBotClientDiagnostics, Pipeline, _healthBotRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -221,11 +221,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Delete</description>
+        /// <description>HealthBot_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -237,12 +237,12 @@ namespace Azure.ResourceManager.HealthBot
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.Delete");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.Delete");
             scope.Start();
             try
             {
-                var response = _healthBotBotsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new HealthBotArmOperation(_healthBotBotsClientDiagnostics, Pipeline, _healthBotBotsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = _healthBotRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var operation = new HealthBotArmOperation(_healthBotClientDiagnostics, Pipeline, _healthBotRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -263,11 +263,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Update</description>
+        /// <description>HealthBot_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -275,19 +275,23 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="patch"> The parameters to provide for the required Azure Health Bot. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<Response<HealthBotResource>> UpdateAsync(HealthBotPatch patch, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> UpdateAsync(WaitUntil waitUntil, HealthBotPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.Update");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.Update");
             scope.Start();
             try
             {
-                var response = await _healthBotBotsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken).ConfigureAwait(false);
-                return Response.FromValue(new HealthBotResource(Client, response.Value), response.GetRawResponse());
+                var response = await _healthBotRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var operation = new HealthBotArmOperation(_healthBotClientDiagnostics, Pipeline, _healthBotRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
             }
             catch (Exception e)
             {
@@ -305,11 +309,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Update</description>
+        /// <description>HealthBot_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -317,19 +321,175 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="patch"> The parameters to provide for the required Azure Health Bot. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual Response<HealthBotResource> Update(HealthBotPatch patch, CancellationToken cancellationToken = default)
+        public virtual ArmOperation Update(WaitUntil waitUntil, HealthBotPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.Update");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.Update");
             scope.Start();
             try
             {
-                var response = _healthBotBotsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken);
-                return Response.FromValue(new HealthBotResource(Client, response.Value), response.GetRawResponse());
+                var response = _healthBotRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken);
+                var operation = new HealthBotArmOperation(_healthBotClientDiagnostics, Pipeline, _healthBotRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List all secrets of a HealthBot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthBot/healthBots/{botName}/listSecrets</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>HealthBots_ListSecrets</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HealthBotResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<HealthBotKeysResponse>> GetSecretsAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.GetSecrets");
+            scope.Start();
+            try
+            {
+                var response = await _healthBotRestClient.ListSecretsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List all secrets of a HealthBot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthBot/healthBots/{botName}/listSecrets</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>HealthBots_ListSecrets</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HealthBotResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<HealthBotKeysResponse> GetSecrets(CancellationToken cancellationToken = default)
+        {
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.GetSecrets");
+            scope.Start();
+            try
+            {
+                var response = _healthBotRestClient.ListSecrets(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Regenerate the API JWT Secret of a HealthBot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthBot/healthBots/{botName}/regenerateApiJwtSecret</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>HealthBots_RegenerateApiJwtSecret</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HealthBotResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<HealthBotKey>> RegenerateApiJwtSecretAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.RegenerateApiJwtSecret");
+            scope.Start();
+            try
+            {
+                var response = await _healthBotRestClient.RegenerateApiJwtSecretAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Regenerate the API JWT Secret of a HealthBot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthBot/healthBots/{botName}/regenerateApiJwtSecret</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>HealthBots_RegenerateApiJwtSecret</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="HealthBotResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<HealthBotKey> RegenerateApiJwtSecret(CancellationToken cancellationToken = default)
+        {
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.RegenerateApiJwtSecret");
+            scope.Start();
+            try
+            {
+                var response = _healthBotRestClient.RegenerateApiJwtSecret(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
@@ -347,11 +507,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -368,7 +528,7 @@ namespace Azure.ResourceManager.HealthBot
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.AddTag");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.AddTag");
             scope.Start();
             try
             {
@@ -377,7 +537,7 @@ namespace Azure.ResourceManager.HealthBot
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _healthBotBotsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _healthBotRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new HealthBotResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -389,8 +549,8 @@ namespace Azure.ResourceManager.HealthBot
                         patch.Tags.Add(tag);
                     }
                     patch.Tags[key] = value;
-                    var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return result;
+                    var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -409,11 +569,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -430,7 +590,7 @@ namespace Azure.ResourceManager.HealthBot
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.AddTag");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.AddTag");
             scope.Start();
             try
             {
@@ -439,7 +599,7 @@ namespace Azure.ResourceManager.HealthBot
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _healthBotBotsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _healthBotRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new HealthBotResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -451,8 +611,8 @@ namespace Azure.ResourceManager.HealthBot
                         patch.Tags.Add(tag);
                     }
                     patch.Tags[key] = value;
-                    var result = Update(patch, cancellationToken: cancellationToken);
-                    return result;
+                    var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)
@@ -471,11 +631,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -490,7 +650,7 @@ namespace Azure.ResourceManager.HealthBot
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.SetTags");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.SetTags");
             scope.Start();
             try
             {
@@ -500,7 +660,7 @@ namespace Azure.ResourceManager.HealthBot
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _healthBotBotsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _healthBotRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new HealthBotResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -508,8 +668,8 @@ namespace Azure.ResourceManager.HealthBot
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
                     var patch = new HealthBotPatch();
                     patch.Tags.ReplaceWith(tags);
-                    var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return result;
+                    var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -528,11 +688,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -547,7 +707,7 @@ namespace Azure.ResourceManager.HealthBot
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.SetTags");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.SetTags");
             scope.Start();
             try
             {
@@ -557,7 +717,7 @@ namespace Azure.ResourceManager.HealthBot
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _healthBotBotsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _healthBotRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new HealthBotResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -565,8 +725,8 @@ namespace Azure.ResourceManager.HealthBot
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
                     var patch = new HealthBotPatch();
                     patch.Tags.ReplaceWith(tags);
-                    var result = Update(patch, cancellationToken: cancellationToken);
-                    return result;
+                    var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)
@@ -585,11 +745,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -604,7 +764,7 @@ namespace Azure.ResourceManager.HealthBot
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.RemoveTag");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.RemoveTag");
             scope.Start();
             try
             {
@@ -613,7 +773,7 @@ namespace Azure.ResourceManager.HealthBot
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _healthBotBotsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _healthBotRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new HealthBotResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -625,8 +785,8 @@ namespace Azure.ResourceManager.HealthBot
                         patch.Tags.Add(tag);
                     }
                     patch.Tags.Remove(key);
-                    var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return result;
+                    var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -645,11 +805,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -664,7 +824,7 @@ namespace Azure.ResourceManager.HealthBot
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _healthBotBotsClientDiagnostics.CreateScope("HealthBotResource.RemoveTag");
+            using var scope = _healthBotClientDiagnostics.CreateScope("HealthBotResource.RemoveTag");
             scope.Start();
             try
             {
@@ -673,7 +833,7 @@ namespace Azure.ResourceManager.HealthBot
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _healthBotBotsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _healthBotRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new HealthBotResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -685,8 +845,8 @@ namespace Azure.ResourceManager.HealthBot
                         patch.Tags.Add(tag);
                     }
                     patch.Tags.Remove(key);
-                    var result = Update(patch, cancellationToken: cancellationToken);
-                    return result;
+                    var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)

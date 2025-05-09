@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 
@@ -15,6 +16,35 @@ namespace Azure.ResourceManager.HealthBot.Models
     /// <summary> Model factory for models. </summary>
     public static partial class ArmHealthBotModelFactory
     {
+        /// <summary> Initializes a new instance of <see cref="Models.OperationDetail"/>. </summary>
+        /// <param name="name"> Name of the operation. </param>
+        /// <param name="isDataAction"> Indicates whether the operation is a data action. </param>
+        /// <param name="display"> Display of the operation. </param>
+        /// <param name="origin"> Origin of the operation. </param>
+        /// <param name="properties"> Additional properties. </param>
+        /// <returns> A new <see cref="Models.OperationDetail"/> instance for mocking. </returns>
+        public static OperationDetail OperationDetail(string name = null, bool? isDataAction = null, OperationDisplay display = null, string origin = null, OperationDetailProperties properties = null)
+        {
+            return new OperationDetail(
+                name,
+                isDataAction,
+                display,
+                origin,
+                properties,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.OperationDisplay"/>. </summary>
+        /// <param name="provider"> The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft Compute". </param>
+        /// <param name="resource"> The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job Schedule Collections". </param>
+        /// <param name="operation"> The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual Machine", "Restart Virtual Machine". </param>
+        /// <param name="description"> The short, localized friendly description of the operation; suitable for tool tips and detailed views. </param>
+        /// <returns> A new <see cref="Models.OperationDisplay"/> instance for mocking. </returns>
+        public static OperationDisplay OperationDisplay(string provider = null, string resource = null, string operation = null, string description = null)
+        {
+            return new OperationDisplay(provider, resource, operation, description, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="HealthBot.HealthBotData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -26,7 +56,7 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// <param name="identity"> The identity of the Azure Health Bot. </param>
         /// <param name="properties"> The set of properties specific to Azure Health Bot resource. </param>
         /// <returns> A new <see cref="HealthBot.HealthBotData"/> instance for mocking. </returns>
-        public static HealthBotData HealthBotData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, HealthBotSkuName? skuName = null, ManagedServiceIdentity identity = null, HealthBotProperties properties = null)
+        public static HealthBotData HealthBotData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, HealthBotSkuName? skuName = null, Identity identity = null, HealthBotProperties properties = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -43,14 +73,56 @@ namespace Azure.ResourceManager.HealthBot.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.Identity"/>. </summary>
+        /// <param name="principalId"> The principal ID of resource identity. This property will only be provided for a system assigned identity. </param>
+        /// <param name="tenantId"> The tenant ID of resource. This property will only be provided for a system assigned identity. </param>
+        /// <param name="type"> The identity type. The type 'SystemAssigned, UserAssigned' includes both an implicitly created identity and a set of user assigned identities. The type 'None' will remove any identities from the Azure Health Bot. </param>
+        /// <param name="userAssignedIdentities">
+        /// The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource ids in the form:
+        /// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+        /// </param>
+        /// <returns> A new <see cref="Models.Identity"/> instance for mocking. </returns>
+        public static Identity Identity(string principalId = null, string tenantId = null, ResourceIdentityType? type = null, UserAssignedIdentityMap userAssignedIdentities = null)
+        {
+            return new Identity(principalId, tenantId, type, userAssignedIdentities, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UserAssignedIdentity"/>. </summary>
+        /// <param name="principalId"> The principal ID of the user-assigned identity. </param>
+        /// <param name="clientId"> The client ID of the user-assigned identity. </param>
+        /// <returns> A new <see cref="Models.UserAssignedIdentity"/> instance for mocking. </returns>
+        public static UserAssignedIdentity UserAssignedIdentity(string principalId = null, string clientId = null)
+        {
+            return new UserAssignedIdentity(principalId, clientId, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.HealthBotProperties"/>. </summary>
         /// <param name="provisioningState"> The provisioning state of the Azure Health Bot resource. </param>
         /// <param name="botManagementPortalLink"> The link. </param>
         /// <param name="keyVaultProperties"> KeyVault properties for the resource encryption. </param>
         /// <returns> A new <see cref="Models.HealthBotProperties"/> instance for mocking. </returns>
-        public static HealthBotProperties HealthBotProperties(string provisioningState = null, Uri botManagementPortalLink = null, HealthBotKeyVaultProperties keyVaultProperties = null)
+        public static HealthBotProperties HealthBotProperties(string provisioningState = null, string botManagementPortalLink = null, KeyVaultProperties keyVaultProperties = null)
         {
             return new HealthBotProperties(provisioningState, botManagementPortalLink, keyVaultProperties, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.HealthBotKeysResponse"/>. </summary>
+        /// <param name="secrets"> Array of Azure Health Bot Secrets. </param>
+        /// <returns> A new <see cref="Models.HealthBotKeysResponse"/> instance for mocking. </returns>
+        public static HealthBotKeysResponse HealthBotKeysResponse(IEnumerable<HealthBotKey> secrets = null)
+        {
+            secrets ??= new List<HealthBotKey>();
+
+            return new HealthBotKeysResponse(secrets?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.HealthBotKey"/>. </summary>
+        /// <param name="keyName"> The name of the key. </param>
+        /// <param name="value"> The value of the key. </param>
+        /// <returns> A new <see cref="Models.HealthBotKey"/> instance for mocking. </returns>
+        public static HealthBotKey HealthBotKey(string keyName = null, string value = null)
+        {
+            return new HealthBotKey(keyName, value, serializedAdditionalRawData: null);
         }
     }
 }

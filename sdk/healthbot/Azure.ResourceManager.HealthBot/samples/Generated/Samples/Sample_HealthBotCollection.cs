@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager.HealthBot.Models;
-using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -22,8 +21,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_BotCreate()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ResourceCreationPut.json
-            // this example is just showing the usage of "Bots_Create" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ResourceCreationPut.json
+            // this example is just showing the usage of "HealthBot_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -42,17 +41,7 @@ namespace Azure.ResourceManager.HealthBot.Samples
 
             // invoke the operation
             string botName = "samplebotname";
-            HealthBotData data = new HealthBotData(new AzureLocation("East US"), new HealthBotSku(HealthBotSkuName.F0))
-            {
-                Identity = new ManagedServiceIdentity("SystemAssigned, UserAssigned")
-                {
-                    UserAssignedIdentities =
-{
-[new ResourceIdentifier("/subscriptions/subscription-id/resourcegroups/myrg/providers/microsoft.managedidentity/userassignedidentities/my-mi")] = new UserAssignedIdentity(),
-[new ResourceIdentifier("/subscriptions/subscription-id/resourcegroups/myrg/providers/microsoft.managedidentity/userassignedidentities/my-mi2")] = new UserAssignedIdentity()
-},
-                },
-            };
+            HealthBotData data = new HealthBotData(default, null);
             ArmOperation<HealthBotResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, botName, data);
             HealthBotResource result = lro.Value;
 
@@ -67,8 +56,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_ResourceInfoGet()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ResourceInfoGet.json
-            // this example is just showing the usage of "Bots_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ResourceInfoGet.json
+            // this example is just showing the usage of "HealthBot_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -100,8 +89,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_ListBotsByResourceGroup()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ListBotsByResourceGroup.json
-            // this example is just showing the usage of "Bots_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ListBotsByResourceGroup.json
+            // this example is just showing the usage of "HealthBot_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -135,8 +124,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_ResourceInfoGet()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ResourceInfoGet.json
-            // this example is just showing the usage of "Bots_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ResourceInfoGet.json
+            // this example is just showing the usage of "HealthBot_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -164,8 +153,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_ResourceInfoGet()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ResourceInfoGet.json
-            // this example is just showing the usage of "Bots_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ResourceInfoGet.json
+            // this example is just showing the usage of "HealthBot_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
