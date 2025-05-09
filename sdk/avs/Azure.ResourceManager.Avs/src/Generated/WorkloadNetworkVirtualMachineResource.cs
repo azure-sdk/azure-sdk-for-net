@@ -26,10 +26,11 @@ namespace Azure.ResourceManager.Avs
         /// <param name="subscriptionId"> The subscriptionId. </param>
         /// <param name="resourceGroupName"> The resourceGroupName. </param>
         /// <param name="privateCloudName"> The privateCloudName. </param>
+        /// <param name="workloadNetworkName"> The workloadNetworkName. </param>
         /// <param name="virtualMachineId"> The virtualMachineId. </param>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string privateCloudName, string virtualMachineId)
+        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string privateCloudName, string workloadNetworkName, string virtualMachineId)
         {
-            var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/virtualMachines/{virtualMachineId}";
+            var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/virtualMachines/{virtualMachineId}";
             return new ResourceIdentifier(resourceId);
         }
 
@@ -93,15 +94,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/virtualMachines/{virtualMachineId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/virtualMachines/{virtualMachineId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_GetVirtualMachine</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -116,7 +117,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = await _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachineAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachineAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());
@@ -133,15 +134,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/virtualMachines/{virtualMachineId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/virtualMachines/{virtualMachineId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetVirtualMachine</description>
+        /// <description>WorkloadNetworkVirtualMachine_GetVirtualMachine</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -156,7 +157,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachine(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Name, cancellationToken);
+                var response = _workloadNetworkVirtualMachineWorkloadNetworksRestClient.GetVirtualMachine(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkVirtualMachineResource(Client, response.Value), response.GetRawResponse());
