@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetCdnPeeringPrefixes_ListAllTheCdnPeeringPrefixesAdvertisedAtAParticularPeeringLocation()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListCdnPeeringPrefixes.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListCdnPeeringPrefixes.json
             // this example is just showing the usage of "CdnPeeringPrefixes_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CheckPeeringServiceProviderAvailability_CheckIfPeeringServiceProviderIsAvailableInCustomerLocation()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/CheckServiceProviderAvailability.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/CheckServiceProviderAvailability.json
             // this example is just showing the usage of "CheckServiceProviderAvailability" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeeringsByLegacyPeering_ListLegacyPeerings()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListLegacyPeerings.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListLegacyPeerings.json
             // this example is just showing the usage of "LegacyPeerings_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task InvokeLookingGlass_CallLookingGlassToExecuteACommand()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/LookingGlassInvokeCommand.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/LookingGlassInvokeCommand.json
             // this example is just showing the usage of "LookingGlass_Invoke" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeeringLocations_ListDirectPeeringLocations()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListDirectPeeringLocations.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListDirectPeeringLocations.json
             // this example is just showing the usage of "PeeringLocations_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -168,7 +168,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeeringLocations_ListExchangePeeringLocations()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListExchangePeeringLocations.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListExchangePeeringLocations.json
             // this example is just showing the usage of "PeeringLocations_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeerings_ListPeeringsInASubscription()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListPeeringsBySubscription.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListPeeringsBySubscription.json
             // this example is just showing the usage of "Peerings_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -227,7 +227,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeeringServiceCountries_ListPeeringServiceCountries()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListPeeringServiceCountriesBySubscription.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListPeeringServiceCountriesBySubscription.json
             // this example is just showing the usage of "PeeringServiceCountries_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -254,7 +254,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeeringServiceLocations_ListPeeringServiceLocations()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListPeeringServiceLocationsBySubscription.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListPeeringServiceLocationsBySubscription.json
             // this example is just showing the usage of "PeeringServiceLocations_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeeringServiceProviders_ListPeeringServiceProviders()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListPeeringServiceProviders.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListPeeringServiceProviders.json
             // this example is just showing the usage of "PeeringServiceProviders_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -308,7 +308,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetPeeringServices_ListPeeringServicesInASubscription()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/ListPeeringServicesBySubscription.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/ListPeeringServicesBySubscription.json
             // this example is just showing the usage of "PeeringServices_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -339,7 +339,7 @@ namespace Azure.ResourceManager.Peering.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task InitializePeeringServiceConnectionMonitor_InitializePeeringServiceForConnectionMonitorFunctionality()
         {
-            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2022-10-01/examples/InitializeConnectionMonitor.json
+            // Generated from example definition: specification/peering/resource-manager/Microsoft.Peering/stable/2025-05-01/examples/InitializeConnectionMonitor.json
             // this example is just showing the usage of "PeeringServices_InitializeConnectionMonitor" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
