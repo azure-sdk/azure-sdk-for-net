@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 
@@ -24,7 +23,26 @@ namespace Azure.ResourceManager.Qumulo.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="identity"> The managed service identities assigned to this resource. </param>
+        /// <returns> A new <see cref="Qumulo.QumuloFileSystemResourceData"/> instance for mocking. </returns>
+        public static Qumulo.QumuloFileSystemResourceData QumuloFileSystemResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, QumuloFileSystemResourceData properties = null, ManagedServiceIdentity identity = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new Qumulo.QumuloFileSystemResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                properties,
+                identity,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.QumuloFileSystemResourceData"/>. </summary>
         /// <param name="marketplaceDetails"> Marketplace details. </param>
         /// <param name="provisioningState"> Provisioning State of the resource. </param>
         /// <param name="storageSku"> Storage Sku. </param>
@@ -33,22 +51,13 @@ namespace Azure.ResourceManager.Qumulo.Models
         /// <param name="clusterLoginUri"> File system Id of the resource. </param>
         /// <param name="privateIPs"> Private IPs of the resource. </param>
         /// <param name="adminPassword"> Initial administrator password of the resource. </param>
-        /// <param name="initialCapacity"> Storage capacity in TB. </param>
         /// <param name="availabilityZone"> Availability zone. </param>
-        /// <returns> A new <see cref="Qumulo.QumuloFileSystemResourceData"/> instance for mocking. </returns>
-        public static QumuloFileSystemResourceData QumuloFileSystemResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, MarketplaceDetails marketplaceDetails = null, QumuloProvisioningState? provisioningState = null, StorageSku storageSku = default, string userDetailsEmail = null, string delegatedSubnetId = null, Uri clusterLoginUri = null, IEnumerable<IPAddress> privateIPs = null, string adminPassword = null, int initialCapacity = default, string availabilityZone = null)
+        /// <returns> A new <see cref="Models.QumuloFileSystemResourceData"/> instance for mocking. </returns>
+        public static QumuloFileSystemResourceData QumuloFileSystemResourceData(MarketplaceDetails marketplaceDetails = null, QumuloProvisioningState? provisioningState = null, string storageSku = null, string userDetailsEmail = null, string delegatedSubnetId = null, string clusterLoginUri = null, IEnumerable<string> privateIPs = null, string adminPassword = null, string availabilityZone = null)
         {
-            tags ??= new Dictionary<string, string>();
-            privateIPs ??= new List<IPAddress>();
+            privateIPs ??= new List<string>();
 
             return new QumuloFileSystemResourceData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                identity,
                 marketplaceDetails,
                 provisioningState,
                 storageSku,
@@ -57,7 +66,6 @@ namespace Azure.ResourceManager.Qumulo.Models
                 clusterLoginUri,
                 privateIPs?.ToList(),
                 adminPassword,
-                initialCapacity,
                 availabilityZone,
                 serializedAdditionalRawData: null);
         }
@@ -67,15 +75,17 @@ namespace Azure.ResourceManager.Qumulo.Models
         /// <param name="planId"> Plan Id. </param>
         /// <param name="offerId"> Offer Id. </param>
         /// <param name="publisherId"> Publisher Id. </param>
+        /// <param name="termUnit"> Term Unit. </param>
         /// <param name="marketplaceSubscriptionStatus"> Marketplace subscription status. </param>
         /// <returns> A new <see cref="Models.MarketplaceDetails"/> instance for mocking. </returns>
-        public static MarketplaceDetails MarketplaceDetails(string marketplaceSubscriptionId = null, string planId = null, string offerId = null, string publisherId = null, MarketplaceSubscriptionStatus? marketplaceSubscriptionStatus = null)
+        public static MarketplaceDetails MarketplaceDetails(string marketplaceSubscriptionId = null, string planId = null, string offerId = null, string publisherId = null, string termUnit = null, MarketplaceSubscriptionStatus? marketplaceSubscriptionStatus = null)
         {
             return new MarketplaceDetails(
                 marketplaceSubscriptionId,
                 planId,
                 offerId,
                 publisherId,
+                termUnit,
                 marketplaceSubscriptionStatus,
                 serializedAdditionalRawData: null);
         }

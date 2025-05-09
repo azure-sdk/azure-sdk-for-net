@@ -10,10 +10,8 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Qumulo.Models;
 
-namespace Azure.ResourceManager.Qumulo
+namespace Azure.ResourceManager.Qumulo.Models
 {
     public partial class QumuloFileSystemResourceData : IUtf8JsonSerializable, IJsonModel<QumuloFileSystemResourceData>
     {
@@ -28,7 +26,7 @@ namespace Azure.ResourceManager.Qumulo
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             var format = options.Format == "W" ? ((IPersistableModel<QumuloFileSystemResourceData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
@@ -36,17 +34,55 @@ namespace Azure.ResourceManager.Qumulo
                 throw new FormatException($"The model {nameof(QumuloFileSystemResourceData)} does not support writing '{format}' format.");
             }
 
-            base.JsonModelWriteCore(writer, options);
-            if (Optional.IsDefined(Properties))
+            writer.WritePropertyName("marketplaceDetails"u8);
+            writer.WriteObjectValue(MarketplaceDetails, options);
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
-                writer.WritePropertyName("properties"u8);
-                writer.WriteObjectValue(Properties, options);
+                writer.WritePropertyName("provisioningState"u8);
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
-            if (Optional.IsDefined(Identity))
+            writer.WritePropertyName("storageSku"u8);
+            writer.WriteStringValue(StorageSku);
+            writer.WritePropertyName("userDetails"u8);
+            writer.WriteObjectValue(UserDetails, options);
+            writer.WritePropertyName("delegatedSubnetId"u8);
+            writer.WriteStringValue(DelegatedSubnetId);
+            if (Optional.IsDefined(ClusterLoginUri))
             {
-                writer.WritePropertyName("identity"u8);
-                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
-                JsonSerializer.Serialize(writer, Identity, serializeOptions);
+                writer.WritePropertyName("clusterLoginUrl"u8);
+                writer.WriteStringValue(ClusterLoginUri);
+            }
+            if (Optional.IsCollectionDefined(PrivateIPs))
+            {
+                writer.WritePropertyName("privateIPs"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateIPs)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WritePropertyName("adminPassword"u8);
+            writer.WriteStringValue(AdminPassword);
+            if (Optional.IsDefined(AvailabilityZone))
+            {
+                writer.WritePropertyName("availabilityZone"u8);
+                writer.WriteStringValue(AvailabilityZone);
+            }
+            if (options.Format != "W" && _serializedAdditionalRawData != null)
+            {
+                foreach (var item in _serializedAdditionalRawData)
+                {
+                    writer.WritePropertyName(item.Key);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
+                }
             }
         }
 
@@ -70,78 +106,75 @@ namespace Azure.ResourceManager.Qumulo
             {
                 return null;
             }
-            Models.QumuloFileSystemResourceData properties = default;
-            ManagedServiceIdentity identity = default;
-            IDictionary<string, string> tags = default;
-            AzureLocation location = default;
-            ResourceIdentifier id = default;
-            string name = default;
-            ResourceType type = default;
-            SystemData systemData = default;
+            MarketplaceDetails marketplaceDetails = default;
+            QumuloProvisioningState? provisioningState = default;
+            string storageSku = default;
+            QumuloUserDetails userDetails = default;
+            string delegatedSubnetId = default;
+            string clusterLoginUrl = default;
+            IList<string> privateIPs = default;
+            string adminPassword = default;
+            string availabilityZone = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("properties"u8))
+                if (property.NameEquals("marketplaceDetails"u8))
+                {
+                    marketplaceDetails = MarketplaceDetails.DeserializeMarketplaceDetails(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("provisioningState"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    properties = Models.QumuloFileSystemResourceData.DeserializeQumuloFileSystemResourceData(property.Value, options);
+                    provisioningState = new QumuloProvisioningState(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("identity"u8))
+                if (property.NameEquals("storageSku"u8))
+                {
+                    storageSku = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("userDetails"u8))
+                {
+                    userDetails = QumuloUserDetails.DeserializeQumuloUserDetails(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("delegatedSubnetId"u8))
+                {
+                    delegatedSubnetId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("clusterLoginUrl"u8))
+                {
+                    clusterLoginUrl = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("privateIPs"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
-                    continue;
-                }
-                if (property.NameEquals("tags"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
                     {
-                        continue;
+                        array.Add(item.GetString());
                     }
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        dictionary.Add(property0.Name, property0.Value.GetString());
-                    }
-                    tags = dictionary;
+                    privateIPs = array;
                     continue;
                 }
-                if (property.NameEquals("location"u8))
+                if (property.NameEquals("adminPassword"u8))
                 {
-                    location = new AzureLocation(property.Value.GetString());
+                    adminPassword = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("id"u8))
+                if (property.NameEquals("availabilityZone"u8))
                 {
-                    id = new ResourceIdentifier(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("name"u8))
-                {
-                    name = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("type"u8))
-                {
-                    type = new ResourceType(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("systemData"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
+                    availabilityZone = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -151,14 +184,15 @@ namespace Azure.ResourceManager.Qumulo
             }
             serializedAdditionalRawData = rawDataDictionary;
             return new QumuloFileSystemResourceData(
-                id,
-                name,
-                type,
-                systemData,
-                tags ?? new ChangeTrackingDictionary<string, string>(),
-                location,
-                properties,
-                identity,
+                marketplaceDetails,
+                provisioningState,
+                storageSku,
+                userDetails,
+                delegatedSubnetId,
+                clusterLoginUrl,
+                privateIPs ?? new ChangeTrackingList<string>(),
+                adminPassword,
+                availabilityZone,
                 serializedAdditionalRawData);
         }
 
