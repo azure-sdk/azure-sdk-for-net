@@ -56,6 +56,11 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("extendedLocation"u8);
                 JsonSerializer.Serialize(writer, ExtendedLocation);
             }
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
         }
 
         VirtualMachineImageBase IJsonModel<VirtualMachineImageBase>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -82,6 +87,7 @@ namespace Azure.ResourceManager.Compute.Models
             AzureLocation location = default;
             IDictionary<string, string> tags = default;
             ExtendedLocation extendedLocation = default;
+            VirtualMachineImageProperties properties = default;
             ResourceIdentifier id = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -120,6 +126,15 @@ namespace Azure.ResourceManager.Compute.Models
                     extendedLocation = JsonSerializer.Deserialize<ExtendedLocation>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = VirtualMachineImageProperties.DeserializeVirtualMachineImageProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -141,7 +156,8 @@ namespace Azure.ResourceManager.Compute.Models
                 name,
                 location,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
-                extendedLocation);
+                extendedLocation,
+                properties);
         }
 
         BinaryData IPersistableModel<VirtualMachineImageBase>.Write(ModelReaderWriterOptions options)
