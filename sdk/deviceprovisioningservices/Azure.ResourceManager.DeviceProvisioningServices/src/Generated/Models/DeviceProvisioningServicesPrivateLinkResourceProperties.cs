@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DeviceProvisioningServicesPrivateLinkResourceProperties"/>. </summary>
-        internal DeviceProvisioningServicesPrivateLinkResourceProperties()
+        public DeviceProvisioningServicesPrivateLinkResourceProperties()
         {
             RequiredMembers = new ChangeTrackingList<string>();
             RequiredZoneNames = new ChangeTrackingList<string>();
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         /// <param name="requiredMembers"> The required members for a specific group id. </param>
         /// <param name="requiredZoneNames"> The required DNS zones for a specific group id. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeviceProvisioningServicesPrivateLinkResourceProperties(string groupId, IReadOnlyList<string> requiredMembers, IReadOnlyList<string> requiredZoneNames, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceProvisioningServicesPrivateLinkResourceProperties(string groupId, IList<string> requiredMembers, IList<string> requiredZoneNames, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             GroupId = groupId;
             RequiredMembers = requiredMembers;
@@ -66,10 +66,10 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         }
 
         /// <summary> The group id. </summary>
-        public string GroupId { get; }
+        public string GroupId { get; set; }
         /// <summary> The required members for a specific group id. </summary>
-        public IReadOnlyList<string> RequiredMembers { get; }
+        public IList<string> RequiredMembers { get; }
         /// <summary> The required DNS zones for a specific group id. </summary>
-        public IReadOnlyList<string> RequiredZoneNames { get; }
+        public IList<string> RequiredZoneNames { get; }
     }
 }

@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         /// <param name="createdOn"> Certificate created time. </param>
         /// <param name="updatedOn"> Certificate updated time. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CertificateVerificationCodeProperties(string verificationCode, string subject, DateTimeOffset? expireOn, BinaryData thumbprint, bool? isVerified, BinaryData certificate, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CertificateVerificationCodeProperties(string verificationCode, string subject, string expireOn, BinaryData thumbprint, bool? isVerified, BinaryData certificate, string createdOn, string updatedOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             VerificationCode = verificationCode;
             Subject = subject;
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         /// <summary> Certificate subject. </summary>
         public string Subject { get; }
         /// <summary> Code expiry. </summary>
-        public DateTimeOffset? ExpireOn { get; }
+        public string ExpireOn { get; }
         /// <summary>
         /// Certificate thumbprint.
         /// <para>
@@ -144,8 +144,8 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         /// </summary>
         public BinaryData Certificate { get; }
         /// <summary> Certificate created time. </summary>
-        public DateTimeOffset? CreatedOn { get; }
+        public string CreatedOn { get; }
         /// <summary> Certificate updated time. </summary>
-        public DateTimeOffset? UpdatedOn { get; }
+        public string UpdatedOn { get; }
     }
 }
