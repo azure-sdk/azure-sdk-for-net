@@ -51,13 +51,16 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             }
             writer.WritePropertyName("innererror"u8);
             writer.WriteObjectValue(Innererror, options);
-            writer.WritePropertyName("details"u8);
-            writer.WriteStartArray();
-            foreach (var item in Details)
+            if (options.Format != "W")
             {
-                writer.WriteObjectValue(item, options);
+                writer.WritePropertyName("errors"u8);
+                writer.WriteStartArray();
+                foreach (var item in Errors)
+                {
+                    writer.WriteObjectValue(item, options);
+                }
+                writer.WriteEndArray();
             }
-            writer.WriteEndArray();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -99,7 +102,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             string message = default;
             string target = default;
             AcsRouterCommunicationError innererror = default;
-            IReadOnlyList<AcsRouterCommunicationError> details = default;
+            IReadOnlyList<AcsRouterCommunicationError> errors = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -124,14 +127,14 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     innererror = DeserializeAcsRouterCommunicationError(property.Value, options);
                     continue;
                 }
-                if (property.NameEquals("details"u8))
+                if (property.NameEquals("errors"u8))
                 {
                     List<AcsRouterCommunicationError> array = new List<AcsRouterCommunicationError>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
                         array.Add(DeserializeAcsRouterCommunicationError(item, options));
                     }
-                    details = array;
+                    errors = array;
                     continue;
                 }
                 if (options.Format != "W")
@@ -145,7 +148,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 message,
                 target,
                 innererror,
-                details,
+                errors,
                 serializedAdditionalRawData);
         }
 
