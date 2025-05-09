@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.OperationalInsights
                 writer.WritePropertyName("createdDate"u8);
                 writer.WriteStringValue(CreatedOn.Value, "O");
             }
-            if (Optional.IsCollectionDefined(AssociatedWorkspaces))
+            if (options.Format != "W" && Optional.IsCollectionDefined(AssociatedWorkspaces))
             {
                 writer.WritePropertyName("associatedWorkspaces"u8);
                 writer.WriteStartArray();
@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.OperationalInsights
             OperationalInsightsKeyVaultProperties keyVaultProperties = default;
             DateTimeOffset? lastModifiedDate = default;
             DateTimeOffset? createdDate = default;
-            IList<OperationalInsightsClusterAssociatedWorkspace> associatedWorkspaces = default;
+            IReadOnlyList<OperationalInsightsClusterAssociatedWorkspace> associatedWorkspaces = default;
             OperationalInsightsCapacityReservationProperties capacityReservationProperties = default;
             OperationalInsightsClusterReplicationProperties replication = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;

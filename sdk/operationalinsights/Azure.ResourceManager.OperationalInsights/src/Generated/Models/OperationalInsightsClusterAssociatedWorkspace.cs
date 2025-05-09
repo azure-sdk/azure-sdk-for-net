@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="OperationalInsightsClusterAssociatedWorkspace"/>. </summary>
-        public OperationalInsightsClusterAssociatedWorkspace()
+        internal OperationalInsightsClusterAssociatedWorkspace()
         {
         }
 
