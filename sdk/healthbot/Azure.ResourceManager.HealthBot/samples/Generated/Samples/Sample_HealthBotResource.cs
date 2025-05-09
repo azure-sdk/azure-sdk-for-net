@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_ResourceInfoGet()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ResourceInfoGet.json
-            // this example is just showing the usage of "Bots_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ResourceInfoGet.json
+            // this example is just showing the usage of "HealthBot_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -50,8 +50,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_BotDelete()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ResourceDeletionDelete.json
-            // this example is just showing the usage of "Bots_Delete" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ResourceDeletionDelete.json
+            // this example is just showing the usage of "HealthBot_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -76,8 +76,8 @@ namespace Azure.ResourceManager.HealthBot.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_BotUpdate()
         {
-            // Generated from example definition: specification/healthbot/resource-manager/Microsoft.HealthBot/stable/2021-08-24/examples/ResourceUpdatePatch.json
-            // this example is just showing the usage of "Bots_Update" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-02-01/ResourceUpdatePatch.json
+            // this example is just showing the usage of "HealthBot_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -93,17 +93,62 @@ namespace Azure.ResourceManager.HealthBot.Samples
             HealthBotResource healthBot = client.GetHealthBotResource(healthBotResourceId);
 
             // invoke the operation
-            HealthBotPatch patch = new HealthBotPatch
-            {
-                SkuName = HealthBotSkuName.F0,
-            };
-            HealthBotResource result = await healthBot.UpdateAsync(patch);
+            HealthBotPatch patch = new HealthBotPatch();
+            await healthBot.UpdateAsync(WaitUntil.Completed, patch);
 
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            HealthBotData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetSecrets_BotListSecrets()
+        {
+            // Generated from example definition: 2024-02-01/ListSecrets.json
+            // this example is just showing the usage of "HealthBots_ListSecrets" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this HealthBotResource created on azure
+            // for more information of creating HealthBotResource, please refer to the document of HealthBotResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "healthbotClient";
+            string botName = "samplebotname";
+            ResourceIdentifier healthBotResourceId = HealthBotResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, botName);
+            HealthBotResource healthBot = client.GetHealthBotResource(healthBotResourceId);
+
+            // invoke the operation
+            HealthBotKeysResponse result = await healthBot.GetSecretsAsync();
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task RegenerateApiJwtSecret_BotRegenerateAPIJWTSecret()
+        {
+            // Generated from example definition: 2024-02-01/RegenerateApiJwtSecret.json
+            // this example is just showing the usage of "HealthBots_RegenerateApiJwtSecret" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this HealthBotResource created on azure
+            // for more information of creating HealthBotResource, please refer to the document of HealthBotResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "healthbotClient";
+            string botName = "samplebotname";
+            ResourceIdentifier healthBotResourceId = HealthBotResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, botName);
+            HealthBotResource healthBot = client.GetHealthBotResource(healthBotResourceId);
+
+            // invoke the operation
+            HealthBotKey result = await healthBot.RegenerateApiJwtSecretAsync();
+
+            Console.WriteLine($"Succeeded: {result}");
         }
     }
 }
