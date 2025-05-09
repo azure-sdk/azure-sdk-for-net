@@ -102,6 +102,7 @@ trigger:
     - sdk/healthbot/Azure.ResourceManager.HealthBot
     - sdk/healthcareapis/Azure.ResourceManager.HealthcareApis
     - sdk/healthdataaiservices/Azure.ResourceManager.HealthDataAIServices
+    - sdk/help/Azure.ResourceManager.Help
     - sdk/hybridaks/Azure.ResourceManager.HybridContainerService
     - sdk/hybridcompute/Azure.ResourceManager.HybridCompute
     - sdk/hybridconnectivity/Azure.ResourceManager.HybridConnectivity
@@ -318,6 +319,7 @@ pr:
     - sdk/healthbot/Azure.ResourceManager.HealthBot
     - sdk/healthcareapis/Azure.ResourceManager.HealthcareApis
     - sdk/healthdataaiservices/Azure.ResourceManager.HealthDataAIServices
+    - sdk/help/Azure.ResourceManager.Help
     - sdk/hybridaks/Azure.ResourceManager.HybridContainerService
     - sdk/hybridcompute/Azure.ResourceManager.HybridCompute
     - sdk/hybridconnectivity/Azure.ResourceManager.HybridConnectivity
