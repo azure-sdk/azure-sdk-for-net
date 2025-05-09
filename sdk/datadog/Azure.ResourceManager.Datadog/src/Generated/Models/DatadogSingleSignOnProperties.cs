@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Datadog.Models
         /// <param name="enterpriseAppId"> The Id of the Enterprise App used for Single sign-on. </param>
         /// <param name="singleSignOnUri"> The login URL specific to this Datadog Organization. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DatadogSingleSignOnProperties(ProvisioningState? provisioningState, SingleSignOnState? singleSignOnState, string enterpriseAppId, Uri singleSignOnUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DatadogSingleSignOnProperties(ProvisioningState? provisioningState, SingleSignOnState? singleSignOnState, string enterpriseAppId, string singleSignOnUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             SingleSignOnState = singleSignOnState;
@@ -72,6 +72,6 @@ namespace Azure.ResourceManager.Datadog.Models
         /// <summary> The Id of the Enterprise App used for Single sign-on. </summary>
         public string EnterpriseAppId { get; set; }
         /// <summary> The login URL specific to this Datadog Organization. </summary>
-        public Uri SingleSignOnUri { get; }
+        public string SingleSignOnUri { get; }
     }
 }
