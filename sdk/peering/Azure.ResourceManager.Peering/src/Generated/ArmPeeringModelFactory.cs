@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using Azure.Core;
@@ -54,12 +55,14 @@ namespace Azure.ResourceManager.Peering.Models
         /// <param name="kind"> The kind of the peering. </param>
         /// <param name="direct"> The properties that define a direct peering. </param>
         /// <param name="exchange"> The properties that define an exchange peering. </param>
+        /// <param name="connectivityProbes"> The connectivity probes associated with the peering. </param>
         /// <param name="peeringLocation"> The location of the peering. </param>
         /// <param name="provisioningState"> The provisioning state of the resource. </param>
         /// <returns> A new <see cref="Peering.PeeringData"/> instance for mocking. </returns>
-        public static PeeringData PeeringData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, PeeringSku sku = null, PeeringKind kind = default, DirectPeeringProperties direct = null, ExchangePeeringProperties exchange = null, string peeringLocation = null, PeeringProvisioningState? provisioningState = null)
+        public static PeeringData PeeringData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, PeeringSku sku = null, PeeringKind kind = default, DirectPeeringProperties direct = null, ExchangePeeringProperties exchange = null, IEnumerable<ConnectivityProbe> connectivityProbes = null, string peeringLocation = null, PeeringProvisioningState? provisioningState = null)
         {
             tags ??= new Dictionary<string, string>();
+            connectivityProbes ??= new List<ConnectivityProbe>();
 
             return new PeeringData(
                 id,
@@ -72,6 +75,7 @@ namespace Azure.ResourceManager.Peering.Models
                 kind,
                 direct,
                 exchange,
+                connectivityProbes?.ToList(),
                 peeringLocation,
                 provisioningState,
                 serializedAdditionalRawData: null);
@@ -110,11 +114,17 @@ namespace Azure.ResourceManager.Peering.Models
         /// <param name="peeringDBFacilityId"> The PeeringDB.com ID of the facility at which the connection has to be set up. </param>
         /// <param name="connectionState"> The state of the connection. </param>
         /// <param name="bgpSession"> The BGP session associated with the connection. </param>
+        /// <param name="migrationWorkWindowBgpSessionSameDevice"> The old V4 BGP session associated with the connection during migration on the same device. Will be used for Work-Window validation. </param>
+        /// <param name="lastFailureTimeUtc"> Gets or sets the time corresponding to when the connection was last set to ProvisioningFailed. </param>
         /// <param name="connectionIdentifier"> The unique identifier (GUID) for the connection. </param>
         /// <param name="errorMessage"> The error message related to the connection state, if any. </param>
+        /// <param name="previousConnectionProvisioningState"> The previous connection provisioning state, used to resume provisioning after connection has been blocked. </param>
+        /// <param name="migrationWorkWindowTracker"> Gets or sets the migration work window tracker. Format = "DateTime String Format|WorkWindowInitiator Email ID". </param>
         /// <returns> A new <see cref="Models.PeeringDirectConnection"/> instance for mocking. </returns>
-        public static PeeringDirectConnection PeeringDirectConnection(int? bandwidthInMbps = null, int? provisionedBandwidthInMbps = null, PeeringSessionAddressProvider? sessionAddressProvider = null, bool? useForPeeringService = null, string microsoftTrackingId = null, int? peeringDBFacilityId = null, PeeringConnectionState? connectionState = null, PeeringBgpSession bgpSession = null, string connectionIdentifier = null, string errorMessage = null)
+        public static PeeringDirectConnection PeeringDirectConnection(int? bandwidthInMbps = null, int? provisionedBandwidthInMbps = null, PeeringSessionAddressProvider? sessionAddressProvider = null, bool? useForPeeringService = null, string microsoftTrackingId = null, int? peeringDBFacilityId = null, PeeringConnectionState? connectionState = null, PeeringBgpSession bgpSession = null, IDictionary<string, Enum11> migrationWorkWindowBgpSessionSameDevice = null, DateTimeOffset? lastFailureTimeUtc = null, string connectionIdentifier = null, string errorMessage = null, PreviousConnectionProvisioningState? previousConnectionProvisioningState = null, string migrationWorkWindowTracker = null)
         {
+            migrationWorkWindowBgpSessionSameDevice ??= new Dictionary<string, Enum11>();
+
             return new PeeringDirectConnection(
                 bandwidthInMbps,
                 provisionedBandwidthInMbps,
@@ -124,8 +134,12 @@ namespace Azure.ResourceManager.Peering.Models
                 peeringDBFacilityId,
                 connectionState,
                 bgpSession,
+                migrationWorkWindowBgpSessionSameDevice,
+                lastFailureTimeUtc,
                 connectionIdentifier,
                 errorMessage,
+                previousConnectionProvisioningState,
+                migrationWorkWindowTracker,
                 serializedAdditionalRawData: null);
         }
 
@@ -163,17 +177,50 @@ namespace Azure.ResourceManager.Peering.Models
         /// <param name="peeringDBFacilityId"> The PeeringDB.com ID of the facility at which the connection has to be set up. </param>
         /// <param name="connectionState"> The state of the connection. </param>
         /// <param name="bgpSession"> The BGP session associated with the connection. </param>
+        /// <param name="migrationWorkWindowBgpSessionSameDevice"> The old V4 BGP session associated with the connection during migration on the same device. Will be used for Work-Window validation. </param>
+        /// <param name="lastFailureTimeUtc"> Gets or sets the time corresponding to when the connection was last set to ProvisioningFailed. </param>
         /// <param name="connectionIdentifier"> The unique identifier (GUID) for the connection. </param>
         /// <param name="errorMessage"> The error message related to the connection state, if any. </param>
+        /// <param name="previousConnectionProvisioningState"> The previous connection provisioning state, used to resume provisioning after connection has been blocked. </param>
+        /// <param name="migrationWorkWindowTracker"> Gets or sets the migration work window tracker. Format = "DateTime String Format|WorkWindowInitiator Email ID". </param>
         /// <returns> A new <see cref="Models.PeeringExchangeConnection"/> instance for mocking. </returns>
-        public static PeeringExchangeConnection PeeringExchangeConnection(int? peeringDBFacilityId = null, PeeringConnectionState? connectionState = null, PeeringBgpSession bgpSession = null, Guid? connectionIdentifier = null, string errorMessage = null)
+        public static PeeringExchangeConnection PeeringExchangeConnection(int? peeringDBFacilityId = null, PeeringConnectionState? connectionState = null, PeeringBgpSession bgpSession = null, IDictionary<string, Enum13> migrationWorkWindowBgpSessionSameDevice = null, DateTimeOffset? lastFailureTimeUtc = null, Guid? connectionIdentifier = null, string errorMessage = null, PreviousConnectionProvisioningState? previousConnectionProvisioningState = null, string migrationWorkWindowTracker = null)
         {
+            migrationWorkWindowBgpSessionSameDevice ??= new Dictionary<string, Enum13>();
+
             return new PeeringExchangeConnection(
                 peeringDBFacilityId,
                 connectionState,
                 bgpSession,
+                migrationWorkWindowBgpSessionSameDevice,
+                lastFailureTimeUtc,
                 connectionIdentifier,
                 errorMessage,
+                previousConnectionProvisioningState,
+                migrationWorkWindowTracker,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ConnectivityProbe"/>. </summary>
+        /// <param name="endpoint"> The endpoint IP address where traffic will be sent to from Azure. </param>
+        /// <param name="azureRegion"> The Azure region where traffic will originate from. </param>
+        /// <param name="protocol"> The protocol of the traffic that will be sent. </param>
+        /// <param name="prefixesToAccesslist">
+        /// Set to contain the prefixes that agents in Azure will send traffic from. For peers to allow into their
+        /// network the connectivity probe traffic can reach their endpoint.
+        /// </param>
+        /// <param name="createdTimeUtc"> Time when {Microsoft.Peering.PeeringContract.Public.Data.ConnectivityProbe} was created in UTC. </param>
+        /// <returns> A new <see cref="Models.ConnectivityProbe"/> instance for mocking. </returns>
+        public static ConnectivityProbe ConnectivityProbe(string endpoint = null, string azureRegion = null, Protocol? protocol = null, IEnumerable<string> prefixesToAccesslist = null, DateTimeOffset? createdTimeUtc = null)
+        {
+            prefixesToAccesslist ??= new List<string>();
+
+            return new ConnectivityProbe(
+                endpoint,
+                azureRegion,
+                protocol,
+                prefixesToAccesslist?.ToList(),
+                createdTimeUtc,
                 serializedAdditionalRawData: null);
         }
 
@@ -507,6 +554,57 @@ namespace Azure.ResourceManager.Peering.Models
         public static RoutingPreferenceUnbilledPrefix RoutingPreferenceUnbilledPrefix(string prefix = null, AzureLocation? azureRegion = null, int? peerAsn = null)
         {
             return new RoutingPreferenceUnbilledPrefix(prefix, azureRegion, peerAsn, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Peering.PeeringData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="sku"> The SKU that defines the tier and kind of the peering. </param>
+        /// <param name="kind"> The kind of the peering. </param>
+        /// <param name="direct"> The properties that define a direct peering. </param>
+        /// <param name="exchange"> The properties that define an exchange peering. </param>
+        /// <param name="peeringLocation"> The location of the peering. </param>
+        /// <param name="provisioningState"> The provisioning state of the resource. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Peering.PeeringData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PeeringData PeeringData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, PeeringSku sku, PeeringKind kind, DirectPeeringProperties direct, ExchangePeeringProperties exchange, string peeringLocation, PeeringProvisioningState? provisioningState)
+        {
+            return PeeringData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, sku: sku, kind: kind, direct: direct, exchange: exchange, connectivityProbes: default, peeringLocation: peeringLocation, provisioningState: provisioningState);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Peering.Models.PeeringDirectConnection" />. </summary>
+        /// <param name="bandwidthInMbps"> The bandwidth of the connection. </param>
+        /// <param name="provisionedBandwidthInMbps"> The bandwidth that is actually provisioned. </param>
+        /// <param name="sessionAddressProvider"> The field indicating if Microsoft provides session ip addresses. </param>
+        /// <param name="useForPeeringService"> The flag that indicates whether or not the connection is used for peering service. </param>
+        /// <param name="microsoftTrackingId"> The ID used within Microsoft's peering provisioning system to track the connection. </param>
+        /// <param name="peeringDBFacilityId"> The PeeringDB.com ID of the facility at which the connection has to be set up. </param>
+        /// <param name="connectionState"> The state of the connection. </param>
+        /// <param name="bgpSession"> The BGP session associated with the connection. </param>
+        /// <param name="connectionIdentifier"> The unique identifier (GUID) for the connection. </param>
+        /// <param name="errorMessage"> The error message related to the connection state, if any. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Peering.Models.PeeringDirectConnection" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PeeringDirectConnection PeeringDirectConnection(int? bandwidthInMbps, int? provisionedBandwidthInMbps, PeeringSessionAddressProvider? sessionAddressProvider, bool? useForPeeringService, string microsoftTrackingId, int? peeringDBFacilityId, PeeringConnectionState? connectionState, PeeringBgpSession bgpSession, string connectionIdentifier, string errorMessage)
+        {
+            return PeeringDirectConnection(bandwidthInMbps: bandwidthInMbps, provisionedBandwidthInMbps: provisionedBandwidthInMbps, sessionAddressProvider: sessionAddressProvider, useForPeeringService: useForPeeringService, microsoftTrackingId: microsoftTrackingId, peeringDBFacilityId: peeringDBFacilityId, connectionState: connectionState, bgpSession: bgpSession, migrationWorkWindowBgpSessionSameDevice: default, lastFailureTimeUtc: default, connectionIdentifier: connectionIdentifier, errorMessage: errorMessage, previousConnectionProvisioningState: default, migrationWorkWindowTracker: default);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Peering.Models.PeeringExchangeConnection" />. </summary>
+        /// <param name="peeringDBFacilityId"> The PeeringDB.com ID of the facility at which the connection has to be set up. </param>
+        /// <param name="connectionState"> The state of the connection. </param>
+        /// <param name="bgpSession"> The BGP session associated with the connection. </param>
+        /// <param name="connectionIdentifier"> The unique identifier (GUID) for the connection. </param>
+        /// <param name="errorMessage"> The error message related to the connection state, if any. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Peering.Models.PeeringExchangeConnection" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static PeeringExchangeConnection PeeringExchangeConnection(int? peeringDBFacilityId, PeeringConnectionState? connectionState, PeeringBgpSession bgpSession, Guid? connectionIdentifier, string errorMessage)
+        {
+            return PeeringExchangeConnection(peeringDBFacilityId: peeringDBFacilityId, connectionState: connectionState, bgpSession: bgpSession, migrationWorkWindowBgpSessionSameDevice: default, lastFailureTimeUtc: default, connectionIdentifier: connectionIdentifier, errorMessage: errorMessage, previousConnectionProvisioningState: default, migrationWorkWindowTracker: default);
         }
     }
 }
