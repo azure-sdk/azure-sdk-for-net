@@ -19,8 +19,8 @@ namespace Azure.ResourceManager.SqlVirtualMachine
 {
     /// <summary>
     /// A class representing a collection of <see cref="AvailabilityGroupListenerResource"/> and their operations.
-    /// Each <see cref="AvailabilityGroupListenerResource"/> in the collection will belong to the same instance of <see cref="SqlVmGroupResource"/>.
-    /// To get an <see cref="AvailabilityGroupListenerCollection"/> instance call the GetAvailabilityGroupListeners method from an instance of <see cref="SqlVmGroupResource"/>.
+    /// Each <see cref="AvailabilityGroupListenerResource"/> in the collection will belong to the same instance of <see cref="SqlVirtualMachineGroupResource"/>.
+    /// To get an <see cref="AvailabilityGroupListenerCollection"/> instance call the GetAvailabilityGroupListeners method from an instance of <see cref="SqlVirtualMachineGroupResource"/>.
     /// </summary>
     public partial class AvailabilityGroupListenerCollection : ArmCollection, IEnumerable<AvailabilityGroupListenerResource>, IAsyncEnumerable<AvailabilityGroupListenerResource>
     {
@@ -47,8 +47,8 @@ namespace Azure.ResourceManager.SqlVirtualMachine
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != SqlVmGroupResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SqlVmGroupResource.ResourceType), nameof(id));
+            if (id.ResourceType != SqlVirtualMachineGroupResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SqlVirtualMachineGroupResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -60,11 +60,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_CreateOrUpdate</description>
+        /// <description>AvailabilityGroupListener_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             try
             {
                 var response = await _availabilityGroupListenerRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, availabilityGroupListenerName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new SqlVirtualMachineArmOperation<AvailabilityGroupListenerResource>(new AvailabilityGroupListenerOperationSource(Client), _availabilityGroupListenerClientDiagnostics, Pipeline, _availabilityGroupListenerRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, availabilityGroupListenerName, data).Request, response, OperationFinalStateVia.Location);
+                var operation = new SqlVirtualMachineArmOperation<AvailabilityGroupListenerResource>(new AvailabilityGroupListenerOperationSource(Client), _availabilityGroupListenerClientDiagnostics, Pipeline, _availabilityGroupListenerRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, availabilityGroupListenerName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -109,11 +109,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_CreateOrUpdate</description>
+        /// <description>AvailabilityGroupListener_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             try
             {
                 var response = _availabilityGroupListenerRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, availabilityGroupListenerName, data, cancellationToken);
-                var operation = new SqlVirtualMachineArmOperation<AvailabilityGroupListenerResource>(new AvailabilityGroupListenerOperationSource(Client), _availabilityGroupListenerClientDiagnostics, Pipeline, _availabilityGroupListenerRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, availabilityGroupListenerName, data).Request, response, OperationFinalStateVia.Location);
+                var operation = new SqlVirtualMachineArmOperation<AvailabilityGroupListenerResource>(new AvailabilityGroupListenerOperationSource(Client), _availabilityGroupListenerClientDiagnostics, Pipeline, _availabilityGroupListenerRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, availabilityGroupListenerName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -158,11 +158,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_Get</description>
+        /// <description>AvailabilityGroupListener_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -204,11 +204,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_Get</description>
+        /// <description>AvailabilityGroupListener_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -250,11 +250,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_ListByGroup</description>
+        /// <description>AvailabilityGroupListener_ListByGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -280,11 +280,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_ListByGroup</description>
+        /// <description>AvailabilityGroupListener_ListByGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -310,11 +310,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_Get</description>
+        /// <description>AvailabilityGroupListener_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -354,11 +354,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_Get</description>
+        /// <description>AvailabilityGroupListener_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -398,11 +398,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_Get</description>
+        /// <description>AvailabilityGroupListener_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -444,11 +444,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilityGroupListeners_Get</description>
+        /// <description>AvailabilityGroupListener_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

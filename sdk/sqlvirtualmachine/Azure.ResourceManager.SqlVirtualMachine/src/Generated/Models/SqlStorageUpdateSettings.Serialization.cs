@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             }
             int? diskCount = default;
             int? startingDeviceId = default;
-            SqlVmDiskConfigurationType? diskConfigurationType = default;
+            DiskConfigurationType? diskConfigurationType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     {
                         continue;
                     }
-                    diskConfigurationType = new SqlVmDiskConfigurationType(property.Value.GetString());
+                    diskConfigurationType = new DiskConfigurationType(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

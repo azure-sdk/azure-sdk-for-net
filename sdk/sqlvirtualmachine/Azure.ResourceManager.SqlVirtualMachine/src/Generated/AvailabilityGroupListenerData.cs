@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// <summary> Initializes a new instance of <see cref="AvailabilityGroupListenerData"/>. </summary>
         public AvailabilityGroupListenerData()
         {
-            LoadBalancerConfigurations = new ChangeTrackingList<AvailabilityGroupListenerLoadBalancerConfiguration>();
+            LoadBalancerConfigurations = new ChangeTrackingList<LoadBalancerConfiguration>();
             MultiSubnetIPConfigurations = new ChangeTrackingList<MultiSubnetIPConfiguration>();
         }
 
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// <param name="port"> Listener port. </param>
         /// <param name="availabilityGroupConfiguration"> Availability Group configuration. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AvailabilityGroupListenerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string provisioningState, string availabilityGroupName, IList<AvailabilityGroupListenerLoadBalancerConfiguration> loadBalancerConfigurations, IList<MultiSubnetIPConfiguration> multiSubnetIPConfigurations, bool? createDefaultAvailabilityGroupIfNotExist, int? port, AvailabilityGroupConfiguration availabilityGroupConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal AvailabilityGroupListenerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string provisioningState, string availabilityGroupName, IList<LoadBalancerConfiguration> loadBalancerConfigurations, IList<MultiSubnetIPConfiguration> multiSubnetIPConfigurations, bool? createDefaultAvailabilityGroupIfNotExist, int? port, AgConfiguration availabilityGroupConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             AvailabilityGroupName = availabilityGroupName;
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// <summary> Name of the availability group. </summary>
         public string AvailabilityGroupName { get; set; }
         /// <summary> List of load balancer configurations for an availability group listener. </summary>
-        public IList<AvailabilityGroupListenerLoadBalancerConfiguration> LoadBalancerConfigurations { get; }
+        public IList<LoadBalancerConfiguration> LoadBalancerConfigurations { get; }
         /// <summary> List of multi subnet IP configurations for an AG listener. </summary>
         public IList<MultiSubnetIPConfiguration> MultiSubnetIPConfigurations { get; }
         /// <summary> Create a default availability group if it does not exist. </summary>
@@ -96,14 +96,14 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// <summary> Listener port. </summary>
         public int? Port { get; set; }
         /// <summary> Availability Group configuration. </summary>
-        internal AvailabilityGroupConfiguration AvailabilityGroupConfiguration { get; set; }
+        internal AgConfiguration AvailabilityGroupConfiguration { get; set; }
         /// <summary> Replica configurations. </summary>
-        public IList<AvailabilityGroupReplica> AvailabilityGroupReplicas
+        public IList<AgReplica> AvailabilityGroupReplicas
         {
             get
             {
                 if (AvailabilityGroupConfiguration is null)
-                    AvailabilityGroupConfiguration = new AvailabilityGroupConfiguration();
+                    AvailabilityGroupConfiguration = new AgConfiguration();
                 return AvailabilityGroupConfiguration.Replicas;
             }
         }

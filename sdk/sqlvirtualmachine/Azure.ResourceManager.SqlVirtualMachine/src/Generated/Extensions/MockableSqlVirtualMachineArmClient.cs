@@ -47,27 +47,27 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="SqlVmGroupResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SqlVmGroupResource.CreateResourceIdentifier" /> to create a <see cref="SqlVmGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="SqlVirtualMachineGroupResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SqlVirtualMachineGroupResource.CreateResourceIdentifier" /> to create a <see cref="SqlVirtualMachineGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SqlVmGroupResource"/> object. </returns>
-        public virtual SqlVmGroupResource GetSqlVmGroupResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="SqlVirtualMachineGroupResource"/> object. </returns>
+        public virtual SqlVirtualMachineGroupResource GetSqlVirtualMachineGroupResource(ResourceIdentifier id)
         {
-            SqlVmGroupResource.ValidateResourceId(id);
-            return new SqlVmGroupResource(Client, id);
+            SqlVirtualMachineGroupResource.ValidateResourceId(id);
+            return new SqlVirtualMachineGroupResource(Client, id);
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="SqlVmResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SqlVmResource.CreateResourceIdentifier" /> to create a <see cref="SqlVmResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="SqlVirtualMachineResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SqlVirtualMachineResource.CreateResourceIdentifier" /> to create a <see cref="SqlVirtualMachineResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SqlVmResource"/> object. </returns>
-        public virtual SqlVmResource GetSqlVmResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="SqlVirtualMachineResource"/> object. </returns>
+        public virtual SqlVirtualMachineResource GetSqlVirtualMachineResource(ResourceIdentifier id)
         {
-            SqlVmResource.ValidateResourceId(id);
-            return new SqlVmResource(Client, id);
+            SqlVirtualMachineResource.ValidateResourceId(id);
+            return new SqlVirtualMachineResource(Client, id);
         }
     }
 }

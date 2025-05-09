@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <param name="sqlAuthUpdateUserName"> SQL Server sysadmin login to create. </param>
         /// <param name="sqlAuthUpdatePassword"> SQL Server sysadmin login password. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SqlConnectivityUpdateSettings(SqlServerConnectivityType? connectivityType, int? port, string sqlAuthUpdateUserName, string sqlAuthUpdatePassword, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SqlConnectivityUpdateSettings(ConnectivityType? connectivityType, int? port, string sqlAuthUpdateUserName, string sqlAuthUpdatePassword, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ConnectivityType = connectivityType;
             Port = port;
@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         }
 
         /// <summary> SQL Server connectivity option. </summary>
-        public SqlServerConnectivityType? ConnectivityType { get; set; }
+        public ConnectivityType? ConnectivityType { get; set; }
         /// <summary> SQL Server port. </summary>
         public int? Port { get; set; }
         /// <summary> SQL Server sysadmin login to create. </summary>

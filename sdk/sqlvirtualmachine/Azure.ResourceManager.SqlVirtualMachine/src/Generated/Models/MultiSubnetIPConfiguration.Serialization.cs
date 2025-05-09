@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             writer.WritePropertyName("privateIpAddress"u8);
             writer.WriteObjectValue(PrivateIPAddress, options);
             writer.WritePropertyName("sqlVirtualMachineInstance"u8);
-            writer.WriteStringValue(SqlVmInstance);
+            writer.WriteStringValue(SqlVirtualMachineInstance);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -75,20 +75,20 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             {
                 return null;
             }
-            AvailabilityGroupListenerPrivateIPAddress privateIPAddress = default;
-            string sqlVmInstance = default;
+            PrivateIPAddress privateIPAddress = default;
+            string sqlVirtualMachineInstance = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("privateIpAddress"u8))
                 {
-                    privateIPAddress = AvailabilityGroupListenerPrivateIPAddress.DeserializeAvailabilityGroupListenerPrivateIPAddress(property.Value, options);
+                    privateIPAddress = PrivateIPAddress.DeserializePrivateIPAddress(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("sqlVirtualMachineInstance"u8))
                 {
-                    sqlVmInstance = property.Value.GetString();
+                    sqlVirtualMachineInstance = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new MultiSubnetIPConfiguration(privateIPAddress, sqlVmInstance, serializedAdditionalRawData);
+            return new MultiSubnetIPConfiguration(privateIPAddress, sqlVirtualMachineInstance, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<MultiSubnetIPConfiguration>.Write(ModelReaderWriterOptions options)

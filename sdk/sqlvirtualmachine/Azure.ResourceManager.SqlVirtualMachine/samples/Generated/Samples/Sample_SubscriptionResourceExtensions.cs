@@ -18,10 +18,10 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetSqlVmGroups_GetsAllSQLVirtualMachineGroupsInASubscription()
+        public async Task GetSqlVirtualMachineGroups_GetsAllSQLVirtualMachineGroupsInASubscription()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/ListSubscriptionSqlVirtualMachineGroup.json
-            // this example is just showing the usage of "SqlVirtualMachineGroups_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-10-01/ListSubscriptionSqlVirtualMachineGroup.json
+            // this example is just showing the usage of "SqlVirtualMachineGroup_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -35,11 +35,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (SqlVmGroupResource item in subscriptionResource.GetSqlVmGroupsAsync())
+            await foreach (SqlVirtualMachineGroupResource item in subscriptionResource.GetSqlVirtualMachineGroupsAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                SqlVmGroupData resourceData = item.Data;
+                SqlVirtualMachineGroupData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -49,10 +49,10 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetSqlVms_GetsAllSQLVirtualMachinesInASubscription()
+        public async Task GetSqlVirtualMachines_GetsAllSQLVirtualMachinesInASubscription()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/ListSubscriptionSqlVirtualMachine.json
-            // this example is just showing the usage of "SqlVirtualMachines_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-10-01/ListSubscriptionSqlVirtualMachine.json
+            // this example is just showing the usage of "SqlVirtualMachine_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -66,11 +66,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (SqlVmResource item in subscriptionResource.GetSqlVmsAsync())
+            await foreach (SqlVirtualMachineResource item in subscriptionResource.GetSqlVirtualMachinesAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                SqlVmData resourceData = item.Data;
+                SqlVirtualMachineData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }

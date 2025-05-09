@@ -113,11 +113,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             SystemData systemData = default;
             string provisioningState = default;
             string availabilityGroupName = default;
-            IList<AvailabilityGroupListenerLoadBalancerConfiguration> loadBalancerConfigurations = default;
+            IList<LoadBalancerConfiguration> loadBalancerConfigurations = default;
             IList<MultiSubnetIPConfiguration> multiSubnetIPConfigurations = default;
             bool? createDefaultAvailabilityGroupIfNotExist = default;
             int? port = default;
-            AvailabilityGroupConfiguration availabilityGroupConfiguration = default;
+            AgConfiguration availabilityGroupConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -171,10 +171,10 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                             {
                                 continue;
                             }
-                            List<AvailabilityGroupListenerLoadBalancerConfiguration> array = new List<AvailabilityGroupListenerLoadBalancerConfiguration>();
+                            List<LoadBalancerConfiguration> array = new List<LoadBalancerConfiguration>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(AvailabilityGroupListenerLoadBalancerConfiguration.DeserializeAvailabilityGroupListenerLoadBalancerConfiguration(item, options));
+                                array.Add(LoadBalancerConfiguration.DeserializeLoadBalancerConfiguration(item, options));
                             }
                             loadBalancerConfigurations = array;
                             continue;
@@ -217,7 +217,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                             {
                                 continue;
                             }
-                            availabilityGroupConfiguration = AvailabilityGroupConfiguration.DeserializeAvailabilityGroupConfiguration(property0.Value, options);
+                            availabilityGroupConfiguration = AgConfiguration.DeserializeAgConfiguration(property0.Value, options);
                             continue;
                         }
                     }
@@ -236,7 +236,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                 systemData,
                 provisioningState,
                 availabilityGroupName,
-                loadBalancerConfigurations ?? new ChangeTrackingList<AvailabilityGroupListenerLoadBalancerConfiguration>(),
+                loadBalancerConfigurations ?? new ChangeTrackingList<LoadBalancerConfiguration>(),
                 multiSubnetIPConfigurations ?? new ChangeTrackingList<MultiSubnetIPConfiguration>(),
                 createDefaultAvailabilityGroupIfNotExist,
                 port,
