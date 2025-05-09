@@ -22,14 +22,14 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string GeneralValue = "GENERAL";
-        private const string OltpValue = "OLTP";
+        private const string GENERALValue = "GENERAL";
+        private const string OLTPValue = "OLTP";
         private const string DWValue = "DW";
 
         /// <summary> GENERAL. </summary>
-        public static SqlWorkloadType General { get; } = new SqlWorkloadType(GeneralValue);
+        public static SqlWorkloadType GENERAL { get; } = new SqlWorkloadType(GENERALValue);
         /// <summary> OLTP. </summary>
-        public static SqlWorkloadType Oltp { get; } = new SqlWorkloadType(OltpValue);
+        public static SqlWorkloadType OLTP { get; } = new SqlWorkloadType(OLTPValue);
         /// <summary> DW. </summary>
         public static SqlWorkloadType DW { get; } = new SqlWorkloadType(DWValue);
         /// <summary> Determines if two <see cref="SqlWorkloadType"/> values are the same. </summary>

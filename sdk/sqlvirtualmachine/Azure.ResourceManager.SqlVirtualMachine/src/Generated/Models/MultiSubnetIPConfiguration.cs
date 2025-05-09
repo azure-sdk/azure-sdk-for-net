@@ -47,25 +47,25 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
 
         /// <summary> Initializes a new instance of <see cref="MultiSubnetIPConfiguration"/>. </summary>
         /// <param name="privateIPAddress"> Private IP address. </param>
-        /// <param name="sqlVmInstance"> SQL virtual machine instance resource id that are enrolled into the availability group listener. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="privateIPAddress"/> or <paramref name="sqlVmInstance"/> is null. </exception>
-        public MultiSubnetIPConfiguration(AvailabilityGroupListenerPrivateIPAddress privateIPAddress, string sqlVmInstance)
+        /// <param name="sqlVirtualMachineInstance"> SQL virtual machine instance resource id that are enrolled into the availability group listener. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateIPAddress"/> or <paramref name="sqlVirtualMachineInstance"/> is null. </exception>
+        public MultiSubnetIPConfiguration(PrivateIPAddress privateIPAddress, string sqlVirtualMachineInstance)
         {
             Argument.AssertNotNull(privateIPAddress, nameof(privateIPAddress));
-            Argument.AssertNotNull(sqlVmInstance, nameof(sqlVmInstance));
+            Argument.AssertNotNull(sqlVirtualMachineInstance, nameof(sqlVirtualMachineInstance));
 
             PrivateIPAddress = privateIPAddress;
-            SqlVmInstance = sqlVmInstance;
+            SqlVirtualMachineInstance = sqlVirtualMachineInstance;
         }
 
         /// <summary> Initializes a new instance of <see cref="MultiSubnetIPConfiguration"/>. </summary>
         /// <param name="privateIPAddress"> Private IP address. </param>
-        /// <param name="sqlVmInstance"> SQL virtual machine instance resource id that are enrolled into the availability group listener. </param>
+        /// <param name="sqlVirtualMachineInstance"> SQL virtual machine instance resource id that are enrolled into the availability group listener. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MultiSubnetIPConfiguration(AvailabilityGroupListenerPrivateIPAddress privateIPAddress, string sqlVmInstance, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MultiSubnetIPConfiguration(PrivateIPAddress privateIPAddress, string sqlVirtualMachineInstance, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             PrivateIPAddress = privateIPAddress;
-            SqlVmInstance = sqlVmInstance;
+            SqlVirtualMachineInstance = sqlVirtualMachineInstance;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -75,8 +75,8 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         }
 
         /// <summary> Private IP address. </summary>
-        public AvailabilityGroupListenerPrivateIPAddress PrivateIPAddress { get; set; }
+        public PrivateIPAddress PrivateIPAddress { get; set; }
         /// <summary> SQL virtual machine instance resource id that are enrolled into the availability group listener. </summary>
-        public string SqlVmInstance { get; set; }
+        public string SqlVirtualMachineInstance { get; set; }
     }
 }

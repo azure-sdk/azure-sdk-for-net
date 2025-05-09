@@ -33,11 +33,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of SqlVmGroupResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of SqlVmGroupResources and their operations over a SqlVmGroupResource. </returns>
-        public virtual SqlVmGroupCollection GetSqlVmGroups()
+        /// <summary> Gets a collection of SqlVirtualMachineGroupResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of SqlVirtualMachineGroupResources and their operations over a SqlVirtualMachineGroupResource. </returns>
+        public virtual SqlVirtualMachineGroupCollection GetSqlVirtualMachineGroups()
         {
-            return GetCachedClient(client => new SqlVmGroupCollection(client, Id));
+            return GetCachedClient(client => new SqlVirtualMachineGroupCollection(client, Id));
         }
 
         /// <summary>
@@ -49,26 +49,26 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SqlVirtualMachineGroups_Get</description>
+        /// <description>SqlVirtualMachineGroup_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SqlVmGroupResource"/></description>
+        /// <description><see cref="SqlVirtualMachineGroupResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="sqlVmGroupName"> Name of the SQL virtual machine group. </param>
+        /// <param name="sqlVirtualMachineGroupName"> Name of the SQL virtual machine group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sqlVmGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="sqlVmGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="sqlVirtualMachineGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="sqlVirtualMachineGroupName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<SqlVmGroupResource>> GetSqlVmGroupAsync(string sqlVmGroupName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SqlVirtualMachineGroupResource>> GetSqlVirtualMachineGroupAsync(string sqlVirtualMachineGroupName, CancellationToken cancellationToken = default)
         {
-            return await GetSqlVmGroups().GetAsync(sqlVmGroupName, cancellationToken).ConfigureAwait(false);
+            return await GetSqlVirtualMachineGroups().GetAsync(sqlVirtualMachineGroupName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -80,65 +80,33 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SqlVirtualMachineGroups_Get</description>
+        /// <description>SqlVirtualMachineGroup_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SqlVmGroupResource"/></description>
+        /// <description><see cref="SqlVirtualMachineGroupResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="sqlVmGroupName"> Name of the SQL virtual machine group. </param>
+        /// <param name="sqlVirtualMachineGroupName"> Name of the SQL virtual machine group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sqlVmGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="sqlVmGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="sqlVirtualMachineGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="sqlVirtualMachineGroupName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<SqlVmGroupResource> GetSqlVmGroup(string sqlVmGroupName, CancellationToken cancellationToken = default)
+        public virtual Response<SqlVirtualMachineGroupResource> GetSqlVirtualMachineGroup(string sqlVirtualMachineGroupName, CancellationToken cancellationToken = default)
         {
-            return GetSqlVmGroups().Get(sqlVmGroupName, cancellationToken);
+            return GetSqlVirtualMachineGroups().Get(sqlVirtualMachineGroupName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of SqlVmResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of SqlVmResources and their operations over a SqlVmResource. </returns>
-        public virtual SqlVmCollection GetSqlVms()
+        /// <summary> Gets a collection of SqlVirtualMachineResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of SqlVirtualMachineResources and their operations over a SqlVirtualMachineResource. </returns>
+        public virtual SqlVirtualMachineCollection GetSqlVirtualMachines()
         {
-            return GetCachedClient(client => new SqlVmCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets a SQL virtual machine.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SqlVirtualMachines_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SqlVmResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
-        /// <param name="expand"> The child resources to include in the response. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sqlVmName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="sqlVmName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<SqlVmResource>> GetSqlVmAsync(string sqlVmName, string expand = null, CancellationToken cancellationToken = default)
-        {
-            return await GetSqlVms().GetAsync(sqlVmName, expand, cancellationToken).ConfigureAwait(false);
+            return GetCachedClient(client => new SqlVirtualMachineCollection(client, Id));
         }
 
         /// <summary>
@@ -150,27 +118,59 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SqlVirtualMachines_Get</description>
+        /// <description>SqlVirtualMachine_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-01</description>
+        /// <description>2023-10-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="SqlVmResource"/></description>
+        /// <description><see cref="SqlVirtualMachineResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
+        /// <param name="sqlVirtualMachineName"> Name of the SQL virtual machine. </param>
         /// <param name="expand"> The child resources to include in the response. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sqlVmName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="sqlVmName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="sqlVirtualMachineName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="sqlVirtualMachineName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<SqlVmResource> GetSqlVm(string sqlVmName, string expand = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SqlVirtualMachineResource>> GetSqlVirtualMachineAsync(string sqlVirtualMachineName, string expand = null, CancellationToken cancellationToken = default)
         {
-            return GetSqlVms().Get(sqlVmName, expand, cancellationToken);
+            return await GetSqlVirtualMachines().GetAsync(sqlVirtualMachineName, expand, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a SQL virtual machine.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SqlVirtualMachine_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SqlVirtualMachineResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="sqlVirtualMachineName"> Name of the SQL virtual machine. </param>
+        /// <param name="expand"> The child resources to include in the response. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="sqlVirtualMachineName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="sqlVirtualMachineName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<SqlVirtualMachineResource> GetSqlVirtualMachine(string sqlVirtualMachineName, string expand = null, CancellationToken cancellationToken = default)
+        {
+            return GetSqlVirtualMachines().Get(sqlVirtualMachineName, expand, cancellationToken);
         }
     }
 }

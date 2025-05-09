@@ -22,14 +22,14 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string PaygValue = "PAYG";
-        private const string AhubValue = "AHUB";
+        private const string PAYGValue = "PAYG";
+        private const string AHUBValue = "AHUB";
         private const string DRValue = "DR";
 
         /// <summary> PAYG. </summary>
-        public static SqlServerLicenseType Payg { get; } = new SqlServerLicenseType(PaygValue);
+        public static SqlServerLicenseType PAYG { get; } = new SqlServerLicenseType(PAYGValue);
         /// <summary> AHUB. </summary>
-        public static SqlServerLicenseType Ahub { get; } = new SqlServerLicenseType(AhubValue);
+        public static SqlServerLicenseType AHUB { get; } = new SqlServerLicenseType(AHUBValue);
         /// <summary> DR. </summary>
         public static SqlServerLicenseType DR { get; } = new SqlServerLicenseType(DRValue);
         /// <summary> Determines if two <see cref="SqlServerLicenseType"/> values are the same. </summary>

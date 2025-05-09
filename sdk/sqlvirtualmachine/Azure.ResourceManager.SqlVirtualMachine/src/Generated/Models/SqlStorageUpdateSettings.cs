@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <param name="startingDeviceId"> Device id of the first disk to be updated. </param>
         /// <param name="diskConfigurationType"> Disk configuration to apply to SQL Server. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SqlStorageUpdateSettings(int? diskCount, int? startingDeviceId, SqlVmDiskConfigurationType? diskConfigurationType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SqlStorageUpdateSettings(int? diskCount, int? startingDeviceId, DiskConfigurationType? diskConfigurationType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DiskCount = diskCount;
             StartingDeviceId = startingDeviceId;
@@ -68,6 +68,6 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <summary> Device id of the first disk to be updated. </summary>
         public int? StartingDeviceId { get; set; }
         /// <summary> Disk configuration to apply to SQL Server. </summary>
-        public SqlVmDiskConfigurationType? DiskConfigurationType { get; set; }
+        public DiskConfigurationType? DiskConfigurationType { get; set; }
     }
 }

@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             {
                 return null;
             }
-            SqlServerConnectivityType? connectivityType = default;
+            ConnectivityType? connectivityType = default;
             int? port = default;
             string sqlAuthUpdateUserName = default;
             string sqlAuthUpdatePassword = default;
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     {
                         continue;
                     }
-                    connectivityType = new SqlServerConnectivityType(property.Value.GetString());
+                    connectivityType = new ConnectivityType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("port"u8))
