@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.OperationalInsights
     public partial class OperationalInsightsClusterData : Azure.ResourceManager.Models.TrackedResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OperationalInsights.OperationalInsightsClusterData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OperationalInsights.OperationalInsightsClusterData>
     {
         public OperationalInsightsClusterData(Azure.Core.AzureLocation location) { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsClusterAssociatedWorkspace> AssociatedWorkspaces { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsClusterAssociatedWorkspace> AssociatedWorkspaces { get { throw null; } }
         public Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsBillingType? BillingType { get { throw null; } set { } }
         public Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsCapacityReservationProperties CapacityReservationProperties { get { throw null; } set { } }
         public System.Guid? ClusterId { get { throw null; } }
@@ -928,7 +928,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
     }
     public partial class OperationalInsightsClusterAssociatedWorkspace : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsClusterAssociatedWorkspace>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsClusterAssociatedWorkspace>
     {
-        public OperationalInsightsClusterAssociatedWorkspace() { }
+        internal OperationalInsightsClusterAssociatedWorkspace() { }
         public System.DateTimeOffset? AssociatedOn { get { throw null; } }
         public Azure.Core.ResourceIdentifier ResourceId { get { throw null; } }
         public System.Guid? WorkspaceId { get { throw null; } }
