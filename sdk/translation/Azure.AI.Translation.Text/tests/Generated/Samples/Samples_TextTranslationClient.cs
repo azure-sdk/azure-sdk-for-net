@@ -6,8 +6,10 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Identity;
 using NUnit.Framework;
 
@@ -105,6 +107,278 @@ namespace Azure.AI.Translation.Text.Samples
             TextTranslationClient client = new TextTranslationClient(endpoint);
 
             Response<GetSupportedLanguagesResult> response = await client.GetSupportedLanguagesAsync();
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextTranslation_Translate2_ShortVersion()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new
+{
+text = "<text>",
+targets = new object[]
+{
+new
+{
+language = new object[]
+{
+"<language>"
+},
+}
+},
+}
+            });
+            Response response = client.Translate2(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("to").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextTranslation_Translate2_ShortVersion_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new
+{
+text = "<text>",
+targets = new object[]
+{
+new
+{
+language = new object[]
+{
+"<language>"
+},
+}
+},
+}
+            });
+            Response response = await client.Translate2Async(content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("to").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextTranslation_Translate2_ShortVersion_Convenience()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            Response<IReadOnlyList<TranslatedTextItem>> response = client.Translate2(new TranslateBodyDetails[]
+            {
+new TranslateBodyDetails("<text>", new TranslateTarget[]
+{
+new TranslateTarget(new string[]{"<language>"})
+})
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextTranslation_Translate2_ShortVersion_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            Response<IReadOnlyList<TranslatedTextItem>> response = await client.Translate2Async(new TranslateBodyDetails[]
+            {
+new TranslateBodyDetails("<text>", new TranslateTarget[]
+{
+new TranslateTarget(new string[]{"<language>"})
+})
+            });
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextTranslation_Translate2_AllParameters()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new
+{
+text = "<text>",
+script = "<script>",
+language = "<language>",
+textType = "Plain",
+targets = new object[]
+{
+new
+{
+language = new object[]
+{
+"<language>"
+},
+script = "<script>",
+profanityAction = "NoAction",
+profanityMarker = "Asterisk",
+deploymentNameModel = "<deploymentNameModel>",
+allowFallback = true,
+grade = "<grade>",
+tone = "<tone>",
+gender = "<gender>",
+adaptiveDatasetId = "<adaptiveDatasetId>",
+referenceTextPairs = new object[]
+{
+new
+{
+referenceTextPairsSource = "<referenceTextPairsSource>",
+referenceTextPairsTarget = "<referenceTextPairsTarget>",
+}
+},
+}
+},
+}
+            });
+            Response response = client.Translate2(content, clientTraceId: "<clientTraceId>");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result[0].GetProperty("detectedLanguage").GetProperty("language").ToString());
+            Console.WriteLine(result[0].GetProperty("detectedLanguage").GetProperty("score").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("to").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("text").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("transliteration").GetProperty("text").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("transliteration").GetProperty("script").ToString());
+            Console.WriteLine(result[0].GetProperty("sourceText").GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextTranslation_Translate2_AllParameters_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            using RequestContent content = RequestContent.Create(new object[]
+            {
+new
+{
+text = "<text>",
+script = "<script>",
+language = "<language>",
+textType = "Plain",
+targets = new object[]
+{
+new
+{
+language = new object[]
+{
+"<language>"
+},
+script = "<script>",
+profanityAction = "NoAction",
+profanityMarker = "Asterisk",
+deploymentNameModel = "<deploymentNameModel>",
+allowFallback = true,
+grade = "<grade>",
+tone = "<tone>",
+gender = "<gender>",
+adaptiveDatasetId = "<adaptiveDatasetId>",
+referenceTextPairs = new object[]
+{
+new
+{
+referenceTextPairsSource = "<referenceTextPairsSource>",
+referenceTextPairsTarget = "<referenceTextPairsTarget>",
+}
+},
+}
+},
+}
+            });
+            Response response = await client.Translate2Async(content, clientTraceId: "<clientTraceId>");
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result[0].GetProperty("detectedLanguage").GetProperty("language").ToString());
+            Console.WriteLine(result[0].GetProperty("detectedLanguage").GetProperty("score").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("to").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("text").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("transliteration").GetProperty("text").ToString());
+            Console.WriteLine(result[0].GetProperty("translations")[0].GetProperty("transliteration").GetProperty("script").ToString());
+            Console.WriteLine(result[0].GetProperty("sourceText").GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_TextTranslation_Translate2_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            Response<IReadOnlyList<TranslatedTextItem>> response = client.Translate2(new TranslateBodyDetails[]
+            {
+new TranslateBodyDetails("<text>", new TranslateTarget[]
+{
+new TranslateTarget(new string[]{"<language>"})
+{
+Script = "<script>",
+ProfanityAction = ProfanityAction.NoAction,
+ProfanityMarker = ProfanityMarker.Asterisk,
+DeploymentNameModel = "<deploymentNameModel>",
+AllowFallback = true,
+Grade = "<grade>",
+Tone = "<tone>",
+Gender = "<gender>",
+AdaptiveDatasetId = "<adaptiveDatasetId>",
+ReferenceTextPairs = {new ReferenceSentencePair("<referenceTextPairsSource>", "<referenceTextPairsTarget>")},
+}
+})
+{
+Script = "<script>",
+Language = "<language>",
+TextType = TextType.Plain,
+}
+            }, clientTraceId: "<clientTraceId>");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task Example_TextTranslation_Translate2_AllParameters_Convenience_Async()
+        {
+            Uri endpoint = new Uri("<endpoint>");
+            TextTranslationClient client = new TextTranslationClient(endpoint);
+
+            Response<IReadOnlyList<TranslatedTextItem>> response = await client.Translate2Async(new TranslateBodyDetails[]
+            {
+new TranslateBodyDetails("<text>", new TranslateTarget[]
+{
+new TranslateTarget(new string[]{"<language>"})
+{
+Script = "<script>",
+ProfanityAction = ProfanityAction.NoAction,
+ProfanityMarker = ProfanityMarker.Asterisk,
+DeploymentNameModel = "<deploymentNameModel>",
+AllowFallback = true,
+Grade = "<grade>",
+Tone = "<tone>",
+Gender = "<gender>",
+AdaptiveDatasetId = "<adaptiveDatasetId>",
+ReferenceTextPairs = {new ReferenceSentencePair("<referenceTextPairsSource>", "<referenceTextPairsTarget>")},
+}
+})
+{
+Script = "<script>",
+Language = "<language>",
+TextType = TextType.Plain,
+}
+            }, clientTraceId: "<clientTraceId>");
         }
     }
 }
