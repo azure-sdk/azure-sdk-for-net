@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_DPSGet()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGet.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGet.json
             // this example is just showing the usage of "IotDpsResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_DPSDelete()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSDelete.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSDelete.json
             // this example is just showing the usage of "IotDpsResource_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_DPSPatch()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSPatch.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSPatch.json
             // this example is just showing the usage of "IotDpsResource_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -112,10 +112,10 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetValidSkus_DPSGetValidSku()
+        public async Task GetKey_DPSGetKey()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetValidSku.json
-            // this example is just showing the usage of "IotDpsResource_ListValidSkus" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetKey.json
+            // this example is just showing the usage of "IotDpsResource_ListKeysForKeyName" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -130,20 +130,18 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
             ResourceIdentifier deviceProvisioningServiceResourceId = DeviceProvisioningServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, provisioningServiceName);
             DeviceProvisioningServiceResource deviceProvisioningService = client.GetDeviceProvisioningServiceResource(deviceProvisioningServiceResourceId);
 
-            // invoke the operation and iterate over the result
-            await foreach (DeviceProvisioningServicesSkuDefinition item in deviceProvisioningService.GetValidSkusAsync())
-            {
-                Console.WriteLine($"Succeeded: {item}");
-            }
+            // invoke the operation
+            string keyName = "testKey";
+            DeviceProvisioningServicesSharedAccessKey result = await deviceProvisioningService.GetKeyAsync(keyName);
 
-            Console.WriteLine("Succeeded");
+            Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
         public async Task GetKeys_DPSListKeys()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSListKeys.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSListKeys.json
             // this example is just showing the usage of "IotDpsResource_ListKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -170,10 +168,10 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetKey_DPSGetKey()
+        public async Task GetValidSkus_DPSGetValidSku()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetKey.json
-            // this example is just showing the usage of "IotDpsResource_ListKeysForKeyName" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetValidSku.json
+            // this example is just showing the usage of "IotDpsResource_ListValidSkus" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -188,11 +186,13 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
             ResourceIdentifier deviceProvisioningServiceResourceId = DeviceProvisioningServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, provisioningServiceName);
             DeviceProvisioningServiceResource deviceProvisioningService = client.GetDeviceProvisioningServiceResource(deviceProvisioningServiceResourceId);
 
-            // invoke the operation
-            string keyName = "testKey";
-            DeviceProvisioningServicesSharedAccessKey result = await deviceProvisioningService.GetKeyAsync(keyName);
+            // invoke the operation and iterate over the result
+            await foreach (DeviceProvisioningServicesSkuDefinition item in deviceProvisioningService.GetValidSkusAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
 
-            Console.WriteLine($"Succeeded: {result}");
+            Console.WriteLine("Succeeded");
         }
     }
 }

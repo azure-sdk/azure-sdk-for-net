@@ -37,15 +37,21 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             }
 
             base.JsonModelWriteCore(writer, options);
+            writer.WritePropertyName("properties"u8);
+            writer.WriteObjectValue(Properties, options);
             if (Optional.IsDefined(ETag))
             {
                 writer.WritePropertyName("etag"u8);
                 writer.WriteStringValue(ETag.Value.ToString());
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteObjectValue(Properties, options);
             writer.WritePropertyName("sku"u8);
             writer.WriteObjectValue(Sku, options);
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
+            }
         }
 
         DeviceProvisioningServiceData IJsonModel<DeviceProvisioningServiceData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -68,9 +74,10 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             {
                 return null;
             }
-            ETag? etag = default;
             DeviceProvisioningServiceProperties properties = default;
+            ETag? etag = default;
             DeviceProvisioningServicesSkuInfo sku = default;
+            ManagedServiceIdentity identity = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -81,6 +88,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    properties = DeviceProvisioningServiceProperties.DeserializeDeviceProvisioningServiceProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("etag"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -90,14 +102,19 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                     etag = new ETag(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    properties = DeviceProvisioningServiceProperties.DeserializeDeviceProvisioningServiceProperties(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("sku"u8))
                 {
                     sku = DeviceProvisioningServicesSkuInfo.DeserializeDeviceProvisioningServicesSkuInfo(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -156,9 +173,10 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
-                etag,
                 properties,
+                etag,
                 sku,
+                identity,
                 serializedAdditionalRawData);
         }
 
