@@ -35,12 +35,14 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="location"> The supported Azure location of the resource. </param>
         /// <param name="tags"> Specifies the tags that are assigned to the virtual machine. For more information about using tags, see [Using tags to organize your Azure resources](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-using-tags.md). </param>
         /// <param name="extendedLocation"> The extended location of the Virtual Machine. </param>
-        internal VirtualMachineImageBase(ResourceIdentifier id, IDictionary<string, BinaryData> serializedAdditionalRawData, string name, AzureLocation location, IDictionary<string, string> tags, ExtendedLocation extendedLocation) : base(id, serializedAdditionalRawData)
+        /// <param name="properties"> Describes the properties of a Virtual Machine Image. </param>
+        internal VirtualMachineImageBase(ResourceIdentifier id, IDictionary<string, BinaryData> serializedAdditionalRawData, string name, AzureLocation location, IDictionary<string, string> tags, ExtendedLocation extendedLocation, VirtualMachineImageProperties properties) : base(id, serializedAdditionalRawData)
         {
             Name = name;
             Location = location;
             Tags = tags;
             ExtendedLocation = extendedLocation;
+            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualMachineImageBase"/> for deserialization. </summary>
@@ -56,5 +58,7 @@ namespace Azure.ResourceManager.Compute.Models
         public IDictionary<string, string> Tags { get; }
         /// <summary> The extended location of the Virtual Machine. </summary>
         public ExtendedLocation ExtendedLocation { get; set; }
+        /// <summary> Describes the properties of a Virtual Machine Image. </summary>
+        public VirtualMachineImageProperties Properties { get; set; }
     }
 }
