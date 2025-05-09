@@ -9626,7 +9626,6 @@ namespace Azure.ResourceManager.MachineLearning.Models
     public partial class RegistryAcrDetails : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MachineLearning.Models.RegistryAcrDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MachineLearning.Models.RegistryAcrDetails>
     {
         public RegistryAcrDetails() { }
-        public Azure.Core.ResourceIdentifier ArmResourceId { get { throw null; } set { } }
         public Azure.ResourceManager.MachineLearning.Models.SystemCreatedAcrAccount SystemCreatedAcrAccount { get { throw null; } set { } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.MachineLearning.Models.RegistryAcrDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MachineLearning.Models.RegistryAcrDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -10031,7 +10030,6 @@ namespace Azure.ResourceManager.MachineLearning.Models
     public partial class StorageAccountDetails : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MachineLearning.Models.StorageAccountDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MachineLearning.Models.StorageAccountDetails>
     {
         public StorageAccountDetails() { }
-        public Azure.Core.ResourceIdentifier ArmResourceId { get { throw null; } set { } }
         public Azure.ResourceManager.MachineLearning.Models.SystemCreatedStorageAccount SystemCreatedStorageAccount { get { throw null; } set { } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.MachineLearning.Models.StorageAccountDetails System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MachineLearning.Models.StorageAccountDetails>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
