@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace Azure.ResourceManager.StorageActions.Models
 {
-    /// <summary> The if block of storage task operation. </summary>
-    public partial class StorageTaskIfCondition
+    /// <summary> The else block of storage task operation. </summary>
+    internal partial class ElseCondition
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,38 +46,31 @@ namespace Azure.ResourceManager.StorageActions.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="StorageTaskIfCondition"/>. </summary>
-        /// <param name="condition"> Condition predicate to evaluate each object. See https://aka.ms/storagetaskconditions for valid properties and operators. </param>
-        /// <param name="operations"> List of operations to execute when the condition predicate satisfies. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="condition"/> or <paramref name="operations"/> is null. </exception>
-        public StorageTaskIfCondition(string condition, IEnumerable<StorageTaskOperationInfo> operations)
+        /// <summary> Initializes a new instance of <see cref="ElseCondition"/>. </summary>
+        /// <param name="operations"> List of operations to execute in the else block. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="operations"/> is null. </exception>
+        public ElseCondition(IEnumerable<StorageTaskOperationInfo> operations)
         {
-            Argument.AssertNotNull(condition, nameof(condition));
             Argument.AssertNotNull(operations, nameof(operations));
 
-            Condition = condition;
             Operations = operations.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="StorageTaskIfCondition"/>. </summary>
-        /// <param name="condition"> Condition predicate to evaluate each object. See https://aka.ms/storagetaskconditions for valid properties and operators. </param>
-        /// <param name="operations"> List of operations to execute when the condition predicate satisfies. </param>
+        /// <summary> Initializes a new instance of <see cref="ElseCondition"/>. </summary>
+        /// <param name="operations"> List of operations to execute in the else block. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StorageTaskIfCondition(string condition, IList<StorageTaskOperationInfo> operations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ElseCondition(IList<StorageTaskOperationInfo> operations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Condition = condition;
             Operations = operations;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="StorageTaskIfCondition"/> for deserialization. </summary>
-        internal StorageTaskIfCondition()
+        /// <summary> Initializes a new instance of <see cref="ElseCondition"/> for deserialization. </summary>
+        internal ElseCondition()
         {
         }
 
-        /// <summary> Condition predicate to evaluate each object. See https://aka.ms/storagetaskconditions for valid properties and operators. </summary>
-        public string Condition { get; set; }
-        /// <summary> List of operations to execute when the condition predicate satisfies. </summary>
+        /// <summary> List of operations to execute in the else block. </summary>
         public IList<StorageTaskOperationInfo> Operations { get; }
     }
 }
