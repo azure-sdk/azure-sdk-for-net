@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Datadog.Models
 {
-    /// <summary> The LiftrResourceCategory. </summary>
+    /// <summary> The LiftrResourceCategories. </summary>
     public readonly partial struct LiftrResourceCategory : IEquatable<LiftrResourceCategory>
     {
         private readonly string _value;

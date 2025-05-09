@@ -97,11 +97,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>TagRules_Get</description>
+        /// <description>MonitoringTagRules_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -137,11 +137,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>TagRules_Get</description>
+        /// <description>MonitoringTagRules_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -177,11 +177,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>TagRules_CreateOrUpdate</description>
+        /// <description>MonitoringTagRules_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -225,11 +225,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>TagRules_CreateOrUpdate</description>
+        /// <description>MonitoringTagRules_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

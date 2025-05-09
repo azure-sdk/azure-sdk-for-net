@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.Datadog
 
         /// <summary> Gets or sets the sku. </summary>
         internal ResourceSku Sku { get; set; }
-        /// <summary> Name of the SKU. </summary>
+        /// <summary> The name of the SKU. </summary>
         public string SkuName
         {
             get => Sku is null ? default : Sku.Name;
