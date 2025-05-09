@@ -41,6 +41,7 @@ trigger:
     - sdk/changeanalysis/Azure.ResourceManager.ChangeAnalysis
     - sdk/chaos/Azure.ResourceManager.Chaos
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
+    - sdk/commonedgesitemanageroperations/Azure.ResourceManager.CommonEdgeSiteManagerOperations
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
     - sdk/computefleet/Azure.ResourceManager.ComputeFleet
@@ -117,6 +118,8 @@ trigger:
     - sdk/kusto/Azure.ResourceManager.Kusto
     - sdk/labservices/Azure.ResourceManager.LabServices
     - sdk/lambdatesthyperexecute/Azure.ResourceManager.LambdaTestHyperExecute
+    - sdk/liftrarize/Azure.ResourceManager.ArizeAIObservabilityEval
+    - sdk/liftrweightsandbiases/Azure.ResourceManager.WeightsAndBiases
     - sdk/loadtestservice/Azure.ResourceManager.LoadTesting
     - sdk/logic/Azure.ResourceManager.Logic
     - sdk/machinelearningcompute/Azure.ResourceManager.MachineLearningCompute
@@ -136,6 +139,7 @@ trigger:
     - sdk/mixedreality/Azure.ResourceManager.MixedReality
     - sdk/mobilenetwork/Azure.ResourceManager.MobileNetwork
     - sdk/mongocluster/Azure.ResourceManager.MongoCluster
+    - sdk/mongodbatlas/Azure.ResourceManager.MongoDBAtlas
     - sdk/monitor/Azure.ResourceManager.Monitor
     - sdk/mysql/Azure.ResourceManager.MySql
     - sdk/neonpostgres/Azure.ResourceManager.NeonPostgres
@@ -169,6 +173,7 @@ trigger:
     - sdk/recoveryservices-backup/Azure.ResourceManager.RecoveryServicesBackup
     - sdk/recoveryservices-datareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/recoveryservices-siterecovery/Azure.ResourceManager.RecoveryServicesSiteRecovery
+    - sdk/recoveryservicesdatareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/redis/Azure.ResourceManager.Redis
     - sdk/redisenterprise/Azure.ResourceManager.RedisEnterprise
     - sdk/relay/Azure.ResourceManager.Relay
@@ -189,6 +194,7 @@ trigger:
     - sdk/servicelinker/Azure.ResourceManager.ServiceLinker
     - sdk/servicenetworking/Azure.ResourceManager.ServiceNetworking
     - sdk/signalr/Azure.ResourceManager.SignalR
+    - sdk/sitemanager/Azure.ResourceManager.SiteManager
     - sdk/sphere/Azure.ResourceManager.Sphere
     - sdk/springappdiscovery/Azure.ResourceManager.SpringAppDiscovery
     - sdk/sqlmanagement/Azure.ResourceManager.Sql
@@ -257,6 +263,7 @@ pr:
     - sdk/changeanalysis/Azure.ResourceManager.ChangeAnalysis
     - sdk/chaos/Azure.ResourceManager.Chaos
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
+    - sdk/commonedgesitemanageroperations/Azure.ResourceManager.CommonEdgeSiteManagerOperations
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
     - sdk/computefleet/Azure.ResourceManager.ComputeFleet
@@ -333,6 +340,8 @@ pr:
     - sdk/kusto/Azure.ResourceManager.Kusto
     - sdk/labservices/Azure.ResourceManager.LabServices
     - sdk/lambdatesthyperexecute/Azure.ResourceManager.LambdaTestHyperExecute
+    - sdk/liftrarize/Azure.ResourceManager.ArizeAIObservabilityEval
+    - sdk/liftrweightsandbiases/Azure.ResourceManager.WeightsAndBiases
     - sdk/loadtestservice/Azure.ResourceManager.LoadTesting
     - sdk/logic/Azure.ResourceManager.Logic
     - sdk/machinelearningcompute/Azure.ResourceManager.MachineLearningCompute
@@ -352,6 +361,7 @@ pr:
     - sdk/mixedreality/Azure.ResourceManager.MixedReality
     - sdk/mobilenetwork/Azure.ResourceManager.MobileNetwork
     - sdk/mongocluster/Azure.ResourceManager.MongoCluster
+    - sdk/mongodbatlas/Azure.ResourceManager.MongoDBAtlas
     - sdk/monitor/Azure.ResourceManager.Monitor
     - sdk/mysql/Azure.ResourceManager.MySql
     - sdk/neonpostgres/Azure.ResourceManager.NeonPostgres
@@ -385,6 +395,7 @@ pr:
     - sdk/recoveryservices-backup/Azure.ResourceManager.RecoveryServicesBackup
     - sdk/recoveryservices-datareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/recoveryservices-siterecovery/Azure.ResourceManager.RecoveryServicesSiteRecovery
+    - sdk/recoveryservicesdatareplication/Azure.ResourceManager.RecoveryServicesDataReplication
     - sdk/redis/Azure.ResourceManager.Redis
     - sdk/redisenterprise/Azure.ResourceManager.RedisEnterprise
     - sdk/relay/Azure.ResourceManager.Relay
@@ -405,6 +416,7 @@ pr:
     - sdk/servicelinker/Azure.ResourceManager.ServiceLinker
     - sdk/servicenetworking/Azure.ResourceManager.ServiceNetworking
     - sdk/signalr/Azure.ResourceManager.SignalR
+    - sdk/sitemanager/Azure.ResourceManager.SiteManager
     - sdk/sphere/Azure.ResourceManager.Sphere
     - sdk/springappdiscovery/Azure.ResourceManager.SpringAppDiscovery
     - sdk/sqlmanagement/Azure.ResourceManager.Sql
