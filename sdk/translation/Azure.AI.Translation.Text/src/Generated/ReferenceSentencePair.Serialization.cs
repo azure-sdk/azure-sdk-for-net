@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Translation.Text
 {
-    public partial class TranslationText : IUtf8JsonSerializable, IJsonModel<TranslationText>
+    public partial class ReferenceSentencePair : IUtf8JsonSerializable, IJsonModel<ReferenceSentencePair>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TranslationText>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ReferenceSentencePair>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<TranslationText>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ReferenceSentencePair>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,21 +28,16 @@ namespace Azure.AI.Translation.Text
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationText>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ReferenceSentencePair>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TranslationText)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ReferenceSentencePair)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("to"u8);
-            writer.WriteStringValue(To);
-            writer.WritePropertyName("text"u8);
-            writer.WriteStringValue(Text);
-            if (Optional.IsDefined(Transliteration))
-            {
-                writer.WritePropertyName("transliteration"u8);
-                writer.WriteObjectValue(Transliteration, options);
-            }
+            writer.WritePropertyName("referenceTextPairsSource"u8);
+            writer.WriteStringValue(ReferenceTextPairsSource);
+            writer.WritePropertyName("referenceTextPairsTarget"u8);
+            writer.WriteStringValue(ReferenceTextPairsTarget);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -60,19 +55,19 @@ namespace Azure.AI.Translation.Text
             }
         }
 
-        TranslationText IJsonModel<TranslationText>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ReferenceSentencePair IJsonModel<ReferenceSentencePair>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationText>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ReferenceSentencePair>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TranslationText)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ReferenceSentencePair)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeTranslationText(document.RootElement, options);
+            return DeserializeReferenceSentencePair(document.RootElement, options);
         }
 
-        internal static TranslationText DeserializeTranslationText(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ReferenceSentencePair DeserializeReferenceSentencePair(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -80,30 +75,20 @@ namespace Azure.AI.Translation.Text
             {
                 return null;
             }
-            string to = default;
-            string text = default;
-            TransliteratedText transliteration = default;
+            string referenceTextPairsSource = default;
+            string referenceTextPairsTarget = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("to"u8))
+                if (property.NameEquals("referenceTextPairsSource"u8))
                 {
-                    to = property.Value.GetString();
+                    referenceTextPairsSource = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("text"u8))
+                if (property.NameEquals("referenceTextPairsTarget"u8))
                 {
-                    text = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("transliteration"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    transliteration = TransliteratedText.DeserializeTransliteratedText(property.Value, options);
+                    referenceTextPairsTarget = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -112,46 +97,46 @@ namespace Azure.AI.Translation.Text
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new TranslationText(to, text, transliteration, serializedAdditionalRawData);
+            return new ReferenceSentencePair(referenceTextPairsSource, referenceTextPairsTarget, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<TranslationText>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ReferenceSentencePair>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationText>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ReferenceSentencePair>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureAITranslationTextContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(TranslationText)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ReferenceSentencePair)} does not support writing '{options.Format}' format.");
             }
         }
 
-        TranslationText IPersistableModel<TranslationText>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ReferenceSentencePair IPersistableModel<ReferenceSentencePair>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslationText>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ReferenceSentencePair>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeTranslationText(document.RootElement, options);
+                        return DeserializeReferenceSentencePair(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(TranslationText)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ReferenceSentencePair)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<TranslationText>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ReferenceSentencePair>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static TranslationText FromResponse(Response response)
+        internal static ReferenceSentencePair FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeTranslationText(document.RootElement);
+            return DeserializeReferenceSentencePair(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
