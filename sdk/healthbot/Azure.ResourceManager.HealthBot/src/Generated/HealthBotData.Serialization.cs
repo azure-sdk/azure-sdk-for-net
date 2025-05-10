@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.HealthBot
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                writer.WriteObjectValue(Identity, options);
             }
             if (Optional.IsDefined(Properties))
             {
@@ -72,7 +72,7 @@ namespace Azure.ResourceManager.HealthBot
                 return null;
             }
             HealthBotSku sku = default;
-            ManagedServiceIdentity identity = default;
+            Identity identity = default;
             HealthBotProperties properties = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.HealthBot
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    identity = Identity.DeserializeIdentity(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("properties"u8))

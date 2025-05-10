@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.ResourceManager.HealthBot.Models
 {
-    /// <summary> The list of Azure Health Bot operation response. </summary>
-    internal partial class BotResponseList
+    /// <summary> Represents a user-assigned identity. </summary>
+    public partial class UserAssignedIdentity
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,32 +45,25 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/>. </summary>
-        /// <param name="value"> The HealthBot items on this page. </param>
-        internal BotResponseList(IEnumerable<HealthBotData> value)
+        /// <summary> Initializes a new instance of <see cref="UserAssignedIdentity"/>. </summary>
+        public UserAssignedIdentity()
         {
-            Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/>. </summary>
-        /// <param name="value"> The HealthBot items on this page. </param>
-        /// <param name="nextLink"> The link to the next page of items. </param>
+        /// <summary> Initializes a new instance of <see cref="UserAssignedIdentity"/>. </summary>
+        /// <param name="principalId"> The principal ID of the user-assigned identity. </param>
+        /// <param name="clientId"> The client ID of the user-assigned identity. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BotResponseList(IReadOnlyList<HealthBotData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal UserAssignedIdentity(string principalId, string clientId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
+            PrincipalId = principalId;
+            ClientId = clientId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/> for deserialization. </summary>
-        internal BotResponseList()
-        {
-        }
-
-        /// <summary> The HealthBot items on this page. </summary>
-        public IReadOnlyList<HealthBotData> Value { get; }
-        /// <summary> The link to the next page of items. </summary>
-        public Uri NextLink { get; }
+        /// <summary> The principal ID of the user-assigned identity. </summary>
+        public string PrincipalId { get; }
+        /// <summary> The client ID of the user-assigned identity. </summary>
+        public string ClientId { get; }
     }
 }

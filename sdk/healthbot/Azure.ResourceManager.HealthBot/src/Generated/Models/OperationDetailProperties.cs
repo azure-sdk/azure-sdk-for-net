@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Azure.ResourceManager.HealthBot.Models
 {
-    /// <summary> The list of Azure Health Bot operation response. </summary>
-    internal partial class BotResponseList
+    /// <summary> The OperationDetailProperties. </summary>
+    public partial class OperationDetailProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,32 +45,16 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/>. </summary>
-        /// <param name="value"> The HealthBot items on this page. </param>
-        internal BotResponseList(IEnumerable<HealthBotData> value)
+        /// <summary> Initializes a new instance of <see cref="OperationDetailProperties"/>. </summary>
+        internal OperationDetailProperties()
         {
-            Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/>. </summary>
-        /// <param name="value"> The HealthBot items on this page. </param>
-        /// <param name="nextLink"> The link to the next page of items. </param>
+        /// <summary> Initializes a new instance of <see cref="OperationDetailProperties"/>. </summary>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BotResponseList(IReadOnlyList<HealthBotData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OperationDetailProperties(IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Value = value;
-            NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
-
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/> for deserialization. </summary>
-        internal BotResponseList()
-        {
-        }
-
-        /// <summary> The HealthBot items on this page. </summary>
-        public IReadOnlyList<HealthBotData> Value { get; }
-        /// <summary> The link to the next page of items. </summary>
-        public Uri NextLink { get; }
     }
 }

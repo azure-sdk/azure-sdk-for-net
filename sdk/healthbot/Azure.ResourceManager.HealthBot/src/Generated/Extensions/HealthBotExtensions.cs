@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.ResourceManager.HealthBot.Mocking;
+using Azure.ResourceManager.HealthBot.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.HealthBot
@@ -30,6 +31,11 @@ namespace Azure.ResourceManager.HealthBot
         private static MockableHealthBotSubscriptionResource GetMockableHealthBotSubscriptionResource(ArmResource resource)
         {
             return resource.GetCachedClient(client => new MockableHealthBotSubscriptionResource(client, resource.Id));
+        }
+
+        private static MockableHealthBotTenantResource GetMockableHealthBotTenantResource(ArmResource resource)
+        {
+            return resource.GetCachedClient(client => new MockableHealthBotTenantResource(client, resource.Id));
         }
 
         /// <summary>
@@ -77,11 +83,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -115,11 +121,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_Get</description>
+        /// <description>HealthBot_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -153,11 +159,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_List</description>
+        /// <description>HealthBot_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -189,11 +195,11 @@ namespace Azure.ResourceManager.HealthBot
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Bots_List</description>
+        /// <description>HealthBot_List</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-08-24</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -214,6 +220,70 @@ namespace Azure.ResourceManager.HealthBot
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
             return GetMockableHealthBotSubscriptionResource(subscriptionResource).GetHealthBots(cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all the available Azure Health Bot operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.HealthBot/operations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Operations_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableHealthBotTenantResource.GetOperations(CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
+        /// <returns> An async collection of <see cref="OperationDetail"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<OperationDetail> GetOperationsAsync(this TenantResource tenantResource, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(tenantResource, nameof(tenantResource));
+
+            return GetMockableHealthBotTenantResource(tenantResource).GetOperationsAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all the available Azure Health Bot operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.HealthBot/operations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Operations_List</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableHealthBotTenantResource.GetOperations(CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="OperationDetail"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<OperationDetail> GetOperations(this TenantResource tenantResource, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(tenantResource, nameof(tenantResource));
+
+            return GetMockableHealthBotTenantResource(tenantResource).GetOperations(cancellationToken);
         }
     }
 }
