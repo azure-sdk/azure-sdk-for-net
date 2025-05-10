@@ -11,7 +11,7 @@ using System.ComponentModel;
 namespace Azure.Compute.Batch
 {
     /// <summary> DisableBatchJobOption enums. </summary>
-    public readonly partial struct DisableBatchJobOption : IEquatable<DisableBatchJobOption>
+    internal readonly partial struct DisableBatchJobOption : IEquatable<DisableBatchJobOption>
     {
         private readonly string _value;
 
