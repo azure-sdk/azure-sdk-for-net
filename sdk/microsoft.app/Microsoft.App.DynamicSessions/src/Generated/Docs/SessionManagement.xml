@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetSessionManagementAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSessionManagementAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response<Session> response = await client.GetSessionManagementAsync("<identifier>");
+]]></code>
+This sample shows how to call GetSessionManagementAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response<Session> response = await client.GetSessionManagementAsync("<identifier>");
+]]></code></example>
+    </member>
+    <member name="GetSessionManagement(string,CancellationToken)">
+      <example>
+This sample shows how to call GetSessionManagement.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response<Session> response = client.GetSessionManagement("<identifier>");
+]]></code>
+This sample shows how to call GetSessionManagement with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response<Session> response = client.GetSessionManagement("<identifier>");
+]]></code></example>
+    </member>
+    <member name="GetSessionManagementAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetSessionManagementAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetSessionManagementAsync("<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
+]]></code>
+This sample shows how to call GetSessionManagementAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetSessionManagementAsync("<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSessionManagement(string,RequestContext)">
+      <example>
+This sample shows how to call GetSessionManagement and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetSessionManagement("<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
+]]></code>
+This sample shows how to call GetSessionManagement with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetSessionManagement("<identifier>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("etag").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteAsync(string,RequestContext)">
+      <example>
+This sample shows how to call DeleteAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.DeleteAsync("<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.DeleteAsync("<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="Delete(string,RequestContext)">
+      <example>
+This sample shows how to call Delete.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.Delete("<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call Delete with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionManagement client = new DynamicSessionsClient(endpoint, credential).GetSessionManagementClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.Delete("<identifier>");
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+  </members>
+</doc>

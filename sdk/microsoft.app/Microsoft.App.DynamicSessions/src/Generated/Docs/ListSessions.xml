@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetListSessionAsync(int?,CancellationToken)">
+      <example>
+This sample shows how to call GetListSessionAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionsListResponse> response = await client.GetListSessionAsync();
+]]></code>
+This sample shows how to call GetListSessionAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionsListResponse> response = await client.GetListSessionAsync(skip: 1234);
+]]></code></example>
+    </member>
+    <member name="GetListSession(int?,CancellationToken)">
+      <example>
+This sample shows how to call GetListSession.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionsListResponse> response = client.GetListSession();
+]]></code>
+This sample shows how to call GetListSession with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionsListResponse> response = client.GetListSession(skip: 1234);
+]]></code></example>
+    </member>
+    <member name="GetListSessionAsync(int?,RequestContext)">
+      <example>
+This sample shows how to call GetListSessionAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetListSessionAsync(null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("etag").ToString());
+]]></code>
+This sample shows how to call GetListSessionAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetListSessionAsync(1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("etag").ToString());
+Console.WriteLine(result.GetProperty("nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetListSession(int?,RequestContext)">
+      <example>
+This sample shows how to call GetListSession and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetListSession(null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("etag").ToString());
+]]></code>
+This sample shows how to call GetListSession with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+ListSessions client = new DynamicSessionsClient(endpoint, credential).GetListSessionsClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetListSession(1234, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("identifier").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("lastAccessedAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("expireAt").ToString());
+Console.WriteLine(result.GetProperty("sessions")[0].GetProperty("etag").ToString());
+Console.WriteLine(result.GetProperty("nextLink").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

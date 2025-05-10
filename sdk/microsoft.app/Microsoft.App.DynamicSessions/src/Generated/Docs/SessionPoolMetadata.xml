@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetSessionPoolMetadataAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetSessionPoolMetadataAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionPoolMetadataResponse> response = await client.GetSessionPoolMetadataAsync();
+]]></code>
+This sample shows how to call GetSessionPoolMetadataAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionPoolMetadataResponse> response = await client.GetSessionPoolMetadataAsync();
+]]></code></example>
+    </member>
+    <member name="GetSessionPoolMetadata(CancellationToken)">
+      <example>
+This sample shows how to call GetSessionPoolMetadata.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionPoolMetadataResponse> response = client.GetSessionPoolMetadata();
+]]></code>
+This sample shows how to call GetSessionPoolMetadata with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response<SessionPoolMetadataResponse> response = client.GetSessionPoolMetadata();
+]]></code></example>
+    </member>
+    <member name="GetSessionPoolMetadataAsync(RequestContext)">
+      <example>
+This sample shows how to call GetSessionPoolMetadataAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetSessionPoolMetadataAsync(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("projectUrl").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("description").ToString());
+]]></code>
+This sample shows how to call GetSessionPoolMetadataAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response response = await client.GetSessionPoolMetadataAsync(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("projectUrl").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("description").ToString());
+]]></code></example>
+    </member>
+    <member name="GetSessionPoolMetadata(RequestContext)">
+      <example>
+This sample shows how to call GetSessionPoolMetadata and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetSessionPoolMetadata(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("projectUrl").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("description").ToString());
+]]></code>
+This sample shows how to call GetSessionPoolMetadata with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+SessionPoolMetadata client = new DynamicSessionsClient(endpoint, credential).GetSessionPoolMetadataClient(apiVersion: "2024-10-02-preview");
+
+Response response = client.GetSessionPoolMetadata(null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("runtimes")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("preInstalledPackages")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("lastUpdatedAt").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("projectUrl").ToString());
+Console.WriteLine(result.GetProperty("jupyterKernel").GetProperty("description").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
