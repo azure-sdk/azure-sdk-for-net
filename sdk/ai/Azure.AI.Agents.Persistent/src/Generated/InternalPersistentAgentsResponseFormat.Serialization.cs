@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.AI.Agents.Persistent
 {
-    public partial class ToolConnectionList : IUtf8JsonSerializable, IJsonModel<ToolConnectionList>
+    internal partial class InternalPersistentAgentsResponseFormat : IUtf8JsonSerializable, IJsonModel<InternalPersistentAgentsResponseFormat>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ToolConnectionList>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<InternalPersistentAgentsResponseFormat>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<ToolConnectionList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<InternalPersistentAgentsResponseFormat>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,21 +28,16 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ToolConnectionList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<InternalPersistentAgentsResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ToolConnectionList)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalPersistentAgentsResponseFormat)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsCollectionDefined(ConnectionList))
+            if (Optional.IsDefined(Type))
             {
-                writer.WritePropertyName("connections"u8);
-                writer.WriteStartArray();
-                foreach (var item in ConnectionList)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(Type.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -61,19 +56,19 @@ namespace Azure.AI.Agents.Persistent
             }
         }
 
-        ToolConnectionList IJsonModel<ToolConnectionList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        InternalPersistentAgentsResponseFormat IJsonModel<InternalPersistentAgentsResponseFormat>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ToolConnectionList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<InternalPersistentAgentsResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ToolConnectionList)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalPersistentAgentsResponseFormat)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeToolConnectionList(document.RootElement, options);
+            return DeserializeInternalPersistentAgentsResponseFormat(document.RootElement, options);
         }
 
-        internal static ToolConnectionList DeserializeToolConnectionList(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static InternalPersistentAgentsResponseFormat DeserializeInternalPersistentAgentsResponseFormat(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -81,23 +76,18 @@ namespace Azure.AI.Agents.Persistent
             {
                 return null;
             }
-            IList<ToolConnection> connections = default;
+            ResponseFormat? type = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("connections"u8))
+                if (property.NameEquals("type"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    List<ToolConnection> array = new List<ToolConnection>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(ToolConnection.DeserializeToolConnection(item, options));
-                    }
-                    connections = array;
+                    type = new ResponseFormat(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -106,46 +96,46 @@ namespace Azure.AI.Agents.Persistent
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ToolConnectionList(connections ?? new ChangeTrackingList<ToolConnection>(), serializedAdditionalRawData);
+            return new InternalPersistentAgentsResponseFormat(type, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ToolConnectionList>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<InternalPersistentAgentsResponseFormat>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ToolConnectionList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<InternalPersistentAgentsResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureAIAgentsPersistentContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(ToolConnectionList)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalPersistentAgentsResponseFormat)} does not support writing '{options.Format}' format.");
             }
         }
 
-        ToolConnectionList IPersistableModel<ToolConnectionList>.Create(BinaryData data, ModelReaderWriterOptions options)
+        InternalPersistentAgentsResponseFormat IPersistableModel<InternalPersistentAgentsResponseFormat>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ToolConnectionList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<InternalPersistentAgentsResponseFormat>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeToolConnectionList(document.RootElement, options);
+                        return DeserializeInternalPersistentAgentsResponseFormat(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ToolConnectionList)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalPersistentAgentsResponseFormat)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ToolConnectionList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<InternalPersistentAgentsResponseFormat>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ToolConnectionList FromResponse(Response response)
+        internal static InternalPersistentAgentsResponseFormat FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeToolConnectionList(document.RootElement);
+            return DeserializeInternalPersistentAgentsResponseFormat(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
