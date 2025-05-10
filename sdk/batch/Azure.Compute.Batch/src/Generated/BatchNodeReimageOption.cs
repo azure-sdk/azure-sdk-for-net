@@ -11,7 +11,7 @@ using System.ComponentModel;
 namespace Azure.Compute.Batch
 {
     /// <summary> BatchNodeReimageOption enums. </summary>
-    public readonly partial struct BatchNodeReimageOption : IEquatable<BatchNodeReimageOption>
+    internal readonly partial struct BatchNodeReimageOption : IEquatable<BatchNodeReimageOption>
     {
         private readonly string _value;
 
