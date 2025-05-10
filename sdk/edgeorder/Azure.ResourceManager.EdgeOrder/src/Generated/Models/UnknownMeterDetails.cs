@@ -11,14 +11,14 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
     /// <summary> Unknown version of MeterDetails. </summary>
-    internal partial class UnknownMeterDetails : EdgeOrderProductMeterDetails
+    internal partial class UnknownMeterDetails : MeterDetails
     {
         /// <summary> Initializes a new instance of <see cref="UnknownMeterDetails"/>. </summary>
         /// <param name="billingType"> Represents billing type. </param>
         /// <param name="multiplier"> Billing unit applicable for Pav2 billing. </param>
         /// <param name="chargingType"> Charging type. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownMeterDetails(BillingType billingType, double? multiplier, EdgeOrderProductChargingType? chargingType, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(billingType, multiplier, chargingType, serializedAdditionalRawData)
+        internal UnknownMeterDetails(BillingType billingType, double? multiplier, ChargingType? chargingType, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(billingType, multiplier, chargingType, serializedAdditionalRawData)
         {
             BillingType = billingType;
         }
