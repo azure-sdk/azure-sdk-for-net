@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
-    internal partial class UnknownChannel : IUtf8JsonSerializable, IJsonModel<BotChannelProperties>
+    internal partial class UnknownChannel : IUtf8JsonSerializable, IJsonModel<Channel>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BotChannelProperties>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<Channel>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BotChannelProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<Channel>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotChannelProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Channel>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BotChannelProperties)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(Channel)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BotChannelProperties IJsonModel<BotChannelProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        Channel IJsonModel<Channel>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotChannelProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Channel>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BotChannelProperties)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(Channel)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBotChannelProperties(document.RootElement, options);
+            return DeserializeChannel(document.RootElement, options);
         }
 
         internal static UnknownChannel DeserializeUnknownChannel(JsonElement element, ModelReaderWriterOptions options = null)
@@ -58,9 +58,9 @@ namespace Azure.ResourceManager.BotService.Models
                 return null;
             }
             string channelName = "Unknown";
-            ETag? etag = default;
+            string etag = default;
             string provisioningState = default;
-            AzureLocation? location = default;
+            string location = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.BotService.Models
                         etag = null;
                         continue;
                     }
-                    etag = new ETag(property.Value.GetString());
+                    etag = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("provisioningState"u8))
@@ -87,11 +87,7 @@ namespace Azure.ResourceManager.BotService.Models
                 }
                 if (property.NameEquals("location"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    location = new AzureLocation(property.Value.GetString());
+                    location = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -103,35 +99,35 @@ namespace Azure.ResourceManager.BotService.Models
             return new UnknownChannel(channelName, etag, provisioningState, location, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BotChannelProperties>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<Channel>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotChannelProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Channel>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerBotServiceContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BotChannelProperties)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(Channel)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BotChannelProperties IPersistableModel<BotChannelProperties>.Create(BinaryData data, ModelReaderWriterOptions options)
+        Channel IPersistableModel<Channel>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotChannelProperties>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Channel>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBotChannelProperties(document.RootElement, options);
+                        return DeserializeChannel(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BotChannelProperties)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(Channel)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BotChannelProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<Channel>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

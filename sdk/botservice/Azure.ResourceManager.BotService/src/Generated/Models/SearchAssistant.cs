@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
     /// <summary> SearchAssistant definition. </summary>
-    public partial class SearchAssistant : BotChannelProperties
+    public partial class SearchAssistant : Channel
     {
         /// <summary> Initializes a new instance of <see cref="SearchAssistant"/>. </summary>
         public SearchAssistant()
@@ -26,7 +25,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="location"> Specifies the location of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SearchAssistant(string channelName, ETag? etag, string provisioningState, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
+        internal SearchAssistant(string channelName, string etag, string provisioningState, string location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
         {
             ChannelName = channelName ?? "SearchAssistant";
         }

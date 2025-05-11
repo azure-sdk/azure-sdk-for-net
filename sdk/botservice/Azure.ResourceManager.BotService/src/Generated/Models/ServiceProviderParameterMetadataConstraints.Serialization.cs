@@ -34,10 +34,10 @@ namespace Azure.ResourceManager.BotService.Models
                 throw new FormatException($"The model {nameof(ServiceProviderParameterMetadataConstraints)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(IsRequired))
+            if (Optional.IsDefined(Required))
             {
                 writer.WritePropertyName("required"u8);
-                writer.WriteBooleanValue(IsRequired.Value);
+                writer.WriteBooleanValue(Required.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {

@@ -51,15 +51,15 @@ namespace Azure.ResourceManager.BotService.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ServiceProviderParameterMetadataConstraints"/>. </summary>
-        /// <param name="isRequired"> Whether required the constraints of the bot meta data. </param>
+        /// <param name="required"> Whether required the constraints of the bot meta data. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceProviderParameterMetadataConstraints(bool? isRequired, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ServiceProviderParameterMetadataConstraints(bool? required, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            IsRequired = isRequired;
+            Required = required;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Whether required the constraints of the bot meta data. </summary>
-        public bool? IsRequired { get; }
+        public bool? Required { get; }
     }
 }

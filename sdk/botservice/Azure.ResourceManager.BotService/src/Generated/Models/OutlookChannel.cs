@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
     /// <summary> Outlook channel definition. </summary>
-    public partial class OutlookChannel : BotChannelProperties
+    public partial class OutlookChannel : Channel
     {
         /// <summary> Initializes a new instance of <see cref="OutlookChannel"/>. </summary>
         public OutlookChannel()
@@ -26,7 +25,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="location"> Specifies the location of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OutlookChannel(string channelName, ETag? etag, string provisioningState, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
+        internal OutlookChannel(string channelName, string etag, string provisioningState, string location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
         {
             ChannelName = channelName ?? "OutlookChannel";
         }

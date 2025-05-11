@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
     /// <summary> Unknown version of Channel. </summary>
-    internal partial class UnknownChannel : BotChannelProperties
+    internal partial class UnknownChannel : Channel
     {
         /// <summary> Initializes a new instance of <see cref="UnknownChannel"/>. </summary>
         /// <param name="channelName"> The channel name. </param>
@@ -20,7 +19,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="location"> Specifies the location of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownChannel(string channelName, ETag? etag, string provisioningState, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
+        internal UnknownChannel(string channelName, string etag, string provisioningState, string location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
         {
             ChannelName = channelName ?? "Unknown";
         }

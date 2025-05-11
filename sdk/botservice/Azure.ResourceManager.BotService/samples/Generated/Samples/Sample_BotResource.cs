@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.BotService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetBot()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/GetBot.json
-            // this example is just showing the usage of "Bots_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/GetBot.json
+            // this example is just showing the usage of "Bot_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -50,8 +50,8 @@ namespace Azure.ResourceManager.BotService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_DeleteBot()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/DeleteBot.json
-            // this example is just showing the usage of "Bots_Delete" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/DeleteBot.json
+            // this example is just showing the usage of "Bot_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -76,8 +76,8 @@ namespace Azure.ResourceManager.BotService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_UpdateBot()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/UpdateBot.json
-            // this example is just showing the usage of "Bots_Update" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/UpdateBot.json
+            // this example is just showing the usage of "Bot_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -93,35 +93,7 @@ namespace Azure.ResourceManager.BotService.Samples
             BotResource bot = client.GetBotResource(botResourceId);
 
             // invoke the operation
-            BotData data = new BotData(new AzureLocation("West US"))
-            {
-                Properties = new BotProperties("The Name of the bot", new Uri("http://mybot.coffee"), "msaappid")
-                {
-                    Description = "The description of the bot",
-                    IconUri = new Uri("http://myicon"),
-                    MsaAppType = BotMsaAppType.UserAssignedMSI,
-                    MsaAppTenantId = "msaapptenantid",
-                    MsaAppMSIResourceId = new ResourceIdentifier("/subscriptions/foo/resourcegroups/bar/providers/microsoft.managedidentity/userassignedidentities/sampleId"),
-                    DeveloperAppInsightKey = "appinsightskey",
-                    DeveloperAppInsightsApiKey = "appinsightsapikey",
-                    DeveloperAppInsightsApplicationId = "appinsightsappid",
-                    LuisAppIds = { "luisappid1", "luisappid2" },
-                    LuisKey = "luiskey",
-                    IsCmekEnabled = true,
-                    CmekKeyVaultUri = new Uri("https://myCmekKey"),
-                    PublicNetworkAccess = BotServicePublicNetworkAccess.Enabled,
-                    IsLocalAuthDisabled = true,
-                    SchemaTransformationVersion = "1.0",
-                },
-                Sku = new BotServiceSku(BotServiceSkuName.S1),
-                Kind = BotServiceKind.Sdk,
-                ETag = new ETag("etag1"),
-                Tags =
-{
-["tag1"] = "value1",
-["tag2"] = "value2"
-},
-            };
+            BotData data = new BotData(default);
             BotResource result = await bot.UpdateAsync(data);
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -133,10 +105,10 @@ namespace Azure.ResourceManager.BotService.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBotChannelWithRegenerateKeys_RegenerateKeysForDirectLineChannelSite()
+        public async Task CreateSignInUrl_CreateUrl()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/DirectlineRegenerateKeys.json
-            // this example is just showing the usage of "DirectLine_RegenerateKeys" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/CreateEmailSignInUrl.json
+            // this example is just showing the usage of "Bots_CreateSignInUrl" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -152,81 +124,17 @@ namespace Azure.ResourceManager.BotService.Samples
             BotResource bot = client.GetBotResource(botResourceId);
 
             // invoke the operation
-            RegenerateKeysBotChannelName channelName = RegenerateKeysBotChannelName.DirectLineChannel;
-            BotChannelRegenerateKeysContent content = new BotChannelRegenerateKeysContent("testSiteName", BotServiceKey.Key1);
-            BotChannelResource result = await bot.GetBotChannelWithRegenerateKeysAsync(channelName, content);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            BotChannelData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetBotChannelWithRegenerateKeys_RegenerateKeysForWebChatChannelSite()
-        {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/WebChatRegenerateKeys.json
-            // this example is just showing the usage of "DirectLine_RegenerateKeys" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this BotResource created on azure
-            // for more information of creating BotResource, please refer to the document of BotResource
-            string subscriptionId = "subscription-id";
-            string resourceGroupName = "OneResourceGroupName";
-            string resourceName = "samplebotname";
-            ResourceIdentifier botResourceId = BotResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
-            BotResource bot = client.GetBotResource(botResourceId);
-
-            // invoke the operation
-            RegenerateKeysBotChannelName channelName = RegenerateKeysBotChannelName.WebChatChannel;
-            BotChannelRegenerateKeysContent content = new BotChannelRegenerateKeysContent("testSiteName", BotServiceKey.Key1);
-            BotChannelResource result = await bot.GetBotChannelWithRegenerateKeysAsync(channelName, content);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            BotChannelData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task CreateEmailSignInUri_CreateUrl()
-        {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/CreateEmailSignInUrl.json
-            // this example is just showing the usage of "Email_CreateSignInUrl" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this BotResource created on azure
-            // for more information of creating BotResource, please refer to the document of BotResource
-            string subscriptionId = "subscription-id";
-            string resourceGroupName = "OneResourceGroupName";
-            string resourceName = "samplebotname";
-            ResourceIdentifier botResourceId = BotResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName);
-            BotResource bot = client.GetBotResource(botResourceId);
-
-            // invoke the operation
-            BotCreateEmailSignInUriResult result = await bot.CreateEmailSignInUriAsync();
+            CreateEmailSignInUrlResponse result = await bot.CreateSignInUrlAsync();
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetPrivateLinkResourcesByBotResource_ListPrivateLinkResources()
+        public async Task GetByBotResource_ListPrivateLinkResources()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/ListPrivateLinkResources.json
-            // this example is just showing the usage of "PrivateLinkResources_ListByBotResource" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/ListPrivateLinkResources.json
+            // this example is just showing the usage of "Bots_ListByBotResource" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -242,7 +150,7 @@ namespace Azure.ResourceManager.BotService.Samples
             BotResource bot = client.GetBotResource(botResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (BotServicePrivateLinkResourceData item in bot.GetPrivateLinkResourcesByBotResourceAsync())
+            await foreach (BotServicePrivateLinkResourceData item in bot.GetByBotResourceAsync())
             {
                 Console.WriteLine($"Succeeded: {item}");
             }

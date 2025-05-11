@@ -21,8 +21,8 @@ namespace Azure.ResourceManager.BotService.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetBots_ListBotsBySubscription()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/ListBotsBySubscription.json
-            // this example is just showing the usage of "Bots_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/ListBotsBySubscription.json
+            // this example is just showing the usage of "Bot_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -50,10 +50,10 @@ namespace Azure.ResourceManager.BotService.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBotConnectionServiceProviders_ListAuthServiceProviders()
+        public async Task GetServiceProvidersBotConnectionOperationGroups_ListAuthServiceProviders()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/ListServiceProviders.json
-            // this example is just showing the usage of "BotConnection_ListServiceProviders" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/ListServiceProviders.json
+            // this example is just showing the usage of "BotConnectionOperationGroup_ListServiceProviders" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.BotService.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (BotServiceProvider item in subscriptionResource.GetBotConnectionServiceProvidersAsync())
+            await foreach (ServiceProvider item in subscriptionResource.GetServiceProvidersBotConnectionOperationGroupsAsync())
             {
                 Console.WriteLine($"Succeeded: {item}");
             }
@@ -77,10 +77,10 @@ namespace Azure.ResourceManager.BotService.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBotServiceQnAMakerEndpointKey_ListQnAMakerEndpointKeys()
+        public async Task GetQnAMakerEndpointKeysOperationGroup_ListQnAMakerEndpointKeys()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/ListQnAMakerEndpointKeys.json
-            // this example is just showing the usage of "QnAMakerEndpointKeys_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/ListQnAMakerEndpointKeys.json
+            // this example is just showing the usage of "QnAMakerEndpointKeysOperationGroup_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -94,22 +94,18 @@ namespace Azure.ResourceManager.BotService.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            GetBotServiceQnAMakerEndpointKeyContent content = new GetBotServiceQnAMakerEndpointKeyContent
-            {
-                Hostname = "https://xxx.cognitiveservices.azure.com/",
-                Authkey = "testAuthKey",
-            };
-            GetBotServiceQnAMakerEndpointKeyResult result = await subscriptionResource.GetBotServiceQnAMakerEndpointKeyAsync(content);
+            QnAMakerEndpointKeysRequestBody qnAMakerEndpointKeysRequestBody = new QnAMakerEndpointKeysRequestBody();
+            QnAMakerEndpointKeysResponse result = await subscriptionResource.GetQnAMakerEndpointKeysOperationGroupAsync(qnAMakerEndpointKeysRequestBody);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBotServiceHostSettings_GetBotHostSettings()
+        public async Task GetHostSettingsOperationGroup_GetBotHostSettings()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/GetHostSettings.json
-            // this example is just showing the usage of "HostSettings_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/GetHostSettings.json
+            // this example is just showing the usage of "HostSettingsOperationGroup_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -123,7 +119,33 @@ namespace Azure.ResourceManager.BotService.Samples
             SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
 
             // invoke the operation
-            BotServiceHostSettingsResult result = await subscriptionResource.GetBotServiceHostSettingsAsync();
+            HostSettingsResponse result = await subscriptionResource.GetHostSettingsOperationGroupAsync();
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetOperationResultsOperationGroup_GetOperationResult()
+        {
+            // Generated from example definition: 2023-09-15-preview/OperationResultsGet.json
+            // this example is just showing the usage of "OperationResultsOperationGroup_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this SubscriptionResource created on azure
+            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            string subscriptionId = "subid";
+            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+
+            // invoke the operation
+            string operationResultId = "exampleid";
+            ArmOperation<OperationResultsDescription> lro = await subscriptionResource.GetOperationResultsOperationGroupAsync(WaitUntil.Completed, operationResultId);
+            OperationResultsDescription result = lro.Value;
 
             Console.WriteLine($"Succeeded: {result}");
         }

@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
     /// <summary> AcsChat channel definition. </summary>
-    public partial class AcsChatChannel : BotChannelProperties
+    public partial class AcsChatChannel : Channel
     {
         /// <summary> Initializes a new instance of <see cref="AcsChatChannel"/>. </summary>
         public AcsChatChannel()
@@ -26,7 +25,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="location"> Specifies the location of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcsChatChannel(string channelName, ETag? etag, string provisioningState, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
+        internal AcsChatChannel(string channelName, string etag, string provisioningState, string location, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
         {
             ChannelName = channelName ?? "AcsChatChannel";
         }

@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
     /// <summary> Sms channel definition. </summary>
-    public partial class SmsChannel : BotChannelProperties
+    public partial class SmsChannel : Channel
     {
         /// <summary> Initializes a new instance of <see cref="SmsChannel"/>. </summary>
         public SmsChannel()
@@ -27,7 +26,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="location"> Specifies the location of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="properties"> The set of properties specific to Sms channel resource. </param>
-        internal SmsChannel(string channelName, ETag? etag, string provisioningState, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData, SmsChannelProperties properties) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
+        internal SmsChannel(string channelName, string etag, string provisioningState, string location, IDictionary<string, BinaryData> serializedAdditionalRawData, SmsChannelProperties properties) : base(channelName, etag, provisioningState, location, serializedAdditionalRawData)
         {
             Properties = properties;
             ChannelName = channelName ?? "SmsChannel";

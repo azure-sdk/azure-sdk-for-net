@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
@@ -59,7 +58,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="cognitiveServiceResourceId"> The cognitive service resourceId. </param>
         /// <param name="defaultLocale"> The default locale. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TelephonyChannelResourceApiConfiguration(string id, string providerName, string cognitiveServiceSubscriptionKey, string cognitiveServiceRegion, ResourceIdentifier cognitiveServiceResourceId, string defaultLocale, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TelephonyChannelResourceApiConfiguration(string id, string providerName, string cognitiveServiceSubscriptionKey, string cognitiveServiceRegion, string cognitiveServiceResourceId, string defaultLocale, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             ProviderName = providerName;
@@ -79,7 +78,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <summary> The cognitive service region. </summary>
         public string CognitiveServiceRegion { get; set; }
         /// <summary> The cognitive service resourceId. </summary>
-        public ResourceIdentifier CognitiveServiceResourceId { get; set; }
+        public string CognitiveServiceResourceId { get; set; }
         /// <summary> The default locale. </summary>
         public string DefaultLocale { get; set; }
     }

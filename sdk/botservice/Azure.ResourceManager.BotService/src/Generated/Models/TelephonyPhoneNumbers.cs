@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
@@ -63,7 +62,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="defaultLocale"> The default locale of the phone number. </param>
         /// <param name="offerType"> Optional Property that will determine the offering type of the phone. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TelephonyPhoneNumbers(string id, string phoneNumber, string acsEndpoint, string acsSecret, ResourceIdentifier acsResourceId, string cognitiveServiceSubscriptionKey, string cognitiveServiceRegion, ResourceIdentifier cognitiveServiceResourceId, string defaultLocale, string offerType, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TelephonyPhoneNumbers(string id, string phoneNumber, string acsEndpoint, string acsSecret, string acsResourceId, string cognitiveServiceSubscriptionKey, string cognitiveServiceRegion, string cognitiveServiceResourceId, string defaultLocale, string offerType, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             PhoneNumber = phoneNumber;
@@ -87,13 +86,13 @@ namespace Azure.ResourceManager.BotService.Models
         /// <summary> The secret of ACS. </summary>
         public string AcsSecret { get; set; }
         /// <summary> The resource id of ACS. </summary>
-        public ResourceIdentifier AcsResourceId { get; set; }
+        public string AcsResourceId { get; set; }
         /// <summary> The subscription key of cognitive service. </summary>
         public string CognitiveServiceSubscriptionKey { get; set; }
         /// <summary> The service region of cognitive service. </summary>
         public string CognitiveServiceRegion { get; set; }
         /// <summary> The resource id of cognitive service. </summary>
-        public ResourceIdentifier CognitiveServiceResourceId { get; set; }
+        public string CognitiveServiceResourceId { get; set; }
         /// <summary> The default locale of the phone number. </summary>
         public string DefaultLocale { get; set; }
         /// <summary> Optional Property that will determine the offering type of the phone. </summary>
