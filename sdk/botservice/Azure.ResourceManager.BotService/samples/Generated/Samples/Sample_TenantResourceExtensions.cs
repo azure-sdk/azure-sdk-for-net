@@ -19,10 +19,33 @@ namespace Azure.ResourceManager.BotService.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task CheckBotServiceNameAvailability_CheckNameAvailability()
+        public async Task GetOperations_GetOperations()
         {
-            // Generated from example definition: specification/botservice/resource-manager/Microsoft.BotService/stable/2022-09-15/examples/CheckNameAvailability.json
-            // this example is just showing the usage of "Bots_GetCheckNameAvailability" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2023-09-15-preview/GetOperations.json
+            // this example is just showing the usage of "Operations_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            TenantResource tenantResource = client.GetTenants().GetAllAsync().GetAsyncEnumerator().Current;
+
+            // invoke the operation and iterate over the result
+            await foreach (OperationEntity item in tenantResource.GetOperationsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetCheckNameAvailabilityBotsOperationGroup_CheckNameAvailability()
+        {
+            // Generated from example definition: 2023-09-15-preview/CheckNameAvailability.json
+            // this example is just showing the usage of "BotsOperationGroup_GetCheckNameAvailability" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -32,12 +55,8 @@ namespace Azure.ResourceManager.BotService.Samples
             TenantResource tenantResource = client.GetTenants().GetAllAsync().GetAsyncEnumerator().Current;
 
             // invoke the operation
-            BotServiceNameAvailabilityContent content = new BotServiceNameAvailabilityContent
-            {
-                Name = "testbotname",
-                ResourceType = new ResourceType("string"),
-            };
-            BotServiceNameAvailabilityResult result = await tenantResource.CheckBotServiceNameAvailabilityAsync(content);
+            CheckNameAvailabilityRequestBody checkNameAvailabilityRequestBody = new CheckNameAvailabilityRequestBody();
+            CheckNameAvailabilityResponseBody result = await tenantResource.GetCheckNameAvailabilityBotsOperationGroupAsync(checkNameAvailabilityRequestBody);
 
             Console.WriteLine($"Succeeded: {result}");
         }

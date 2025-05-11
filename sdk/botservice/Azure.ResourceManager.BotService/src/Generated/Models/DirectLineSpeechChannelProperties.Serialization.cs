@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.BotService.Models
             {
                 return null;
             }
-            ResourceIdentifier cognitiveServiceResourceId = default;
+            string cognitiveServiceResourceId = default;
             string cognitiveServiceRegion = default;
             string cognitiveServiceSubscriptionKey = default;
             bool? isEnabled = default;
@@ -133,11 +133,7 @@ namespace Azure.ResourceManager.BotService.Models
             {
                 if (property.NameEquals("cognitiveServiceResourceId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    cognitiveServiceResourceId = new ResourceIdentifier(property.Value.GetString());
+                    cognitiveServiceResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("cognitiveServiceRegion"u8))

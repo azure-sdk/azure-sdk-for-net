@@ -34,35 +34,35 @@ namespace Azure.ResourceManager.BotService.Models
                 throw new FormatException($"The model {nameof(SkypeChannelProperties)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(IsMessagingEnabled))
+            if (Optional.IsDefined(EnableMessaging))
             {
                 writer.WritePropertyName("enableMessaging"u8);
-                writer.WriteBooleanValue(IsMessagingEnabled.Value);
+                writer.WriteBooleanValue(EnableMessaging.Value);
             }
-            if (Optional.IsDefined(IsMediaCardsEnabled))
+            if (Optional.IsDefined(EnableMediaCards))
             {
                 writer.WritePropertyName("enableMediaCards"u8);
-                writer.WriteBooleanValue(IsMediaCardsEnabled.Value);
+                writer.WriteBooleanValue(EnableMediaCards.Value);
             }
-            if (Optional.IsDefined(IsVideoEnabled))
+            if (Optional.IsDefined(EnableVideo))
             {
                 writer.WritePropertyName("enableVideo"u8);
-                writer.WriteBooleanValue(IsVideoEnabled.Value);
+                writer.WriteBooleanValue(EnableVideo.Value);
             }
-            if (Optional.IsDefined(IsCallingEnabled))
+            if (Optional.IsDefined(EnableCalling))
             {
                 writer.WritePropertyName("enableCalling"u8);
-                writer.WriteBooleanValue(IsCallingEnabled.Value);
+                writer.WriteBooleanValue(EnableCalling.Value);
             }
-            if (Optional.IsDefined(IsScreenSharingEnabled))
+            if (Optional.IsDefined(EnableScreenSharing))
             {
                 writer.WritePropertyName("enableScreenSharing"u8);
-                writer.WriteBooleanValue(IsScreenSharingEnabled.Value);
+                writer.WriteBooleanValue(EnableScreenSharing.Value);
             }
-            if (Optional.IsDefined(IsGroupsEnabled))
+            if (Optional.IsDefined(EnableGroups))
             {
                 writer.WritePropertyName("enableGroups"u8);
-                writer.WriteBooleanValue(IsGroupsEnabled.Value);
+                writer.WriteBooleanValue(EnableGroups.Value);
             }
             if (Optional.IsDefined(GroupsMode))
             {

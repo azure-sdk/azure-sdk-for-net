@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.BotService.Models
                 return null;
             }
             string nextLink = default;
-            IReadOnlyList<BotServiceProvider> value = default;
+            IReadOnlyList<ServiceProvider> value = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -103,10 +103,10 @@ namespace Azure.ResourceManager.BotService.Models
                     {
                         continue;
                     }
-                    List<BotServiceProvider> array = new List<BotServiceProvider>();
+                    List<ServiceProvider> array = new List<ServiceProvider>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(BotServiceProvider.DeserializeBotServiceProvider(item, options));
+                        array.Add(ServiceProvider.DeserializeServiceProvider(item, options));
                     }
                     value = array;
                     continue;
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.BotService.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ServiceProviderResponseList(nextLink, value ?? new ChangeTrackingList<BotServiceProvider>(), serializedAdditionalRawData);
+            return new ServiceProviderResponseList(nextLink, value ?? new ChangeTrackingList<ServiceProvider>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ServiceProviderResponseList>.Write(ModelReaderWriterOptions options)

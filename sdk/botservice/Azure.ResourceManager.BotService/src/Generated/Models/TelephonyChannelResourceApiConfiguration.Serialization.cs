@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.BotService.Models
             string providerName = default;
             string cognitiveServiceSubscriptionKey = default;
             string cognitiveServiceRegion = default;
-            ResourceIdentifier cognitiveServiceResourceId = default;
+            string cognitiveServiceResourceId = default;
             string defaultLocale = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -188,7 +188,7 @@ namespace Azure.ResourceManager.BotService.Models
                         cognitiveServiceResourceId = null;
                         continue;
                     }
-                    cognitiveServiceResourceId = new ResourceIdentifier(property.Value.GetString());
+                    cognitiveServiceResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("defaultLocale"u8))

@@ -34,10 +34,10 @@ namespace Azure.ResourceManager.BotService.Models
                 throw new FormatException($"The model {nameof(MsTeamsChannelProperties)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(IsCallingEnabled))
+            if (Optional.IsDefined(EnableCalling))
             {
                 writer.WritePropertyName("enableCalling"u8);
-                writer.WriteBooleanValue(IsCallingEnabled.Value);
+                writer.WriteBooleanValue(EnableCalling.Value);
             }
             if (Optional.IsDefined(CallingWebhook))
             {

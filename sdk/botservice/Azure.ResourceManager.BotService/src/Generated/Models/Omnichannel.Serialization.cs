@@ -58,9 +58,9 @@ namespace Azure.ResourceManager.BotService.Models
                 return null;
             }
             string channelName = default;
-            ETag? etag = default;
+            string etag = default;
             string provisioningState = default;
-            AzureLocation? location = default;
+            string location = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.BotService.Models
                         etag = null;
                         continue;
                     }
-                    etag = new ETag(property.Value.GetString());
+                    etag = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("provisioningState"u8))
@@ -87,11 +87,7 @@ namespace Azure.ResourceManager.BotService.Models
                 }
                 if (property.NameEquals("location"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    location = new AzureLocation(property.Value.GetString());
+                    location = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")

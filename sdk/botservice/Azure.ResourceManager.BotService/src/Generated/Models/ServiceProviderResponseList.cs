@@ -48,14 +48,14 @@ namespace Azure.ResourceManager.BotService.Models
         /// <summary> Initializes a new instance of <see cref="ServiceProviderResponseList"/>. </summary>
         internal ServiceProviderResponseList()
         {
-            Value = new ChangeTrackingList<BotServiceProvider>();
+            Value = new ChangeTrackingList<ServiceProvider>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ServiceProviderResponseList"/>. </summary>
         /// <param name="nextLink"> The link used to get the next page of bot service providers. </param>
         /// <param name="value"> Gets the list of bot service providers and their properties. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceProviderResponseList(string nextLink, IReadOnlyList<BotServiceProvider> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ServiceProviderResponseList(string nextLink, IReadOnlyList<ServiceProvider> value, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             NextLink = nextLink;
             Value = value;
@@ -65,6 +65,6 @@ namespace Azure.ResourceManager.BotService.Models
         /// <summary> The link used to get the next page of bot service providers. </summary>
         public string NextLink { get; }
         /// <summary> Gets the list of bot service providers and their properties. </summary>
-        public IReadOnlyList<BotServiceProvider> Value { get; }
+        public IReadOnlyList<ServiceProvider> Value { get; }
     }
 }

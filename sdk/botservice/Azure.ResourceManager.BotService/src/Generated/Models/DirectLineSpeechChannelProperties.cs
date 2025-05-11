@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.BotService.Models
 {
@@ -60,7 +59,7 @@ namespace Azure.ResourceManager.BotService.Models
         /// <param name="customSpeechModelId"> Custom voice deployment id (optional). </param>
         /// <param name="isDefaultBotForCogSvcAccount"> Make this a default bot for chosen cognitive service account. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DirectLineSpeechChannelProperties(ResourceIdentifier cognitiveServiceResourceId, string cognitiveServiceRegion, string cognitiveServiceSubscriptionKey, bool? isEnabled, string customVoiceDeploymentId, string customSpeechModelId, bool? isDefaultBotForCogSvcAccount, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DirectLineSpeechChannelProperties(string cognitiveServiceResourceId, string cognitiveServiceRegion, string cognitiveServiceSubscriptionKey, bool? isEnabled, string customVoiceDeploymentId, string customSpeechModelId, bool? isDefaultBotForCogSvcAccount, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             CognitiveServiceResourceId = cognitiveServiceResourceId;
             CognitiveServiceRegion = cognitiveServiceRegion;
@@ -73,7 +72,7 @@ namespace Azure.ResourceManager.BotService.Models
         }
 
         /// <summary> The cognitive service id with this channel registration. </summary>
-        public ResourceIdentifier CognitiveServiceResourceId { get; set; }
+        public string CognitiveServiceResourceId { get; set; }
         /// <summary> The cognitive service region with this channel registration. </summary>
         public string CognitiveServiceRegion { get; set; }
         /// <summary> The cognitive service subscription key to use with this channel registration. </summary>
