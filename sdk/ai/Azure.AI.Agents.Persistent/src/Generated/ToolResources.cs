@@ -50,7 +50,7 @@ namespace Azure.AI.Agents.Persistent
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ToolResources"/>. </summary>
-        public ToolResources()
+        internal ToolResources()
         {
         }
 
@@ -68,10 +68,10 @@ namespace Azure.AI.Agents.Persistent
         }
 
         /// <summary> Resources to be used by the `code_interpreter` tool consisting of file IDs. </summary>
-        public CodeInterpreterToolResource CodeInterpreter { get; set; }
+        public CodeInterpreterToolResource CodeInterpreter { get; }
         /// <summary> Resources to be used by the `file_search` tool consisting of vector store IDs. </summary>
-        public FileSearchToolResource FileSearch { get; set; }
+        public FileSearchToolResource FileSearch { get; }
         /// <summary> Resources to be used by the `azure_ai_search` tool consisting of index IDs and names. </summary>
-        public AzureAISearchResource AzureAISearch { get; set; }
+        public AzureAISearchResource AzureAISearch { get; }
     }
 }

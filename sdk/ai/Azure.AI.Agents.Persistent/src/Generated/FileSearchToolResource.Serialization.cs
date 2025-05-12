@@ -91,8 +91,8 @@ namespace Azure.AI.Agents.Persistent
             {
                 return null;
             }
-            IList<string> vectorStoreIds = default;
-            IList<VectorStoreConfigurations> vectorStores = default;
+            IReadOnlyList<string> vectorStoreIds = default;
+            IReadOnlyList<VectorStoreConfigurations> vectorStores = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())

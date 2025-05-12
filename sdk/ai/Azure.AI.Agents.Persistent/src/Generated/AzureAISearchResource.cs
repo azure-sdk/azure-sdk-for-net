@@ -46,7 +46,7 @@ namespace Azure.AI.Agents.Persistent
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AzureAISearchResource"/>. </summary>
-        public AzureAISearchResource()
+        internal AzureAISearchResource()
         {
             IndexList = new ChangeTrackingList<AISearchIndexResource>();
         }
@@ -57,7 +57,7 @@ namespace Azure.AI.Agents.Persistent
         /// resource attached to the agent.
         /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AzureAISearchResource(IList<AISearchIndexResource> indexList, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AzureAISearchResource(IReadOnlyList<AISearchIndexResource> indexList, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             IndexList = indexList;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -67,6 +67,6 @@ namespace Azure.AI.Agents.Persistent
         /// The indices attached to this agent. There can be a maximum of 1 index
         /// resource attached to the agent.
         /// </summary>
-        public IList<AISearchIndexResource> IndexList { get; }
+        public IReadOnlyList<AISearchIndexResource> IndexList { get; }
     }
 }

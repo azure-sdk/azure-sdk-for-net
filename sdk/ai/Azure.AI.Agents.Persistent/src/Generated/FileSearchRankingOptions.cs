@@ -49,7 +49,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="ranker"> File search ranker. </param>
         /// <param name="scoreThreshold"> Ranker search threshold. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ranker"/> is null. </exception>
-        public FileSearchRankingOptions(string ranker, float scoreThreshold)
+        internal FileSearchRankingOptions(string ranker, float scoreThreshold)
         {
             Argument.AssertNotNull(ranker, nameof(ranker));
 
@@ -74,8 +74,8 @@ namespace Azure.AI.Agents.Persistent
         }
 
         /// <summary> File search ranker. </summary>
-        public string Ranker { get; set; }
+        public string Ranker { get; }
         /// <summary> Ranker search threshold. </summary>
-        public float ScoreThreshold { get; set; }
+        public float ScoreThreshold { get; }
     }
 }

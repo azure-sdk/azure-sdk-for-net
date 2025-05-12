@@ -77,8 +77,8 @@ namespace Azure.AI.Agents.Persistent
         }
 
         /// <summary> Asset URI. </summary>
-        public string AssetIdentifier { get; set; }
+        public string AssetIdentifier { get; }
         /// <summary> The asset type. </summary>
-        public VectorStoreDataSourceAssetType AssetType { get; set; }
+        public VectorStoreDataSourceAssetType AssetType { get; }
     }
 }
