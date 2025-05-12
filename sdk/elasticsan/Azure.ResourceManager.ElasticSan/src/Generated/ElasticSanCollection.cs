@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Create</description>
+        /// <description>ElasticSan_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<ElasticSanResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> CreateOrUpdateAsync(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNull(data, nameof(data));
@@ -89,9 +89,9 @@ namespace Azure.ResourceManager.ElasticSan
             try
             {
                 var response = await _elasticSanRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.Location);
+                var operation = new ElasticSanArmOperation(_elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
             }
             catch (Exception e)
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Create</description>
+        /// <description>ElasticSan_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<ElasticSanResource> CreateOrUpdate(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation CreateOrUpdate(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNull(data, nameof(data));
@@ -138,9 +138,9 @@ namespace Azure.ResourceManager.ElasticSan
             try
             {
                 var response = _elasticSanRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data, cancellationToken);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.Location);
+                var operation = new ElasticSanArmOperation(_elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -249,7 +249,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_ListByResourceGroup</description>
+        /// <description>ElasticSan_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_ListByResourceGroup</description>
+        /// <description>ElasticSan_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -309,7 +309,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -352,7 +352,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -395,7 +395,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -440,7 +440,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>

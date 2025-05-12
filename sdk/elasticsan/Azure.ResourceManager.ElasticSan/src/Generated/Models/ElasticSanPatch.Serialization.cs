@@ -108,7 +108,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
             IDictionary<string, string> tags = default;
             long? baseSizeTiB = default;
             long? extendedCapacitySizeTiB = default;
-            ElasticSanPublicNetworkAccess? publicNetworkAccess = default;
+            PublicNetworkAccess? publicNetworkAccess = default;
             AutoScaleProperties autoScaleProperties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                             {
                                 continue;
                             }
-                            publicNetworkAccess = new ElasticSanPublicNetworkAccess(property0.Value.GetString());
+                            publicNetworkAccess = new PublicNetworkAccess(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("autoScaleProperties"u8))
@@ -183,11 +183,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
             }
             serializedAdditionalRawData = rawDataDictionary;
             return new ElasticSanPatch(
-                tags ?? new ChangeTrackingDictionary<string, string>(),
                 baseSizeTiB,
                 extendedCapacitySizeTiB,
                 publicNetworkAccess,
                 autoScaleProperties,
+                tags ?? new ChangeTrackingDictionary<string, string>(),
                 serializedAdditionalRawData);
         }
 

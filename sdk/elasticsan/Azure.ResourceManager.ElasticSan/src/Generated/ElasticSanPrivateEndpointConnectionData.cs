@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.ElasticSan
 {
     /// <summary>
     /// A class representing the ElasticSanPrivateEndpointConnection data model.
-    ///  Response for PrivateEndpoint Connection object
+    /// Response for PrivateEndpoint Connection object
     /// </summary>
     public partial class ElasticSanPrivateEndpointConnectionData : ResourceData
     {
@@ -53,13 +53,13 @@ namespace Azure.ResourceManager.ElasticSan
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanPrivateEndpointConnectionData"/>. </summary>
-        /// <param name="connectionState"> Private Link Service Connection State. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="connectionState"/> is null. </exception>
-        public ElasticSanPrivateEndpointConnectionData(ElasticSanPrivateLinkServiceConnectionState connectionState)
+        /// <param name="privateLinkServiceConnectionState"> Private Link Service Connection State. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateLinkServiceConnectionState"/> is null. </exception>
+        public ElasticSanPrivateEndpointConnectionData(ElasticSanPrivateLinkServiceConnectionState privateLinkServiceConnectionState)
         {
-            Argument.AssertNotNull(connectionState, nameof(connectionState));
+            Argument.AssertNotNull(privateLinkServiceConnectionState, nameof(privateLinkServiceConnectionState));
 
-            ConnectionState = connectionState;
+            PrivateLinkServiceConnectionState = privateLinkServiceConnectionState;
             GroupIds = new ChangeTrackingList<string>();
         }
 
@@ -70,14 +70,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="systemData"> The systemData. </param>
         /// <param name="provisioningState"> Provisioning State of Private Endpoint connection resource. </param>
         /// <param name="privateEndpoint"> Private Endpoint resource. </param>
-        /// <param name="connectionState"> Private Link Service Connection State. </param>
+        /// <param name="privateLinkServiceConnectionState"> Private Link Service Connection State. </param>
         /// <param name="groupIds"> List of resources private endpoint is mapped. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticSanPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ElasticSanProvisioningState? provisioningState, SubResource privateEndpoint, ElasticSanPrivateLinkServiceConnectionState connectionState, IList<string> groupIds, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal ElasticSanPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ProvisioningState? provisioningState, SubResource privateEndpoint, ElasticSanPrivateLinkServiceConnectionState privateLinkServiceConnectionState, IList<string> groupIds, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             PrivateEndpoint = privateEndpoint;
-            ConnectionState = connectionState;
+            PrivateLinkServiceConnectionState = privateLinkServiceConnectionState;
             GroupIds = groupIds;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Provisioning State of Private Endpoint connection resource. </summary>
-        public ElasticSanProvisioningState? ProvisioningState { get; }
+        public ProvisioningState? ProvisioningState { get; }
         /// <summary> Private Endpoint resource. </summary>
         internal SubResource PrivateEndpoint { get; set; }
         /// <summary> Gets Id. </summary>
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Private Link Service Connection State. </summary>
-        public ElasticSanPrivateLinkServiceConnectionState ConnectionState { get; set; }
+        public ElasticSanPrivateLinkServiceConnectionState PrivateLinkServiceConnectionState { get; set; }
         /// <summary> List of resources private endpoint is mapped. </summary>
         public IList<string> GroupIds { get; }
     }

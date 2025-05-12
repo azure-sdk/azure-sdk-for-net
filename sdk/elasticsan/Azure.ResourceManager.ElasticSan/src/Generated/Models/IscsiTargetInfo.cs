@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="IscsiTargetInfo"/>. </summary>
-        internal IscsiTargetInfo()
+        public IscsiTargetInfo()
         {
         }
 
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <param name="provisioningState"> State of the operation on the resource. </param>
         /// <param name="status"> Operational status of the iSCSI Target. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IscsiTargetInfo(string targetIqn, string targetPortalHostname, int? targetPortalPort, ElasticSanProvisioningState? provisioningState, ResourceOperationalStatus? status, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IscsiTargetInfo(string targetIqn, string targetPortalHostname, int? targetPortalPort, ProvisioningState? provisioningState, OperationalStatus? status, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             TargetIqn = targetIqn;
             TargetPortalHostname = targetPortalHostname;
@@ -74,8 +74,8 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <summary> iSCSI Target Portal Port. </summary>
         public int? TargetPortalPort { get; }
         /// <summary> State of the operation on the resource. </summary>
-        public ElasticSanProvisioningState? ProvisioningState { get; }
+        public ProvisioningState? ProvisioningState { get; }
         /// <summary> Operational status of the iSCSI Target. </summary>
-        public ResourceOperationalStatus? Status { get; }
+        public OperationalStatus? Status { get; set; }
     }
 }

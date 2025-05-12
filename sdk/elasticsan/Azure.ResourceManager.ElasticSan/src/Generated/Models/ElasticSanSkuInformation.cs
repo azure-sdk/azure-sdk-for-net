@@ -51,8 +51,8 @@ namespace Azure.ResourceManager.ElasticSan.Models
         {
             Name = name;
             Locations = new ChangeTrackingList<string>();
-            LocationInfo = new ChangeTrackingList<ElasticSanSkuLocationInfo>();
-            Capabilities = new ChangeTrackingList<ElasticSanSkuCapability>();
+            LocationInfo = new ChangeTrackingList<SkuLocationInfo>();
+            Capabilities = new ChangeTrackingList<SKUCapability>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanSkuInformation"/>. </summary>
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <param name="locationInfo"> Availability of the SKU for the location/zone. </param>
         /// <param name="capabilities"> The capability information in the specified SKU. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticSanSkuInformation(ElasticSanSkuName name, ElasticSanSkuTier? tier, string resourceType, IReadOnlyList<string> locations, IReadOnlyList<ElasticSanSkuLocationInfo> locationInfo, IReadOnlyList<ElasticSanSkuCapability> capabilities, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ElasticSanSkuInformation(ElasticSanSkuName name, ElasticSanSkuTier? tier, string resourceType, IReadOnlyList<string> locations, IReadOnlyList<SkuLocationInfo> locationInfo, IReadOnlyList<SKUCapability> capabilities, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             Tier = tier;
@@ -88,8 +88,8 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <summary> The set of locations that the SKU is available. This will be supported and registered Azure Geo Regions (e.g. West US, East US, Southeast Asia, etc.). </summary>
         public IReadOnlyList<string> Locations { get; }
         /// <summary> Availability of the SKU for the location/zone. </summary>
-        public IReadOnlyList<ElasticSanSkuLocationInfo> LocationInfo { get; }
+        public IReadOnlyList<SkuLocationInfo> LocationInfo { get; }
         /// <summary> The capability information in the specified SKU. </summary>
-        public IReadOnlyList<ElasticSanSkuCapability> Capabilities { get; }
+        public IReadOnlyList<SKUCapability> Capabilities { get; }
     }
 }

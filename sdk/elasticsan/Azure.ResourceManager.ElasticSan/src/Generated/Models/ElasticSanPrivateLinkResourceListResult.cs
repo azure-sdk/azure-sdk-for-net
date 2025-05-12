@@ -7,10 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    /// <summary> A list of private link resources. </summary>
+    /// <summary> Paged collection of PrivateLinkResource items. </summary>
     internal partial class ElasticSanPrivateLinkResourceListResult
     {
         /// <summary>
@@ -46,25 +47,34 @@ namespace Azure.ResourceManager.ElasticSan.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanPrivateLinkResourceListResult"/>. </summary>
-        internal ElasticSanPrivateLinkResourceListResult()
+        /// <param name="value"> The PrivateLinkResource items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal ElasticSanPrivateLinkResourceListResult(IEnumerable<ElasticSanPrivateLinkResourceData> value)
         {
-            Value = new ChangeTrackingList<ElasticSanPrivateLinkResource>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanPrivateLinkResourceListResult"/>. </summary>
-        /// <param name="value"> Array of private link resources. </param>
-        /// <param name="nextLink"> URI to fetch the next section of the paginated response. </param>
+        /// <param name="value"> The PrivateLinkResource items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticSanPrivateLinkResourceListResult(IReadOnlyList<ElasticSanPrivateLinkResource> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ElasticSanPrivateLinkResourceListResult(IReadOnlyList<ElasticSanPrivateLinkResourceData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Array of private link resources. </summary>
-        public IReadOnlyList<ElasticSanPrivateLinkResource> Value { get; }
-        /// <summary> URI to fetch the next section of the paginated response. </summary>
-        public string NextLink { get; }
+        /// <summary> Initializes a new instance of <see cref="ElasticSanPrivateLinkResourceListResult"/> for deserialization. </summary>
+        internal ElasticSanPrivateLinkResourceListResult()
+        {
+        }
+
+        /// <summary> The PrivateLinkResource items on this page. </summary>
+        public IReadOnlyList<ElasticSanPrivateLinkResourceData> Value { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }
