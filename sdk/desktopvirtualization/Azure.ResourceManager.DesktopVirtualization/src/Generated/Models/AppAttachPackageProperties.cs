@@ -55,16 +55,22 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="provisioningState"> The provisioning state of the App Attach Package. </param>
         /// <param name="image"> Detailed properties for App Attach Package. </param>
         /// <param name="hostPoolReferences"> List of Hostpool resource Ids. </param>
-        /// <param name="keyVaultUri"> URL path to certificate name located in keyVault. </param>
+        /// <param name="keyVaultUri"> URL of keyvault location to store certificate. </param>
         /// <param name="failHealthCheckOnStagingFailure"> Parameter indicating how the health check should behave if this package fails staging. </param>
+        /// <param name="packageOwnerName"> Specific name of package owner, is "AppAttach" for native app attach packages. </param>
+        /// <param name="packageLookbackUri"> Lookback url to third party control plane, is null for native app attach packages. </param>
+        /// <param name="customData"> Field that can be populated with custom data and filtered on in list GET calls. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppAttachPackageProperties(AppAttachPackageProvisioningState? provisioningState, AppAttachPackageInfoProperties image, IList<string> hostPoolReferences, Uri keyVaultUri, FailHealthCheckOnStagingFailure? failHealthCheckOnStagingFailure, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppAttachPackageProperties(AppAttachPackageProvisioningState? provisioningState, AppAttachPackageInfoProperties image, IList<string> hostPoolReferences, Uri keyVaultUri, FailHealthCheckOnStagingFailure? failHealthCheckOnStagingFailure, string packageOwnerName, Uri packageLookbackUri, string customData, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             Image = image;
             HostPoolReferences = hostPoolReferences;
             KeyVaultUri = keyVaultUri;
             FailHealthCheckOnStagingFailure = failHealthCheckOnStagingFailure;
+            PackageOwnerName = packageOwnerName;
+            PackageLookbackUri = packageLookbackUri;
+            CustomData = customData;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -77,11 +83,20 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <summary> List of Hostpool resource Ids. </summary>
         [WirePath("hostPoolReferences")]
         public IList<string> HostPoolReferences { get; }
-        /// <summary> URL path to certificate name located in keyVault. </summary>
+        /// <summary> URL of keyvault location to store certificate. </summary>
         [WirePath("keyVaultURL")]
         public Uri KeyVaultUri { get; set; }
         /// <summary> Parameter indicating how the health check should behave if this package fails staging. </summary>
         [WirePath("failHealthCheckOnStagingFailure")]
         public FailHealthCheckOnStagingFailure? FailHealthCheckOnStagingFailure { get; set; }
+        /// <summary> Specific name of package owner, is "AppAttach" for native app attach packages. </summary>
+        [WirePath("packageOwnerName")]
+        public string PackageOwnerName { get; set; }
+        /// <summary> Lookback url to third party control plane, is null for native app attach packages. </summary>
+        [WirePath("packageLookbackUrl")]
+        public Uri PackageLookbackUri { get; set; }
+        /// <summary> Field that can be populated with custom data and filtered on in list GET calls. </summary>
+        [WirePath("customData")]
+        public string CustomData { get; set; }
     }
 }
