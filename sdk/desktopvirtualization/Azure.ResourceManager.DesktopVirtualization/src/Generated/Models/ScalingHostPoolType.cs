@@ -23,9 +23,12 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         }
 
         private const string PooledValue = "Pooled";
+        private const string PersonalValue = "Personal";
 
         /// <summary> Users get a new (random) SessionHost every time it connects to the HostPool. </summary>
         public static ScalingHostPoolType Pooled { get; } = new ScalingHostPoolType(PooledValue);
+        /// <summary> Users will be assigned a SessionHost either by administrators (PersonalDesktopAssignmentType = Direct) or upon connecting to the pool (PersonalDesktopAssignmentType = Automatic). They will always be redirected to their assigned SessionHost. </summary>
+        public static ScalingHostPoolType Personal { get; } = new ScalingHostPoolType(PersonalValue);
         /// <summary> Determines if two <see cref="ScalingHostPoolType"/> values are the same. </summary>
         public static bool operator ==(ScalingHostPoolType left, ScalingHostPoolType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ScalingHostPoolType"/> values are not the same. </summary>
