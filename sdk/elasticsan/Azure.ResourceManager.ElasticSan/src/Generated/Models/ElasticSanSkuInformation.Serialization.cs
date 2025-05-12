@@ -117,8 +117,8 @@ namespace Azure.ResourceManager.ElasticSan.Models
             ElasticSanSkuTier? tier = default;
             string resourceType = default;
             IReadOnlyList<string> locations = default;
-            IReadOnlyList<ElasticSanSkuLocationInfo> locationInfo = default;
-            IReadOnlyList<ElasticSanSkuCapability> capabilities = default;
+            IReadOnlyList<SkuLocationInfo> locationInfo = default;
+            IReadOnlyList<SKUCapability> capabilities = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -162,10 +162,10 @@ namespace Azure.ResourceManager.ElasticSan.Models
                     {
                         continue;
                     }
-                    List<ElasticSanSkuLocationInfo> array = new List<ElasticSanSkuLocationInfo>();
+                    List<SkuLocationInfo> array = new List<SkuLocationInfo>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ElasticSanSkuLocationInfo.DeserializeElasticSanSkuLocationInfo(item, options));
+                        array.Add(SkuLocationInfo.DeserializeSkuLocationInfo(item, options));
                     }
                     locationInfo = array;
                     continue;
@@ -176,10 +176,10 @@ namespace Azure.ResourceManager.ElasticSan.Models
                     {
                         continue;
                     }
-                    List<ElasticSanSkuCapability> array = new List<ElasticSanSkuCapability>();
+                    List<SKUCapability> array = new List<SKUCapability>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ElasticSanSkuCapability.DeserializeElasticSanSkuCapability(item, options));
+                        array.Add(SKUCapability.DeserializeSKUCapability(item, options));
                     }
                     capabilities = array;
                     continue;
@@ -195,8 +195,8 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 tier,
                 resourceType,
                 locations ?? new ChangeTrackingList<string>(),
-                locationInfo ?? new ChangeTrackingList<ElasticSanSkuLocationInfo>(),
-                capabilities ?? new ChangeTrackingList<ElasticSanSkuCapability>(),
+                locationInfo ?? new ChangeTrackingList<SkuLocationInfo>(),
+                capabilities ?? new ChangeTrackingList<SKUCapability>(),
                 serializedAdditionalRawData);
         }
 

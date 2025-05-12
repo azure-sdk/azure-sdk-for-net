@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
@@ -54,13 +53,13 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <summary> Initializes a new instance of <see cref="ManagedByInfo"/>. </summary>
         /// <param name="resourceId"> Resource ID of the resource managing the volume, this is a restricted field and can only be set for internal use. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedByInfo(ResourceIdentifier resourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedByInfo(string resourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceId = resourceId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Resource ID of the resource managing the volume, this is a restricted field and can only be set for internal use. </summary>
-        public ResourceIdentifier ResourceId { get; set; }
+        public string ResourceId { get; set; }
     }
 }

@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.ElasticSan.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_ElasticSansGetMaximumSetGen()
         {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/ElasticSans_Get_MaximumSet_Gen.json
-            // this example is just showing the usage of "ElasticSans_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-07-01-preview/ElasticSans_Get_MaximumSet_Gen.json
+            // this example is just showing the usage of "ElasticSan_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -50,8 +50,8 @@ namespace Azure.ResourceManager.ElasticSan.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_ElasticSansGetMinimumSetGen()
         {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/ElasticSans_Get_MinimumSet_Gen.json
-            // this example is just showing the usage of "ElasticSans_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-07-01-preview/ElasticSans_Get_MinimumSet_Gen.json
+            // this example is just showing the usage of "ElasticSan_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -80,8 +80,8 @@ namespace Azure.ResourceManager.ElasticSan.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_ElasticSansDeleteMaximumSetGen()
         {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/ElasticSans_Delete_MaximumSet_Gen.json
-            // this example is just showing the usage of "ElasticSans_Delete" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-07-01-preview/ElasticSans_Delete_MaximumSet_Gen.json
+            // this example is just showing the usage of "ElasticSan_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -106,8 +106,8 @@ namespace Azure.ResourceManager.ElasticSan.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_ElasticSansDeleteMinimumSetGen()
         {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/ElasticSans_Delete_MinimumSet_Gen.json
-            // this example is just showing the usage of "ElasticSans_Delete" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-07-01-preview/ElasticSans_Delete_MinimumSet_Gen.json
+            // this example is just showing the usage of "ElasticSan_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -132,56 +132,8 @@ namespace Azure.ResourceManager.ElasticSan.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_ElasticSansUpdateMaximumSetGen()
         {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/ElasticSans_Update_MaximumSet_Gen.json
-            // this example is just showing the usage of "ElasticSans_Update" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ElasticSanResource created on azure
-            // for more information of creating ElasticSanResource, please refer to the document of ElasticSanResource
-            string subscriptionId = "subscriptionid";
-            string resourceGroupName = "resourcegroupname";
-            string elasticSanName = "elasticsanname";
-            ResourceIdentifier elasticSanResourceId = ElasticSanResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, elasticSanName);
-            ElasticSanResource elasticSan = client.GetElasticSanResource(elasticSanResourceId);
-
-            // invoke the operation
-            ElasticSanPatch patch = new ElasticSanPatch
-            {
-                Tags =
-{
-["key1931"] = "yhjwkgmrrwrcoxblgwgzjqusch"
-},
-                BaseSizeTiB = 13L,
-                ExtendedCapacitySizeTiB = 29L,
-                PublicNetworkAccess = ElasticSanPublicNetworkAccess.Enabled,
-                ScaleUpProperties = new ElasticSanScaleUpProperties
-                {
-                    UnusedSizeTiB = 24L,
-                    IncreaseCapacityUnitByTiB = 4L,
-                    CapacityUnitScaleUpLimitTiB = 17L,
-                    AutoScalePolicyEnforcement = AutoScalePolicyEnforcement.None,
-                },
-            };
-            ArmOperation<ElasticSanResource> lro = await elasticSan.UpdateAsync(WaitUntil.Completed, patch);
-            ElasticSanResource result = lro.Value;
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            ElasticSanData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Update_ElasticSansUpdateMinimumSetGen()
-        {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/ElasticSans_Update_MinimumSet_Gen.json
-            // this example is just showing the usage of "ElasticSans_Update" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-07-01-preview/ElasticSans_Update_MaximumSet_Gen.json
+            // this example is just showing the usage of "ElasticSan_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -210,10 +162,42 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetPrivateLinkResources_PrivateLinkResourcesListByElasticSanMaximumSetGen()
+        public async Task Update_ElasticSansUpdateMinimumSetGen()
         {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/PrivateLinkResources_ListByElasticSan_MaximumSet_Gen.json
-            // this example is just showing the usage of "PrivateLinkResources_ListByElasticSan" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-07-01-preview/ElasticSans_Update_MinimumSet_Gen.json
+            // this example is just showing the usage of "ElasticSan_Update" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ElasticSanResource created on azure
+            // for more information of creating ElasticSanResource, please refer to the document of ElasticSanResource
+            string subscriptionId = "subscriptionid";
+            string resourceGroupName = "resourcegroupname";
+            string elasticSanName = "elasticsanname";
+            ResourceIdentifier elasticSanResourceId = ElasticSanResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, elasticSanName);
+            ElasticSanResource elasticSan = client.GetElasticSanResource(elasticSanResourceId);
+
+            // invoke the operation
+            ElasticSanPatch patch = new ElasticSanPatch();
+            ArmOperation<ElasticSanResource> lro = await elasticSan.UpdateAsync(WaitUntil.Completed, patch);
+            ElasticSanResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            ElasticSanData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetByElasticSan_PrivateLinkResourcesListByElasticSanMaximumSetGen()
+        {
+            // Generated from example definition: 2024-07-01-preview/PrivateLinkResources_ListByElasticSan_MaximumSet_Gen.json
+            // this example is just showing the usage of "ElasticSans_ListByElasticSan" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -229,7 +213,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
             ElasticSanResource elasticSan = client.GetElasticSanResource(elasticSanResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (ElasticSanPrivateLinkResource item in elasticSan.GetPrivateLinkResourcesAsync())
+            await foreach (ElasticSanPrivateLinkResourceData item in elasticSan.GetByElasticSanAsync())
             {
                 Console.WriteLine($"Succeeded: {item}");
             }
@@ -239,10 +223,10 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetPrivateLinkResources_PrivateLinkResourcesListByElasticSanMinimumSetGen()
+        public async Task GetByElasticSan_PrivateLinkResourcesListByElasticSanMinimumSetGen()
         {
-            // Generated from example definition: specification/elasticsan/resource-manager/Microsoft.ElasticSan/preview/2024-07-01-preview/examples/PrivateLinkResources_ListByElasticSan_MinimumSet_Gen.json
-            // this example is just showing the usage of "PrivateLinkResources_ListByElasticSan" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2024-07-01-preview/PrivateLinkResources_ListByElasticSan_MinimumSet_Gen.json
+            // this example is just showing the usage of "ElasticSans_ListByElasticSan" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -258,7 +242,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
             ElasticSanResource elasticSan = client.GetElasticSanResource(elasticSanResourceId);
 
             // invoke the operation and iterate over the result
-            await foreach (ElasticSanPrivateLinkResource item in elasticSan.GetPrivateLinkResourcesAsync())
+            await foreach (ElasticSanPrivateLinkResourceData item in elasticSan.GetByElasticSanAsync())
             {
                 Console.WriteLine($"Succeeded: {item}");
             }

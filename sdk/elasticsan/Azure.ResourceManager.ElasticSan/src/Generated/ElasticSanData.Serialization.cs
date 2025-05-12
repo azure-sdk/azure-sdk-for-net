@@ -75,10 +75,10 @@ namespace Azure.ResourceManager.ElasticSan
                 writer.WritePropertyName("totalIops"u8);
                 writer.WriteNumberValue(TotalIops.Value);
             }
-            if (options.Format != "W" && Optional.IsDefined(TotalMbps))
+            if (options.Format != "W" && Optional.IsDefined(TotalMBps))
             {
                 writer.WritePropertyName("totalMBps"u8);
-                writer.WriteNumberValue(TotalMbps.Value);
+                writer.WriteNumberValue(TotalMBps.Value);
             }
             if (options.Format != "W" && Optional.IsDefined(TotalSizeTiB))
             {
@@ -136,16 +136,16 @@ namespace Azure.ResourceManager.ElasticSan
             SystemData systemData = default;
             ElasticSanSku sku = default;
             IList<string> availabilityZones = default;
-            ElasticSanProvisioningState? provisioningState = default;
+            ProvisioningState? provisioningState = default;
             long baseSizeTiB = default;
             long extendedCapacitySizeTiB = default;
             long? totalVolumeSizeGiB = default;
             long? volumeGroupCount = default;
             long? totalIops = default;
-            long? totalMbps = default;
+            long? totalMBps = default;
             long? totalSizeTiB = default;
             IReadOnlyList<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = default;
-            ElasticSanPublicNetworkAccess? publicNetworkAccess = default;
+            PublicNetworkAccess? publicNetworkAccess = default;
             AutoScaleProperties autoScaleProperties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.ElasticSan
                             {
                                 continue;
                             }
-                            provisioningState = new ElasticSanProvisioningState(property0.Value.GetString());
+                            provisioningState = new ProvisioningState(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("baseSizeTiB"u8))
@@ -274,7 +274,7 @@ namespace Azure.ResourceManager.ElasticSan
                             {
                                 continue;
                             }
-                            totalMbps = property0.Value.GetInt64();
+                            totalMBps = property0.Value.GetInt64();
                             continue;
                         }
                         if (property0.NameEquals("totalSizeTiB"u8))
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager.ElasticSan
                             {
                                 continue;
                             }
-                            publicNetworkAccess = new ElasticSanPublicNetworkAccess(property0.Value.GetString());
+                            publicNetworkAccess = new PublicNetworkAccess(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("autoScaleProperties"u8))
@@ -342,7 +342,7 @@ namespace Azure.ResourceManager.ElasticSan
                 totalVolumeSizeGiB,
                 volumeGroupCount,
                 totalIops,
-                totalMbps,
+                totalMBps,
                 totalSizeTiB,
                 privateEndpointConnections ?? new ChangeTrackingList<ElasticSanPrivateEndpointConnectionData>(),
                 publicNetworkAccess,

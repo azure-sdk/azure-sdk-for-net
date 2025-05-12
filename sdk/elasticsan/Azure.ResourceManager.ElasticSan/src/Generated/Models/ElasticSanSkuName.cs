@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ElasticSan.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string PremiumLrsValue = "Premium_LRS";
-        private const string PremiumZrsValue = "Premium_ZRS";
+        private const string PremiumLRSValue = "Premium_LRS";
+        private const string PremiumZRSValue = "Premium_ZRS";
 
         /// <summary> Premium locally redundant storage. </summary>
-        public static ElasticSanSkuName PremiumLrs { get; } = new ElasticSanSkuName(PremiumLrsValue);
+        public static ElasticSanSkuName PremiumLRS { get; } = new ElasticSanSkuName(PremiumLRSValue);
         /// <summary> Premium zone redundant storage. </summary>
-        public static ElasticSanSkuName PremiumZrs { get; } = new ElasticSanSkuName(PremiumZrsValue);
+        public static ElasticSanSkuName PremiumZRS { get; } = new ElasticSanSkuName(PremiumZRSValue);
         /// <summary> Determines if two <see cref="ElasticSanSkuName"/> values are the same. </summary>
         public static bool operator ==(ElasticSanSkuName left, ElasticSanSkuName right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ElasticSanSkuName"/> values are not the same. </summary>

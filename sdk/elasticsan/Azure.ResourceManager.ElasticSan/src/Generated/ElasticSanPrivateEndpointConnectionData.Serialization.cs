@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.ElasticSan
                 JsonSerializer.Serialize(writer, PrivateEndpoint);
             }
             writer.WritePropertyName("privateLinkServiceConnectionState"u8);
-            writer.WriteObjectValue(ConnectionState, options);
+            writer.WriteObjectValue(PrivateLinkServiceConnectionState, options);
             if (Optional.IsCollectionDefined(GroupIds))
             {
                 writer.WritePropertyName("groupIds"u8);
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.ElasticSan
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            ElasticSanProvisioningState? provisioningState = default;
+            ProvisioningState? provisioningState = default;
             SubResource privateEndpoint = default;
             ElasticSanPrivateLinkServiceConnectionState privateLinkServiceConnectionState = default;
             IList<string> groupIds = default;
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.ElasticSan
                             {
                                 continue;
                             }
-                            provisioningState = new ElasticSanProvisioningState(property0.Value.GetString());
+                            provisioningState = new ProvisioningState(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("privateEndpoint"u8))

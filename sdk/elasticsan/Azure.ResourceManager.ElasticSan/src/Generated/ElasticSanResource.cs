@@ -38,8 +38,6 @@ namespace Azure.ResourceManager.ElasticSan
 
         private readonly ClientDiagnostics _elasticSanClientDiagnostics;
         private readonly ElasticSansRestOperations _elasticSanRestClient;
-        private readonly ClientDiagnostics _privateLinkResourcesClientDiagnostics;
-        private readonly PrivateLinkResourcesRestOperations _privateLinkResourcesRestClient;
         private readonly ElasticSanData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -67,8 +65,6 @@ namespace Azure.ResourceManager.ElasticSan
             _elasticSanClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ElasticSan", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string elasticSanApiVersion);
             _elasticSanRestClient = new ElasticSansRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, elasticSanApiVersion);
-            _privateLinkResourcesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ElasticSan", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-            _privateLinkResourcesRestClient = new PrivateLinkResourcesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -95,75 +91,6 @@ namespace Azure.ResourceManager.ElasticSan
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of ElasticSanVolumeGroupResources in the ElasticSan. </summary>
-        /// <returns> An object representing collection of ElasticSanVolumeGroupResources and their operations over a ElasticSanVolumeGroupResource. </returns>
-        public virtual ElasticSanVolumeGroupCollection GetElasticSanVolumeGroups()
-        {
-            return GetCachedClient(client => new ElasticSanVolumeGroupCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get an VolumeGroups.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}/volumegroups/{volumeGroupName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VolumeGroups_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ElasticSanVolumeGroupResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<ElasticSanVolumeGroupResource>> GetElasticSanVolumeGroupAsync(string volumeGroupName, CancellationToken cancellationToken = default)
-        {
-            return await GetElasticSanVolumeGroups().GetAsync(volumeGroupName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get an VolumeGroups.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}/volumegroups/{volumeGroupName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VolumeGroups_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2024-07-01-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ElasticSanVolumeGroupResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<ElasticSanVolumeGroupResource> GetElasticSanVolumeGroup(string volumeGroupName, CancellationToken cancellationToken = default)
-        {
-            return GetElasticSanVolumeGroups().Get(volumeGroupName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of ElasticSanPrivateEndpointConnectionResources in the ElasticSan. </summary>
         /// <returns> An object representing collection of ElasticSanPrivateEndpointConnectionResources and their operations over a ElasticSanPrivateEndpointConnectionResource. </returns>
         public virtual ElasticSanPrivateEndpointConnectionCollection GetElasticSanPrivateEndpointConnections()
@@ -180,7 +107,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>PrivateEndpointConnections_Get</description>
+        /// <description>PrivateEndpointConnection_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -211,7 +138,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>PrivateEndpointConnections_Get</description>
+        /// <description>PrivateEndpointConnection_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -233,6 +160,75 @@ namespace Azure.ResourceManager.ElasticSan
             return GetElasticSanPrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of VolumeGroupResources in the ElasticSan. </summary>
+        /// <returns> An object representing collection of VolumeGroupResources and their operations over a VolumeGroupResource. </returns>
+        public virtual VolumeGroupCollection GetVolumeGroups()
+        {
+            return GetCachedClient(client => new VolumeGroupCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get an VolumeGroups.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}/volumegroups/{volumeGroupName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>VolumeGroup_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="VolumeGroupResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<VolumeGroupResource>> GetVolumeGroupAsync(string volumeGroupName, CancellationToken cancellationToken = default)
+        {
+            return await GetVolumeGroups().GetAsync(volumeGroupName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get an VolumeGroups.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}/volumegroups/{volumeGroupName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>VolumeGroup_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="VolumeGroupResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<VolumeGroupResource> GetVolumeGroup(string volumeGroupName, CancellationToken cancellationToken = default)
+        {
+            return GetVolumeGroups().Get(volumeGroupName, cancellationToken);
+        }
+
         /// <summary>
         /// Get a ElasticSan.
         /// <list type="bullet">
@@ -242,7 +238,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -282,7 +278,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -322,7 +318,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Delete</description>
+        /// <description>ElasticSan_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -364,7 +360,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Delete</description>
+        /// <description>ElasticSan_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -406,7 +402,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Update</description>
+        /// <description>ElasticSan_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -452,7 +448,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Update</description>
+        /// <description>ElasticSan_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -498,20 +494,25 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>PrivateLinkResources_ListByElasticSan</description>
+        /// <description>ElasticSans_ListByElasticSan</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
         /// <description>2024-07-01-preview</description>
         /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ElasticSanResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="ElasticSanPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ElasticSanPrivateLinkResource> GetPrivateLinkResourcesAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="ElasticSanPrivateLinkResourceData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ElasticSanPrivateLinkResourceData> GetByElasticSanAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _privateLinkResourcesRestClient.CreateListByElasticSanRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => ElasticSanPrivateLinkResource.DeserializeElasticSanPrivateLinkResource(e), _privateLinkResourcesClientDiagnostics, Pipeline, "ElasticSanResource.GetPrivateLinkResources", "value", null, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanRestClient.CreateListByElasticSanRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanRestClient.CreateListByElasticSanNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => ElasticSanPrivateLinkResourceData.DeserializeElasticSanPrivateLinkResourceData(e), _elasticSanClientDiagnostics, Pipeline, "ElasticSanResource.GetByElasticSan", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -523,20 +524,25 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>PrivateLinkResources_ListByElasticSan</description>
+        /// <description>ElasticSans_ListByElasticSan</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
         /// <description>2024-07-01-preview</description>
         /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ElasticSanResource"/></description>
+        /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ElasticSanPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ElasticSanPrivateLinkResource> GetPrivateLinkResources(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ElasticSanPrivateLinkResourceData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ElasticSanPrivateLinkResourceData> GetByElasticSan(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _privateLinkResourcesRestClient.CreateListByElasticSanRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => ElasticSanPrivateLinkResource.DeserializeElasticSanPrivateLinkResource(e), _privateLinkResourcesClientDiagnostics, Pipeline, "ElasticSanResource.GetPrivateLinkResources", "value", null, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanRestClient.CreateListByElasticSanRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanRestClient.CreateListByElasticSanNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => ElasticSanPrivateLinkResourceData.DeserializeElasticSanPrivateLinkResourceData(e), _elasticSanClientDiagnostics, Pipeline, "ElasticSanResource.GetByElasticSan", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -548,7 +554,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -610,7 +616,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -672,7 +678,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -729,7 +735,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -786,7 +792,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -846,7 +852,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
+        /// <description>ElasticSan_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>

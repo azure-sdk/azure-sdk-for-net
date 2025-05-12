@@ -99,8 +99,8 @@ namespace Azure.ResourceManager.ElasticSan.Models
             string targetIqn = default;
             string targetPortalHostname = default;
             int? targetPortalPort = default;
-            ElasticSanProvisioningState? provisioningState = default;
-            ResourceOperationalStatus? status = default;
+            ProvisioningState? provisioningState = default;
+            OperationalStatus? status = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -130,7 +130,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                     {
                         continue;
                     }
-                    provisioningState = new ElasticSanProvisioningState(property.Value.GetString());
+                    provisioningState = new ProvisioningState(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("status"u8))
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                     {
                         continue;
                     }
-                    status = new ResourceOperationalStatus(property.Value.GetString());
+                    status = new OperationalStatus(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
