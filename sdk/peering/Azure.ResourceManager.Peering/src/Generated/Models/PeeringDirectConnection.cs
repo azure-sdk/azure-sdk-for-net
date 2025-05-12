@@ -48,6 +48,7 @@ namespace Azure.ResourceManager.Peering.Models
         /// <summary> Initializes a new instance of <see cref="PeeringDirectConnection"/>. </summary>
         public PeeringDirectConnection()
         {
+            MigrationWorkWindowBgpSessionSameDevice = new ChangeTrackingDictionary<string, Enum11>();
         }
 
         /// <summary> Initializes a new instance of <see cref="PeeringDirectConnection"/>. </summary>
@@ -59,10 +60,14 @@ namespace Azure.ResourceManager.Peering.Models
         /// <param name="peeringDBFacilityId"> The PeeringDB.com ID of the facility at which the connection has to be set up. </param>
         /// <param name="connectionState"> The state of the connection. </param>
         /// <param name="bgpSession"> The BGP session associated with the connection. </param>
+        /// <param name="migrationWorkWindowBgpSessionSameDevice"> The old V4 BGP session associated with the connection during migration on the same device. Will be used for Work-Window validation. </param>
+        /// <param name="lastFailureTimeUtc"> Gets or sets the time corresponding to when the connection was last set to ProvisioningFailed. </param>
         /// <param name="connectionIdentifier"> The unique identifier (GUID) for the connection. </param>
         /// <param name="errorMessage"> The error message related to the connection state, if any. </param>
+        /// <param name="previousConnectionProvisioningState"> The previous connection provisioning state, used to resume provisioning after connection has been blocked. </param>
+        /// <param name="migrationWorkWindowTracker"> Gets or sets the migration work window tracker. Format = "DateTime String Format|WorkWindowInitiator Email ID". </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PeeringDirectConnection(int? bandwidthInMbps, int? provisionedBandwidthInMbps, PeeringSessionAddressProvider? sessionAddressProvider, bool? useForPeeringService, string microsoftTrackingId, int? peeringDBFacilityId, PeeringConnectionState? connectionState, PeeringBgpSession bgpSession, string connectionIdentifier, string errorMessage, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PeeringDirectConnection(int? bandwidthInMbps, int? provisionedBandwidthInMbps, PeeringSessionAddressProvider? sessionAddressProvider, bool? useForPeeringService, string microsoftTrackingId, int? peeringDBFacilityId, PeeringConnectionState? connectionState, PeeringBgpSession bgpSession, IDictionary<string, Enum11> migrationWorkWindowBgpSessionSameDevice, DateTimeOffset? lastFailureTimeUtc, string connectionIdentifier, string errorMessage, PreviousConnectionProvisioningState? previousConnectionProvisioningState, string migrationWorkWindowTracker, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             BandwidthInMbps = bandwidthInMbps;
             ProvisionedBandwidthInMbps = provisionedBandwidthInMbps;
@@ -72,8 +77,12 @@ namespace Azure.ResourceManager.Peering.Models
             PeeringDBFacilityId = peeringDBFacilityId;
             ConnectionState = connectionState;
             BgpSession = bgpSession;
+            MigrationWorkWindowBgpSessionSameDevice = migrationWorkWindowBgpSessionSameDevice;
+            LastFailureTimeUtc = lastFailureTimeUtc;
             ConnectionIdentifier = connectionIdentifier;
             ErrorMessage = errorMessage;
+            PreviousConnectionProvisioningState = previousConnectionProvisioningState;
+            MigrationWorkWindowTracker = migrationWorkWindowTracker;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -93,9 +102,17 @@ namespace Azure.ResourceManager.Peering.Models
         public PeeringConnectionState? ConnectionState { get; }
         /// <summary> The BGP session associated with the connection. </summary>
         public PeeringBgpSession BgpSession { get; set; }
+        /// <summary> The old V4 BGP session associated with the connection during migration on the same device. Will be used for Work-Window validation. </summary>
+        public IDictionary<string, Enum11> MigrationWorkWindowBgpSessionSameDevice { get; }
+        /// <summary> Gets or sets the time corresponding to when the connection was last set to ProvisioningFailed. </summary>
+        public DateTimeOffset? LastFailureTimeUtc { get; set; }
         /// <summary> The unique identifier (GUID) for the connection. </summary>
         public string ConnectionIdentifier { get; set; }
         /// <summary> The error message related to the connection state, if any. </summary>
         public string ErrorMessage { get; }
+        /// <summary> The previous connection provisioning state, used to resume provisioning after connection has been blocked. </summary>
+        public PreviousConnectionProvisioningState? PreviousConnectionProvisioningState { get; set; }
+        /// <summary> Gets or sets the migration work window tracker. Format = "DateTime String Format|WorkWindowInitiator Email ID". </summary>
+        public string MigrationWorkWindowTracker { get; set; }
     }
 }

@@ -49,6 +49,22 @@ namespace Azure.ResourceManager.Peering.Models
                 writer.WritePropertyName("bgpSession"u8);
                 writer.WriteObjectValue(BgpSession, options);
             }
+            if (Optional.IsCollectionDefined(MigrationWorkWindowBgpSessionSameDevice))
+            {
+                writer.WritePropertyName("migrationWorkWindowBgpSessionSameDevice"u8);
+                writer.WriteStartObject();
+                foreach (var item in MigrationWorkWindowBgpSessionSameDevice)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value.ToString());
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(LastFailureTimeUtc))
+            {
+                writer.WritePropertyName("lastFailureTimeUtc"u8);
+                writer.WriteStringValue(LastFailureTimeUtc.Value, "O");
+            }
             if (Optional.IsDefined(ConnectionIdentifier))
             {
                 writer.WritePropertyName("connectionIdentifier"u8);
@@ -58,6 +74,16 @@ namespace Azure.ResourceManager.Peering.Models
             {
                 writer.WritePropertyName("errorMessage"u8);
                 writer.WriteStringValue(ErrorMessage);
+            }
+            if (Optional.IsDefined(PreviousConnectionProvisioningState))
+            {
+                writer.WritePropertyName("previousConnectionProvisioningState"u8);
+                writer.WriteStringValue(PreviousConnectionProvisioningState.Value.ToString());
+            }
+            if (Optional.IsDefined(MigrationWorkWindowTracker))
+            {
+                writer.WritePropertyName("migrationWorkWindowTracker"u8);
+                writer.WriteStringValue(MigrationWorkWindowTracker);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -99,8 +125,12 @@ namespace Azure.ResourceManager.Peering.Models
             int? peeringDBFacilityId = default;
             PeeringConnectionState? connectionState = default;
             PeeringBgpSession bgpSession = default;
+            IDictionary<string, Enum13> migrationWorkWindowBgpSessionSameDevice = default;
+            DateTimeOffset? lastFailureTimeUtc = default;
             Guid? connectionIdentifier = default;
             string errorMessage = default;
+            PreviousConnectionProvisioningState? previousConnectionProvisioningState = default;
+            string migrationWorkWindowTracker = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -132,6 +162,29 @@ namespace Azure.ResourceManager.Peering.Models
                     bgpSession = PeeringBgpSession.DeserializePeeringBgpSession(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("migrationWorkWindowBgpSessionSameDevice"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, Enum13> dictionary = new Dictionary<string, Enum13>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, new Enum13(property0.Value.GetString()));
+                    }
+                    migrationWorkWindowBgpSessionSameDevice = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("lastFailureTimeUtc"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    lastFailureTimeUtc = property.Value.GetDateTimeOffset("O");
+                    continue;
+                }
                 if (property.NameEquals("connectionIdentifier"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -146,6 +199,20 @@ namespace Azure.ResourceManager.Peering.Models
                     errorMessage = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("previousConnectionProvisioningState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    previousConnectionProvisioningState = new PreviousConnectionProvisioningState(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("migrationWorkWindowTracker"u8))
+                {
+                    migrationWorkWindowTracker = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -156,8 +223,12 @@ namespace Azure.ResourceManager.Peering.Models
                 peeringDBFacilityId,
                 connectionState,
                 bgpSession,
+                migrationWorkWindowBgpSessionSameDevice ?? new ChangeTrackingDictionary<string, Enum13>(),
+                lastFailureTimeUtc,
                 connectionIdentifier,
                 errorMessage,
+                previousConnectionProvisioningState,
+                migrationWorkWindowTracker,
                 serializedAdditionalRawData);
         }
 
