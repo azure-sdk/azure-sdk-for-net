@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.HealthBot.Models
 {
     /// <summary> Properties of the key vault. </summary>
-    public partial class HealthBotKeyVaultProperties
+    public partial class KeyVaultProperties
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,11 +45,11 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="HealthBotKeyVaultProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="KeyVaultProperties"/>. </summary>
         /// <param name="keyName"> The name of the key vault key. </param>
         /// <param name="keyVaultUri"> The Uri of the key vault. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="keyName"/> or <paramref name="keyVaultUri"/> is null. </exception>
-        public HealthBotKeyVaultProperties(string keyName, Uri keyVaultUri)
+        public KeyVaultProperties(string keyName, string keyVaultUri)
         {
             Argument.AssertNotNull(keyName, nameof(keyName));
             Argument.AssertNotNull(keyVaultUri, nameof(keyVaultUri));
@@ -58,13 +58,13 @@ namespace Azure.ResourceManager.HealthBot.Models
             KeyVaultUri = keyVaultUri;
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthBotKeyVaultProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="KeyVaultProperties"/>. </summary>
         /// <param name="keyName"> The name of the key vault key. </param>
         /// <param name="keyVersion"> The version of the key vault key. </param>
         /// <param name="keyVaultUri"> The Uri of the key vault. </param>
         /// <param name="userIdentity"> The user assigned identity (ARM resource id) that has access to the key. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthBotKeyVaultProperties(string keyName, string keyVersion, Uri keyVaultUri, string userIdentity, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal KeyVaultProperties(string keyName, string keyVersion, string keyVaultUri, string userIdentity, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             KeyName = keyName;
             KeyVersion = keyVersion;
@@ -73,8 +73,8 @@ namespace Azure.ResourceManager.HealthBot.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="HealthBotKeyVaultProperties"/> for deserialization. </summary>
-        internal HealthBotKeyVaultProperties()
+        /// <summary> Initializes a new instance of <see cref="KeyVaultProperties"/> for deserialization. </summary>
+        internal KeyVaultProperties()
         {
         }
 
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// <summary> The version of the key vault key. </summary>
         public string KeyVersion { get; set; }
         /// <summary> The Uri of the key vault. </summary>
-        public Uri KeyVaultUri { get; set; }
+        public string KeyVaultUri { get; set; }
         /// <summary> The user assigned identity (ARM resource id) that has access to the key. </summary>
         public string UserIdentity { get; set; }
     }
