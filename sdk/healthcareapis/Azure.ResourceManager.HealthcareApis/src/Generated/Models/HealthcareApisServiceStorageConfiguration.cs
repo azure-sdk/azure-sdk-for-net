@@ -54,11 +54,13 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <summary> Initializes a new instance of <see cref="HealthcareApisServiceStorageConfiguration"/>. </summary>
         /// <param name="storageResourceId"> The resource id of connected storage account. </param>
         /// <param name="fileSystemName"> The filesystem name of connected storage account. </param>
+        /// <param name="storageIndexingConfiguration"> The configuration for indexing the connected storage. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthcareApisServiceStorageConfiguration(ResourceIdentifier storageResourceId, string fileSystemName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthcareApisServiceStorageConfiguration(ResourceIdentifier storageResourceId, string fileSystemName, StorageIndexingConfiguration storageIndexingConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             StorageResourceId = storageResourceId;
             FileSystemName = fileSystemName;
+            StorageIndexingConfiguration = storageIndexingConfiguration;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -66,5 +68,18 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         public ResourceIdentifier StorageResourceId { get; set; }
         /// <summary> The filesystem name of connected storage account. </summary>
         public string FileSystemName { get; set; }
+        /// <summary> The configuration for indexing the connected storage. </summary>
+        internal StorageIndexingConfiguration StorageIndexingConfiguration { get; set; }
+        /// <summary> The name of the queue that contains storage cloud events. </summary>
+        public string StorageEventQueueName
+        {
+            get => StorageIndexingConfiguration is null ? default : StorageIndexingConfiguration.StorageEventQueueName;
+            set
+            {
+                if (StorageIndexingConfiguration is null)
+                    StorageIndexingConfiguration = new StorageIndexingConfiguration();
+                StorageIndexingConfiguration.StorageEventQueueName = value;
+            }
+        }
     }
 }

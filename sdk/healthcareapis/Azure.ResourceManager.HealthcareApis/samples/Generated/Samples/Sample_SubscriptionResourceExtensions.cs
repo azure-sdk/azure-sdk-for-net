@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.HealthcareApis.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetHealthcareApisServices_ListAllServicesInSubscription()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/legacy/ServiceList.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/legacy/ServiceList.json
             // this example is just showing the usage of "Services_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.HealthcareApis.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CheckHealthcareApisNameAvailability_CheckNameAvailability()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/CheckNameAvailabilityPost.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/CheckNameAvailabilityPost.json
             // this example is just showing the usage of "Services_CheckNameAvailability" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.HealthcareApis.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetHealthcareApisWorkspaces_GetWorkspacesBySubscription()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/workspaces/Workspaces_ListBySubscription.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/workspaces/Workspaces_ListBySubscription.json
             // this example is just showing the usage of "Workspaces_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

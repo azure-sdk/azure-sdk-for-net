@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.HealthcareApis.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_WorkspacePrivateEndpointConnectionGetConnection()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/privatelink/WorkspaceGetPrivateEndpointConnection.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/privatelink/WorkspaceGetPrivateEndpointConnection.json
             // this example is just showing the usage of "WorkspacePrivateEndpointConnections_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.HealthcareApis.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_WorkspacePrivateEndpointConnectionsDelete()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/privatelink/WorkspaceDeletePrivateEndpointConnection.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/privatelink/WorkspaceDeletePrivateEndpointConnection.json
             // this example is just showing the usage of "WorkspacePrivateEndpointConnections_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.HealthcareApis.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_WorkspacePrivateEndpointConnectionCreateOrUpdate()
         {
-            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/stable/2024-03-31/examples/privatelink/WorkspaceCreatePrivateEndpointConnection.json
+            // Generated from example definition: specification/healthcareapis/resource-manager/Microsoft.HealthcareApis/preview/2025-04-01-preview/examples/privatelink/WorkspaceCreatePrivateEndpointConnection.json
             // this example is just showing the usage of "WorkspacePrivateEndpointConnections_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
