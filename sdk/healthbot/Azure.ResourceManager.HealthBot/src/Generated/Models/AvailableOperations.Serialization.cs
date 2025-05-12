@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.HealthBot.Models
 {
-    internal partial class BotResponseList : IUtf8JsonSerializable, IJsonModel<BotResponseList>
+    internal partial class AvailableOperations : IUtf8JsonSerializable, IJsonModel<AvailableOperations>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BotResponseList>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AvailableOperations>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BotResponseList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<AvailableOperations>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,26 +28,23 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotResponseList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AvailableOperations>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BotResponseList)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(AvailableOperations)} does not support writing '{format}' format.");
             }
 
-            if (options.Format != "W")
+            writer.WritePropertyName("value"u8);
+            writer.WriteStartArray();
+            foreach (var item in Value)
             {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
+                writer.WriteObjectValue(item, options);
             }
+            writer.WriteEndArray();
             if (Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
-                writer.WriteStringValue(NextLink.AbsoluteUri);
+                writer.WriteStringValue(NextLink);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -66,19 +63,19 @@ namespace Azure.ResourceManager.HealthBot.Models
             }
         }
 
-        BotResponseList IJsonModel<BotResponseList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        AvailableOperations IJsonModel<AvailableOperations>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotResponseList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AvailableOperations>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BotResponseList)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(AvailableOperations)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBotResponseList(document.RootElement, options);
+            return DeserializeAvailableOperations(document.RootElement, options);
         }
 
-        internal static BotResponseList DeserializeBotResponseList(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static AvailableOperations DeserializeAvailableOperations(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -86,29 +83,25 @@ namespace Azure.ResourceManager.HealthBot.Models
             {
                 return null;
             }
-            IReadOnlyList<HealthBotData> value = default;
-            Uri nextLink = default;
+            IReadOnlyList<OperationDetail> value = default;
+            string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<HealthBotData> array = new List<HealthBotData>();
+                    List<OperationDetail> array = new List<OperationDetail>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(HealthBotData.DeserializeHealthBotData(item, options));
+                        array.Add(OperationDetail.DeserializeOperationDetail(item, options));
                     }
                     value = array;
                     continue;
                 }
                 if (property.NameEquals("nextLink"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    nextLink = new Uri(property.Value.GetString());
+                    nextLink = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -117,38 +110,38 @@ namespace Azure.ResourceManager.HealthBot.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new BotResponseList(value, nextLink, serializedAdditionalRawData);
+            return new AvailableOperations(value, nextLink, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BotResponseList>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<AvailableOperations>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotResponseList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AvailableOperations>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerHealthBotContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BotResponseList)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AvailableOperations)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BotResponseList IPersistableModel<BotResponseList>.Create(BinaryData data, ModelReaderWriterOptions options)
+        AvailableOperations IPersistableModel<AvailableOperations>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BotResponseList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<AvailableOperations>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBotResponseList(document.RootElement, options);
+                        return DeserializeAvailableOperations(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BotResponseList)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(AvailableOperations)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BotResponseList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<AvailableOperations>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

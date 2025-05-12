@@ -10,7 +10,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.HealthBot.Models
 {
@@ -59,12 +58,12 @@ namespace Azure.ResourceManager.HealthBot.Models
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                writer.WriteObjectValue(Identity, options);
             }
             if (Optional.IsDefined(Location))
             {
                 writer.WritePropertyName("location"u8);
-                writer.WriteStringValue(Location.Value);
+                writer.WriteStringValue(Location);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -106,8 +105,8 @@ namespace Azure.ResourceManager.HealthBot.Models
             HealthBotProperties properties = default;
             IDictionary<string, string> tags = default;
             HealthBotSku sku = default;
-            ManagedServiceIdentity identity = default;
-            AzureLocation? location = default;
+            Identity identity = default;
+            string location = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -150,16 +149,12 @@ namespace Azure.ResourceManager.HealthBot.Models
                     {
                         continue;
                     }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    identity = Identity.DeserializeIdentity(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("location"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    location = new AzureLocation(property.Value.GetString());
+                    location = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")

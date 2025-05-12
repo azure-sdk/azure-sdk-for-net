@@ -7,8 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.HealthBot.Models
 {
@@ -60,7 +58,7 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// <param name="identity"> The identity of the Azure Health Bot. </param>
         /// <param name="location"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal HealthBotPatch(HealthBotProperties properties, IDictionary<string, string> tags, HealthBotSku sku, ManagedServiceIdentity identity, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal HealthBotPatch(HealthBotProperties properties, IDictionary<string, string> tags, HealthBotSku sku, Identity identity, string location, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Properties = properties;
             Tags = tags;
@@ -87,8 +85,8 @@ namespace Azure.ResourceManager.HealthBot.Models
         }
 
         /// <summary> The identity of the Azure Health Bot. </summary>
-        public ManagedServiceIdentity Identity { get; set; }
+        public Identity Identity { get; set; }
         /// <summary> Gets or sets the location. </summary>
-        public AzureLocation? Location { get; set; }
+        public string Location { get; set; }
     }
 }

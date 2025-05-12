@@ -11,8 +11,8 @@ using System.Linq;
 
 namespace Azure.ResourceManager.HealthBot.Models
 {
-    /// <summary> The list of Azure Health Bot operation response. </summary>
-    internal partial class BotResponseList
+    /// <summary> Available operations of the service. </summary>
+    internal partial class AvailableOperations
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,32 +46,41 @@ namespace Azure.ResourceManager.HealthBot.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/>. </summary>
-        /// <param name="value"> The HealthBot items on this page. </param>
-        internal BotResponseList(IEnumerable<HealthBotData> value)
+        /// <summary> Initializes a new instance of <see cref="AvailableOperations"/>. </summary>
+        /// <param name="value"> Collection of available operation details. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal AvailableOperations(IEnumerable<OperationDetail> value)
         {
+            Argument.AssertNotNull(value, nameof(value));
+
             Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/>. </summary>
-        /// <param name="value"> The HealthBot items on this page. </param>
-        /// <param name="nextLink"> The link to the next page of items. </param>
+        /// <summary> Initializes a new instance of <see cref="AvailableOperations"/>. </summary>
+        /// <param name="value"> Collection of available operation details. </param>
+        /// <param name="nextLink">
+        /// URL client should use to fetch the next page (per server side paging).
+        /// It's null for now, added for future use.
+        /// </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BotResponseList(IReadOnlyList<HealthBotData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AvailableOperations(IReadOnlyList<OperationDetail> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="BotResponseList"/> for deserialization. </summary>
-        internal BotResponseList()
+        /// <summary> Initializes a new instance of <see cref="AvailableOperations"/> for deserialization. </summary>
+        internal AvailableOperations()
         {
         }
 
-        /// <summary> The HealthBot items on this page. </summary>
-        public IReadOnlyList<HealthBotData> Value { get; }
-        /// <summary> The link to the next page of items. </summary>
-        public Uri NextLink { get; }
+        /// <summary> Collection of available operation details. </summary>
+        public IReadOnlyList<OperationDetail> Value { get; }
+        /// <summary>
+        /// URL client should use to fetch the next page (per server side paging).
+        /// It's null for now, added for future use.
+        /// </summary>
+        public string NextLink { get; }
     }
 }

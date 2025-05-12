@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.HealthBot.Models
             if (options.Format != "W" && Optional.IsDefined(BotManagementPortalLink))
             {
                 writer.WritePropertyName("botManagementPortalLink"u8);
-                writer.WriteStringValue(BotManagementPortalLink.AbsoluteUri);
+                writer.WriteStringValue(BotManagementPortalLink);
             }
             if (Optional.IsDefined(KeyVaultProperties))
             {
@@ -87,8 +87,8 @@ namespace Azure.ResourceManager.HealthBot.Models
                 return null;
             }
             string provisioningState = default;
-            Uri botManagementPortalLink = default;
-            HealthBotKeyVaultProperties keyVaultProperties = default;
+            string botManagementPortalLink = default;
+            KeyVaultProperties keyVaultProperties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -100,11 +100,7 @@ namespace Azure.ResourceManager.HealthBot.Models
                 }
                 if (property.NameEquals("botManagementPortalLink"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    botManagementPortalLink = new Uri(property.Value.GetString());
+                    botManagementPortalLink = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("keyVaultProperties"u8))
@@ -113,7 +109,7 @@ namespace Azure.ResourceManager.HealthBot.Models
                     {
                         continue;
                     }
-                    keyVaultProperties = HealthBotKeyVaultProperties.DeserializeHealthBotKeyVaultProperties(property.Value, options);
+                    keyVaultProperties = KeyVaultProperties.DeserializeKeyVaultProperties(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
