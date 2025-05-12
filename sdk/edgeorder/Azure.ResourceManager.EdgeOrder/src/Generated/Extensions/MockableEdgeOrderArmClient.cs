@@ -35,39 +35,39 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="EdgeOrderAddressResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="EdgeOrderAddressResource.CreateResourceIdentifier" /> to create an <see cref="EdgeOrderAddressResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing an <see cref="AddressResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AddressResource.CreateResourceIdentifier" /> to create an <see cref="AddressResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EdgeOrderAddressResource"/> object. </returns>
-        public virtual EdgeOrderAddressResource GetEdgeOrderAddressResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="AddressResource"/> object. </returns>
+        public virtual AddressResource GetAddressResource(ResourceIdentifier id)
         {
-            EdgeOrderAddressResource.ValidateResourceId(id);
-            return new EdgeOrderAddressResource(Client, id);
+            AddressResource.ValidateResourceId(id);
+            return new AddressResource(Client, id);
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="EdgeOrderResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="EdgeOrderResource.CreateResourceIdentifier" /> to create an <see cref="EdgeOrderResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing an <see cref="OrderItemResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="OrderItemResource.CreateResourceIdentifier" /> to create an <see cref="OrderItemResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EdgeOrderResource"/> object. </returns>
-        public virtual EdgeOrderResource GetEdgeOrderResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="OrderItemResource"/> object. </returns>
+        public virtual OrderItemResource GetOrderItemResource(ResourceIdentifier id)
         {
-            EdgeOrderResource.ValidateResourceId(id);
-            return new EdgeOrderResource(Client, id);
+            OrderItemResource.ValidateResourceId(id);
+            return new OrderItemResource(Client, id);
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="EdgeOrderItemResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="EdgeOrderItemResource.CreateResourceIdentifier" /> to create an <see cref="EdgeOrderItemResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing an <see cref="OrderResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="OrderResource.CreateResourceIdentifier" /> to create an <see cref="OrderResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EdgeOrderItemResource"/> object. </returns>
-        public virtual EdgeOrderItemResource GetEdgeOrderItemResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="OrderResource"/> object. </returns>
+        public virtual OrderResource GetOrderResource(ResourceIdentifier id)
         {
-            EdgeOrderItemResource.ValidateResourceId(id);
-            return new EdgeOrderItemResource(Client, id);
+            OrderResource.ValidateResourceId(id);
+            return new OrderResource(Client, id);
         }
     }
 }

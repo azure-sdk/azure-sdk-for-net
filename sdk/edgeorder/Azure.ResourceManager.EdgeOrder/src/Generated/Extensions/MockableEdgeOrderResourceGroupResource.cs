@@ -17,8 +17,8 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
     /// <summary> A class to add extension methods to ResourceGroupResource. </summary>
     public partial class MockableEdgeOrderResourceGroupResource : ArmResource
     {
-        private ClientDiagnostics _defaultClientDiagnostics;
-        private EdgeOrderManagementRestOperations _defaultRestClient;
+        private ClientDiagnostics _ordersOperationGroupClientDiagnostics;
+        private OrdersOperationGroupRestOperations _ordersOperationGroupRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="MockableEdgeOrderResourceGroupResource"/> class for mocking. </summary>
         protected MockableEdgeOrderResourceGroupResource()
@@ -32,8 +32,8 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         {
         }
 
-        private ClientDiagnostics DefaultClientDiagnostics => _defaultClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EdgeOrder", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private EdgeOrderManagementRestOperations DefaultRestClient => _defaultRestClient ??= new EdgeOrderManagementRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics OrdersOperationGroupClientDiagnostics => _ordersOperationGroupClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EdgeOrder", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private OrdersOperationGroupRestOperations OrdersOperationGroupRestClient => _ordersOperationGroupRestClient ??= new OrdersOperationGroupRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -41,15 +41,15 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of EdgeOrderAddressResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of EdgeOrderAddressResources and their operations over a EdgeOrderAddressResource. </returns>
-        public virtual EdgeOrderAddressCollection GetEdgeOrderAddresses()
+        /// <summary> Gets a collection of AddressResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of AddressResources and their operations over a AddressResource. </returns>
+        public virtual AddressResourceCollection GetAddressResources()
         {
-            return GetCachedClient(client => new EdgeOrderAddressCollection(client, Id));
+            return GetCachedClient(client => new AddressResourceCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets information about the specified address.
+        /// Get information about the specified address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -57,15 +57,15 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>AddressResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EdgeOrderAddressResource"/></description>
+        /// <description><see cref="AddressResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -74,13 +74,13 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="addressName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="addressName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<EdgeOrderAddressResource>> GetEdgeOrderAddressAsync(string addressName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AddressResource>> GetAddressResourceAsync(string addressName, CancellationToken cancellationToken = default)
         {
-            return await GetEdgeOrderAddresses().GetAsync(addressName, cancellationToken).ConfigureAwait(false);
+            return await GetAddressResources().GetAsync(addressName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets information about the specified address.
+        /// Get information about the specified address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -88,15 +88,15 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>AddressResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EdgeOrderAddressResource"/></description>
+        /// <description><see cref="AddressResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -105,91 +105,20 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="addressName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="addressName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<EdgeOrderAddressResource> GetEdgeOrderAddress(string addressName, CancellationToken cancellationToken = default)
+        public virtual Response<AddressResource> GetAddressResource(string addressName, CancellationToken cancellationToken = default)
         {
-            return GetEdgeOrderAddresses().Get(addressName, cancellationToken);
+            return GetAddressResources().Get(addressName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of EdgeOrderResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of EdgeOrderResources and their operations over a EdgeOrderResource. </returns>
-        public virtual EdgeOrderCollection GetEdgeOrders()
+        /// <summary> Gets a collection of OrderItemResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of OrderItemResources and their operations over a OrderItemResource. </returns>
+        public virtual OrderItemResourceCollection GetOrderItemResources()
         {
-            return GetCachedClient(client => new EdgeOrderCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets an order.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EdgeOrder/locations/{location}/orders/{orderName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="EdgeOrderResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
-        /// <param name="orderName"> The name of the order. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="orderName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<EdgeOrderResource>> GetEdgeOrderAsync(AzureLocation location, string orderName, CancellationToken cancellationToken = default)
-        {
-            return await GetEdgeOrders().GetAsync(location, orderName, cancellationToken).ConfigureAwait(false);
+            return GetCachedClient(client => new OrderItemResourceCollection(client, Id));
         }
 
         /// <summary>
-        /// Gets an order.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EdgeOrder/locations/{location}/orders/{orderName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="EdgeOrderResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
-        /// <param name="orderName"> The name of the order. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="orderName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<EdgeOrderResource> GetEdgeOrder(AzureLocation location, string orderName, CancellationToken cancellationToken = default)
-        {
-            return GetEdgeOrders().Get(location, orderName, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of EdgeOrderItemResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of EdgeOrderItemResources and their operations over a EdgeOrderItemResource. </returns>
-        public virtual EdgeOrderItemCollection GetEdgeOrderItems()
-        {
-            return GetCachedClient(client => new EdgeOrderItemCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets an order item.
+        /// Get an order item.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -197,31 +126,31 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderItemByName</description>
+        /// <description>OrderItemResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EdgeOrderItemResource"/></description>
+        /// <description><see cref="OrderItemResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="orderItemName"> The name of the order item. </param>
-        /// <param name="expand"> $expand is supported on device details, forward shipping details and reverse shipping details parameters. Each of these can be provided as a comma separated list. Device Details for order item provides details on the devices of the product, Forward and Reverse Shipping details provide forward and reverse shipping details respectively. </param>
+        /// <param name="expand"> $expand is supported on parent device details, device details, forward shipping details and reverse shipping details parameters. Each of these can be provided as a comma separated list. Parent Device Details for order item provides details on the devices of the product, Device Details for order item provides details on the devices of the child configurations of the product, Forward and Reverse Shipping details provide forward and reverse shipping details respectively. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="orderItemName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="orderItemName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<EdgeOrderItemResource>> GetEdgeOrderItemAsync(string orderItemName, string expand = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<OrderItemResource>> GetOrderItemResourceAsync(string orderItemName, string expand = null, CancellationToken cancellationToken = default)
         {
-            return await GetEdgeOrderItems().GetAsync(orderItemName, expand, cancellationToken).ConfigureAwait(false);
+            return await GetOrderItemResources().GetAsync(orderItemName, expand, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Gets an order item.
+        /// Get an order item.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -229,31 +158,102 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderItemByName</description>
+        /// <description>OrderItemResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="EdgeOrderItemResource"/></description>
+        /// <description><see cref="OrderItemResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="orderItemName"> The name of the order item. </param>
-        /// <param name="expand"> $expand is supported on device details, forward shipping details and reverse shipping details parameters. Each of these can be provided as a comma separated list. Device Details for order item provides details on the devices of the product, Forward and Reverse Shipping details provide forward and reverse shipping details respectively. </param>
+        /// <param name="expand"> $expand is supported on parent device details, device details, forward shipping details and reverse shipping details parameters. Each of these can be provided as a comma separated list. Parent Device Details for order item provides details on the devices of the product, Device Details for order item provides details on the devices of the child configurations of the product, Forward and Reverse Shipping details provide forward and reverse shipping details respectively. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="orderItemName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="orderItemName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<EdgeOrderItemResource> GetEdgeOrderItem(string orderItemName, string expand = null, CancellationToken cancellationToken = default)
+        public virtual Response<OrderItemResource> GetOrderItemResource(string orderItemName, string expand = null, CancellationToken cancellationToken = default)
         {
-            return GetEdgeOrderItems().Get(orderItemName, expand, cancellationToken);
+            return GetOrderItemResources().Get(orderItemName, expand, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of OrderResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of OrderResources and their operations over a OrderResource. </returns>
+        public virtual OrderResourceCollection GetOrderResources()
+        {
+            return GetCachedClient(client => new OrderResourceCollection(client, Id));
         }
 
         /// <summary>
-        /// Lists order at resource group level.
+        /// Get an order.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EdgeOrder/locations/{location}/orders/{orderName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>OrderResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="OrderResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="orderName"> The name of the order. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="orderName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<OrderResource>> GetOrderResourceAsync(AzureLocation location, string orderName, CancellationToken cancellationToken = default)
+        {
+            return await GetOrderResources().GetAsync(location, orderName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get an order.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EdgeOrder/locations/{location}/orders/{orderName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>OrderResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2024-02-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="OrderResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="orderName"> The name of the order. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="orderName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<OrderResource> GetOrderResource(AzureLocation location, string orderName, CancellationToken cancellationToken = default)
+        {
+            return GetOrderResources().Get(location, orderName, cancellationToken);
+        }
+
+        /// <summary>
+        /// List orders at resource group level.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -261,26 +261,27 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ListOrderAtResourceGroupLevel</description>
+        /// <description>OrdersOperationGroup_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="skipToken"> $skipToken is supported on Get list of order, which provides the next page in the list of order. </param>
+        /// <param name="skipToken"> $skipToken is supported on Get list of orders, which provides the next page in the list of orders. </param>
+        /// <param name="top"> $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to the API caller. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="EdgeOrderResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EdgeOrderResource> GetEdgeOrdersAsync(string skipToken = null, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="OrderResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<OrderResource> GetOrderResourcesAsync(string skipToken = null, int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => DefaultRestClient.CreateListOrderAtResourceGroupLevelRequest(Id.SubscriptionId, Id.ResourceGroupName, skipToken);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DefaultRestClient.CreateListOrderAtResourceGroupLevelNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, skipToken);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new EdgeOrderResource(Client, EdgeOrderData.DeserializeEdgeOrderData(e)), DefaultClientDiagnostics, Pipeline, "MockableEdgeOrderResourceGroupResource.GetEdgeOrders", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => OrdersOperationGroupRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, skipToken, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => OrdersOperationGroupRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, skipToken, top);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new OrderResource(Client, OrderResourceData.DeserializeOrderResourceData(e)), OrdersOperationGroupClientDiagnostics, Pipeline, "MockableEdgeOrderResourceGroupResource.GetOrderResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Lists order at resource group level.
+        /// List orders at resource group level.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -288,22 +289,23 @@ namespace Azure.ResourceManager.EdgeOrder.Mocking
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ListOrderAtResourceGroupLevel</description>
+        /// <description>OrdersOperationGroup_ListByResourceGroup</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="skipToken"> $skipToken is supported on Get list of order, which provides the next page in the list of order. </param>
+        /// <param name="skipToken"> $skipToken is supported on Get list of orders, which provides the next page in the list of orders. </param>
+        /// <param name="top"> $top is supported on fetching list of resources. $top=10 means that the first 10 items in the list will be returned to the API caller. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="EdgeOrderResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EdgeOrderResource> GetEdgeOrders(string skipToken = null, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="OrderResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<OrderResource> GetOrderResources(string skipToken = null, int? top = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => DefaultRestClient.CreateListOrderAtResourceGroupLevelRequest(Id.SubscriptionId, Id.ResourceGroupName, skipToken);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => DefaultRestClient.CreateListOrderAtResourceGroupLevelNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, skipToken);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new EdgeOrderResource(Client, EdgeOrderData.DeserializeEdgeOrderData(e)), DefaultClientDiagnostics, Pipeline, "MockableEdgeOrderResourceGroupResource.GetEdgeOrders", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => OrdersOperationGroupRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, skipToken, top);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => OrdersOperationGroupRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, skipToken, top);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new OrderResource(Client, OrderResourceData.DeserializeOrderResourceData(e)), OrdersOperationGroupClientDiagnostics, Pipeline, "MockableEdgeOrderResourceGroupResource.GetOrderResources", "value", "nextLink", cancellationToken);
         }
     }
 }

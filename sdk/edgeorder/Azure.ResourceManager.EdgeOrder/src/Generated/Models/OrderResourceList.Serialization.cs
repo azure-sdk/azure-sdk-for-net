@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 throw new FormatException($"The model {nameof(OrderResourceList)} does not support writing '{format}' format.");
             }
 
-            if (options.Format != "W" && Optional.IsCollectionDefined(Value))
+            if (options.Format != "W")
             {
                 writer.WritePropertyName("value"u8);
                 writer.WriteStartArray();
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             if (Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
-                writer.WriteStringValue(NextLink);
+                writer.WriteStringValue(NextLink.AbsoluteUri);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -86,29 +86,29 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             {
                 return null;
             }
-            IReadOnlyList<EdgeOrderData> value = default;
-            string nextLink = default;
+            IReadOnlyList<OrderResourceData> value = default;
+            Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<EdgeOrderData> array = new List<EdgeOrderData>();
+                    List<OrderResourceData> array = new List<OrderResourceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EdgeOrderData.DeserializeEdgeOrderData(item, options));
+                        array.Add(OrderResourceData.DeserializeOrderResourceData(item, options));
                     }
                     value = array;
                     continue;
                 }
                 if (property.NameEquals("nextLink"u8))
                 {
-                    nextLink = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nextLink = new Uri(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new OrderResourceList(value ?? new ChangeTrackingList<EdgeOrderData>(), nextLink, serializedAdditionalRawData);
+            return new OrderResourceList(value, nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<OrderResourceList>.Write(ModelReaderWriterOptions options)
