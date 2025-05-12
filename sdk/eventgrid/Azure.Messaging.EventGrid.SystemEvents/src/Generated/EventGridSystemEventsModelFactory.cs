@@ -251,6 +251,77 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             return new ApiManagementGatewayApiRemovedEventData(resourceUri, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has opened. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerOpenedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerOpenedEventData ApiManagementCircuitBreakerOpenedEventData(string backendName = null, ApiManagementCircuitBreakerProperties circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerOpenedEventData(backendName, circuitBreaker, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerProperties"/>. </summary>
+        /// <param name="rules"> Overview of all configured rules and respective details. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerProperties"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerProperties ApiManagementCircuitBreakerProperties(IReadOnlyDictionary<string, ApiManagementCircuitBreakerPropertiesRule> rules = null)
+        {
+            rules ??= new Dictionary<string, ApiManagementCircuitBreakerPropertiesRule>();
+
+            return new ApiManagementCircuitBreakerProperties(rules, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/>. </summary>
+        /// <param name="backendName"> Name of the backend for which the circuit has closed. </param>
+        /// <param name="circuitBreaker"> Information related to the circuit breaker configured on the backend. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementCircuitBreakerClosedEventData"/> instance for mocking. </returns>
+        public static ApiManagementCircuitBreakerClosedEventData ApiManagementCircuitBreakerClosedEventData(string backendName = null, ApiManagementCircuitBreakerProperties circuitBreaker = null)
+        {
+            return new ApiManagementCircuitBreakerClosedEventData(backendName, circuitBreaker, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a an expired gateway token for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenNearExpiryEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenNearExpiryEventData ApiManagementGatewayTokenNearExpiryEventData(ApiManagementGatewayProperties gatewayInfo = null, ApiManagementNearExpiryGatewayTokenProperties tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenNearExpiryEventData(gatewayInfo, tokenInfo, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayProperties"/>. </summary>
+        /// <param name="gatewayId"> Id of Gateway that is used to deploy the gateway to get the configuration for. This is the ARM resource ID referenced in the Azure API Management instance. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateway/&lt;GatewayName&gt;`. </param>
+        /// <param name="instanceId"> Unique instance ID of the deployed gateway. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayProperties"/> instance for mocking. </returns>
+        public static ApiManagementGatewayProperties ApiManagementGatewayProperties(string gatewayId = null, string instanceId = null)
+        {
+            return new ApiManagementGatewayProperties(gatewayId, instanceId, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementNearExpiryGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token will expire. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementNearExpiryGatewayTokenProperties"/> instance for mocking. </returns>
+        public static ApiManagementNearExpiryGatewayTokenProperties ApiManagementNearExpiryGatewayTokenProperties(DateTimeOffset expiredAtUtc = default)
+        {
+            return new ApiManagementNearExpiryGatewayTokenProperties(expiredAtUtc, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/>. </summary>
+        /// <param name="gatewayInfo"> Information related to a given self-hosted gateway deployment. </param>
+        /// <param name="tokenInfo"> Information related to a an expired gateway token for a self-hosted gateway deployment. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementGatewayTokenExpiredEventData"/> instance for mocking. </returns>
+        public static ApiManagementGatewayTokenExpiredEventData ApiManagementGatewayTokenExpiredEventData(ApiManagementGatewayProperties gatewayInfo = null, ApiManagementExpiredGatewayTokenProperties tokenInfo = null)
+        {
+            return new ApiManagementGatewayTokenExpiredEventData(gatewayInfo, tokenInfo, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.ApiManagementExpiredGatewayTokenProperties"/>. </summary>
+        /// <param name="expiredAtUtc"> Timestamp when the gateway token has expired. </param>
+        /// <returns> A new <see cref="SystemEvents.ApiManagementExpiredGatewayTokenProperties"/> instance for mocking. </returns>
+        public static ApiManagementExpiredGatewayTokenProperties ApiManagementExpiredGatewayTokenProperties(DateTimeOffset expiredAtUtc = default)
+        {
+            return new ApiManagementExpiredGatewayTokenProperties(expiredAtUtc, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="SystemEvents.AppConfigurationKeyValueModifiedEventData"/>. </summary>
         /// <param name="key"> The key used to identify the key-value that was modified. </param>
         /// <param name="label"> The label, if any, used to identify the key-value that was modified. </param>
@@ -875,9 +946,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="participants"> The list of properties of participants who are part of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadCreatedWithUserEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadCreatedWithUserEventData AcsChatThreadCreatedWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
+        public static AcsChatThreadCreatedWithUserEventData AcsChatThreadCreatedWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, AcsChatThreadCreatedWithUserEventDataProperty> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
         {
-            properties ??= new Dictionary<string, BinaryData>();
+            properties ??= new Dictionary<string, AcsChatThreadCreatedWithUserEventDataProperty>();
             metadata ??= new Dictionary<string, string>();
             participants ??= new List<AcsChatThreadParticipantProperties>();
 
@@ -927,9 +998,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="participants"> The list of properties of participants who are part of the thread. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadCreatedEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadCreatedEventData AcsChatThreadCreatedEventData(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
+        public static AcsChatThreadCreatedEventData AcsChatThreadCreatedEventData(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel createdByCommunicationIdentifier = null, IReadOnlyDictionary<string, AcsChatThreadCreatedWithUserEventDataProperty> properties = null, IReadOnlyDictionary<string, string> metadata = null, IEnumerable<AcsChatThreadParticipantProperties> participants = null)
         {
-            properties ??= new Dictionary<string, BinaryData>();
+            properties ??= new Dictionary<string, AcsChatThreadCreatedWithUserEventDataProperty>();
             metadata ??= new Dictionary<string, string>();
             participants ??= new List<AcsChatThreadParticipantProperties>();
 
@@ -998,10 +1069,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="properties"> The updated thread properties. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadPropertiesUpdatedPerUserEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadPropertiesUpdatedPerUserEventData AcsChatThreadPropertiesUpdatedPerUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset? editTime = null, IReadOnlyDictionary<string, string> metadata = null, IReadOnlyDictionary<string, BinaryData> properties = null)
+        public static AcsChatThreadPropertiesUpdatedPerUserEventData AcsChatThreadPropertiesUpdatedPerUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier = null, string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset? editTime = null, IReadOnlyDictionary<string, string> metadata = null, IReadOnlyDictionary<string, AcsChatThreadPropertiesUpdatedPerUserEventDataProperty> properties = null)
         {
             metadata ??= new Dictionary<string, string>();
-            properties ??= new Dictionary<string, BinaryData>();
+            properties ??= new Dictionary<string, AcsChatThreadPropertiesUpdatedPerUserEventDataProperty>();
 
             return new AcsChatThreadPropertiesUpdatedPerUserEventData(
                 recipientCommunicationIdentifier,
@@ -1026,9 +1097,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="properties"> The updated thread properties. </param>
         /// <param name="metadata"> The thread metadata. </param>
         /// <returns> A new <see cref="SystemEvents.AcsChatThreadPropertiesUpdatedEventData"/> instance for mocking. </returns>
-        public static AcsChatThreadPropertiesUpdatedEventData AcsChatThreadPropertiesUpdatedEventData(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset? editTime = null, IReadOnlyDictionary<string, BinaryData> properties = null, IReadOnlyDictionary<string, string> metadata = null)
+        public static AcsChatThreadPropertiesUpdatedEventData AcsChatThreadPropertiesUpdatedEventData(string transactionId = null, string threadId = null, DateTimeOffset? createTime = null, long? version = null, CommunicationIdentifierModel editedByCommunicationIdentifier = null, DateTimeOffset? editTime = null, IReadOnlyDictionary<string, AcsChatThreadPropertiesUpdatedEventDataProperty> properties = null, IReadOnlyDictionary<string, string> metadata = null)
         {
-            properties ??= new Dictionary<string, BinaryData>();
+            properties ??= new Dictionary<string, AcsChatThreadPropertiesUpdatedEventDataProperty>();
             metadata ??= new Dictionary<string, string>();
 
             return new AcsChatThreadPropertiesUpdatedEventData(
@@ -2472,6 +2543,28 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static DataBoxOrderCompletedEventData DataBoxOrderCompletedEventData(string serialNumber = null, DataBoxStageName? stageName = null, DateTimeOffset? stageTime = null)
         {
             return new DataBoxOrderCompletedEventData(serialNumber, stageName, stageTime, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/>. </summary>
+        /// <param name="externalValidationId"> A GUID to uniquely track External Solution Validation. </param>
+        /// <param name="targetId"> ARM ID of the Target resource. </param>
+        /// <param name="solutionTemplateId"> ARM ID of the Solution Template resource. </param>
+        /// <param name="solutionTemplateVersionId"> ARM ID of the Solution Template Version resource. </param>
+        /// <param name="solutionVersionId"> ARM ID of the Solution Version resource. </param>
+        /// <param name="apiVersion"> API Version supported for the resources. </param>
+        /// <param name="callbackUrl"> Direct URL to callback for updating validation status. </param>
+        /// <returns> A new <see cref="SystemEvents.EdgeSolutionVersionPublishedEventData"/> instance for mocking. </returns>
+        public static EdgeSolutionVersionPublishedEventData EdgeSolutionVersionPublishedEventData(string externalValidationId = null, string targetId = null, string solutionTemplateId = null, string solutionTemplateVersionId = null, string solutionVersionId = null, string apiVersion = null, Uri callbackUrl = null)
+        {
+            return new EdgeSolutionVersionPublishedEventData(
+                externalValidationId,
+                targetId,
+                solutionTemplateId,
+                solutionTemplateVersionId,
+                solutionVersionId,
+                apiVersion,
+                callbackUrl,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.EventHubCaptureFileCreatedEventData"/>. </summary>
@@ -4534,10 +4627,10 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="tags"> the tags on the resource for which the event is being emitted. </param>
         /// <param name="properties"> properties in the payload of the resource for which the event is being emitted. </param>
         /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceUpdatedDetails"/> instance for mocking. </returns>
-        public static ResourceNotificationsResourceUpdatedDetails ResourceNotificationsResourceUpdatedDetails(string id = null, string name = null, string type = null, string location = null, IReadOnlyDictionary<string, string> tags = null, IReadOnlyDictionary<string, BinaryData> properties = null)
+        public static ResourceNotificationsResourceUpdatedDetails ResourceNotificationsResourceUpdatedDetails(string id = null, string name = null, string type = null, string location = null, IReadOnlyDictionary<string, string> tags = null, IReadOnlyDictionary<string, ResourceNotificationsResourceUpdatedDetailsProperty> properties = null)
         {
             tags ??= new Dictionary<string, string>();
-            properties ??= new Dictionary<string, BinaryData>();
+            properties ??= new Dictionary<string, ResourceNotificationsResourceUpdatedDetailsProperty>();
 
             return new ResourceNotificationsResourceUpdatedDetails(
                 id,

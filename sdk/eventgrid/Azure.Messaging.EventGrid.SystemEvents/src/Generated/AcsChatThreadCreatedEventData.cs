@@ -20,7 +20,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="participants"> The list of properties of participants who are part of the thread. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="createdByCommunicationIdentifier"/>, <paramref name="properties"/>, <paramref name="metadata"/> or <paramref name="participants"/> is null. </exception>
-        internal AcsChatThreadCreatedEventData(CommunicationIdentifierModel createdByCommunicationIdentifier, IReadOnlyDictionary<string, BinaryData> properties, IReadOnlyDictionary<string, string> metadata, IEnumerable<AcsChatThreadParticipantProperties> participants)
+        internal AcsChatThreadCreatedEventData(CommunicationIdentifierModel createdByCommunicationIdentifier, IReadOnlyDictionary<string, AcsChatThreadCreatedWithUserEventDataProperty> properties, IReadOnlyDictionary<string, string> metadata, IEnumerable<AcsChatThreadParticipantProperties> participants)
         {
             Argument.AssertNotNull(createdByCommunicationIdentifier, nameof(createdByCommunicationIdentifier));
             Argument.AssertNotNull(properties, nameof(properties));
@@ -43,7 +43,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="properties"> The thread properties. </param>
         /// <param name="metadata"> The thread metadata. </param>
         /// <param name="participants"> The list of properties of participants who are part of the thread. </param>
-        internal AcsChatThreadCreatedEventData(string transactionId, string threadId, IDictionary<string, BinaryData> serializedAdditionalRawData, DateTimeOffset? createTime, long? version, CommunicationIdentifierModel createdByCommunicationIdentifier, IReadOnlyDictionary<string, BinaryData> properties, IReadOnlyDictionary<string, string> metadata, IReadOnlyList<AcsChatThreadParticipantProperties> participants) : base(transactionId, threadId, serializedAdditionalRawData, createTime, version)
+        internal AcsChatThreadCreatedEventData(string transactionId, string threadId, IDictionary<string, BinaryData> serializedAdditionalRawData, DateTimeOffset? createTime, long? version, CommunicationIdentifierModel createdByCommunicationIdentifier, IReadOnlyDictionary<string, AcsChatThreadCreatedWithUserEventDataProperty> properties, IReadOnlyDictionary<string, string> metadata, IReadOnlyList<AcsChatThreadParticipantProperties> participants) : base(transactionId, threadId, serializedAdditionalRawData, createTime, version)
         {
             CreatedByCommunicationIdentifier = createdByCommunicationIdentifier;
             Properties = properties;
@@ -58,37 +58,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> The communication identifier of the user who created the thread. </summary>
         public CommunicationIdentifierModel CreatedByCommunicationIdentifier { get; }
-        /// <summary>
-        /// The thread properties
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        public IReadOnlyDictionary<string, BinaryData> Properties { get; }
+        /// <summary> The thread properties. </summary>
+        public IReadOnlyDictionary<string, AcsChatThreadCreatedWithUserEventDataProperty> Properties { get; }
         /// <summary> The thread metadata. </summary>
         public IReadOnlyDictionary<string, string> Metadata { get; }
         /// <summary> The list of properties of participants who are part of the thread. </summary>
