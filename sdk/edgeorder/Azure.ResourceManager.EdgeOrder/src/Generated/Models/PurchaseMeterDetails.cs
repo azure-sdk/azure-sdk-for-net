@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
     /// <summary> Billing type Purchase meter details. </summary>
-    public partial class PurchaseMeterDetails : EdgeOrderProductMeterDetails
+    public partial class PurchaseMeterDetails : MeterDetails
     {
         /// <summary> Initializes a new instance of <see cref="PurchaseMeterDetails"/>. </summary>
         internal PurchaseMeterDetails()
@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <param name="productId"> Product Id. </param>
         /// <param name="skuId"> Sku Id. </param>
         /// <param name="termId"> Term Id. </param>
-        internal PurchaseMeterDetails(BillingType billingType, double? multiplier, EdgeOrderProductChargingType? chargingType, IDictionary<string, BinaryData> serializedAdditionalRawData, string productId, string skuId, string termId) : base(billingType, multiplier, chargingType, serializedAdditionalRawData)
+        internal PurchaseMeterDetails(BillingType billingType, double? multiplier, ChargingType? chargingType, IDictionary<string, BinaryData> serializedAdditionalRawData, string productId, string skuId, string termId) : base(billingType, multiplier, chargingType, serializedAdditionalRawData)
         {
             ProductId = productId;
             SkuId = skuId;
