@@ -49,7 +49,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="indexConnectionId"> An index connection id in an IndexResource attached to this agent. </param>
         /// <param name="indexName"> The name of an index in an IndexResource attached to this agent. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="indexConnectionId"/> or <paramref name="indexName"/> is null. </exception>
-        public AISearchIndexResource(string indexConnectionId, string indexName)
+        internal AISearchIndexResource(string indexConnectionId, string indexName)
         {
             Argument.AssertNotNull(indexConnectionId, nameof(indexConnectionId));
             Argument.AssertNotNull(indexName, nameof(indexName));
@@ -83,16 +83,16 @@ namespace Azure.AI.Agents.Persistent
         }
 
         /// <summary> An index connection id in an IndexResource attached to this agent. </summary>
-        public string IndexConnectionId { get; set; }
+        public string IndexConnectionId { get; }
         /// <summary> The name of an index in an IndexResource attached to this agent. </summary>
-        public string IndexName { get; set; }
+        public string IndexName { get; }
         /// <summary> Type of query in an AIIndexResource attached to this agent. </summary>
-        public AzureAISearchQueryType? QueryType { get; set; }
+        public AzureAISearchQueryType? QueryType { get; }
         /// <summary> Number of documents to retrieve from search and present to the model. </summary>
-        public int? TopK { get; set; }
+        public int? TopK { get; }
         /// <summary> filter string for search resource. </summary>
-        public string Filter { get; set; }
+        public string Filter { get; }
         /// <summary> Index asset id for search resource. </summary>
-        public string IndexAssetId { get; set; }
+        public string IndexAssetId { get; }
     }
 }

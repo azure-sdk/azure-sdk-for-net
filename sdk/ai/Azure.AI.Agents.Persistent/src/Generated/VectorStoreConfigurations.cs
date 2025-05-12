@@ -49,7 +49,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="storeName"> Name. </param>
         /// <param name="storeConfiguration"> Configurations. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="storeName"/> or <paramref name="storeConfiguration"/> is null. </exception>
-        public VectorStoreConfigurations(string storeName, VectorStoreConfiguration storeConfiguration)
+        internal VectorStoreConfigurations(string storeName, VectorStoreConfiguration storeConfiguration)
         {
             Argument.AssertNotNull(storeName, nameof(storeName));
             Argument.AssertNotNull(storeConfiguration, nameof(storeConfiguration));
@@ -75,8 +75,8 @@ namespace Azure.AI.Agents.Persistent
         }
 
         /// <summary> Name. </summary>
-        public string StoreName { get; set; }
+        public string StoreName { get; }
         /// <summary> Configurations. </summary>
-        public VectorStoreConfiguration StoreConfiguration { get; set; }
+        public VectorStoreConfiguration StoreConfiguration { get; }
     }
 }
