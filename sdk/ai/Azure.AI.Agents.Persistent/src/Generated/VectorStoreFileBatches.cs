@@ -470,6 +470,7 @@ namespace Azure.AI.Agents.Persistent
             {
                 uri.AppendQuery("filter", filter, true);
             }
+            uri.AppendQuery("api-version", _apiVersion, true);
             if (limit != null)
             {
                 uri.AppendQuery("limit", limit.Value, true);
