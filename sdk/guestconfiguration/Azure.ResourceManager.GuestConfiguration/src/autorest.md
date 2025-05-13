@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: GuestConfiguration
 namespace: Azure.ResourceManager.GuestConfiguration
-require: https://github.com/Azure/azure-rest-api-specs/blob/6dd7b1f0b4e62d1c2d78e1fa6ab3addd032d9920/specification/guestconfiguration/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/guestconfiguration/resource-manager/readme.md
 #tag: package-2024-04-05
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
