@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 {
@@ -54,17 +53,17 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             Argument.AssertNotNull(service, nameof(service));
 
             Service = service;
-            Locations = new ChangeTrackingList<AzureLocation>();
+            AzureLocation = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ManagedClusterServiceEndpoint"/>. </summary>
         /// <param name="service"> The type of the endpoint service. </param>
-        /// <param name="locations"> A list of locations. </param>
+        /// <param name="azureLocation"> A list of locations. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedClusterServiceEndpoint(string service, IList<AzureLocation> locations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterServiceEndpoint(string service, IList<string> azureLocation, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Service = service;
-            Locations = locations;
+            AzureLocation = azureLocation;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -76,6 +75,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <summary> The type of the endpoint service. </summary>
         public string Service { get; set; }
         /// <summary> A list of locations. </summary>
-        public IList<AzureLocation> Locations { get; }
+        public IList<string> AzureLocation { get; }
     }
 }
