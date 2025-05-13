@@ -11,13 +11,13 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
-namespace Azure.AI.Translation.Text
+namespace Azure.AI.Translation.Document
 {
-    public partial class TranslatedTextAlignment : IUtf8JsonSerializable, IJsonModel<TranslatedTextAlignment>
+    public partial class BatchOptions : IUtf8JsonSerializable, IJsonModel<BatchOptions>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TranslatedTextAlignment>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchOptions>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<TranslatedTextAlignment>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<BatchOptions>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,14 +28,17 @@ namespace Azure.AI.Translation.Text
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslatedTextAlignment>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchOptions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TranslatedTextAlignment)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(BatchOptions)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("proj"u8);
-            writer.WriteStringValue(Projections);
+            if (Optional.IsDefined(TranslateTextWithinImage))
+            {
+                writer.WritePropertyName("translateTextWithinImage"u8);
+                writer.WriteBooleanValue(TranslateTextWithinImage.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -53,19 +56,19 @@ namespace Azure.AI.Translation.Text
             }
         }
 
-        TranslatedTextAlignment IJsonModel<TranslatedTextAlignment>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        BatchOptions IJsonModel<BatchOptions>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslatedTextAlignment>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchOptions>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TranslatedTextAlignment)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(BatchOptions)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeTranslatedTextAlignment(document.RootElement, options);
+            return DeserializeBatchOptions(document.RootElement, options);
         }
 
-        internal static TranslatedTextAlignment DeserializeTranslatedTextAlignment(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static BatchOptions DeserializeBatchOptions(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -73,14 +76,18 @@ namespace Azure.AI.Translation.Text
             {
                 return null;
             }
-            string proj = default;
+            bool? translateTextWithinImage = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("proj"u8))
+                if (property.NameEquals("translateTextWithinImage"u8))
                 {
-                    proj = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    translateTextWithinImage = property.Value.GetBoolean();
                     continue;
                 }
                 if (options.Format != "W")
@@ -89,46 +96,46 @@ namespace Azure.AI.Translation.Text
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new TranslatedTextAlignment(proj, serializedAdditionalRawData);
+            return new BatchOptions(translateTextWithinImage, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<TranslatedTextAlignment>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<BatchOptions>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslatedTextAlignment>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchOptions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
-                    return ModelReaderWriter.Write(this, options, AzureAITranslationTextContext.Default);
+                    return ModelReaderWriter.Write(this, options, AzureAITranslationDocumentContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(TranslatedTextAlignment)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BatchOptions)} does not support writing '{options.Format}' format.");
             }
         }
 
-        TranslatedTextAlignment IPersistableModel<TranslatedTextAlignment>.Create(BinaryData data, ModelReaderWriterOptions options)
+        BatchOptions IPersistableModel<BatchOptions>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TranslatedTextAlignment>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BatchOptions>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeTranslatedTextAlignment(document.RootElement, options);
+                        return DeserializeBatchOptions(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(TranslatedTextAlignment)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BatchOptions)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<TranslatedTextAlignment>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<BatchOptions>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static TranslatedTextAlignment FromResponse(Response response)
+        internal static BatchOptions FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeTranslatedTextAlignment(document.RootElement);
+            return DeserializeBatchOptions(document.RootElement);
         }
 
         /// <summary> Convert into a <see cref="RequestContent"/>. </summary>
