@@ -134,6 +134,51 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
             return new AutoUpgradeProfileGenerateResult(id, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="ContainerServiceFleet.GateData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="eTag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="provisioningState"> The provisioning state of the Gate resource. </param>
+        /// <param name="displayName"> The human-readable display name of the Gate. </param>
+        /// <param name="gateType"> The type of the Gate determines how it is completed. </param>
+        /// <param name="target"> The target that the Gate is controlling, e.g. an Update Run. </param>
+        /// <param name="state"> The state of the Gate. </param>
+        /// <returns> A new <see cref="ContainerServiceFleet.GateData"/> instance for mocking. </returns>
+        public static GateData GateData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? eTag = null, GateProvisioningState? provisioningState = null, string displayName = null, GateType? gateType = null, GateTarget target = null, GateState? state = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new GateData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                tags,
+                location,
+                eTag,
+                provisioningState,
+                displayName,
+                gateType,
+                target,
+                state,
+                serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateRunGateTargetProperties"/>. </summary>
+        /// <param name="name"> The name of the Update Run. </param>
+        /// <param name="stage"> The Update Stage of the Update Run. </param>
+        /// <param name="group"> The Update Group of the Update Run. </param>
+        /// <param name="timing"> Whether the Gate is placed before or after the update itself. </param>
+        /// <returns> A new <see cref="Models.UpdateRunGateTargetProperties"/> instance for mocking. </returns>
+        public static UpdateRunGateTargetProperties UpdateRunGateTargetProperties(string name = null, string stage = null, string group = null, Timing timing = default)
+        {
+            return new UpdateRunGateTargetProperties(name, stage, group, timing, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.FleetCredentialResults"/>. </summary>
         /// <param name="kubeconfigs"> Array of base64-encoded Kubernetes configuration files. </param>
         /// <returns> A new <see cref="Models.FleetCredentialResults"/> instance for mocking. </returns>
@@ -162,10 +207,13 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         /// <param name="clusterResourceId"> The ARM resource id of the cluster that joins the Fleet. Must be a valid Azure resource id. e.g.: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{clusterName}'. </param>
         /// <param name="group"> The group this member belongs to for multi-cluster update management. </param>
         /// <param name="provisioningState"> The status of the last operation. </param>
+        /// <param name="labels"> The labels for the fleet member. </param>
         /// <param name="status"> Status information of the last operation for fleet member. </param>
         /// <returns> A new <see cref="ContainerServiceFleet.ContainerServiceFleetMemberData"/> instance for mocking. </returns>
-        public static ContainerServiceFleetMemberData ContainerServiceFleetMemberData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? eTag = null, ResourceIdentifier clusterResourceId = null, string group = null, FleetMemberProvisioningState? provisioningState = null, ContainerServiceFleetMemberStatus status = null)
+        public static ContainerServiceFleetMemberData ContainerServiceFleetMemberData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? eTag = null, ResourceIdentifier clusterResourceId = null, string group = null, FleetMemberProvisioningState? provisioningState = null, IDictionary<string, string> labels = null, ContainerServiceFleetMemberStatus status = null)
         {
+            labels ??= new Dictionary<string, string>();
+
             return new ContainerServiceFleetMemberData(
                 id,
                 name,
@@ -175,6 +223,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 clusterResourceId,
                 group,
                 provisioningState,
+                labels,
                 status,
                 serializedAdditionalRawData: null);
         }
@@ -273,25 +322,46 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         /// <param name="status"> The status of the UpdateStage. </param>
         /// <param name="name"> The name of the UpdateStage. </param>
         /// <param name="groups"> The list of groups to be updated as part of this UpdateStage. </param>
+        /// <param name="beforeGates"> The list of Gates that will run before this UpdateStage. </param>
+        /// <param name="afterGates"> The list of Gates that will run after this UpdateStage. </param>
         /// <param name="afterStageWaitStatus"> The status of the wait period configured on the UpdateStage. </param>
         /// <returns> A new <see cref="Models.ContainerServiceFleetUpdateStageStatus"/> instance for mocking. </returns>
-        public static ContainerServiceFleetUpdateStageStatus ContainerServiceFleetUpdateStageStatus(ContainerServiceFleetUpdateStatus status = null, string name = null, IEnumerable<ContainerServiceFleetUpdateGroupStatus> groups = null, ContainerServiceFleetWaitStatus afterStageWaitStatus = null)
+        public static ContainerServiceFleetUpdateStageStatus ContainerServiceFleetUpdateStageStatus(ContainerServiceFleetUpdateStatus status = null, string name = null, IEnumerable<ContainerServiceFleetUpdateGroupStatus> groups = null, IEnumerable<UpdateRunGateStatus> beforeGates = null, IEnumerable<UpdateRunGateStatus> afterGates = null, ContainerServiceFleetWaitStatus afterStageWaitStatus = null)
         {
             groups ??= new List<ContainerServiceFleetUpdateGroupStatus>();
+            beforeGates ??= new List<UpdateRunGateStatus>();
+            afterGates ??= new List<UpdateRunGateStatus>();
 
-            return new ContainerServiceFleetUpdateStageStatus(status, name, groups?.ToList(), afterStageWaitStatus, serializedAdditionalRawData: null);
+            return new ContainerServiceFleetUpdateStageStatus(
+                status,
+                name,
+                groups?.ToList(),
+                beforeGates?.ToList(),
+                afterGates?.ToList(),
+                afterStageWaitStatus,
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceFleetUpdateGroupStatus"/>. </summary>
         /// <param name="status"> The status of the UpdateGroup. </param>
         /// <param name="name"> The name of the UpdateGroup. </param>
         /// <param name="members"> The list of member this UpdateGroup updates. </param>
+        /// <param name="beforeGates"> The list of Gates that will run before this UpdateGroup. </param>
+        /// <param name="afterGates"> The list of Gates that will run after this UpdateGroup. </param>
         /// <returns> A new <see cref="Models.ContainerServiceFleetUpdateGroupStatus"/> instance for mocking. </returns>
-        public static ContainerServiceFleetUpdateGroupStatus ContainerServiceFleetUpdateGroupStatus(ContainerServiceFleetUpdateStatus status = null, string name = null, IEnumerable<MemberUpdateStatus> members = null)
+        public static ContainerServiceFleetUpdateGroupStatus ContainerServiceFleetUpdateGroupStatus(ContainerServiceFleetUpdateStatus status = null, string name = null, IEnumerable<MemberUpdateStatus> members = null, IEnumerable<UpdateRunGateStatus> beforeGates = null, IEnumerable<UpdateRunGateStatus> afterGates = null)
         {
             members ??= new List<MemberUpdateStatus>();
+            beforeGates ??= new List<UpdateRunGateStatus>();
+            afterGates ??= new List<UpdateRunGateStatus>();
 
-            return new ContainerServiceFleetUpdateGroupStatus(status, name, members?.ToList(), serializedAdditionalRawData: null);
+            return new ContainerServiceFleetUpdateGroupStatus(
+                status,
+                name,
+                members?.ToList(),
+                beforeGates?.ToList(),
+                afterGates?.ToList(),
+                serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.MemberUpdateStatus"/>. </summary>
@@ -310,6 +380,16 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 operationId,
                 message,
                 serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.UpdateRunGateStatus"/>. </summary>
+        /// <param name="displayName"> The human-readable display name of the Gate. </param>
+        /// <param name="gateId"> The resource id of the Gate. </param>
+        /// <param name="status"> The status of the Gate. </param>
+        /// <returns> A new <see cref="Models.UpdateRunGateStatus"/> instance for mocking. </returns>
+        public static UpdateRunGateStatus UpdateRunGateStatus(string displayName = null, ResourceIdentifier gateId = null, ContainerServiceFleetUpdateStatus status = null)
+        {
+            return new UpdateRunGateStatus(displayName, gateId, status, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ContainerServiceFleetWaitStatus"/>. </summary>
@@ -345,6 +425,46 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetMemberData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="eTag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="clusterResourceId"> The ARM resource id of the cluster that joins the Fleet. Must be a valid Azure resource id. e.g.: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{clusterName}'. </param>
+        /// <param name="group"> The group this member belongs to for multi-cluster update management. </param>
+        /// <param name="provisioningState"> The status of the last operation. </param>
+        /// <param name="status"> Status information of the last operation for fleet member. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetMemberData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ContainerServiceFleetMemberData ContainerServiceFleetMemberData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? eTag, ResourceIdentifier clusterResourceId, string group, FleetMemberProvisioningState? provisioningState, ContainerServiceFleetMemberStatus status)
+        {
+            return ContainerServiceFleetMemberData(id: id, name: name, resourceType: resourceType, systemData: systemData, eTag: eTag, clusterResourceId: clusterResourceId, group: group, provisioningState: provisioningState, labels: default, status: status);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetUpdateStageStatus" />. </summary>
+        /// <param name="status"> The status of the UpdateStage. </param>
+        /// <param name="name"> The name of the UpdateStage. </param>
+        /// <param name="groups"> The list of groups to be updated as part of this UpdateStage. </param>
+        /// <param name="afterStageWaitStatus"> The status of the wait period configured on the UpdateStage. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetUpdateStageStatus" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ContainerServiceFleetUpdateStageStatus ContainerServiceFleetUpdateStageStatus(ContainerServiceFleetUpdateStatus status, string name, IEnumerable<ContainerServiceFleetUpdateGroupStatus> groups, ContainerServiceFleetWaitStatus afterStageWaitStatus)
+        {
+            return ContainerServiceFleetUpdateStageStatus(status: status, name: name, groups: groups, beforeGates: default, afterGates: default, afterStageWaitStatus: afterStageWaitStatus);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetUpdateGroupStatus" />. </summary>
+        /// <param name="status"> The status of the UpdateGroup. </param>
+        /// <param name="name"> The name of the UpdateGroup. </param>
+        /// <param name="members"> The list of member this UpdateGroup updates. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetUpdateGroupStatus" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ContainerServiceFleetUpdateGroupStatus ContainerServiceFleetUpdateGroupStatus(ContainerServiceFleetUpdateStatus status, string name, IEnumerable<MemberUpdateStatus> members)
+        {
+            return ContainerServiceFleetUpdateGroupStatus(status: status, name: name, members: members, beforeGates: default, afterGates: default);
+        }
+
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetData" />. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -375,7 +495,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static ContainerServiceFleetMemberData ContainerServiceFleetMemberData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? eTag, ResourceIdentifier clusterResourceId, string group, FleetMemberProvisioningState? provisioningState)
         {
-            return ContainerServiceFleetMemberData(id: id, name: name, resourceType: resourceType, systemData: systemData, eTag: eTag, clusterResourceId: clusterResourceId, group: group, provisioningState: provisioningState, status: default);
+            return ContainerServiceFleetMemberData(id: id, name: name, resourceType: resourceType, systemData: systemData, eTag: eTag, clusterResourceId: clusterResourceId, group: group, provisioningState: provisioningState, labels: default, status: default);
         }
 
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetUpdateRunData" />. </summary>
