@@ -37,6 +37,17 @@ namespace Azure.ResourceManager.Compute.Models
 
             writer.WritePropertyName("name"u8);
             writer.WriteStringValue(Name);
+            if (Optional.IsCollectionDefined(Tags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             if (Optional.IsDefined(Sku))
             {
                 writer.WritePropertyName("sku"u8);
@@ -118,6 +129,7 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             string name = default;
+            IDictionary<string, string> tags = default;
             ComputePublicIPAddressSku sku = default;
             int? idleTimeoutInMinutes = default;
             VirtualMachineScaleSetPublicIPAddressConfigurationDnsSettings dnsSettings = default;
@@ -132,6 +144,20 @@ namespace Azure.ResourceManager.Compute.Models
                 if (property.NameEquals("name"u8))
                 {
                     name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("tags"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tags = dictionary;
                     continue;
                 }
                 if (property.NameEquals("sku"u8))
@@ -222,6 +248,7 @@ namespace Azure.ResourceManager.Compute.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new VirtualMachineScaleSetPublicIPAddressConfiguration(
                 name,
+                tags ?? new ChangeTrackingDictionary<string, string>(),
                 sku,
                 idleTimeoutInMinutes,
                 dnsSettings,
