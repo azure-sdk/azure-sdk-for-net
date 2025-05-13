@@ -54,15 +54,15 @@ namespace Azure.ResourceManager.Elastic.Models
                 writer.WritePropertyName("region"u8);
                 writer.WriteStringValue(Region);
             }
-            if (Optional.IsDefined(FilterType))
+            if (Optional.IsDefined(Type))
             {
                 writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(FilterType.Value.ToString());
+                writer.WriteStringValue(Type.Value.ToString());
             }
-            if (Optional.IsDefined(DoesIncludeByDefault))
+            if (Optional.IsDefined(IncludeByDefault))
             {
                 writer.WritePropertyName("includeByDefault"u8);
-                writer.WriteBooleanValue(DoesIncludeByDefault.Value);
+                writer.WriteBooleanValue(IncludeByDefault.Value);
             }
             if (Optional.IsCollectionDefined(Rules))
             {
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.Elastic.Models
             string name = default;
             string description = default;
             string region = default;
-            ElasticFilterType? type = default;
+            Type? type = default;
             bool? includeByDefault = default;
             IReadOnlyList<ElasticTrafficFilterRule> rules = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.Elastic.Models
                     {
                         continue;
                     }
-                    type = new ElasticFilterType(property.Value.GetString());
+                    type = new Type(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("includeByDefault"u8))

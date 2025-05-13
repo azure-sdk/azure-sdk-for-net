@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Elastic.Models
             if (Optional.IsDefined(PartnerEntityUri))
             {
                 writer.WritePropertyName("partnerEntityUri"u8);
-                writer.WriteStringValue(PartnerEntityUri.AbsoluteUri);
+                writer.WriteStringValue(PartnerEntityUri);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.Elastic.Models
             }
             string id = default;
             string name = default;
-            Uri partnerEntityUri = default;
+            string partnerEntityUri = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -105,11 +105,7 @@ namespace Azure.ResourceManager.Elastic.Models
                 }
                 if (property.NameEquals("partnerEntityUri"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    partnerEntityUri = new Uri(property.Value.GetString());
+                    partnerEntityUri = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")

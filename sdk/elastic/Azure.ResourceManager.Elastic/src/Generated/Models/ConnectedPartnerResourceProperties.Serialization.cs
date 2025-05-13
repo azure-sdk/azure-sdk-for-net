@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.Elastic.Models
             if (Optional.IsDefined(PartnerDeploymentUri))
             {
                 writer.WritePropertyName("partnerDeploymentUri"u8);
-                writer.WriteStringValue(PartnerDeploymentUri.AbsoluteUri);
+                writer.WriteStringValue(PartnerDeploymentUri);
             }
             if (Optional.IsDefined(AzureResourceId))
             {
@@ -52,7 +52,12 @@ namespace Azure.ResourceManager.Elastic.Models
             if (Optional.IsDefined(Location))
             {
                 writer.WritePropertyName("location"u8);
-                writer.WriteStringValue(Location.Value);
+                writer.WriteStringValue(Location);
+            }
+            if (Optional.IsDefined(Type))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(Type);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -92,9 +97,10 @@ namespace Azure.ResourceManager.Elastic.Models
                 return null;
             }
             string partnerDeploymentName = default;
-            Uri partnerDeploymentUri = default;
-            ResourceIdentifier azureResourceId = default;
-            AzureLocation? location = default;
+            string partnerDeploymentUri = default;
+            string azureResourceId = default;
+            string location = default;
+            string type = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -106,29 +112,22 @@ namespace Azure.ResourceManager.Elastic.Models
                 }
                 if (property.NameEquals("partnerDeploymentUri"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    partnerDeploymentUri = new Uri(property.Value.GetString());
+                    partnerDeploymentUri = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("azureResourceId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    azureResourceId = new ResourceIdentifier(property.Value.GetString());
+                    azureResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("location"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    location = new AzureLocation(property.Value.GetString());
+                    location = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("type"u8))
+                {
+                    type = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -137,7 +136,13 @@ namespace Azure.ResourceManager.Elastic.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ConnectedPartnerResourceProperties(partnerDeploymentName, partnerDeploymentUri, azureResourceId, location, serializedAdditionalRawData);
+            return new ConnectedPartnerResourceProperties(
+                partnerDeploymentName,
+                partnerDeploymentUri,
+                azureResourceId,
+                location,
+                type,
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ConnectedPartnerResourceProperties>.Write(ModelReaderWriterOptions options)

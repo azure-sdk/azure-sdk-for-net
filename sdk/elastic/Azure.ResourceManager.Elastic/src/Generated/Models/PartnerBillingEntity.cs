@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Elastic.Models
         /// <param name="name"> The Elastic Organization Name. </param>
         /// <param name="partnerEntityUri"> Link to the elastic organization page. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PartnerBillingEntity(string id, string name, Uri partnerEntityUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PartnerBillingEntity(string id, string name, string partnerEntityUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Id = id;
             Name = name;
@@ -68,6 +68,6 @@ namespace Azure.ResourceManager.Elastic.Models
         /// <summary> The Elastic Organization Name. </summary>
         public string Name { get; }
         /// <summary> Link to the elastic organization page. </summary>
-        public Uri PartnerEntityUri { get; }
+        public string PartnerEntityUri { get; }
     }
 }

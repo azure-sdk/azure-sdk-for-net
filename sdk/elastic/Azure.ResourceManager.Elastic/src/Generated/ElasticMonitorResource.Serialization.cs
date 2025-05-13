@@ -11,16 +11,16 @@ using System.Text.Json;
 
 namespace Azure.ResourceManager.Elastic
 {
-    public partial class ElasticMonitorResource : IJsonModel<ElasticMonitorData>
+    public partial class ElasticMonitorResource : IJsonModel<ElasticMonitorResourceData>
     {
-        void IJsonModel<ElasticMonitorData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<ElasticMonitorData>)Data).Write(writer, options);
+        void IJsonModel<ElasticMonitorResourceData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<ElasticMonitorResourceData>)Data).Write(writer, options);
 
-        ElasticMonitorData IJsonModel<ElasticMonitorData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<ElasticMonitorData>)Data).Create(ref reader, options);
+        ElasticMonitorResourceData IJsonModel<ElasticMonitorResourceData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<ElasticMonitorResourceData>)Data).Create(ref reader, options);
 
-        BinaryData IPersistableModel<ElasticMonitorData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<ElasticMonitorData>(Data, options, AzureResourceManagerElasticContext.Default);
+        BinaryData IPersistableModel<ElasticMonitorResourceData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<ElasticMonitorResourceData>(Data, options, AzureResourceManagerElasticContext.Default);
 
-        ElasticMonitorData IPersistableModel<ElasticMonitorData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<ElasticMonitorData>(data, options, AzureResourceManagerElasticContext.Default);
+        ElasticMonitorResourceData IPersistableModel<ElasticMonitorResourceData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<ElasticMonitorResourceData>(data, options, AzureResourceManagerElasticContext.Default);
 
-        string IPersistableModel<ElasticMonitorData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<ElasticMonitorData>)Data).GetFormatFromOptions(options);
+        string IPersistableModel<ElasticMonitorResourceData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<ElasticMonitorResourceData>)Data).GetFormatFromOptions(options);
     }
 }
