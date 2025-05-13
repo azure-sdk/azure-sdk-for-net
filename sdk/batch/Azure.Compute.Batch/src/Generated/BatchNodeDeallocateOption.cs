@@ -11,7 +11,7 @@ using System.ComponentModel;
 namespace Azure.Compute.Batch
 {
     /// <summary> BatchNodeDeallocateOption enums. </summary>
-    public readonly partial struct BatchNodeDeallocateOption : IEquatable<BatchNodeDeallocateOption>
+    internal readonly partial struct BatchNodeDeallocateOption : IEquatable<BatchNodeDeallocateOption>
     {
         private readonly string _value;
 
