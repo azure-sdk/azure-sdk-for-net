@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_PrivateLinkResourcesList()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetPrivateLinkResources.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetPrivateLinkResources.json
             // this example is just showing the usage of "IotDpsResource_GetPrivateLinkResources" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -31,9 +31,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
             // for more information of creating DeviceProvisioningServicesPrivateLinkResource, please refer to the document of DeviceProvisioningServicesPrivateLinkResource
             string subscriptionId = "91d12660-3dec-467a-be2a-213b5544ddc0";
             string resourceGroupName = "myResourceGroup";
-            string resourceName = "myFirstProvisioningService";
+            string provisioningServiceName = null;
             string groupId = "iotDps";
-            ResourceIdentifier deviceProvisioningServicesPrivateLinkResourceId = DeviceProvisioningServicesPrivateLinkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName, groupId);
+            ResourceIdentifier deviceProvisioningServicesPrivateLinkResourceId = DeviceProvisioningServicesPrivateLinkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, provisioningServiceName, groupId);
             DeviceProvisioningServicesPrivateLinkResource deviceProvisioningServicesPrivateLinkResource = client.GetDeviceProvisioningServicesPrivateLinkResource(deviceProvisioningServicesPrivateLinkResourceId);
 
             // invoke the operation

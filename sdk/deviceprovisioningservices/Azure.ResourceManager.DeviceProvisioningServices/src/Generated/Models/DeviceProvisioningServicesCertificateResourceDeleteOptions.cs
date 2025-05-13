@@ -13,13 +13,13 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
     public partial class DeviceProvisioningServicesCertificateResourceDeleteOptions
     {
         /// <summary> Initializes a new instance of <see cref="DeviceProvisioningServicesCertificateResourceDeleteOptions"/>. </summary>
-        /// <param name="ifMatch"> ETag of the certificate. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="ifMatch"/> is null. </exception>
-        public DeviceProvisioningServicesCertificateResourceDeleteOptions(string ifMatch)
+        /// <param name="certificateCommonName"> ETag of the certificate. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="certificateCommonName"/> is null. </exception>
+        public DeviceProvisioningServicesCertificateResourceDeleteOptions(string certificateCommonName)
         {
-            Argument.AssertNotNull(ifMatch, nameof(ifMatch));
+            Argument.AssertNotNull(certificateCommonName, nameof(certificateCommonName));
 
-            IfMatch = ifMatch;
+            CertificateCommonName = certificateCommonName;
         }
 
         /// <summary> Initializes a new instance of <see cref="DeviceProvisioningServicesCertificateResourceDeleteOptions"/> for deserialization. </summary>
@@ -28,19 +28,19 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         }
 
         /// <summary> ETag of the certificate. </summary>
-        public string IfMatch { get; }
+        public string CertificateCommonName { get; }
         /// <summary> This is optional, and it is the Common Name of the certificate. </summary>
-        public string CertificateCommonName { get; set; }
+        public string CertificateName1 { get; set; }
         /// <summary> Raw data within the certificate. </summary>
         public byte[] CertificateRawBytes { get; set; }
         /// <summary> Indicates if certificate has been verified by owner of the private key. </summary>
         public bool? CertificateIsVerified { get; set; }
         /// <summary> A description that mentions the purpose of the certificate. </summary>
-        public DeviceProvisioningServicesCertificatePurpose? CertificatePurpose { get; set; }
+        public DeviceProvisioningServicesCertificatePurpose? CertificateCreatedOn { get; set; }
         /// <summary> Time the certificate is created. </summary>
-        public DateTimeOffset? CertificateCreatedOn { get; set; }
-        /// <summary> Time the certificate is last updated. </summary>
         public DateTimeOffset? CertificateLastUpdatedOn { get; set; }
+        /// <summary> Time the certificate is last updated. </summary>
+        public DateTimeOffset? CertificateLastUpdated { get; set; }
         /// <summary> Indicates if the certificate contains a private key. </summary>
         public bool? CertificateHasPrivateKey { get; set; }
         /// <summary> Random number generated to indicate Proof of Possession. </summary>

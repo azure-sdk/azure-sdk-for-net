@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// <summary> Initializes a new instance of <see cref="DeviceProvisioningServicesPrivateLinkResourceData"/>. </summary>
         /// <param name="properties"> The properties for a group information object. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
-        internal DeviceProvisioningServicesPrivateLinkResourceData(DeviceProvisioningServicesPrivateLinkResourceProperties properties)
+        public DeviceProvisioningServicesPrivateLinkResourceData(DeviceProvisioningServicesPrivateLinkResourceProperties properties)
         {
             Argument.AssertNotNull(properties, nameof(properties));
 
@@ -80,6 +80,6 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         }
 
         /// <summary> The properties for a group information object. </summary>
-        public DeviceProvisioningServicesPrivateLinkResourceProperties Properties { get; }
+        public DeviceProvisioningServicesPrivateLinkResourceProperties Properties { get; set; }
     }
 }

@@ -46,6 +46,12 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             writer.WriteObjectValue(Properties, options);
             writer.WritePropertyName("sku"u8);
             writer.WriteObjectValue(Sku, options);
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
+            }
         }
 
         DeviceProvisioningServiceData IJsonModel<DeviceProvisioningServiceData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -71,6 +77,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             ETag? etag = default;
             DeviceProvisioningServiceProperties properties = default;
             DeviceProvisioningServicesSkuInfo sku = default;
+            ManagedServiceIdentity identity = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -98,6 +105,16 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                 if (property.NameEquals("sku"u8))
                 {
                     sku = DeviceProvisioningServicesSkuInfo.DeserializeDeviceProvisioningServicesSkuInfo(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -159,6 +176,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                 etag,
                 properties,
                 sku,
+                identity,
                 serializedAdditionalRawData);
         }
 

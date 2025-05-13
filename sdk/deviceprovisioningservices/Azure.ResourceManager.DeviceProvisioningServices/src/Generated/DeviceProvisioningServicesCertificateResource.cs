@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -184,7 +184,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -204,8 +204,8 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             scope.Start();
             try
             {
-                var response = await _deviceProvisioningServicesCertificateDpsCertificateRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.IfMatch, options.CertificateCommonName, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificatePurpose, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken).ConfigureAwait(false);
-                var uri = _deviceProvisioningServicesCertificateDpsCertificateRestClient.CreateDeleteRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.IfMatch, options.CertificateCommonName, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificatePurpose, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateHasPrivateKey, options.CertificateNonce);
+                var response = await _deviceProvisioningServicesCertificateDpsCertificateRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.CertificateCommonName, options.CertificateName1, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateLastUpdated, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken).ConfigureAwait(false);
+                var uri = _deviceProvisioningServicesCertificateDpsCertificateRestClient.CreateDeleteRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.CertificateCommonName, options.CertificateName1, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateLastUpdated, options.CertificateHasPrivateKey, options.CertificateNonce);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Delete, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new DeviceProvisioningServicesArmOperation(response, rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -232,7 +232,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -252,8 +252,8 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             scope.Start();
             try
             {
-                var response = _deviceProvisioningServicesCertificateDpsCertificateRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.IfMatch, options.CertificateCommonName, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificatePurpose, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken);
-                var uri = _deviceProvisioningServicesCertificateDpsCertificateRestClient.CreateDeleteRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.IfMatch, options.CertificateCommonName, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificatePurpose, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateHasPrivateKey, options.CertificateNonce);
+                var response = _deviceProvisioningServicesCertificateDpsCertificateRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.CertificateCommonName, options.CertificateName1, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateLastUpdated, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken);
+                var uri = _deviceProvisioningServicesCertificateDpsCertificateRestClient.CreateDeleteRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.CertificateCommonName, options.CertificateName1, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateLastUpdated, options.CertificateHasPrivateKey, options.CertificateNonce);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Delete, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new DeviceProvisioningServicesArmOperation(response, rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -280,7 +280,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -329,7 +329,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -378,7 +378,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -397,7 +397,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             scope.Start();
             try
             {
-                var response = await _deviceProvisioningServicesCertificateDpsCertificateRestClient.GenerateVerificationCodeAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.IfMatch, options.CertificateCommonName, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificatePurpose, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken).ConfigureAwait(false);
+                var response = await _deviceProvisioningServicesCertificateDpsCertificateRestClient.GenerateVerificationCodeAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.CertificateCommonName, options.CertificateName1, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateLastUpdated, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -420,7 +420,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -439,7 +439,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             scope.Start();
             try
             {
-                var response = _deviceProvisioningServicesCertificateDpsCertificateRestClient.GenerateVerificationCode(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.IfMatch, options.CertificateCommonName, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificatePurpose, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken);
+                var response = _deviceProvisioningServicesCertificateDpsCertificateRestClient.GenerateVerificationCode(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, options.CertificateCommonName, options.CertificateName1, options.CertificateRawBytes, options.CertificateIsVerified, options.CertificateCreatedOn, options.CertificateLastUpdatedOn, options.CertificateLastUpdated, options.CertificateHasPrivateKey, options.CertificateNonce, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -462,7 +462,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -504,7 +504,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-02-05</description>
+        /// <description>2025-02-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

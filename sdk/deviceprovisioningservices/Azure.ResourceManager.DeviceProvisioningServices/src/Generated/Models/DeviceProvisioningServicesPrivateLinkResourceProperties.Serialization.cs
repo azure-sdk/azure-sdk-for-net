@@ -97,8 +97,8 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 return null;
             }
             string groupId = default;
-            IReadOnlyList<string> requiredMembers = default;
-            IReadOnlyList<string> requiredZoneNames = default;
+            IList<string> requiredMembers = default;
+            IList<string> requiredZoneNames = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())

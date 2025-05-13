@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             if (Optional.IsDefined(ExpireOn))
             {
                 writer.WritePropertyName("expiry"u8);
-                writer.WriteStringValue(ExpireOn.Value, "R");
+                writer.WriteStringValue(ExpireOn);
             }
             if (Optional.IsDefined(Thumbprint))
             {
@@ -81,12 +81,12 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             if (Optional.IsDefined(CreatedOn))
             {
                 writer.WritePropertyName("created"u8);
-                writer.WriteStringValue(CreatedOn.Value, "R");
+                writer.WriteStringValue(CreatedOn);
             }
             if (Optional.IsDefined(UpdatedOn))
             {
                 writer.WritePropertyName("updated"u8);
-                writer.WriteStringValue(UpdatedOn.Value, "R");
+                writer.WriteStringValue(UpdatedOn);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -127,12 +127,12 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             }
             string verificationCode = default;
             string subject = default;
-            DateTimeOffset? expiry = default;
+            string expiry = default;
             BinaryData thumbprint = default;
             bool? isVerified = default;
             BinaryData certificate = default;
-            DateTimeOffset? created = default;
-            DateTimeOffset? updated = default;
+            string created = default;
+            string updated = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -149,11 +149,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 }
                 if (property.NameEquals("expiry"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    expiry = property.Value.GetDateTimeOffset("R");
+                    expiry = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("thumbprint"u8))
@@ -185,20 +181,12 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 }
                 if (property.NameEquals("created"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    created = property.Value.GetDateTimeOffset("R");
+                    created = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("updated"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    updated = property.Value.GetDateTimeOffset("R");
+                    updated = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
