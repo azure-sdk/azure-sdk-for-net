@@ -275,6 +275,18 @@ namespace Azure.ResourceManager.Compute.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="ComputeDiagnosticBaseResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ComputeDiagnosticBaseResource.CreateResourceIdentifier" /> to create a <see cref="ComputeDiagnosticBaseResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ComputeDiagnosticBaseResource"/> object. </returns>
+        public virtual ComputeDiagnosticBaseResource GetComputeDiagnosticBaseResource(ResourceIdentifier id)
+        {
+            ComputeDiagnosticBaseResource.ValidateResourceId(id);
+            return new ComputeDiagnosticBaseResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ManagedDiskResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ManagedDiskResource.CreateResourceIdentifier" /> to create a <see cref="ManagedDiskResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>

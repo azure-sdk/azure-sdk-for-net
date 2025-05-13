@@ -205,6 +205,71 @@ namespace Azure.ResourceManager.Compute.Mocking
             return GetVirtualMachineExtensionImages(location, publisherName).Get(type, version, cancellationToken);
         }
 
+        /// <summary> Gets a collection of ComputeDiagnosticBaseResources in the SubscriptionResource. </summary>
+        /// <returns> An object representing collection of ComputeDiagnosticBaseResources and their operations over a ComputeDiagnosticBaseResource. </returns>
+        public virtual ComputeDiagnosticBaseCollection GetComputeDiagnosticBases()
+        {
+            return GetCachedClient(client => new ComputeDiagnosticBaseCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets Spot Placement Scores metadata.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/placementScores/spot</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SpotPlacementScores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-06-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ComputeDiagnosticBaseResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ComputeDiagnosticBaseResource>> GetComputeDiagnosticBaseAsync(AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            return await GetComputeDiagnosticBases().GetAsync(location, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets Spot Placement Scores metadata.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/placementScores/spot</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SpotPlacementScores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-06-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ComputeDiagnosticBaseResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        [ForwardsClientCalls]
+        public virtual Response<ComputeDiagnosticBaseResource> GetComputeDiagnosticBase(AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            return GetComputeDiagnosticBases().Get(location, cancellationToken);
+        }
+
         /// <summary> Gets a collection of SharedGalleryResources in the SubscriptionResource. </summary>
         /// <param name="location"> Resource location. </param>
         /// <returns> An object representing collection of SharedGalleryResources and their operations over a SharedGalleryResource. </returns>
