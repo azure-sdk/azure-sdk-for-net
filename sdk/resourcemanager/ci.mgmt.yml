@@ -180,6 +180,7 @@ trigger:
     - sdk/resourcehealth/Azure.ResourceManager.ResourceHealth
     - sdk/resourcemover/Azure.ResourceManager.ResourceMover
     - sdk/resources/Azure.ResourceManager.Resources
+    - sdk/rnr/Azure.ResourceManager.Marketplace
     - sdk/search/Azure.ResourceManager.Search
     - sdk/securitycenter/Azure.ResourceManager.SecurityCenter
     - sdk/securitydevops/Azure.ResourceManager.SecurityDevOps
@@ -398,6 +399,7 @@ pr:
     - sdk/resourcehealth/Azure.ResourceManager.ResourceHealth
     - sdk/resourcemover/Azure.ResourceManager.ResourceMover
     - sdk/resources/Azure.ResourceManager.Resources
+    - sdk/rnr/Azure.ResourceManager.Marketplace
     - sdk/search/Azure.ResourceManager.Search
     - sdk/securitycenter/Azure.ResourceManager.SecurityCenter
     - sdk/securitydevops/Azure.ResourceManager.SecurityDevOps
