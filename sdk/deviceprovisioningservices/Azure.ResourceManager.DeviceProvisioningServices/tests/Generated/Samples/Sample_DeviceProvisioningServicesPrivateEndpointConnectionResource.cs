@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_PrivateEndpointConnectionGet()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetPrivateEndpointConnection.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetPrivateEndpointConnection.json
             // this example is just showing the usage of "IotDpsResource_GetPrivateEndpointConnection" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -32,9 +32,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
             // for more information of creating DeviceProvisioningServicesPrivateEndpointConnectionResource, please refer to the document of DeviceProvisioningServicesPrivateEndpointConnectionResource
             string subscriptionId = "91d12660-3dec-467a-be2a-213b5544ddc0";
             string resourceGroupName = "myResourceGroup";
-            string resourceName = "myFirstProvisioningService";
+            string provisioningServiceName = null;
             string privateEndpointConnectionName = "myPrivateEndpointConnection";
-            ResourceIdentifier deviceProvisioningServicesPrivateEndpointConnectionResourceId = DeviceProvisioningServicesPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName);
+            ResourceIdentifier deviceProvisioningServicesPrivateEndpointConnectionResourceId = DeviceProvisioningServicesPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, provisioningServiceName, privateEndpointConnectionName);
             DeviceProvisioningServicesPrivateEndpointConnectionResource deviceProvisioningServicesPrivateEndpointConnection = client.GetDeviceProvisioningServicesPrivateEndpointConnectionResource(deviceProvisioningServicesPrivateEndpointConnectionResourceId);
 
             // invoke the operation
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Delete_PrivateEndpointConnectionDelete()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSDeletePrivateEndpointConnection.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSDeletePrivateEndpointConnection.json
             // this example is just showing the usage of "IotDpsResource_DeletePrivateEndpointConnection" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -63,9 +63,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
             // for more information of creating DeviceProvisioningServicesPrivateEndpointConnectionResource, please refer to the document of DeviceProvisioningServicesPrivateEndpointConnectionResource
             string subscriptionId = "91d12660-3dec-467a-be2a-213b5544ddc0";
             string resourceGroupName = "myResourceGroup";
-            string resourceName = "myFirstProvisioningService";
+            string provisioningServiceName = null;
             string privateEndpointConnectionName = "myPrivateEndpointConnection";
-            ResourceIdentifier deviceProvisioningServicesPrivateEndpointConnectionResourceId = DeviceProvisioningServicesPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName);
+            ResourceIdentifier deviceProvisioningServicesPrivateEndpointConnectionResourceId = DeviceProvisioningServicesPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, provisioningServiceName, privateEndpointConnectionName);
             DeviceProvisioningServicesPrivateEndpointConnectionResource deviceProvisioningServicesPrivateEndpointConnection = client.GetDeviceProvisioningServicesPrivateEndpointConnectionResource(deviceProvisioningServicesPrivateEndpointConnectionResourceId);
 
             // invoke the operation
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_PrivateEndpointConnectionCreateOrUpdate()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSCreateOrUpdatePrivateEndpointConnection.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSCreateOrUpdatePrivateEndpointConnection.json
             // this example is just showing the usage of "IotDpsResource_CreateOrUpdatePrivateEndpointConnection" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -95,9 +95,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
             // for more information of creating DeviceProvisioningServicesPrivateEndpointConnectionResource, please refer to the document of DeviceProvisioningServicesPrivateEndpointConnectionResource
             string subscriptionId = "91d12660-3dec-467a-be2a-213b5544ddc0";
             string resourceGroupName = "myResourceGroup";
-            string resourceName = "myFirstProvisioningService";
+            string provisioningServiceName = null;
             string privateEndpointConnectionName = "myPrivateEndpointConnection";
-            ResourceIdentifier deviceProvisioningServicesPrivateEndpointConnectionResourceId = DeviceProvisioningServicesPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName);
+            ResourceIdentifier deviceProvisioningServicesPrivateEndpointConnectionResourceId = DeviceProvisioningServicesPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, provisioningServiceName, privateEndpointConnectionName);
             DeviceProvisioningServicesPrivateEndpointConnectionResource deviceProvisioningServicesPrivateEndpointConnection = client.GetDeviceProvisioningServicesPrivateEndpointConnectionResource(deviceProvisioningServicesPrivateEndpointConnectionResourceId);
 
             // invoke the operation

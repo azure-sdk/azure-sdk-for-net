@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_DPSCreateOrUpdateCertificate()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSCertificateCreateOrUpdate.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSCertificateCreateOrUpdate.json
             // this example is just showing the usage of "DpsCertificate_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
             {
                 Properties = new DeviceProvisioningServicesCertificateProperties
                 {
-                    Certificate = BinaryData.FromObjectAsJson("############################################"),
+                    Certificate = BinaryData.FromObjectAsJson("MA=="),
                 },
             };
             ArmOperation<DeviceProvisioningServicesCertificateResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, certificateName, data);
@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_DPSGetCertificate()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetCertificate.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetCertificate.json
             // this example is just showing the usage of "DpsCertificate_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_DPSGetCertificates()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetCertificates.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetCertificates.json
             // this example is just showing the usage of "DpsCertificate_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,7 +132,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_DPSGetCertificate()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetCertificate.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetCertificate.json
             // this example is just showing the usage of "DpsCertificate_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -162,7 +162,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_DPSGetCertificate()
         {
-            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/stable/2022-02-05/examples/DPSGetCertificate.json
+            // Generated from example definition: specification/deviceprovisioningservices/resource-manager/Microsoft.Devices/preview/2025-02-01-preview/examples/DPSGetCertificate.json
             // this example is just showing the usage of "DpsCertificate_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
