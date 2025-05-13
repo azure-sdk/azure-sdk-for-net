@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_BrokerCreateOrUpdateComplex()
         {
-            // Generated from example definition: 2024-11-01/Broker_CreateOrUpdate_Complex.json
+            // Generated from example definition: 2025-04-01/Broker_CreateOrUpdate_Complex.json
             // this example is just showing the usage of "BrokerResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.IotOperations.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_BrokerCreateOrUpdate()
         {
-            // Generated from example definition: 2024-11-01/Broker_CreateOrUpdate_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/Broker_CreateOrUpdate_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -240,7 +240,7 @@ Values = {"slmpajlywqvuyknipgztsonqyybt"},
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_BrokerCreateOrUpdateMinimal()
         {
-            // Generated from example definition: 2024-11-01/Broker_CreateOrUpdate_Minimal.json
+            // Generated from example definition: 2025-04-01/Broker_CreateOrUpdate_Minimal.json
             // this example is just showing the usage of "BrokerResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -282,7 +282,7 @@ Values = {"slmpajlywqvuyknipgztsonqyybt"},
         [Ignore("Only validating compilation of examples")]
         public async Task CreateOrUpdate_BrokerCreateOrUpdateSimple()
         {
-            // Generated from example definition: 2024-11-01/Broker_CreateOrUpdate_Simple.json
+            // Generated from example definition: 2025-04-01/Broker_CreateOrUpdate_Simple.json
             // this example is just showing the usage of "BrokerResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -332,7 +332,7 @@ Values = {"slmpajlywqvuyknipgztsonqyybt"},
         [Ignore("Only validating compilation of examples")]
         public async Task Get_BrokerGet()
         {
-            // Generated from example definition: 2024-11-01/Broker_Get_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/Broker_Get_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -366,7 +366,7 @@ Values = {"slmpajlywqvuyknipgztsonqyybt"},
         [Ignore("Only validating compilation of examples")]
         public async Task GetAll_BrokerListByResourceGroup()
         {
-            // Generated from example definition: 2024-11-01/Broker_ListByResourceGroup_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/Broker_ListByResourceGroup_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerResource_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -402,7 +402,7 @@ Values = {"slmpajlywqvuyknipgztsonqyybt"},
         [Ignore("Only validating compilation of examples")]
         public async Task Exists_BrokerGet()
         {
-            // Generated from example definition: 2024-11-01/Broker_Get_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/Broker_Get_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -432,7 +432,7 @@ Values = {"slmpajlywqvuyknipgztsonqyybt"},
         [Ignore("Only validating compilation of examples")]
         public async Task GetIfExists_BrokerGet()
         {
-            // Generated from example definition: 2024-11-01/Broker_Get_MaximumSet_Gen.json
+            // Generated from example definition: 2025-04-01/Broker_Get_MaximumSet_Gen.json
             // this example is just showing the usage of "BrokerResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
