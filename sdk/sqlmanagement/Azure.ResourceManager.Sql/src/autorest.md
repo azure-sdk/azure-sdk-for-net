@@ -5,7 +5,7 @@ Run `dotnet build /t:GenerateCode` to generate code.
 ``` yaml
 azure-arm: true
 tag: package-2023-08
-require: https://github.com/Azure/azure-rest-api-specs/blob/8c2c4da647cc9dbe6317a5961138fd058ed78401/specification/sql/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/sql/resource-manager/readme.md
 #package-2023-08
 namespace: Azure.ResourceManager.Sql
 output-folder: $(this-folder)/Generated
