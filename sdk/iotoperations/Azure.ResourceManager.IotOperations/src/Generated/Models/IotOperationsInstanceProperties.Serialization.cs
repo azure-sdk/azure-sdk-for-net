@@ -51,6 +51,17 @@ namespace Azure.ResourceManager.IotOperations.Models
             }
             writer.WritePropertyName("schemaRegistryRef"u8);
             writer.WriteObjectValue(SchemaRegistryRef, options);
+            if (Optional.IsCollectionDefined(Features))
+            {
+                writer.WritePropertyName("features"u8);
+                writer.WriteStartObject();
+                foreach (var item in Features)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteObjectValue(item.Value, options);
+                }
+                writer.WriteEndObject();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -92,6 +103,7 @@ namespace Azure.ResourceManager.IotOperations.Models
             IotOperationsProvisioningState? provisioningState = default;
             string version = default;
             SchemaRegistryRef schemaRegistryRef = default;
+            IDictionary<string, InstanceFeature> features = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -120,13 +132,33 @@ namespace Azure.ResourceManager.IotOperations.Models
                     schemaRegistryRef = SchemaRegistryRef.DeserializeSchemaRegistryRef(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("features"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, InstanceFeature> dictionary = new Dictionary<string, InstanceFeature>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, InstanceFeature.DeserializeInstanceFeature(property0.Value, options));
+                    }
+                    features = dictionary;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new IotOperationsInstanceProperties(description, provisioningState, version, schemaRegistryRef, serializedAdditionalRawData);
+            return new IotOperationsInstanceProperties(
+                description,
+                provisioningState,
+                version,
+                schemaRegistryRef,
+                features ?? new ChangeTrackingDictionary<string, InstanceFeature>(),
+                serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<IotOperationsInstanceProperties>.Write(ModelReaderWriterOptions options)
