@@ -91,6 +91,7 @@ trigger:
     - sdk/eventhub/Azure.ResourceManager.EventHubs
     - sdk/extendedlocation/Azure.ResourceManager.ExtendedLocations
     - sdk/fabric/Azure.ResourceManager.Fabric
+    - sdk/fileshares/Azure.ResourceManager.Fileshares
     - sdk/fleet/Azure.ResourceManager.ContainerServiceFleet
     - sdk/fluidrelay/Azure.ResourceManager.FluidRelay
     - sdk/frontdoor/Azure.ResourceManager.FrontDoor
@@ -308,6 +309,7 @@ pr:
     - sdk/eventhub/Azure.ResourceManager.EventHubs
     - sdk/extendedlocation/Azure.ResourceManager.ExtendedLocations
     - sdk/fabric/Azure.ResourceManager.Fabric
+    - sdk/fileshares/Azure.ResourceManager.Fileshares
     - sdk/fleet/Azure.ResourceManager.ContainerServiceFleet
     - sdk/fluidrelay/Azure.ResourceManager.FluidRelay
     - sdk/frontdoor/Azure.ResourceManager.FrontDoor
