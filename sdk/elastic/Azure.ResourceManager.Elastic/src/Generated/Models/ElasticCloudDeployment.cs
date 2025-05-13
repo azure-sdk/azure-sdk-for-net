@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.Elastic.Models
         /// <param name="kibanaServiceUri"> Kibana endpoint of the Elastic deployment. </param>
         /// <param name="kibanaSsoUri"> Kibana dashboard sso URL of the Elastic deployment. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticCloudDeployment(string name, string deploymentId, string azureSubscriptionId, string elasticsearchRegion, Uri elasticsearchServiceUri, Uri kibanaServiceUri, Uri kibanaSsoUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ElasticCloudDeployment(string name, string deploymentId, string azureSubscriptionId, string elasticsearchRegion, string elasticsearchServiceUri, string kibanaServiceUri, string kibanaSsoUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             DeploymentId = deploymentId;
@@ -80,10 +80,10 @@ namespace Azure.ResourceManager.Elastic.Models
         /// <summary> Region where Deployment at Elastic side took place. </summary>
         public string ElasticsearchRegion { get; }
         /// <summary> Elasticsearch ingestion endpoint of the Elastic deployment. </summary>
-        public Uri ElasticsearchServiceUri { get; }
+        public string ElasticsearchServiceUri { get; }
         /// <summary> Kibana endpoint of the Elastic deployment. </summary>
-        public Uri KibanaServiceUri { get; }
+        public string KibanaServiceUri { get; }
         /// <summary> Kibana dashboard sso URL of the Elastic deployment. </summary>
-        public Uri KibanaSsoUri { get; }
+        public string KibanaSsoUri { get; }
     }
 }

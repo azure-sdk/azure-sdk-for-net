@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Elastic.Models
         /// <param name="id"> User Id of the elastic account of the User. </param>
         /// <param name="elasticCloudSsoDefaultUri"> Elastic cloud default dashboard sso URL of the Elastic user account. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticCloudUser(string emailAddress, string id, Uri elasticCloudSsoDefaultUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ElasticCloudUser(string emailAddress, string id, string elasticCloudSsoDefaultUri, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             EmailAddress = emailAddress;
             Id = id;
@@ -68,6 +68,6 @@ namespace Azure.ResourceManager.Elastic.Models
         /// <summary> User Id of the elastic account of the User. </summary>
         public string Id { get; }
         /// <summary> Elastic cloud default dashboard sso URL of the Elastic user account. </summary>
-        public Uri ElasticCloudSsoDefaultUri { get; }
+        public string ElasticCloudSsoDefaultUri { get; }
     }
 }

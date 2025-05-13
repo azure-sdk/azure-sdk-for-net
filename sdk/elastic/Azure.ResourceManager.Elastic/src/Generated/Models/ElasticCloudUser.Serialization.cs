@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Elastic.Models
             if (options.Format != "W" && Optional.IsDefined(ElasticCloudSsoDefaultUri))
             {
                 writer.WritePropertyName("elasticCloudSsoDefaultUrl"u8);
-                writer.WriteStringValue(ElasticCloudSsoDefaultUri.AbsoluteUri);
+                writer.WriteStringValue(ElasticCloudSsoDefaultUri);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.Elastic.Models
             }
             string emailAddress = default;
             string id = default;
-            Uri elasticCloudSsoDefaultUrl = default;
+            string elasticCloudSsoDefaultUrl = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -105,11 +105,7 @@ namespace Azure.ResourceManager.Elastic.Models
                 }
                 if (property.NameEquals("elasticCloudSsoDefaultUrl"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    elasticCloudSsoDefaultUrl = new Uri(property.Value.GetString());
+                    elasticCloudSsoDefaultUrl = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")

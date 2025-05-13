@@ -34,20 +34,17 @@ namespace Azure.ResourceManager.Elastic.Models
                 throw new FormatException($"The model {nameof(ConnectedPartnerResourcesListResponse)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsCollectionDefined(Value))
+            writer.WritePropertyName("value"u8);
+            writer.WriteStartArray();
+            foreach (var item in Value)
             {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
+                writer.WriteObjectValue(item, options);
             }
+            writer.WriteEndArray();
             if (Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
-                writer.WriteStringValue(NextLink);
+                writer.WriteStringValue(NextLink.AbsoluteUri);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -86,29 +83,29 @@ namespace Azure.ResourceManager.Elastic.Models
             {
                 return null;
             }
-            IReadOnlyList<ConnectedPartnerResourceInfo> value = default;
-            string nextLink = default;
+            IReadOnlyList<ConnectedPartnerResourcesListFormat> value = default;
+            Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<ConnectedPartnerResourceInfo> array = new List<ConnectedPartnerResourceInfo>();
+                    List<ConnectedPartnerResourcesListFormat> array = new List<ConnectedPartnerResourcesListFormat>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ConnectedPartnerResourceInfo.DeserializeConnectedPartnerResourceInfo(item, options));
+                        array.Add(ConnectedPartnerResourcesListFormat.DeserializeConnectedPartnerResourcesListFormat(item, options));
                     }
                     value = array;
                     continue;
                 }
                 if (property.NameEquals("nextLink"u8))
                 {
-                    nextLink = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nextLink = new Uri(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -117,7 +114,7 @@ namespace Azure.ResourceManager.Elastic.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new ConnectedPartnerResourcesListResponse(value ?? new ChangeTrackingList<ConnectedPartnerResourceInfo>(), nextLink, serializedAdditionalRawData);
+            return new ConnectedPartnerResourcesListResponse(value, nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ConnectedPartnerResourcesListResponse>.Write(ModelReaderWriterOptions options)

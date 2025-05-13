@@ -57,17 +57,17 @@ namespace Azure.ResourceManager.Elastic.Models
             if (options.Format != "W" && Optional.IsDefined(ElasticsearchServiceUri))
             {
                 writer.WritePropertyName("elasticsearchServiceUrl"u8);
-                writer.WriteStringValue(ElasticsearchServiceUri.AbsoluteUri);
+                writer.WriteStringValue(ElasticsearchServiceUri);
             }
             if (options.Format != "W" && Optional.IsDefined(KibanaServiceUri))
             {
                 writer.WritePropertyName("kibanaServiceUrl"u8);
-                writer.WriteStringValue(KibanaServiceUri.AbsoluteUri);
+                writer.WriteStringValue(KibanaServiceUri);
             }
             if (options.Format != "W" && Optional.IsDefined(KibanaSsoUri))
             {
                 writer.WritePropertyName("kibanaSsoUrl"u8);
-                writer.WriteStringValue(KibanaSsoUri.AbsoluteUri);
+                writer.WriteStringValue(KibanaSsoUri);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -110,9 +110,9 @@ namespace Azure.ResourceManager.Elastic.Models
             string deploymentId = default;
             string azureSubscriptionId = default;
             string elasticsearchRegion = default;
-            Uri elasticsearchServiceUrl = default;
-            Uri kibanaServiceUrl = default;
-            Uri kibanaSsoUrl = default;
+            string elasticsearchServiceUrl = default;
+            string kibanaServiceUrl = default;
+            string kibanaSsoUrl = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -139,29 +139,17 @@ namespace Azure.ResourceManager.Elastic.Models
                 }
                 if (property.NameEquals("elasticsearchServiceUrl"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    elasticsearchServiceUrl = new Uri(property.Value.GetString());
+                    elasticsearchServiceUrl = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("kibanaServiceUrl"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    kibanaServiceUrl = new Uri(property.Value.GetString());
+                    kibanaServiceUrl = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("kibanaSsoUrl"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    kibanaSsoUrl = new Uri(property.Value.GetString());
+                    kibanaSsoUrl = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
