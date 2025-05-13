@@ -34,17 +34,12 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 throw new FormatException($"The model {nameof(VmManagedIdentity)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsCollectionDefined(UserAssignedIdentities))
+            if (Optional.IsCollectionDefined(ArmId))
             {
                 writer.WritePropertyName("userAssignedIdentities"u8);
                 writer.WriteStartArray();
-                foreach (var item in UserAssignedIdentities)
+                foreach (var item in ArmId)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
                     writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
@@ -86,7 +81,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 return null;
             }
-            IList<ResourceIdentifier> userAssignedIdentities = default;
+            IList<string> userAssignedIdentities = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -97,17 +92,10 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                     {
                         continue;
                     }
-                    List<ResourceIdentifier> array = new List<ResourceIdentifier>();
+                    List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(new ResourceIdentifier(item.GetString()));
-                        }
+                        array.Add(item.GetString());
                     }
                     userAssignedIdentities = array;
                     continue;
@@ -118,7 +106,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new VmManagedIdentity(userAssignedIdentities ?? new ChangeTrackingList<ResourceIdentifier>(), serializedAdditionalRawData);
+            return new VmManagedIdentity(userAssignedIdentities ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VmManagedIdentity>.Write(ModelReaderWriterOptions options)
