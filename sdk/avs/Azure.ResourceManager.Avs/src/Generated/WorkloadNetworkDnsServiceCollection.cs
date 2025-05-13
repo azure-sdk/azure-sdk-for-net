@@ -56,15 +56,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_CreateDnsService</description>
+        /// <description>WorkloadNetworkDnsService_CreateDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -87,8 +87,8 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, data, cancellationToken).ConfigureAwait(false);
-                var operation = new AvsArmOperation<WorkloadNetworkDnsServiceResource>(new WorkloadNetworkDnsServiceOperationSource(Client), _workloadNetworkDnsServiceWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateCreateDnsServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, data, cancellationToken).ConfigureAwait(false);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsServiceResource>(new WorkloadNetworkDnsServiceOperationSource(Client), _workloadNetworkDnsServiceWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateCreateDnsServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -105,15 +105,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_CreateDnsService</description>
+        /// <description>WorkloadNetworkDnsService_CreateDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -136,8 +136,8 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, data, cancellationToken);
-                var operation = new AvsArmOperation<WorkloadNetworkDnsServiceResource>(new WorkloadNetworkDnsServiceOperationSource(Client), _workloadNetworkDnsServiceWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateCreateDnsServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, data, cancellationToken);
+                var operation = new AvsArmOperation<WorkloadNetworkDnsServiceResource>(new WorkloadNetworkDnsServiceOperationSource(Client), _workloadNetworkDnsServiceWorkloadNetworksClientDiagnostics, Pipeline, _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateCreateDnsServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -154,15 +154,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
+        /// <description>WorkloadNetworkDnsService_GetDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkDnsServiceResource(Client, response.Value), response.GetRawResponse());
@@ -199,15 +199,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
+        /// <description>WorkloadNetworkDnsService_GetDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -227,7 +227,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken);
+                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkDnsServiceResource(Client, response.Value), response.GetRawResponse());
@@ -244,15 +244,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListDnsServices</description>
+        /// <description>WorkloadNetworkDnsService_ListDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -264,8 +264,8 @@ namespace Azure.ResourceManager.Avs
         /// <returns> An async collection of <see cref="WorkloadNetworkDnsServiceResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<WorkloadNetworkDnsServiceResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServicesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServicesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkDnsServiceResource(Client, WorkloadNetworkDnsServiceData.DeserializeWorkloadNetworkDnsServiceData(e)), _workloadNetworkDnsServiceWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkDnsServiceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -274,15 +274,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_ListDnsServices</description>
+        /// <description>WorkloadNetworkDnsService_ListDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -294,8 +294,8 @@ namespace Azure.ResourceManager.Avs
         /// <returns> A collection of <see cref="WorkloadNetworkDnsServiceResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<WorkloadNetworkDnsServiceResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServicesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServicesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _workloadNetworkDnsServiceWorkloadNetworksRestClient.CreateListDnsServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WorkloadNetworkDnsServiceResource(Client, WorkloadNetworkDnsServiceData.DeserializeWorkloadNetworkDnsServiceData(e)), _workloadNetworkDnsServiceWorkloadNetworksClientDiagnostics, Pipeline, "WorkloadNetworkDnsServiceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -304,15 +304,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
+        /// <description>WorkloadNetworkDnsService_GetDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -332,7 +332,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -347,15 +347,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
+        /// <description>WorkloadNetworkDnsService_GetDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -375,7 +375,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -390,15 +390,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
+        /// <description>WorkloadNetworkDnsService_GetDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -418,7 +418,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsServiceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkDnsServiceResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkDnsServiceResource(Client, response.Value), response.GetRawResponse());
@@ -435,15 +435,15 @@ namespace Azure.ResourceManager.Avs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/dnsServices/{dnsServiceId}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/{workloadNetworkName}/dnsServices/{dnsServiceId}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>WorkloadNetworks_GetDnsService</description>
+        /// <description>WorkloadNetworkDnsService_GetDnsService</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2023-09-01</description>
+        /// <description>2024-09-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -463,7 +463,7 @@ namespace Azure.ResourceManager.Avs
             scope.Start();
             try
             {
-                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, dnsServiceId, cancellationToken: cancellationToken);
+                var response = _workloadNetworkDnsServiceWorkloadNetworksRestClient.GetDnsService(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, dnsServiceId, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<WorkloadNetworkDnsServiceResource>(response.GetRawResponse());
                 return Response.FromValue(new WorkloadNetworkDnsServiceResource(Client, response.Value), response.GetRawResponse());
