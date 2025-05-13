@@ -124,6 +124,68 @@ namespace Azure.ResourceManager.ComputeSchedule.Models
             return new StartResourceOperationResult(description, resourceType, location, results?.ToList(), serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.ExecuteCreateContent"/>. </summary>
+        /// <param name="resourceConfigParameters"> resource creation payload. </param>
+        /// <param name="executionParameters"> The execution parameters for the request. </param>
+        /// <param name="correlationid"> CorrelationId item. </param>
+        /// <returns> A new <see cref="Models.ExecuteCreateContent"/> instance for mocking. </returns>
+        public static ExecuteCreateContent ExecuteCreateContent(ResourceProvisionPayload resourceConfigParameters = null, ScheduledActionExecutionParameterDetail executionParameters = null, string correlationid = null)
+        {
+            return new ExecuteCreateContent(resourceConfigParameters, executionParameters, correlationid, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ResourceProvisionPayload"/>. </summary>
+        /// <param name="baseProfile"> baseProfile, Resource properties that common across all resources. </param>
+        /// <param name="resourceOverrides"> resourceOverrides, properties per resource that needs to be overwritted from baseProfile. </param>
+        /// <param name="resourceCount"> Number of resources to be created. </param>
+        /// <param name="resourcePrefix"> if resourceOverrides doesn't contain "name", service will create name based of prefix and ResourceCount e.g. resourceprefix-0,resourceprefix-1.. </param>
+        /// <returns> A new <see cref="Models.ResourceProvisionPayload"/> instance for mocking. </returns>
+        public static ResourceProvisionPayload ResourceProvisionPayload(byte[] baseProfile = null, IEnumerable<byte[]> resourceOverrides = null, int resourceCount = default, string resourcePrefix = null)
+        {
+            resourceOverrides ??= new List<byte[]>();
+
+            return new ResourceProvisionPayload(baseProfile, resourceOverrides?.ToList(), resourceCount, resourcePrefix, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CreateResourceOperationResponse"/>. </summary>
+        /// <param name="description"> The description of the operation response. </param>
+        /// <param name="type"> The type of resources used in the create request eg virtual machines. </param>
+        /// <param name="location"> The location of the start request eg westus. </param>
+        /// <param name="results"> The results from the start request if no errors exist. </param>
+        /// <returns> A new <see cref="Models.CreateResourceOperationResponse"/> instance for mocking. </returns>
+        public static CreateResourceOperationResponse CreateResourceOperationResponse(string description = null, string type = null, AzureLocation location = default, IEnumerable<ResourceOperationResult> results = null)
+        {
+            results ??= new List<ResourceOperationResult>();
+
+            return new CreateResourceOperationResponse(description, type, location, results?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ExecuteDeleteContent"/>. </summary>
+        /// <param name="executionParameters"> The execution parameters for the request. </param>
+        /// <param name="resourcesIds"> The resources for the request. </param>
+        /// <param name="correlationid"> CorrelationId item. </param>
+        /// <param name="forceDeletion"> Forced delete resource item. </param>
+        /// <returns> A new <see cref="Models.ExecuteDeleteContent"/> instance for mocking. </returns>
+        public static ExecuteDeleteContent ExecuteDeleteContent(ScheduledActionExecutionParameterDetail executionParameters = null, IEnumerable<ResourceIdentifier> resourcesIds = null, string correlationid = null, bool? forceDeletion = null)
+        {
+            resourcesIds ??= new List<ResourceIdentifier>();
+
+            return new ExecuteDeleteContent(executionParameters, resourcesIds != null ? new UserRequestResources(resourcesIds?.ToList(), serializedAdditionalRawData: null) : null, correlationid, forceDeletion, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DeleteResourceOperationResponse"/>. </summary>
+        /// <param name="description"> The description of the operation response. </param>
+        /// <param name="type"> The type of resources used in the delete request eg virtual machines. </param>
+        /// <param name="location"> The location of the start request eg westus. </param>
+        /// <param name="results"> The results from the start request if no errors exist. </param>
+        /// <returns> A new <see cref="Models.DeleteResourceOperationResponse"/> instance for mocking. </returns>
+        public static DeleteResourceOperationResponse DeleteResourceOperationResponse(string description = null, string type = null, AzureLocation location = default, IEnumerable<ResourceOperationResult> results = null)
+        {
+            results ??= new List<ResourceOperationResult>();
+
+            return new DeleteResourceOperationResponse(description, type, location, results?.ToList(), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.GetOperationStatusResult"/>. </summary>
         /// <param name="results"> An array of resource operations based on their operation ids. </param>
         /// <returns> A new <see cref="Models.GetOperationStatusResult"/> instance for mocking. </returns>
