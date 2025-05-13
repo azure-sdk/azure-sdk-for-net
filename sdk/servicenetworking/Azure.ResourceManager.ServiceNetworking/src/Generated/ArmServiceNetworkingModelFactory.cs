@@ -53,9 +53,10 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="fqdn"> The Fully Qualified Domain Name of the DNS record associated to a Traffic Controller frontend. </param>
+        /// <param name="securityPolicyConfigurations"> Frontend Security Policy Configuration. </param>
         /// <param name="provisioningState"> Provisioning State of Traffic Controller Frontend Resource. </param>
         /// <returns> A new <see cref="ServiceNetworking.TrafficControllerFrontendData"/> instance for mocking. </returns>
-        public static TrafficControllerFrontendData TrafficControllerFrontendData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string fqdn = null, ServiceNetworkingProvisioningState? provisioningState = null)
+        public static TrafficControllerFrontendData TrafficControllerFrontendData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string fqdn = null, SecurityPolicyConfigurations securityPolicyConfigurations = null, ServiceNetworkingProvisioningState? provisioningState = null)
         {
             tags ??= new Dictionary<string, string>();
 
@@ -67,6 +68,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 tags,
                 location,
                 fqdn,
+                securityPolicyConfigurations,
                 provisioningState,
                 serializedAdditionalRawData: null);
         }
@@ -79,12 +81,14 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="policyType"> Type of the Traffic Controller Security Policy. </param>
-        /// <param name="wafPolicyId"> Web Application Firewall Policy of the Traffic Controller Security Policy. </param>
+        /// <param name="wafPolicyId"> Web Application Firewall Policy of the Traffic Controller Security Policy. Single Security Policy can have only one policy type set. </param>
+        /// <param name="rules"> Ip Access Policy of the Traffic Controller Security Policy. Single Security Policy can have only one policy type set. </param>
         /// <param name="provisioningState"> Provisioning State of Traffic Controller SecurityPolicy Resource. </param>
         /// <returns> A new <see cref="ServiceNetworking.ApplicationGatewayForContainersSecurityPolicyData"/> instance for mocking. </returns>
-        public static ApplicationGatewayForContainersSecurityPolicyData ApplicationGatewayForContainersSecurityPolicyData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ApplicationGatewayForContainersSecurityPolicyType? policyType = null, ResourceIdentifier wafPolicyId = null, ServiceNetworkingProvisioningState? provisioningState = null)
+        public static ApplicationGatewayForContainersSecurityPolicyData ApplicationGatewayForContainersSecurityPolicyData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ApplicationGatewayForContainersSecurityPolicyType? policyType = null, ResourceIdentifier wafPolicyId = null, IEnumerable<IPAccessRule> rules = null, ServiceNetworkingProvisioningState? provisioningState = null)
         {
             tags ??= new Dictionary<string, string>();
+            rules ??= new List<IPAccessRule>();
 
             return new ApplicationGatewayForContainersSecurityPolicyData(
                 id,
@@ -95,6 +99,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 location,
                 policyType,
                 wafPolicyId != null ? ResourceManagerModelFactory.WritableSubResource(wafPolicyId) : null,
+                rules != null ? new IPAccessRulesPolicy(rules?.ToList(), serializedAdditionalRawData: null) : null,
                 provisioningState,
                 serializedAdditionalRawData: null);
         }
@@ -110,10 +115,10 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
         /// <param name="frontends"> Frontends References List. </param>
         /// <param name="associations"> Associations References List. </param>
         /// <param name="securityPolicies"> Security Policies References List. </param>
-        /// <param name="wafSecurityPolicyId"> Security Policy Configuration. </param>
+        /// <param name="securityPolicyConfigurations"> Security Policy Configuration. </param>
         /// <param name="trafficControllerProvisioningState"> The status of the last operation. </param>
         /// <returns> A new <see cref="ServiceNetworking.TrafficControllerData"/> instance for mocking. </returns>
-        public static TrafficControllerData TrafficControllerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, IEnumerable<string> configurationEndpoints = null, IEnumerable<SubResource> frontends = null, IEnumerable<SubResource> associations = null, IEnumerable<SubResource> securityPolicies = null, ResourceIdentifier wafSecurityPolicyId = null, ServiceNetworkingProvisioningState? trafficControllerProvisioningState = null)
+        public static TrafficControllerData TrafficControllerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, IEnumerable<string> configurationEndpoints = null, IEnumerable<SubResource> frontends = null, IEnumerable<SubResource> associations = null, IEnumerable<SubResource> securityPolicies = null, SecurityPolicyConfigurations securityPolicyConfigurations = null, ServiceNetworkingProvisioningState? trafficControllerProvisioningState = null)
         {
             tags ??= new Dictionary<string, string>();
             configurationEndpoints ??= new List<string>();
@@ -132,7 +137,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 frontends?.ToList(),
                 associations?.ToList(),
                 securityPolicies?.ToList(),
-                wafSecurityPolicyId != null ? new SecurityPolicyConfigurations(ResourceManagerModelFactory.WritableSubResource(wafSecurityPolicyId), serializedAdditionalRawData: null) : null,
+                securityPolicyConfigurations,
                 trafficControllerProvisioningState,
                 serializedAdditionalRawData: null);
         }
