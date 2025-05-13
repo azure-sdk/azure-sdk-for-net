@@ -54,6 +54,7 @@ namespace Azure.ResourceManager.IotOperations.Models
             Argument.AssertNotNull(schemaRegistryRef, nameof(schemaRegistryRef));
 
             SchemaRegistryRef = schemaRegistryRef;
+            Features = new ChangeTrackingDictionary<string, InstanceFeature>();
         }
 
         /// <summary> Initializes a new instance of <see cref="IotOperationsInstanceProperties"/>. </summary>
@@ -61,13 +62,15 @@ namespace Azure.ResourceManager.IotOperations.Models
         /// <param name="provisioningState"> The status of the last operation. </param>
         /// <param name="version"> The Azure IoT Operations version. </param>
         /// <param name="schemaRegistryRef"> The reference to the Schema Registry for this AIO Instance. </param>
+        /// <param name="features"> The features of the AIO Instance. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IotOperationsInstanceProperties(string description, IotOperationsProvisioningState? provisioningState, string version, SchemaRegistryRef schemaRegistryRef, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IotOperationsInstanceProperties(string description, IotOperationsProvisioningState? provisioningState, string version, SchemaRegistryRef schemaRegistryRef, IDictionary<string, InstanceFeature> features, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Description = description;
             ProvisioningState = provisioningState;
             Version = version;
             SchemaRegistryRef = schemaRegistryRef;
+            Features = features;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -90,5 +93,8 @@ namespace Azure.ResourceManager.IotOperations.Models
             get => SchemaRegistryRef is null ? default : SchemaRegistryRef.ResourceId;
             set => SchemaRegistryRef = new SchemaRegistryRef(value);
         }
+
+        /// <summary> The features of the AIO Instance. </summary>
+        public IDictionary<string, InstanceFeature> Features { get; }
     }
 }

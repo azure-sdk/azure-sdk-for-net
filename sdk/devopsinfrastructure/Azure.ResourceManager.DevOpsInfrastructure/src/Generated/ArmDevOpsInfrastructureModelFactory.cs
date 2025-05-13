@@ -42,6 +42,17 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Models
                 serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.CheckNameAvailabilityResult"/>. </summary>
+        /// <param name="available"> Availability status of the name. </param>
+        /// <param name="message"> A message explaining why the name is unavailable. Will be null if the name is available. </param>
+        /// <param name="name"> The name whose availability was checked. </param>
+        /// <param name="reason"> The reason code explaining why the name is unavailable. Will be null if the name is available. </param>
+        /// <returns> A new <see cref="Models.CheckNameAvailabilityResult"/> instance for mocking. </returns>
+        public static CheckNameAvailabilityResult CheckNameAvailabilityResult(AvailabilityStatus available = default, string message = null, string name = null, CheckNameAvailabilityReason reason = default)
+        {
+            return new CheckNameAvailabilityResult(available, message, name, reason, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="Models.DevOpsResourceDetails"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
