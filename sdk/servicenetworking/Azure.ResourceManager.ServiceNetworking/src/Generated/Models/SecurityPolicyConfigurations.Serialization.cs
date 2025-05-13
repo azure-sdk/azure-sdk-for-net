@@ -14,7 +14,7 @@ using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.ServiceNetworking.Models
 {
-    internal partial class SecurityPolicyConfigurations : IUtf8JsonSerializable, IJsonModel<SecurityPolicyConfigurations>
+    public partial class SecurityPolicyConfigurations : IUtf8JsonSerializable, IJsonModel<SecurityPolicyConfigurations>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SecurityPolicyConfigurations>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
@@ -39,6 +39,11 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
             {
                 writer.WritePropertyName("wafSecurityPolicy"u8);
                 JsonSerializer.Serialize(writer, WafSecurityPolicy);
+            }
+            if (Optional.IsDefined(IPAccessRulesSecurityPolicy))
+            {
+                writer.WritePropertyName("ipAccessRulesSecurityPolicy"u8);
+                JsonSerializer.Serialize(writer, IPAccessRulesSecurityPolicy);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -78,6 +83,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 return null;
             }
             WritableSubResource wafSecurityPolicy = default;
+            WritableSubResource ipAccessRulesSecurityPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -91,13 +97,22 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                     wafSecurityPolicy = JsonSerializer.Deserialize<WritableSubResource>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("ipAccessRulesSecurityPolicy"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    ipAccessRulesSecurityPolicy = JsonSerializer.Deserialize<WritableSubResource>(property.Value.GetRawText());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new SecurityPolicyConfigurations(wafSecurityPolicy, serializedAdditionalRawData);
+            return new SecurityPolicyConfigurations(wafSecurityPolicy, ipAccessRulesSecurityPolicy, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<SecurityPolicyConfigurations>.Write(ModelReaderWriterOptions options)
