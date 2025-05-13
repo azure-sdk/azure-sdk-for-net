@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         /// <param name="commonName"> Certificate common name. </param>
         /// <param name="issuerThumbprint"> Issuer thumbprint for the certificate. Only used together with CommonName. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedClusterClientCertificate(bool isAdmin, BinaryData thumbprint, string commonName, BinaryData issuerThumbprint, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedClusterClientCertificate(bool isAdmin, string thumbprint, string commonName, string issuerThumbprint, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             IsAdmin = isAdmin;
             Thumbprint = thumbprint;
@@ -74,69 +74,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 
         /// <summary> Indicates if the client certificate has admin access to the cluster. Non admin clients can perform only read only operations on the cluster. </summary>
         public bool IsAdmin { get; set; }
-        /// <summary>
-        /// Certificate thumbprint.
-        /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        public BinaryData Thumbprint { get; set; }
+        /// <summary> Certificate thumbprint. </summary>
+        public string Thumbprint { get; set; }
         /// <summary> Certificate common name. </summary>
         public string CommonName { get; set; }
-        /// <summary>
-        /// Issuer thumbprint for the certificate. Only used together with CommonName.
-        /// <para>
-        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        public BinaryData IssuerThumbprint { get; set; }
+        /// <summary> Issuer thumbprint for the certificate. Only used together with CommonName. </summary>
+        public string IssuerThumbprint { get; set; }
     }
 }

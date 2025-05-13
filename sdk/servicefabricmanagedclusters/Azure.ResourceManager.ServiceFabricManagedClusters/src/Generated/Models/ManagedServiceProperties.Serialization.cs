@@ -12,6 +12,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
 {
+    [PersistableModelProxy(typeof(UnknownManagedServiceProperties))]
     public partial class ManagedServiceProperties : IUtf8JsonSerializable, IJsonModel<ManagedServiceProperties>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ManagedServiceProperties>)this).Write(writer, ModelSerializationExtensions.WireOptions);
@@ -85,7 +86,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                     case "Stateless": return StatelessServiceProperties.DeserializeStatelessServiceProperties(element, options);
                 }
             }
-            return UnknownServiceResourceProperties.DeserializeUnknownServiceResourceProperties(element, options);
+            return UnknownManagedServiceProperties.DeserializeUnknownManagedServiceProperties(element, options);
         }
 
         BinaryData IPersistableModel<ManagedServiceProperties>.Write(ModelReaderWriterOptions options)
