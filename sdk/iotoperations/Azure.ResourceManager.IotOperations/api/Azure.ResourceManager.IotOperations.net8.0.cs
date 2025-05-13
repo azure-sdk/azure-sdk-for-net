@@ -482,7 +482,7 @@ namespace Azure.ResourceManager.IotOperations.Models
         public static Azure.ResourceManager.IotOperations.Models.IotOperationsDataflowProfileProperties IotOperationsDataflowProfileProperties(Azure.ResourceManager.IotOperations.Models.DataflowProfileDiagnostics diagnostics = null, int? instanceCount = default(int?), Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState? provisioningState = default(Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.IotOperations.Models.IotOperationsDataflowProperties IotOperationsDataflowProperties(Azure.ResourceManager.IotOperations.Models.IotOperationsOperationalMode? mode = default(Azure.ResourceManager.IotOperations.Models.IotOperationsOperationalMode?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.IotOperations.Models.DataflowOperationProperties> operations = null, Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState? provisioningState = default(Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.IotOperations.IotOperationsInstanceData IotOperationsInstanceData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.IotOperations.Models.IotOperationsInstanceProperties properties = null, Azure.ResourceManager.IotOperations.Models.IotOperationsExtendedLocation extendedLocation = null, Azure.ResourceManager.Models.ManagedServiceIdentity identity = null) { throw null; }
-        public static Azure.ResourceManager.IotOperations.Models.IotOperationsInstanceProperties IotOperationsInstanceProperties(string description = null, Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState? provisioningState = default(Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState?), string version = null, Azure.Core.ResourceIdentifier schemaRegistryRefResourceId = null) { throw null; }
+        public static Azure.ResourceManager.IotOperations.Models.IotOperationsInstanceProperties IotOperationsInstanceProperties(string description = null, Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState? provisioningState = default(Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState?), string version = null, Azure.Core.ResourceIdentifier schemaRegistryRefResourceId = null, System.Collections.Generic.IDictionary<string, Azure.ResourceManager.IotOperations.Models.InstanceFeature> features = null) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct BlockerListenerServiceType : System.IEquatable<Azure.ResourceManager.IotOperations.Models.BlockerListenerServiceType>
@@ -1491,6 +1491,37 @@ namespace Azure.ResourceManager.IotOperations.Models
         public static bool operator !=(Azure.ResourceManager.IotOperations.Models.FabricOneLakeAuthMethod left, Azure.ResourceManager.IotOperations.Models.FabricOneLakeAuthMethod right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class InstanceFeature : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.IotOperations.Models.InstanceFeature>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.IotOperations.Models.InstanceFeature>
+    {
+        public InstanceFeature() { }
+        public Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode? Mode { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.IotOperations.Models.IotOperationsOperationalMode> Settings { get { throw null; } }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.IotOperations.Models.InstanceFeature System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.IotOperations.Models.InstanceFeature>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.IotOperations.Models.InstanceFeature>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.IotOperations.Models.InstanceFeature System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.IotOperations.Models.InstanceFeature>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.IotOperations.Models.InstanceFeature>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.IotOperations.Models.InstanceFeature>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct InstanceFeatureMode : System.IEquatable<Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public InstanceFeatureMode(string value) { throw null; }
+        public static Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode Disabled { get { throw null; } }
+        public static Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode Preview { get { throw null; } }
+        public static Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode Stable { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode left, Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode right) { throw null; }
+        public static implicit operator Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode left, Azure.ResourceManager.IotOperations.Models.InstanceFeatureMode right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class IotOperationsBatchingConfig : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.IotOperations.Models.IotOperationsBatchingConfig>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.IotOperations.Models.IotOperationsBatchingConfig>
     {
         public IotOperationsBatchingConfig() { }
@@ -1647,6 +1678,7 @@ namespace Azure.ResourceManager.IotOperations.Models
     {
         public IotOperationsInstanceProperties(Azure.ResourceManager.IotOperations.Models.SchemaRegistryRef schemaRegistryRef) { }
         public string Description { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.IotOperations.Models.InstanceFeature> Features { get { throw null; } }
         public Azure.ResourceManager.IotOperations.Models.IotOperationsProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.Core.ResourceIdentifier SchemaRegistryRefResourceId { get { throw null; } set { } }
         public string Version { get { throw null; } }
