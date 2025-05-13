@@ -104,6 +104,11 @@ namespace Azure.ResourceManager.MongoCluster.Models
                 writer.WritePropertyName("backup"u8);
                 writer.WriteObjectValue(Backup, options);
             }
+            if (Optional.IsDefined(DataApi))
+            {
+                writer.WritePropertyName("dataApi"u8);
+                writer.WriteObjectValue(DataApi, options);
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
             {
                 writer.WritePropertyName("privateEndpointConnections"u8);
@@ -185,6 +190,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
             ShardingProperties sharding = default;
             ComputeProperties compute = default;
             BackupProperties backup = default;
+            DataApiProperties dataApi = default;
             IReadOnlyList<MongoClusterPrivateEndpointConnection> privateEndpointConnections = default;
             IList<MongoClusterPreviewFeature> previewFeatures = default;
             MongoClusterReplicationProperties replica = default;
@@ -311,6 +317,15 @@ namespace Azure.ResourceManager.MongoCluster.Models
                     backup = BackupProperties.DeserializeBackupProperties(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("dataApi"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dataApi = DataApiProperties.DeserializeDataApiProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("privateEndpointConnections"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -374,6 +389,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
                 sharding,
                 compute,
                 backup,
+                dataApi,
                 privateEndpointConnections ?? new ChangeTrackingList<MongoClusterPrivateEndpointConnection>(),
                 previewFeatures ?? new ChangeTrackingList<MongoClusterPreviewFeature>(),
                 replica,
