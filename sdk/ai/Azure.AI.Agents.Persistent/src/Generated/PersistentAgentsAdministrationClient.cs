@@ -84,6 +84,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="model"/> is null. </exception>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='CreateAgentAsync(string,string,string,string,IEnumerable{ToolDefinition},ToolResources,float?,float?,BinaryData,IReadOnlyDictionary{string,string},CancellationToken)']/*" />
         public virtual async Task<Response<PersistentAgent>> CreateAgentAsync(string model, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(model, nameof(model));
@@ -129,6 +130,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="model"/> is null. </exception>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='CreateAgent(string,string,string,string,IEnumerable{ToolDefinition},ToolResources,float?,float?,BinaryData,IReadOnlyDictionary{string,string},CancellationToken)']/*" />
         public virtual Response<PersistentAgent> CreateAgent(string model, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(model, nameof(model));
@@ -170,6 +172,7 @@ namespace Azure.AI.Agents.Persistent
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='CreateAgentAsync(RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> CreateAgentAsync(RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
@@ -208,6 +211,7 @@ namespace Azure.AI.Agents.Persistent
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='CreateAgent(RequestContent,RequestContext)']/*" />
         public virtual Response CreateAgent(RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
@@ -231,6 +235,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='GetAgentAsync(string,CancellationToken)']/*" />
         public virtual async Task<Response<PersistentAgent>> GetAgentAsync(string assistantId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
@@ -245,6 +250,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='GetAgent(string,CancellationToken)']/*" />
         public virtual Response<PersistentAgent> GetAgent(string assistantId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
@@ -280,6 +286,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='UpdateAgentAsync(string,string,string,string,string,IEnumerable{ToolDefinition},ToolResources,float?,float?,BinaryData,IReadOnlyDictionary{string,string},CancellationToken)']/*" />
         public virtual async Task<Response<PersistentAgent>> UpdateAgentAsync(string assistantId, string model = null, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
@@ -327,6 +334,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='UpdateAgent(string,string,string,string,string,IEnumerable{ToolDefinition},ToolResources,float?,float?,BinaryData,IReadOnlyDictionary{string,string},CancellationToken)']/*" />
         public virtual Response<PersistentAgent> UpdateAgent(string assistantId, string model = null, string name = null, string description = null, string instructions = null, IEnumerable<ToolDefinition> tools = null, ToolResources toolResources = null, float? temperature = null, float? topP = null, BinaryData responseFormat = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
@@ -370,6 +378,7 @@ namespace Azure.AI.Agents.Persistent
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='UpdateAgentAsync(string,RequestContent,RequestContext)']/*" />
         public virtual async Task<Response> UpdateAgentAsync(string assistantId, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
@@ -411,6 +420,7 @@ namespace Azure.AI.Agents.Persistent
         /// <exception cref="ArgumentException"> <paramref name="assistantId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PersistentAgentsAdministrationClient.xml" path="doc/members/member[@name='UpdateAgent(string,RequestContent,RequestContext)']/*" />
         public virtual Response UpdateAgent(string assistantId, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(assistantId, nameof(assistantId));
@@ -575,7 +585,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
-        internal virtual async Task<Response<ThreadRun>> CreateThreadAndRunAsync(string assistantId, PersistentAgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, UpdateToolResourcesOptions toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, Truncation truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        internal virtual async Task<Response<ThreadRun>> CreateThreadAndRunAsync(string assistantId, PersistentAgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, ToolResources toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, Truncation truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(assistantId, nameof(assistantId));
 
@@ -641,7 +651,7 @@ namespace Azure.AI.Agents.Persistent
         /// <param name="metadata"> A set of up to 16 key/value pairs that can be attached to an object, used for storing additional information about that object in a structured format. Keys may be up to 64 characters in length and values may be up to 512 characters in length. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="assistantId"/> is null. </exception>
-        internal virtual Response<ThreadRun> CreateThreadAndRun(string assistantId, PersistentAgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, UpdateToolResourcesOptions toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, Truncation truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
+        internal virtual Response<ThreadRun> CreateThreadAndRun(string assistantId, PersistentAgentThreadCreationOptions thread = null, string overrideModelName = null, string overrideInstructions = null, IEnumerable<ToolDefinition> overrideTools = null, ToolResources toolResources = null, bool? stream = null, float? temperature = null, float? topP = null, int? maxPromptTokens = null, int? maxCompletionTokens = null, Truncation truncationStrategy = null, BinaryData toolChoice = null, BinaryData responseFormat = null, bool? parallelToolCalls = null, IReadOnlyDictionary<string, string> metadata = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(assistantId, nameof(assistantId));
 
@@ -678,7 +688,7 @@ namespace Azure.AI.Agents.Persistent
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="CreateThreadAndRunAsync(string,PersistentAgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},UpdateToolResourcesOptions,bool?,float?,float?,int?,int?,Truncation,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="CreateThreadAndRunAsync(string,PersistentAgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},ToolResources,bool?,float?,float?,int?,int?,Truncation,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -716,7 +726,7 @@ namespace Azure.AI.Agents.Persistent
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="CreateThreadAndRun(string,PersistentAgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},UpdateToolResourcesOptions,bool?,float?,float?,int?,int?,Truncation,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="CreateThreadAndRun(string,PersistentAgentThreadCreationOptions,string,string,IEnumerable{ToolDefinition},ToolResources,bool?,float?,float?,int?,int?,Truncation,BinaryData,BinaryData,bool?,IReadOnlyDictionary{string,string},CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>

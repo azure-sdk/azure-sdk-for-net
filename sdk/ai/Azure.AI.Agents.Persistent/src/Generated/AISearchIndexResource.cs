@@ -46,16 +46,8 @@ namespace Azure.AI.Agents.Persistent
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AISearchIndexResource"/>. </summary>
-        /// <param name="indexConnectionId"> An index connection id in an IndexResource attached to this agent. </param>
-        /// <param name="indexName"> The name of an index in an IndexResource attached to this agent. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="indexConnectionId"/> or <paramref name="indexName"/> is null. </exception>
-        public AISearchIndexResource(string indexConnectionId, string indexName)
+        public AISearchIndexResource()
         {
-            Argument.AssertNotNull(indexConnectionId, nameof(indexConnectionId));
-            Argument.AssertNotNull(indexName, nameof(indexName));
-
-            IndexConnectionId = indexConnectionId;
-            IndexName = indexName;
         }
 
         /// <summary> Initializes a new instance of <see cref="AISearchIndexResource"/>. </summary>
@@ -75,11 +67,6 @@ namespace Azure.AI.Agents.Persistent
             Filter = filter;
             IndexAssetId = indexAssetId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="AISearchIndexResource"/> for deserialization. </summary>
-        internal AISearchIndexResource()
-        {
         }
 
         /// <summary> An index connection id in an IndexResource attached to this agent. </summary>
