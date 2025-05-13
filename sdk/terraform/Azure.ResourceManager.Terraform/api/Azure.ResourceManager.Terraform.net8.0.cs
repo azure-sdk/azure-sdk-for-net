@@ -25,10 +25,30 @@ namespace Azure.ResourceManager.Terraform.Models
 {
     public static partial class ArmTerraformModelFactory
     {
-        public static Azure.ResourceManager.Terraform.Models.ExportQueryTerraform ExportQueryTerraform(Azure.ResourceManager.Terraform.Models.TargetTerraformProvider? targetProvider = default(Azure.ResourceManager.Terraform.Models.TargetTerraformProvider?), bool? isOutputFullPropertiesEnabled = default(bool?), bool? isMaskSensitiveEnabled = default(bool?), string query = null, string namePattern = null, bool? isRecursive = default(bool?)) { throw null; }
+        public static Azure.ResourceManager.Terraform.Models.ExportQueryTerraform ExportQueryTerraform(Azure.ResourceManager.Terraform.Models.TargetTerraformProvider? targetProvider = default(Azure.ResourceManager.Terraform.Models.TargetTerraformProvider?), bool? isOutputFullPropertiesEnabled = default(bool?), bool? isMaskSensitiveEnabled = default(bool?), string query = null, string namePattern = null, bool? isRecursive = default(bool?), string table = null, Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter? authorizationScopeFilter = default(Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter?)) { throw null; }
         public static Azure.ResourceManager.Terraform.Models.ExportResourceGroupTerraform ExportResourceGroupTerraform(Azure.ResourceManager.Terraform.Models.TargetTerraformProvider? targetProvider = default(Azure.ResourceManager.Terraform.Models.TargetTerraformProvider?), bool? isOutputFullPropertiesEnabled = default(bool?), bool? isMaskSensitiveEnabled = default(bool?), string resourceGroupName = null, string namePattern = null) { throw null; }
-        public static Azure.ResourceManager.Terraform.Models.TerraformExportResult TerraformExportResult(string configuration = null, System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> skippedResourceIds = null, System.Collections.Generic.IEnumerable<Azure.ResponseError> errors = null) { throw null; }
+        public static Azure.ResourceManager.Terraform.Models.TerraformExportResult TerraformExportResult(string configuration = null, string import = null, System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> skippedResourceIds = null, System.Collections.Generic.IEnumerable<Azure.ResponseError> errors = null) { throw null; }
         public static Azure.ResourceManager.Terraform.Models.TerraformOperationStatus TerraformOperationStatus(Azure.ResourceManager.Terraform.Models.TerraformExportResult properties = null, Azure.ResourceManager.Terraform.Models.TerraformResourceProvisioningState status = default(Azure.ResourceManager.Terraform.Models.TerraformResourceProvisioningState), string name = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), double? percentComplete = default(double?), Azure.ResponseError error = null) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AuthorizationScopeFilter : System.IEquatable<Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AuthorizationScopeFilter(string value) { throw null; }
+        public static Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter AtScopeAboveAndBelow { get { throw null; } }
+        public static Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter AtScopeAndAbove { get { throw null; } }
+        public static Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter AtScopeAndBelow { get { throw null; } }
+        public static Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter AtScopeExact { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter left, Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter left, Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public abstract partial class CommonExportProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Terraform.Models.CommonExportProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Terraform.Models.CommonExportProperties>
     {
@@ -46,9 +66,11 @@ namespace Azure.ResourceManager.Terraform.Models
     public partial class ExportQueryTerraform : Azure.ResourceManager.Terraform.Models.CommonExportProperties, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Terraform.Models.ExportQueryTerraform>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Terraform.Models.ExportQueryTerraform>
     {
         public ExportQueryTerraform(string query) { }
+        public Azure.ResourceManager.Terraform.Models.AuthorizationScopeFilter? AuthorizationScopeFilter { get { throw null; } set { } }
         public bool? IsRecursive { get { throw null; } set { } }
         public string NamePattern { get { throw null; } set { } }
         public string Query { get { throw null; } }
+        public string Table { get { throw null; } set { } }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Terraform.Models.ExportQueryTerraform System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Terraform.Models.ExportQueryTerraform>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Terraform.Models.ExportQueryTerraform>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -105,6 +127,7 @@ namespace Azure.ResourceManager.Terraform.Models
         internal TerraformExportResult() { }
         public string Configuration { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResponseError> Errors { get { throw null; } }
+        public string Import { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.Core.ResourceIdentifier> SkippedResourceIds { get { throw null; } }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Terraform.Models.TerraformExportResult System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Terraform.Models.TerraformExportResult>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
