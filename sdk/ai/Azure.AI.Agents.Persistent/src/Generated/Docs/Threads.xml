@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateThreadAsync(IEnumerable{ThreadMessageOptions},ToolResources,IReadOnlyDictionary{string,string},CancellationToken)">
+      <example>
+This sample shows how to call CreateThreadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = await client.CreateThreadAsync();
+]]></code></example>
+    </member>
+    <member name="CreateThread(IEnumerable{ThreadMessageOptions},ToolResources,IReadOnlyDictionary{string,string},CancellationToken)">
+      <example>
+This sample shows how to call CreateThread.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = client.CreateThread();
+]]></code></example>
+    </member>
+    <member name="CreateThreadAsync(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateThreadAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    messages = new object[]
+    {
+        new
+        {
+            role = "user",
+            attachments = new object[]
+            {
+                new
+                {
+                    file_id = "kikxqbmle",
+                    data_source = new
+                    {
+                        uri = "wcjtwvdweaxymq",
+                        type = "uri_asset",
+                    },
+                    tools = Array.Empty<object>(),
+                }
+            },
+            metadata = new
+            {
+                key4143 = "ysgghfrexpy",
+            },
+        }
+    },
+    tool_resources = new
+    {
+        code_interpreter = new
+        {
+            file_ids = new object[]
+            {
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz"
+            },
+            data_sources = new object[]
+            {
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                }
+            },
+        },
+        file_search = new
+        {
+            vector_store_ids = new object[]
+            {
+                "zvqyqlmnpihylcbcndoorshyroaut"
+            },
+            vector_stores = new object[]
+            {
+                new
+                {
+                    name = "oqoasoxwhakgvubhuuw",
+                    configuration = new
+                    {
+                        data_sources = new object[]
+                        {
+                            new
+                            {
+                                uri = "wcjtwvdweaxymq",
+                                type = "uri_asset",
+                            }
+                        },
+                    },
+                }
+            },
+        },
+        azure_ai_search = new
+        {
+            indexes = new object[]
+            {
+                new
+                {
+                    index_connection_id = "zspzyybnnalygtyaavgxnshtwxd",
+                    index_name = "fwvwxztya",
+                    query_type = "simple",
+                    top_k = 30,
+                    filter = "zedwfqlbtcyqrltpyuenlubie",
+                    index_asset_id = "csmjchcvpssoetfepzmatc",
+                }
+            },
+        },
+    },
+    metadata = new
+    {
+        key7513 = "qphuebhovpgqsemxquzzaicstfpdh",
+    },
+});
+Response response = await client.CreateThreadAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateThread(RequestContent,RequestContext)">
+      <example>
+This sample shows how to call CreateThread and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    messages = new object[]
+    {
+        new
+        {
+            role = "user",
+            attachments = new object[]
+            {
+                new
+                {
+                    file_id = "kikxqbmle",
+                    data_source = new
+                    {
+                        uri = "wcjtwvdweaxymq",
+                        type = "uri_asset",
+                    },
+                    tools = Array.Empty<object>(),
+                }
+            },
+            metadata = new
+            {
+                key4143 = "ysgghfrexpy",
+            },
+        }
+    },
+    tool_resources = new
+    {
+        code_interpreter = new
+        {
+            file_ids = new object[]
+            {
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz"
+            },
+            data_sources = new object[]
+            {
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                }
+            },
+        },
+        file_search = new
+        {
+            vector_store_ids = new object[]
+            {
+                "zvqyqlmnpihylcbcndoorshyroaut"
+            },
+            vector_stores = new object[]
+            {
+                new
+                {
+                    name = "oqoasoxwhakgvubhuuw",
+                    configuration = new
+                    {
+                        data_sources = new object[]
+                        {
+                            new
+                            {
+                                uri = "wcjtwvdweaxymq",
+                                type = "uri_asset",
+                            }
+                        },
+                    },
+                }
+            },
+        },
+        azure_ai_search = new
+        {
+            indexes = new object[]
+            {
+                new
+                {
+                    index_connection_id = "zspzyybnnalygtyaavgxnshtwxd",
+                    index_name = "fwvwxztya",
+                    query_type = "simple",
+                    top_k = 30,
+                    filter = "zedwfqlbtcyqrltpyuenlubie",
+                    index_asset_id = "csmjchcvpssoetfepzmatc",
+                }
+            },
+        },
+    },
+    metadata = new
+    {
+        key7513 = "qphuebhovpgqsemxquzzaicstfpdh",
+    },
+});
+Response response = client.CreateThread(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetThreadAsync(string,CancellationToken)">
+      <example>
+This sample shows how to call GetThreadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = await client.GetThreadAsync("doogihzvmpwidwvsacag");
+]]></code>
+This sample shows how to call GetThreadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = await client.GetThreadAsync("meyyxujmqfapeitlawrmgsvugkllb");
+]]></code></example>
+    </member>
+    <member name="GetThread(string,CancellationToken)">
+      <example>
+This sample shows how to call GetThread.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = client.GetThread("doogihzvmpwidwvsacag");
+]]></code>
+This sample shows how to call GetThread.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = client.GetThread("meyyxujmqfapeitlawrmgsvugkllb");
+]]></code></example>
+    </member>
+    <member name="GetThreadAsync(string,RequestContext)">
+      <example>
+This sample shows how to call GetThreadAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response response = await client.GetThreadAsync("doogihzvmpwidwvsacag", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call GetThreadAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response response = await client.GetThreadAsync("meyyxujmqfapeitlawrmgsvugkllb", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetThread(string,RequestContext)">
+      <example>
+This sample shows how to call GetThread and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response response = client.GetThread("doogihzvmpwidwvsacag", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call GetThread and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response response = client.GetThread("meyyxujmqfapeitlawrmgsvugkllb", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateThreadAsync(string,ToolResources,IReadOnlyDictionary{string,string},CancellationToken)">
+      <example>
+This sample shows how to call UpdateThreadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = await client.UpdateThreadAsync("spwgndhtrz");
+]]></code>
+This sample shows how to call UpdateThreadAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = await client.UpdateThreadAsync("spwgndhtrz");
+]]></code></example>
+    </member>
+    <member name="UpdateThread(string,ToolResources,IReadOnlyDictionary{string,string},CancellationToken)">
+      <example>
+This sample shows how to call UpdateThread.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = client.UpdateThread("spwgndhtrz");
+]]></code>
+This sample shows how to call UpdateThread.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+Response<PersistentAgentThread> response = client.UpdateThread("spwgndhtrz");
+]]></code></example>
+    </member>
+    <member name="UpdateThreadAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateThreadAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    tool_resources = new
+    {
+        code_interpreter = new
+        {
+            file_ids = new object[]
+            {
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz"
+            },
+            data_sources = new object[]
+            {
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                }
+            },
+        },
+        file_search = new
+        {
+            vector_store_ids = new object[]
+            {
+                "zvqyqlmnpihylcbcndoorshyroaut"
+            },
+            vector_stores = new object[]
+            {
+                new
+                {
+                    name = "oqoasoxwhakgvubhuuw",
+                    configuration = new
+                    {
+                        data_sources = new object[]
+                        {
+                            new
+                            {
+                                uri = "wcjtwvdweaxymq",
+                                type = "uri_asset",
+                            }
+                        },
+                    },
+                }
+            },
+        },
+        azure_ai_search = new
+        {
+            indexes = new object[]
+            {
+                new
+                {
+                    index_connection_id = "zspzyybnnalygtyaavgxnshtwxd",
+                    index_name = "fwvwxztya",
+                    query_type = "simple",
+                    top_k = 30,
+                    filter = "zedwfqlbtcyqrltpyuenlubie",
+                    index_asset_id = "csmjchcvpssoetfepzmatc",
+                }
+            },
+        },
+    },
+    metadata = new
+    {
+        key3394 = "zoqfevbwkdfksiokajl",
+    },
+});
+Response response = await client.UpdateThreadAsync("spwgndhtrz", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UpdateThreadAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.UpdateThreadAsync("spwgndhtrz", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="UpdateThread(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call UpdateThread and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+using RequestContent content = RequestContent.Create(new
+{
+    tool_resources = new
+    {
+        code_interpreter = new
+        {
+            file_ids = new object[]
+            {
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz",
+                "ioycnnhncwmtgmslrbhvwqqwxz"
+            },
+            data_sources = new object[]
+            {
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                },
+                new
+                {
+                    uri = "wcjtwvdweaxymq",
+                    type = "uri_asset",
+                }
+            },
+        },
+        file_search = new
+        {
+            vector_store_ids = new object[]
+            {
+                "zvqyqlmnpihylcbcndoorshyroaut"
+            },
+            vector_stores = new object[]
+            {
+                new
+                {
+                    name = "oqoasoxwhakgvubhuuw",
+                    configuration = new
+                    {
+                        data_sources = new object[]
+                        {
+                            new
+                            {
+                                uri = "wcjtwvdweaxymq",
+                                type = "uri_asset",
+                            }
+                        },
+                    },
+                }
+            },
+        },
+        azure_ai_search = new
+        {
+            indexes = new object[]
+            {
+                new
+                {
+                    index_connection_id = "zspzyybnnalygtyaavgxnshtwxd",
+                    index_name = "fwvwxztya",
+                    query_type = "simple",
+                    top_k = 30,
+                    filter = "zedwfqlbtcyqrltpyuenlubie",
+                    index_asset_id = "csmjchcvpssoetfepzmatc",
+                }
+            },
+        },
+    },
+    metadata = new
+    {
+        key3394 = "zoqfevbwkdfksiokajl",
+    },
+});
+Response response = client.UpdateThread("spwgndhtrz", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code>
+This sample shows how to call UpdateThread and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.UpdateThread("spwgndhtrz", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("object").ToString());
+Console.WriteLine(result.GetProperty("created_at").ToString());
+Console.WriteLine(result.GetProperty("tool_resources").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+]]></code></example>
+    </member>
+    <member name="GetThreadsAsync(int?,ListSortOrder?,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetThreadsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+await foreach (PersistentAgentThread item in client.GetThreadsAsync())
+{
+}
+]]></code>
+This sample shows how to call GetThreadsAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+await foreach (PersistentAgentThread item in client.GetThreadsAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetThreads(int?,ListSortOrder?,string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetThreads.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+foreach (PersistentAgentThread item in client.GetThreads())
+{
+}
+]]></code>
+This sample shows how to call GetThreads.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+foreach (PersistentAgentThread item in client.GetThreads())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetThreadsAsync(int?,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetThreadsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+await foreach (BinaryData item in client.GetThreadsAsync(1, "asc", "olerkjniaiuvizvjxlbwjccyyrhfi", "olrqcikkvmlzjycnyyspc", (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("object").ToString());
+    Console.WriteLine(result.GetProperty("created_at").ToString());
+    Console.WriteLine(result.GetProperty("tool_resources").ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+}
+]]></code>
+This sample shows how to call GetThreadsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+await foreach (BinaryData item in client.GetThreadsAsync((int?)null, (string)null, (string)null, (string)null, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("object").ToString());
+    Console.WriteLine(result.GetProperty("created_at").ToString());
+    Console.WriteLine(result.GetProperty("tool_resources").ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetThreads(int?,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetThreads and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+foreach (BinaryData item in client.GetThreads(1, "asc", "olerkjniaiuvizvjxlbwjccyyrhfi", "olrqcikkvmlzjycnyyspc", (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("object").ToString());
+    Console.WriteLine(result.GetProperty("created_at").ToString());
+    Console.WriteLine(result.GetProperty("tool_resources").ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+}
+]]></code>
+This sample shows how to call GetThreads and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+Threads client = new PersistentAgentsAdministrationClient(endpoint, credential).GetThreadsClient();
+
+foreach (BinaryData item in client.GetThreads((int?)null, (string)null, (string)null, (string)null, (RequestContext)null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("object").ToString());
+    Console.WriteLine(result.GetProperty("created_at").ToString());
+    Console.WriteLine(result.GetProperty("tool_resources").ToString());
+    Console.WriteLine(result.GetProperty("metadata").GetProperty("<key>").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
