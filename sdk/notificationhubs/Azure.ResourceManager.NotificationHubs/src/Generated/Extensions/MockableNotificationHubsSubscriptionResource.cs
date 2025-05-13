@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.NotificationHubs.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="content"> Request content. </param>
+        /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         public virtual async Task<Response<NotificationHubAvailabilityResult>> CheckNotificationHubNamespaceAvailabilityAsync(NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.NotificationHubs.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="content"> Request content. </param>
+        /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         public virtual Response<NotificationHubAvailabilityResult> CheckNotificationHubNamespaceAvailability(NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)

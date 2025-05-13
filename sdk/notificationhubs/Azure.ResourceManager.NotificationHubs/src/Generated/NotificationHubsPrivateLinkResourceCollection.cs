@@ -170,7 +170,8 @@ namespace Azure.ResourceManager.NotificationHubs
         public virtual AsyncPageable<NotificationHubsPrivateLinkResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsRestClient.CreateListGroupIdsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new NotificationHubsPrivateLinkResource(Client, NotificationHubsPrivateLinkResourceData.DeserializeNotificationHubsPrivateLinkResourceData(e)), _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsClientDiagnostics, Pipeline, "NotificationHubsPrivateLinkResourceCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsRestClient.CreateListGroupIdsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new NotificationHubsPrivateLinkResource(Client, NotificationHubsPrivateLinkResourceData.DeserializeNotificationHubsPrivateLinkResourceData(e)), _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsClientDiagnostics, Pipeline, "NotificationHubsPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -200,7 +201,8 @@ namespace Azure.ResourceManager.NotificationHubs
         public virtual Pageable<NotificationHubsPrivateLinkResource> GetAll(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsRestClient.CreateListGroupIdsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => new NotificationHubsPrivateLinkResource(Client, NotificationHubsPrivateLinkResourceData.DeserializeNotificationHubsPrivateLinkResourceData(e)), _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsClientDiagnostics, Pipeline, "NotificationHubsPrivateLinkResourceCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsRestClient.CreateListGroupIdsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new NotificationHubsPrivateLinkResource(Client, NotificationHubsPrivateLinkResourceData.DeserializeNotificationHubsPrivateLinkResourceData(e)), _notificationHubsPrivateLinkResourcePrivateEndpointConnectionsClientDiagnostics, Pipeline, "NotificationHubsPrivateLinkResourceCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
