@@ -414,6 +414,25 @@ namespace Azure.ResourceManager.Compute
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="ComputeDiagnosticBaseResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ComputeDiagnosticBaseResource.CreateResourceIdentifier" /> to create a <see cref="ComputeDiagnosticBaseResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableComputeArmClient.GetComputeDiagnosticBaseResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ComputeDiagnosticBaseResource"/> object. </returns>
+        public static ComputeDiagnosticBaseResource GetComputeDiagnosticBaseResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableComputeArmClient(client).GetComputeDiagnosticBaseResource(id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ManagedDiskResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ManagedDiskResource.CreateResourceIdentifier" /> to create a <see cref="ManagedDiskResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -2382,6 +2401,97 @@ namespace Azure.ResourceManager.Compute
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
             return GetMockableComputeSubscriptionResource(subscriptionResource).GetVirtualMachineExtensionImage(location, publisherName, type, version, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a collection of ComputeDiagnosticBaseResources in the SubscriptionResource.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableComputeSubscriptionResource.GetComputeDiagnosticBases()"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
+        /// <returns> An object representing collection of ComputeDiagnosticBaseResources and their operations over a ComputeDiagnosticBaseResource. </returns>
+        public static ComputeDiagnosticBaseCollection GetComputeDiagnosticBases(this SubscriptionResource subscriptionResource)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return GetMockableComputeSubscriptionResource(subscriptionResource).GetComputeDiagnosticBases();
+        }
+
+        /// <summary>
+        /// Gets Spot Placement Scores metadata.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/placementScores/spot</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SpotPlacementScores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-06-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ComputeDiagnosticBaseResource"/></description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableComputeSubscriptionResource.GetComputeDiagnosticBaseAsync(AzureLocation,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<ComputeDiagnosticBaseResource>> GetComputeDiagnosticBaseAsync(this SubscriptionResource subscriptionResource, AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return await GetMockableComputeSubscriptionResource(subscriptionResource).GetComputeDiagnosticBaseAsync(location, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets Spot Placement Scores metadata.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/placementScores/spot</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SpotPlacementScores_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-06-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="ComputeDiagnosticBaseResource"/></description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableComputeSubscriptionResource.GetComputeDiagnosticBase(AzureLocation,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<ComputeDiagnosticBaseResource> GetComputeDiagnosticBase(this SubscriptionResource subscriptionResource, AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
+
+            return GetMockableComputeSubscriptionResource(subscriptionResource).GetComputeDiagnosticBase(location, cancellationToken);
         }
 
         /// <summary>
