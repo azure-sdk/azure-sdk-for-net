@@ -34,8 +34,6 @@ namespace Azure.AI.Vision.Face
                 throw new FormatException($"The model {nameof(LivenessWithVerifyOutputs)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("verifyImage"u8);
-            writer.WriteObjectValue(VerifyImage, options);
             writer.WritePropertyName("matchConfidence"u8);
             writer.WriteNumberValue(MatchConfidence);
             writer.WritePropertyName("isIdentical"u8);
@@ -77,18 +75,12 @@ namespace Azure.AI.Vision.Face
             {
                 return null;
             }
-            LivenessWithVerifyImage verifyImage = default;
             float matchConfidence = default;
             bool isIdentical = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("verifyImage"u8))
-                {
-                    verifyImage = LivenessWithVerifyImage.DeserializeLivenessWithVerifyImage(property.Value, options);
-                    continue;
-                }
                 if (property.NameEquals("matchConfidence"u8))
                 {
                     matchConfidence = property.Value.GetSingle();
@@ -105,7 +97,7 @@ namespace Azure.AI.Vision.Face
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new LivenessWithVerifyOutputs(verifyImage, matchConfidence, isIdentical, serializedAdditionalRawData);
+            return new LivenessWithVerifyOutputs(matchConfidence, isIdentical, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<LivenessWithVerifyOutputs>.Write(ModelReaderWriterOptions options)
