@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Autorest.CSharp.Core;
@@ -16,7 +15,6 @@ using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Datadog.Models;
 using Azure.ResourceManager.Resources;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Datadog
 {
@@ -38,8 +36,8 @@ namespace Azure.ResourceManager.Datadog
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _datadogMonitorResourceMonitorsClientDiagnostics;
-        private readonly MonitorsRestOperations _datadogMonitorResourceMonitorsRestClient;
+        private readonly ClientDiagnostics _datadogMonitorResourceClientDiagnostics;
+        private readonly DatadogMonitorResourcesRestOperations _datadogMonitorResourceRestClient;
         private readonly DatadogMonitorResourceData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -64,9 +62,9 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal DatadogMonitorResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _datadogMonitorResourceMonitorsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Datadog", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string datadogMonitorResourceMonitorsApiVersion);
-            _datadogMonitorResourceMonitorsRestClient = new MonitorsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, datadogMonitorResourceMonitorsApiVersion);
+            _datadogMonitorResourceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Datadog", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string datadogMonitorResourceApiVersion);
+            _datadogMonitorResourceRestClient = new DatadogMonitorResourcesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, datadogMonitorResourceApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -109,11 +107,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>TagRules_Get</description>
+        /// <description>MonitoringTagRules_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -140,11 +138,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>TagRules_Get</description>
+        /// <description>MonitoringTagRules_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -178,11 +176,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SingleSignOnConfigurations_Get</description>
+        /// <description>DatadogSingleSignOnResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -209,11 +207,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SingleSignOnConfigurations_Get</description>
+        /// <description>DatadogSingleSignOnResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -231,6 +229,75 @@ namespace Azure.ResourceManager.Datadog
             return GetDatadogSingleSignOnResources().Get(configurationName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of MonitoredSubscriptionPropertyResources in the DatadogMonitorResource. </summary>
+        /// <returns> An object representing collection of MonitoredSubscriptionPropertyResources and their operations over a MonitoredSubscriptionPropertyResource. </returns>
+        public virtual MonitoredSubscriptionPropertyCollection GetMonitoredSubscriptionProperties()
+        {
+            return GetCachedClient(client => new MonitoredSubscriptionPropertyCollection(client, Id));
+        }
+
+        /// <summary>
+        /// List the subscriptions currently being monitored by the Datadog monitor resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Datadog/monitors/{monitorName}/monitoredSubscriptions/{configurationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MonitoredSubscriptionProperties_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-20</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="MonitoredSubscriptionPropertyResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="configurationName"> The configuration name. Only 'default' value is supported. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="configurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="configurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<MonitoredSubscriptionPropertyResource>> GetMonitoredSubscriptionPropertyAsync(string configurationName, CancellationToken cancellationToken = default)
+        {
+            return await GetMonitoredSubscriptionProperties().GetAsync(configurationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// List the subscriptions currently being monitored by the Datadog monitor resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Datadog/monitors/{monitorName}/monitoredSubscriptions/{configurationName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MonitoredSubscriptionProperties_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-20</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="MonitoredSubscriptionPropertyResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="configurationName"> The configuration name. Only 'default' value is supported. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="configurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="configurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<MonitoredSubscriptionPropertyResource> GetMonitoredSubscriptionProperty(string configurationName, CancellationToken cancellationToken = default)
+        {
+            return GetMonitoredSubscriptionProperties().Get(configurationName, cancellationToken);
+        }
+
         /// <summary>
         /// Get the properties of a specific monitor resource.
         /// <list type="bullet">
@@ -240,11 +307,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -255,11 +322,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<DatadogMonitorResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.Get");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.Get");
             scope.Start();
             try
             {
-                var response = await _datadogMonitorResourceMonitorsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _datadogMonitorResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new DatadogMonitorResource(Client, response.Value), response.GetRawResponse());
@@ -280,11 +347,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -295,11 +362,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<DatadogMonitorResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.Get");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.Get");
             scope.Start();
             try
             {
-                var response = _datadogMonitorResourceMonitorsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var response = _datadogMonitorResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new DatadogMonitorResource(Client, response.Value), response.GetRawResponse());
@@ -320,11 +387,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Delete</description>
+        /// <description>DatadogMonitorResource_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -336,12 +403,12 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.Delete");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.Delete");
             scope.Start();
             try
             {
-                var response = await _datadogMonitorResourceMonitorsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new DatadogArmOperation(_datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, _datadogMonitorResourceMonitorsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = await _datadogMonitorResourceRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new DatadogArmOperation(_datadogMonitorResourceClientDiagnostics, Pipeline, _datadogMonitorResourceRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -362,11 +429,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Delete</description>
+        /// <description>DatadogMonitorResource_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -378,12 +445,12 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.Delete");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.Delete");
             scope.Start();
             try
             {
-                var response = _datadogMonitorResourceMonitorsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new DatadogArmOperation(_datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, _datadogMonitorResourceMonitorsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = _datadogMonitorResourceRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var operation = new DatadogArmOperation(_datadogMonitorResourceClientDiagnostics, Pipeline, _datadogMonitorResourceRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -404,11 +471,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Update</description>
+        /// <description>DatadogMonitorResource_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -420,18 +487,18 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="patch"> The <see cref="DatadogMonitorResourcePatch"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<ArmOperation<DatadogMonitorResource>> UpdateAsync(WaitUntil waitUntil, DatadogMonitorResourcePatch patch, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> UpdateAsync(WaitUntil waitUntil, DatadogMonitorResourcePatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.Update");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.Update");
             scope.Start();
             try
             {
-                var response = await _datadogMonitorResourceMonitorsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken).ConfigureAwait(false);
-                var operation = new DatadogArmOperation<DatadogMonitorResource>(new DatadogMonitorResourceOperationSource(Client), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, _datadogMonitorResourceMonitorsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
+                var response = await _datadogMonitorResourceRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var operation = new DatadogArmOperation(_datadogMonitorResourceClientDiagnostics, Pipeline, _datadogMonitorResourceRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
             }
             catch (Exception e)
@@ -450,11 +517,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Update</description>
+        /// <description>DatadogMonitorResource_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -466,18 +533,18 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="patch"> The <see cref="DatadogMonitorResourcePatch"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual ArmOperation<DatadogMonitorResource> Update(WaitUntil waitUntil, DatadogMonitorResourcePatch patch, CancellationToken cancellationToken = default)
+        public virtual ArmOperation Update(WaitUntil waitUntil, DatadogMonitorResourcePatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.Update");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.Update");
             scope.Start();
             try
             {
-                var response = _datadogMonitorResourceMonitorsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken);
-                var operation = new DatadogArmOperation<DatadogMonitorResource>(new DatadogMonitorResourceOperationSource(Client), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, _datadogMonitorResourceMonitorsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
+                var response = _datadogMonitorResourceRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken);
+                var operation = new DatadogArmOperation(_datadogMonitorResourceClientDiagnostics, Pipeline, _datadogMonitorResourceRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -496,11 +563,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListApiKeys</description>
+        /// <description>DatadogMonitorResources_ListApiKeys</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -512,9 +579,9 @@ namespace Azure.ResourceManager.Datadog
         /// <returns> An async collection of <see cref="DatadogApiKey"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<DatadogApiKey> GetApiKeysAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListApiKeysRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListApiKeysNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => DatadogApiKey.DeserializeDatadogApiKey(e), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetApiKeys", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListApiKeysRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListApiKeysNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => DatadogApiKey.DeserializeDatadogApiKey(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetApiKeys", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -526,11 +593,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListApiKeys</description>
+        /// <description>DatadogMonitorResources_ListApiKeys</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -542,9 +609,9 @@ namespace Azure.ResourceManager.Datadog
         /// <returns> A collection of <see cref="DatadogApiKey"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<DatadogApiKey> GetApiKeys(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListApiKeysRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListApiKeysNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => DatadogApiKey.DeserializeDatadogApiKey(e), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetApiKeys", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListApiKeysRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListApiKeysNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => DatadogApiKey.DeserializeDatadogApiKey(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetApiKeys", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -556,11 +623,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_GetDefaultKey</description>
+        /// <description>DatadogMonitorResources_GetDefaultKey</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -571,11 +638,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<DatadogApiKey>> GetDefaultKeyAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.GetDefaultKey");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.GetDefaultKey");
             scope.Start();
             try
             {
-                var response = await _datadogMonitorResourceMonitorsRestClient.GetDefaultKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _datadogMonitorResourceRestClient.GetDefaultKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -594,11 +661,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_GetDefaultKey</description>
+        /// <description>DatadogMonitorResources_GetDefaultKey</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -609,11 +676,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<DatadogApiKey> GetDefaultKey(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.GetDefaultKey");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.GetDefaultKey");
             scope.Start();
             try
             {
-                var response = _datadogMonitorResourceMonitorsRestClient.GetDefaultKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var response = _datadogMonitorResourceRestClient.GetDefaultKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -632,11 +699,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_SetDefaultKey</description>
+        /// <description>DatadogMonitorResources_SetDefaultKey</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -648,11 +715,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response> SetDefaultKeyAsync(DatadogApiKey body = null, CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.SetDefaultKey");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.SetDefaultKey");
             scope.Start();
             try
             {
-                var response = await _datadogMonitorResourceMonitorsRestClient.SetDefaultKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                var response = await _datadogMonitorResourceRestClient.SetDefaultKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -671,11 +738,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_SetDefaultKey</description>
+        /// <description>DatadogMonitorResources_SetDefaultKey</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -687,11 +754,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response SetDefaultKey(DatadogApiKey body = null, CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.SetDefaultKey");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.SetDefaultKey");
             scope.Start();
             try
             {
-                var response = _datadogMonitorResourceMonitorsRestClient.SetDefaultKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                var response = _datadogMonitorResourceRestClient.SetDefaultKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -710,11 +777,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListHosts</description>
+        /// <description>DatadogMonitorResources_ListHosts</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -726,9 +793,9 @@ namespace Azure.ResourceManager.Datadog
         /// <returns> An async collection of <see cref="DatadogHost"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<DatadogHost> GetHostsAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListHostsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListHostsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => DatadogHost.DeserializeDatadogHost(e), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetHosts", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListHostsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListHostsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => DatadogHost.DeserializeDatadogHost(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetHosts", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -740,11 +807,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListHosts</description>
+        /// <description>DatadogMonitorResources_ListHosts</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -756,9 +823,9 @@ namespace Azure.ResourceManager.Datadog
         /// <returns> A collection of <see cref="DatadogHost"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<DatadogHost> GetHosts(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListHostsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListHostsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => DatadogHost.DeserializeDatadogHost(e), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetHosts", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListHostsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListHostsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => DatadogHost.DeserializeDatadogHost(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetHosts", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -770,11 +837,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListLinkedResources</description>
+        /// <description>DatadogMonitorResources_ListLinkedResources</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -783,12 +850,12 @@ namespace Azure.ResourceManager.Datadog
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SubResource> GetLinkedResourcesAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="LinkedResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<LinkedResource> GetLinkedResourcesAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListLinkedResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListLinkedResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => JsonSerializer.Deserialize<SubResource>(e.GetRawText()), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetLinkedResources", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListLinkedResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListLinkedResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => LinkedResource.DeserializeLinkedResource(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetLinkedResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -800,11 +867,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListLinkedResources</description>
+        /// <description>DatadogMonitorResources_ListLinkedResources</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -813,12 +880,12 @@ namespace Azure.ResourceManager.Datadog
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SubResource> GetLinkedResources(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="LinkedResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<LinkedResource> GetLinkedResources(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListLinkedResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListLinkedResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => JsonSerializer.Deserialize<SubResource>(e.GetRawText()), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetLinkedResources", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListLinkedResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListLinkedResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => LinkedResource.DeserializeLinkedResource(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetLinkedResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -830,11 +897,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListMonitoredResources</description>
+        /// <description>DatadogMonitorResources_ListMonitoredResources</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -843,12 +910,12 @@ namespace Azure.ResourceManager.Datadog
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="MonitoredResourceContent"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<MonitoredResourceContent> GetMonitoredResourcesAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="MonitoredResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<MonitoredResource> GetMonitoredResourcesAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListMonitoredResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListMonitoredResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => MonitoredResourceContent.DeserializeMonitoredResourceContent(e), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetMonitoredResources", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListMonitoredResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListMonitoredResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => MonitoredResource.DeserializeMonitoredResource(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetMonitoredResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -860,11 +927,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_ListMonitoredResources</description>
+        /// <description>DatadogMonitorResources_ListMonitoredResources</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -873,12 +940,12 @@ namespace Azure.ResourceManager.Datadog
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="MonitoredResourceContent"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<MonitoredResourceContent> GetMonitoredResources(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="MonitoredResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<MonitoredResource> GetMonitoredResources(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceMonitorsRestClient.CreateListMonitoredResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceMonitorsRestClient.CreateListMonitoredResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => MonitoredResourceContent.DeserializeMonitoredResourceContent(e), _datadogMonitorResourceMonitorsClientDiagnostics, Pipeline, "DatadogMonitorResource.GetMonitoredResources", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _datadogMonitorResourceRestClient.CreateListMonitoredResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _datadogMonitorResourceRestClient.CreateListMonitoredResourcesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => MonitoredResource.DeserializeMonitoredResource(e), _datadogMonitorResourceClientDiagnostics, Pipeline, "DatadogMonitorResource.GetMonitoredResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -890,11 +957,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_RefreshSetPasswordLink</description>
+        /// <description>DatadogMonitorResources_RefreshSetPasswordLink</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -905,11 +972,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<DatadogSetPasswordLink>> RefreshSetPasswordLinkAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.RefreshSetPasswordLink");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.RefreshSetPasswordLink");
             scope.Start();
             try
             {
-                var response = await _datadogMonitorResourceMonitorsRestClient.RefreshSetPasswordLinkAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _datadogMonitorResourceRestClient.RefreshSetPasswordLinkAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -928,11 +995,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_RefreshSetPasswordLink</description>
+        /// <description>DatadogMonitorResources_RefreshSetPasswordLink</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -943,11 +1010,87 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<DatadogSetPasswordLink> RefreshSetPasswordLink(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.RefreshSetPasswordLink");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.RefreshSetPasswordLink");
             scope.Start();
             try
             {
-                var response = _datadogMonitorResourceMonitorsRestClient.RefreshSetPasswordLink(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var response = _datadogMonitorResourceRestClient.RefreshSetPasswordLink(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get marketplace and organization info mapped to the given monitor.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Datadog/monitors/{monitorName}/getBillingInfo</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>DatadogMonitorResources_BillingInfoGet</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-20</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DatadogMonitorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<BillingInfoResult>> BillingInfoGetAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.BillingInfoGet");
+            scope.Start();
+            try
+            {
+                var response = await _datadogMonitorResourceRestClient.BillingInfoGetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get marketplace and organization info mapped to the given monitor.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Datadog/monitors/{monitorName}/getBillingInfo</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>DatadogMonitorResources_BillingInfoGet</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-20</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="DatadogMonitorResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<BillingInfoResult> BillingInfoGet(CancellationToken cancellationToken = default)
+        {
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.BillingInfoGet");
+            scope.Start();
+            try
+            {
+                var response = _datadogMonitorResourceRestClient.BillingInfoGet(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -966,11 +1109,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -987,7 +1130,7 @@ namespace Azure.ResourceManager.Datadog
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.AddTag");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.AddTag");
             scope.Start();
             try
             {
@@ -996,7 +1139,7 @@ namespace Azure.ResourceManager.Datadog
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _datadogMonitorResourceMonitorsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _datadogMonitorResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new DatadogMonitorResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -1009,7 +1152,7 @@ namespace Azure.ResourceManager.Datadog
                     }
                     patch.Tags[key] = value;
                     var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -1028,11 +1171,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1049,7 +1192,7 @@ namespace Azure.ResourceManager.Datadog
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.AddTag");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.AddTag");
             scope.Start();
             try
             {
@@ -1058,7 +1201,7 @@ namespace Azure.ResourceManager.Datadog
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _datadogMonitorResourceMonitorsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _datadogMonitorResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new DatadogMonitorResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -1071,7 +1214,7 @@ namespace Azure.ResourceManager.Datadog
                     }
                     patch.Tags[key] = value;
                     var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)
@@ -1090,11 +1233,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1109,7 +1252,7 @@ namespace Azure.ResourceManager.Datadog
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.SetTags");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.SetTags");
             scope.Start();
             try
             {
@@ -1119,7 +1262,7 @@ namespace Azure.ResourceManager.Datadog
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _datadogMonitorResourceMonitorsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _datadogMonitorResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new DatadogMonitorResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -1128,7 +1271,7 @@ namespace Azure.ResourceManager.Datadog
                     var patch = new DatadogMonitorResourcePatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -1147,11 +1290,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1166,7 +1309,7 @@ namespace Azure.ResourceManager.Datadog
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.SetTags");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.SetTags");
             scope.Start();
             try
             {
@@ -1176,7 +1319,7 @@ namespace Azure.ResourceManager.Datadog
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _datadogMonitorResourceMonitorsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _datadogMonitorResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new DatadogMonitorResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -1185,7 +1328,7 @@ namespace Azure.ResourceManager.Datadog
                     var patch = new DatadogMonitorResourcePatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)
@@ -1204,11 +1347,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1223,7 +1366,7 @@ namespace Azure.ResourceManager.Datadog
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.RemoveTag");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.RemoveTag");
             scope.Start();
             try
             {
@@ -1232,7 +1375,7 @@ namespace Azure.ResourceManager.Datadog
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _datadogMonitorResourceMonitorsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _datadogMonitorResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new DatadogMonitorResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -1245,7 +1388,7 @@ namespace Azure.ResourceManager.Datadog
                     }
                     patch.Tags.Remove(key);
                     var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -1264,11 +1407,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Monitors_Get</description>
+        /// <description>DatadogMonitorResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1283,7 +1426,7 @@ namespace Azure.ResourceManager.Datadog
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _datadogMonitorResourceMonitorsClientDiagnostics.CreateScope("DatadogMonitorResource.RemoveTag");
+            using var scope = _datadogMonitorResourceClientDiagnostics.CreateScope("DatadogMonitorResource.RemoveTag");
             scope.Start();
             try
             {
@@ -1292,7 +1435,7 @@ namespace Azure.ResourceManager.Datadog
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _datadogMonitorResourceMonitorsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _datadogMonitorResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new DatadogMonitorResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -1305,7 +1448,7 @@ namespace Azure.ResourceManager.Datadog
                     }
                     patch.Tags.Remove(key);
                     var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)

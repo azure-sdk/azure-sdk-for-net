@@ -33,8 +33,8 @@ namespace Azure.ResourceManager.Datadog
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics;
-        private readonly SingleSignOnConfigurationsRestOperations _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient;
+        private readonly ClientDiagnostics _datadogSingleSignOnResourceClientDiagnostics;
+        private readonly DatadogSingleSignOnResourcesRestOperations _datadogSingleSignOnResourceRestClient;
         private readonly DatadogSingleSignOnResourceData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -59,9 +59,9 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal DatadogSingleSignOnResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Datadog", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string datadogSingleSignOnResourceSingleSignOnConfigurationsApiVersion);
-            _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient = new SingleSignOnConfigurationsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, datadogSingleSignOnResourceSingleSignOnConfigurationsApiVersion);
+            _datadogSingleSignOnResourceClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Datadog", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string datadogSingleSignOnResourceApiVersion);
+            _datadogSingleSignOnResourceRestClient = new DatadogSingleSignOnResourcesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, datadogSingleSignOnResourceApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -97,11 +97,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SingleSignOnConfigurations_Get</description>
+        /// <description>DatadogSingleSignOnResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -112,11 +112,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<DatadogSingleSignOnResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Get");
+            using var scope = _datadogSingleSignOnResourceClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Get");
             scope.Start();
             try
             {
-                var response = await _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _datadogSingleSignOnResourceRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new DatadogSingleSignOnResource(Client, response.Value), response.GetRawResponse());
@@ -137,11 +137,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SingleSignOnConfigurations_Get</description>
+        /// <description>DatadogSingleSignOnResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -152,11 +152,11 @@ namespace Azure.ResourceManager.Datadog
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<DatadogSingleSignOnResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Get");
+            using var scope = _datadogSingleSignOnResourceClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Get");
             scope.Start();
             try
             {
-                var response = _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _datadogSingleSignOnResourceRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new DatadogSingleSignOnResource(Client, response.Value), response.GetRawResponse());
@@ -177,11 +177,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SingleSignOnConfigurations_CreateOrUpdate</description>
+        /// <description>DatadogSingleSignOnResource_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -197,12 +197,12 @@ namespace Azure.ResourceManager.Datadog
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Update");
+            using var scope = _datadogSingleSignOnResourceClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Update");
             scope.Start();
             try
             {
-                var response = await _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new DatadogArmOperation<DatadogSingleSignOnResource>(new DatadogSingleSignOnResourceOperationSource(Client), _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics, Pipeline, _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _datadogSingleSignOnResourceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
+                var operation = new DatadogArmOperation<DatadogSingleSignOnResource>(new DatadogSingleSignOnResourceOperationSource(Client), _datadogSingleSignOnResourceClientDiagnostics, Pipeline, _datadogSingleSignOnResourceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -223,11 +223,11 @@ namespace Azure.ResourceManager.Datadog
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>SingleSignOnConfigurations_CreateOrUpdate</description>
+        /// <description>DatadogSingleSignOnResource_CreateOrUpdate</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-03-01</description>
+        /// <description>2023-10-20</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -243,12 +243,12 @@ namespace Azure.ResourceManager.Datadog
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Update");
+            using var scope = _datadogSingleSignOnResourceClientDiagnostics.CreateScope("DatadogSingleSignOnResource.Update");
             scope.Start();
             try
             {
-                var response = _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken);
-                var operation = new DatadogArmOperation<DatadogSingleSignOnResource>(new DatadogSingleSignOnResourceOperationSource(Client), _datadogSingleSignOnResourceSingleSignOnConfigurationsClientDiagnostics, Pipeline, _datadogSingleSignOnResourceSingleSignOnConfigurationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _datadogSingleSignOnResourceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken);
+                var operation = new DatadogArmOperation<DatadogSingleSignOnResource>(new DatadogSingleSignOnResourceOperationSource(Client), _datadogSingleSignOnResourceClientDiagnostics, Pipeline, _datadogSingleSignOnResourceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
