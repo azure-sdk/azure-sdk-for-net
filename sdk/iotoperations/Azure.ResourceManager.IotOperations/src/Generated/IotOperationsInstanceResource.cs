@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -248,7 +248,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -297,6 +297,213 @@ namespace Azure.ResourceManager.IotOperations
             return GetIotOperationsDataflowEndpoints().Get(dataflowEndpointName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of RegistryEndpointResources in the IotOperationsInstance. </summary>
+        /// <returns> An object representing collection of RegistryEndpointResources and their operations over a RegistryEndpointResource. </returns>
+        public virtual RegistryEndpointResourceCollection GetRegistryEndpointResources()
+        {
+            return GetCachedClient(client => new RegistryEndpointResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get a RegistryEndpointResource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.IoTOperations/instances/{instanceName}/registryEndpoints/{registryEndpointName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RegistryEndpointResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="RegistryEndpointResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="registryEndpointName"> Name of RegistryEndpoint resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="registryEndpointName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="registryEndpointName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<RegistryEndpointResource>> GetRegistryEndpointResourceAsync(string registryEndpointName, CancellationToken cancellationToken = default)
+        {
+            return await GetRegistryEndpointResources().GetAsync(registryEndpointName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a RegistryEndpointResource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.IoTOperations/instances/{instanceName}/registryEndpoints/{registryEndpointName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RegistryEndpointResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="RegistryEndpointResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="registryEndpointName"> Name of RegistryEndpoint resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="registryEndpointName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="registryEndpointName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<RegistryEndpointResource> GetRegistryEndpointResource(string registryEndpointName, CancellationToken cancellationToken = default)
+        {
+            return GetRegistryEndpointResources().Get(registryEndpointName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of AkriConnectorTemplateResources in the IotOperationsInstance. </summary>
+        /// <returns> An object representing collection of AkriConnectorTemplateResources and their operations over a AkriConnectorTemplateResource. </returns>
+        public virtual AkriConnectorTemplateResourceCollection GetAkriConnectorTemplateResources()
+        {
+            return GetCachedClient(client => new AkriConnectorTemplateResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get a AkriConnectorTemplateResource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.IoTOperations/instances/{instanceName}/akriConnectorTemplates/{akriConnectorTemplateName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AkriConnectorTemplateResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AkriConnectorTemplateResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="akriConnectorTemplateName"> Name of AkriConnectorTemplate resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="akriConnectorTemplateName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="akriConnectorTemplateName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<AkriConnectorTemplateResource>> GetAkriConnectorTemplateResourceAsync(string akriConnectorTemplateName, CancellationToken cancellationToken = default)
+        {
+            return await GetAkriConnectorTemplateResources().GetAsync(akriConnectorTemplateName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a AkriConnectorTemplateResource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.IoTOperations/instances/{instanceName}/akriConnectorTemplates/{akriConnectorTemplateName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AkriConnectorTemplateResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AkriConnectorTemplateResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="akriConnectorTemplateName"> Name of AkriConnectorTemplate resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="akriConnectorTemplateName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="akriConnectorTemplateName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<AkriConnectorTemplateResource> GetAkriConnectorTemplateResource(string akriConnectorTemplateName, CancellationToken cancellationToken = default)
+        {
+            return GetAkriConnectorTemplateResources().Get(akriConnectorTemplateName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of AkriDiscoveryHandlerResources in the IotOperationsInstance. </summary>
+        /// <returns> An object representing collection of AkriDiscoveryHandlerResources and their operations over a AkriDiscoveryHandlerResource. </returns>
+        public virtual AkriDiscoveryHandlerResourceCollection GetAkriDiscoveryHandlerResources()
+        {
+            return GetCachedClient(client => new AkriDiscoveryHandlerResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get a AkriDiscoveryHandlerResource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.IoTOperations/instances/{instanceName}/akriDiscoveryHandlers/{akriDiscoveryHandlerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AkriDiscoveryHandlerResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AkriDiscoveryHandlerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="akriDiscoveryHandlerName"> Name of AkriDiscoveryHandler resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="akriDiscoveryHandlerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="akriDiscoveryHandlerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<AkriDiscoveryHandlerResource>> GetAkriDiscoveryHandlerResourceAsync(string akriDiscoveryHandlerName, CancellationToken cancellationToken = default)
+        {
+            return await GetAkriDiscoveryHandlerResources().GetAsync(akriDiscoveryHandlerName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a AkriDiscoveryHandlerResource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.IoTOperations/instances/{instanceName}/akriDiscoveryHandlers/{akriDiscoveryHandlerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AkriDiscoveryHandlerResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2025-07-01-preview</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AkriDiscoveryHandlerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="akriDiscoveryHandlerName"> Name of AkriDiscoveryHandler resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="akriDiscoveryHandlerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="akriDiscoveryHandlerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<AkriDiscoveryHandlerResource> GetAkriDiscoveryHandlerResource(string akriDiscoveryHandlerName, CancellationToken cancellationToken = default)
+        {
+            return GetAkriDiscoveryHandlerResources().Get(akriDiscoveryHandlerName, cancellationToken);
+        }
+
         /// <summary>
         /// Get a InstanceResource
         /// <list type="bullet">
@@ -310,7 +517,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -350,7 +557,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -390,7 +597,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -432,7 +639,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -474,7 +681,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -516,7 +723,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -558,7 +765,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -620,7 +827,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -682,7 +889,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -739,7 +946,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -796,7 +1003,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -856,7 +1063,7 @@ namespace Azure.ResourceManager.IotOperations
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2024-11-01</description>
+        /// <description>2025-07-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
