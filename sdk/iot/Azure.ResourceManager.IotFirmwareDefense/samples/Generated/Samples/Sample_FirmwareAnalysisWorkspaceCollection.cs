@@ -102,39 +102,6 @@ namespace Azure.ResourceManager.IotFirmwareDefense.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Get_WorkspacesGetMaximumSetGenGeneratedByMaximumSetRule()
-        {
-            // Generated from example definition: specification/fist/resource-manager/Microsoft.IoTFirmwareDefense/preview/2025-04-01-preview/examples/Workspaces_Get_MaximumSet_Gen.json
-            // this example is just showing the usage of "Workspaces_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "5C707B5F-6130-4F71-819E-953A28942E88";
-            string resourceGroupName = "rgiotfirmwaredefense";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // get the collection of this FirmwareAnalysisWorkspaceResource
-            FirmwareAnalysisWorkspaceCollection collection = resourceGroupResource.GetFirmwareAnalysisWorkspaces();
-
-            // invoke the operation
-            string workspaceName = "exampleWorkspaceName";
-            FirmwareAnalysisWorkspaceResource result = await collection.GetAsync(workspaceName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            FirmwareAnalysisWorkspaceData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
         public async Task Get_WorkspacesGetMinimumSetGen()
         {
             // Generated from example definition: specification/fist/resource-manager/Microsoft.IoTFirmwareDefense/preview/2025-04-01-preview/examples/Workspaces_Get_MinimumSet_Gen.json
@@ -238,35 +205,6 @@ namespace Azure.ResourceManager.IotFirmwareDefense.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Exists_WorkspacesGetMaximumSetGenGeneratedByMaximumSetRule()
-        {
-            // Generated from example definition: specification/fist/resource-manager/Microsoft.IoTFirmwareDefense/preview/2025-04-01-preview/examples/Workspaces_Get_MaximumSet_Gen.json
-            // this example is just showing the usage of "Workspaces_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "5C707B5F-6130-4F71-819E-953A28942E88";
-            string resourceGroupName = "rgiotfirmwaredefense";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // get the collection of this FirmwareAnalysisWorkspaceResource
-            FirmwareAnalysisWorkspaceCollection collection = resourceGroupResource.GetFirmwareAnalysisWorkspaces();
-
-            // invoke the operation
-            string workspaceName = "exampleWorkspaceName";
-            bool result = await collection.ExistsAsync(workspaceName);
-
-            Console.WriteLine($"Succeeded: {result}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
         public async Task Exists_WorkspacesGetMinimumSetGen()
         {
             // Generated from example definition: specification/fist/resource-manager/Microsoft.IoTFirmwareDefense/preview/2025-04-01-preview/examples/Workspaces_Get_MinimumSet_Gen.json
@@ -292,47 +230,6 @@ namespace Azure.ResourceManager.IotFirmwareDefense.Samples
             bool result = await collection.ExistsAsync(workspaceName);
 
             Console.WriteLine($"Succeeded: {result}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetIfExists_WorkspacesGetMaximumSetGenGeneratedByMaximumSetRule()
-        {
-            // Generated from example definition: specification/fist/resource-manager/Microsoft.IoTFirmwareDefense/preview/2025-04-01-preview/examples/Workspaces_Get_MaximumSet_Gen.json
-            // this example is just showing the usage of "Workspaces_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "5C707B5F-6130-4F71-819E-953A28942E88";
-            string resourceGroupName = "rgiotfirmwaredefense";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // get the collection of this FirmwareAnalysisWorkspaceResource
-            FirmwareAnalysisWorkspaceCollection collection = resourceGroupResource.GetFirmwareAnalysisWorkspaces();
-
-            // invoke the operation
-            string workspaceName = "exampleWorkspaceName";
-            NullableResponse<FirmwareAnalysisWorkspaceResource> response = await collection.GetIfExistsAsync(workspaceName);
-            FirmwareAnalysisWorkspaceResource result = response.HasValue ? response.Value : null;
-
-            if (result == null)
-            {
-                Console.WriteLine("Succeeded with null as result");
-            }
-            else
-            {
-                // the variable result is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                FirmwareAnalysisWorkspaceData resourceData = result.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-            }
         }
 
         [Test]
