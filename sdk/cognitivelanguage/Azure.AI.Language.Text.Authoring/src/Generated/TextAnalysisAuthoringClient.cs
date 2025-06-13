@@ -39,6 +39,7 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="endpoint"> Supported Cognitive Services endpoint e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> is an empty string, and was expected to be non-empty. </exception>
         public TextAnalysisAuthoringClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new TextAnalysisAuthoringClientOptions())
         {
         }
@@ -47,6 +48,7 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="endpoint"> Supported Cognitive Services endpoint e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> is an empty string, and was expected to be non-empty. </exception>
         public TextAnalysisAuthoringClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new TextAnalysisAuthoringClientOptions())
         {
         }
@@ -56,9 +58,10 @@ namespace Azure.AI.Language.Text.Authoring
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> is an empty string, and was expected to be non-empty. </exception>
         public TextAnalysisAuthoringClient(Uri endpoint, TokenCredential credential, TextAnalysisAuthoringClientOptions options)
         {
-            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
             options ??= new TextAnalysisAuthoringClientOptions();
 
