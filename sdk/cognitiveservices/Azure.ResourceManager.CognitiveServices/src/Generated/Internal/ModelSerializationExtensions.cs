@@ -14,7 +14,6 @@ using System.Globalization;
 using System.Text.Json;
 using System.Xml;
 using Azure.Core;
-using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.CognitiveServices
 {
@@ -24,7 +23,7 @@ namespace Azure.ResourceManager.CognitiveServices
         internal static readonly ModelReaderWriterOptions WireOptions = new ModelReaderWriterOptions("W");
         internal static readonly BinaryData SentinelValue = BinaryData.FromBytes("\"__EMPTY__\""u8.ToArray());
         internal static readonly JsonSerializerOptions Options = new JsonSerializerOptions { Converters = { new JsonModelConverter(WireOptions, AzureResourceManagerCognitiveServicesContext.Default) } };
-        internal static readonly JsonSerializerOptions OptionsUseManagedServiceIdentityV3 = new JsonSerializerOptions { Converters = { new JsonModelConverter(WireOptions, AzureResourceManagerCognitiveServicesContext.Default), new ResourceManager.Models.ManagedServiceIdentityTypeV3Converter() } };
+        internal static readonly JsonSerializerOptions OptionsUseManagedServiceIdentityV3 = new JsonSerializerOptions { Converters = { new JsonModelConverter(WireOptions, AzureResourceManagerCognitiveServicesContext.Default) } };
 
         public static object GetObject(this JsonElement element)
         {
