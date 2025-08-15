@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace Azure.Analytics.Defender.Easm
+namespace Azure.Developer.DevCenter.Models
 {
-    /// <summary> An object containing more specific information about the error. As per Azure REST API guidelines - https://aka.ms/AzureRestApiGuidelines#handling-errors. </summary>
-    public partial class InnerError
+    /// <summary> The Dev Box list result. </summary>
+    public partial class DevBoxListResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +46,35 @@ namespace Azure.Analytics.Defender.Easm
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="InnerError"/>. </summary>
-        internal InnerError()
+        /// <summary> Initializes a new instance of <see cref="DevBoxListResult"/>. </summary>
+        /// <param name="value"> The DevBox items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal DevBoxListResult(IEnumerable<DevBox> value)
         {
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="InnerError"/>. </summary>
-        /// <param name="code"> One of a server-defined set of error codes. </param>
-        /// <param name="innererror"> Inner error. </param>
+        /// <summary> Initializes a new instance of <see cref="DevBoxListResult"/>. </summary>
+        /// <param name="value"> The DevBox items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal InnerError(string code, InnerError innererror, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DevBoxListResult(IReadOnlyList<DevBox> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Code = code;
-            Innererror = innererror;
+            Value = value;
+            NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> One of a server-defined set of error codes. </summary>
-        public string Code { get; }
-        /// <summary> Inner error. </summary>
-        public InnerError Innererror { get; }
+        /// <summary> Initializes a new instance of <see cref="DevBoxListResult"/> for deserialization. </summary>
+        internal DevBoxListResult()
+        {
+        }
+
+        /// <summary> The DevBox items on this page. </summary>
+        public IReadOnlyList<DevBox> Value { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }
