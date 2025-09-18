@@ -10,7 +10,7 @@ using Azure.Core;
 namespace Azure.Data.SchemaRegistry
 {
     /// <summary> Client options for <see cref="SchemaRegistryClient"/>. </summary>
-    public partial class SchemaRegistryClientOptions : ClientOptions
+    public partial class SchemaRegistryClientOptions : ClientOptions, ClientOptions
     {
         private const ServiceVersion LatestVersion = ServiceVersion.V2023_07_01;
 
