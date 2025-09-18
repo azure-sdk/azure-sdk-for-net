@@ -9,7 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Azure.Monitor.Ingestion
+namespace Azure.Data.AppConfiguration
 {
     internal static partial class Argument
     {

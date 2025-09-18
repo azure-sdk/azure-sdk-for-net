@@ -11,7 +11,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
-namespace Azure.Monitor.Ingestion
+namespace Azure.Data.AppConfiguration
 {
     internal static partial class ClientPipelineExtensions
     {

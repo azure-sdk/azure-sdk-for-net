@@ -7,7 +7,7 @@
 
 using Azure;
 
-namespace Azure.Monitor.Ingestion
+namespace Azure.Data.AppConfiguration
 {
     internal partial class ErrorResult<T> : Response<T>
     {
