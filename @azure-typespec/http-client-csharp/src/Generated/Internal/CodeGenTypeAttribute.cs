@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.Monitor.Ingestion
+namespace Azure.Data.AppConfiguration
 {
     [AttributeUsage((AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Struct))]
     internal partial class CodeGenTypeAttribute : Attribute
