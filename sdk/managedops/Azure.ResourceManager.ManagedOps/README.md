@@ -1,6 +1,6 @@
 # Microsoft Azure ManagedOps management client library for .NET
 
-**[Describe the service briefly first.]**
+This library supports managing Azure ManagedOps resources.
 
 This library follows the [new Azure SDK guidelines](https://azure.github.io/azure-sdk/general_introduction.html), and provides many core capabilities:
 
