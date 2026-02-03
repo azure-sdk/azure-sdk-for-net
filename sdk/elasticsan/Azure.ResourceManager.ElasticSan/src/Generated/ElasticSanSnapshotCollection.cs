@@ -73,14 +73,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="snapshotName"> The name of the volume snapshot within the given volume group. </param>
-        /// <param name="data"> Snapshot object. </param>
+        /// <param name="elasticSanSnapshotData"> Snapshot object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="snapshotName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="snapshotName"/> or <paramref name="elasticSanSnapshotData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="snapshotName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<ElasticSanSnapshotResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string snapshotName, ElasticSanSnapshotData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ElasticSanSnapshotResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string snapshotName, ElasticSanSnapshotData elasticSanSnapshotData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(snapshotName, nameof(snapshotName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanSnapshotData, nameof(elasticSanSnapshotData));
 
             using DiagnosticScope scope = _snapshotsClientDiagnostics.CreateScope("ElasticSanSnapshotCollection.CreateOrUpdate");
             scope.Start();
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _snapshotsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, snapshotName, ElasticSanSnapshotData.ToRequestContent(data), context);
+                HttpMessage message = _snapshotsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, snapshotName, ElasticSanSnapshotData.ToRequestContent(elasticSanSnapshotData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ElasticSanArmOperation<ElasticSanSnapshotResource> operation = new ElasticSanArmOperation<ElasticSanSnapshotResource>(
                     new ElasticSanSnapshotOperationSource(Client),
@@ -131,14 +131,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="snapshotName"> The name of the volume snapshot within the given volume group. </param>
-        /// <param name="data"> Snapshot object. </param>
+        /// <param name="elasticSanSnapshotData"> Snapshot object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="snapshotName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="snapshotName"/> or <paramref name="elasticSanSnapshotData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="snapshotName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<ElasticSanSnapshotResource> CreateOrUpdate(WaitUntil waitUntil, string snapshotName, ElasticSanSnapshotData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ElasticSanSnapshotResource> CreateOrUpdate(WaitUntil waitUntil, string snapshotName, ElasticSanSnapshotData elasticSanSnapshotData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(snapshotName, nameof(snapshotName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanSnapshotData, nameof(elasticSanSnapshotData));
 
             using DiagnosticScope scope = _snapshotsClientDiagnostics.CreateScope("ElasticSanSnapshotCollection.CreateOrUpdate");
             scope.Start();
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _snapshotsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, snapshotName, ElasticSanSnapshotData.ToRequestContent(data), context);
+                HttpMessage message = _snapshotsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, snapshotName, ElasticSanSnapshotData.ToRequestContent(elasticSanSnapshotData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ElasticSanArmOperation<ElasticSanSnapshotResource> operation = new ElasticSanArmOperation<ElasticSanSnapshotResource>(
                     new ElasticSanSnapshotOperationSource(Client),

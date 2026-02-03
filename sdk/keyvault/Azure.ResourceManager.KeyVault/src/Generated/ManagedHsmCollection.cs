@@ -74,14 +74,14 @@ namespace Azure.ResourceManager.KeyVault
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="name"> The name of the managed HSM Pool. </param>
-        /// <param name="data"> Parameters to create or update the managed HSM Pool. </param>
+        /// <param name="managedHsmData"> Parameters to create or update the managed HSM Pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="managedHsmData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<ManagedHsmResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string name, ManagedHsmData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ManagedHsmResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string name, ManagedHsmData managedHsmData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(managedHsmData, nameof(managedHsmData));
 
             using DiagnosticScope scope = _managedHsmsClientDiagnostics.CreateScope("ManagedHsmCollection.CreateOrUpdate");
             scope.Start();
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.KeyVault
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedHsmsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, name, ManagedHsmData.ToRequestContent(data), context);
+                HttpMessage message = _managedHsmsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, name, ManagedHsmData.ToRequestContent(managedHsmData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 KeyVaultArmOperation<ManagedHsmResource> operation = new KeyVaultArmOperation<ManagedHsmResource>(
                     new ManagedHsmOperationSource(Client),
@@ -132,14 +132,14 @@ namespace Azure.ResourceManager.KeyVault
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="name"> The name of the managed HSM Pool. </param>
-        /// <param name="data"> Parameters to create or update the managed HSM Pool. </param>
+        /// <param name="managedHsmData"> Parameters to create or update the managed HSM Pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="managedHsmData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<ManagedHsmResource> CreateOrUpdate(WaitUntil waitUntil, string name, ManagedHsmData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ManagedHsmResource> CreateOrUpdate(WaitUntil waitUntil, string name, ManagedHsmData managedHsmData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(managedHsmData, nameof(managedHsmData));
 
             using DiagnosticScope scope = _managedHsmsClientDiagnostics.CreateScope("ManagedHsmCollection.CreateOrUpdate");
             scope.Start();
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.KeyVault
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedHsmsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, name, ManagedHsmData.ToRequestContent(data), context);
+                HttpMessage message = _managedHsmsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, name, ManagedHsmData.ToRequestContent(managedHsmData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 KeyVaultArmOperation<ManagedHsmResource> operation = new KeyVaultArmOperation<ManagedHsmResource>(
                     new ManagedHsmOperationSource(Client),
