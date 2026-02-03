@@ -308,12 +308,12 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The required parameters for creating or updating an aad administrator. </param>
+        /// <param name="mySqlFlexibleServerAadAdministratorData"> The required parameters for creating or updating an aad administrator. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<MySqlFlexibleServerAadAdministratorResource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServerAadAdministratorData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="mySqlFlexibleServerAadAdministratorData"/> is null. </exception>
+        public virtual async Task<ArmOperation<MySqlFlexibleServerAadAdministratorResource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServerAadAdministratorData mySqlFlexibleServerAadAdministratorData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerAadAdministratorData, nameof(mySqlFlexibleServerAadAdministratorData));
 
             using DiagnosticScope scope = _azureADAdministratorsClientDiagnostics.CreateScope("MySqlFlexibleServerAadAdministratorResource.Update");
             scope.Start();
@@ -323,7 +323,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _azureADAdministratorsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerAadAdministratorData.ToRequestContent(data), context);
+                HttpMessage message = _azureADAdministratorsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerAadAdministratorData.ToRequestContent(mySqlFlexibleServerAadAdministratorData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 FlexibleServersArmOperation<MySqlFlexibleServerAadAdministratorResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerAadAdministratorResource>(
                     new MySqlFlexibleServerAadAdministratorOperationSource(Client),
@@ -367,12 +367,12 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The required parameters for creating or updating an aad administrator. </param>
+        /// <param name="mySqlFlexibleServerAadAdministratorData"> The required parameters for creating or updating an aad administrator. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<MySqlFlexibleServerAadAdministratorResource> Update(WaitUntil waitUntil, MySqlFlexibleServerAadAdministratorData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="mySqlFlexibleServerAadAdministratorData"/> is null. </exception>
+        public virtual ArmOperation<MySqlFlexibleServerAadAdministratorResource> Update(WaitUntil waitUntil, MySqlFlexibleServerAadAdministratorData mySqlFlexibleServerAadAdministratorData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerAadAdministratorData, nameof(mySqlFlexibleServerAadAdministratorData));
 
             using DiagnosticScope scope = _azureADAdministratorsClientDiagnostics.CreateScope("MySqlFlexibleServerAadAdministratorResource.Update");
             scope.Start();
@@ -382,7 +382,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _azureADAdministratorsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerAadAdministratorData.ToRequestContent(data), context);
+                HttpMessage message = _azureADAdministratorsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerAadAdministratorData.ToRequestContent(mySqlFlexibleServerAadAdministratorData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 FlexibleServersArmOperation<MySqlFlexibleServerAadAdministratorResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerAadAdministratorResource>(
                     new MySqlFlexibleServerAadAdministratorOperationSource(Client),

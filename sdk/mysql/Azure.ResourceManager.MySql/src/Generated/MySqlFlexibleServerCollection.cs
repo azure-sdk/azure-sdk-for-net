@@ -94,14 +94,14 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="serverName"> The name of the server. </param>
-        /// <param name="data"> The required parameters for creating or updating a server. </param>
+        /// <param name="mySqlFlexibleServerData"> The required parameters for creating or updating a server. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="serverName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="serverName"/> or <paramref name="mySqlFlexibleServerData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="serverName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<MySqlFlexibleServerResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string serverName, MySqlFlexibleServerData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<MySqlFlexibleServerResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string serverName, MySqlFlexibleServerData mySqlFlexibleServerData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(serverName, nameof(serverName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerData, nameof(mySqlFlexibleServerData));
 
             using DiagnosticScope scope = _serversClientDiagnostics.CreateScope("MySqlFlexibleServerCollection.CreateOrUpdate");
             scope.Start();
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _serversRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, serverName, MySqlFlexibleServerData.ToRequestContent(data), context);
+                HttpMessage message = _serversRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, serverName, MySqlFlexibleServerData.ToRequestContent(mySqlFlexibleServerData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 FlexibleServersArmOperation<MySqlFlexibleServerResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerResource>(
                     new MySqlFlexibleServerOperationSource(Client),
@@ -152,14 +152,14 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="serverName"> The name of the server. </param>
-        /// <param name="data"> The required parameters for creating or updating a server. </param>
+        /// <param name="mySqlFlexibleServerData"> The required parameters for creating or updating a server. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="serverName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="serverName"/> or <paramref name="mySqlFlexibleServerData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="serverName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<MySqlFlexibleServerResource> CreateOrUpdate(WaitUntil waitUntil, string serverName, MySqlFlexibleServerData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<MySqlFlexibleServerResource> CreateOrUpdate(WaitUntil waitUntil, string serverName, MySqlFlexibleServerData mySqlFlexibleServerData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(serverName, nameof(serverName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerData, nameof(mySqlFlexibleServerData));
 
             using DiagnosticScope scope = _serversClientDiagnostics.CreateScope("MySqlFlexibleServerCollection.CreateOrUpdate");
             scope.Start();
@@ -169,7 +169,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _serversRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, serverName, MySqlFlexibleServerData.ToRequestContent(data), context);
+                HttpMessage message = _serversRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, serverName, MySqlFlexibleServerData.ToRequestContent(mySqlFlexibleServerData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 FlexibleServersArmOperation<MySqlFlexibleServerResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerResource>(
                     new MySqlFlexibleServerOperationSource(Client),

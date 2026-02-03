@@ -307,12 +307,12 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Resource create parameters. </param>
+        /// <param name="mySqlFlexibleServersPrivateEndpointConnectionData"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServersPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="mySqlFlexibleServersPrivateEndpointConnectionData"/> is null. </exception>
+        public virtual async Task<ArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServersPrivateEndpointConnectionData mySqlFlexibleServersPrivateEndpointConnectionData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServersPrivateEndpointConnectionData, nameof(mySqlFlexibleServersPrivateEndpointConnectionData));
 
             using DiagnosticScope scope = _privateEndpointConnectionsClientDiagnostics.CreateScope("MySqlFlexibleServersPrivateEndpointConnectionResource.Update");
             scope.Start();
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServersPrivateEndpointConnectionData.ToRequestContent(data), context);
+                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServersPrivateEndpointConnectionData.ToRequestContent(mySqlFlexibleServersPrivateEndpointConnectionData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 FlexibleServersArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource>(
                     new MySqlFlexibleServersPrivateEndpointConnectionOperationSource(Client),
@@ -366,12 +366,12 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Resource create parameters. </param>
+        /// <param name="mySqlFlexibleServersPrivateEndpointConnectionData"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource> Update(WaitUntil waitUntil, MySqlFlexibleServersPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="mySqlFlexibleServersPrivateEndpointConnectionData"/> is null. </exception>
+        public virtual ArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource> Update(WaitUntil waitUntil, MySqlFlexibleServersPrivateEndpointConnectionData mySqlFlexibleServersPrivateEndpointConnectionData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServersPrivateEndpointConnectionData, nameof(mySqlFlexibleServersPrivateEndpointConnectionData));
 
             using DiagnosticScope scope = _privateEndpointConnectionsClientDiagnostics.CreateScope("MySqlFlexibleServersPrivateEndpointConnectionResource.Update");
             scope.Start();
@@ -381,7 +381,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServersPrivateEndpointConnectionData.ToRequestContent(data), context);
+                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServersPrivateEndpointConnectionData.ToRequestContent(mySqlFlexibleServersPrivateEndpointConnectionData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 FlexibleServersArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServersPrivateEndpointConnectionResource>(
                     new MySqlFlexibleServersPrivateEndpointConnectionOperationSource(Client),

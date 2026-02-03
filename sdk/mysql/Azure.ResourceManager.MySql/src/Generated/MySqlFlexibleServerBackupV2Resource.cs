@@ -213,9 +213,9 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The required parameters for creating and exporting backup of the given server. </param>
+        /// <param name="mySqlFlexibleServerBackupV2Data"> The required parameters for creating and exporting backup of the given server. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation<MySqlFlexibleServerBackupV2Resource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServerBackupV2Data data = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<MySqlFlexibleServerBackupV2Resource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServerBackupV2Data mySqlFlexibleServerBackupV2Data = default, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _longRunningBackupClientDiagnostics.CreateScope("MySqlFlexibleServerBackupV2Resource.Update");
             scope.Start();
@@ -225,7 +225,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerBackupV2Data.ToRequestContent(data), context);
+                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerBackupV2Data.ToRequestContent(mySqlFlexibleServerBackupV2Data), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource>(
                     new MySqlFlexibleServerBackupV2OperationSource(Client),
@@ -269,9 +269,9 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The required parameters for creating and exporting backup of the given server. </param>
+        /// <param name="mySqlFlexibleServerBackupV2Data"> The required parameters for creating and exporting backup of the given server. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation<MySqlFlexibleServerBackupV2Resource> Update(WaitUntil waitUntil, MySqlFlexibleServerBackupV2Data data = default, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<MySqlFlexibleServerBackupV2Resource> Update(WaitUntil waitUntil, MySqlFlexibleServerBackupV2Data mySqlFlexibleServerBackupV2Data = default, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _longRunningBackupClientDiagnostics.CreateScope("MySqlFlexibleServerBackupV2Resource.Update");
             scope.Start();
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerBackupV2Data.ToRequestContent(data), context);
+                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerBackupV2Data.ToRequestContent(mySqlFlexibleServerBackupV2Data), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource>(
                     new MySqlFlexibleServerBackupV2OperationSource(Client),
