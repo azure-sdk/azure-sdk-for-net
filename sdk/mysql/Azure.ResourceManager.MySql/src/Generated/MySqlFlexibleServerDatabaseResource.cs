@@ -307,12 +307,12 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The required parameters for creating or updating a database. </param>
+        /// <param name="mySqlFlexibleServerDatabaseData"> The required parameters for creating or updating a database. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<MySqlFlexibleServerDatabaseResource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServerDatabaseData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="mySqlFlexibleServerDatabaseData"/> is null. </exception>
+        public virtual async Task<ArmOperation<MySqlFlexibleServerDatabaseResource>> UpdateAsync(WaitUntil waitUntil, MySqlFlexibleServerDatabaseData mySqlFlexibleServerDatabaseData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerDatabaseData, nameof(mySqlFlexibleServerDatabaseData));
 
             using DiagnosticScope scope = _databasesClientDiagnostics.CreateScope("MySqlFlexibleServerDatabaseResource.Update");
             scope.Start();
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _databasesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerDatabaseData.ToRequestContent(data), context);
+                HttpMessage message = _databasesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerDatabaseData.ToRequestContent(mySqlFlexibleServerDatabaseData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 FlexibleServersArmOperation<MySqlFlexibleServerDatabaseResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerDatabaseResource>(
                     new MySqlFlexibleServerDatabaseOperationSource(Client),
@@ -366,12 +366,12 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The required parameters for creating or updating a database. </param>
+        /// <param name="mySqlFlexibleServerDatabaseData"> The required parameters for creating or updating a database. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<MySqlFlexibleServerDatabaseResource> Update(WaitUntil waitUntil, MySqlFlexibleServerDatabaseData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="mySqlFlexibleServerDatabaseData"/> is null. </exception>
+        public virtual ArmOperation<MySqlFlexibleServerDatabaseResource> Update(WaitUntil waitUntil, MySqlFlexibleServerDatabaseData mySqlFlexibleServerDatabaseData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerDatabaseData, nameof(mySqlFlexibleServerDatabaseData));
 
             using DiagnosticScope scope = _databasesClientDiagnostics.CreateScope("MySqlFlexibleServerDatabaseResource.Update");
             scope.Start();
@@ -381,7 +381,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _databasesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerDatabaseData.ToRequestContent(data), context);
+                HttpMessage message = _databasesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, MySqlFlexibleServerDatabaseData.ToRequestContent(mySqlFlexibleServerDatabaseData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 FlexibleServersArmOperation<MySqlFlexibleServerDatabaseResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerDatabaseResource>(
                     new MySqlFlexibleServerDatabaseOperationSource(Client),

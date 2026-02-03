@@ -73,14 +73,14 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="firewallRuleName"> The name of the server firewall rule. </param>
-        /// <param name="data"> The required parameters for creating or updating a firewall rule. </param>
+        /// <param name="mySqlFlexibleServerFirewallRuleData"> The required parameters for creating or updating a firewall rule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="firewallRuleName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="firewallRuleName"/> or <paramref name="mySqlFlexibleServerFirewallRuleData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="firewallRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<MySqlFlexibleServerFirewallRuleResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string firewallRuleName, MySqlFlexibleServerFirewallRuleData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<MySqlFlexibleServerFirewallRuleResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string firewallRuleName, MySqlFlexibleServerFirewallRuleData mySqlFlexibleServerFirewallRuleData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(firewallRuleName, nameof(firewallRuleName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerFirewallRuleData, nameof(mySqlFlexibleServerFirewallRuleData));
 
             using DiagnosticScope scope = _firewallRulesClientDiagnostics.CreateScope("MySqlFlexibleServerFirewallRuleCollection.CreateOrUpdate");
             scope.Start();
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _firewallRulesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, firewallRuleName, MySqlFlexibleServerFirewallRuleData.ToRequestContent(data), context);
+                HttpMessage message = _firewallRulesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, firewallRuleName, MySqlFlexibleServerFirewallRuleData.ToRequestContent(mySqlFlexibleServerFirewallRuleData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 FlexibleServersArmOperation<MySqlFlexibleServerFirewallRuleResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerFirewallRuleResource>(
                     new MySqlFlexibleServerFirewallRuleOperationSource(Client),
@@ -131,14 +131,14 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="firewallRuleName"> The name of the server firewall rule. </param>
-        /// <param name="data"> The required parameters for creating or updating a firewall rule. </param>
+        /// <param name="mySqlFlexibleServerFirewallRuleData"> The required parameters for creating or updating a firewall rule. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="firewallRuleName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="firewallRuleName"/> or <paramref name="mySqlFlexibleServerFirewallRuleData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="firewallRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<MySqlFlexibleServerFirewallRuleResource> CreateOrUpdate(WaitUntil waitUntil, string firewallRuleName, MySqlFlexibleServerFirewallRuleData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<MySqlFlexibleServerFirewallRuleResource> CreateOrUpdate(WaitUntil waitUntil, string firewallRuleName, MySqlFlexibleServerFirewallRuleData mySqlFlexibleServerFirewallRuleData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(firewallRuleName, nameof(firewallRuleName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(mySqlFlexibleServerFirewallRuleData, nameof(mySqlFlexibleServerFirewallRuleData));
 
             using DiagnosticScope scope = _firewallRulesClientDiagnostics.CreateScope("MySqlFlexibleServerFirewallRuleCollection.CreateOrUpdate");
             scope.Start();
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _firewallRulesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, firewallRuleName, MySqlFlexibleServerFirewallRuleData.ToRequestContent(data), context);
+                HttpMessage message = _firewallRulesRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, firewallRuleName, MySqlFlexibleServerFirewallRuleData.ToRequestContent(mySqlFlexibleServerFirewallRuleData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 FlexibleServersArmOperation<MySqlFlexibleServerFirewallRuleResource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerFirewallRuleResource>(
                     new MySqlFlexibleServerFirewallRuleOperationSource(Client),

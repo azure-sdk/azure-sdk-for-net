@@ -72,9 +72,8 @@ namespace Azure.ResourceManager.Quota
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation<GroupQuotaSubscriptionResource>> CreateOrUpdateAsync(WaitUntil waitUntil, Guid subscriptionId, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<GroupQuotaSubscriptionResource>> CreateOrUpdateAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _groupQuotaSubscriptionIdsClientDiagnostics.CreateScope("GroupQuotaSubscriptionCollection.CreateOrUpdate");
             scope.Start();
@@ -84,7 +83,7 @@ namespace Azure.ResourceManager.Quota
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _groupQuotaSubscriptionIdsRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, subscriptionId, context);
+                HttpMessage message = _groupQuotaSubscriptionIdsRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, default, context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 QuotaArmOperation<GroupQuotaSubscriptionResource> operation = new QuotaArmOperation<GroupQuotaSubscriptionResource>(
                     new GroupQuotaSubscriptionOperationSource(Client),
@@ -124,9 +123,8 @@ namespace Azure.ResourceManager.Quota
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation<GroupQuotaSubscriptionResource> CreateOrUpdate(WaitUntil waitUntil, Guid subscriptionId, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<GroupQuotaSubscriptionResource> CreateOrUpdate(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _groupQuotaSubscriptionIdsClientDiagnostics.CreateScope("GroupQuotaSubscriptionCollection.CreateOrUpdate");
             scope.Start();
@@ -136,7 +134,7 @@ namespace Azure.ResourceManager.Quota
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _groupQuotaSubscriptionIdsRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, subscriptionId, context);
+                HttpMessage message = _groupQuotaSubscriptionIdsRestClient.CreateCreateOrUpdateRequest(Id.Parent.Name, Id.Name, default, context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 QuotaArmOperation<GroupQuotaSubscriptionResource> operation = new QuotaArmOperation<GroupQuotaSubscriptionResource>(
                     new GroupQuotaSubscriptionOperationSource(Client),

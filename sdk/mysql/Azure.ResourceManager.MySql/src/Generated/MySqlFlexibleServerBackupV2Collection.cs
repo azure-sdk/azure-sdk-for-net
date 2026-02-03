@@ -77,11 +77,11 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="backupName"> The name of the backup. </param>
-        /// <param name="data"> The required parameters for creating and exporting backup of the given server. </param>
+        /// <param name="mySqlFlexibleServerBackupV2Data"> The required parameters for creating and exporting backup of the given server. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="backupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="backupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<MySqlFlexibleServerBackupV2Resource>> CreateOrUpdateAsync(WaitUntil waitUntil, string backupName, MySqlFlexibleServerBackupV2Data data = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<MySqlFlexibleServerBackupV2Resource>> CreateOrUpdateAsync(WaitUntil waitUntil, string backupName, MySqlFlexibleServerBackupV2Data mySqlFlexibleServerBackupV2Data = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(backupName, nameof(backupName));
 
@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, backupName, MySqlFlexibleServerBackupV2Data.ToRequestContent(data), context);
+                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, backupName, MySqlFlexibleServerBackupV2Data.ToRequestContent(mySqlFlexibleServerBackupV2Data), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource>(
                     new MySqlFlexibleServerBackupV2OperationSource(Client),
@@ -134,11 +134,11 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="backupName"> The name of the backup. </param>
-        /// <param name="data"> The required parameters for creating and exporting backup of the given server. </param>
+        /// <param name="mySqlFlexibleServerBackupV2Data"> The required parameters for creating and exporting backup of the given server. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="backupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="backupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<MySqlFlexibleServerBackupV2Resource> CreateOrUpdate(WaitUntil waitUntil, string backupName, MySqlFlexibleServerBackupV2Data data = default, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<MySqlFlexibleServerBackupV2Resource> CreateOrUpdate(WaitUntil waitUntil, string backupName, MySqlFlexibleServerBackupV2Data mySqlFlexibleServerBackupV2Data = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(backupName, nameof(backupName));
 
@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, backupName, MySqlFlexibleServerBackupV2Data.ToRequestContent(data), context);
+                HttpMessage message = _longRunningBackupRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, backupName, MySqlFlexibleServerBackupV2Data.ToRequestContent(mySqlFlexibleServerBackupV2Data), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource> operation = new FlexibleServersArmOperation<MySqlFlexibleServerBackupV2Resource>(
                     new MySqlFlexibleServerBackupV2OperationSource(Client),
