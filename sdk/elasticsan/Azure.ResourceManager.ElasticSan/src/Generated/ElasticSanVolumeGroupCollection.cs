@@ -77,14 +77,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
-        /// <param name="data"> Volume Group object. </param>
+        /// <param name="elasticSanVolumeGroupData"> Volume Group object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> or <paramref name="elasticSanVolumeGroupData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<ElasticSanVolumeGroupResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string volumeGroupName, ElasticSanVolumeGroupData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ElasticSanVolumeGroupResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string volumeGroupName, ElasticSanVolumeGroupData elasticSanVolumeGroupData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanVolumeGroupData, nameof(elasticSanVolumeGroupData));
 
             using DiagnosticScope scope = _volumeGroupsClientDiagnostics.CreateScope("ElasticSanVolumeGroupCollection.CreateOrUpdate");
             scope.Start();
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _volumeGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, volumeGroupName, ElasticSanVolumeGroupData.ToRequestContent(data), context);
+                HttpMessage message = _volumeGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, volumeGroupName, ElasticSanVolumeGroupData.ToRequestContent(elasticSanVolumeGroupData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ElasticSanArmOperation<ElasticSanVolumeGroupResource> operation = new ElasticSanArmOperation<ElasticSanVolumeGroupResource>(
                     new ElasticSanVolumeGroupOperationSource(Client),
@@ -135,14 +135,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
-        /// <param name="data"> Volume Group object. </param>
+        /// <param name="elasticSanVolumeGroupData"> Volume Group object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="volumeGroupName"/> or <paramref name="elasticSanVolumeGroupData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<ElasticSanVolumeGroupResource> CreateOrUpdate(WaitUntil waitUntil, string volumeGroupName, ElasticSanVolumeGroupData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ElasticSanVolumeGroupResource> CreateOrUpdate(WaitUntil waitUntil, string volumeGroupName, ElasticSanVolumeGroupData elasticSanVolumeGroupData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanVolumeGroupData, nameof(elasticSanVolumeGroupData));
 
             using DiagnosticScope scope = _volumeGroupsClientDiagnostics.CreateScope("ElasticSanVolumeGroupCollection.CreateOrUpdate");
             scope.Start();
@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _volumeGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, volumeGroupName, ElasticSanVolumeGroupData.ToRequestContent(data), context);
+                HttpMessage message = _volumeGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, volumeGroupName, ElasticSanVolumeGroupData.ToRequestContent(elasticSanVolumeGroupData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ElasticSanArmOperation<ElasticSanVolumeGroupResource> operation = new ElasticSanArmOperation<ElasticSanVolumeGroupResource>(
                     new ElasticSanVolumeGroupOperationSource(Client),

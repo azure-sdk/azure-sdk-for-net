@@ -73,14 +73,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
-        /// <param name="data"> Volume object. </param>
+        /// <param name="elasticSanVolumeData"> Volume object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> or <paramref name="elasticSanVolumeData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<ElasticSanVolumeResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string volumeName, ElasticSanVolumeData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ElasticSanVolumeResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string volumeName, ElasticSanVolumeData elasticSanVolumeData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanVolumeData, nameof(elasticSanVolumeData));
 
             using DiagnosticScope scope = _volumesClientDiagnostics.CreateScope("ElasticSanVolumeCollection.CreateOrUpdate");
             scope.Start();
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _volumesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, ElasticSanVolumeData.ToRequestContent(data), context);
+                HttpMessage message = _volumesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, ElasticSanVolumeData.ToRequestContent(elasticSanVolumeData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ElasticSanArmOperation<ElasticSanVolumeResource> operation = new ElasticSanArmOperation<ElasticSanVolumeResource>(
                     new ElasticSanVolumeOperationSource(Client),
@@ -131,14 +131,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
-        /// <param name="data"> Volume object. </param>
+        /// <param name="elasticSanVolumeData"> Volume object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="volumeName"/> or <paramref name="elasticSanVolumeData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<ElasticSanVolumeResource> CreateOrUpdate(WaitUntil waitUntil, string volumeName, ElasticSanVolumeData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ElasticSanVolumeResource> CreateOrUpdate(WaitUntil waitUntil, string volumeName, ElasticSanVolumeData elasticSanVolumeData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanVolumeData, nameof(elasticSanVolumeData));
 
             using DiagnosticScope scope = _volumesClientDiagnostics.CreateScope("ElasticSanVolumeCollection.CreateOrUpdate");
             scope.Start();
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _volumesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, ElasticSanVolumeData.ToRequestContent(data), context);
+                HttpMessage message = _volumesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, volumeName, ElasticSanVolumeData.ToRequestContent(elasticSanVolumeData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ElasticSanArmOperation<ElasticSanVolumeResource> operation = new ElasticSanArmOperation<ElasticSanVolumeResource>(
                     new ElasticSanVolumeOperationSource(Client),

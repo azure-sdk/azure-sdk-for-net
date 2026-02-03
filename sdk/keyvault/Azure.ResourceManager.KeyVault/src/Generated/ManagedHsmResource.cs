@@ -211,12 +211,12 @@ namespace Azure.ResourceManager.KeyVault
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Parameters to patch the managed HSM Pool. </param>
+        /// <param name="managedHsmData"> Parameters to patch the managed HSM Pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<ManagedHsmResource>> UpdateAsync(WaitUntil waitUntil, ManagedHsmData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="managedHsmData"/> is null. </exception>
+        public virtual async Task<ArmOperation<ManagedHsmResource>> UpdateAsync(WaitUntil waitUntil, ManagedHsmData managedHsmData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(managedHsmData, nameof(managedHsmData));
 
             using DiagnosticScope scope = _managedHsmsClientDiagnostics.CreateScope("ManagedHsmResource.Update");
             scope.Start();
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.KeyVault
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedHsmsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ManagedHsmData.ToRequestContent(data), context);
+                HttpMessage message = _managedHsmsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ManagedHsmData.ToRequestContent(managedHsmData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 KeyVaultArmOperation<ManagedHsmResource> operation = new KeyVaultArmOperation<ManagedHsmResource>(
                     new ManagedHsmOperationSource(Client),
@@ -270,12 +270,12 @@ namespace Azure.ResourceManager.KeyVault
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Parameters to patch the managed HSM Pool. </param>
+        /// <param name="managedHsmData"> Parameters to patch the managed HSM Pool. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<ManagedHsmResource> Update(WaitUntil waitUntil, ManagedHsmData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="managedHsmData"/> is null. </exception>
+        public virtual ArmOperation<ManagedHsmResource> Update(WaitUntil waitUntil, ManagedHsmData managedHsmData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(managedHsmData, nameof(managedHsmData));
 
             using DiagnosticScope scope = _managedHsmsClientDiagnostics.CreateScope("ManagedHsmResource.Update");
             scope.Start();
@@ -285,7 +285,7 @@ namespace Azure.ResourceManager.KeyVault
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedHsmsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ManagedHsmData.ToRequestContent(data), context);
+                HttpMessage message = _managedHsmsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ManagedHsmData.ToRequestContent(managedHsmData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 KeyVaultArmOperation<ManagedHsmResource> operation = new KeyVaultArmOperation<ManagedHsmResource>(
                     new ManagedHsmOperationSource(Client),

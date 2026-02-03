@@ -307,12 +307,12 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Private Endpoint Connection Approval object. </param>
+        /// <param name="elasticSanPrivateEndpointConnectionData"> Private Endpoint Connection Approval object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<ElasticSanPrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, ElasticSanPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanPrivateEndpointConnectionData"/> is null. </exception>
+        public virtual async Task<ArmOperation<ElasticSanPrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, ElasticSanPrivateEndpointConnectionData elasticSanPrivateEndpointConnectionData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanPrivateEndpointConnectionData, nameof(elasticSanPrivateEndpointConnectionData));
 
             using DiagnosticScope scope = _privateEndpointConnectionsClientDiagnostics.CreateScope("ElasticSanPrivateEndpointConnectionResource.Update");
             scope.Start();
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ElasticSanPrivateEndpointConnectionData.ToRequestContent(data), context);
+                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ElasticSanPrivateEndpointConnectionData.ToRequestContent(elasticSanPrivateEndpointConnectionData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ElasticSanArmOperation<ElasticSanPrivateEndpointConnectionResource> operation = new ElasticSanArmOperation<ElasticSanPrivateEndpointConnectionResource>(
                     new ElasticSanPrivateEndpointConnectionOperationSource(Client),
@@ -366,12 +366,12 @@ namespace Azure.ResourceManager.ElasticSan
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Private Endpoint Connection Approval object. </param>
+        /// <param name="elasticSanPrivateEndpointConnectionData"> Private Endpoint Connection Approval object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<ElasticSanPrivateEndpointConnectionResource> Update(WaitUntil waitUntil, ElasticSanPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanPrivateEndpointConnectionData"/> is null. </exception>
+        public virtual ArmOperation<ElasticSanPrivateEndpointConnectionResource> Update(WaitUntil waitUntil, ElasticSanPrivateEndpointConnectionData elasticSanPrivateEndpointConnectionData, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(elasticSanPrivateEndpointConnectionData, nameof(elasticSanPrivateEndpointConnectionData));
 
             using DiagnosticScope scope = _privateEndpointConnectionsClientDiagnostics.CreateScope("ElasticSanPrivateEndpointConnectionResource.Update");
             scope.Start();
@@ -381,7 +381,7 @@ namespace Azure.ResourceManager.ElasticSan
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ElasticSanPrivateEndpointConnectionData.ToRequestContent(data), context);
+                HttpMessage message = _privateEndpointConnectionsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ElasticSanPrivateEndpointConnectionData.ToRequestContent(elasticSanPrivateEndpointConnectionData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ElasticSanArmOperation<ElasticSanPrivateEndpointConnectionResource> operation = new ElasticSanArmOperation<ElasticSanPrivateEndpointConnectionResource>(
                     new ElasticSanPrivateEndpointConnectionOperationSource(Client),
