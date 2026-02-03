@@ -73,14 +73,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="applicationName"> The name of the application resource. </param>
-        /// <param name="data"> The application resource. </param>
+        /// <param name="serviceFabricManagedApplicationData"> The application resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="applicationName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="applicationName"/> or <paramref name="serviceFabricManagedApplicationData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="applicationName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<ServiceFabricManagedApplicationResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string applicationName, ServiceFabricManagedApplicationData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ServiceFabricManagedApplicationResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string applicationName, ServiceFabricManagedApplicationData serviceFabricManagedApplicationData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(applicationName, nameof(applicationName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(serviceFabricManagedApplicationData, nameof(serviceFabricManagedApplicationData));
 
             using DiagnosticScope scope = _applicationsClientDiagnostics.CreateScope("ServiceFabricManagedApplicationCollection.CreateOrUpdate");
             scope.Start();
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _applicationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, applicationName, ServiceFabricManagedApplicationData.ToRequestContent(data), context);
+                HttpMessage message = _applicationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, applicationName, ServiceFabricManagedApplicationData.ToRequestContent(serviceFabricManagedApplicationData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ServiceFabricManagedClustersArmOperation<ServiceFabricManagedApplicationResource> operation = new ServiceFabricManagedClustersArmOperation<ServiceFabricManagedApplicationResource>(
                     new ServiceFabricManagedApplicationOperationSource(Client),
@@ -131,14 +131,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="applicationName"> The name of the application resource. </param>
-        /// <param name="data"> The application resource. </param>
+        /// <param name="serviceFabricManagedApplicationData"> The application resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="applicationName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="applicationName"/> or <paramref name="serviceFabricManagedApplicationData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="applicationName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<ServiceFabricManagedApplicationResource> CreateOrUpdate(WaitUntil waitUntil, string applicationName, ServiceFabricManagedApplicationData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ServiceFabricManagedApplicationResource> CreateOrUpdate(WaitUntil waitUntil, string applicationName, ServiceFabricManagedApplicationData serviceFabricManagedApplicationData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(applicationName, nameof(applicationName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(serviceFabricManagedApplicationData, nameof(serviceFabricManagedApplicationData));
 
             using DiagnosticScope scope = _applicationsClientDiagnostics.CreateScope("ServiceFabricManagedApplicationCollection.CreateOrUpdate");
             scope.Start();
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _applicationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, applicationName, ServiceFabricManagedApplicationData.ToRequestContent(data), context);
+                HttpMessage message = _applicationsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, applicationName, ServiceFabricManagedApplicationData.ToRequestContent(serviceFabricManagedApplicationData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ServiceFabricManagedClustersArmOperation<ServiceFabricManagedApplicationResource> operation = new ServiceFabricManagedClustersArmOperation<ServiceFabricManagedApplicationResource>(
                     new ServiceFabricManagedApplicationOperationSource(Client),

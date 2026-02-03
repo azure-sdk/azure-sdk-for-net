@@ -86,14 +86,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
-        /// <param name="data"> The cluster resource. </param>
+        /// <param name="serviceFabricManagedClusterData"> The cluster resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="clusterName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="clusterName"/> or <paramref name="serviceFabricManagedClusterData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clusterName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<ServiceFabricManagedClusterResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string clusterName, ServiceFabricManagedClusterData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ServiceFabricManagedClusterResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string clusterName, ServiceFabricManagedClusterData serviceFabricManagedClusterData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterName, nameof(clusterName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(serviceFabricManagedClusterData, nameof(serviceFabricManagedClusterData));
 
             using DiagnosticScope scope = _managedClustersClientDiagnostics.CreateScope("ServiceFabricManagedClusterCollection.CreateOrUpdate");
             scope.Start();
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedClustersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, clusterName, ServiceFabricManagedClusterData.ToRequestContent(data), context);
+                HttpMessage message = _managedClustersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, clusterName, ServiceFabricManagedClusterData.ToRequestContent(serviceFabricManagedClusterData), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ServiceFabricManagedClustersArmOperation<ServiceFabricManagedClusterResource> operation = new ServiceFabricManagedClustersArmOperation<ServiceFabricManagedClusterResource>(
                     new ServiceFabricManagedClusterOperationSource(Client),
@@ -144,14 +144,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
-        /// <param name="data"> The cluster resource. </param>
+        /// <param name="serviceFabricManagedClusterData"> The cluster resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="clusterName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="clusterName"/> or <paramref name="serviceFabricManagedClusterData"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clusterName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<ServiceFabricManagedClusterResource> CreateOrUpdate(WaitUntil waitUntil, string clusterName, ServiceFabricManagedClusterData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ServiceFabricManagedClusterResource> CreateOrUpdate(WaitUntil waitUntil, string clusterName, ServiceFabricManagedClusterData serviceFabricManagedClusterData, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterName, nameof(clusterName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(serviceFabricManagedClusterData, nameof(serviceFabricManagedClusterData));
 
             using DiagnosticScope scope = _managedClustersClientDiagnostics.CreateScope("ServiceFabricManagedClusterCollection.CreateOrUpdate");
             scope.Start();
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedClustersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, clusterName, ServiceFabricManagedClusterData.ToRequestContent(data), context);
+                HttpMessage message = _managedClustersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, clusterName, ServiceFabricManagedClusterData.ToRequestContent(serviceFabricManagedClusterData), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ServiceFabricManagedClustersArmOperation<ServiceFabricManagedClusterResource> operation = new ServiceFabricManagedClustersArmOperation<ServiceFabricManagedClusterResource>(
                     new ServiceFabricManagedClusterOperationSource(Client),
