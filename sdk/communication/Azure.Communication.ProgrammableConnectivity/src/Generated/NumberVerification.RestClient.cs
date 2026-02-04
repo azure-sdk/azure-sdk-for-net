@@ -16,9 +16,9 @@ namespace Azure.Communication.ProgrammableConnectivity
         private static ResponseClassifier _pipelineMessageClassifier200;
         private static ResponseClassifier _pipelineMessageClassifier302;
 
-        private static ResponseClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 = new StatusCodeClassifier(stackalloc ushort[] { 200 });
+        private static ResponseClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= new StatusCodeClassifier(stackalloc ushort[] { 200 });
 
-        private static ResponseClassifier PipelineMessageClassifier302 => _pipelineMessageClassifier302 = new StatusCodeClassifier(stackalloc ushort[] { 302 });
+        private static ResponseClassifier PipelineMessageClassifier302 => _pipelineMessageClassifier302 ??= new StatusCodeClassifier(stackalloc ushort[] { 302 });
 
         internal HttpMessage CreateVerifyWithoutCodeRequest(string apcGatewayId, RequestContent content, RequestContext context)
         {
