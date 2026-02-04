@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup Condition="'$(UseProjectReference)'=='true'">
+      <ProjectReference Include="..\..\..\Azure.AI.AgentServer.Core\src\Azure.AI.AgentServer.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(UseProjectReference)'!='true'">
+        <PackageReference Include="Azure.AI.AgentServer.Core" />
+    </ItemGroup>
+</Project>
