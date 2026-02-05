@@ -19,7 +19,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
         }
 
         /* RG Scoped Deployment Stack Tests */
-
         [TestCase]
         [RecordedTest]
         public async Task DeleteRG()
@@ -32,7 +31,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             string deploymentStackName = Recording.GenerateAssetName("deployStackRG-Delete-");
             var deploymentStackData = CreateRGDeploymentStackDataWithTemplate();
-            DeploymentStackResource deploymentStack = (await Client.GetDeploymentStacks(rg.Id).CreateOrUpdateAsync(WaitUntil.Completed, deploymentStackName, deploymentStackData)).Value;
+            DeploymentStackResource deploymentStack = (await Client.GetDeploymentStacks(rg.Data.Id).CreateOrUpdateAsync(WaitUntil.Completed, deploymentStackName, deploymentStackData)).Value;
             await deploymentStack.DeleteAsync(WaitUntil.Completed);
 
             var ex = Assert.ThrowsAsync<RequestFailedException>(async () => await deploymentStack.GetAsync());
@@ -86,7 +85,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
         }
 
         /* Sub Scoped Deployment Stack Tests */
-
         [TestCase]
         [RecordedTest]
         public async Task DeleteSub()

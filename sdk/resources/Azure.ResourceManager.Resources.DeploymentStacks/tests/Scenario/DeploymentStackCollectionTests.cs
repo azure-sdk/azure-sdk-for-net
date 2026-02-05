@@ -18,7 +18,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
         }
 
         /* RG Scoped Deployment Stack Tests */
-
         [TestCase]
         [RecordedTest]
         public async Task CreateOrUpdateRG()
@@ -31,7 +30,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             string deploymentStackName = Recording.GenerateAssetName("deployStackRG-CreateOrUpdate-");
             var deploymentStackData = CreateRGDeploymentStackDataWithTemplate();
-            var deploymentStack =  (await Client.GetDeploymentStacks(rgData.Id).CreateOrUpdateAsync(WaitUntil.Completed ,deploymentStackName, deploymentStackData)).Value;
+            var deploymentStack =  (await Client.GetDeploymentStacks(rg.Data.Id).CreateOrUpdateAsync(WaitUntil.Completed ,deploymentStackName, deploymentStackData)).Value;
 
             Assert.AreEqual(deploymentStackName, deploymentStack.Data.Name);
 
@@ -51,9 +50,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             string deploymentStackName = Recording.GenerateAssetName("deployStackRG-Get-");
             var deploymentStackData = CreateRGDeploymentStackDataWithTemplate();
-            var deploymentStack = (await Client.GetDeploymentStacks(rgData.Id).CreateOrUpdateAsync(WaitUntil.Completed, deploymentStackName, deploymentStackData)).Value;
+            var deploymentStack = (await Client.GetDeploymentStacks(rg.Data.Id).CreateOrUpdateAsync(WaitUntil.Completed, deploymentStackName, deploymentStackData)).Value;
 
-            var deploymentStackGet = (await Client.GetDeploymentStackAsync(rgData.Id, deploymentStackName)).Value;
+            var deploymentStackGet = (await Client.GetDeploymentStackAsync(rg.Data.Id, deploymentStackName)).Value;
 
             AssertValidDeploymentStack(deploymentStack, deploymentStackGet);
 
@@ -73,9 +72,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             string deploymentStackName = Recording.GenerateAssetName("deployStackRG-List-");
             var deploymentStackData = CreateRGDeploymentStackDataWithTemplate();
-            var getStack = (await Client.GetDeploymentStacks(rgData.Id).CreateOrUpdateAsync(WaitUntil.Completed, deploymentStackName, deploymentStackData)).Value;
+            var getStack = (await Client.GetDeploymentStacks(rg.Data.Id).CreateOrUpdateAsync(WaitUntil.Completed, deploymentStackName, deploymentStackData)).Value;
 
-            var deploymentStacks = Client.GetDeploymentStacks(rgData.Id);
+            var deploymentStacks = Client.GetDeploymentStacks(rg.Data.Id);
             int count = 0;
             await foreach (var deploymentStack in deploymentStacks)
             {
@@ -88,7 +87,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
         }
 
         /* Sub Scoped Deployment Stack Tests */
-
         [TestCase]
         [RecordedTest]
         public async Task CreateOrUpdateSub()
@@ -145,7 +143,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
         }
 
         /* MG Scoped Deployment Stack Tests */
-
         [TestCase]
         [RecordedTest]
         public async Task CreateOrUpdateMG()
