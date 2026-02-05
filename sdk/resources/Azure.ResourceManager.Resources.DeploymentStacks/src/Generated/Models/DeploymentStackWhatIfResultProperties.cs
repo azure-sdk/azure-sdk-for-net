@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         }
 
         /// <summary> The error detail. </summary>
-        public ResponseError Error { get; set; }
+        public ResponseError Error { get; }
 
         /// <summary>
         /// The template content. You use this element when you want to pass the template syntax directly in the request rather than link to an existing template. It can be a JObject or well-formed JSON string. Use either the templateLink property or the template property, but not both.

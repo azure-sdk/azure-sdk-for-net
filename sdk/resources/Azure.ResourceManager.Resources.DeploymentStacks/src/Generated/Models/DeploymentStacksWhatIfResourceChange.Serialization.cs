@@ -58,7 +58,14 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             if (options.Format != "W" && Optional.IsDefined(Identifiers))
             {
                 writer.WritePropertyName("identifiers"u8);
-                writer.WriteStringValue(Identifiers);
+#if NET6_0_OR_GREATER
+                writer.WriteRawValue(Identifiers);
+#else
+                using (JsonDocument document = JsonDocument.Parse(Identifiers))
+                {
+                    JsonSerializer.Serialize(writer, document.RootElement);
+                }
+#endif
             }
             if (options.Format != "W" && Optional.IsDefined(ApiVersion))
             {
@@ -144,7 +151,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             ResourceIdentifier id = default;
             DeploymentExtension extension = default;
             ResourceType? @type = default;
-            ResourceIdentifier identifiers = default;
+            BinaryData identifiers = default;
             string apiVersion = default;
             string deploymentId = default;
             string symbolicName = default;
@@ -190,7 +197,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    identifiers = new ResourceIdentifier(prop.Value.GetString());
+                    identifiers = BinaryData.FromString(prop.Value.GetRawText());
                     continue;
                 }
                 if (prop.NameEquals("apiVersion"u8))

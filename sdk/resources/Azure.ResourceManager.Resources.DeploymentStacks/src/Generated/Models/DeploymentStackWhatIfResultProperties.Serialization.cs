@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 throw new FormatException($"The model {nameof(DeploymentStackWhatIfResultProperties)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(Error))
+            if (options.Format != "W" && Optional.IsDefined(Error))
             {
                 writer.WritePropertyName("error"u8);
                 ((IJsonModel<ResponseError>)Error).Write(writer, options);

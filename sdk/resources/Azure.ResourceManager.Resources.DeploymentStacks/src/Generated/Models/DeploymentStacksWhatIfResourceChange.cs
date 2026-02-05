@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
@@ -41,7 +42,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="unsupportedReason"> The explanation about why the resource is unsupported by What-If. </param>
         /// <param name="resourceConfigurationChanges"> The predicted changes to the resource configuration. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DeploymentStacksWhatIfResourceChange(ResourceIdentifier id, DeploymentExtension extension, ResourceType? @type, ResourceIdentifier identifiers, string apiVersion, string deploymentId, string symbolicName, DeploymentStacksWhatIfChangeType changeType, DeploymentStacksWhatIfChangeCertainty changeCertainty, DeploymentStacksChangeBaseDeploymentStacksManagementStatus managementStatusChange, DeploymentStacksChangeBaseDenyStatusMode denyStatusChange, string unsupportedReason, DeploymentStacksChangeDelta resourceConfigurationChanges, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DeploymentStacksWhatIfResourceChange(ResourceIdentifier id, DeploymentExtension extension, ResourceType? @type, BinaryData identifiers, string apiVersion, string deploymentId, string symbolicName, DeploymentStacksWhatIfChangeType changeType, DeploymentStacksWhatIfChangeCertainty changeCertainty, DeploymentStacksChangeBaseDeploymentStacksManagementStatus managementStatusChange, DeploymentStacksChangeBaseDenyStatusMode denyStatusChange, string unsupportedReason, DeploymentStacksChangeDelta resourceConfigurationChanges, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             Extension = extension;
@@ -68,8 +69,33 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <summary> The resource type. </summary>
         public ResourceType? Type { get; }
 
-        /// <summary> The extensible resource identifiers. </summary>
-        public ResourceIdentifier Identifiers { get; }
+        /// <summary>
+        /// The extensible resource identifiers.
+        /// <para> To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, JsonSerializerOptions?)"/>. </para>
+        /// <para> To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>. </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term> BinaryData.FromObjectAsJson("foo"). </term>
+        /// <description> Creates a payload of "foo". </description>
+        /// </item>
+        /// <item>
+        /// <term> BinaryData.FromString("\"foo\""). </term>
+        /// <description> Creates a payload of "foo". </description>
+        /// </item>
+        /// <item>
+        /// <term> BinaryData.FromObjectAsJson(new { key = "value" }). </term>
+        /// <description> Creates a payload of { "key": "value" }. </description>
+        /// </item>
+        /// <item>
+        /// <term> BinaryData.FromString("{\"key\": \"value\"}"). </term>
+        /// <description> Creates a payload of { "key": "value" }. </description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public BinaryData Identifiers { get; }
 
         /// <summary> The API version the resource was deployed with. </summary>
         public string ApiVersion { get; }

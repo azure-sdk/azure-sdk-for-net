@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             Assert.AreEqual(deploymentStackName, deploymentStack.Data.Name);
 
-            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: DeploymentStacksDeleteDetachMode.Detach, unmanageActionResourceGroups: DeploymentStacksDeleteDetachMode.Detach, unmanageActionManagementGroups: DeploymentStacksDeleteDetachMode.Detach);
+            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: UnmanageActionResourceMode.Detach, unmanageActionResourceGroups: UnmanageActionResourceGroupMode.Detach, unmanageActionManagementGroups: UnmanageActionManagementGroupMode.Detach);
             await rg.DeleteAsync(WaitUntil.Completed);
         }
 
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             AssertValidDeploymentStack(deploymentStack, deploymentStackGet);
 
-            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: DeploymentStacksDeleteDetachMode.Detach, unmanageActionResourceGroups: DeploymentStacksDeleteDetachMode.Detach, unmanageActionManagementGroups: DeploymentStacksDeleteDetachMode.Detach);
+            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: UnmanageActionResourceMode.Detach, unmanageActionResourceGroups: UnmanageActionResourceGroupMode.Detach, unmanageActionManagementGroups: UnmanageActionManagementGroupMode.Detach);
             await rg.DeleteAsync(WaitUntil.Completed);
         }
 
@@ -99,7 +99,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             Assert.AreEqual(deploymentStackName, deploymentStack.Data.Name);
 
-            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: DeploymentStacksDeleteDetachMode.Detach, unmanageActionResourceGroups: DeploymentStacksDeleteDetachMode.Detach, unmanageActionManagementGroups: DeploymentStacksDeleteDetachMode.Detach);
+            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: UnmanageActionResourceMode.Detach, unmanageActionResourceGroups: UnmanageActionResourceGroupMode.Detach, unmanageActionManagementGroups: UnmanageActionManagementGroupMode.Detach);
         }
 
         [TestCase]
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             AssertValidDeploymentStack(deploymentStack, deploymentStackGet);
 
-            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: DeploymentStacksDeleteDetachMode.Detach, unmanageActionResourceGroups: DeploymentStacksDeleteDetachMode.Detach, unmanageActionManagementGroups: DeploymentStacksDeleteDetachMode.Detach);
+            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: UnmanageActionResourceMode.Detach, unmanageActionResourceGroups: UnmanageActionResourceGroupMode.Detach, unmanageActionManagementGroups: UnmanageActionManagementGroupMode.Detach);
         }
 
         [TestCase]
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
                 count++;
             }
 
-            await getStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: DeploymentStacksDeleteDetachMode.Detach, unmanageActionResourceGroups: DeploymentStacksDeleteDetachMode.Detach, unmanageActionManagementGroups: DeploymentStacksDeleteDetachMode.Detach);
+            await getStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: UnmanageActionResourceMode.Detach, unmanageActionResourceGroups: UnmanageActionResourceGroupMode.Detach, unmanageActionManagementGroups: UnmanageActionManagementGroupMode.Detach);
 
             // There are more stacks in the sub than just the one created for the test:
             Assert.GreaterOrEqual(count, 1);
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             Assert.AreEqual(deploymentStackName, deploymentStack.Data.Name);
 
-            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: DeploymentStacksDeleteDetachMode.Detach, unmanageActionResourceGroups: DeploymentStacksDeleteDetachMode.Detach, unmanageActionManagementGroups: DeploymentStacksDeleteDetachMode.Detach);
+            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: UnmanageActionResourceMode.Detach, unmanageActionResourceGroups: UnmanageActionResourceGroupMode.Detach, unmanageActionManagementGroups: UnmanageActionManagementGroupMode.Detach);
         }
 
         [TestCase]
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             AssertValidDeploymentStack(deploymentStack, deploymentStackGet);
 
-            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: DeploymentStacksDeleteDetachMode.Detach, unmanageActionResourceGroups: DeploymentStacksDeleteDetachMode.Detach, unmanageActionManagementGroups: DeploymentStacksDeleteDetachMode.Detach);
+            await deploymentStack.DeleteAsync(WaitUntil.Completed, unmanageActionResources: UnmanageActionResourceMode.Detach, unmanageActionResourceGroups: UnmanageActionResourceGroupMode.Detach, unmanageActionManagementGroups: UnmanageActionManagementGroupMode.Detach);
         }
 
         [TestCase]

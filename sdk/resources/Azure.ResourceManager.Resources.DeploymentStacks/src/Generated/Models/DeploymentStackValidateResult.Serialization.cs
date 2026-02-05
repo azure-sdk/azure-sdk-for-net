@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 writer.WritePropertyName("systemData"u8);
                 ((IJsonModel<SystemData>)SystemData).Write(writer, options);
             }
-            if (Optional.IsDefined(Error))
+            if (options.Format != "W" && Optional.IsDefined(Error))
             {
                 writer.WritePropertyName("error"u8);
                 ((IJsonModel<ResponseError>)Error).Write(writer, options);

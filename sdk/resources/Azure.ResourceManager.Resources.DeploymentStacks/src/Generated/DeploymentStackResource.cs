@@ -216,7 +216,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         /// <param name="unmanageActionResourcesWithoutDeleteSupport"> Some resources do not support deletion.  This flag will denote how the stack should handle those resources. </param>
         /// <param name="bypassStackOutOfSyncError"> Flag to bypass service errors that indicate the stack resource list is not correctly synchronized. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, DeploymentStacksDeleteDetachMode? unmanageActionResources = default, DeploymentStacksDeleteDetachMode? unmanageActionResourceGroups = default, DeploymentStacksDeleteDetachMode? unmanageActionManagementGroups = default, DeploymentStacksResourcesWithoutDeleteSupportMode? unmanageActionResourcesWithoutDeleteSupport = default, bool? bypassStackOutOfSyncError = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, UnmanageActionResourceMode? unmanageActionResources = default, UnmanageActionResourceGroupMode? unmanageActionResourceGroups = default, UnmanageActionManagementGroupMode? unmanageActionManagementGroups = default, ResourcesWithoutDeleteSupportAction? unmanageActionResourcesWithoutDeleteSupport = default, bool? bypassStackOutOfSyncError = default, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _deploymentStacksAtScopeClientDiagnostics.CreateScope("DeploymentStackResource.Delete");
             scope.Start();
@@ -270,7 +270,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         /// <param name="unmanageActionResourcesWithoutDeleteSupport"> Some resources do not support deletion.  This flag will denote how the stack should handle those resources. </param>
         /// <param name="bypassStackOutOfSyncError"> Flag to bypass service errors that indicate the stack resource list is not correctly synchronized. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation Delete(WaitUntil waitUntil, DeploymentStacksDeleteDetachMode? unmanageActionResources = default, DeploymentStacksDeleteDetachMode? unmanageActionResourceGroups = default, DeploymentStacksDeleteDetachMode? unmanageActionManagementGroups = default, DeploymentStacksResourcesWithoutDeleteSupportMode? unmanageActionResourcesWithoutDeleteSupport = default, bool? bypassStackOutOfSyncError = default, CancellationToken cancellationToken = default)
+        public virtual ArmOperation Delete(WaitUntil waitUntil, UnmanageActionResourceMode? unmanageActionResources = default, UnmanageActionResourceGroupMode? unmanageActionResourceGroups = default, UnmanageActionManagementGroupMode? unmanageActionManagementGroups = default, ResourcesWithoutDeleteSupportAction? unmanageActionResourcesWithoutDeleteSupport = default, bool? bypassStackOutOfSyncError = default, CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _deploymentStacksAtScopeClientDiagnostics.CreateScope("DeploymentStackResource.Delete");
             scope.Start();

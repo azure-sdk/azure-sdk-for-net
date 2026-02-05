@@ -9,7 +9,6 @@ using System.ClientModel.Primitives;
 using Azure;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.DeploymentStacks.Models;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks
 {
@@ -27,8 +26,11 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
     [ModelReaderWriterBuildable(typeof(DeploymentStackData))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackDenySettings))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackListResult))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackManagedResourceReference))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackProperties))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackResource))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackResourceReference))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackResourceReferenceExtended))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeBase))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeBaseDenyStatusMode))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeBaseDeploymentStacksManagementStatus))]
@@ -50,11 +52,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
     [ModelReaderWriterBuildable(typeof(DeploymentStackWhatIfResultResource))]
     [ModelReaderWriterBuildable(typeof(KeyVaultParameterReference))]
     [ModelReaderWriterBuildable(typeof(KeyVaultReference))]
-    [ModelReaderWriterBuildable(typeof(ManagedResourceReference))]
-    [ModelReaderWriterBuildable(typeof(ResourceReference))]
-    [ModelReaderWriterBuildable(typeof(ResourceReferenceExtended))]
     [ModelReaderWriterBuildable(typeof(ResponseError))]
-    [ModelReaderWriterBuildable(typeof(SubResource))]
     [ModelReaderWriterBuildable(typeof(SystemData))]
     public partial class AzureResourceManagerResourcesDeploymentStacksContext : ModelReaderWriterContext
     {

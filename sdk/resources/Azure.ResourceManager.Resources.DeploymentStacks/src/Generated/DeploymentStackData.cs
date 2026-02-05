@@ -11,7 +11,6 @@ using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.DeploymentStacks.Models;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks
 {
@@ -59,14 +58,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
             get
             {
                 return Properties is null ? default : Properties.Error;
-            }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new DeploymentStackProperties();
-                }
-                Properties.Error = value;
             }
         }
 
@@ -278,7 +269,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         }
 
         /// <summary> An array of resources that were detached during the most recent Deployment stack update. Detached means that the resource was removed from the template, but no relevant deletion operations were specified. So, the resource still exists while no longer being associated with the stack. </summary>
-        public IReadOnlyList<SubResource> DetachedResources
+        public IReadOnlyList<DeploymentStackResourceReference> DetachedResources
         {
             get
             {
@@ -287,7 +278,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         }
 
         /// <summary> An array of resources that were deleted during the most recent Deployment stack update. Deleted means that the resource was removed from the template and relevant deletion operations were specified. </summary>
-        public IReadOnlyList<SubResource> DeletedResources
+        public IReadOnlyList<DeploymentStackResourceReference> DeletedResources
         {
             get
             {
@@ -296,7 +287,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         }
 
         /// <summary> An array of resources that failed to reach goal state during the most recent update. Each resourceId is accompanied by an error message. </summary>
-        public IReadOnlyList<ResourceReferenceExtended> FailedResources
+        public IReadOnlyList<DeploymentStackResourceReferenceExtended> FailedResources
         {
             get
             {
@@ -305,7 +296,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         }
 
         /// <summary> An array of resources currently managed by the deployment stack. </summary>
-        public IReadOnlyList<ManagedResourceReference> Resources
+        public IReadOnlyList<DeploymentStackManagedResourceReference> Resources
         {
             get
             {

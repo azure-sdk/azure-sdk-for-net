@@ -12,7 +12,6 @@ using System.Text;
 using System.Text.Json;
 using Azure;
 using Azure.ResourceManager.Resources.DeploymentStacks;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -42,7 +41,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 throw new FormatException($"The model {nameof(DeploymentStackProperties)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(Error))
+            if (options.Format != "W" && Optional.IsDefined(Error))
             {
                 writer.WritePropertyName("error"u8);
                 ((IJsonModel<ResponseError>)Error).Write(writer, options);
@@ -156,14 +155,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 writer.WritePropertyName("detachedResources"u8);
                 writer.WriteStartArray();
-                foreach (SubResource item in DetachedResources)
+                foreach (DeploymentStackResourceReference item in DetachedResources)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    ((IJsonModel<SubResource>)item).Write(writer, options);
+                    writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
             }
@@ -171,14 +165,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 writer.WritePropertyName("deletedResources"u8);
                 writer.WriteStartArray();
-                foreach (SubResource item in DeletedResources)
+                foreach (DeploymentStackResourceReference item in DeletedResources)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    ((IJsonModel<SubResource>)item).Write(writer, options);
+                    writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
             }
@@ -186,7 +175,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 writer.WritePropertyName("failedResources"u8);
                 writer.WriteStartArray();
-                foreach (ResourceReferenceExtended item in FailedResources)
+                foreach (DeploymentStackResourceReferenceExtended item in FailedResources)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -196,7 +185,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 writer.WritePropertyName("resources"u8);
                 writer.WriteStartArray();
-                foreach (ManagedResourceReference item in Resources)
+                foreach (DeploymentStackManagedResourceReference item in Resources)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -293,10 +282,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             string correlationId = default;
             DeploymentStackValidationLevel? validationLevel = default;
             bool? bypassStackOutOfSyncError = default;
-            IReadOnlyList<SubResource> detachedResources = default;
-            IReadOnlyList<SubResource> deletedResources = default;
-            IReadOnlyList<ResourceReferenceExtended> failedResources = default;
-            IReadOnlyList<ManagedResourceReference> resources = default;
+            IReadOnlyList<DeploymentStackResourceReference> detachedResources = default;
+            IReadOnlyList<DeploymentStackResourceReference> deletedResources = default;
+            IReadOnlyList<DeploymentStackResourceReferenceExtended> failedResources = default;
+            IReadOnlyList<DeploymentStackManagedResourceReference> resources = default;
             IReadOnlyList<DeploymentExtension> deploymentExtensions = default;
             string deploymentId = default;
             BinaryData outputs = default;
@@ -463,17 +452,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    List<SubResource> array = new List<SubResource>();
+                    List<DeploymentStackResourceReference> array = new List<DeploymentStackResourceReference>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(ModelReaderWriter.Read<SubResource>(new BinaryData(Encoding.UTF8.GetBytes(item.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerResourcesDeploymentStacksContext.Default));
-                        }
+                        array.Add(DeploymentStackResourceReference.DeserializeDeploymentStackResourceReference(item, options));
                     }
                     detachedResources = array;
                     continue;
@@ -484,17 +466,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    List<SubResource> array = new List<SubResource>();
+                    List<DeploymentStackResourceReference> array = new List<DeploymentStackResourceReference>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(ModelReaderWriter.Read<SubResource>(new BinaryData(Encoding.UTF8.GetBytes(item.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerResourcesDeploymentStacksContext.Default));
-                        }
+                        array.Add(DeploymentStackResourceReference.DeserializeDeploymentStackResourceReference(item, options));
                     }
                     deletedResources = array;
                     continue;
@@ -505,10 +480,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    List<ResourceReferenceExtended> array = new List<ResourceReferenceExtended>();
+                    List<DeploymentStackResourceReferenceExtended> array = new List<DeploymentStackResourceReferenceExtended>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(ResourceReferenceExtended.DeserializeResourceReferenceExtended(item, options));
+                        array.Add(DeploymentStackResourceReferenceExtended.DeserializeDeploymentStackResourceReferenceExtended(item, options));
                     }
                     failedResources = array;
                     continue;
@@ -519,10 +494,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    List<ManagedResourceReference> array = new List<ManagedResourceReference>();
+                    List<DeploymentStackManagedResourceReference> array = new List<DeploymentStackManagedResourceReference>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(ManagedResourceReference.DeserializeManagedResourceReference(item, options));
+                        array.Add(DeploymentStackManagedResourceReference.DeserializeDeploymentStackManagedResourceReference(item, options));
                     }
                     resources = array;
                     continue;
@@ -587,10 +562,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 correlationId,
                 validationLevel,
                 bypassStackOutOfSyncError,
-                detachedResources ?? new ChangeTrackingList<SubResource>(),
-                deletedResources ?? new ChangeTrackingList<SubResource>(),
-                failedResources ?? new ChangeTrackingList<ResourceReferenceExtended>(),
-                resources ?? new ChangeTrackingList<ManagedResourceReference>(),
+                detachedResources ?? new ChangeTrackingList<DeploymentStackResourceReference>(),
+                deletedResources ?? new ChangeTrackingList<DeploymentStackResourceReference>(),
+                failedResources ?? new ChangeTrackingList<DeploymentStackResourceReferenceExtended>(),
+                resources ?? new ChangeTrackingList<DeploymentStackManagedResourceReference>(),
                 deploymentExtensions ?? new ChangeTrackingList<DeploymentExtension>(),
                 deploymentId,
                 outputs,

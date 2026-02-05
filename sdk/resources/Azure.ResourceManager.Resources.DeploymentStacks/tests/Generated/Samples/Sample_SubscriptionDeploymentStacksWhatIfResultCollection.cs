@@ -37,10 +37,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Samples
             DeploymentStackWhatIfResultData data = new DeploymentStackWhatIfResultData()
             {
                 Location = new AzureLocation("eastus"),
-                Properties = new DeploymentStackWhatIfResultProperties(new ActionOnUnmanage(DeploymentStacksDeleteDetachMode.Delete)
+                Properties = new DeploymentStackWhatIfResultProperties(new ActionOnUnmanage(UnmanageActionResourceMode.Delete)
                     {
-                        ResourceGroups = DeploymentStacksDeleteDetachMode.Delete,
-                        ManagementGroups = DeploymentStacksDeleteDetachMode.Detach,
+                        ResourceGroups = UnmanageActionResourceGroupMode.Delete,
+                        ManagementGroups = UnmanageActionManagementGroupMode.Detach,
                     },
                     new DeploymentStackDenySettings(DeploymentStackDenySettingsMode.None)
                     {

@@ -47,9 +47,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             data.ActionOnUnmanage = new ActionOnUnmanage()
             {
-                Resources = DeploymentStacksDeleteDetachMode.Detach,
-                ResourceGroups = DeploymentStacksDeleteDetachMode.Detach,
-                ManagementGroups = DeploymentStacksDeleteDetachMode.Detach
+                Resources = UnmanageActionResourceMode.Detach,
+                ResourceGroups = UnmanageActionResourceGroupMode.Detach,
+                ManagementGroups = UnmanageActionManagementGroupMode.Detach
             };
 
             data.BypassStackOutOfSyncError = false;
@@ -75,9 +75,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             data.ActionOnUnmanage = new ActionOnUnmanage()
             {
-                Resources = DeploymentStacksDeleteDetachMode.Detach,
-                ResourceGroups = DeploymentStacksDeleteDetachMode.Detach,
-                ManagementGroups = DeploymentStacksDeleteDetachMode.Detach
+                Resources = UnmanageActionResourceMode.Detach,
+                ResourceGroups = UnmanageActionResourceGroupMode.Detach,
+                ManagementGroups = UnmanageActionManagementGroupMode.Detach
             };
 
             data.BypassStackOutOfSyncError = false;
@@ -103,9 +103,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Tests
 
             data.ActionOnUnmanage = new ActionOnUnmanage()
             {
-                Resources = DeploymentStacksDeleteDetachMode.Detach,
-                ResourceGroups = DeploymentStacksDeleteDetachMode.Detach,
-                ManagementGroups = DeploymentStacksDeleteDetachMode.Detach
+                Resources = UnmanageActionResourceMode.Detach,
+                ResourceGroups = UnmanageActionResourceGroupMode.Detach,
+                ManagementGroups = UnmanageActionManagementGroupMode.Detach
             };
 
             data.BypassStackOutOfSyncError = false;

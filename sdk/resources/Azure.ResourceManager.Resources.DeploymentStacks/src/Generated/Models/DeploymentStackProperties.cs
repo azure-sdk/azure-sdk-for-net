@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure;
 using Azure.ResourceManager.Resources.DeploymentStacks;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -35,10 +34,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             ExternalInputDefinitions = new ChangeTrackingDictionary<string, DeploymentExternalInputDefinition>();
             ActionOnUnmanage = actionOnUnmanage;
             DenySettings = denySettings;
-            DetachedResources = new ChangeTrackingList<SubResource>();
-            DeletedResources = new ChangeTrackingList<SubResource>();
-            FailedResources = new ChangeTrackingList<ResourceReferenceExtended>();
-            Resources = new ChangeTrackingList<ManagedResourceReference>();
+            DetachedResources = new ChangeTrackingList<DeploymentStackResourceReference>();
+            DeletedResources = new ChangeTrackingList<DeploymentStackResourceReference>();
+            FailedResources = new ChangeTrackingList<DeploymentStackResourceReferenceExtended>();
+            Resources = new ChangeTrackingList<DeploymentStackManagedResourceReference>();
             DeploymentExtensions = new ChangeTrackingList<DeploymentExtension>();
         }
 
@@ -69,7 +68,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="outputs"> The outputs of the deployment resource created by the deployment stack. </param>
         /// <param name="duration"> The duration of the last successful Deployment stack update. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DeploymentStackProperties(ResponseError error, BinaryData template, DeploymentStacksTemplateLink templateLink, IDictionary<string, DeploymentParameterItem> parameters, DeploymentStacksParametersLink parametersLink, IDictionary<string, DeploymentExtensionConfig> extensionConfigs, IDictionary<string, DeploymentExternalInput> externalInputs, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions, ActionOnUnmanage actionOnUnmanage, DeploymentStacksDebugSetting debugSetting, string deploymentScope, string description, DeploymentStackDenySettings denySettings, DeploymentStackProvisioningState? provisioningState, string correlationId, DeploymentStackValidationLevel? validationLevel, bool? bypassStackOutOfSyncError, IReadOnlyList<SubResource> detachedResources, IReadOnlyList<SubResource> deletedResources, IReadOnlyList<ResourceReferenceExtended> failedResources, IReadOnlyList<ManagedResourceReference> resources, IReadOnlyList<DeploymentExtension> deploymentExtensions, string deploymentId, BinaryData outputs, TimeSpan? duration, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DeploymentStackProperties(ResponseError error, BinaryData template, DeploymentStacksTemplateLink templateLink, IDictionary<string, DeploymentParameterItem> parameters, DeploymentStacksParametersLink parametersLink, IDictionary<string, DeploymentExtensionConfig> extensionConfigs, IDictionary<string, DeploymentExternalInput> externalInputs, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions, ActionOnUnmanage actionOnUnmanage, DeploymentStacksDebugSetting debugSetting, string deploymentScope, string description, DeploymentStackDenySettings denySettings, DeploymentStackProvisioningState? provisioningState, string correlationId, DeploymentStackValidationLevel? validationLevel, bool? bypassStackOutOfSyncError, IReadOnlyList<DeploymentStackResourceReference> detachedResources, IReadOnlyList<DeploymentStackResourceReference> deletedResources, IReadOnlyList<DeploymentStackResourceReferenceExtended> failedResources, IReadOnlyList<DeploymentStackManagedResourceReference> resources, IReadOnlyList<DeploymentExtension> deploymentExtensions, string deploymentId, BinaryData outputs, TimeSpan? duration, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Error = error;
             Template = template;
@@ -100,7 +99,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         }
 
         /// <summary> The error detail. </summary>
-        public ResponseError Error { get; set; }
+        public ResponseError Error { get; }
 
         /// <summary>
         /// The template content. You use this element when you want to pass the template syntax directly in the request rather than link to an existing template. It can be a JObject or well-formed JSON string. Use either the templateLink property or the template property, but not both.
@@ -176,16 +175,16 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         public bool? BypassStackOutOfSyncError { get; set; }
 
         /// <summary> An array of resources that were detached during the most recent Deployment stack update. Detached means that the resource was removed from the template, but no relevant deletion operations were specified. So, the resource still exists while no longer being associated with the stack. </summary>
-        public IReadOnlyList<SubResource> DetachedResources { get; } = new ChangeTrackingList<SubResource>();
+        public IReadOnlyList<DeploymentStackResourceReference> DetachedResources { get; } = new ChangeTrackingList<DeploymentStackResourceReference>();
 
         /// <summary> An array of resources that were deleted during the most recent Deployment stack update. Deleted means that the resource was removed from the template and relevant deletion operations were specified. </summary>
-        public IReadOnlyList<SubResource> DeletedResources { get; } = new ChangeTrackingList<SubResource>();
+        public IReadOnlyList<DeploymentStackResourceReference> DeletedResources { get; } = new ChangeTrackingList<DeploymentStackResourceReference>();
 
         /// <summary> An array of resources that failed to reach goal state during the most recent update. Each resourceId is accompanied by an error message. </summary>
-        public IReadOnlyList<ResourceReferenceExtended> FailedResources { get; } = new ChangeTrackingList<ResourceReferenceExtended>();
+        public IReadOnlyList<DeploymentStackResourceReferenceExtended> FailedResources { get; } = new ChangeTrackingList<DeploymentStackResourceReferenceExtended>();
 
         /// <summary> An array of resources currently managed by the deployment stack. </summary>
-        public IReadOnlyList<ManagedResourceReference> Resources { get; } = new ChangeTrackingList<ManagedResourceReference>();
+        public IReadOnlyList<DeploymentStackManagedResourceReference> Resources { get; } = new ChangeTrackingList<DeploymentStackManagedResourceReference>();
 
         /// <summary> The extensions used during deployment. Contains extension data for all extensible resources managed by the stack. </summary>
         public IReadOnlyList<DeploymentExtension> DeploymentExtensions { get; } = new ChangeTrackingList<DeploymentExtension>();

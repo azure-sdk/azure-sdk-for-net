@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 writer.WritePropertyName("validatedResources"u8);
                 writer.WriteStartArray();
-                foreach (ResourceReference item in ValidatedResources)
+                foreach (DeploymentStackResourceReference item in ValidatedResources)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             string description = default;
             IDictionary<string, DeploymentParameterItem> parameters = default;
             DeploymentStacksTemplateLink templateLink = default;
-            IList<ResourceReference> validatedResources = default;
+            IList<DeploymentStackResourceReference> validatedResources = default;
             IList<DeploymentExtension> deploymentExtensions = default;
             DeploymentStackValidationLevel? validationLevel = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -217,10 +217,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    List<ResourceReference> array = new List<ResourceReference>();
+                    List<DeploymentStackResourceReference> array = new List<DeploymentStackResourceReference>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(ResourceReference.DeserializeResourceReference(item, options));
+                        array.Add(DeploymentStackResourceReference.DeserializeDeploymentStackResourceReference(item, options));
                     }
                     validatedResources = array;
                     continue;
@@ -261,7 +261,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 description,
                 parameters ?? new ChangeTrackingDictionary<string, DeploymentParameterItem>(),
                 templateLink,
-                validatedResources ?? new ChangeTrackingList<ResourceReference>(),
+                validatedResources ?? new ChangeTrackingList<DeploymentStackResourceReference>(),
                 deploymentExtensions ?? new ChangeTrackingList<DeploymentExtension>(),
                 validationLevel,
                 additionalBinaryDataProperties);

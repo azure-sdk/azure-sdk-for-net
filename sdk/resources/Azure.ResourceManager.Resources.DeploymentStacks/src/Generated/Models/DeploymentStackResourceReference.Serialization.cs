@@ -8,20 +8,18 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
-using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
-    /// <summary> The resourceId extended model. This is used to document failed resources with a resourceId and a corresponding error. </summary>
-    public partial class ResourceReferenceExtended : IJsonModel<ResourceReferenceExtended>
+    /// <summary> The resourceId model. </summary>
+    public partial class DeploymentStackResourceReference : IJsonModel<DeploymentStackResourceReference>
     {
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<ResourceReferenceExtended>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DeploymentStackResourceReference>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -32,10 +30,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ResourceReferenceExtended>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStackResourceReference>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ResourceReferenceExtended)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DeploymentStackResourceReference)} does not support writing '{format}' format.");
             }
             if (options.Format != "W" && Optional.IsDefined(Id))
             {
@@ -55,17 +53,19 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             if (options.Format != "W" && Optional.IsDefined(Identifiers))
             {
                 writer.WritePropertyName("identifiers"u8);
-                writer.WriteStringValue(Identifiers);
+#if NET6_0_OR_GREATER
+                writer.WriteRawValue(Identifiers);
+#else
+                using (JsonDocument document = JsonDocument.Parse(Identifiers))
+                {
+                    JsonSerializer.Serialize(writer, document.RootElement);
+                }
+#endif
             }
             if (options.Format != "W" && Optional.IsDefined(ApiVersion))
             {
                 writer.WritePropertyName("apiVersion"u8);
                 writer.WriteStringValue(ApiVersion);
-            }
-            if (Optional.IsDefined(Error))
-            {
-                writer.WritePropertyName("error"u8);
-                ((IJsonModel<ResponseError>)Error).Write(writer, options);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -86,24 +86,24 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ResourceReferenceExtended IJsonModel<ResourceReferenceExtended>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        DeploymentStackResourceReference IJsonModel<DeploymentStackResourceReference>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ResourceReferenceExtended JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual DeploymentStackResourceReference JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ResourceReferenceExtended>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStackResourceReference>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ResourceReferenceExtended)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DeploymentStackResourceReference)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeResourceReferenceExtended(document.RootElement, options);
+            return DeserializeDeploymentStackResourceReference(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static ResourceReferenceExtended DeserializeResourceReferenceExtended(JsonElement element, ModelReaderWriterOptions options)
+        internal static DeploymentStackResourceReference DeserializeDeploymentStackResourceReference(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -112,9 +112,8 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             ResourceIdentifier id = default;
             DeploymentExtension extension = default;
             ResourceType? @type = default;
-            ResourceIdentifier identifiers = default;
+            BinaryData identifiers = default;
             string apiVersion = default;
-            ResponseError error = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -151,7 +150,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    identifiers = new ResourceIdentifier(prop.Value.GetString());
+                    identifiers = BinaryData.FromString(prop.Value.GetRawText());
                     continue;
                 }
                 if (prop.NameEquals("apiVersion"u8))
@@ -159,68 +158,58 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     apiVersion = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("error"u8))
-                {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    error = ModelReaderWriter.Read<ResponseError>(new BinaryData(Encoding.UTF8.GetBytes(prop.Value.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerResourcesDeploymentStacksContext.Default);
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ResourceReferenceExtended(
+            return new DeploymentStackResourceReference(
                 id,
                 extension,
                 @type,
                 identifiers,
                 apiVersion,
-                error,
                 additionalBinaryDataProperties);
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ResourceReferenceExtended>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DeploymentStackResourceReference>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ResourceReferenceExtended>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStackResourceReference>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerResourcesDeploymentStacksContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(ResourceReferenceExtended)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DeploymentStackResourceReference)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ResourceReferenceExtended IPersistableModel<ResourceReferenceExtended>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        DeploymentStackResourceReference IPersistableModel<DeploymentStackResourceReference>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ResourceReferenceExtended PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual DeploymentStackResourceReference PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ResourceReferenceExtended>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStackResourceReference>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeResourceReferenceExtended(document.RootElement, options);
+                        return DeserializeDeploymentStackResourceReference(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ResourceReferenceExtended)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DeploymentStackResourceReference)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ResourceReferenceExtended>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DeploymentStackResourceReference>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

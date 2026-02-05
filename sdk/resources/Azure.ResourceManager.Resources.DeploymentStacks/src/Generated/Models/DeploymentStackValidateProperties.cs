@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         public DeploymentStackValidateProperties()
         {
             Parameters = new ChangeTrackingDictionary<string, DeploymentParameterItem>();
-            ValidatedResources = new ChangeTrackingList<ResourceReference>();
+            ValidatedResources = new ChangeTrackingList<DeploymentStackResourceReference>();
             DeploymentExtensions = new ChangeTrackingList<DeploymentExtension>();
         }
 
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="deploymentExtensions"> The deployment extensions. </param>
         /// <param name="validationLevel"> The validation level of the deployment stack. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage, string correlationId, DeploymentStackDenySettings denySettings, string deploymentScope, string description, IDictionary<string, DeploymentParameterItem> parameters, DeploymentStacksTemplateLink templateLink, IList<ResourceReference> validatedResources, IList<DeploymentExtension> deploymentExtensions, DeploymentStackValidationLevel? validationLevel, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage, string correlationId, DeploymentStackDenySettings denySettings, string deploymentScope, string description, IDictionary<string, DeploymentParameterItem> parameters, DeploymentStacksTemplateLink templateLink, IList<DeploymentStackResourceReference> validatedResources, IList<DeploymentExtension> deploymentExtensions, DeploymentStackValidationLevel? validationLevel, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ActionOnUnmanage = actionOnUnmanage;
             CorrelationId = correlationId;
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         public DeploymentStacksTemplateLink TemplateLink { get; set; }
 
         /// <summary> The array of resources that were validated. </summary>
-        public IList<ResourceReference> ValidatedResources { get; }
+        public IList<DeploymentStackResourceReference> ValidatedResources { get; }
 
         /// <summary> The deployment extensions. </summary>
         public IList<DeploymentExtension> DeploymentExtensions { get; }

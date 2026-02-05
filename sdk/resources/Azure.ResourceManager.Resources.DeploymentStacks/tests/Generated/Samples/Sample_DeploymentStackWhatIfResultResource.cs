@@ -84,10 +84,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Samples
             {
                 Location = new AzureLocation("eastus"),
                 Properties = new DeploymentStackWhatIfResultProperties(
-                    new ActionOnUnmanage(DeploymentStacksDeleteDetachMode.Delete)
+                    new ActionOnUnmanage(UnmanageActionResourceMode.Delete)
                     {
-                        ResourceGroups = DeploymentStacksDeleteDetachMode.Delete,
-                        ManagementGroups = DeploymentStacksDeleteDetachMode.Detach,
+                        ResourceGroups = UnmanageActionResourceGroupMode.Delete,
+                        ManagementGroups = UnmanageActionManagementGroupMode.Detach,
                     },
                     new DeploymentStackDenySettings(DeploymentStackDenySettingsMode.None)
                     {

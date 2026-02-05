@@ -12,7 +12,6 @@ using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.DeploymentStacks;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -51,7 +50,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="location"> The geo-location where the resource lives. Required for subscription and management group scoped stacks. The location is inherited from the resource group for resource group scoped stacks. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <returns> A new <see cref="DeploymentStacks.DeploymentStackData"/> instance for mocking. </returns>
-        public static DeploymentStackData DeploymentStackData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, ResponseError error = default, BinaryData template = default, DeploymentStacksTemplateLink templateLink = default, IDictionary<string, DeploymentParameterItem> parameters = default, DeploymentStacksParametersLink parametersLink = default, IDictionary<string, DeploymentExtensionConfig> extensionConfigs = default, IDictionary<string, DeploymentExternalInput> externalInputs = default, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions = default, ActionOnUnmanage actionOnUnmanage = default, string deploymentScope = default, string description = default, DeploymentStackDenySettings denySettings = default, DeploymentStackProvisioningState? provisioningState = default, string correlationId = default, DeploymentStackValidationLevel? validationLevel = default, bool? bypassStackOutOfSyncError = default, IEnumerable<SubResource> detachedResources = default, IEnumerable<SubResource> deletedResources = default, IEnumerable<ResourceReferenceExtended> failedResources = default, IEnumerable<ManagedResourceReference> resources = default, IEnumerable<DeploymentExtension> deploymentExtensions = default, string deploymentId = default, BinaryData outputs = default, TimeSpan? duration = default, string debugSettingDetailLevel = default, AzureLocation? location = default, IDictionary<string, string> tags = default)
+        public static DeploymentStackData DeploymentStackData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, ResponseError error = default, BinaryData template = default, DeploymentStacksTemplateLink templateLink = default, IDictionary<string, DeploymentParameterItem> parameters = default, DeploymentStacksParametersLink parametersLink = default, IDictionary<string, DeploymentExtensionConfig> extensionConfigs = default, IDictionary<string, DeploymentExternalInput> externalInputs = default, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions = default, ActionOnUnmanage actionOnUnmanage = default, string deploymentScope = default, string description = default, DeploymentStackDenySettings denySettings = default, DeploymentStackProvisioningState? provisioningState = default, string correlationId = default, DeploymentStackValidationLevel? validationLevel = default, bool? bypassStackOutOfSyncError = default, IEnumerable<DeploymentStackResourceReference> detachedResources = default, IEnumerable<DeploymentStackResourceReference> deletedResources = default, IEnumerable<DeploymentStackResourceReferenceExtended> failedResources = default, IEnumerable<DeploymentStackManagedResourceReference> resources = default, IEnumerable<DeploymentExtension> deploymentExtensions = default, string deploymentId = default, BinaryData outputs = default, TimeSpan? duration = default, string debugSettingDetailLevel = default, AzureLocation? location = default, IDictionary<string, string> tags = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -79,10 +78,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     correlationId,
                     validationLevel,
                     bypassStackOutOfSyncError,
-                    (detachedResources ?? new ChangeTrackingList<SubResource>()).ToList(),
-                    (deletedResources ?? new ChangeTrackingList<SubResource>()).ToList(),
-                    (failedResources ?? new ChangeTrackingList<ResourceReferenceExtended>()).ToList(),
-                    (resources ?? new ChangeTrackingList<ManagedResourceReference>()).ToList(),
+                    (detachedResources ?? new ChangeTrackingList<DeploymentStackResourceReference>()).ToList(),
+                    (deletedResources ?? new ChangeTrackingList<DeploymentStackResourceReference>()).ToList(),
+                    (failedResources ?? new ChangeTrackingList<DeploymentStackResourceReferenceExtended>()).ToList(),
+                    (resources ?? new ChangeTrackingList<DeploymentStackManagedResourceReference>()).ToList(),
                     (deploymentExtensions ?? new ChangeTrackingList<DeploymentExtension>()).ToList(),
                     deploymentId,
                     outputs,
@@ -125,6 +124,24 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             return new DeploymentStackDenySettings(mode, excludedPrincipals.ToList(), excludedActions.ToList(), applyToChildScopes, additionalBinaryDataProperties: null);
         }
 
+        /// <summary> The resourceId model. </summary>
+        /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
+        /// <param name="extension"> The extension the resource was deployed with. </param>
+        /// <param name="type"> The resource type. </param>
+        /// <param name="identifiers"> The extensible resource identifiers. </param>
+        /// <param name="apiVersion"> The API version the resource was deployed with. </param>
+        /// <returns> A new <see cref="Models.DeploymentStackResourceReference"/> instance for mocking. </returns>
+        public static DeploymentStackResourceReference DeploymentStackResourceReference(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, BinaryData identifiers = default, string apiVersion = default)
+        {
+            return new DeploymentStackResourceReference(
+                id,
+                extension,
+                @type,
+                identifiers,
+                apiVersion,
+                additionalBinaryDataProperties: null);
+        }
+
         /// <summary> The resourceId extended model. This is used to document failed resources with a resourceId and a corresponding error. </summary>
         /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
         /// <param name="extension"> The extension the resource was deployed with. </param>
@@ -132,10 +149,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="identifiers"> The extensible resource identifiers. </param>
         /// <param name="apiVersion"> The API version the resource was deployed with. </param>
         /// <param name="error"> The error detail. </param>
-        /// <returns> A new <see cref="Models.ResourceReferenceExtended"/> instance for mocking. </returns>
-        public static ResourceReferenceExtended ResourceReferenceExtended(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default, ResponseError error = default)
+        /// <returns> A new <see cref="Models.DeploymentStackResourceReferenceExtended"/> instance for mocking. </returns>
+        public static DeploymentStackResourceReferenceExtended DeploymentStackResourceReferenceExtended(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, BinaryData identifiers = default, string apiVersion = default, ResponseError error = default)
         {
-            return new ResourceReferenceExtended(
+            return new DeploymentStackResourceReferenceExtended(
                 id,
                 extension,
                 @type,
@@ -153,10 +170,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="apiVersion"> The API version the resource was deployed with. </param>
         /// <param name="status"> Current management state of the resource in the deployment stack. </param>
         /// <param name="denyStatus"> denyAssignment settings applied to the resource. </param>
-        /// <returns> A new <see cref="Models.ManagedResourceReference"/> instance for mocking. </returns>
-        public static ManagedResourceReference ManagedResourceReference(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default, ResourceStatusMode? status = default, DeploymentStackDenyStatusMode? denyStatus = default)
+        /// <returns> A new <see cref="Models.DeploymentStackManagedResourceReference"/> instance for mocking. </returns>
+        public static DeploymentStackManagedResourceReference DeploymentStackManagedResourceReference(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, BinaryData identifiers = default, string apiVersion = default, ResourceStatusMode? status = default, DeploymentStackDenyStatusMode? denyStatus = default)
         {
-            return new ManagedResourceReference(
+            return new DeploymentStackManagedResourceReference(
                 id,
                 extension,
                 @type,
@@ -165,24 +182,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 additionalBinaryDataProperties: null,
                 status,
                 denyStatus);
-        }
-
-        /// <summary> The resourceId model. </summary>
-        /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
-        /// <param name="extension"> The extension the resource was deployed with. </param>
-        /// <param name="type"> The resource type. </param>
-        /// <param name="identifiers"> The extensible resource identifiers. </param>
-        /// <param name="apiVersion"> The API version the resource was deployed with. </param>
-        /// <returns> A new <see cref="Models.ResourceReference"/> instance for mocking. </returns>
-        public static ResourceReference ResourceReference(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default)
-        {
-            return new ResourceReference(
-                id,
-                extension,
-                @type,
-                identifiers,
-                apiVersion,
-                additionalBinaryDataProperties: null);
         }
 
         /// <summary> The Deployment stack validation result. </summary>
@@ -217,10 +216,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="deploymentExtensions"> The deployment extensions. </param>
         /// <param name="validationLevel"> The validation level of the deployment stack. </param>
         /// <returns> A new <see cref="Models.DeploymentStackValidateProperties"/> instance for mocking. </returns>
-        public static DeploymentStackValidateProperties DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage = default, string correlationId = default, DeploymentStackDenySettings denySettings = default, string deploymentScope = default, string description = default, IDictionary<string, DeploymentParameterItem> parameters = default, DeploymentStacksTemplateLink templateLink = default, IEnumerable<ResourceReference> validatedResources = default, IEnumerable<DeploymentExtension> deploymentExtensions = default, DeploymentStackValidationLevel? validationLevel = default)
+        public static DeploymentStackValidateProperties DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage = default, string correlationId = default, DeploymentStackDenySettings denySettings = default, string deploymentScope = default, string description = default, IDictionary<string, DeploymentParameterItem> parameters = default, DeploymentStacksTemplateLink templateLink = default, IEnumerable<DeploymentStackResourceReference> validatedResources = default, IEnumerable<DeploymentExtension> deploymentExtensions = default, DeploymentStackValidationLevel? validationLevel = default)
         {
             parameters ??= new ChangeTrackingDictionary<string, DeploymentParameterItem>();
-            validatedResources ??= new ChangeTrackingList<ResourceReference>();
+            validatedResources ??= new ChangeTrackingList<DeploymentStackResourceReference>();
             deploymentExtensions ??= new ChangeTrackingList<DeploymentExtension>();
 
             return new DeploymentStackValidateProperties(
@@ -352,7 +351,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="unsupportedReason"> The explanation about why the resource is unsupported by What-If. </param>
         /// <param name="resourceConfigurationChanges"> The predicted changes to the resource configuration. </param>
         /// <returns> A new <see cref="Models.DeploymentStacksWhatIfResourceChange"/> instance for mocking. </returns>
-        public static DeploymentStacksWhatIfResourceChange DeploymentStacksWhatIfResourceChange(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default, string deploymentId = default, string symbolicName = default, DeploymentStacksWhatIfChangeType changeType = default, DeploymentStacksWhatIfChangeCertainty changeCertainty = default, DeploymentStacksChangeBaseDeploymentStacksManagementStatus managementStatusChange = default, DeploymentStacksChangeBaseDenyStatusMode denyStatusChange = default, string unsupportedReason = default, DeploymentStacksChangeDelta resourceConfigurationChanges = default)
+        public static DeploymentStacksWhatIfResourceChange DeploymentStacksWhatIfResourceChange(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, BinaryData identifiers = default, string apiVersion = default, string deploymentId = default, string symbolicName = default, DeploymentStacksWhatIfChangeType changeType = default, DeploymentStacksWhatIfChangeCertainty changeCertainty = default, DeploymentStacksChangeBaseDeploymentStacksManagementStatus managementStatusChange = default, DeploymentStacksChangeBaseDenyStatusMode denyStatusChange = default, string unsupportedReason = default, DeploymentStacksChangeDelta resourceConfigurationChanges = default)
         {
             return new DeploymentStacksWhatIfResourceChange(
                 id,
