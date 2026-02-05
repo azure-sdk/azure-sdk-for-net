@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
             if (Optional.IsDefined(Location))
             {
                 writer.WritePropertyName("location"u8);
-                writer.WriteStringValue(Location);
+                writer.WriteStringValue(Location.Value);
             }
             if (Optional.IsCollectionDefined(Tags))
             {
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
             SystemData systemData = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             DeploymentStackWhatIfResultProperties properties = default;
-            string location = default;
+            AzureLocation? location = default;
             IDictionary<string, string> tags = default;
             foreach (var prop in element.EnumerateObject())
             {
@@ -145,7 +145,11 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
                 }
                 if (prop.NameEquals("location"u8))
                 {
-                    location = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    location = new AzureLocation(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("tags"u8))

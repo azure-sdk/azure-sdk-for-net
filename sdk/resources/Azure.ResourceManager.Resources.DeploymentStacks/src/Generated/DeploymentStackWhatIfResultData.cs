@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="location"> The geo-location where the resource lives. Required for subscription and management group scoped stacks. The location is inherited from the resource group for resource group scoped stacks. </param>
         /// <param name="tags"> Resource tags. </param>
-        internal DeploymentStackWhatIfResultData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, DeploymentStackWhatIfResultProperties properties, string location, IDictionary<string, string> tags) : base(id, name, resourceType, systemData)
+        internal DeploymentStackWhatIfResultData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, DeploymentStackWhatIfResultProperties properties, AzureLocation? location, IDictionary<string, string> tags) : base(id, name, resourceType, systemData)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
         public DeploymentStackWhatIfResultProperties Properties { get; set; }
 
         /// <summary> The geo-location where the resource lives. Required for subscription and management group scoped stacks. The location is inherited from the resource group for resource group scoped stacks. </summary>
-        public string Location { get; set; }
+        public AzureLocation? Location { get; set; }
 
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }

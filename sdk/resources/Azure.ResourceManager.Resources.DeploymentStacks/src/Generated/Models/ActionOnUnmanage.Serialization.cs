@@ -98,16 +98,16 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 return null;
             }
-            DeploymentStacksDeleteDetachEnum resources = default;
-            DeploymentStacksDeleteDetachEnum? resourceGroups = default;
-            DeploymentStacksDeleteDetachEnum? managementGroups = default;
-            DeploymentStacksResourcesWithoutDeleteSupportEnum? resourcesWithoutDeleteSupport = default;
+            DeploymentStacksDeleteDetachMode resources = default;
+            DeploymentStacksDeleteDetachMode? resourceGroups = default;
+            DeploymentStacksDeleteDetachMode? managementGroups = default;
+            DeploymentStacksResourcesWithoutDeleteSupportMode? resourcesWithoutDeleteSupport = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("resources"u8))
                 {
-                    resources = new DeploymentStacksDeleteDetachEnum(prop.Value.GetString());
+                    resources = new DeploymentStacksDeleteDetachMode(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("resourceGroups"u8))
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    resourceGroups = new DeploymentStacksDeleteDetachEnum(prop.Value.GetString());
+                    resourceGroups = new DeploymentStacksDeleteDetachMode(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("managementGroups"u8))
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    managementGroups = new DeploymentStacksDeleteDetachEnum(prop.Value.GetString());
+                    managementGroups = new DeploymentStacksDeleteDetachMode(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("resourcesWithoutDeleteSupport"u8))
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                     {
                         continue;
                     }
-                    resourcesWithoutDeleteSupport = new DeploymentStacksResourcesWithoutDeleteSupportEnum(prop.Value.GetString());
+                    resourcesWithoutDeleteSupport = new DeploymentStacksResourcesWithoutDeleteSupportMode(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

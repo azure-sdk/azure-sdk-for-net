@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="location"> The geo-location where the resource lives. Required for subscription and management group scoped stacks. The location is inherited from the resource group for resource group scoped stacks. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <returns> A new <see cref="DeploymentStacks.DeploymentStackWhatIfResultData"/> instance for mocking. </returns>
-        public static DeploymentStackWhatIfResultData DeploymentStackWhatIfResultData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, DeploymentStackWhatIfResultProperties properties = default, string location = default, IDictionary<string, string> tags = default)
+        public static DeploymentStackWhatIfResultData DeploymentStackWhatIfResultData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, DeploymentStackWhatIfResultProperties properties = default, AzureLocation? location = default, IDictionary<string, string> tags = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 

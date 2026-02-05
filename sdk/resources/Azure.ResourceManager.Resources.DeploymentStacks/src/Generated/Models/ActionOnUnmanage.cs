@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 
         /// <summary> Initializes a new instance of <see cref="ActionOnUnmanage"/>. </summary>
         /// <param name="resources"> Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state. </param>
-        public ActionOnUnmanage(DeploymentStacksDeleteDetachEnum resources)
+        public ActionOnUnmanage(DeploymentStacksDeleteDetachMode resources)
         {
             Resources = resources;
         }
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="managementGroups"> Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state. </param>
         /// <param name="resourcesWithoutDeleteSupport"> Some resources do not support deletion.  This flag will denote how the stack should handle those resources. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ActionOnUnmanage(DeploymentStacksDeleteDetachEnum resources, DeploymentStacksDeleteDetachEnum? resourceGroups, DeploymentStacksDeleteDetachEnum? managementGroups, DeploymentStacksResourcesWithoutDeleteSupportEnum? resourcesWithoutDeleteSupport, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ActionOnUnmanage(DeploymentStacksDeleteDetachMode resources, DeploymentStacksDeleteDetachMode? resourceGroups, DeploymentStacksDeleteDetachMode? managementGroups, DeploymentStacksResourcesWithoutDeleteSupportMode? resourcesWithoutDeleteSupport, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Resources = resources;
             ResourceGroups = resourceGroups;
@@ -39,15 +39,15 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         }
 
         /// <summary> Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state. </summary>
-        public DeploymentStacksDeleteDetachEnum Resources { get; set; }
+        public DeploymentStacksDeleteDetachMode Resources { get; set; }
 
         /// <summary> Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state. </summary>
-        public DeploymentStacksDeleteDetachEnum? ResourceGroups { get; set; }
+        public DeploymentStacksDeleteDetachMode? ResourceGroups { get; set; }
 
         /// <summary> Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state. </summary>
-        public DeploymentStacksDeleteDetachEnum? ManagementGroups { get; set; }
+        public DeploymentStacksDeleteDetachMode? ManagementGroups { get; set; }
 
         /// <summary> Some resources do not support deletion.  This flag will denote how the stack should handle those resources. </summary>
-        public DeploymentStacksResourcesWithoutDeleteSupportEnum? ResourcesWithoutDeleteSupport { get; set; }
+        public DeploymentStacksResourcesWithoutDeleteSupportMode? ResourcesWithoutDeleteSupport { get; set; }
     }
 }

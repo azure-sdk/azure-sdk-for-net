@@ -12,7 +12,7 @@ using Azure.ResourceManager.Resources.DeploymentStacks;
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
     /// <summary> Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will leave the resource in it's current state. </summary>
-    public readonly partial struct DeploymentStacksDeleteDetachEnum : IEquatable<DeploymentStacksDeleteDetachEnum>
+    public readonly partial struct DeploymentStacksDeleteDetachMode : IEquatable<DeploymentStacksDeleteDetachMode>
     {
         private readonly string _value;
         /// <summary> Delete the specified resources from Azure. </summary>
@@ -20,10 +20,10 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <summary> Keep the specified resources in Azure. </summary>
         private const string DetachValue = "detach";
 
-        /// <summary> Initializes a new instance of <see cref="DeploymentStacksDeleteDetachEnum"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DeploymentStacksDeleteDetachMode"/>. </summary>
         /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        public DeploymentStacksDeleteDetachEnum(string value)
+        public DeploymentStacksDeleteDetachMode(string value)
         {
             Argument.AssertNotNull(value, nameof(value));
 
@@ -31,35 +31,35 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         }
 
         /// <summary> Delete the specified resources from Azure. </summary>
-        public static DeploymentStacksDeleteDetachEnum Delete { get; } = new DeploymentStacksDeleteDetachEnum(DeleteValue);
+        public static DeploymentStacksDeleteDetachMode Delete { get; } = new DeploymentStacksDeleteDetachMode(DeleteValue);
 
         /// <summary> Keep the specified resources in Azure. </summary>
-        public static DeploymentStacksDeleteDetachEnum Detach { get; } = new DeploymentStacksDeleteDetachEnum(DetachValue);
+        public static DeploymentStacksDeleteDetachMode Detach { get; } = new DeploymentStacksDeleteDetachMode(DetachValue);
 
-        /// <summary> Determines if two <see cref="DeploymentStacksDeleteDetachEnum"/> values are the same. </summary>
+        /// <summary> Determines if two <see cref="DeploymentStacksDeleteDetachMode"/> values are the same. </summary>
         /// <param name="left"> The left value to compare. </param>
         /// <param name="right"> The right value to compare. </param>
-        public static bool operator ==(DeploymentStacksDeleteDetachEnum left, DeploymentStacksDeleteDetachEnum right) => left.Equals(right);
+        public static bool operator ==(DeploymentStacksDeleteDetachMode left, DeploymentStacksDeleteDetachMode right) => left.Equals(right);
 
-        /// <summary> Determines if two <see cref="DeploymentStacksDeleteDetachEnum"/> values are not the same. </summary>
+        /// <summary> Determines if two <see cref="DeploymentStacksDeleteDetachMode"/> values are not the same. </summary>
         /// <param name="left"> The left value to compare. </param>
         /// <param name="right"> The right value to compare. </param>
-        public static bool operator !=(DeploymentStacksDeleteDetachEnum left, DeploymentStacksDeleteDetachEnum right) => !left.Equals(right);
+        public static bool operator !=(DeploymentStacksDeleteDetachMode left, DeploymentStacksDeleteDetachMode right) => !left.Equals(right);
 
-        /// <summary> Converts a string to a <see cref="DeploymentStacksDeleteDetachEnum"/>. </summary>
+        /// <summary> Converts a string to a <see cref="DeploymentStacksDeleteDetachMode"/>. </summary>
         /// <param name="value"> The value. </param>
-        public static implicit operator DeploymentStacksDeleteDetachEnum(string value) => new DeploymentStacksDeleteDetachEnum(value);
+        public static implicit operator DeploymentStacksDeleteDetachMode(string value) => new DeploymentStacksDeleteDetachMode(value);
 
-        /// <summary> Converts a string to a <see cref="DeploymentStacksDeleteDetachEnum"/>. </summary>
+        /// <summary> Converts a string to a <see cref="DeploymentStacksDeleteDetachMode"/>. </summary>
         /// <param name="value"> The value. </param>
-        public static implicit operator DeploymentStacksDeleteDetachEnum?(string value) => value == null ? null : new DeploymentStacksDeleteDetachEnum(value);
+        public static implicit operator DeploymentStacksDeleteDetachMode?(string value) => value == null ? null : new DeploymentStacksDeleteDetachMode(value);
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj) => obj is DeploymentStacksDeleteDetachEnum other && Equals(other);
+        public override bool Equals(object obj) => obj is DeploymentStacksDeleteDetachMode other && Equals(other);
 
         /// <inheritdoc/>
-        public bool Equals(DeploymentStacksDeleteDetachEnum other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+        public bool Equals(DeploymentStacksDeleteDetachMode other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
