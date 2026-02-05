@@ -1,4 +1,4 @@
 directory: specification/resources/resource-manager/Microsoft.Resources/deploymentStacks
-commit: 022e829d92d6a1d19e4601cc9dfe26c06e1dc6e7
+commit: 3b6beff46b4db857ac7a11d67feb447b30c62679
 repo: Azure/azure-rest-api-specs
 emitterPackageJsonPath: eng/azure-typespec-http-client-csharp-mgmt-emitter-package.json
