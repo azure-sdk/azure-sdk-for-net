@@ -9,14 +9,20 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
-    public partial class DeploymentStacksWhatIfPropertyChange : IUtf8JsonSerializable, IJsonModel<DeploymentStacksWhatIfPropertyChange>
+    /// <summary> The predicted change to the resource property. </summary>
+    public partial class DeploymentStacksWhatIfPropertyChange : IJsonModel<DeploymentStacksWhatIfPropertyChange>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DeploymentStacksWhatIfPropertyChange>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        /// <summary> Initializes a new instance of <see cref="DeploymentStacksWhatIfPropertyChange"/> for deserialization. </summary>
+        internal DeploymentStacksWhatIfPropertyChange()
+        {
+        }
 
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<DeploymentStacksWhatIfPropertyChange>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
@@ -28,19 +34,18 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DeploymentStacksWhatIfPropertyChange)} does not support writing '{format}' format.");
             }
-
             if (Optional.IsDefined(Before))
             {
                 writer.WritePropertyName("before"u8);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(Before);
+                writer.WriteRawValue(Before);
 #else
-                using (JsonDocument document = JsonDocument.Parse(Before, ModelSerializationExtensions.JsonDocumentOptions))
+                using (JsonDocument document = JsonDocument.Parse(Before))
                 {
                     JsonSerializer.Serialize(writer, document.RootElement);
                 }
@@ -50,9 +55,9 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 writer.WritePropertyName("after"u8);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(After);
+                writer.WriteRawValue(After);
 #else
-                using (JsonDocument document = JsonDocument.Parse(After, ModelSerializationExtensions.JsonDocumentOptions))
+                using (JsonDocument document = JsonDocument.Parse(After))
                 {
                     JsonSerializer.Serialize(writer, document.RootElement);
                 }
@@ -66,21 +71,21 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             {
                 writer.WritePropertyName("children"u8);
                 writer.WriteStartArray();
-                foreach (var item in Children)
+                foreach (DeploymentStacksWhatIfPropertyChange item in Children)
                 {
                     writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
             }
-            if (options.Format != "W" && _serializedAdditionalRawData != null)
+            if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
-                foreach (var item in _serializedAdditionalRawData)
+                foreach (var item in _additionalBinaryDataProperties)
                 {
                     writer.WritePropertyName(item.Key);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
+                    writer.WriteRawValue(item.Value);
 #else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    using (JsonDocument document = JsonDocument.Parse(item.Value))
                     {
                         JsonSerializer.Serialize(writer, document.RootElement);
                     }
@@ -89,22 +94,27 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             }
         }
 
-        DeploymentStacksWhatIfPropertyChange IJsonModel<DeploymentStacksWhatIfPropertyChange>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        DeploymentStacksWhatIfPropertyChange IJsonModel<DeploymentStacksWhatIfPropertyChange>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual DeploymentStacksWhatIfPropertyChange JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DeploymentStacksWhatIfPropertyChange)} does not support reading '{format}' format.");
             }
-
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
             return DeserializeDeploymentStacksWhatIfPropertyChange(document.RootElement, options);
         }
 
-        internal static DeploymentStacksWhatIfPropertyChange DeserializeDeploymentStacksWhatIfPropertyChange(JsonElement element, ModelReaderWriterOptions options = null)
+        /// <param name="element"> The JSON element to deserialize. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        internal static DeploymentStacksWhatIfPropertyChange DeserializeDeploymentStacksWhatIfPropertyChange(JsonElement element, ModelReaderWriterOptions options)
         {
-            options ??= ModelSerializationExtensions.WireOptions;
-
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
@@ -113,47 +123,46 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             BinaryData after = default;
             string path = default;
             DeploymentStacksWhatIfPropertyChangeType changeType = default;
-            IReadOnlyList<DeploymentStacksWhatIfPropertyChange> children = default;
-            IDictionary<string, BinaryData> serializedAdditionalRawData = default;
-            Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
-            foreach (var property in element.EnumerateObject())
+            IList<DeploymentStacksWhatIfPropertyChange> children = default;
+            IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
+            foreach (var prop in element.EnumerateObject())
             {
-                if (property.NameEquals("before"u8))
+                if (prop.NameEquals("before"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    before = BinaryData.FromString(property.Value.GetRawText());
+                    before = BinaryData.FromString(prop.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("after"u8))
+                if (prop.NameEquals("after"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    after = BinaryData.FromString(property.Value.GetRawText());
+                    after = BinaryData.FromString(prop.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("path"u8))
+                if (prop.NameEquals("path"u8))
                 {
-                    path = property.Value.GetString();
+                    path = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("changeType"u8))
+                if (prop.NameEquals("changeType"u8))
                 {
-                    changeType = new DeploymentStacksWhatIfPropertyChangeType(property.Value.GetString());
+                    changeType = new DeploymentStacksWhatIfPropertyChangeType(prop.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("children"u8))
+                if (prop.NameEquals("children"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
                     List<DeploymentStacksWhatIfPropertyChange> array = new List<DeploymentStacksWhatIfPropertyChange>();
-                    foreach (var item in property.Value.EnumerateArray())
+                    foreach (var item in prop.Value.EnumerateArray())
                     {
                         array.Add(DeserializeDeploymentStacksWhatIfPropertyChange(item, options));
                     }
@@ -162,23 +171,25 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 }
                 if (options.Format != "W")
                 {
-                    rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
+                    additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            serializedAdditionalRawData = rawDataDictionary;
             return new DeploymentStacksWhatIfPropertyChange(
                 before,
                 after,
                 path,
                 changeType,
                 children ?? new ChangeTrackingList<DeploymentStacksWhatIfPropertyChange>(),
-                serializedAdditionalRawData);
+                additionalBinaryDataProperties);
         }
 
-        BinaryData IPersistableModel<DeploymentStacksWhatIfPropertyChange>.Write(ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<DeploymentStacksWhatIfPropertyChange>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
@@ -188,15 +199,20 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             }
         }
 
-        DeploymentStacksWhatIfPropertyChange IPersistableModel<DeploymentStacksWhatIfPropertyChange>.Create(BinaryData data, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        DeploymentStacksWhatIfPropertyChange IPersistableModel<DeploymentStacksWhatIfPropertyChange>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual DeploymentStacksWhatIfPropertyChange PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfPropertyChange>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
                         return DeserializeDeploymentStacksWhatIfPropertyChange(document.RootElement, options);
                     }
                 default:
@@ -204,6 +220,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             }
         }
 
+        /// <param name="options"> The client options for reading and writing models. </param>
         string IPersistableModel<DeploymentStacksWhatIfPropertyChange>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

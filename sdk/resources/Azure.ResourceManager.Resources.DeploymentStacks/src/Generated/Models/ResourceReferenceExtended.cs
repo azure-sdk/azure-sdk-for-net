@@ -7,48 +7,20 @@
 
 using System;
 using System.Collections.Generic;
+using Azure;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
     /// <summary> The resourceId extended model. This is used to document failed resources with a resourceId and a corresponding error. </summary>
     public partial class ResourceReferenceExtended
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="ResourceReferenceExtended"/>. </summary>
-        internal ResourceReferenceExtended()
+        public ResourceReferenceExtended()
         {
-            Identifiers = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ResourceReferenceExtended"/>. </summary>
@@ -58,58 +30,34 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="identifiers"> The extensible resource identifiers. </param>
         /// <param name="apiVersion"> The API version the resource was deployed with. </param>
         /// <param name="error"> The error detail. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ResourceReferenceExtended(string id, DeploymentExtension extension, string type, IReadOnlyDictionary<string, BinaryData> identifiers, string apiVersion, ResponseError error, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal ResourceReferenceExtended(ResourceIdentifier id, DeploymentExtension extension, ResourceType? @type, ResourceIdentifier identifiers, string apiVersion, ResponseError error, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             Extension = extension;
-            Type = type;
+            Type = @type;
             Identifiers = identifiers;
             ApiVersion = apiVersion;
             Error = error;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The ARM Resource ID of a resource managed by the deployment stack. </summary>
-        public string Id { get; }
+        public ResourceIdentifier Id { get; }
+
         /// <summary> The extension the resource was deployed with. </summary>
         public DeploymentExtension Extension { get; }
+
         /// <summary> The resource type. </summary>
-        public string Type { get; }
-        /// <summary>
-        /// The extensible resource identifiers.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        public IReadOnlyDictionary<string, BinaryData> Identifiers { get; }
+        public ResourceType? Type { get; }
+
+        /// <summary> The extensible resource identifiers. </summary>
+        public ResourceIdentifier Identifiers { get; }
+
         /// <summary> The API version the resource was deployed with. </summary>
         public string ApiVersion { get; }
+
         /// <summary> The error detail. </summary>
-        public ResponseError Error { get; }
+        public ResponseError Error { get; set; }
     }
 }

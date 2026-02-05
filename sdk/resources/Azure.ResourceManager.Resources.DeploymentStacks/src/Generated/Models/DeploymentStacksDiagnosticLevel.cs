@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -14,41 +15,62 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     public readonly partial struct DeploymentStacksDiagnosticLevel : IEquatable<DeploymentStacksDiagnosticLevel>
     {
         private readonly string _value;
+        /// <summary> Informational message. </summary>
+        private const string InfoValue = "info";
+        /// <summary> Warning message. </summary>
+        private const string WarningValue = "warning";
+        /// <summary> Error message. </summary>
+        private const string ErrorValue = "error";
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStacksDiagnosticLevel"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public DeploymentStacksDiagnosticLevel(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
+            Argument.AssertNotNull(value, nameof(value));
 
-        private const string InfoValue = "info";
-        private const string WarningValue = "warning";
-        private const string ErrorValue = "error";
+            _value = value;
+        }
 
         /// <summary> Informational message. </summary>
         public static DeploymentStacksDiagnosticLevel Info { get; } = new DeploymentStacksDiagnosticLevel(InfoValue);
+
         /// <summary> Warning message. </summary>
         public static DeploymentStacksDiagnosticLevel Warning { get; } = new DeploymentStacksDiagnosticLevel(WarningValue);
+
         /// <summary> Error message. </summary>
         public static DeploymentStacksDiagnosticLevel Error { get; } = new DeploymentStacksDiagnosticLevel(ErrorValue);
+
         /// <summary> Determines if two <see cref="DeploymentStacksDiagnosticLevel"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(DeploymentStacksDiagnosticLevel left, DeploymentStacksDiagnosticLevel right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="DeploymentStacksDiagnosticLevel"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(DeploymentStacksDiagnosticLevel left, DeploymentStacksDiagnosticLevel right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="DeploymentStacksDiagnosticLevel"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="DeploymentStacksDiagnosticLevel"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator DeploymentStacksDiagnosticLevel(string value) => new DeploymentStacksDiagnosticLevel(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="DeploymentStacksDiagnosticLevel"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator DeploymentStacksDiagnosticLevel?(string value) => value == null ? null : new DeploymentStacksDiagnosticLevel(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is DeploymentStacksDiagnosticLevel other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(DeploymentStacksDiagnosticLevel other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

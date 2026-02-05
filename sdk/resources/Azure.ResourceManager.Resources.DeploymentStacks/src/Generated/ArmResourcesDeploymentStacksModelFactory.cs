@@ -8,39 +8,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager.Resources.DeploymentStacks;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
-    /// <summary> Model factory for models. </summary>
+    /// <summary> A factory class for creating instances of the models for mocking. </summary>
     public static partial class ArmResourcesDeploymentStacksModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="DeploymentStacks.DeploymentStacksWhatIfResultData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="properties"> The resource-specific properties for this resource. </param>
-        /// <returns> A new <see cref="DeploymentStacks.DeploymentStacksWhatIfResultData"/> instance for mocking. </returns>
-        public static DeploymentStacksWhatIfResultData DeploymentStacksWhatIfResultData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DeploymentStacksWhatIfResultProperties properties = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new DeploymentStacksWhatIfResultData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                tags,
-                location,
-                properties,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksWhatIfResultProperties"/>. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="error"> The error detail. </param>
         /// <param name="template"> The template content. You use this element when you want to pass the template syntax directly in the request rather than link to an existing template. It can be a JObject or well-formed JSON string. Use either the templateLink property or the template property, but not both. </param>
         /// <param name="templateLink"> The URI of the template. Use either the templateLink property or the template property, but not both. </param>
@@ -50,241 +32,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="externalInputs"> External input values, used by external tooling for parameter evaluation. </param>
         /// <param name="externalInputDefinitions"> External input definitions, used by external tooling to define expected external input values. </param>
         /// <param name="actionOnUnmanage"> Defines the behavior of resources that are no longer managed after the Deployment stack is updated or deleted. </param>
-        /// <param name="debugSettingDetailLevel"> The debug setting of the deployment. </param>
-        /// <param name="deploymentScope"> The scope at which the initial deployment should be created. If a scope is not specified, it will default to the scope of the deployment stack. Valid scopes are: management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroupId}'), subscription (format: '/subscriptions/{subscriptionId}'), resource group (format: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}'). </param>
-        /// <param name="description"> Deployment stack description. Max length of 4096 characters. </param>
-        /// <param name="denySettings"> Defines how resources deployed by the stack are locked. </param>
-        /// <param name="provisioningState"> State of the deployment stack. </param>
-        /// <param name="correlationId"> The correlation id of the last Deployment stack upsert or delete operation. It is in GUID format and is used for tracing. </param>
-        /// <param name="validationLevel"> The validation level of the deployment stack. </param>
-        /// <param name="deploymentStackResourceId"> The deployment stack id to use as the basis for comparison. </param>
-        /// <param name="deploymentStackLastModified"> The timestamp for when the deployment stack was last modified. This can be used to determine if the what-if data is still current. </param>
-        /// <param name="retentionInterval"> The interval to persist the deployment stack what-if result in ISO 8601 format. </param>
-        /// <param name="changes"> All of the changes predicted by the deployment stack what-if operation. </param>
-        /// <param name="diagnostics"> List of resource diagnostics detected by What-If operation. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksWhatIfResultProperties"/> instance for mocking. </returns>
-        public static DeploymentStacksWhatIfResultProperties DeploymentStacksWhatIfResultProperties(ResponseError error = null, IDictionary<string, BinaryData> template = null, DeploymentStacksTemplateLink templateLink = null, IDictionary<string, DeploymentParameterItem> parameters = null, DeploymentStacksParametersLink parametersLink = null, IDictionary<string, DeploymentExtensionConfig> extensionConfigs = null, IDictionary<string, DeploymentExternalInput> externalInputs = null, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions = null, ActionOnUnmanage actionOnUnmanage = null, string debugSettingDetailLevel = null, string deploymentScope = null, string description = null, DenySettings denySettings = null, DeploymentStackProvisioningState? provisioningState = null, string correlationId = null, ValidationLevel? validationLevel = null, string deploymentStackResourceId = null, DateTimeOffset? deploymentStackLastModified = null, TimeSpan retentionInterval = default, DeploymentStacksWhatIfChange changes = null, IEnumerable<DeploymentStacksDiagnostic> diagnostics = null)
-        {
-            template ??= new Dictionary<string, BinaryData>();
-            parameters ??= new Dictionary<string, DeploymentParameterItem>();
-            extensionConfigs ??= new Dictionary<string, DeploymentExtensionConfig>();
-            externalInputs ??= new Dictionary<string, DeploymentExternalInput>();
-            externalInputDefinitions ??= new Dictionary<string, DeploymentExternalInputDefinition>();
-            diagnostics ??= new List<DeploymentStacksDiagnostic>();
-
-            return new DeploymentStacksWhatIfResultProperties(
-                error,
-                template,
-                templateLink,
-                parameters,
-                parametersLink,
-                extensionConfigs,
-                externalInputs,
-                externalInputDefinitions,
-                actionOnUnmanage,
-                debugSettingDetailLevel != null ? new DeploymentStacksDebugSetting(debugSettingDetailLevel, serializedAdditionalRawData: null) : null,
-                deploymentScope,
-                description,
-                denySettings,
-                provisioningState,
-                correlationId,
-                validationLevel,
-                deploymentStackResourceId,
-                deploymentStackLastModified,
-                retentionInterval,
-                changes,
-                diagnostics?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ErrorAdditionalInfo"/>. </summary>
-        /// <param name="type"> The additional info type. </param>
-        /// <param name="info"> The additional info. </param>
-        /// <returns> A new <see cref="Models.ErrorAdditionalInfo"/> instance for mocking. </returns>
-        public static ErrorAdditionalInfo ErrorAdditionalInfo(string type = null, BinaryData info = null)
-        {
-            return new ErrorAdditionalInfo(type, info, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentExtensionConfigItem"/>. </summary>
-        /// <param name="type"> The type of the value. </param>
-        /// <param name="value"> The value of the config item. The type is determined by the extension config schema. </param>
-        /// <param name="keyVaultReference"> The key vault reference of the config item. </param>
-        /// <returns> A new <see cref="Models.DeploymentExtensionConfigItem"/> instance for mocking. </returns>
-        public static DeploymentExtensionConfigItem DeploymentExtensionConfigItem(string type = null, BinaryData value = null, KeyVaultParameterReference keyVaultReference = null)
-        {
-            return new DeploymentExtensionConfigItem(type, value, keyVaultReference, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksWhatIfChange"/>. </summary>
-        /// <param name="resourceChanges"> List of resource changes predicted by What-If operation. </param>
-        /// <param name="denySettingsChange"> Predicted changes to the deployment stack deny settings. </param>
-        /// <param name="deploymentScopeChange"> Predicted changes to the deployment scope for the deployment stack. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksWhatIfChange"/> instance for mocking. </returns>
-        public static DeploymentStacksWhatIfChange DeploymentStacksWhatIfChange(IEnumerable<DeploymentStacksWhatIfResourceChange> resourceChanges = null, DeploymentStacksChangeDeltaDenySettings denySettingsChange = null, DeploymentStacksChangeBase deploymentScopeChange = null)
-        {
-            resourceChanges ??= new List<DeploymentStacksWhatIfResourceChange>();
-
-            return new DeploymentStacksWhatIfChange(resourceChanges?.ToList(), denySettingsChange, deploymentScopeChange, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksWhatIfResourceChange"/>. </summary>
-        /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
-        /// <param name="extension"> The extension the resource was deployed with. </param>
-        /// <param name="type"> The resource type. </param>
-        /// <param name="identifiers"> The extensible resource identifiers. </param>
-        /// <param name="apiVersion"> The API version the resource was deployed with. </param>
-        /// <param name="deploymentId"> The resource id of the Deployment responsible for this change. </param>
-        /// <param name="symbolicName"> The symbolic name of the resource being changed. </param>
-        /// <param name="changeType"> Type of change that will be made to the resource when the deployment is executed. </param>
-        /// <param name="changeCertainty"> The confidence level of the predicted change. </param>
-        /// <param name="managementStatusChange"> The predicted changes to the deployment stack management status of the resource. </param>
-        /// <param name="denyStatusChange"> The predicted changes to the deployment stack deny status of the resource. </param>
-        /// <param name="unsupportedReason"> The explanation about why the resource is unsupported by What-If. </param>
-        /// <param name="resourceConfigurationChanges"> The predicted changes to the resource configuration. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksWhatIfResourceChange"/> instance for mocking. </returns>
-        public static DeploymentStacksWhatIfResourceChange DeploymentStacksWhatIfResourceChange(string id = null, DeploymentExtension extension = null, string type = null, IReadOnlyDictionary<string, BinaryData> identifiers = null, string apiVersion = null, string deploymentId = null, string symbolicName = null, DeploymentStacksWhatIfChangeType changeType = default, DeploymentStacksWhatIfChangeCertainty changeCertainty = default, DeploymentStacksChangeBaseDeploymentStacksManagementStatus managementStatusChange = null, DeploymentStacksChangeBaseDenyStatusMode denyStatusChange = null, string unsupportedReason = null, DeploymentStacksChangeDeltaRecord resourceConfigurationChanges = null)
-        {
-            identifiers ??= new Dictionary<string, BinaryData>();
-
-            return new DeploymentStacksWhatIfResourceChange(
-                id,
-                extension,
-                type,
-                identifiers,
-                apiVersion,
-                deploymentId,
-                symbolicName,
-                changeType,
-                changeCertainty,
-                managementStatusChange,
-                denyStatusChange,
-                unsupportedReason,
-                resourceConfigurationChanges,
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentExtension"/>. </summary>
-        /// <param name="name"> The extension name. </param>
-        /// <param name="version"> The extension version. </param>
-        /// <param name="configId"> The configuration ID of the extension usage. It uniquely identifies a target the extension deploys to. </param>
-        /// <param name="config"> The configuration used for deployment. The keys of this object should align with the extension config schema. </param>
-        /// <returns> A new <see cref="Models.DeploymentExtension"/> instance for mocking. </returns>
-        public static DeploymentExtension DeploymentExtension(string name = null, string version = null, string configId = null, DeploymentExtensionConfig config = null)
-        {
-            return new DeploymentExtension(name, version, configId, config, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksChangeBaseDeploymentStacksManagementStatus"/>. </summary>
-        /// <param name="before"> The predicted value before the deployment is executed. </param>
-        /// <param name="after"> The predicted value after the deployment is executed. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksChangeBaseDeploymentStacksManagementStatus"/> instance for mocking. </returns>
-        public static DeploymentStacksChangeBaseDeploymentStacksManagementStatus DeploymentStacksChangeBaseDeploymentStacksManagementStatus(DeploymentStacksManagementStatus? before = null, DeploymentStacksManagementStatus? after = null)
-        {
-            return new DeploymentStacksChangeBaseDeploymentStacksManagementStatus(before, after, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksChangeBaseDenyStatusMode"/>. </summary>
-        /// <param name="before"> The predicted value before the deployment is executed. </param>
-        /// <param name="after"> The predicted value after the deployment is executed. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksChangeBaseDenyStatusMode"/> instance for mocking. </returns>
-        public static DeploymentStacksChangeBaseDenyStatusMode DeploymentStacksChangeBaseDenyStatusMode(DenyStatusMode? before = null, DenyStatusMode? after = null)
-        {
-            return new DeploymentStacksChangeBaseDenyStatusMode(before, after, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksChangeDeltaRecord"/>. </summary>
-        /// <param name="before"> The predicted value before the deployment is executed. </param>
-        /// <param name="after"> The predicted value after the deployment is executed. </param>
-        /// <param name="delta"> The predicted changes to the properties.". </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksChangeDeltaRecord"/> instance for mocking. </returns>
-        public static DeploymentStacksChangeDeltaRecord DeploymentStacksChangeDeltaRecord(IReadOnlyDictionary<string, BinaryData> before = null, IReadOnlyDictionary<string, BinaryData> after = null, IEnumerable<DeploymentStacksWhatIfPropertyChange> delta = null)
-        {
-            before ??= new Dictionary<string, BinaryData>();
-            after ??= new Dictionary<string, BinaryData>();
-            delta ??= new List<DeploymentStacksWhatIfPropertyChange>();
-
-            return new DeploymentStacksChangeDeltaRecord(before, after, delta?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksWhatIfPropertyChange"/>. </summary>
-        /// <param name="before"> The predicted value before the deployment is executed. </param>
-        /// <param name="after"> The predicted value after the deployment is executed. </param>
-        /// <param name="path"> Type of change that will be made to the resource when the deployment is executed. </param>
-        /// <param name="changeType"> Type of change that will be made to the resource when the deployment is executed. </param>
-        /// <param name="children"> Nested property changes. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksWhatIfPropertyChange"/> instance for mocking. </returns>
-        public static DeploymentStacksWhatIfPropertyChange DeploymentStacksWhatIfPropertyChange(BinaryData before = null, BinaryData after = null, string path = null, DeploymentStacksWhatIfPropertyChangeType changeType = default, IEnumerable<DeploymentStacksWhatIfPropertyChange> children = null)
-        {
-            children ??= new List<DeploymentStacksWhatIfPropertyChange>();
-
-            return new DeploymentStacksWhatIfPropertyChange(
-                before,
-                after,
-                path,
-                changeType,
-                children?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksChangeDeltaDenySettings"/>. </summary>
-        /// <param name="before"> The predicted value before the deployment is executed. </param>
-        /// <param name="after"> The predicted value after the deployment is executed. </param>
-        /// <param name="delta"> The predicted changes to the properties.". </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksChangeDeltaDenySettings"/> instance for mocking. </returns>
-        public static DeploymentStacksChangeDeltaDenySettings DeploymentStacksChangeDeltaDenySettings(DenySettings before = null, DenySettings after = null, IEnumerable<DeploymentStacksWhatIfPropertyChange> delta = null)
-        {
-            delta ??= new List<DeploymentStacksWhatIfPropertyChange>();
-
-            return new DeploymentStacksChangeDeltaDenySettings(before, after, delta?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksChangeBase"/>. </summary>
-        /// <param name="before"> The predicted value before the deployment is executed. </param>
-        /// <param name="after"> The predicted value after the deployment is executed. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksChangeBase"/> instance for mocking. </returns>
-        public static DeploymentStacksChangeBase DeploymentStacksChangeBase(string before = null, string after = null)
-        {
-            return new DeploymentStacksChangeBase(before, after, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStacksDiagnostic"/>. </summary>
-        /// <param name="level"> Denotes the additional response level. </param>
-        /// <param name="code"> The error code. </param>
-        /// <param name="message"> The error message. </param>
-        /// <param name="target"> The error target. </param>
-        /// <param name="additionalInfo"> Additional error information. </param>
-        /// <returns> A new <see cref="Models.DeploymentStacksDiagnostic"/> instance for mocking. </returns>
-        public static DeploymentStacksDiagnostic DeploymentStacksDiagnostic(DeploymentStacksDiagnosticLevel level = default, string code = null, string message = null, string target = null, IEnumerable<ErrorAdditionalInfo> additionalInfo = null)
-        {
-            additionalInfo ??= new List<ErrorAdditionalInfo>();
-
-            return new DeploymentStacksDiagnostic(
-                level,
-                code,
-                message,
-                target,
-                additionalInfo?.ToList(),
-                serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStack"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="error"> The error detail. </param>
-        /// <param name="template"> The template content. You use this element when you want to pass the template syntax directly in the request rather than link to an existing template. It can be a JObject or well-formed JSON string. Use either the templateLink property or the template property, but not both. </param>
-        /// <param name="templateLink"> The URI of the template. Use either the templateLink property or the template property, but not both. </param>
-        /// <param name="parameters"> Name and value pairs that define the deployment parameters for the template. Use this element when providing the parameter values directly in the request, rather than linking to an existing parameter file. Use either the parametersLink property or the parameters property, but not both. </param>
-        /// <param name="parametersLink"> The URI of parameters file. Use this element to link to an existing parameters file. Use either the parametersLink property or the parameters property, but not both. </param>
-        /// <param name="extensionConfigs"> The deployment extension configs. Keys of this object are extension aliases as defined in the deployment template. </param>
-        /// <param name="externalInputs"> External input values, used by external tooling for parameter evaluation. </param>
-        /// <param name="externalInputDefinitions"> External input definitions, used by external tooling to define expected external input values. </param>
-        /// <param name="actionOnUnmanage"> Defines the behavior of resources that are no longer managed after the Deployment stack is updated or deleted. </param>
-        /// <param name="debugSettingDetailLevel"> The debug setting of the deployment. </param>
         /// <param name="deploymentScope"> The scope at which the initial deployment should be created. If a scope is not specified, it will default to the scope of the deployment stack. Valid scopes are: management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroupId}'), subscription (format: '/subscriptions/{subscriptionId}'), resource group (format: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}'). </param>
         /// <param name="description"> Deployment stack description. Max length of 4096 characters. </param>
         /// <param name="denySettings"> Defines how resources deployed by the stack are locked. </param>
@@ -300,78 +47,85 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="deploymentId"> The resourceId of the deployment resource created by the deployment stack. </param>
         /// <param name="outputs"> The outputs of the deployment resource created by the deployment stack. </param>
         /// <param name="duration"> The duration of the last successful Deployment stack update. </param>
-        /// <returns> A new <see cref="Models.DeploymentStack"/> instance for mocking. </returns>
-        public static DeploymentStack DeploymentStack(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ResponseError error = null, IDictionary<string, BinaryData> template = null, DeploymentStacksTemplateLink templateLink = null, IDictionary<string, DeploymentParameterItem> parameters = null, DeploymentStacksParametersLink parametersLink = null, IDictionary<string, DeploymentExtensionConfig> extensionConfigs = null, IDictionary<string, DeploymentExternalInput> externalInputs = null, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions = null, ActionOnUnmanage actionOnUnmanage = null, string debugSettingDetailLevel = null, string deploymentScope = null, string description = null, DenySettings denySettings = null, DeploymentStackProvisioningState? provisioningState = null, string correlationId = null, ValidationLevel? validationLevel = null, bool? bypassStackOutOfSyncError = null, IEnumerable<ResourceReference> detachedResources = null, IEnumerable<ResourceReference> deletedResources = null, IEnumerable<ResourceReferenceExtended> failedResources = null, IEnumerable<ManagedResourceReference> resources = null, IEnumerable<DeploymentExtension> deploymentExtensions = null, string deploymentId = null, IReadOnlyDictionary<string, BinaryData> outputs = null, string duration = null)
+        /// <param name="debugSettingDetailLevel"> Specifies the type of information to log for debugging. The permitted values are none, requestContent, responseContent, or both requestContent and responseContent separated by a comma. The default is none. When setting this value, carefully consider the type of information that is being passed in during deployment. By logging information about the request or response, sensitive data that is retrieved through the deployment operations could potentially be exposed. </param>
+        /// <param name="location"> The geo-location where the resource lives. Required for subscription and management group scoped stacks. The location is inherited from the resource group for resource group scoped stacks. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <returns> A new <see cref="DeploymentStacks.DeploymentStackData"/> instance for mocking. </returns>
+        public static DeploymentStackData DeploymentStackData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, ResponseError error = default, BinaryData template = default, DeploymentStacksTemplateLink templateLink = default, IDictionary<string, DeploymentParameterItem> parameters = default, DeploymentStacksParametersLink parametersLink = default, IDictionary<string, DeploymentExtensionConfig> extensionConfigs = default, IDictionary<string, DeploymentExternalInput> externalInputs = default, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions = default, ActionOnUnmanage actionOnUnmanage = default, string deploymentScope = default, string description = default, DeploymentStackDenySettings denySettings = default, DeploymentStackProvisioningState? provisioningState = default, string correlationId = default, DeploymentStackValidationLevel? validationLevel = default, bool? bypassStackOutOfSyncError = default, IEnumerable<SubResource> detachedResources = default, IEnumerable<SubResource> deletedResources = default, IEnumerable<ResourceReferenceExtended> failedResources = default, IEnumerable<ManagedResourceReference> resources = default, IEnumerable<DeploymentExtension> deploymentExtensions = default, string deploymentId = default, BinaryData outputs = default, TimeSpan? duration = default, string debugSettingDetailLevel = default, AzureLocation? location = default, IDictionary<string, string> tags = default)
         {
-            tags ??= new Dictionary<string, string>();
-            template ??= new Dictionary<string, BinaryData>();
-            parameters ??= new Dictionary<string, DeploymentParameterItem>();
-            extensionConfigs ??= new Dictionary<string, DeploymentExtensionConfig>();
-            externalInputs ??= new Dictionary<string, DeploymentExternalInput>();
-            externalInputDefinitions ??= new Dictionary<string, DeploymentExternalInputDefinition>();
-            detachedResources ??= new List<ResourceReference>();
-            deletedResources ??= new List<ResourceReference>();
-            failedResources ??= new List<ResourceReferenceExtended>();
-            resources ??= new List<ManagedResourceReference>();
-            deploymentExtensions ??= new List<DeploymentExtension>();
-            outputs ??= new Dictionary<string, BinaryData>();
+            tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DeploymentStack(
+            return new DeploymentStackData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                tags,
+                additionalBinaryDataProperties: null,
+                error is null && template is null && templateLink is null && parameters is null && parametersLink is null && extensionConfigs is null && externalInputs is null && externalInputDefinitions is null && actionOnUnmanage is null && deploymentScope is null && description is null && denySettings is null && provisioningState is null && correlationId is null && validationLevel is null && bypassStackOutOfSyncError is null && detachedResources is null && deletedResources is null && failedResources is null && resources is null && deploymentExtensions is null && deploymentId is null && outputs is null && duration is null && debugSettingDetailLevel is null ? default : new DeploymentStackProperties(
+                    error,
+                    template,
+                    templateLink,
+                    parameters,
+                    parametersLink,
+                    extensionConfigs,
+                    externalInputs,
+                    externalInputDefinitions,
+                    actionOnUnmanage,
+                    new DeploymentStacksDebugSetting(debugSettingDetailLevel, null),
+                    deploymentScope,
+                    description,
+                    denySettings,
+                    provisioningState,
+                    correlationId,
+                    validationLevel,
+                    bypassStackOutOfSyncError,
+                    (detachedResources ?? new ChangeTrackingList<SubResource>()).ToList(),
+                    (deletedResources ?? new ChangeTrackingList<SubResource>()).ToList(),
+                    (failedResources ?? new ChangeTrackingList<ResourceReferenceExtended>()).ToList(),
+                    (resources ?? new ChangeTrackingList<ManagedResourceReference>()).ToList(),
+                    (deploymentExtensions ?? new ChangeTrackingList<DeploymentExtension>()).ToList(),
+                    deploymentId,
+                    outputs,
+                    duration,
+                    null),
                 location,
-                error,
-                template,
-                templateLink,
-                parameters,
-                parametersLink,
-                extensionConfigs,
-                externalInputs,
-                externalInputDefinitions,
-                actionOnUnmanage,
-                debugSettingDetailLevel != null ? new DeploymentStacksDebugSetting(debugSettingDetailLevel, serializedAdditionalRawData: null) : null,
-                deploymentScope,
-                description,
-                denySettings,
-                provisioningState,
-                correlationId,
-                validationLevel,
-                bypassStackOutOfSyncError,
-                detachedResources?.ToList(),
-                deletedResources?.ToList(),
-                failedResources?.ToList(),
-                resources?.ToList(),
-                deploymentExtensions?.ToList(),
-                deploymentId,
-                outputs,
-                duration,
-                serializedAdditionalRawData: null);
+                tags);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ResourceReference"/>. </summary>
-        /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
-        /// <param name="extension"> The extension the resource was deployed with. </param>
-        /// <param name="type"> The resource type. </param>
-        /// <param name="identifiers"> The extensible resource identifiers. </param>
-        /// <param name="apiVersion"> The API version the resource was deployed with. </param>
-        /// <returns> A new <see cref="Models.ResourceReference"/> instance for mocking. </returns>
-        public static ResourceReference ResourceReference(string id = null, DeploymentExtension extension = null, string type = null, IReadOnlyDictionary<string, BinaryData> identifiers = null, string apiVersion = null)
+        /// <summary> The resource management error additional info. </summary>
+        /// <param name="type"> The additional info type. </param>
+        /// <param name="info"> The additional info. </param>
+        /// <returns> A new <see cref="Models.DeploymentStackAdditionalErrorInfo"/> instance for mocking. </returns>
+        public static DeploymentStackAdditionalErrorInfo DeploymentStackAdditionalErrorInfo(string @type = default, BinaryData info = default)
         {
-            identifiers ??= new Dictionary<string, BinaryData>();
-
-            return new ResourceReference(
-                id,
-                extension,
-                type,
-                identifiers,
-                apiVersion,
-                serializedAdditionalRawData: null);
+            return new DeploymentStackAdditionalErrorInfo(@type, info, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ResourceReferenceExtended"/>. </summary>
+        /// <summary> The configuration of a deployment extension. The keys of this object should align with the extension config schema. </summary>
+        /// <param name="additionalProperties"></param>
+        /// <returns> A new <see cref="Models.DeploymentExtensionConfig"/> instance for mocking. </returns>
+        public static DeploymentExtensionConfig DeploymentExtensionConfig(IDictionary<string, BinaryData> additionalProperties = default)
+        {
+            additionalProperties ??= new ChangeTrackingDictionary<string, BinaryData>();
+
+            return new DeploymentExtensionConfig(additionalProperties);
+        }
+
+        /// <summary> Defines how resources deployed by the Deployment stack are locked. </summary>
+        /// <param name="mode"> denySettings Mode that defines denied actions. </param>
+        /// <param name="excludedPrincipals"> List of AAD principal IDs excluded from the lock. Up to 5 principals are permitted. </param>
+        /// <param name="excludedActions"> List of role-based management operations that are excluded from the denySettings. Up to 200 actions are permitted. If the denySetting mode is set to 'denyWriteAndDelete', then the following actions are automatically appended to 'excludedActions': '*\/read' and 'Microsoft.Authorization/locks/delete'. If the denySetting mode is set to 'denyDelete', then the following actions are automatically appended to 'excludedActions': 'Microsoft.Authorization/locks/delete'. Duplicate actions will be removed. </param>
+        /// <param name="applyToChildScopes"> DenySettings will be applied to child resource scopes of every managed resource with a deny assignment. </param>
+        /// <returns> A new <see cref="Models.DeploymentStackDenySettings"/> instance for mocking. </returns>
+        public static DeploymentStackDenySettings DeploymentStackDenySettings(DeploymentStackDenySettingsMode mode = default, IEnumerable<string> excludedPrincipals = default, IEnumerable<string> excludedActions = default, bool? applyToChildScopes = default)
+        {
+            excludedPrincipals ??= new ChangeTrackingList<string>();
+            excludedActions ??= new ChangeTrackingList<string>();
+
+            return new DeploymentStackDenySettings(mode, excludedPrincipals.ToList(), excludedActions.ToList(), applyToChildScopes, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The resourceId extended model. This is used to document failed resources with a resourceId and a corresponding error. </summary>
         /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
         /// <param name="extension"> The extension the resource was deployed with. </param>
         /// <param name="type"> The resource type. </param>
@@ -379,21 +133,19 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="apiVersion"> The API version the resource was deployed with. </param>
         /// <param name="error"> The error detail. </param>
         /// <returns> A new <see cref="Models.ResourceReferenceExtended"/> instance for mocking. </returns>
-        public static ResourceReferenceExtended ResourceReferenceExtended(string id = null, DeploymentExtension extension = null, string type = null, IReadOnlyDictionary<string, BinaryData> identifiers = null, string apiVersion = null, ResponseError error = null)
+        public static ResourceReferenceExtended ResourceReferenceExtended(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default, ResponseError error = default)
         {
-            identifiers ??= new Dictionary<string, BinaryData>();
-
             return new ResourceReferenceExtended(
                 id,
                 extension,
-                type,
+                @type,
                 identifiers,
                 apiVersion,
                 error,
-                serializedAdditionalRawData: null);
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedResourceReference"/>. </summary>
+        /// <summary> The managed resource model. </summary>
         /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
         /// <param name="extension"> The extension the resource was deployed with. </param>
         /// <param name="type"> The resource type. </param>
@@ -402,42 +154,58 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="status"> Current management state of the resource in the deployment stack. </param>
         /// <param name="denyStatus"> denyAssignment settings applied to the resource. </param>
         /// <returns> A new <see cref="Models.ManagedResourceReference"/> instance for mocking. </returns>
-        public static ManagedResourceReference ManagedResourceReference(string id = null, DeploymentExtension extension = null, string type = null, IReadOnlyDictionary<string, BinaryData> identifiers = null, string apiVersion = null, ResourceStatusMode? status = null, DenyStatusMode? denyStatus = null)
+        public static ManagedResourceReference ManagedResourceReference(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default, ResourceStatusMode? status = default, DeploymentStackDenyStatusMode? denyStatus = default)
         {
-            identifiers ??= new Dictionary<string, BinaryData>();
-
             return new ManagedResourceReference(
                 id,
                 extension,
-                type,
+                @type,
                 identifiers,
                 apiVersion,
-                serializedAdditionalRawData: null,
+                additionalBinaryDataProperties: null,
                 status,
                 denyStatus);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStackValidateResult"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
+        /// <summary> The resourceId model. </summary>
+        /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
+        /// <param name="extension"> The extension the resource was deployed with. </param>
+        /// <param name="type"> The resource type. </param>
+        /// <param name="identifiers"> The extensible resource identifiers. </param>
+        /// <param name="apiVersion"> The API version the resource was deployed with. </param>
+        /// <returns> A new <see cref="Models.ResourceReference"/> instance for mocking. </returns>
+        public static ResourceReference ResourceReference(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default)
+        {
+            return new ResourceReference(
+                id,
+                extension,
+                @type,
+                identifiers,
+                apiVersion,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The Deployment stack validation result. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="name"> Name of this resource. </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="error"> The error detail. </param>
         /// <param name="properties"> The validation result details. </param>
         /// <returns> A new <see cref="Models.DeploymentStackValidateResult"/> instance for mocking. </returns>
-        public static DeploymentStackValidateResult DeploymentStackValidateResult(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResponseError error = null, DeploymentStackValidateProperties properties = null)
+        public static DeploymentStackValidateResult DeploymentStackValidateResult(ResourceIdentifier id = default, ResourceType resourceType = default, string name = default, SystemData systemData = default, ResponseError error = default, DeploymentStackValidateProperties properties = default)
         {
             return new DeploymentStackValidateResult(
                 id,
-                name,
                 resourceType,
+                additionalBinaryDataProperties: null,
+                name,
                 systemData,
                 error,
-                properties,
-                serializedAdditionalRawData: null);
+                properties);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStackValidateProperties"/>. </summary>
+        /// <summary> The Deployment stack validation result details. </summary>
         /// <param name="actionOnUnmanage"> Defines the behavior of resources that are no longer managed after the Deployment stack is updated or deleted. </param>
         /// <param name="correlationId"> The correlation id of the Deployment stack validate operation. It is in GUID format and is used for tracing. </param>
         /// <param name="denySettings"> The Deployment stack deny settings. </param>
@@ -449,11 +217,11 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="deploymentExtensions"> The deployment extensions. </param>
         /// <param name="validationLevel"> The validation level of the deployment stack. </param>
         /// <returns> A new <see cref="Models.DeploymentStackValidateProperties"/> instance for mocking. </returns>
-        public static DeploymentStackValidateProperties DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage = null, string correlationId = null, DenySettings denySettings = null, string deploymentScope = null, string description = null, IReadOnlyDictionary<string, DeploymentParameterItem> parameters = null, DeploymentStacksTemplateLink templateLink = null, IEnumerable<ResourceReference> validatedResources = null, IEnumerable<DeploymentExtension> deploymentExtensions = null, ValidationLevel? validationLevel = null)
+        public static DeploymentStackValidateProperties DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage = default, string correlationId = default, DeploymentStackDenySettings denySettings = default, string deploymentScope = default, string description = default, IDictionary<string, DeploymentParameterItem> parameters = default, DeploymentStacksTemplateLink templateLink = default, IEnumerable<ResourceReference> validatedResources = default, IEnumerable<DeploymentExtension> deploymentExtensions = default, DeploymentStackValidationLevel? validationLevel = default)
         {
-            parameters ??= new Dictionary<string, DeploymentParameterItem>();
-            validatedResources ??= new List<ResourceReference>();
-            deploymentExtensions ??= new List<DeploymentExtension>();
+            parameters ??= new ChangeTrackingDictionary<string, DeploymentParameterItem>();
+            validatedResources ??= new ChangeTrackingList<ResourceReference>();
+            deploymentExtensions ??= new ChangeTrackingList<DeploymentExtension>();
 
             return new DeploymentStackValidateProperties(
                 actionOnUnmanage,
@@ -463,21 +231,235 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 description,
                 parameters,
                 templateLink,
-                validatedResources?.ToList(),
-                deploymentExtensions?.ToList(),
+                validatedResources.ToList(),
+                deploymentExtensions.ToList(),
                 validationLevel,
-                serializedAdditionalRawData: null);
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.DeploymentStackTemplateExportResult"/>. </summary>
+        /// <summary> Export Template specific properties of the Deployment stack. </summary>
         /// <param name="template"> The template content. Use this element to pass the template syntax directly in the request rather than link to an existing template. It can be a JObject or well-formed JSON string. Use either the templateLink property or the template property, but not both. </param>
         /// <param name="templateLink"> The URI of the template. Use either the templateLink property or the template property, but not both. </param>
         /// <returns> A new <see cref="Models.DeploymentStackTemplateExportResult"/> instance for mocking. </returns>
-        public static DeploymentStackTemplateExportResult DeploymentStackTemplateExportResult(IReadOnlyDictionary<string, BinaryData> template = null, DeploymentStacksTemplateLink templateLink = null)
+        public static DeploymentStackTemplateExportResult DeploymentStackTemplateExportResult(BinaryData template = default, DeploymentStacksTemplateLink templateLink = default)
         {
-            template ??= new Dictionary<string, BinaryData>();
+            return new DeploymentStackTemplateExportResult(template, templateLink, additionalBinaryDataProperties: null);
+        }
 
-            return new DeploymentStackTemplateExportResult(template, templateLink, serializedAdditionalRawData: null);
+        /// <summary> Deployment stack object. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
+        /// <param name="location"> The geo-location where the resource lives. Required for subscription and management group scoped stacks. The location is inherited from the resource group for resource group scoped stacks. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <returns> A new <see cref="DeploymentStacks.DeploymentStackWhatIfResultData"/> instance for mocking. </returns>
+        public static DeploymentStackWhatIfResultData DeploymentStackWhatIfResultData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, DeploymentStackWhatIfResultProperties properties = default, string location = default, IDictionary<string, string> tags = default)
+        {
+            tags ??= new ChangeTrackingDictionary<string, string>();
+
+            return new DeploymentStackWhatIfResultData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                properties,
+                location,
+                tags);
+        }
+
+        /// <param name="error"> The error detail. </param>
+        /// <param name="template"> The template content. You use this element when you want to pass the template syntax directly in the request rather than link to an existing template. It can be a JObject or well-formed JSON string. Use either the templateLink property or the template property, but not both. </param>
+        /// <param name="templateLink"> The URI of the template. Use either the templateLink property or the template property, but not both. </param>
+        /// <param name="parameters"> Name and value pairs that define the deployment parameters for the template. Use this element when providing the parameter values directly in the request, rather than linking to an existing parameter file. Use either the parametersLink property or the parameters property, but not both. </param>
+        /// <param name="parametersLink"> The URI of parameters file. Use this element to link to an existing parameters file. Use either the parametersLink property or the parameters property, but not both. </param>
+        /// <param name="extensionConfigs"> The deployment extension configs. Keys of this object are extension aliases as defined in the deployment template. </param>
+        /// <param name="externalInputs"> External input values, used by external tooling for parameter evaluation. </param>
+        /// <param name="externalInputDefinitions"> External input definitions, used by external tooling to define expected external input values. </param>
+        /// <param name="actionOnUnmanage"> Defines the behavior of resources that are no longer managed after the Deployment stack is updated or deleted. </param>
+        /// <param name="debugSettingDetailLevel"> Specifies the type of information to log for debugging. The permitted values are none, requestContent, responseContent, or both requestContent and responseContent separated by a comma. The default is none. When setting this value, carefully consider the type of information that is being passed in during deployment. By logging information about the request or response, sensitive data that is retrieved through the deployment operations could potentially be exposed. </param>
+        /// <param name="deploymentScope"> The scope at which the initial deployment should be created. If a scope is not specified, it will default to the scope of the deployment stack. Valid scopes are: management group (format: '/providers/Microsoft.Management/managementGroups/{managementGroupId}'), subscription (format: '/subscriptions/{subscriptionId}'), resource group (format: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}'). </param>
+        /// <param name="description"> Deployment stack description. Max length of 4096 characters. </param>
+        /// <param name="denySettings"> Defines how resources deployed by the stack are locked. </param>
+        /// <param name="provisioningState"> State of the deployment stack. </param>
+        /// <param name="correlationId"> The correlation id of the last Deployment stack upsert or delete operation. It is in GUID format and is used for tracing. </param>
+        /// <param name="validationLevel"> The validation level of the deployment stack. </param>
+        /// <param name="deploymentStackResourceId"> The deployment stack id to use as the basis for comparison. </param>
+        /// <param name="deploymentStackLastModifiedOn"> The timestamp for when the deployment stack was last modified. This can be used to determine if the what-if data is still current. </param>
+        /// <param name="retentionInterval"> The interval to persist the deployment stack what-if result in ISO 8601 format. </param>
+        /// <param name="changes"> All of the changes predicted by the deployment stack what-if operation. </param>
+        /// <param name="diagnostics"> List of resource diagnostics detected by What-If operation. </param>
+        /// <returns> A new <see cref="Models.DeploymentStackWhatIfResultProperties"/> instance for mocking. </returns>
+        public static DeploymentStackWhatIfResultProperties DeploymentStackWhatIfResultProperties(ResponseError error = default, BinaryData template = default, DeploymentStacksTemplateLink templateLink = default, IDictionary<string, DeploymentParameterItem> parameters = default, DeploymentStacksParametersLink parametersLink = default, IDictionary<string, DeploymentExtensionConfig> extensionConfigs = default, IDictionary<string, DeploymentExternalInput> externalInputs = default, IDictionary<string, DeploymentExternalInputDefinition> externalInputDefinitions = default, ActionOnUnmanage actionOnUnmanage = default, string debugSettingDetailLevel = default, string deploymentScope = default, string description = default, DeploymentStackDenySettings denySettings = default, DeploymentStackProvisioningState? provisioningState = default, string correlationId = default, DeploymentStackValidationLevel? validationLevel = default, ResourceIdentifier deploymentStackResourceId = default, DateTimeOffset? deploymentStackLastModifiedOn = default, TimeSpan retentionInterval = default, DeploymentStacksWhatIfChange changes = default, IEnumerable<DeploymentStacksDiagnostic> diagnostics = default)
+        {
+            parameters ??= new ChangeTrackingDictionary<string, DeploymentParameterItem>();
+            extensionConfigs ??= new ChangeTrackingDictionary<string, DeploymentExtensionConfig>();
+            externalInputs ??= new ChangeTrackingDictionary<string, DeploymentExternalInput>();
+            externalInputDefinitions ??= new ChangeTrackingDictionary<string, DeploymentExternalInputDefinition>();
+            diagnostics ??= new ChangeTrackingList<DeploymentStacksDiagnostic>();
+
+            return new DeploymentStackWhatIfResultProperties(
+                error,
+                template,
+                templateLink,
+                parameters,
+                parametersLink,
+                extensionConfigs,
+                externalInputs,
+                externalInputDefinitions,
+                actionOnUnmanage,
+                debugSettingDetailLevel is null ? default : new DeploymentStacksDebugSetting(debugSettingDetailLevel, null),
+                deploymentScope,
+                description,
+                denySettings,
+                provisioningState,
+                correlationId,
+                validationLevel,
+                deploymentStackResourceId,
+                deploymentStackLastModifiedOn,
+                retentionInterval,
+                changes,
+                diagnostics.ToList(),
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Changes predicted to the deployment stack as a result of the what-if operation. </summary>
+        /// <param name="resourceChanges"> List of resource changes predicted by What-If operation. </param>
+        /// <param name="denySettingsChange"> Predicted changes to the deployment stack deny settings. </param>
+        /// <param name="deploymentScopeChange"> Predicted changes to the deployment scope for the deployment stack. </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksWhatIfChange"/> instance for mocking. </returns>
+        public static DeploymentStacksWhatIfChange DeploymentStacksWhatIfChange(IEnumerable<DeploymentStacksWhatIfResourceChange> resourceChanges = default, DeploymentStacksChangeDeltaDenySettings denySettingsChange = default, DeploymentStacksChangeBase deploymentScopeChange = default)
+        {
+            resourceChanges ??= new ChangeTrackingList<DeploymentStacksWhatIfResourceChange>();
+
+            return new DeploymentStacksWhatIfChange(resourceChanges.ToList(), denySettingsChange, deploymentScopeChange, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Information about a single resource change predicted by What-If operation. </summary>
+        /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
+        /// <param name="extension"> The extension the resource was deployed with. </param>
+        /// <param name="type"> The resource type. </param>
+        /// <param name="identifiers"> The extensible resource identifiers. </param>
+        /// <param name="apiVersion"> The API version the resource was deployed with. </param>
+        /// <param name="deploymentId"> The resource id of the Deployment responsible for this change. </param>
+        /// <param name="symbolicName"> The symbolic name of the resource being changed. </param>
+        /// <param name="changeType"> Type of change that will be made to the resource when the deployment is executed. </param>
+        /// <param name="changeCertainty"> The confidence level of the predicted change. </param>
+        /// <param name="managementStatusChange"> The predicted changes to the deployment stack management status of the resource. </param>
+        /// <param name="denyStatusChange"> The predicted changes to the deployment stack deny status of the resource. </param>
+        /// <param name="unsupportedReason"> The explanation about why the resource is unsupported by What-If. </param>
+        /// <param name="resourceConfigurationChanges"> The predicted changes to the resource configuration. </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksWhatIfResourceChange"/> instance for mocking. </returns>
+        public static DeploymentStacksWhatIfResourceChange DeploymentStacksWhatIfResourceChange(ResourceIdentifier id = default, DeploymentExtension extension = default, ResourceType? @type = default, ResourceIdentifier identifiers = default, string apiVersion = default, string deploymentId = default, string symbolicName = default, DeploymentStacksWhatIfChangeType changeType = default, DeploymentStacksWhatIfChangeCertainty changeCertainty = default, DeploymentStacksChangeBaseDeploymentStacksManagementStatus managementStatusChange = default, DeploymentStacksChangeBaseDenyStatusMode denyStatusChange = default, string unsupportedReason = default, DeploymentStacksChangeDelta resourceConfigurationChanges = default)
+        {
+            return new DeploymentStacksWhatIfResourceChange(
+                id,
+                extension,
+                @type,
+                identifiers,
+                apiVersion,
+                deploymentId,
+                symbolicName,
+                changeType,
+                changeCertainty,
+                managementStatusChange,
+                denyStatusChange,
+                unsupportedReason,
+                resourceConfigurationChanges,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Base model for properties with the before-and-after property values. </summary>
+        /// <param name="before"> The predicted value before the deployment is executed. </param>
+        /// <param name="after"> The predicted value after the deployment is executed. </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksChangeBaseDeploymentStacksManagementStatus"/> instance for mocking. </returns>
+        public static DeploymentStacksChangeBaseDeploymentStacksManagementStatus DeploymentStacksChangeBaseDeploymentStacksManagementStatus(DeploymentStacksManagementStatus? before = default, DeploymentStacksManagementStatus? after = default)
+        {
+            return new DeploymentStacksChangeBaseDeploymentStacksManagementStatus(before, after, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Base model for properties with the before-and-after property values. </summary>
+        /// <param name="before"> The predicted value before the deployment is executed. </param>
+        /// <param name="after"> The predicted value after the deployment is executed. </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksChangeBaseDenyStatusMode"/> instance for mocking. </returns>
+        public static DeploymentStacksChangeBaseDenyStatusMode DeploymentStacksChangeBaseDenyStatusMode(DeploymentStackDenyStatusMode? before = default, DeploymentStackDenyStatusMode? after = default)
+        {
+            return new DeploymentStacksChangeBaseDenyStatusMode(before, after, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Model to show the before-and-after property values, along with the delta between them. </summary>
+        /// <param name="before"> The predicted value before the deployment is executed. </param>
+        /// <param name="after"> The predicted value after the deployment is executed. </param>
+        /// <param name="delta"> The predicted changes to the properties.". </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksChangeDelta"/> instance for mocking. </returns>
+        public static DeploymentStacksChangeDelta DeploymentStacksChangeDelta(BinaryData before = default, BinaryData after = default, IEnumerable<DeploymentStacksWhatIfPropertyChange> delta = default)
+        {
+            delta ??= new ChangeTrackingList<DeploymentStacksWhatIfPropertyChange>();
+
+            return new DeploymentStacksChangeDelta(before, after, delta.ToList(), additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The predicted change to the resource property. </summary>
+        /// <param name="before"> The predicted value before the deployment is executed. </param>
+        /// <param name="after"> The predicted value after the deployment is executed. </param>
+        /// <param name="path"> Type of change that will be made to the resource when the deployment is executed. </param>
+        /// <param name="changeType"> Type of change that will be made to the resource when the deployment is executed. </param>
+        /// <param name="children"> Nested property changes. </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksWhatIfPropertyChange"/> instance for mocking. </returns>
+        public static DeploymentStacksWhatIfPropertyChange DeploymentStacksWhatIfPropertyChange(BinaryData before = default, BinaryData after = default, string path = default, DeploymentStacksWhatIfPropertyChangeType changeType = default, IEnumerable<DeploymentStacksWhatIfPropertyChange> children = default)
+        {
+            children ??= new ChangeTrackingList<DeploymentStacksWhatIfPropertyChange>();
+
+            return new DeploymentStacksWhatIfPropertyChange(
+                before,
+                after,
+                path,
+                changeType,
+                children.ToList(),
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Model to show the before-and-after property values, along with the delta between them. </summary>
+        /// <param name="before"> The predicted value before the deployment is executed. </param>
+        /// <param name="after"> The predicted value after the deployment is executed. </param>
+        /// <param name="delta"> The predicted changes to the properties.". </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksChangeDeltaDenySettings"/> instance for mocking. </returns>
+        public static DeploymentStacksChangeDeltaDenySettings DeploymentStacksChangeDeltaDenySettings(DeploymentStackDenySettings before = default, DeploymentStackDenySettings after = default, IEnumerable<DeploymentStacksWhatIfPropertyChange> delta = default)
+        {
+            delta ??= new ChangeTrackingList<DeploymentStacksWhatIfPropertyChange>();
+
+            return new DeploymentStacksChangeDeltaDenySettings(before, after, delta.ToList(), additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Base model for properties with the before-and-after property values. </summary>
+        /// <param name="before"> The predicted value before the deployment is executed. </param>
+        /// <param name="after"> The predicted value after the deployment is executed. </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksChangeBase"/> instance for mocking. </returns>
+        public static DeploymentStacksChangeBase DeploymentStacksChangeBase(string before = default, string after = default)
+        {
+            return new DeploymentStacksChangeBase(before, after, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The error additional info. </summary>
+        /// <param name="level"> Denotes the additional response level. </param>
+        /// <param name="code"> The error code. </param>
+        /// <param name="message"> The error message. </param>
+        /// <param name="target"> The error target. </param>
+        /// <param name="additionalInfo"> Additional error information. </param>
+        /// <returns> A new <see cref="Models.DeploymentStacksDiagnostic"/> instance for mocking. </returns>
+        public static DeploymentStacksDiagnostic DeploymentStacksDiagnostic(DeploymentStacksDiagnosticLevel level = default, string code = default, string message = default, string target = default, IEnumerable<DeploymentStackAdditionalErrorInfo> additionalInfo = default)
+        {
+            additionalInfo ??= new ChangeTrackingList<DeploymentStackAdditionalErrorInfo>();
+
+            return new DeploymentStacksDiagnostic(
+                level,
+                code,
+                message,
+                target,
+                additionalInfo.ToList(),
+                additionalBinaryDataProperties: null);
         }
     }
 }

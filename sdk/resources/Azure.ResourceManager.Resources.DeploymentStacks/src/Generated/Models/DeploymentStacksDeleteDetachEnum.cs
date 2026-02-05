@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -14,38 +15,57 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     public readonly partial struct DeploymentStacksDeleteDetachEnum : IEquatable<DeploymentStacksDeleteDetachEnum>
     {
         private readonly string _value;
+        /// <summary> Delete the specified resources from Azure. </summary>
+        private const string DeleteValue = "delete";
+        /// <summary> Keep the specified resources in Azure. </summary>
+        private const string DetachValue = "detach";
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStacksDeleteDetachEnum"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public DeploymentStacksDeleteDetachEnum(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
+            Argument.AssertNotNull(value, nameof(value));
 
-        private const string DeleteValue = "delete";
-        private const string DetachValue = "detach";
+            _value = value;
+        }
 
         /// <summary> Delete the specified resources from Azure. </summary>
         public static DeploymentStacksDeleteDetachEnum Delete { get; } = new DeploymentStacksDeleteDetachEnum(DeleteValue);
+
         /// <summary> Keep the specified resources in Azure. </summary>
         public static DeploymentStacksDeleteDetachEnum Detach { get; } = new DeploymentStacksDeleteDetachEnum(DetachValue);
+
         /// <summary> Determines if two <see cref="DeploymentStacksDeleteDetachEnum"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(DeploymentStacksDeleteDetachEnum left, DeploymentStacksDeleteDetachEnum right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="DeploymentStacksDeleteDetachEnum"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(DeploymentStacksDeleteDetachEnum left, DeploymentStacksDeleteDetachEnum right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="DeploymentStacksDeleteDetachEnum"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="DeploymentStacksDeleteDetachEnum"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator DeploymentStacksDeleteDetachEnum(string value) => new DeploymentStacksDeleteDetachEnum(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="DeploymentStacksDeleteDetachEnum"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator DeploymentStacksDeleteDetachEnum?(string value) => value == null ? null : new DeploymentStacksDeleteDetachEnum(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is DeploymentStacksDeleteDetachEnum other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(DeploymentStacksDeleteDetachEnum other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

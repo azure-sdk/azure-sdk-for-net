@@ -7,46 +7,18 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
     /// <summary> The Deployment stack validation result details. </summary>
     public partial class DeploymentStackValidateProperties
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStackValidateProperties"/>. </summary>
-        internal DeploymentStackValidateProperties()
+        public DeploymentStackValidateProperties()
         {
             Parameters = new ChangeTrackingDictionary<string, DeploymentParameterItem>();
             ValidatedResources = new ChangeTrackingList<ResourceReference>();
@@ -64,8 +36,8 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="validatedResources"> The array of resources that were validated. </param>
         /// <param name="deploymentExtensions"> The deployment extensions. </param>
         /// <param name="validationLevel"> The validation level of the deployment stack. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage, string correlationId, DenySettings denySettings, string deploymentScope, string description, IReadOnlyDictionary<string, DeploymentParameterItem> parameters, DeploymentStacksTemplateLink templateLink, IReadOnlyList<ResourceReference> validatedResources, IReadOnlyList<DeploymentExtension> deploymentExtensions, ValidationLevel? validationLevel, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal DeploymentStackValidateProperties(ActionOnUnmanage actionOnUnmanage, string correlationId, DeploymentStackDenySettings denySettings, string deploymentScope, string description, IDictionary<string, DeploymentParameterItem> parameters, DeploymentStacksTemplateLink templateLink, IList<ResourceReference> validatedResources, IList<DeploymentExtension> deploymentExtensions, DeploymentStackValidationLevel? validationLevel, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ActionOnUnmanage = actionOnUnmanage;
             CorrelationId = correlationId;
@@ -77,28 +49,37 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             ValidatedResources = validatedResources;
             DeploymentExtensions = deploymentExtensions;
             ValidationLevel = validationLevel;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Defines the behavior of resources that are no longer managed after the Deployment stack is updated or deleted. </summary>
-        public ActionOnUnmanage ActionOnUnmanage { get; }
+        public ActionOnUnmanage ActionOnUnmanage { get; set; }
+
         /// <summary> The correlation id of the Deployment stack validate operation. It is in GUID format and is used for tracing. </summary>
-        public string CorrelationId { get; }
+        public string CorrelationId { get; set; }
+
         /// <summary> The Deployment stack deny settings. </summary>
-        public DenySettings DenySettings { get; }
+        public DeploymentStackDenySettings DenySettings { get; set; }
+
         /// <summary> The Deployment stack deployment scope. </summary>
-        public string DeploymentScope { get; }
+        public string DeploymentScope { get; set; }
+
         /// <summary> The Deployment stack validation description. </summary>
-        public string Description { get; }
+        public string Description { get; set; }
+
         /// <summary> Deployment parameters. </summary>
-        public IReadOnlyDictionary<string, DeploymentParameterItem> Parameters { get; }
+        public IDictionary<string, DeploymentParameterItem> Parameters { get; }
+
         /// <summary> The URI of the template. </summary>
-        public DeploymentStacksTemplateLink TemplateLink { get; }
+        public DeploymentStacksTemplateLink TemplateLink { get; set; }
+
         /// <summary> The array of resources that were validated. </summary>
-        public IReadOnlyList<ResourceReference> ValidatedResources { get; }
+        public IList<ResourceReference> ValidatedResources { get; }
+
         /// <summary> The deployment extensions. </summary>
-        public IReadOnlyList<DeploymentExtension> DeploymentExtensions { get; }
+        public IList<DeploymentExtension> DeploymentExtensions { get; }
+
         /// <summary> The validation level of the deployment stack. </summary>
-        public ValidationLevel? ValidationLevel { get; }
+        public DeploymentStackValidationLevel? ValidationLevel { get; set; }
     }
 }

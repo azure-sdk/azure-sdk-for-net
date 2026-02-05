@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -14,47 +15,72 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     public readonly partial struct DeploymentStacksWhatIfPropertyChangeType : IEquatable<DeploymentStacksWhatIfPropertyChangeType>
     {
         private readonly string _value;
+        /// <summary> The property is an array and contains nested changes. </summary>
+        private const string ArrayValue = "array";
+        /// <summary> The property does not exist in the current state but is present in the desired state. The property will be created when the deployment is executed. </summary>
+        private const string CreateValue = "create";
+        /// <summary> The property exists in the current state and is missing from the desired state. It will be deleted when the deployment is executed. </summary>
+        private const string DeleteValue = "delete";
+        /// <summary> The property exists in both current and desired state and is different. The value of the property will change when the deployment is executed. </summary>
+        private const string ModifyValue = "modify";
+        /// <summary> The property will not be set or updated. </summary>
+        private const string NoEffectValue = "noEffect";
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStacksWhatIfPropertyChangeType"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public DeploymentStacksWhatIfPropertyChangeType(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
+            Argument.AssertNotNull(value, nameof(value));
 
-        private const string ArrayValue = "array";
-        private const string CreateValue = "create";
-        private const string DeleteValue = "delete";
-        private const string ModifyValue = "modify";
-        private const string NoEffectValue = "noEffect";
+            _value = value;
+        }
 
         /// <summary> The property is an array and contains nested changes. </summary>
         public static DeploymentStacksWhatIfPropertyChangeType Array { get; } = new DeploymentStacksWhatIfPropertyChangeType(ArrayValue);
+
         /// <summary> The property does not exist in the current state but is present in the desired state. The property will be created when the deployment is executed. </summary>
         public static DeploymentStacksWhatIfPropertyChangeType Create { get; } = new DeploymentStacksWhatIfPropertyChangeType(CreateValue);
+
         /// <summary> The property exists in the current state and is missing from the desired state. It will be deleted when the deployment is executed. </summary>
         public static DeploymentStacksWhatIfPropertyChangeType Delete { get; } = new DeploymentStacksWhatIfPropertyChangeType(DeleteValue);
+
         /// <summary> The property exists in both current and desired state and is different. The value of the property will change when the deployment is executed. </summary>
         public static DeploymentStacksWhatIfPropertyChangeType Modify { get; } = new DeploymentStacksWhatIfPropertyChangeType(ModifyValue);
+
         /// <summary> The property will not be set or updated. </summary>
         public static DeploymentStacksWhatIfPropertyChangeType NoEffect { get; } = new DeploymentStacksWhatIfPropertyChangeType(NoEffectValue);
+
         /// <summary> Determines if two <see cref="DeploymentStacksWhatIfPropertyChangeType"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(DeploymentStacksWhatIfPropertyChangeType left, DeploymentStacksWhatIfPropertyChangeType right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="DeploymentStacksWhatIfPropertyChangeType"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(DeploymentStacksWhatIfPropertyChangeType left, DeploymentStacksWhatIfPropertyChangeType right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="DeploymentStacksWhatIfPropertyChangeType"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="DeploymentStacksWhatIfPropertyChangeType"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator DeploymentStacksWhatIfPropertyChangeType(string value) => new DeploymentStacksWhatIfPropertyChangeType(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="DeploymentStacksWhatIfPropertyChangeType"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator DeploymentStacksWhatIfPropertyChangeType?(string value) => value == null ? null : new DeploymentStacksWhatIfPropertyChangeType(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is DeploymentStacksWhatIfPropertyChangeType other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(DeploymentStacksWhatIfPropertyChangeType other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

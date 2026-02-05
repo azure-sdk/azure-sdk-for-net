@@ -5,69 +5,119 @@
 
 #nullable disable
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Mocking
 {
-    /// <summary> A class to add extension methods to ArmClient. </summary>
+    /// <summary> A class to add extension methods to <see cref="ArmClient"/>. </summary>
     public partial class MockableResourcesDeploymentStacksArmClient : ArmResource
     {
-        /// <summary> Initializes a new instance of the <see cref="MockableResourcesDeploymentStacksArmClient"/> class for mocking. </summary>
+        /// <summary> Initializes a new instance of MockableResourcesDeploymentStacksArmClient for mocking. </summary>
         protected MockableResourcesDeploymentStacksArmClient()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="MockableResourcesDeploymentStacksArmClient"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="MockableResourcesDeploymentStacksArmClient"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal MockableResourcesDeploymentStacksArmClient(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
         }
 
-        internal MockableResourcesDeploymentStacksArmClient(ArmClient client) : this(client, ResourceIdentifier.Root)
-        {
-        }
-
-        private string GetApiVersionOrNull(ResourceType resourceType)
-        {
-            TryGetApiVersion(resourceType, out string apiVersion);
-            return apiVersion;
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="ResourceGroupDeploymentStacksWhatIfResultResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ResourceGroupDeploymentStacksWhatIfResultResource.CreateResourceIdentifier" /> to create a <see cref="ResourceGroupDeploymentStacksWhatIfResultResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
+        /// <summary> Gets an object representing a <see cref="DeploymentStackResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ResourceGroupDeploymentStacksWhatIfResultResource"/> object. </returns>
-        public virtual ResourceGroupDeploymentStacksWhatIfResultResource GetResourceGroupDeploymentStacksWhatIfResultResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="DeploymentStackResource"/> object. </returns>
+        public virtual DeploymentStackResource GetDeploymentStackResource(ResourceIdentifier id)
         {
-            ResourceGroupDeploymentStacksWhatIfResultResource.ValidateResourceId(id);
-            return new ResourceGroupDeploymentStacksWhatIfResultResource(Client, id);
+            DeploymentStackResource.ValidateResourceId(id);
+            return new DeploymentStackResource(Client, id);
         }
 
-        /// <summary>
-        /// Gets an object representing a <see cref="SubscriptionDeploymentStacksWhatIfResultResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SubscriptionDeploymentStacksWhatIfResultResource.CreateResourceIdentifier" /> to create a <see cref="SubscriptionDeploymentStacksWhatIfResultResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SubscriptionDeploymentStacksWhatIfResultResource"/> object. </returns>
-        public virtual SubscriptionDeploymentStacksWhatIfResultResource GetSubscriptionDeploymentStacksWhatIfResultResource(ResourceIdentifier id)
+        /// <summary> Gets a collection of <see cref="DeploymentStackCollection"/> objects within the specified scope. </summary>
+        /// <param name="scope"> The scope of the resource collection to get. </param>
+        /// <returns> Returns a collection of <see cref="DeploymentStackResource"/> objects. </returns>
+        public virtual DeploymentStackCollection GetDeploymentStacks(ResourceIdentifier scope)
         {
-            SubscriptionDeploymentStacksWhatIfResultResource.ValidateResourceId(id);
-            return new SubscriptionDeploymentStacksWhatIfResultResource(Client, id);
+            return new DeploymentStackCollection(Client, scope);
         }
 
-        /// <summary>
-        /// Gets an object representing a <see cref="ManagementGroupDeploymentStacksWhatIfResultResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ManagementGroupDeploymentStacksWhatIfResultResource.CreateResourceIdentifier" /> to create a <see cref="ManagementGroupDeploymentStacksWhatIfResultResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ManagementGroupDeploymentStacksWhatIfResultResource"/> object. </returns>
-        public virtual ManagementGroupDeploymentStacksWhatIfResultResource GetManagementGroupDeploymentStacksWhatIfResultResource(ResourceIdentifier id)
+        /// <summary> Gets the Deployment stack with the given name. </summary>
+        /// <param name="scope"> The scope of the resource collection to get. </param>
+        /// <param name="deploymentStackName"> Name of the deployment stack. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentStackName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="deploymentStackName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<DeploymentStackResource> GetDeploymentStack(ResourceIdentifier scope, string deploymentStackName, CancellationToken cancellationToken = default)
         {
-            ManagementGroupDeploymentStacksWhatIfResultResource.ValidateResourceId(id);
-            return new ManagementGroupDeploymentStacksWhatIfResultResource(Client, id);
+            Argument.AssertNotNullOrEmpty(deploymentStackName, nameof(deploymentStackName));
+
+            return GetDeploymentStacks(scope).Get(deploymentStackName, cancellationToken);
+        }
+
+        /// <summary> Gets the Deployment stack with the given name. </summary>
+        /// <param name="scope"> The scope of the resource collection to get. </param>
+        /// <param name="deploymentStackName"> Name of the deployment stack. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentStackName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="deploymentStackName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<DeploymentStackResource>> GetDeploymentStackAsync(ResourceIdentifier scope, string deploymentStackName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(deploymentStackName, nameof(deploymentStackName));
+
+            return await GetDeploymentStacks(scope).GetAsync(deploymentStackName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary> Gets an object representing a <see cref="DeploymentStackWhatIfResultResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DeploymentStackWhatIfResultResource"/> object. </returns>
+        public virtual DeploymentStackWhatIfResultResource GetDeploymentStackWhatIfResultResource(ResourceIdentifier id)
+        {
+            DeploymentStackWhatIfResultResource.ValidateResourceId(id);
+            return new DeploymentStackWhatIfResultResource(Client, id);
+        }
+
+        /// <summary> Gets a collection of <see cref="DeploymentStackWhatIfResultCollection"/> objects within the specified scope. </summary>
+        /// <param name="scope"> The scope of the resource collection to get. </param>
+        /// <returns> Returns a collection of <see cref="DeploymentStackWhatIfResultResource"/> objects. </returns>
+        public virtual DeploymentStackWhatIfResultCollection GetDeploymentStackWhatIfResults(ResourceIdentifier scope)
+        {
+            return new DeploymentStackWhatIfResultCollection(Client, scope);
+        }
+
+        /// <summary> Gets the Deployment stack with the given name. </summary>
+        /// <param name="scope"> The scope of the resource collection to get. </param>
+        /// <param name="deploymentStacksWhatIfResultName"> Name of the deployment stack what-if result. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentStacksWhatIfResultName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="deploymentStacksWhatIfResultName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<DeploymentStackWhatIfResultResource> GetDeploymentStackWhatIfResult(ResourceIdentifier scope, string deploymentStacksWhatIfResultName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(deploymentStacksWhatIfResultName, nameof(deploymentStacksWhatIfResultName));
+
+            return GetDeploymentStackWhatIfResults(scope).Get(deploymentStacksWhatIfResultName, cancellationToken);
+        }
+
+        /// <summary> Gets the Deployment stack with the given name. </summary>
+        /// <param name="scope"> The scope of the resource collection to get. </param>
+        /// <param name="deploymentStacksWhatIfResultName"> Name of the deployment stack what-if result. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentStacksWhatIfResultName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="deploymentStacksWhatIfResultName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<DeploymentStackWhatIfResultResource>> GetDeploymentStackWhatIfResultAsync(ResourceIdentifier scope, string deploymentStacksWhatIfResultName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(deploymentStacksWhatIfResultName, nameof(deploymentStacksWhatIfResultName));
+
+            return await GetDeploymentStackWhatIfResults(scope).GetAsync(deploymentStacksWhatIfResultName, cancellationToken).ConfigureAwait(false);
         }
     }
 }

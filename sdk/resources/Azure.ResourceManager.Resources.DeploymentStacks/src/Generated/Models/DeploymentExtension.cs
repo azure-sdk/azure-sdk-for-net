@@ -7,49 +7,21 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
     /// <summary> Details about the usage of a deployment extension. </summary>
     public partial class DeploymentExtension
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DeploymentExtension"/>. </summary>
         /// <param name="name"> The extension name. </param>
         /// <param name="version"> The extension version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="version"/> is null. </exception>
-        internal DeploymentExtension(string name, string version)
+        public DeploymentExtension(string name, string version)
         {
             Argument.AssertNotNull(name, nameof(name));
             Argument.AssertNotNull(version, nameof(version));
@@ -63,28 +35,39 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="version"> The extension version. </param>
         /// <param name="configId"> The configuration ID of the extension usage. It uniquely identifies a target the extension deploys to. </param>
         /// <param name="config"> The configuration used for deployment. The keys of this object should align with the extension config schema. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeploymentExtension(string name, string version, string configId, DeploymentExtensionConfig config, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal DeploymentExtension(string name, string version, string configId, DeploymentExtensionConfig config, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Version = version;
             ConfigId = configId;
             Config = config;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="DeploymentExtension"/> for deserialization. </summary>
-        internal DeploymentExtension()
-        {
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The extension name. </summary>
-        public string Name { get; }
+        public string Name { get; set; }
+
         /// <summary> The extension version. </summary>
-        public string Version { get; }
+        public string Version { get; set; }
+
         /// <summary> The configuration ID of the extension usage. It uniquely identifies a target the extension deploys to. </summary>
-        public string ConfigId { get; }
+        public string ConfigId { get; set; }
+
         /// <summary> The configuration used for deployment. The keys of this object should align with the extension config schema. </summary>
-        public DeploymentExtensionConfig Config { get; }
+        internal DeploymentExtensionConfig Config { get; set; }
+
+        /// <summary> Gets the AdditionalProperties. </summary>
+        public IDictionary<string, BinaryData> ConfigAdditionalProperties
+        {
+            get
+            {
+                if (Config is null)
+                {
+                    Config = new DeploymentExtensionConfig();
+                }
+                return Config.AdditionalProperties;
+            }
+        }
     }
 }

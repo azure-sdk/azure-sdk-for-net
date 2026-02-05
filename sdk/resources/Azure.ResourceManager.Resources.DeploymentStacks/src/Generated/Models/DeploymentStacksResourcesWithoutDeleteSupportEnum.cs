@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -14,38 +15,57 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     public readonly partial struct DeploymentStacksResourcesWithoutDeleteSupportEnum : IEquatable<DeploymentStacksResourcesWithoutDeleteSupportEnum>
     {
         private readonly string _value;
+        /// <summary> Detach the specified resources from the deployment stack and continue. </summary>
+        private const string DetachValue = "detach";
+        /// <summary> Fail the deployment stack if resources cannot be deleted. </summary>
+        private const string FailValue = "fail";
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStacksResourcesWithoutDeleteSupportEnum"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public DeploymentStacksResourcesWithoutDeleteSupportEnum(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
+            Argument.AssertNotNull(value, nameof(value));
 
-        private const string DetachValue = "detach";
-        private const string FailValue = "fail";
+            _value = value;
+        }
 
         /// <summary> Detach the specified resources from the deployment stack and continue. </summary>
         public static DeploymentStacksResourcesWithoutDeleteSupportEnum Detach { get; } = new DeploymentStacksResourcesWithoutDeleteSupportEnum(DetachValue);
+
         /// <summary> Fail the deployment stack if resources cannot be deleted. </summary>
         public static DeploymentStacksResourcesWithoutDeleteSupportEnum Fail { get; } = new DeploymentStacksResourcesWithoutDeleteSupportEnum(FailValue);
+
         /// <summary> Determines if two <see cref="DeploymentStacksResourcesWithoutDeleteSupportEnum"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(DeploymentStacksResourcesWithoutDeleteSupportEnum left, DeploymentStacksResourcesWithoutDeleteSupportEnum right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="DeploymentStacksResourcesWithoutDeleteSupportEnum"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(DeploymentStacksResourcesWithoutDeleteSupportEnum left, DeploymentStacksResourcesWithoutDeleteSupportEnum right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="DeploymentStacksResourcesWithoutDeleteSupportEnum"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="DeploymentStacksResourcesWithoutDeleteSupportEnum"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator DeploymentStacksResourcesWithoutDeleteSupportEnum(string value) => new DeploymentStacksResourcesWithoutDeleteSupportEnum(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="DeploymentStacksResourcesWithoutDeleteSupportEnum"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator DeploymentStacksResourcesWithoutDeleteSupportEnum?(string value) => value == null ? null : new DeploymentStacksResourcesWithoutDeleteSupportEnum(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is DeploymentStacksResourcesWithoutDeleteSupportEnum other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(DeploymentStacksResourcesWithoutDeleteSupportEnum other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

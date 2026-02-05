@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -14,7 +15,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     public partial class ManagedResourceReference : ResourceReference
     {
         /// <summary> Initializes a new instance of <see cref="ManagedResourceReference"/>. </summary>
-        internal ManagedResourceReference()
+        public ManagedResourceReference()
         {
         }
 
@@ -24,18 +25,19 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="type"> The resource type. </param>
         /// <param name="identifiers"> The extensible resource identifiers. </param>
         /// <param name="apiVersion"> The API version the resource was deployed with. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="status"> Current management state of the resource in the deployment stack. </param>
         /// <param name="denyStatus"> denyAssignment settings applied to the resource. </param>
-        internal ManagedResourceReference(string id, DeploymentExtension extension, string type, IReadOnlyDictionary<string, BinaryData> identifiers, string apiVersion, IDictionary<string, BinaryData> serializedAdditionalRawData, ResourceStatusMode? status, DenyStatusMode? denyStatus) : base(id, extension, type, identifiers, apiVersion, serializedAdditionalRawData)
+        internal ManagedResourceReference(ResourceIdentifier id, DeploymentExtension extension, ResourceType? @type, ResourceIdentifier identifiers, string apiVersion, IDictionary<string, BinaryData> additionalBinaryDataProperties, ResourceStatusMode? status, DeploymentStackDenyStatusMode? denyStatus) : base(id, extension, @type, identifiers, apiVersion, additionalBinaryDataProperties)
         {
             Status = status;
             DenyStatus = denyStatus;
         }
 
         /// <summary> Current management state of the resource in the deployment stack. </summary>
-        public ResourceStatusMode? Status { get; }
+        public ResourceStatusMode? Status { get; set; }
+
         /// <summary> denyAssignment settings applied to the resource. </summary>
-        public DenyStatusMode? DenyStatus { get; }
+        public DeploymentStackDenyStatusMode? DenyStatus { get; set; }
     }
 }

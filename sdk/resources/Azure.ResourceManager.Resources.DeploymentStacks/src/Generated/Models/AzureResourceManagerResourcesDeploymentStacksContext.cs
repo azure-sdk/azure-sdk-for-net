@@ -6,6 +6,7 @@
 #nullable disable
 
 using System.ClientModel.Primitives;
+using Azure;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.DeploymentStacks.Models;
 using Azure.ResourceManager.Resources.Models;
@@ -14,23 +15,25 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
 {
     /// <summary>
     /// Context class which will be filled in by the System.ClientModel.SourceGeneration.
-    /// For more information see 'https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md'
+    /// For more information <see href='https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md' />
     /// </summary>
     [ModelReaderWriterBuildable(typeof(ActionOnUnmanage))]
-    [ModelReaderWriterBuildable(typeof(DenySettings))]
     [ModelReaderWriterBuildable(typeof(DeploymentExtension))]
     [ModelReaderWriterBuildable(typeof(DeploymentExtensionConfig))]
-    [ModelReaderWriterBuildable(typeof(DeploymentExtensionConfigItem))]
     [ModelReaderWriterBuildable(typeof(DeploymentExternalInput))]
     [ModelReaderWriterBuildable(typeof(DeploymentExternalInputDefinition))]
     [ModelReaderWriterBuildable(typeof(DeploymentParameterItem))]
-    [ModelReaderWriterBuildable(typeof(DeploymentStack))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackAdditionalErrorInfo))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackData))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackDenySettings))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackListResult))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackProperties))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackResource))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeBase))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeBaseDenyStatusMode))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeBaseDeploymentStacksManagementStatus))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeDelta))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeDeltaDenySettings))]
-    [ModelReaderWriterBuildable(typeof(DeploymentStacksChangeDeltaRecord))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksDebugSetting))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksDiagnostic))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksParametersLink))]
@@ -38,26 +41,21 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
     [ModelReaderWriterBuildable(typeof(DeploymentStacksWhatIfChange))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksWhatIfPropertyChange))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksWhatIfResourceChange))]
-    [ModelReaderWriterBuildable(typeof(DeploymentStacksWhatIfResultData))]
     [ModelReaderWriterBuildable(typeof(DeploymentStacksWhatIfResultListResult))]
-    [ModelReaderWriterBuildable(typeof(DeploymentStacksWhatIfResultProperties))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackTemplateExportResult))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackValidateProperties))]
     [ModelReaderWriterBuildable(typeof(DeploymentStackValidateResult))]
-    [ModelReaderWriterBuildable(typeof(ErrorAdditionalInfo))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackWhatIfResultData))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackWhatIfResultProperties))]
+    [ModelReaderWriterBuildable(typeof(DeploymentStackWhatIfResultResource))]
     [ModelReaderWriterBuildable(typeof(KeyVaultParameterReference))]
+    [ModelReaderWriterBuildable(typeof(KeyVaultReference))]
     [ModelReaderWriterBuildable(typeof(ManagedResourceReference))]
-    [ModelReaderWriterBuildable(typeof(ManagementGroupDeploymentStacksWhatIfResultResource))]
-    [ModelReaderWriterBuildable(typeof(ManagementGroupResourceDeleteAtManagementGroupOptions))]
-    [ModelReaderWriterBuildable(typeof(ResourceGroupDeploymentStacksWhatIfResultResource))]
-    [ModelReaderWriterBuildable(typeof(ResourceGroupResourceDeleteAtResourceGroupOptions))]
     [ModelReaderWriterBuildable(typeof(ResourceReference))]
     [ModelReaderWriterBuildable(typeof(ResourceReferenceExtended))]
     [ModelReaderWriterBuildable(typeof(ResponseError))]
-    [ModelReaderWriterBuildable(typeof(SubscriptionDeploymentStacksWhatIfResultResource))]
-    [ModelReaderWriterBuildable(typeof(SubscriptionResourceDeleteAtSubscriptionOptions))]
+    [ModelReaderWriterBuildable(typeof(SubResource))]
     [ModelReaderWriterBuildable(typeof(SystemData))]
-    [ModelReaderWriterBuildable(typeof(WritableSubResource))]
     public partial class AzureResourceManagerResourcesDeploymentStacksContext : ModelReaderWriterContext
     {
     }

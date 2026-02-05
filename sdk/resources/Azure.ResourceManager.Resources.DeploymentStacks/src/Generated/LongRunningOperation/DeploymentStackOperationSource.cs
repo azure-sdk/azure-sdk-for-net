@@ -8,23 +8,42 @@
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
-using Azure.ResourceManager.Resources.DeploymentStacks.Models;
+using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks
 {
-    internal class DeploymentStackOperationSource : IOperationSource<DeploymentStack>
+    /// <summary></summary>
+    internal partial class DeploymentStackOperationSource : IOperationSource<DeploymentStackResource>
     {
-        DeploymentStack IOperationSource<DeploymentStack>.CreateResult(Response response, CancellationToken cancellationToken)
+        private readonly ArmClient _client;
+
+        /// <summary></summary>
+        /// <param name="client"></param>
+        internal DeploymentStackOperationSource(ArmClient client)
         {
-            using var document = JsonDocument.Parse(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeploymentStack.DeserializeDeploymentStack(document.RootElement);
+            _client = client;
         }
 
-        async ValueTask<DeploymentStack> IOperationSource<DeploymentStack>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        /// <param name="response"> The response from the service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns></returns>
+        DeploymentStackResource IOperationSource<DeploymentStackResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            using var document = await JsonDocument.ParseAsync(response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-            return DeploymentStack.DeserializeDeploymentStack(document.RootElement);
+            using JsonDocument document = JsonDocument.Parse(response.ContentStream);
+            DeploymentStackData data = DeploymentStackData.DeserializeDeploymentStackData(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return new DeploymentStackResource(_client, data);
+        }
+
+        /// <param name="response"> The response from the service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns></returns>
+        async ValueTask<DeploymentStackResource> IOperationSource<DeploymentStackResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        {
+            using JsonDocument document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            DeploymentStackData data = DeploymentStackData.DeserializeDeploymentStackData(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return new DeploymentStackResource(_client, data);
         }
     }
 }

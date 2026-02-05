@@ -7,43 +7,15 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
     /// <summary> Model to show the before-and-after property values, along with the delta between them. </summary>
     public partial class DeploymentStacksChangeDeltaDenySettings
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStacksChangeDeltaDenySettings"/>. </summary>
         internal DeploymentStacksChangeDeltaDenySettings()
@@ -55,20 +27,22 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="before"> The predicted value before the deployment is executed. </param>
         /// <param name="after"> The predicted value after the deployment is executed. </param>
         /// <param name="delta"> The predicted changes to the properties.". </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeploymentStacksChangeDeltaDenySettings(DenySettings before, DenySettings after, IReadOnlyList<DeploymentStacksWhatIfPropertyChange> delta, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal DeploymentStacksChangeDeltaDenySettings(DeploymentStackDenySettings before, DeploymentStackDenySettings after, IList<DeploymentStacksWhatIfPropertyChange> delta, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Before = before;
             After = after;
             Delta = delta;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The predicted value before the deployment is executed. </summary>
-        public DenySettings Before { get; }
+        public DeploymentStackDenySettings Before { get; }
+
         /// <summary> The predicted value after the deployment is executed. </summary>
-        public DenySettings After { get; }
+        public DeploymentStackDenySettings After { get; }
+
         /// <summary> The predicted changes to the properties.". </summary>
-        public IReadOnlyList<DeploymentStacksWhatIfPropertyChange> Delta { get; }
+        public IList<DeploymentStacksWhatIfPropertyChange> Delta { get; }
     }
 }

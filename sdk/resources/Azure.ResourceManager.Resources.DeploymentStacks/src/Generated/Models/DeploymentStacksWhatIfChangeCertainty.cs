@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -14,38 +15,57 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     public readonly partial struct DeploymentStacksWhatIfChangeCertainty : IEquatable<DeploymentStacksWhatIfChangeCertainty>
     {
         private readonly string _value;
+        /// <summary> The change is definite. </summary>
+        private const string DefiniteValue = "definite";
+        /// <summary> The change may or may not happen, based on deployment-time conditions. </summary>
+        private const string PotentialValue = "potential";
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStacksWhatIfChangeCertainty"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public DeploymentStacksWhatIfChangeCertainty(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
+            Argument.AssertNotNull(value, nameof(value));
 
-        private const string DefiniteValue = "definite";
-        private const string PotentialValue = "potential";
+            _value = value;
+        }
 
         /// <summary> The change is definite. </summary>
         public static DeploymentStacksWhatIfChangeCertainty Definite { get; } = new DeploymentStacksWhatIfChangeCertainty(DefiniteValue);
+
         /// <summary> The change may or may not happen, based on deployment-time conditions. </summary>
         public static DeploymentStacksWhatIfChangeCertainty Potential { get; } = new DeploymentStacksWhatIfChangeCertainty(PotentialValue);
+
         /// <summary> Determines if two <see cref="DeploymentStacksWhatIfChangeCertainty"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(DeploymentStacksWhatIfChangeCertainty left, DeploymentStacksWhatIfChangeCertainty right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="DeploymentStacksWhatIfChangeCertainty"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(DeploymentStacksWhatIfChangeCertainty left, DeploymentStacksWhatIfChangeCertainty right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="DeploymentStacksWhatIfChangeCertainty"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="DeploymentStacksWhatIfChangeCertainty"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator DeploymentStacksWhatIfChangeCertainty(string value) => new DeploymentStacksWhatIfChangeCertainty(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="DeploymentStacksWhatIfChangeCertainty"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator DeploymentStacksWhatIfChangeCertainty?(string value) => value == null ? null : new DeploymentStacksWhatIfChangeCertainty(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is DeploymentStacksWhatIfChangeCertainty other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(DeploymentStacksWhatIfChangeCertainty other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

@@ -9,14 +9,20 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
+using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
-    public partial class DeploymentStacksWhatIfChange : IUtf8JsonSerializable, IJsonModel<DeploymentStacksWhatIfChange>
+    /// <summary> Changes predicted to the deployment stack as a result of the what-if operation. </summary>
+    public partial class DeploymentStacksWhatIfChange : IJsonModel<DeploymentStacksWhatIfChange>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DeploymentStacksWhatIfChange>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        /// <summary> Initializes a new instance of <see cref="DeploymentStacksWhatIfChange"/> for deserialization. </summary>
+        internal DeploymentStacksWhatIfChange()
+        {
+        }
 
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<DeploymentStacksWhatIfChange>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
@@ -28,15 +34,14 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DeploymentStacksWhatIfChange)} does not support writing '{format}' format.");
             }
-
             writer.WritePropertyName("resourceChanges"u8);
             writer.WriteStartArray();
-            foreach (var item in ResourceChanges)
+            foreach (DeploymentStacksWhatIfResourceChange item in ResourceChanges)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -48,15 +53,15 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 writer.WritePropertyName("deploymentScopeChange"u8);
                 writer.WriteObjectValue(DeploymentScopeChange, options);
             }
-            if (options.Format != "W" && _serializedAdditionalRawData != null)
+            if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
-                foreach (var item in _serializedAdditionalRawData)
+                foreach (var item in _additionalBinaryDataProperties)
                 {
                     writer.WritePropertyName(item.Key);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
+                    writer.WriteRawValue(item.Value);
 #else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    using (JsonDocument document = JsonDocument.Parse(item.Value))
                     {
                         JsonSerializer.Serialize(writer, document.RootElement);
                     }
@@ -65,70 +70,76 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             }
         }
 
-        DeploymentStacksWhatIfChange IJsonModel<DeploymentStacksWhatIfChange>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        DeploymentStacksWhatIfChange IJsonModel<DeploymentStacksWhatIfChange>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual DeploymentStacksWhatIfChange JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DeploymentStacksWhatIfChange)} does not support reading '{format}' format.");
             }
-
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
             return DeserializeDeploymentStacksWhatIfChange(document.RootElement, options);
         }
 
-        internal static DeploymentStacksWhatIfChange DeserializeDeploymentStacksWhatIfChange(JsonElement element, ModelReaderWriterOptions options = null)
+        /// <param name="element"> The JSON element to deserialize. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        internal static DeploymentStacksWhatIfChange DeserializeDeploymentStacksWhatIfChange(JsonElement element, ModelReaderWriterOptions options)
         {
-            options ??= ModelSerializationExtensions.WireOptions;
-
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IReadOnlyList<DeploymentStacksWhatIfResourceChange> resourceChanges = default;
+            IList<DeploymentStacksWhatIfResourceChange> resourceChanges = default;
             DeploymentStacksChangeDeltaDenySettings denySettingsChange = default;
             DeploymentStacksChangeBase deploymentScopeChange = default;
-            IDictionary<string, BinaryData> serializedAdditionalRawData = default;
-            Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
-            foreach (var property in element.EnumerateObject())
+            IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
+            foreach (var prop in element.EnumerateObject())
             {
-                if (property.NameEquals("resourceChanges"u8))
+                if (prop.NameEquals("resourceChanges"u8))
                 {
                     List<DeploymentStacksWhatIfResourceChange> array = new List<DeploymentStacksWhatIfResourceChange>();
-                    foreach (var item in property.Value.EnumerateArray())
+                    foreach (var item in prop.Value.EnumerateArray())
                     {
                         array.Add(DeploymentStacksWhatIfResourceChange.DeserializeDeploymentStacksWhatIfResourceChange(item, options));
                     }
                     resourceChanges = array;
                     continue;
                 }
-                if (property.NameEquals("denySettingsChange"u8))
+                if (prop.NameEquals("denySettingsChange"u8))
                 {
-                    denySettingsChange = DeploymentStacksChangeDeltaDenySettings.DeserializeDeploymentStacksChangeDeltaDenySettings(property.Value, options);
+                    denySettingsChange = DeploymentStacksChangeDeltaDenySettings.DeserializeDeploymentStacksChangeDeltaDenySettings(prop.Value, options);
                     continue;
                 }
-                if (property.NameEquals("deploymentScopeChange"u8))
+                if (prop.NameEquals("deploymentScopeChange"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    deploymentScopeChange = DeploymentStacksChangeBase.DeserializeDeploymentStacksChangeBase(property.Value, options);
+                    deploymentScopeChange = DeploymentStacksChangeBase.DeserializeDeploymentStacksChangeBase(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
                 {
-                    rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
+                    additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            serializedAdditionalRawData = rawDataDictionary;
-            return new DeploymentStacksWhatIfChange(resourceChanges, denySettingsChange, deploymentScopeChange, serializedAdditionalRawData);
+            return new DeploymentStacksWhatIfChange(resourceChanges, denySettingsChange, deploymentScopeChange, additionalBinaryDataProperties);
         }
 
-        BinaryData IPersistableModel<DeploymentStacksWhatIfChange>.Write(ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<DeploymentStacksWhatIfChange>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
@@ -138,15 +149,20 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             }
         }
 
-        DeploymentStacksWhatIfChange IPersistableModel<DeploymentStacksWhatIfChange>.Create(BinaryData data, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        DeploymentStacksWhatIfChange IPersistableModel<DeploymentStacksWhatIfChange>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual DeploymentStacksWhatIfChange PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<DeploymentStacksWhatIfChange>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
                         return DeserializeDeploymentStacksWhatIfChange(document.RootElement, options);
                     }
                 default:
@@ -154,6 +170,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
             }
         }
 
+        /// <param name="options"> The client options for reading and writing models. </param>
         string IPersistableModel<DeploymentStacksWhatIfChange>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

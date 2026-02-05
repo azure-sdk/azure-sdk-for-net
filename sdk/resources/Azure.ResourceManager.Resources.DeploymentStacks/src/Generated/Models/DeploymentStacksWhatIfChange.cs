@@ -14,47 +14,14 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     /// <summary> Changes predicted to the deployment stack as a result of the what-if operation. </summary>
     public partial class DeploymentStacksWhatIfChange
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStacksWhatIfChange"/>. </summary>
         /// <param name="resourceChanges"> List of resource changes predicted by What-If operation. </param>
         /// <param name="denySettingsChange"> Predicted changes to the deployment stack deny settings. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceChanges"/> or <paramref name="denySettingsChange"/> is null. </exception>
         internal DeploymentStacksWhatIfChange(IEnumerable<DeploymentStacksWhatIfResourceChange> resourceChanges, DeploymentStacksChangeDeltaDenySettings denySettingsChange)
         {
-            Argument.AssertNotNull(resourceChanges, nameof(resourceChanges));
-            Argument.AssertNotNull(denySettingsChange, nameof(denySettingsChange));
-
             ResourceChanges = resourceChanges.ToList();
             DenySettingsChange = denySettingsChange;
         }
@@ -63,24 +30,21 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <param name="resourceChanges"> List of resource changes predicted by What-If operation. </param>
         /// <param name="denySettingsChange"> Predicted changes to the deployment stack deny settings. </param>
         /// <param name="deploymentScopeChange"> Predicted changes to the deployment scope for the deployment stack. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DeploymentStacksWhatIfChange(IReadOnlyList<DeploymentStacksWhatIfResourceChange> resourceChanges, DeploymentStacksChangeDeltaDenySettings denySettingsChange, DeploymentStacksChangeBase deploymentScopeChange, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal DeploymentStacksWhatIfChange(IList<DeploymentStacksWhatIfResourceChange> resourceChanges, DeploymentStacksChangeDeltaDenySettings denySettingsChange, DeploymentStacksChangeBase deploymentScopeChange, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ResourceChanges = resourceChanges;
             DenySettingsChange = denySettingsChange;
             DeploymentScopeChange = deploymentScopeChange;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="DeploymentStacksWhatIfChange"/> for deserialization. </summary>
-        internal DeploymentStacksWhatIfChange()
-        {
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> List of resource changes predicted by What-If operation. </summary>
-        public IReadOnlyList<DeploymentStacksWhatIfResourceChange> ResourceChanges { get; }
+        public IList<DeploymentStacksWhatIfResourceChange> ResourceChanges { get; }
+
         /// <summary> Predicted changes to the deployment stack deny settings. </summary>
         public DeploymentStacksChangeDeltaDenySettings DenySettingsChange { get; }
+
         /// <summary> Predicted changes to the deployment scope for the deployment stack. </summary>
         public DeploymentStacksChangeBase DeploymentScopeChange { get; }
     }
