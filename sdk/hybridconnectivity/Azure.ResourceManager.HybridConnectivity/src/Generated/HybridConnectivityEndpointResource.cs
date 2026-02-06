@@ -393,6 +393,206 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
 
         /// <summary>
+        /// Gets the endpoint access credentials to the resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /{resourceUri}/providers/Microsoft.HybridConnectivity/endpoints/{endpointName}/listCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EndpointResources_ListCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2024-12-01. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="HybridConnectivityEndpointResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object of type ListCredentialsRequest. </param>
+        /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<TargetResourceEndpointAccess>> GetCredentialsAsync(ListCredentialsContent content = default, long? expiresin = default, CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _endpointResourcesClientDiagnostics.CreateScope("HybridConnectivityEndpointResource.GetCredentials");
+            scope.Start();
+            try
+            {
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _endpointResourcesRestClient.CreateGetCredentialsRequest(Id.Parent, Id.Name, ListCredentialsContent.ToRequestContent(content), expiresin, context);
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<TargetResourceEndpointAccess> response = Response.FromValue(TargetResourceEndpointAccess.FromResponse(result), result);
+                if (response.Value == null)
+                {
+                    throw new RequestFailedException(response.GetRawResponse());
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets the endpoint access credentials to the resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /{resourceUri}/providers/Microsoft.HybridConnectivity/endpoints/{endpointName}/listCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EndpointResources_ListCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2024-12-01. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="HybridConnectivityEndpointResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object of type ListCredentialsRequest. </param>
+        /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<TargetResourceEndpointAccess> GetCredentials(ListCredentialsContent content = default, long? expiresin = default, CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _endpointResourcesClientDiagnostics.CreateScope("HybridConnectivityEndpointResource.GetCredentials");
+            scope.Start();
+            try
+            {
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _endpointResourcesRestClient.CreateGetCredentialsRequest(Id.Parent, Id.Name, ListCredentialsContent.ToRequestContent(content), expiresin, context);
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<TargetResourceEndpointAccess> response = Response.FromValue(TargetResourceEndpointAccess.FromResponse(result), result);
+                if (response.Value == null)
+                {
+                    throw new RequestFailedException(response.GetRawResponse());
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets the ingress gateway endpoint credentials 
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /{resourceUri}/providers/Microsoft.HybridConnectivity/endpoints/{endpointName}/listIngressGatewayCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EndpointResources_ListIngressGatewayCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2024-12-01. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="HybridConnectivityEndpointResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object of type ListIngressGatewayCredentialsRequest. </param>
+        /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<IngressGatewayAsset>> GetIngressGatewayCredentialsAsync(ListIngressGatewayCredentialsContent content = default, long? expiresin = default, CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _endpointResourcesClientDiagnostics.CreateScope("HybridConnectivityEndpointResource.GetIngressGatewayCredentials");
+            scope.Start();
+            try
+            {
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _endpointResourcesRestClient.CreateGetIngressGatewayCredentialsRequest(Id.Parent, Id.Name, ListIngressGatewayCredentialsContent.ToRequestContent(content), expiresin, context);
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<IngressGatewayAsset> response = Response.FromValue(IngressGatewayAsset.FromResponse(result), result);
+                if (response.Value == null)
+                {
+                    throw new RequestFailedException(response.GetRawResponse());
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets the ingress gateway endpoint credentials 
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /{resourceUri}/providers/Microsoft.HybridConnectivity/endpoints/{endpointName}/listIngressGatewayCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EndpointResources_ListIngressGatewayCredentials. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2024-12-01. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="HybridConnectivityEndpointResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object of type ListIngressGatewayCredentialsRequest. </param>
+        /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<IngressGatewayAsset> GetIngressGatewayCredentials(ListIngressGatewayCredentialsContent content = default, long? expiresin = default, CancellationToken cancellationToken = default)
+        {
+            using DiagnosticScope scope = _endpointResourcesClientDiagnostics.CreateScope("HybridConnectivityEndpointResource.GetIngressGatewayCredentials");
+            scope.Start();
+            try
+            {
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _endpointResourcesRestClient.CreateGetIngressGatewayCredentialsRequest(Id.Parent, Id.Name, ListIngressGatewayCredentialsContent.ToRequestContent(content), expiresin, context);
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<IngressGatewayAsset> response = Response.FromValue(IngressGatewayAsset.FromResponse(result), result);
+                if (response.Value == null)
+                {
+                    throw new RequestFailedException(response.GetRawResponse());
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Fetches the managed proxy details 
         /// <list type="bullet">
         /// <item>
