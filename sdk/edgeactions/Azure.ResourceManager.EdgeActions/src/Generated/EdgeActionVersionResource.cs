@@ -525,7 +525,7 @@ namespace Azure.ResourceManager.EdgeActions
         }
 
         /// <summary>
-        /// A long-running resource action.
+        /// Get the version code for the edge action version.
         /// <list type="bullet">
         /// <item>
         /// <term> Request Path. </term>
@@ -580,7 +580,7 @@ namespace Azure.ResourceManager.EdgeActions
         }
 
         /// <summary>
-        /// A long-running resource action.
+        /// Get the version code for the edge action version.
         /// <list type="bullet">
         /// <item>
         /// <term> Request Path. </term>
@@ -635,7 +635,7 @@ namespace Azure.ResourceManager.EdgeActions
         }
 
         /// <summary>
-        /// A long-running resource action.
+        /// Swap the default version for the edge action.
         /// <list type="bullet">
         /// <item>
         /// <term> Request Path. </term>
@@ -684,7 +684,7 @@ namespace Azure.ResourceManager.EdgeActions
         }
 
         /// <summary>
-        /// A long-running resource action.
+        /// Swap the default version for the edge action.
         /// <list type="bullet">
         /// <item>
         /// <term> Request Path. </term>
