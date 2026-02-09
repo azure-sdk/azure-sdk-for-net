@@ -11,21 +11,21 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.EdgeActions.Models
 {
     /// <summary> The SKU type for update operations. </summary>
-    public partial class SkuTypeUpdate
+    public partial class EdgeActionSkuTypeUpdate
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="SkuTypeUpdate"/>. </summary>
-        public SkuTypeUpdate()
+        /// <summary> Initializes a new instance of <see cref="EdgeActionSkuTypeUpdate"/>. </summary>
+        public EdgeActionSkuTypeUpdate()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SkuTypeUpdate"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EdgeActionSkuTypeUpdate"/>. </summary>
         /// <param name="name"> The name of the SKU. </param>
         /// <param name="tier"> The tier of the SKU. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SkuTypeUpdate(string name, string tier, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EdgeActionSkuTypeUpdate(string name, string tier, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Tier = tier;

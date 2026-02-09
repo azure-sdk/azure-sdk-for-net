@@ -30,6 +30,7 @@ namespace Azure.ResourceManager.EdgeActions
     [ModelReaderWriterBuildable(typeof(EdgeActionPropertiesUpdate))]
     [ModelReaderWriterBuildable(typeof(EdgeActionResource))]
     [ModelReaderWriterBuildable(typeof(EdgeActionSkuType))]
+    [ModelReaderWriterBuildable(typeof(EdgeActionSkuTypeUpdate))]
     [ModelReaderWriterBuildable(typeof(EdgeActionVersionCode))]
     [ModelReaderWriterBuildable(typeof(EdgeActionVersionData))]
     [ModelReaderWriterBuildable(typeof(EdgeActionVersionListResult))]
@@ -38,7 +39,6 @@ namespace Azure.ResourceManager.EdgeActions
     [ModelReaderWriterBuildable(typeof(EdgeActionVersionResource))]
     [ModelReaderWriterBuildable(typeof(EdgeActionVersionUpdateProperties))]
     [ModelReaderWriterBuildable(typeof(ResponseError))]
-    [ModelReaderWriterBuildable(typeof(SkuTypeUpdate))]
     [ModelReaderWriterBuildable(typeof(SystemData))]
     public partial class AzureResourceManagerEdgeActionsContext : ModelReaderWriterContext
     {

@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.EdgeActions.Models
         /// <param name="sku"> The sku type of the edge action. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <returns> A new <see cref="Models.EdgeActionPatch"/> instance for mocking. </returns>
-        public static EdgeActionPatch EdgeActionPatch(EdgeActionPropertiesUpdate properties = default, SkuTypeUpdate sku = default, IDictionary<string, string> tags = default)
+        public static EdgeActionPatch EdgeActionPatch(EdgeActionPropertiesUpdate properties = default, EdgeActionSkuTypeUpdate sku = default, IDictionary<string, string> tags = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 

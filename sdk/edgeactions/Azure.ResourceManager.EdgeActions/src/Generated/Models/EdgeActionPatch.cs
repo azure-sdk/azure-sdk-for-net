@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.EdgeActions.Models
         /// <param name="sku"> The sku type of the edge action. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EdgeActionPatch(EdgeActionPropertiesUpdate properties, SkuTypeUpdate sku, IDictionary<string, string> tags, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EdgeActionPatch(EdgeActionPropertiesUpdate properties, EdgeActionSkuTypeUpdate sku, IDictionary<string, string> tags, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Properties = properties;
             Sku = sku;
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.EdgeActions.Models
         public EdgeActionPropertiesUpdate Properties { get; set; }
 
         /// <summary> The sku type of the edge action. </summary>
-        public SkuTypeUpdate Sku { get; set; }
+        public EdgeActionSkuTypeUpdate Sku { get; set; }
 
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }

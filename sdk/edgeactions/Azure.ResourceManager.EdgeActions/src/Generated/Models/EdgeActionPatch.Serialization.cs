@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.EdgeActions.Models
                 return null;
             }
             EdgeActionPropertiesUpdate properties = default;
-            SkuTypeUpdate sku = default;
+            EdgeActionSkuTypeUpdate sku = default;
             IDictionary<string, string> tags = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.EdgeActions.Models
                     {
                         continue;
                     }
-                    sku = SkuTypeUpdate.DeserializeSkuTypeUpdate(prop.Value, options);
+                    sku = EdgeActionSkuTypeUpdate.DeserializeEdgeActionSkuTypeUpdate(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("tags"u8))
