@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _deploymentStacksAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources.ToString(), unmanageActionResourceGroups.ToString(), unmanageActionManagementGroups.ToString(), unmanageActionResourcesWithoutDeleteSupport.ToString(), bypassStackOutOfSyncError, context);
+                HttpMessage message = _deploymentStacksAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources?.ToString(), unmanageActionResourceGroups?.ToString(), unmanageActionManagementGroups?.ToString(), unmanageActionResourcesWithoutDeleteSupport?.ToString(), bypassStackOutOfSyncError, context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 DeploymentStacksArmOperation operation = new DeploymentStacksArmOperation(_deploymentStacksAtScopeClientDiagnostics, Pipeline, message.Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
@@ -280,7 +280,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _deploymentStacksAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources.ToString(), unmanageActionResourceGroups.ToString(), unmanageActionManagementGroups.ToString(), unmanageActionResourcesWithoutDeleteSupport.ToString(), bypassStackOutOfSyncError, context);
+                HttpMessage message = _deploymentStacksAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources?.ToString(), unmanageActionResourceGroups?.ToString(), unmanageActionManagementGroups?.ToString(), unmanageActionResourcesWithoutDeleteSupport?.ToString(), bypassStackOutOfSyncError, context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 DeploymentStacksArmOperation operation = new DeploymentStacksArmOperation(_deploymentStacksAtScopeClientDiagnostics, Pipeline, message.Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)

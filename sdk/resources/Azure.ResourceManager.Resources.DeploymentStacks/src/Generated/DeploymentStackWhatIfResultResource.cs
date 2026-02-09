@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _deploymentStacksWhatIfAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources.ToString(), unmanageActionResourceGroups.ToString(), unmanageActionManagementGroups.ToString(), unmanageActionResourcesWithoutDeleteSupport.ToString(), bypassStackOutOfSyncError, context);
+                HttpMessage message = _deploymentStacksWhatIfAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources?.ToString(), unmanageActionResourceGroups?.ToString(), unmanageActionManagementGroups?.ToString(), unmanageActionResourcesWithoutDeleteSupport?.ToString(), bypassStackOutOfSyncError, context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 RequestUriBuilder uri = message.Request.Uri;
                 RehydrationToken rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Delete, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
@@ -282,7 +282,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _deploymentStacksWhatIfAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources.ToString(), unmanageActionResourceGroups.ToString(), unmanageActionManagementGroups.ToString(), unmanageActionResourcesWithoutDeleteSupport.ToString(), bypassStackOutOfSyncError, context);
+                HttpMessage message = _deploymentStacksWhatIfAtScopeRestClient.CreateDeleteRequest(Id.Parent, Id.Name, unmanageActionResources?.ToString(), unmanageActionResourceGroups?.ToString(), unmanageActionManagementGroups?.ToString(), unmanageActionResourcesWithoutDeleteSupport?.ToString(), bypassStackOutOfSyncError, context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 RequestUriBuilder uri = message.Request.Uri;
                 RehydrationToken rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Delete, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
