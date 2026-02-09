@@ -40,11 +40,11 @@ namespace Azure.ResourceManager.FileShares.Mocking
 
         private ClientDiagnostics FileSharesInterfaceClientDiagnostics => _fileSharesInterfaceClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.FileShares.Mocking", ProviderConstants.DefaultProviderNamespace, Diagnostics);
 
-        private FileSharesInterface FileSharesInterfaceRestClient => _fileSharesInterfaceRestClient ??= new FileSharesInterface(FileSharesInterfaceClientDiagnostics, Pipeline, Endpoint, "2025-06-01-preview");
+        private FileSharesInterface FileSharesInterfaceRestClient => _fileSharesInterfaceRestClient ??= new FileSharesInterface(FileSharesInterfaceClientDiagnostics, Pipeline, Endpoint, "2025-09-01-preview");
 
         private ClientDiagnostics InformationalOperationsClientDiagnostics => _informationalOperationsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.FileShares.Mocking", ProviderConstants.DefaultProviderNamespace, Diagnostics);
 
-        private InformationalOperations InformationalOperationsRestClient => _informationalOperationsRestClient ??= new InformationalOperations(InformationalOperationsClientDiagnostics, Pipeline, Endpoint, "2025-06-01-preview");
+        private InformationalOperations InformationalOperationsRestClient => _informationalOperationsRestClient ??= new InformationalOperations(InformationalOperationsClientDiagnostics, Pipeline, Endpoint, "2025-09-01-preview");
 
         /// <summary>
         /// List FileShare resources by subscription ID
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.FileShares.Mocking
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-06-01-preview. </description>
+        /// <description> 2025-09-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.FileShares.Mocking
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-06-01-preview. </description>
+        /// <description> 2025-09-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -102,7 +102,23 @@ namespace Azure.ResourceManager.FileShares.Mocking
             return new PageableWrapper<FileShareData, FileShareResource>(new FileSharesInterfaceGetBySubscriptionCollectionResultOfT(FileSharesInterfaceRestClient, Guid.Parse(Id.SubscriptionId), context), data => new FileShareResource(Client, data));
         }
 
-        /// <summary> Implements local CheckNameAvailability operations. </summary>
+        /// <summary>
+        /// Implements local CheckNameAvailability operations
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.FileShares/locations/{location}/checkNameAvailability. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> FileShares_CheckNameAvailability. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-09-01-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
         /// <param name="location"> The name of the Azure region. </param>
         /// <param name="content"> The CheckAvailability request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -135,7 +151,23 @@ namespace Azure.ResourceManager.FileShares.Mocking
             }
         }
 
-        /// <summary> Implements local CheckNameAvailability operations. </summary>
+        /// <summary>
+        /// Implements local CheckNameAvailability operations
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.FileShares/locations/{location}/checkNameAvailability. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> FileShares_CheckNameAvailability. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-09-01-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
         /// <param name="location"> The name of the Azure region. </param>
         /// <param name="content"> The CheckAvailability request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -181,7 +213,7 @@ namespace Azure.ResourceManager.FileShares.Mocking
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-06-01-preview. </description>
+        /// <description> 2025-09-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -226,7 +258,7 @@ namespace Azure.ResourceManager.FileShares.Mocking
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-06-01-preview. </description>
+        /// <description> 2025-09-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -271,7 +303,7 @@ namespace Azure.ResourceManager.FileShares.Mocking
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-06-01-preview. </description>
+        /// <description> 2025-09-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -316,7 +348,7 @@ namespace Azure.ResourceManager.FileShares.Mocking
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-06-01-preview. </description>
+        /// <description> 2025-09-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -348,7 +380,23 @@ namespace Azure.ResourceManager.FileShares.Mocking
             }
         }
 
-        /// <summary> Get file shares provisioning parameters recommendation. </summary>
+        /// <summary>
+        /// Get file shares provisioning parameters recommendation.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.FileShares/locations/{location}/getProvisioningRecommendation. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> InformationalOperations_GetProvisioningRecommendation. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-09-01-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
         /// <param name="location"> The name of the Azure region. </param>
         /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -381,7 +429,23 @@ namespace Azure.ResourceManager.FileShares.Mocking
             }
         }
 
-        /// <summary> Get file shares provisioning parameters recommendation. </summary>
+        /// <summary>
+        /// Get file shares provisioning parameters recommendation.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.FileShares/locations/{location}/getProvisioningRecommendation. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> InformationalOperations_GetProvisioningRecommendation. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-09-01-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
         /// <param name="location"> The name of the Azure region. </param>
         /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

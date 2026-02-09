@@ -281,6 +281,7 @@
       "filename": "**/sdk/avs/**/*.cs",
       "words": [
         "dhcps",
+        "esxi",
         "iscsi",
         "mirrorings",
         "nsxt",
@@ -992,18 +993,6 @@
         "actuals",
         "bangla",
         "hecto"
-      ]
-    },
-    {
-      "filename": "**/sdk/mediaservices/**/*.cs",
-      "words": [
-        "cabac",
-        "cavlc",
-        "cbcs",
-        "cenc",
-        "deinterlace",
-        "rtmp",
-        "scms"
       ]
     },
     {
