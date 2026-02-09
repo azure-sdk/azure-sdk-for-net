@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             RetentionScheduleFormat? retentionScheduleFormatType = default;
-            IList<BackupMonthOfYear> monthsOfYear = default;
+            IList<MonthOfYear> monthsOfYear = default;
             DailyRetentionFormat retentionScheduleDaily = default;
             WeeklyRetentionFormat retentionScheduleWeekly = default;
             IList<DateTimeOffset> retentionTimes = default;
@@ -136,10 +136,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    List<BackupMonthOfYear> array = new List<BackupMonthOfYear>();
+                    List<MonthOfYear> array = new List<MonthOfYear>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString().ToBackupMonthOfYear());
+                        array.Add(item.GetString().ToMonthOfYear());
                     }
                     monthsOfYear = array;
                     continue;
@@ -193,7 +193,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new YearlyRetentionSchedule(
                 retentionScheduleFormatType,
-                monthsOfYear ?? new ChangeTrackingList<BackupMonthOfYear>(),
+                monthsOfYear ?? new ChangeTrackingList<MonthOfYear>(),
                 retentionScheduleDaily,
                 retentionScheduleWeekly,
                 retentionTimes ?? new ChangeTrackingList<DateTimeOffset>(),

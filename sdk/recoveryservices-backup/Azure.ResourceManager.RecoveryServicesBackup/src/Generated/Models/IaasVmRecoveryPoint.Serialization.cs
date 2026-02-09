@@ -8,10 +8,8 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -146,7 +144,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             if (Optional.IsDefined(ExtendedLocation))
             {
                 writer.WritePropertyName("extendedLocation"u8);
-                ((IJsonModel<ExtendedLocation>)ExtendedLocation).Write(writer, options);
+                writer.WriteObjectValue(ExtendedLocation, options);
             }
         }
 
@@ -177,19 +175,21 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             bool? isSourceVmEncrypted = default;
             KeyAndSecretDetails keyAndSecret = default;
             bool? isInstantIlrSessionActive = default;
-            IList<RecoveryPointTierInformationV2> recoveryPointTierDetails = default;
+            IReadOnlyList<RecoveryPointTierInformationV2> recoveryPointTierDetails = default;
             bool? isManagedVirtualMachine = default;
             string virtualMachineSize = default;
             bool? originalStorageAccountOption = default;
             string osType = default;
             RecoveryPointDiskConfiguration recoveryPointDiskConfiguration = default;
-            IList<string> zones = default;
-            IDictionary<string, RecoveryPointMoveReadinessInfo> recoveryPointMoveReadinessInfo = default;
+            IReadOnlyList<string> zones = default;
+            IReadOnlyDictionary<string, RecoveryPointMoveReadinessInfo> recoveryPointMoveReadinessInfo = default;
             string securityType = default;
             RecoveryPointProperties recoveryPointProperties = default;
             bool? isPrivateAccessEnabledOnAnyDisk = default;
             ExtendedLocation extendedLocation = default;
             string objectType = default;
+            ThreatStatus? threatStatus = default;
+            IReadOnlyList<ThreatInfo> threatInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -353,12 +353,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    extendedLocation = ModelReaderWriter.Read<ExtendedLocation>(new BinaryData(Encoding.UTF8.GetBytes(property.Value.GetRawText())), options, AzureResourceManagerRecoveryServicesBackupContext.Default);
+                    extendedLocation = ExtendedLocation.DeserializeExtendedLocation(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("objectType"u8))
                 {
                     objectType = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("threatStatus"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    threatStatus = new ThreatStatus(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("threatInfo"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ThreatInfo> array = new List<ThreatInfo>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(Models.ThreatInfo.DeserializeThreatInfo(item, options));
+                    }
+                    threatInfo = array;
                     continue;
                 }
                 if (options.Format != "W")
@@ -369,6 +392,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new IaasVmRecoveryPoint(
                 objectType,
+                threatStatus,
+                threatInfo ?? new ChangeTrackingList<ThreatInfo>(),
                 serializedAdditionalRawData,
                 recoveryPointType,
                 recoveryPointTime,

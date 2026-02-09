@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Unknown version of SchedulePolicy. </summary>
-    internal partial class UnknownSchedulePolicy : BackupSchedulePolicy
+    internal partial class UnknownSchedulePolicy : SchedulePolicy
     {
         /// <summary> Initializes a new instance of <see cref="UnknownSchedulePolicy"/>. </summary>
         /// <param name="schedulePolicyType"> This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. </param>

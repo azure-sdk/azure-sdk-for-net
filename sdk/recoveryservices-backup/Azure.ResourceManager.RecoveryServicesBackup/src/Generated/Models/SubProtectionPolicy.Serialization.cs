@@ -102,10 +102,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            SubProtectionPolicyType? policyType = default;
-            BackupSchedulePolicy schedulePolicy = default;
-            BackupRetentionPolicy retentionPolicy = default;
-            IDictionary<string, BackupTieringPolicy> tieringPolicy = default;
+            PolicyType? policyType = default;
+            SchedulePolicy schedulePolicy = default;
+            RetentionPolicy retentionPolicy = default;
+            IDictionary<string, TieringPolicy> tieringPolicy = default;
             SnapshotBackupAdditionalDetails snapshotBackupAdditionalDetails = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    policyType = new SubProtectionPolicyType(property.Value.GetString());
+                    policyType = new PolicyType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("schedulePolicy"u8))
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    schedulePolicy = BackupSchedulePolicy.DeserializeBackupSchedulePolicy(property.Value, options);
+                    schedulePolicy = SchedulePolicy.DeserializeSchedulePolicy(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("retentionPolicy"u8))
@@ -135,7 +135,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    retentionPolicy = BackupRetentionPolicy.DeserializeBackupRetentionPolicy(property.Value, options);
+                    retentionPolicy = RetentionPolicy.DeserializeRetentionPolicy(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tieringPolicy"u8))
@@ -144,10 +144,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    Dictionary<string, BackupTieringPolicy> dictionary = new Dictionary<string, BackupTieringPolicy>();
+                    Dictionary<string, TieringPolicy> dictionary = new Dictionary<string, TieringPolicy>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        dictionary.Add(property0.Name, BackupTieringPolicy.DeserializeBackupTieringPolicy(property0.Value, options));
+                        dictionary.Add(property0.Name, Models.TieringPolicy.DeserializeTieringPolicy(property0.Value, options));
                     }
                     tieringPolicy = dictionary;
                     continue;
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 policyType,
                 schedulePolicy,
                 retentionPolicy,
-                tieringPolicy ?? new ChangeTrackingDictionary<string, BackupTieringPolicy>(),
+                tieringPolicy ?? new ChangeTrackingDictionary<string, TieringPolicy>(),
                 snapshotBackupAdditionalDetails,
                 serializedAdditionalRawData);
         }

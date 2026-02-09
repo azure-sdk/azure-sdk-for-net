@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="lastUpdateStatus"></param>
         /// <param name="infrastructureEncryptionState"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BackupResourceEncryptionConfig(BackupEncryptionAtRestType? encryptionAtRestType, Uri keyUri, string subscriptionId, LastUpdateStatus? lastUpdateStatus, InfrastructureEncryptionState? infrastructureEncryptionState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BackupResourceEncryptionConfig(EncryptionAtRestType? encryptionAtRestType, string keyUri, string subscriptionId, LastUpdateStatus? lastUpdateStatus, InfrastructureEncryptionState? infrastructureEncryptionState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             EncryptionAtRestType = encryptionAtRestType;
             KeyUri = keyUri;
@@ -68,9 +68,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Encryption At Rest Type. </summary>
-        public BackupEncryptionAtRestType? EncryptionAtRestType { get; set; }
+        public EncryptionAtRestType? EncryptionAtRestType { get; set; }
         /// <summary> Key Vault Key URI. </summary>
-        public Uri KeyUri { get; set; }
+        public string KeyUri { get; set; }
         /// <summary> Key Vault Subscription Id. </summary>
         public string SubscriptionId { get; set; }
         /// <summary> Gets or sets the last update status. </summary>

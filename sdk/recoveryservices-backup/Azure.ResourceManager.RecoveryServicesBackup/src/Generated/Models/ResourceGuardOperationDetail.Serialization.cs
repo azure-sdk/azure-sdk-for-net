@@ -39,10 +39,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("vaultCriticalOperation"u8);
                 writer.WriteStringValue(VaultCriticalOperation);
             }
-            if (Optional.IsDefined(DefaultResourceId))
+            if (Optional.IsDefined(DefaultResourceRequest))
             {
                 writer.WritePropertyName("defaultResourceRequest"u8);
-                writer.WriteStringValue(DefaultResourceId);
+                writer.WriteStringValue(DefaultResourceRequest);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             string vaultCriticalOperation = default;
-            ResourceIdentifier defaultResourceRequest = default;
+            string defaultResourceRequest = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,11 +94,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 if (property.NameEquals("defaultResourceRequest"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    defaultResourceRequest = new ResourceIdentifier(property.Value.GetString());
+                    defaultResourceRequest = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")

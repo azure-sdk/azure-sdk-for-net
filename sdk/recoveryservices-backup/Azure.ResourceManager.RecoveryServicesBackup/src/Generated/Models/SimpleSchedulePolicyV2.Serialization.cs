@@ -78,9 +78,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             ScheduleRunType? scheduleRunFrequency = default;
-            BackupHourlySchedule hourlySchedule = default;
-            BackupDailySchedule dailySchedule = default;
-            BackupWeeklySchedule weeklySchedule = default;
+            HourlySchedule hourlySchedule = default;
+            DailySchedule dailySchedule = default;
+            WeeklySchedule weeklySchedule = default;
             string schedulePolicyType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    hourlySchedule = BackupHourlySchedule.DeserializeBackupHourlySchedule(property.Value, options);
+                    hourlySchedule = HourlySchedule.DeserializeHourlySchedule(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("dailySchedule"u8))
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    dailySchedule = BackupDailySchedule.DeserializeBackupDailySchedule(property.Value, options);
+                    dailySchedule = DailySchedule.DeserializeDailySchedule(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("weeklySchedule"u8))
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    weeklySchedule = BackupWeeklySchedule.DeserializeBackupWeeklySchedule(property.Value, options);
+                    weeklySchedule = WeeklySchedule.DeserializeWeeklySchedule(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("schedulePolicyType"u8))

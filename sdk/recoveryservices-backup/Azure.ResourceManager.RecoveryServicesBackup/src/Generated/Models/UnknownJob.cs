@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Unknown version of Job. </summary>
-    internal partial class UnknownJob : BackupGenericJob
+    internal partial class UnknownJob : Job
     {
         /// <summary> Initializes a new instance of <see cref="UnknownJob"/>. </summary>
         /// <param name="entityFriendlyName"> Friendly name of the entity on which the current job is executing. </param>

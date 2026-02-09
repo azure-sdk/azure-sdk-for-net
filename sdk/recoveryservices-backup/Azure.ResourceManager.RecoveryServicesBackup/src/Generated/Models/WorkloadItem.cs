@@ -13,7 +13,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     /// <summary>
     /// Base class for backup item. Workload-specific backup items are derived from this class.
     /// Please note <see cref="WorkloadItem"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="VmWorkloadItem"/>, <see cref="VmWorkloadSapAseDatabaseWorkloadItem"/>, <see cref="VmWorkloadSapAseSystemWorkloadItem"/>, <see cref="VmWorkloadSapHanaDatabaseWorkloadItem"/>, <see cref="VmWorkloadSapHanaSystemWorkloadItem"/>, <see cref="VmWorkloadSqlDatabaseWorkloadItem"/> and <see cref="VmWorkloadSqlInstanceWorkloadItem"/>.
+    /// The available derived classes include <see cref="AzureVmWorkloadItem"/>, <see cref="AzureVmWorkloadSAPAseDatabaseWorkloadItem"/>, <see cref="AzureVmWorkloadSAPAseSystemWorkloadItem"/>, <see cref="AzureVmWorkloadSAPHanaDatabaseWorkloadItem"/>, <see cref="AzureVmWorkloadSAPHanaSystemWorkloadItem"/>, <see cref="AzureVmWorkloadSQLDatabaseWorkloadItem"/> and <see cref="AzureVmWorkloadSQLInstanceWorkloadItem"/>.
     /// </summary>
     public abstract partial class WorkloadItem
     {
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="friendlyName"> Friendly name of the backup item. </param>
         /// <param name="protectionState"> State of the back up item. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal WorkloadItem(string backupManagementType, string workloadType, string workloadItemType, string friendlyName, BackupProtectionStatus? protectionState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal WorkloadItem(string backupManagementType, string workloadType, string workloadItemType, string friendlyName, ProtectionStatus? protectionState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             BackupManagementType = backupManagementType;
             WorkloadType = workloadType;
@@ -72,14 +72,14 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Type of backup management to backup an item. </summary>
-        public string BackupManagementType { get; set; }
+        public string BackupManagementType { get; }
         /// <summary> Type of workload for the backup management. </summary>
-        public string WorkloadType { get; set; }
+        public string WorkloadType { get; }
         /// <summary> Type of the backup item. </summary>
         internal string WorkloadItemType { get; set; }
         /// <summary> Friendly name of the backup item. </summary>
-        public string FriendlyName { get; set; }
+        public string FriendlyName { get; }
         /// <summary> State of the back up item. </summary>
-        public BackupProtectionStatus? ProtectionState { get; set; }
+        public ProtectionStatus? ProtectionState { get; }
     }
 }

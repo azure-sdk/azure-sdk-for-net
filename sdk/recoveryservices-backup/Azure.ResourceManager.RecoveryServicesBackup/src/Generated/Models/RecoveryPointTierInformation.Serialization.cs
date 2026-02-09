@@ -34,15 +34,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 throw new FormatException($"The model {nameof(RecoveryPointTierInformation)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(TierType))
+            if (Optional.IsDefined(Type))
             {
                 writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(TierType.Value.ToSerialString());
+                writer.WriteStringValue(Type.Value.ToSerialString());
             }
             if (Optional.IsDefined(Status))
             {
                 writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status.Value.ToSerialString());
+                writer.WriteStringValue(Status.Value.ToString());
             }
             if (Optional.IsCollectionDefined(ExtendedInfo))
             {
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             }
             RecoveryPointTierType? type = default;
             RecoveryPointTierStatus? status = default;
-            IDictionary<string, string> extendedInfo = default;
+            IReadOnlyDictionary<string, string> extendedInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    status = property.Value.GetString().ToRecoveryPointTierStatus();
+                    status = new RecoveryPointTierStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("extendedInfo"u8))

@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownJob : IUtf8JsonSerializable, IJsonModel<BackupGenericJob>
+    internal partial class UnknownJob : IUtf8JsonSerializable, IJsonModel<Job>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupGenericJob>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<Job>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupGenericJob>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<Job>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericJob>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Job>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericJob)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(Job)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupGenericJob IJsonModel<BackupGenericJob>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        Job IJsonModel<Job>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericJob>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Job>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericJob)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(Job)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupGenericJob(document.RootElement, options);
+            return DeserializeJob(document.RootElement, options);
         }
 
         internal static UnknownJob DeserializeUnknownJob(JsonElement element, ModelReaderWriterOptions options = null)
@@ -139,35 +139,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupGenericJob>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<Job>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericJob>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Job>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericJob)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(Job)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupGenericJob IPersistableModel<BackupGenericJob>.Create(BinaryData data, ModelReaderWriterOptions options)
+        Job IPersistableModel<Job>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericJob>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Job>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupGenericJob(document.RootElement, options);
+                        return DeserializeJob(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericJob)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(Job)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupGenericJob>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<Job>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

@@ -91,9 +91,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            BackupDataSourceType? resourceType = default;
-            ResourceIdentifier resourceId = default;
-            ResourceIdentifier vaultId = default;
+            DataSourceType? resourceType = default;
+            string resourceId = default;
+            string vaultId = default;
             string properties = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -105,25 +105,17 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    resourceType = new BackupDataSourceType(property.Value.GetString());
+                    resourceType = new DataSourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("resourceId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    resourceId = new ResourceIdentifier(property.Value.GetString());
+                    resourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("vaultId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    vaultId = new ResourceIdentifier(property.Value.GetString());
+                    vaultId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("properties"u8))

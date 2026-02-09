@@ -53,13 +53,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Initializes a new instance of <see cref="TokenInformation"/>. </summary>
         /// <param name="token"> Token value. </param>
         /// <param name="expiryTimeInUtcTicks"> Expiry time of token. </param>
-        /// <param name="securityPin"> Security PIN. </param>
+        /// <param name="securityPIN"> Security PIN. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TokenInformation(string token, long? expiryTimeInUtcTicks, string securityPin, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TokenInformation(string token, long? expiryTimeInUtcTicks, string securityPIN, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Token = token;
             ExpiryTimeInUtcTicks = expiryTimeInUtcTicks;
-            SecurityPin = securityPin;
+            SecurityPIN = securityPIN;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -68,6 +68,6 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Expiry time of token. </summary>
         public long? ExpiryTimeInUtcTicks { get; }
         /// <summary> Security PIN. </summary>
-        public string SecurityPin { get; }
+        public string SecurityPIN { get; }
     }
 }

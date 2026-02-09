@@ -77,8 +77,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 switch (discriminator.GetString())
                 {
-                    case "AzureBackupGoals": return BackupGoalFeatureSupportContent.DeserializeBackupGoalFeatureSupportContent(element, options);
-                    case "AzureVMResourceBackup": return VmResourceFeatureSupportContent.DeserializeVmResourceFeatureSupportContent(element, options);
+                    case "AzureBackupGoals": return AzureBackupGoalFeatureSupportRequest.DeserializeAzureBackupGoalFeatureSupportRequest(element, options);
+                    case "AzureVMResourceBackup": return AzureVmResourceFeatureSupportRequest.DeserializeAzureVmResourceFeatureSupportRequest(element, options);
                 }
             }
             return UnknownFeatureSupportRequest.DeserializeUnknownFeatureSupportRequest(element, options);

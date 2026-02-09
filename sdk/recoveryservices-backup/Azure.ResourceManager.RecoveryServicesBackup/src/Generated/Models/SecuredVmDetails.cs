@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -54,13 +53,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Initializes a new instance of <see cref="SecuredVmDetails"/>. </summary>
         /// <param name="securedVmOSDiskEncryptionSetId"> Gets or Sets Disk Encryption Set Id for Secured VM OS Disk. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SecuredVmDetails(ResourceIdentifier securedVmOSDiskEncryptionSetId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal SecuredVmDetails(string securedVmOSDiskEncryptionSetId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SecuredVmOSDiskEncryptionSetId = securedVmOSDiskEncryptionSetId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Gets or Sets Disk Encryption Set Id for Secured VM OS Disk. </summary>
-        public ResourceIdentifier SecuredVmOSDiskEncryptionSetId { get; set; }
+        public string SecuredVmOSDiskEncryptionSetId { get; set; }
     }
 }

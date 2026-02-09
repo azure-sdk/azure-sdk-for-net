@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="friendlyName"> Friendly name of the backup item. </param>
         /// <param name="protectionState"> State of the back up item. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownWorkloadItem(string backupManagementType, string workloadType, string workloadItemType, string friendlyName, BackupProtectionStatus? protectionState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(backupManagementType, workloadType, workloadItemType, friendlyName, protectionState, serializedAdditionalRawData)
+        internal UnknownWorkloadItem(string backupManagementType, string workloadType, string workloadItemType, string friendlyName, ProtectionStatus? protectionState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(backupManagementType, workloadType, workloadItemType, friendlyName, protectionState, serializedAdditionalRawData)
         {
             WorkloadItemType = workloadItemType ?? "Unknown";
         }

@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -53,18 +52,18 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 
         /// <summary> Initializes a new instance of <see cref="ResourceGuardOperationDetail"/>. </summary>
         /// <param name="vaultCriticalOperation"></param>
-        /// <param name="defaultResourceId"></param>
+        /// <param name="defaultResourceRequest"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ResourceGuardOperationDetail(string vaultCriticalOperation, ResourceIdentifier defaultResourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ResourceGuardOperationDetail(string vaultCriticalOperation, string defaultResourceRequest, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             VaultCriticalOperation = vaultCriticalOperation;
-            DefaultResourceId = defaultResourceId;
+            DefaultResourceRequest = defaultResourceRequest;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Gets or sets the vault critical operation. </summary>
         public string VaultCriticalOperation { get; set; }
-        /// <summary> Gets or sets the default resource id. </summary>
-        public ResourceIdentifier DefaultResourceId { get; set; }
+        /// <summary> Gets or sets the default resource request. </summary>
+        public string DefaultResourceRequest { get; set; }
     }
 }

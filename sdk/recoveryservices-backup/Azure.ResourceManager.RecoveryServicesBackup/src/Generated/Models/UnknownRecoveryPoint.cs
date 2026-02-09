@@ -11,12 +11,14 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Unknown version of RecoveryPoint. </summary>
-    internal partial class UnknownRecoveryPoint : BackupGenericRecoveryPoint
+    internal partial class UnknownRecoveryPoint : RecoveryPoint
     {
         /// <summary> Initializes a new instance of <see cref="UnknownRecoveryPoint"/>. </summary>
         /// <param name="objectType"> This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. </param>
+        /// <param name="threatStatus"> Threat status of the recovery point. </param>
+        /// <param name="threatInfo"> Recovery point threat information. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownRecoveryPoint(string objectType, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(objectType, serializedAdditionalRawData)
+        internal UnknownRecoveryPoint(string objectType, ThreatStatus? threatStatus, IReadOnlyList<ThreatInfo> threatInfo, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(objectType, threatStatus, threatInfo, serializedAdditionalRawData)
         {
             ObjectType = objectType ?? "Unknown";
         }

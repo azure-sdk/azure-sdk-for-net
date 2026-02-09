@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="limit"> Limit of usage. </param>
         /// <param name="name"> Name of usage. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BackupManagementUsage(BackupUsagesUnit? unit, string quotaPeriod, DateTimeOffset? nextResetOn, long? currentValue, long? limit, BackupNameInfo name, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BackupManagementUsage(UsagesUnit? unit, string quotaPeriod, DateTimeOffset? nextResetOn, long? currentValue, long? limit, NameInfo name, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Unit = unit;
             QuotaPeriod = quotaPeriod;
@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Unit of the usage. </summary>
-        public BackupUsagesUnit? Unit { get; }
+        public UsagesUnit? Unit { get; }
         /// <summary> Quota period of usage. </summary>
         public string QuotaPeriod { get; }
         /// <summary> Next reset time of usage. </summary>
@@ -80,6 +80,6 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Limit of usage. </summary>
         public long? Limit { get; }
         /// <summary> Name of usage. </summary>
-        public BackupNameInfo Name { get; }
+        public NameInfo Name { get; }
     }
 }

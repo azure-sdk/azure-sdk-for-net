@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -51,17 +50,18 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="sourceRegion"> Source Region. </param>
         /// <param name="dataMoveLevel"> DataMove Level. </param>
         /// <param name="correlationId"> Correlation Id. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sourceResourceId"/> or <paramref name="correlationId"/> is null. </exception>
-        public TriggerDataMoveContent(ResourceIdentifier sourceResourceId, AzureLocation sourceRegion, DataMoveLevel dataMoveLevel, string correlationId)
+        /// <exception cref="ArgumentNullException"> <paramref name="sourceResourceId"/>, <paramref name="sourceRegion"/> or <paramref name="correlationId"/> is null. </exception>
+        public TriggerDataMoveContent(string sourceResourceId, string sourceRegion, DataMoveLevel dataMoveLevel, string correlationId)
         {
             Argument.AssertNotNull(sourceResourceId, nameof(sourceResourceId));
+            Argument.AssertNotNull(sourceRegion, nameof(sourceRegion));
             Argument.AssertNotNull(correlationId, nameof(correlationId));
 
             SourceResourceId = sourceResourceId;
             SourceRegion = sourceRegion;
             DataMoveLevel = dataMoveLevel;
             CorrelationId = correlationId;
-            SourceContainerArmIds = new ChangeTrackingList<ResourceIdentifier>();
+            SourceContainerArmIds = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="TriggerDataMoveContent"/>. </summary>
@@ -70,16 +70,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="dataMoveLevel"> DataMove Level. </param>
         /// <param name="correlationId"> Correlation Id. </param>
         /// <param name="sourceContainerArmIds"> Source Container ArmIds. </param>
-        /// <param name="doesPauseGC"> Pause GC. </param>
+        /// <param name="pauseGC"> Pause GC. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TriggerDataMoveContent(ResourceIdentifier sourceResourceId, AzureLocation sourceRegion, DataMoveLevel dataMoveLevel, string correlationId, IList<ResourceIdentifier> sourceContainerArmIds, bool? doesPauseGC, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TriggerDataMoveContent(string sourceResourceId, string sourceRegion, DataMoveLevel dataMoveLevel, string correlationId, IList<string> sourceContainerArmIds, bool? pauseGC, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             SourceResourceId = sourceResourceId;
             SourceRegion = sourceRegion;
             DataMoveLevel = dataMoveLevel;
             CorrelationId = correlationId;
             SourceContainerArmIds = sourceContainerArmIds;
-            DoesPauseGC = doesPauseGC;
+            PauseGC = pauseGC;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -89,16 +89,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> ARM Id of source vault. </summary>
-        public ResourceIdentifier SourceResourceId { get; }
+        public string SourceResourceId { get; }
         /// <summary> Source Region. </summary>
-        public AzureLocation SourceRegion { get; }
+        public string SourceRegion { get; }
         /// <summary> DataMove Level. </summary>
         public DataMoveLevel DataMoveLevel { get; }
         /// <summary> Correlation Id. </summary>
         public string CorrelationId { get; }
         /// <summary> Source Container ArmIds. </summary>
-        public IList<ResourceIdentifier> SourceContainerArmIds { get; }
+        public IList<string> SourceContainerArmIds { get; }
         /// <summary> Pause GC. </summary>
-        public bool? DoesPauseGC { get; set; }
+        public bool? PauseGC { get; set; }
     }
 }

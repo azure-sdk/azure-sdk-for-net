@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -63,7 +62,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="vaultId"> ARM id of the Recovery Services Vault. </param>
         /// <param name="properties"> Configuration of VM if any needs to be validated like OS type etc. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PreValidateEnableBackupContent(BackupDataSourceType? resourceType, ResourceIdentifier resourceId, ResourceIdentifier vaultId, string properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PreValidateEnableBackupContent(DataSourceType? resourceType, string resourceId, string vaultId, string properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceType = resourceType;
             ResourceId = resourceId;
@@ -73,11 +72,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> ProtectedItem Type- VM, SqlDataBase, AzureFileShare etc. </summary>
-        public BackupDataSourceType? ResourceType { get; set; }
+        public DataSourceType? ResourceType { get; set; }
         /// <summary> ARM Virtual Machine Id. </summary>
-        public ResourceIdentifier ResourceId { get; set; }
+        public string ResourceId { get; set; }
         /// <summary> ARM id of the Recovery Services Vault. </summary>
-        public ResourceIdentifier VaultId { get; set; }
+        public string VaultId { get; set; }
         /// <summary> Configuration of VM if any needs to be validated like OS type etc. </summary>
         public string Properties { get; set; }
     }

@@ -11,19 +11,19 @@ using System.Text.Json;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup
 {
-    public partial class BackupResourceConfigResource : IJsonModel<BackupResourceConfigData>
+    public partial class BackupResourceConfigResource : IJsonModel<BackupResourceConfigResourceData>
     {
-        private static BackupResourceConfigData s_dataDeserializationInstance;
-        private static BackupResourceConfigData DataDeserializationInstance => s_dataDeserializationInstance ??= new();
+        private static BackupResourceConfigResourceData s_dataDeserializationInstance;
+        private static BackupResourceConfigResourceData DataDeserializationInstance => s_dataDeserializationInstance ??= new();
 
-        void IJsonModel<BackupResourceConfigData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<BackupResourceConfigData>)Data).Write(writer, options);
+        void IJsonModel<BackupResourceConfigResourceData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<BackupResourceConfigResourceData>)Data).Write(writer, options);
 
-        BackupResourceConfigData IJsonModel<BackupResourceConfigData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<BackupResourceConfigData>)DataDeserializationInstance).Create(ref reader, options);
+        BackupResourceConfigResourceData IJsonModel<BackupResourceConfigResourceData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<BackupResourceConfigResourceData>)DataDeserializationInstance).Create(ref reader, options);
 
-        BinaryData IPersistableModel<BackupResourceConfigData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<BackupResourceConfigData>(Data, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
+        BinaryData IPersistableModel<BackupResourceConfigResourceData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<BackupResourceConfigResourceData>(Data, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
 
-        BackupResourceConfigData IPersistableModel<BackupResourceConfigData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<BackupResourceConfigData>(data, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
+        BackupResourceConfigResourceData IPersistableModel<BackupResourceConfigResourceData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<BackupResourceConfigResourceData>(data, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
 
-        string IPersistableModel<BackupResourceConfigData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<BackupResourceConfigData>)DataDeserializationInstance).GetFormatFromOptions(options);
+        string IPersistableModel<BackupResourceConfigResourceData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<BackupResourceConfigResourceData>)DataDeserializationInstance).GetFormatFromOptions(options);
     }
 }

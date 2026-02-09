@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             }
             RecoveryPointTierType? type = default;
             RecoveryPointTierStatus? status = default;
-            IDictionary<string, string> extendedInfo = default;
+            IReadOnlyDictionary<string, string> extendedInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    status = property.Value.GetString().ToRecoveryPointTierStatus();
+                    status = new RecoveryPointTierStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("extendedInfo"u8))

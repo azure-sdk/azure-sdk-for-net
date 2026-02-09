@@ -91,8 +91,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            IList<BackupDayOfWeek> daysOfTheWeek = default;
-            IList<BackupWeekOfMonth> weeksOfTheMonth = default;
+            IList<DayOfWeek> daysOfTheWeek = default;
+            IList<WeekOfMonth> weeksOfTheMonth = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -103,10 +103,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    List<BackupDayOfWeek> array = new List<BackupDayOfWeek>();
+                    List<DayOfWeek> array = new List<DayOfWeek>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString().ToBackupDayOfWeek());
+                        array.Add(item.GetString().ToDayOfWeek());
                     }
                     daysOfTheWeek = array;
                     continue;
@@ -117,10 +117,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    List<BackupWeekOfMonth> array = new List<BackupWeekOfMonth>();
+                    List<WeekOfMonth> array = new List<WeekOfMonth>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString().ToBackupWeekOfMonth());
+                        array.Add(item.GetString().ToWeekOfMonth());
                     }
                     weeksOfTheMonth = array;
                     continue;
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new WeeklyRetentionFormat(daysOfTheWeek ?? new ChangeTrackingList<BackupDayOfWeek>(), weeksOfTheMonth ?? new ChangeTrackingList<BackupWeekOfMonth>(), serializedAdditionalRawData);
+            return new WeeklyRetentionFormat(daysOfTheWeek ?? new ChangeTrackingList<DayOfWeek>(), weeksOfTheMonth ?? new ChangeTrackingList<WeekOfMonth>(), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<WeeklyRetentionFormat>.Write(ModelReaderWriterOptions options)

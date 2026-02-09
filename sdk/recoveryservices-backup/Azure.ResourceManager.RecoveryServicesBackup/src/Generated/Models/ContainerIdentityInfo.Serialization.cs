@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             if (Optional.IsDefined(AadTenantId))
             {
                 writer.WritePropertyName("aadTenantId"u8);
-                writer.WriteStringValue(AadTenantId.Value);
+                writer.WriteStringValue(AadTenantId);
             }
             if (Optional.IsDefined(ServicePrincipalClientId))
             {
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             string uniqueName = default;
-            Guid? aadTenantId = default;
+            string aadTenantId = default;
             string servicePrincipalClientId = default;
             string audience = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -106,11 +106,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 if (property.NameEquals("aadTenantId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    aadTenantId = property.Value.GetGuid();
+                    aadTenantId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("servicePrincipalClientId"u8))

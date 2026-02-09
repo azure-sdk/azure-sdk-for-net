@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     /// Base class for tiering cost request.
     /// Specific cost request types are derived from this class.
     /// Please note <see cref="FetchTieringCostInfoContent"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="FetchTieringCostInfoForRehydrationContent"/>, <see cref="FetchTieringCostSavingsInfoForPolicyContent"/>, <see cref="FetchTieringCostSavingsInfoForProtectedItemContent"/> and <see cref="FetchTieringCostSavingsInfoForVaultContent"/>.
+    /// The available derived classes include <see cref="FetchTieringCostInfoForRehydrationRequest"/>, <see cref="FetchTieringCostSavingsInfoForPolicyRequest"/>, <see cref="FetchTieringCostSavingsInfoForProtectedItemRequest"/> and <see cref="FetchTieringCostSavingsInfoForVaultRequest"/>.
     /// </summary>
     public abstract partial class FetchTieringCostInfoContent
     {

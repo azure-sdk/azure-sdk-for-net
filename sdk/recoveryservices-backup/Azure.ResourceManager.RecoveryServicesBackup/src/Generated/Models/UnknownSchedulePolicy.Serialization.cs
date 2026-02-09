@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownSchedulePolicy : IUtf8JsonSerializable, IJsonModel<BackupSchedulePolicy>
+    internal partial class UnknownSchedulePolicy : IUtf8JsonSerializable, IJsonModel<SchedulePolicy>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupSchedulePolicy>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SchedulePolicy>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupSchedulePolicy>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<SchedulePolicy>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupSchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupSchedulePolicy)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(SchedulePolicy)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupSchedulePolicy IJsonModel<BackupSchedulePolicy>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        SchedulePolicy IJsonModel<SchedulePolicy>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupSchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupSchedulePolicy)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(SchedulePolicy)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupSchedulePolicy(document.RootElement, options);
+            return DeserializeSchedulePolicy(document.RootElement, options);
         }
 
         internal static UnknownSchedulePolicy DeserializeUnknownSchedulePolicy(JsonElement element, ModelReaderWriterOptions options = null)
@@ -76,35 +76,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             return new UnknownSchedulePolicy(schedulePolicyType, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupSchedulePolicy>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<SchedulePolicy>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupSchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupSchedulePolicy)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SchedulePolicy)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupSchedulePolicy IPersistableModel<BackupSchedulePolicy>.Create(BinaryData data, ModelReaderWriterOptions options)
+        SchedulePolicy IPersistableModel<SchedulePolicy>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupSchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SchedulePolicy>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupSchedulePolicy(document.RootElement, options);
+                        return DeserializeSchedulePolicy(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupSchedulePolicy)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SchedulePolicy)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupSchedulePolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<SchedulePolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

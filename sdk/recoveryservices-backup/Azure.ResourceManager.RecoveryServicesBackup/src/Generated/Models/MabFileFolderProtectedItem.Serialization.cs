@@ -101,13 +101,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             MabFileFolderProtectedItemExtendedInfo extendedInfo = default;
             string protectedItemType = default;
             BackupManagementType? backupManagementType = default;
-            BackupDataSourceType? workloadType = default;
+            DataSourceType? workloadType = default;
             string containerName = default;
-            ResourceIdentifier sourceResourceId = default;
-            ResourceIdentifier policyId = default;
+            string sourceResourceId = default;
+            string policyId = default;
             DateTimeOffset? lastRecoveryPoint = default;
             string backupSetName = default;
-            BackupCreateMode? createMode = default;
+            CreateMode? createMode = default;
             DateTimeOffset? deferredDeleteTimeInUTC = default;
             bool? isScheduledForDeferredDelete = default;
             string deferredDeleteTimeRemaining = default;
@@ -118,6 +118,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             string policyName = default;
             int? softDeleteRetentionPeriodInDays = default;
             string vaultId = default;
+            SourceSideScanInfo sourceSideScanInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -189,7 +190,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    workloadType = new BackupDataSourceType(property.Value.GetString());
+                    workloadType = new DataSourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("containerName"u8))
@@ -199,20 +200,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 if (property.NameEquals("sourceResourceId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sourceResourceId = new ResourceIdentifier(property.Value.GetString());
+                    sourceResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("policyId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    policyId = new ResourceIdentifier(property.Value.GetString());
+                    policyId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("lastRecoveryPoint"u8))
@@ -235,7 +228,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    createMode = new BackupCreateMode(property.Value.GetString());
+                    createMode = new CreateMode(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("deferredDeleteTimeInUTC"u8))
@@ -321,6 +314,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     vaultId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("sourceSideScanInfo"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sourceSideScanInfo = SourceSideScanInfo.DeserializeSourceSideScanInfo(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -347,6 +349,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 policyName,
                 softDeleteRetentionPeriodInDays,
                 vaultId,
+                sourceSideScanInfo,
                 serializedAdditionalRawData,
                 friendlyName,
                 computerName,

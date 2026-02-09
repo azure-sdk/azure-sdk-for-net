@@ -48,15 +48,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Initializes a new instance of <see cref="WeeklyRetentionFormat"/>. </summary>
         public WeeklyRetentionFormat()
         {
-            DaysOfTheWeek = new ChangeTrackingList<BackupDayOfWeek>();
-            WeeksOfTheMonth = new ChangeTrackingList<BackupWeekOfMonth>();
+            DaysOfTheWeek = new ChangeTrackingList<DayOfWeek>();
+            WeeksOfTheMonth = new ChangeTrackingList<WeekOfMonth>();
         }
 
         /// <summary> Initializes a new instance of <see cref="WeeklyRetentionFormat"/>. </summary>
         /// <param name="daysOfTheWeek"> List of days of the week. </param>
         /// <param name="weeksOfTheMonth"> List of weeks of month. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal WeeklyRetentionFormat(IList<BackupDayOfWeek> daysOfTheWeek, IList<BackupWeekOfMonth> weeksOfTheMonth, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal WeeklyRetentionFormat(IList<DayOfWeek> daysOfTheWeek, IList<WeekOfMonth> weeksOfTheMonth, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DaysOfTheWeek = daysOfTheWeek;
             WeeksOfTheMonth = weeksOfTheMonth;
@@ -64,8 +64,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> List of days of the week. </summary>
-        public IList<BackupDayOfWeek> DaysOfTheWeek { get; }
+        public IList<DayOfWeek> DaysOfTheWeek { get; }
         /// <summary> List of weeks of month. </summary>
-        public IList<BackupWeekOfMonth> WeeksOfTheMonth { get; }
+        public IList<WeekOfMonth> WeeksOfTheMonth { get; }
     }
 }

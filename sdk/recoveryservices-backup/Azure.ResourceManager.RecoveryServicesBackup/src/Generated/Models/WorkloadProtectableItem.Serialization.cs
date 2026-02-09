@@ -97,20 +97,21 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 switch (discriminator.GetString())
                 {
-                    case "AzureFileShare": return FileShareProtectableItem.DeserializeFileShareProtectableItem(element, options);
-                    case "AzureVmWorkloadProtectableItem": return VmWorkloadProtectableItem.DeserializeVmWorkloadProtectableItem(element, options);
-                    case "HanaHSRContainer": return VmWorkloadSapHanaHsrProtectableItem.DeserializeVmWorkloadSapHanaHsrProtectableItem(element, options);
-                    case "IaaSVMProtectableItem": return IaasVmProtectableItem.DeserializeIaasVmProtectableItem(element, options);
-                    case "Microsoft.ClassicCompute/virtualMachines": return IaasClassicComputeVmProtectableItem.DeserializeIaasClassicComputeVmProtectableItem(element, options);
-                    case "Microsoft.Compute/virtualMachines": return IaasComputeVmProtectableItem.DeserializeIaasComputeVmProtectableItem(element, options);
-                    case "SAPAseDatabase": return VmWorkloadSapAseDatabaseProtectableItem.DeserializeVmWorkloadSapAseDatabaseProtectableItem(element, options);
-                    case "SAPAseSystem": return VmWorkloadSapAseSystemProtectableItem.DeserializeVmWorkloadSapAseSystemProtectableItem(element, options);
-                    case "SAPHanaDatabase": return VmWorkloadSapHanaDatabaseProtectableItem.DeserializeVmWorkloadSapHanaDatabaseProtectableItem(element, options);
-                    case "SAPHanaDBInstance": return VmWorkloadSapHanaDBInstance.DeserializeVmWorkloadSapHanaDBInstance(element, options);
-                    case "SAPHanaSystem": return VmWorkloadSapHanaSystemProtectableItem.DeserializeVmWorkloadSapHanaSystemProtectableItem(element, options);
-                    case "SQLAvailabilityGroupContainer": return VmWorkloadSqlAvailabilityGroupProtectableItem.DeserializeVmWorkloadSqlAvailabilityGroupProtectableItem(element, options);
-                    case "SQLDataBase": return VmWorkloadSqlDatabaseProtectableItem.DeserializeVmWorkloadSqlDatabaseProtectableItem(element, options);
-                    case "SQLInstance": return VmWorkloadSqlInstanceProtectableItem.DeserializeVmWorkloadSqlInstanceProtectableItem(element, options);
+                    case "AzureFileShare": return AzureFileShareProtectableItem.DeserializeAzureFileShareProtectableItem(element, options);
+                    case "AzureVmWorkloadProtectableItem": return AzureVmWorkloadProtectableItem.DeserializeAzureVmWorkloadProtectableItem(element, options);
+                    case "HanaHSRContainer": return AzureVmWorkloadSAPHanaHSRProtectableItem.DeserializeAzureVmWorkloadSAPHanaHSRProtectableItem(element, options);
+                    case "HanaScaleoutContainer": return AzureVmWorkloadSAPHanaScaleoutProtectableItem.DeserializeAzureVmWorkloadSAPHanaScaleoutProtectableItem(element, options);
+                    case "IaaSVMProtectableItem": return IaaSVMProtectableItem.DeserializeIaaSVMProtectableItem(element, options);
+                    case "Microsoft.ClassicCompute/virtualMachines": return AzureIaaSClassicComputeVmProtectableItem.DeserializeAzureIaaSClassicComputeVmProtectableItem(element, options);
+                    case "Microsoft.Compute/virtualMachines": return AzureIaaSComputeVmProtectableItem.DeserializeAzureIaaSComputeVmProtectableItem(element, options);
+                    case "SAPAseDatabase": return AzureVmWorkloadSAPAseDatabaseProtectableItem.DeserializeAzureVmWorkloadSAPAseDatabaseProtectableItem(element, options);
+                    case "SAPAseSystem": return AzureVmWorkloadSAPAseSystemProtectableItem.DeserializeAzureVmWorkloadSAPAseSystemProtectableItem(element, options);
+                    case "SAPHanaDatabase": return AzureVmWorkloadSAPHanaDatabaseProtectableItem.DeserializeAzureVmWorkloadSAPHanaDatabaseProtectableItem(element, options);
+                    case "SAPHanaDBInstance": return AzureVmWorkloadSAPHanaDBInstance.DeserializeAzureVmWorkloadSAPHanaDBInstance(element, options);
+                    case "SAPHanaSystem": return AzureVmWorkloadSAPHanaSystemProtectableItem.DeserializeAzureVmWorkloadSAPHanaSystemProtectableItem(element, options);
+                    case "SQLAvailabilityGroupContainer": return AzureVmWorkloadSQLAvailabilityGroupProtectableItem.DeserializeAzureVmWorkloadSQLAvailabilityGroupProtectableItem(element, options);
+                    case "SQLDataBase": return AzureVmWorkloadSQLDatabaseProtectableItem.DeserializeAzureVmWorkloadSQLDatabaseProtectableItem(element, options);
+                    case "SQLInstance": return AzureVmWorkloadSQLInstanceProtectableItem.DeserializeAzureVmWorkloadSQLInstanceProtectableItem(element, options);
                 }
             }
             return UnknownWorkloadProtectableItem.DeserializeUnknownWorkloadProtectableItem(element, options);

@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -50,15 +49,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="targetResourceId"> ARM Id of target vault. </param>
         /// <param name="targetRegion"> Target Region. </param>
         /// <param name="dataMoveLevel"> DataMove Level. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="targetResourceId"/> is null. </exception>
-        public PrepareDataMoveContent(ResourceIdentifier targetResourceId, AzureLocation targetRegion, DataMoveLevel dataMoveLevel)
+        /// <exception cref="ArgumentNullException"> <paramref name="targetResourceId"/> or <paramref name="targetRegion"/> is null. </exception>
+        public PrepareDataMoveContent(string targetResourceId, string targetRegion, DataMoveLevel dataMoveLevel)
         {
             Argument.AssertNotNull(targetResourceId, nameof(targetResourceId));
+            Argument.AssertNotNull(targetRegion, nameof(targetRegion));
 
             TargetResourceId = targetResourceId;
             TargetRegion = targetRegion;
             DataMoveLevel = dataMoveLevel;
-            SourceContainerArmIds = new ChangeTrackingList<ResourceIdentifier>();
+            SourceContainerArmIds = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="PrepareDataMoveContent"/>. </summary>
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// </param>
         /// <param name="ignoreMoved"> Ignore the artifacts which are already moved. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PrepareDataMoveContent(ResourceIdentifier targetResourceId, AzureLocation targetRegion, DataMoveLevel dataMoveLevel, IList<ResourceIdentifier> sourceContainerArmIds, bool? ignoreMoved, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PrepareDataMoveContent(string targetResourceId, string targetRegion, DataMoveLevel dataMoveLevel, IList<string> sourceContainerArmIds, bool? ignoreMoved, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             TargetResourceId = targetResourceId;
             TargetRegion = targetRegion;
@@ -87,16 +87,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> ARM Id of target vault. </summary>
-        public ResourceIdentifier TargetResourceId { get; }
+        public string TargetResourceId { get; }
         /// <summary> Target Region. </summary>
-        public AzureLocation TargetRegion { get; }
+        public string TargetRegion { get; }
         /// <summary> DataMove Level. </summary>
         public DataMoveLevel DataMoveLevel { get; }
         /// <summary>
         /// Source Container ArmIds
         /// This needs to be populated only if DataMoveLevel is set to container
         /// </summary>
-        public IList<ResourceIdentifier> SourceContainerArmIds { get; }
+        public IList<string> SourceContainerArmIds { get; }
         /// <summary> Ignore the artifacts which are already moved. </summary>
         public bool? IgnoreMoved { get; set; }
     }

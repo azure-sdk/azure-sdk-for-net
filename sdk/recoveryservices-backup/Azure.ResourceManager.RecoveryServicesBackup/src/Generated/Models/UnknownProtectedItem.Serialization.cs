@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownProtectedItem : IUtf8JsonSerializable, IJsonModel<BackupGenericProtectedItem>
+    internal partial class UnknownProtectedItem : IUtf8JsonSerializable, IJsonModel<ProtectedItem>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupGenericProtectedItem>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ProtectedItem>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupGenericProtectedItem>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ProtectedItem>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericProtectedItem)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ProtectedItem)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupGenericProtectedItem IJsonModel<BackupGenericProtectedItem>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ProtectedItem IJsonModel<ProtectedItem>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericProtectedItem)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ProtectedItem)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupGenericProtectedItem(document.RootElement, options);
+            return DeserializeProtectedItem(document.RootElement, options);
         }
 
         internal static UnknownProtectedItem DeserializeUnknownProtectedItem(JsonElement element, ModelReaderWriterOptions options = null)
@@ -59,13 +59,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             }
             string protectedItemType = "Unknown";
             BackupManagementType? backupManagementType = default;
-            BackupDataSourceType? workloadType = default;
+            DataSourceType? workloadType = default;
             string containerName = default;
-            ResourceIdentifier sourceResourceId = default;
-            ResourceIdentifier policyId = default;
+            string sourceResourceId = default;
+            string policyId = default;
             DateTimeOffset? lastRecoveryPoint = default;
             string backupSetName = default;
-            BackupCreateMode? createMode = default;
+            CreateMode? createMode = default;
             DateTimeOffset? deferredDeleteTimeInUTC = default;
             bool? isScheduledForDeferredDelete = default;
             string deferredDeleteTimeRemaining = default;
@@ -76,6 +76,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             string policyName = default;
             int? softDeleteRetentionPeriodInDays = default;
             string vaultId = default;
+            SourceSideScanInfo sourceSideScanInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -100,7 +101,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    workloadType = new BackupDataSourceType(property.Value.GetString());
+                    workloadType = new DataSourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("containerName"u8))
@@ -110,20 +111,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 if (property.NameEquals("sourceResourceId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sourceResourceId = new ResourceIdentifier(property.Value.GetString());
+                    sourceResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("policyId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    policyId = new ResourceIdentifier(property.Value.GetString());
+                    policyId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("lastRecoveryPoint"u8))
@@ -146,7 +139,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    createMode = new BackupCreateMode(property.Value.GetString());
+                    createMode = new CreateMode(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("deferredDeleteTimeInUTC"u8))
@@ -232,6 +225,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     vaultId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("sourceSideScanInfo"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sourceSideScanInfo = SourceSideScanInfo.DeserializeSourceSideScanInfo(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -258,38 +260,39 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 policyName,
                 softDeleteRetentionPeriodInDays,
                 vaultId,
+                sourceSideScanInfo,
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupGenericProtectedItem>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ProtectedItem>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericProtectedItem)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ProtectedItem)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupGenericProtectedItem IPersistableModel<BackupGenericProtectedItem>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ProtectedItem IPersistableModel<ProtectedItem>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectedItem>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupGenericProtectedItem(document.RootElement, options);
+                        return DeserializeProtectedItem(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericProtectedItem)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ProtectedItem)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupGenericProtectedItem>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ProtectedItem>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

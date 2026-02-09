@@ -88,6 +88,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             string recoveryPointAdditionalInfo = default;
             RecoveryPointProperties recoveryPointProperties = default;
             string objectType = default;
+            ThreatStatus? threatStatus = default;
+            IReadOnlyList<ThreatInfo> threatInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -130,6 +132,29 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     objectType = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("threatStatus"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    threatStatus = new ThreatStatus(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("threatInfo"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ThreatInfo> array = new List<ThreatInfo>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(Models.ThreatInfo.DeserializeThreatInfo(item, options));
+                    }
+                    threatInfo = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -138,6 +163,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             serializedAdditionalRawData = rawDataDictionary;
             return new GenericRecoveryPoint(
                 objectType,
+                threatStatus,
+                threatInfo ?? new ChangeTrackingList<ThreatInfo>(),
                 serializedAdditionalRawData,
                 friendlyName,
                 recoveryPointType,

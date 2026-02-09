@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Container with items backed up using MAB backup engine. </summary>
-    public partial class MabContainer : BackupGenericProtectionContainer
+    public partial class MabContainer : ProtectionContainer
     {
         /// <summary> Initializes a new instance of <see cref="MabContainer"/>. </summary>
         public MabContainer()
         {
-            MabContainerHealthDetails = new ChangeTrackingList<MabContainerHealthDetails>();
+            MabContainerHealthDetails = new ChangeTrackingList<MABContainerHealthDetails>();
             ContainerType = ProtectableContainerType.Windows;
         }
 
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="extendedInfo"> Additional information for this container. </param>
         /// <param name="mabContainerHealthDetails"> Health details on this mab container. </param>
         /// <param name="containerHealthState"> Health state of mab container. </param>
-        internal MabContainer(string friendlyName, BackupManagementType? backupManagementType, string registrationStatus, string healthStatus, ProtectableContainerType containerType, string protectableObjectType, IDictionary<string, BinaryData> serializedAdditionalRawData, bool? canReRegister, long? containerId, long? protectedItemCount, string agentVersion, MabContainerExtendedInfo extendedInfo, IList<MabContainerHealthDetails> mabContainerHealthDetails, string containerHealthState) : base(friendlyName, backupManagementType, registrationStatus, healthStatus, containerType, protectableObjectType, serializedAdditionalRawData)
+        internal MabContainer(string friendlyName, BackupManagementType? backupManagementType, string registrationStatus, string healthStatus, ProtectableContainerType containerType, string protectableObjectType, IDictionary<string, BinaryData> serializedAdditionalRawData, bool? canReRegister, long? containerId, long? protectedItemCount, string agentVersion, MabContainerExtendedInfo extendedInfo, IList<MABContainerHealthDetails> mabContainerHealthDetails, string containerHealthState) : base(friendlyName, backupManagementType, registrationStatus, healthStatus, containerType, protectableObjectType, serializedAdditionalRawData)
         {
             CanReRegister = canReRegister;
             ContainerId = containerId;
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Additional information for this container. </summary>
         public MabContainerExtendedInfo ExtendedInfo { get; set; }
         /// <summary> Health details on this mab container. </summary>
-        public IList<MabContainerHealthDetails> MabContainerHealthDetails { get; }
+        public IList<MABContainerHealthDetails> MabContainerHealthDetails { get; }
         /// <summary> Health state of mab container. </summary>
         public string ContainerHealthState { get; set; }
     }

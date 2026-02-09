@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// </param>
         /// <param name="rehydrationPriority"> Rehydration Priority. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RecoveryPointRehydrationInfo(TimeSpan? rehydrationRetentionDuration, RehydrationPriority? rehydrationPriority, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RecoveryPointRehydrationInfo(string rehydrationRetentionDuration, RehydrationPriority? rehydrationPriority, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             RehydrationRetentionDuration = rehydrationRetentionDuration;
             RehydrationPriority = rehydrationPriority;
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// How long the rehydrated RP should be kept
         /// Should be ISO8601 Duration format e.g. "P7D"
         /// </summary>
-        public TimeSpan? RehydrationRetentionDuration { get; set; }
+        public string RehydrationRetentionDuration { get; set; }
         /// <summary> Rehydration Priority. </summary>
         public RehydrationPriority? RehydrationPriority { get; set; }
     }

@@ -81,10 +81,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 switch (discriminator.GetString())
                 {
-                    case "FetchTieringCostInfoForRehydrationRequest": return FetchTieringCostInfoForRehydrationContent.DeserializeFetchTieringCostInfoForRehydrationContent(element, options);
-                    case "FetchTieringCostSavingsInfoForPolicyRequest": return FetchTieringCostSavingsInfoForPolicyContent.DeserializeFetchTieringCostSavingsInfoForPolicyContent(element, options);
-                    case "FetchTieringCostSavingsInfoForProtectedItemRequest": return FetchTieringCostSavingsInfoForProtectedItemContent.DeserializeFetchTieringCostSavingsInfoForProtectedItemContent(element, options);
-                    case "FetchTieringCostSavingsInfoForVaultRequest": return FetchTieringCostSavingsInfoForVaultContent.DeserializeFetchTieringCostSavingsInfoForVaultContent(element, options);
+                    case "FetchTieringCostInfoForRehydrationRequest": return FetchTieringCostInfoForRehydrationRequest.DeserializeFetchTieringCostInfoForRehydrationRequest(element, options);
+                    case "FetchTieringCostSavingsInfoForPolicyRequest": return FetchTieringCostSavingsInfoForPolicyRequest.DeserializeFetchTieringCostSavingsInfoForPolicyRequest(element, options);
+                    case "FetchTieringCostSavingsInfoForProtectedItemRequest": return FetchTieringCostSavingsInfoForProtectedItemRequest.DeserializeFetchTieringCostSavingsInfoForProtectedItemRequest(element, options);
+                    case "FetchTieringCostSavingsInfoForVaultRequest": return FetchTieringCostSavingsInfoForVaultRequest.DeserializeFetchTieringCostSavingsInfoForVaultRequest(element, options);
                 }
             }
             return UnknownFetchTieringCostInfoRequest.DeserializeUnknownFetchTieringCostInfoRequest(element, options);

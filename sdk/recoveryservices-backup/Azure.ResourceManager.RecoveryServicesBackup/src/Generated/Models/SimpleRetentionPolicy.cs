@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Simple policy retention. </summary>
-    public partial class SimpleRetentionPolicy : BackupRetentionPolicy
+    public partial class SimpleRetentionPolicy : RetentionPolicy
     {
         /// <summary> Initializes a new instance of <see cref="SimpleRetentionPolicy"/>. </summary>
         public SimpleRetentionPolicy()

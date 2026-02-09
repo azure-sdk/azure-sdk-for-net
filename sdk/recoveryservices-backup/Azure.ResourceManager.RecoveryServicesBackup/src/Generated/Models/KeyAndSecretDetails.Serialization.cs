@@ -86,8 +86,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            KekDetails kekDetails = default;
-            BekDetails bekDetails = default;
+            KEKDetails kekDetails = default;
+            BEKDetails bekDetails = default;
             string encryptionMechanism = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -99,7 +99,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    kekDetails = KekDetails.DeserializeKekDetails(property.Value, options);
+                    kekDetails = KEKDetails.DeserializeKEKDetails(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("bekDetails"u8))
@@ -108,7 +108,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    bekDetails = BekDetails.DeserializeBekDetails(property.Value, options);
+                    bekDetails = BEKDetails.DeserializeBEKDetails(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("encryptionMechanism"u8))

@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using Azure.Core;
 
@@ -47,7 +48,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             if (Optional.IsDefined(ErrorDetail))
             {
                 writer.WritePropertyName("errorDetail"u8);
-                writer.WriteObjectValue(ErrorDetail, options);
+                ((IJsonModel<ResponseError>)ErrorDetail).Write(writer, options);
             }
             if (Optional.IsDefined(SourceResourceId))
             {
@@ -93,7 +94,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             }
             string nodeName = default;
             string status = default;
-            BackupErrorDetail errorDetail = default;
+            ResponseError errorDetail = default;
             string sourceResourceId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -115,7 +116,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    errorDetail = BackupErrorDetail.DeserializeBackupErrorDetail(property.Value, options);
+                    errorDetail = ModelReaderWriter.Read<ResponseError>(new BinaryData(Encoding.UTF8.GetBytes(property.Value.GetRawText())), options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                     continue;
                 }
                 if (property.NameEquals("sourceResourceId"u8))

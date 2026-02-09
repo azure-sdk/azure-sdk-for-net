@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             if (Optional.IsDefined(KeyUri))
             {
                 writer.WritePropertyName("keyUri"u8);
-                writer.WriteStringValue(KeyUri.AbsoluteUri);
+                writer.WriteStringValue(KeyUri);
             }
             if (Optional.IsDefined(SubscriptionId))
             {
@@ -96,8 +96,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            BackupEncryptionAtRestType? encryptionAtRestType = default;
-            Uri keyUri = default;
+            EncryptionAtRestType? encryptionAtRestType = default;
+            string keyUri = default;
             string subscriptionId = default;
             LastUpdateStatus? lastUpdateStatus = default;
             InfrastructureEncryptionState? infrastructureEncryptionState = default;
@@ -111,16 +111,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    encryptionAtRestType = new BackupEncryptionAtRestType(property.Value.GetString());
+                    encryptionAtRestType = new EncryptionAtRestType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("keyUri"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    keyUri = new Uri(property.Value.GetString());
+                    keyUri = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("subscriptionId"u8))

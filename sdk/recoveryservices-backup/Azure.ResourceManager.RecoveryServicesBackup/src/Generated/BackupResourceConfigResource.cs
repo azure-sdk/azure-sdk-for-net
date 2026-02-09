@@ -18,10 +18,10 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.RecoveryServicesBackup
 {
     /// <summary>
-    /// A Class representing a BackupResourceConfig along with the instance operations that can be performed on it.
+    /// A Class representing a BackupResourceConfigResource along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="BackupResourceConfigResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetBackupResourceConfigResource method.
-    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource"/> using the GetBackupResourceConfig method.
+    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource"/> using the GetBackupResourceConfigResource method.
     /// </summary>
     public partial class BackupResourceConfigResource : ArmResource
     {
@@ -35,11 +35,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics;
-        private readonly BackupResourceStorageConfigsNonCRRRestOperations _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient;
-        private readonly ClientDiagnostics _defaultClientDiagnostics;
-        private readonly RecoveryServicesBackupRestOperations _defaultRestClient;
-        private readonly BackupResourceConfigData _data;
+        private readonly ClientDiagnostics _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics;
+        private readonly BackupResourceStorageConfigsNonCRRRestOperations _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient;
+        private readonly ClientDiagnostics _recoveryServicesClientClientDiagnostics;
+        private readonly RecoveryServicesRestOperations _recoveryServicesClientRestClient;
+        private readonly ClientDiagnostics _bmsPrepareDataMoveOperationResultClientDiagnostics;
+        private readonly BMSPrepareDataMoveOperationResultRestOperations _bmsPrepareDataMoveOperationResultRestClient;
+        private readonly BackupResourceConfigResourceData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.RecoveryServices/vaults/backupstorageconfig";
@@ -52,7 +54,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <summary> Initializes a new instance of the <see cref="BackupResourceConfigResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal BackupResourceConfigResource(ArmClient client, BackupResourceConfigData data) : this(client, data.Id)
+        internal BackupResourceConfigResource(ArmClient client, BackupResourceConfigResourceData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
@@ -63,11 +65,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal BackupResourceConfigResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.RecoveryServicesBackup", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string backupResourceConfigBackupResourceStorageConfigsNonCRRApiVersion);
-            _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient = new BackupResourceStorageConfigsNonCRRRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, backupResourceConfigBackupResourceStorageConfigsNonCRRApiVersion);
-            _defaultClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.RecoveryServicesBackup", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-            _defaultRestClient = new RecoveryServicesBackupRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.RecoveryServicesBackup", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string backupResourceConfigResourceBackupResourceStorageConfigsNonCRRApiVersion);
+            _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient = new BackupResourceStorageConfigsNonCRRRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, backupResourceConfigResourceBackupResourceStorageConfigsNonCRRApiVersion);
+            _recoveryServicesClientClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.RecoveryServicesBackup", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _recoveryServicesClientRestClient = new RecoveryServicesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _bmsPrepareDataMoveOperationResultClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.RecoveryServicesBackup", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _bmsPrepareDataMoveOperationResultRestClient = new BMSPrepareDataMoveOperationResultRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -78,7 +82,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual BackupResourceConfigData Data
+        public virtual BackupResourceConfigResourceData Data
         {
             get
             {
@@ -103,11 +107,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -118,11 +122,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<BackupResourceConfigResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Get");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Get");
             scope.Start();
             try
             {
-                var response = await _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BackupResourceConfigResource(Client, response.Value), response.GetRawResponse());
@@ -143,11 +147,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -158,11 +162,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<BackupResourceConfigResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Get");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Get");
             scope.Start();
             try
             {
-                var response = _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                var response = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BackupResourceConfigResource(Client, response.Value), response.GetRawResponse());
@@ -183,11 +187,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Patch</description>
+        /// <description>BackupResourceConfigResource_Patch</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -198,16 +202,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="data"> Vault storage config request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<Response<BackupResourceConfigResource>> UpdateAsync(BackupResourceConfigData data, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> UpdateAsync(BackupResourceConfigResourceData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Update");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Update");
             scope.Start();
             try
             {
-                var response = await _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.PatchAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken).ConfigureAwait(false);
-                return Response.FromValue(new BackupResourceConfigResource(Client, response.Value), response.GetRawResponse());
+                var response = await _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.PatchAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken).ConfigureAwait(false);
+                return response;
             }
             catch (Exception e)
             {
@@ -225,11 +229,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Patch</description>
+        /// <description>BackupResourceConfigResource_Patch</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -240,16 +244,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="data"> Vault storage config request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual Response<BackupResourceConfigResource> Update(BackupResourceConfigData data, CancellationToken cancellationToken = default)
+        public virtual Response Update(BackupResourceConfigResourceData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Update");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.Update");
             scope.Start();
             try
             {
-                var response = _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.Patch(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken);
-                return Response.FromValue(new BackupResourceConfigResource(Client, response.Value), response.GetRawResponse());
+                var response = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.Patch(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
@@ -267,11 +271,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BMSPrepareDataMove</description>
+        /// <description>BackupResourceStorageConfigsNonCRR_BMSPrepareDataMove</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -279,18 +283,18 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="content"> Prepare data move request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation> PrepareDataMoveAsync(WaitUntil waitUntil, PrepareDataMoveContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<OkResponse>> BMSPrepareDataMoveAsync(WaitUntil waitUntil, PrepareDataMoveContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _defaultClientDiagnostics.CreateScope("BackupResourceConfigResource.PrepareDataMove");
+            using var scope = _recoveryServicesClientClientDiagnostics.CreateScope("BackupResourceConfigResource.BMSPrepareDataMove");
             scope.Start();
             try
             {
-                var response = await _defaultRestClient.BMSPrepareDataMoveAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken).ConfigureAwait(false);
-                var operation = new RecoveryServicesBackupArmOperation(_defaultClientDiagnostics, Pipeline, _defaultRestClient.CreateBMSPrepareDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
+                var response = await _recoveryServicesClientRestClient.BMSPrepareDataMoveAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken).ConfigureAwait(false);
+                var operation = new RecoveryServicesBackupArmOperation<OkResponse>(new OkResponseOperationSource(), _recoveryServicesClientClientDiagnostics, Pipeline, _recoveryServicesClientRestClient.CreateBMSPrepareDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
             }
             catch (Exception e)
@@ -309,11 +313,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BMSPrepareDataMove</description>
+        /// <description>BackupResourceStorageConfigsNonCRR_BMSPrepareDataMove</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -321,18 +325,18 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="content"> Prepare data move request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation PrepareDataMove(WaitUntil waitUntil, PrepareDataMoveContent content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<OkResponse> BMSPrepareDataMove(WaitUntil waitUntil, PrepareDataMoveContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _defaultClientDiagnostics.CreateScope("BackupResourceConfigResource.PrepareDataMove");
+            using var scope = _recoveryServicesClientClientDiagnostics.CreateScope("BackupResourceConfigResource.BMSPrepareDataMove");
             scope.Start();
             try
             {
-                var response = _defaultRestClient.BMSPrepareDataMove(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken);
-                var operation = new RecoveryServicesBackupArmOperation(_defaultClientDiagnostics, Pipeline, _defaultRestClient.CreateBMSPrepareDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
+                var response = _recoveryServicesClientRestClient.BMSPrepareDataMove(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken);
+                var operation = new RecoveryServicesBackupArmOperation<OkResponse>(new OkResponseOperationSource(), _recoveryServicesClientClientDiagnostics, Pipeline, _recoveryServicesClientRestClient.CreateBMSPrepareDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletionResponse(cancellationToken);
+                    operation.WaitForCompletion(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -351,11 +355,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BMSTriggerDataMove</description>
+        /// <description>BackupResourceStorageConfigsNonCRR_BMSTriggerDataMove</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -363,18 +367,18 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="content"> Trigger data move request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation> TriggerDataMoveAsync(WaitUntil waitUntil, TriggerDataMoveContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<OkResponse>> BMSTriggerDataMoveAsync(WaitUntil waitUntil, TriggerDataMoveContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _defaultClientDiagnostics.CreateScope("BackupResourceConfigResource.TriggerDataMove");
+            using var scope = _recoveryServicesClientClientDiagnostics.CreateScope("BackupResourceConfigResource.BMSTriggerDataMove");
             scope.Start();
             try
             {
-                var response = await _defaultRestClient.BMSTriggerDataMoveAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken).ConfigureAwait(false);
-                var operation = new RecoveryServicesBackupArmOperation(_defaultClientDiagnostics, Pipeline, _defaultRestClient.CreateBMSTriggerDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
+                var response = await _recoveryServicesClientRestClient.BMSTriggerDataMoveAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken).ConfigureAwait(false);
+                var operation = new RecoveryServicesBackupArmOperation<OkResponse>(new OkResponseOperationSource(), _recoveryServicesClientClientDiagnostics, Pipeline, _recoveryServicesClientRestClient.CreateBMSTriggerDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
             }
             catch (Exception e)
@@ -393,11 +397,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BMSTriggerDataMove</description>
+        /// <description>BackupResourceStorageConfigsNonCRR_BMSTriggerDataMove</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -405,19 +409,175 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="content"> Trigger data move request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation TriggerDataMove(WaitUntil waitUntil, TriggerDataMoveContent content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<OkResponse> BMSTriggerDataMove(WaitUntil waitUntil, TriggerDataMoveContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _defaultClientDiagnostics.CreateScope("BackupResourceConfigResource.TriggerDataMove");
+            using var scope = _recoveryServicesClientClientDiagnostics.CreateScope("BackupResourceConfigResource.BMSTriggerDataMove");
             scope.Start();
             try
             {
-                var response = _defaultRestClient.BMSTriggerDataMove(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken);
-                var operation = new RecoveryServicesBackupArmOperation(_defaultClientDiagnostics, Pipeline, _defaultRestClient.CreateBMSTriggerDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
+                var response = _recoveryServicesClientRestClient.BMSTriggerDataMove(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken);
+                var operation = new RecoveryServicesBackupArmOperation<OkResponse>(new OkResponseOperationSource(), _recoveryServicesClientClientDiagnostics, Pipeline, _recoveryServicesClientRestClient.CreateBMSTriggerDataMoveRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
-                    operation.WaitForCompletionResponse(cancellationToken);
+                    operation.WaitForCompletion(cancellationToken);
                 return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Fetches Operation Result for Prepare Data Move
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupstorageconfig/vaultstorageconfig/operationStatus/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BackupResourceConfigResource_GetOperationStatus</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2026-01-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The name of the BackupResourceConfigResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public virtual async Task<Response<OperationStatus>> GetOperationStatusRecoveryServicesClientAsync(string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            using var scope = _recoveryServicesClientClientDiagnostics.CreateScope("BackupResourceConfigResource.GetOperationStatusRecoveryServicesClient");
+            scope.Start();
+            try
+            {
+                var response = await _recoveryServicesClientRestClient.GetOperationStatusAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, operationId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Fetches Operation Result for Prepare Data Move
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupstorageconfig/vaultstorageconfig/operationStatus/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BackupResourceConfigResource_GetOperationStatus</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2026-01-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The name of the BackupResourceConfigResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public virtual Response<OperationStatus> GetOperationStatusRecoveryServicesClient(string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            using var scope = _recoveryServicesClientClientDiagnostics.CreateScope("BackupResourceConfigResource.GetOperationStatusRecoveryServicesClient");
+            scope.Start();
+            try
+            {
+                var response = _recoveryServicesClientRestClient.GetOperationStatus(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, operationId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Fetches operation status for data move operation on vault
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupstorageconfig/vaultstorageconfig/operationResults/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BackupResourceConfigResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2026-01-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The name of the BackupResourceConfigResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public virtual async Task<Response<VaultStorageConfigOperationResultResponse>> GetBMSPrepareDataMoveOperationResultAsync(string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            using var scope = _bmsPrepareDataMoveOperationResultClientDiagnostics.CreateScope("BackupResourceConfigResource.GetBMSPrepareDataMoveOperationResult");
+            scope.Start();
+            try
+            {
+                var response = await _bmsPrepareDataMoveOperationResultRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, operationId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Fetches operation status for data move operation on vault
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupstorageconfig/vaultstorageconfig/operationResults/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BackupResourceConfigResource_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2026-01-01-preview</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The name of the BackupResourceConfigResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public virtual Response<VaultStorageConfigOperationResultResponse> GetBMSPrepareDataMoveOperationResult(string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            using var scope = _bmsPrepareDataMoveOperationResultClientDiagnostics.CreateScope("BackupResourceConfigResource.GetBMSPrepareDataMoveOperationResult");
+            scope.Start();
+            try
+            {
+                var response = _bmsPrepareDataMoveOperationResultRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, operationId, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
@@ -435,11 +595,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -456,7 +616,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.AddTag");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.AddTag");
             scope.Start();
             try
             {
@@ -465,13 +625,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new BackupResourceConfigResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new BackupResourceConfigData(current.Location);
+                    var patch = new BackupResourceConfigResourceData(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -497,11 +657,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -518,7 +678,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.AddTag");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.AddTag");
             scope.Start();
             try
             {
@@ -527,13 +687,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                    var originalResponse = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                     return Response.FromValue(new BackupResourceConfigResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new BackupResourceConfigData(current.Location);
+                    var patch = new BackupResourceConfigResourceData(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -559,11 +719,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -578,7 +738,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.SetTags");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.SetTags");
             scope.Start();
             try
             {
@@ -588,13 +748,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new BackupResourceConfigResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new BackupResourceConfigData(current.Location);
+                    var patch = new BackupResourceConfigResourceData(current.Location);
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return result;
@@ -616,11 +776,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -635,7 +795,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.SetTags");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.SetTags");
             scope.Start();
             try
             {
@@ -645,13 +805,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                    var originalResponse = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                     return Response.FromValue(new BackupResourceConfigResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new BackupResourceConfigData(current.Location);
+                    var patch = new BackupResourceConfigResourceData(current.Location);
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(patch, cancellationToken: cancellationToken);
                     return result;
@@ -673,11 +833,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -692,7 +852,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.RemoveTag");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.RemoveTag");
             scope.Start();
             try
             {
@@ -701,13 +861,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new BackupResourceConfigResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new BackupResourceConfigData(current.Location);
+                    var patch = new BackupResourceConfigResourceData(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -733,11 +893,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceStorageConfigsNonCRR_Get</description>
+        /// <description>BackupResourceConfigResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -752,7 +912,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _backupResourceConfigBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.RemoveTag");
+            using var scope = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRClientDiagnostics.CreateScope("BackupResourceConfigResource.RemoveTag");
             scope.Start();
             try
             {
@@ -761,13 +921,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _backupResourceConfigBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                    var originalResponse = _backupResourceConfigResourceBackupResourceStorageConfigsNonCRRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                     return Response.FromValue(new BackupResourceConfigResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new BackupResourceConfigData(current.Location);
+                    var patch = new BackupResourceConfigResourceData(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);

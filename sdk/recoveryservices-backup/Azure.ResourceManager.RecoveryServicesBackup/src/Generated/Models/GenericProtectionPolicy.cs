@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Azure VM (Mercury) workload-specific backup policy. </summary>
-    public partial class GenericProtectionPolicy : BackupGenericProtectionPolicy
+    public partial class GenericProtectionPolicy : ProtectionPolicy
     {
         /// <summary> Initializes a new instance of <see cref="GenericProtectionPolicy"/>. </summary>
         public GenericProtectionPolicy()

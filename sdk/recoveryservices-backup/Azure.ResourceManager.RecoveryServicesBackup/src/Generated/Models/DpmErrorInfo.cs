@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DpmErrorInfo"/>. </summary>
-        public DpmErrorInfo()
+        internal DpmErrorInfo()
         {
             Recommendations = new ChangeTrackingList<string>();
         }
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="errorString"> Localized error string. </param>
         /// <param name="recommendations"> List of localized recommendations for above error code. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DpmErrorInfo(string errorString, IList<string> recommendations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DpmErrorInfo(string errorString, IReadOnlyList<string> recommendations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ErrorString = errorString;
             Recommendations = recommendations;
@@ -63,8 +63,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Localized error string. </summary>
-        public string ErrorString { get; set; }
+        public string ErrorString { get; }
         /// <summary> List of localized recommendations for above error code. </summary>
-        public IList<string> Recommendations { get; }
+        public IReadOnlyList<string> Recommendations { get; }
     }
 }

@@ -34,10 +34,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 throw new FormatException($"The model {nameof(WorkloadInquiryDetails)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(WorkloadInquiryDetailsType))
+            if (Optional.IsDefined(Type))
             {
                 writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(WorkloadInquiryDetailsType);
+                writer.WriteStringValue(Type);
             }
             if (Optional.IsDefined(ItemCount))
             {

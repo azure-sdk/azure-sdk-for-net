@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="DiskInformation"/>. </summary>
-        public DiskInformation()
+        internal DiskInformation()
         {
         }
 
@@ -61,9 +61,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets or sets the lun. </summary>
-        public int? Lun { get; set; }
-        /// <summary> Gets or sets the name. </summary>
-        public string Name { get; set; }
+        /// <summary> Gets the lun. </summary>
+        public int? Lun { get; }
+        /// <summary> Gets the name. </summary>
+        public string Name { get; }
     }
 }

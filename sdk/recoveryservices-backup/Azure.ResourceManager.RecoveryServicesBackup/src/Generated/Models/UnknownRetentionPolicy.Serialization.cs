@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownRetentionPolicy : IUtf8JsonSerializable, IJsonModel<BackupRetentionPolicy>
+    internal partial class UnknownRetentionPolicy : IUtf8JsonSerializable, IJsonModel<RetentionPolicy>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupRetentionPolicy>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<RetentionPolicy>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupRetentionPolicy>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<RetentionPolicy>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupRetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupRetentionPolicy)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(RetentionPolicy)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupRetentionPolicy IJsonModel<BackupRetentionPolicy>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        RetentionPolicy IJsonModel<RetentionPolicy>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupRetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupRetentionPolicy)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(RetentionPolicy)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupRetentionPolicy(document.RootElement, options);
+            return DeserializeRetentionPolicy(document.RootElement, options);
         }
 
         internal static UnknownRetentionPolicy DeserializeUnknownRetentionPolicy(JsonElement element, ModelReaderWriterOptions options = null)
@@ -76,35 +76,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             return new UnknownRetentionPolicy(retentionPolicyType, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupRetentionPolicy>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<RetentionPolicy>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupRetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupRetentionPolicy)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(RetentionPolicy)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupRetentionPolicy IPersistableModel<BackupRetentionPolicy>.Create(BinaryData data, ModelReaderWriterOptions options)
+        RetentionPolicy IPersistableModel<RetentionPolicy>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupRetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RetentionPolicy>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupRetentionPolicy(document.RootElement, options);
+                        return DeserializeRetentionPolicy(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupRetentionPolicy)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(RetentionPolicy)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupRetentionPolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<RetentionPolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

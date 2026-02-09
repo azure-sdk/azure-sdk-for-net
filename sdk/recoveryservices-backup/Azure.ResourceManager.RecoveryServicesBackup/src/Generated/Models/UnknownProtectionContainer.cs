@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Unknown version of ProtectionContainer. </summary>
-    internal partial class UnknownProtectionContainer : BackupGenericProtectionContainer
+    internal partial class UnknownProtectionContainer : ProtectionContainer
     {
         /// <summary> Initializes a new instance of <see cref="UnknownProtectionContainer"/>. </summary>
         /// <param name="friendlyName"> Friendly name of the container. </param>

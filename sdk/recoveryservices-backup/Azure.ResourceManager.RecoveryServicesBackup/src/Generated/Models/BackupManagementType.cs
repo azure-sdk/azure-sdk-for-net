@@ -24,8 +24,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 
         private const string InvalidValue = "Invalid";
         private const string AzureIaasVmValue = "AzureIaasVM";
-        private const string MabValue = "MAB";
-        private const string DpmValue = "DPM";
+        private const string MABValue = "MAB";
+        private const string DPMValue = "DPM";
         private const string AzureBackupServerValue = "AzureBackupServer";
         private const string AzureSqlValue = "AzureSql";
         private const string AzureStorageValue = "AzureStorage";
@@ -37,9 +37,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> AzureIaasVM. </summary>
         public static BackupManagementType AzureIaasVm { get; } = new BackupManagementType(AzureIaasVmValue);
         /// <summary> MAB. </summary>
-        public static BackupManagementType Mab { get; } = new BackupManagementType(MabValue);
+        public static BackupManagementType MAB { get; } = new BackupManagementType(MABValue);
         /// <summary> DPM. </summary>
-        public static BackupManagementType Dpm { get; } = new BackupManagementType(DpmValue);
+        public static BackupManagementType DPM { get; } = new BackupManagementType(DPMValue);
         /// <summary> AzureBackupServer. </summary>
         public static BackupManagementType AzureBackupServer { get; } = new BackupManagementType(AzureBackupServerValue);
         /// <summary> AzureSql. </summary>

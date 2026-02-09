@@ -11,10 +11,10 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Data Protection Manager (DPM) specific backup engine. </summary>
-    public partial class DpmBackupEngine : BackupGenericEngine
+    public partial class DpmBackupEngine : BackupEngineBase
     {
         /// <summary> Initializes a new instance of <see cref="DpmBackupEngine"/>. </summary>
-        public DpmBackupEngine()
+        internal DpmBackupEngine()
         {
             BackupEngineType = BackupEngineType.DpmBackupEngine;
         }

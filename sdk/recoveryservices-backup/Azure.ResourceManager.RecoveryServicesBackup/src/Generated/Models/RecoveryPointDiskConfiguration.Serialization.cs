@@ -103,8 +103,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             }
             int? numberOfDisksIncludedInBackup = default;
             int? numberOfDisksAttachedToVm = default;
-            IList<DiskInformation> includedDiskList = default;
-            IList<DiskInformation> excludedDiskList = default;
+            IReadOnlyList<DiskInformation> includedDiskList = default;
+            IReadOnlyList<DiskInformation> excludedDiskList = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())

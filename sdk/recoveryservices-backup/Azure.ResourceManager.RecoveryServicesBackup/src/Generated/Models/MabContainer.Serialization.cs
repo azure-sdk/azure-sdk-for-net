@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             long? protectedItemCount = default;
             string agentVersion = default;
             MabContainerExtendedInfo extendedInfo = default;
-            IList<MabContainerHealthDetails> mabContainerHealthDetails = default;
+            IList<MABContainerHealthDetails> mabContainerHealthDetails = default;
             string containerHealthState = default;
             string friendlyName = default;
             BackupManagementType? backupManagementType = default;
@@ -161,10 +161,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    List<MabContainerHealthDetails> array = new List<MabContainerHealthDetails>();
+                    List<MABContainerHealthDetails> array = new List<MABContainerHealthDetails>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(Models.MabContainerHealthDetails.DeserializeMabContainerHealthDetails(item, options));
+                        array.Add(MABContainerHealthDetails.DeserializeMABContainerHealthDetails(item, options));
                     }
                     mabContainerHealthDetails = array;
                     continue;
@@ -227,7 +227,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 protectedItemCount,
                 agentVersion,
                 extendedInfo,
-                mabContainerHealthDetails ?? new ChangeTrackingList<MabContainerHealthDetails>(),
+                mabContainerHealthDetails ?? new ChangeTrackingList<MABContainerHealthDetails>(),
                 containerHealthState);
         }
 

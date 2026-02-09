@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Get_GetVaultSecurityConfig()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/Common/BackupResourceVaultConfigs_Get.json
-            // this example is just showing the usage of "BackupResourceVaultConfigs_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2026-01-01-preview/Common/BackupResourceVaultConfigs_Get.json
+            // this example is just showing the usage of "BackupResourceVaultConfigResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -34,14 +34,14 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
             string resourceGroupName = "SwaggerTestRg";
             string vaultName = "SwaggerTest";
             ResourceIdentifier backupResourceVaultConfigResourceId = BackupResourceVaultConfigResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, vaultName);
-            BackupResourceVaultConfigResource backupResourceVaultConfig = client.GetBackupResourceVaultConfigResource(backupResourceVaultConfigResourceId);
+            BackupResourceVaultConfigResource backupResourceVaultConfigResource = client.GetBackupResourceVaultConfigResource(backupResourceVaultConfigResourceId);
 
             // invoke the operation
-            BackupResourceVaultConfigResource result = await backupResourceVaultConfig.GetAsync();
+            BackupResourceVaultConfigResource result = await backupResourceVaultConfigResource.GetAsync();
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            BackupResourceVaultConfigData resourceData = result.Data;
+            BackupResourceVaultConfigResourceData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
@@ -50,8 +50,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Update_UpdateVaultSecurityConfig()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/Common/BackupResourceVaultConfigs_Patch.json
-            // this example is just showing the usage of "BackupResourceVaultConfigs_Update" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2026-01-01-preview/Common/BackupResourceVaultConfigs_Patch.json
+            // this example is just showing the usage of "BackupResourceVaultConfigResource_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -64,21 +64,21 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
             string resourceGroupName = "SwaggerTestRg";
             string vaultName = "SwaggerTest";
             ResourceIdentifier backupResourceVaultConfigResourceId = BackupResourceVaultConfigResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, vaultName);
-            BackupResourceVaultConfigResource backupResourceVaultConfig = client.GetBackupResourceVaultConfigResource(backupResourceVaultConfigResourceId);
+            BackupResourceVaultConfigResource backupResourceVaultConfigResource = client.GetBackupResourceVaultConfigResource(backupResourceVaultConfigResourceId);
 
             // invoke the operation
-            BackupResourceVaultConfigData data = new BackupResourceVaultConfigData(default)
+            BackupResourceVaultConfigResourceData data = new BackupResourceVaultConfigResourceData(default)
             {
-                Properties = new BackupResourceVaultConfigProperties
+                Properties = new BackupResourceVaultConfig
                 {
                     EnhancedSecurityState = EnhancedSecurityState.Enabled,
                 },
             };
-            BackupResourceVaultConfigResource result = await backupResourceVaultConfig.UpdateAsync(data);
+            BackupResourceVaultConfigResource result = await backupResourceVaultConfigResource.UpdateAsync(data);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            BackupResourceVaultConfigData resourceData = result.Data;
+            BackupResourceVaultConfigResourceData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }

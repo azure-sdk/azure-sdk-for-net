@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             if (Optional.IsDefined(RehydrationRetentionDuration))
             {
                 writer.WritePropertyName("rehydrationRetentionDuration"u8);
-                writer.WriteStringValue(RehydrationRetentionDuration.Value, "P");
+                writer.WriteStringValue(RehydrationRetentionDuration);
             }
             if (Optional.IsDefined(RehydrationPriority))
             {
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            TimeSpan? rehydrationRetentionDuration = default;
+            string rehydrationRetentionDuration = default;
             RehydrationPriority? rehydrationPriority = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -89,11 +89,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 if (property.NameEquals("rehydrationRetentionDuration"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    rehydrationRetentionDuration = property.Value.GetTimeSpan("P");
+                    rehydrationRetentionDuration = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("rehydrationPriority"u8))

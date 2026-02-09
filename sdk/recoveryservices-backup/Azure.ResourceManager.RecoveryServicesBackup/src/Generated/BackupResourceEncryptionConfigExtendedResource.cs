@@ -18,10 +18,10 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.RecoveryServicesBackup
 {
     /// <summary>
-    /// A Class representing a BackupResourceEncryptionConfigExtended along with the instance operations that can be performed on it.
+    /// A Class representing a BackupResourceEncryptionConfigExtendedResource along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="BackupResourceEncryptionConfigExtendedResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetBackupResourceEncryptionConfigExtendedResource method.
-    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource"/> using the GetBackupResourceEncryptionConfigExtended method.
+    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource"/> using the GetBackupResourceEncryptionConfigExtendedResource method.
     /// </summary>
     public partial class BackupResourceEncryptionConfigExtendedResource : ArmResource
     {
@@ -35,9 +35,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics;
-        private readonly BackupResourceEncryptionConfigsRestOperations _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient;
-        private readonly BackupResourceEncryptionConfigExtendedData _data;
+        private readonly ClientDiagnostics _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics;
+        private readonly BackupResourceEncryptionConfigsRestOperations _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient;
+        private readonly BackupResourceEncryptionConfigExtendedResourceData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.RecoveryServices/vaults/backupEncryptionConfigs";
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <summary> Initializes a new instance of the <see cref="BackupResourceEncryptionConfigExtendedResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal BackupResourceEncryptionConfigExtendedResource(ArmClient client, BackupResourceEncryptionConfigExtendedData data) : this(client, data.Id)
+        internal BackupResourceEncryptionConfigExtendedResource(ArmClient client, BackupResourceEncryptionConfigExtendedResourceData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
@@ -61,9 +61,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal BackupResourceEncryptionConfigExtendedResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.RecoveryServicesBackup", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsApiVersion);
-            _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient = new BackupResourceEncryptionConfigsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsApiVersion);
+            _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.RecoveryServicesBackup", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsApiVersion);
+            _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient = new BackupResourceEncryptionConfigsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual BackupResourceEncryptionConfigExtendedData Data
+        public virtual BackupResourceEncryptionConfigExtendedResourceData Data
         {
             get
             {
@@ -99,11 +99,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -114,11 +114,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<BackupResourceEncryptionConfigExtendedResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Get");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Get");
             scope.Start();
             try
             {
-                var response = await _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, response.Value), response.GetRawResponse());
@@ -139,11 +139,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -154,11 +154,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<BackupResourceEncryptionConfigExtendedResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Get");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Get");
             scope.Start();
             try
             {
-                var response = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                var response = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, response.Value), response.GetRawResponse());
@@ -179,11 +179,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Update</description>
+        /// <description>BackupResourceEncryptionConfigResource_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -195,16 +195,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="content"> Vault encryption input config request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation> UpdateAsync(WaitUntil waitUntil, BackupResourceEncryptionConfigExtendedCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> UpdateAsync(WaitUntil waitUntil, BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Update");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Update");
             scope.Start();
             try
             {
-                var response = await _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken).ConfigureAwait(false);
-                var uri = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.CreateUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content);
+                var response = await _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken).ConfigureAwait(false);
+                var uri = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.CreateUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new RecoveryServicesBackupArmOperation(response, rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -227,11 +227,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Update</description>
+        /// <description>BackupResourceEncryptionConfigResource_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -243,16 +243,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="content"> Vault encryption input config request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation Update(WaitUntil waitUntil, BackupResourceEncryptionConfigExtendedCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation Update(WaitUntil waitUntil, BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Update");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.Update");
             scope.Start();
             try
             {
-                var response = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken);
-                var uri = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.CreateUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content);
+                var response = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content, cancellationToken);
+                var uri = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.CreateUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, content);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new RecoveryServicesBackupArmOperation(response, rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -275,11 +275,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -296,7 +296,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.AddTag");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.AddTag");
             scope.Start();
             try
             {
@@ -305,13 +305,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new BackupResourceEncryptionConfigExtendedCreateOrUpdateContent(current.Location);
+                    var patch = new BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -337,11 +337,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -358,7 +358,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.AddTag");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.AddTag");
             scope.Start();
             try
             {
@@ -367,13 +367,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                    var originalResponse = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                     return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new BackupResourceEncryptionConfigExtendedCreateOrUpdateContent(current.Location);
+                    var patch = new BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -399,11 +399,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -418,7 +418,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.SetTags");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.SetTags");
             scope.Start();
             try
             {
@@ -428,13 +428,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new BackupResourceEncryptionConfigExtendedCreateOrUpdateContent(current.Location);
+                    var patch = new BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent(current.Location);
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -456,11 +456,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -475,7 +475,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.SetTags");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.SetTags");
             scope.Start();
             try
             {
@@ -485,13 +485,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                    var originalResponse = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                     return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new BackupResourceEncryptionConfigExtendedCreateOrUpdateContent(current.Location);
+                    var patch = new BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent(current.Location);
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(WaitUntil.Completed, patch, cancellationToken: cancellationToken);
                     return Get(cancellationToken: cancellationToken);
@@ -513,11 +513,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -532,7 +532,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.RemoveTag");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.RemoveTag");
             scope.Start();
             try
             {
@@ -541,13 +541,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new BackupResourceEncryptionConfigExtendedCreateOrUpdateContent(current.Location);
+                    var patch = new BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -573,11 +573,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>BackupResourceEncryptionConfigs_Get</description>
+        /// <description>BackupResourceEncryptionConfigExtendedResource_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2025-02-01</description>
+        /// <description>2026-01-01-preview</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -592,7 +592,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.RemoveTag");
+            using var scope = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsClientDiagnostics.CreateScope("BackupResourceEncryptionConfigExtendedResource.RemoveTag");
             scope.Start();
             try
             {
@@ -601,13 +601,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _backupResourceEncryptionConfigExtendedBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                    var originalResponse = _backupResourceEncryptionConfigExtendedResourceBackupResourceEncryptionConfigsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
                     return Response.FromValue(new BackupResourceEncryptionConfigExtendedResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new BackupResourceEncryptionConfigExtendedCreateOrUpdateContent(current.Location);
+                    var patch = new BackupResourceEncryptionConfigExtendedResourceCreateOrUpdateContent(current.Location);
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);

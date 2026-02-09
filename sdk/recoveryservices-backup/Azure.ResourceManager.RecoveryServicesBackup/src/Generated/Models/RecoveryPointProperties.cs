@@ -46,28 +46,28 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="RecoveryPointProperties"/>. </summary>
-        public RecoveryPointProperties()
+        internal RecoveryPointProperties()
         {
         }
 
         /// <summary> Initializes a new instance of <see cref="RecoveryPointProperties"/>. </summary>
-        /// <param name="expireOn"> Expiry time of Recovery Point in UTC. </param>
+        /// <param name="expiryTime"> Expiry time of Recovery Point in UTC. </param>
         /// <param name="ruleName"> Rule name tagged on Recovery Point that governs life cycle. </param>
         /// <param name="isSoftDeleted"> Bool to indicate whether RP is in soft delete state or not. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RecoveryPointProperties(DateTimeOffset? expireOn, string ruleName, bool? isSoftDeleted, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RecoveryPointProperties(string expiryTime, string ruleName, bool? isSoftDeleted, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            ExpireOn = expireOn;
+            ExpiryTime = expiryTime;
             RuleName = ruleName;
             IsSoftDeleted = isSoftDeleted;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Expiry time of Recovery Point in UTC. </summary>
-        public DateTimeOffset? ExpireOn { get; set; }
+        public string ExpiryTime { get; }
         /// <summary> Rule name tagged on Recovery Point that governs life cycle. </summary>
-        public string RuleName { get; set; }
+        public string RuleName { get; }
         /// <summary> Bool to indicate whether RP is in soft delete state or not. </summary>
-        public bool? IsSoftDeleted { get; set; }
+        public bool? IsSoftDeleted { get; }
     }
 }

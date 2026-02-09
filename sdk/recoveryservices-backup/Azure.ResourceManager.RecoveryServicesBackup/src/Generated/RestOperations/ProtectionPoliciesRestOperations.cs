@@ -24,14 +24,14 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <summary> Initializes a new instance of ProtectionPoliciesRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
-        /// <param name="endpoint"> server parameter. </param>
-        /// <param name="apiVersion"> Api Version. </param>
+        /// <param name="endpoint"> Service host. </param>
+        /// <param name="apiVersion"> The API version to use for this operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
         public ProtectionPoliciesRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2025-02-01";
+            _apiVersion = apiVersion ?? "2026-01-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -77,14 +77,14 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// Provides the details of the backup policies associated to Recovery Services Vault. This is an asynchronous
         /// operation. Status of the operation can be fetched using GetPolicyOperationResult API.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the VaultResource. </param>
         /// <param name="policyName"> Backup policy information to be fetched. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="policyName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="policyName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<BackupProtectionPolicyData>> GetAsync(string subscriptionId, string resourceGroupName, string vaultName, string policyName, CancellationToken cancellationToken = default)
+        public async Task<Response<ProtectionPolicyResourceData>> GetAsync(string subscriptionId, string resourceGroupName, string vaultName, string policyName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -97,13 +97,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             {
                 case 200:
                     {
-                        BackupProtectionPolicyData value = default;
+                        ProtectionPolicyResourceData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = BackupProtectionPolicyData.DeserializeBackupProtectionPolicyData(document.RootElement);
+                        value = ProtectionPolicyResourceData.DeserializeProtectionPolicyResourceData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((BackupProtectionPolicyData)null, message.Response);
+                    return Response.FromValue((ProtectionPolicyResourceData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -113,14 +113,14 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// Provides the details of the backup policies associated to Recovery Services Vault. This is an asynchronous
         /// operation. Status of the operation can be fetched using GetPolicyOperationResult API.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the VaultResource. </param>
         /// <param name="policyName"> Backup policy information to be fetched. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="policyName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="policyName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<BackupProtectionPolicyData> Get(string subscriptionId, string resourceGroupName, string vaultName, string policyName, CancellationToken cancellationToken = default)
+        public Response<ProtectionPolicyResourceData> Get(string subscriptionId, string resourceGroupName, string vaultName, string policyName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -133,19 +133,19 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             {
                 case 200:
                     {
-                        BackupProtectionPolicyData value = default;
+                        ProtectionPolicyResourceData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = BackupProtectionPolicyData.DeserializeBackupProtectionPolicyData(document.RootElement);
+                        value = ProtectionPolicyResourceData.DeserializeProtectionPolicyResourceData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((BackupProtectionPolicyData)null, message.Response);
+                    return Response.FromValue((ProtectionPolicyResourceData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal RequestUriBuilder CreateCreateOrUpdateRequestUri(string subscriptionId, string resourceGroupName, string vaultName, string policyName, BackupProtectionPolicyData data, string xMsAuthorizationAuxiliary)
+        internal RequestUriBuilder CreateCreateOrUpdateRequestUri(string subscriptionId, string resourceGroupName, string vaultName, string policyName, ProtectionPolicyResourceData data, string xMsAuthorizationAuxiliary)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             return uri;
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string vaultName, string policyName, BackupProtectionPolicyData data, string xMsAuthorizationAuxiliary)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string vaultName, string policyName, ProtectionPolicyResourceData data, string xMsAuthorizationAuxiliary)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -195,7 +195,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// Creates or modifies a backup policy. This is an asynchronous operation. Status of the operation can be fetched
         /// using GetPolicyOperationResult API.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the VaultResource. </param>
         /// <param name="policyName"> Backup policy information to be fetched. </param>
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/>, <paramref name="policyName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="policyName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<BackupProtectionPolicyData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string vaultName, string policyName, BackupProtectionPolicyData data, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ProtectionPolicyResourceData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string vaultName, string policyName, ProtectionPolicyResourceData data, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -218,13 +218,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             {
                 case 200:
                     {
-                        BackupProtectionPolicyData value = default;
+                        ProtectionPolicyResourceData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions, cancellationToken).ConfigureAwait(false);
-                        value = BackupProtectionPolicyData.DeserializeBackupProtectionPolicyData(document.RootElement);
+                        value = ProtectionPolicyResourceData.DeserializeProtectionPolicyResourceData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 202:
-                    return Response.FromValue((BackupProtectionPolicyData)null, message.Response);
+                    return Response.FromValue((ProtectionPolicyResourceData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// Creates or modifies a backup policy. This is an asynchronous operation. Status of the operation can be fetched
         /// using GetPolicyOperationResult API.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the VaultResource. </param>
         /// <param name="policyName"> Backup policy information to be fetched. </param>
@@ -243,7 +243,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/>, <paramref name="policyName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="policyName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<BackupProtectionPolicyData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string vaultName, string policyName, BackupProtectionPolicyData data, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
+        public Response<ProtectionPolicyResourceData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string vaultName, string policyName, ProtectionPolicyResourceData data, string xMsAuthorizationAuxiliary = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -257,13 +257,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             {
                 case 200:
                     {
-                        BackupProtectionPolicyData value = default;
+                        ProtectionPolicyResourceData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream, ModelSerializationExtensions.JsonDocumentOptions);
-                        value = BackupProtectionPolicyData.DeserializeBackupProtectionPolicyData(document.RootElement);
+                        value = ProtectionPolicyResourceData.DeserializeProtectionPolicyResourceData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 202:
-                    return Response.FromValue((BackupProtectionPolicyData)null, message.Response);
+                    return Response.FromValue((ProtectionPolicyResourceData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -302,7 +302,6 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             uri.AppendPath(policyName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
             return message;
         }
@@ -311,7 +310,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// Deletes specified backup policy from your Recovery Services Vault. This is an asynchronous operation. Status of the
         /// operation can be fetched using GetProtectionPolicyOperationResult API.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the VaultResource. </param>
         /// <param name="policyName"> Backup policy information to be fetched. </param>
@@ -342,7 +341,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
         /// Deletes specified backup policy from your Recovery Services Vault. This is an asynchronous operation. Status of the
         /// operation can be fetched using GetProtectionPolicyOperationResult API.
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="vaultName"> The name of the VaultResource. </param>
         /// <param name="policyName"> Backup policy information to be fetched. </param>

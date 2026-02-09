@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using Azure.Core;
 
@@ -42,7 +43,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             if (Optional.IsDefined(ErrorDetail))
             {
                 writer.WritePropertyName("errorDetail"u8);
-                writer.WriteObjectValue(ErrorDetail, options);
+                ((IJsonModel<ResponseError>)ErrorDetail).Write(writer, options);
             }
             if (options.Format != "W" && Optional.IsDefined(AdditionalDetail))
             {
@@ -99,7 +100,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             string status = default;
-            BackupErrorDetail errorDetail = default;
+            ResponseError errorDetail = default;
             string additionalDetail = default;
             BinaryData protectableItemCount = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -117,7 +118,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    errorDetail = BackupErrorDetail.DeserializeBackupErrorDetail(property.Value, options);
+                    errorDetail = ModelReaderWriter.Read<ResponseError>(new BinaryData(Encoding.UTF8.GetBytes(property.Value.GetRawText())), options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                     continue;
                 }
                 if (property.NameEquals("additionalDetail"u8))

@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -56,7 +55,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="resourceId"> Entire ARM resource id of the resource. </param>
         /// <param name="poLogicalName"> Protectable Item Logical Name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BackupStatusContent(BackupDataSourceType? resourceType, ResourceIdentifier resourceId, string poLogicalName, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BackupStatusContent(DataSourceType? resourceType, string resourceId, string poLogicalName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceType = resourceType;
             ResourceId = resourceId;
@@ -65,9 +64,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Container Type - VM, SQLPaaS, DPM, AzureFileShare... </summary>
-        public BackupDataSourceType? ResourceType { get; set; }
+        public DataSourceType? ResourceType { get; set; }
         /// <summary> Entire ARM resource id of the resource. </summary>
-        public ResourceIdentifier ResourceId { get; set; }
+        public string ResourceId { get; set; }
         /// <summary> Protectable Item Logical Name. </summary>
         public string PoLogicalName { get; set; }
     }

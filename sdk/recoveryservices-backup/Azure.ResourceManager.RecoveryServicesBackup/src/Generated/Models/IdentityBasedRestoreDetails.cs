@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -55,7 +54,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="objectType"> Gets the class type. </param>
         /// <param name="targetStorageAccountId"> Fully qualified ARM ID of the target storage account. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal IdentityBasedRestoreDetails(string objectType, ResourceIdentifier targetStorageAccountId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IdentityBasedRestoreDetails(string objectType, string targetStorageAccountId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ObjectType = objectType;
             TargetStorageAccountId = targetStorageAccountId;
@@ -65,6 +64,6 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Gets the class type. </summary>
         public string ObjectType { get; set; }
         /// <summary> Fully qualified ARM ID of the target storage account. </summary>
-        public ResourceIdentifier TargetStorageAccountId { get; set; }
+        public string TargetStorageAccountId { get; set; }
     }
 }

@@ -97,13 +97,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 switch (discriminator.GetString())
                 {
-                    case "AzureVmWorkloadItem": return VmWorkloadItem.DeserializeVmWorkloadItem(element, options);
-                    case "SAPAseDatabase": return VmWorkloadSapAseDatabaseWorkloadItem.DeserializeVmWorkloadSapAseDatabaseWorkloadItem(element, options);
-                    case "SAPAseSystem": return VmWorkloadSapAseSystemWorkloadItem.DeserializeVmWorkloadSapAseSystemWorkloadItem(element, options);
-                    case "SAPHanaDatabase": return VmWorkloadSapHanaDatabaseWorkloadItem.DeserializeVmWorkloadSapHanaDatabaseWorkloadItem(element, options);
-                    case "SAPHanaSystem": return VmWorkloadSapHanaSystemWorkloadItem.DeserializeVmWorkloadSapHanaSystemWorkloadItem(element, options);
-                    case "SQLDataBase": return VmWorkloadSqlDatabaseWorkloadItem.DeserializeVmWorkloadSqlDatabaseWorkloadItem(element, options);
-                    case "SQLInstance": return VmWorkloadSqlInstanceWorkloadItem.DeserializeVmWorkloadSqlInstanceWorkloadItem(element, options);
+                    case "AzureVmWorkloadItem": return AzureVmWorkloadItem.DeserializeAzureVmWorkloadItem(element, options);
+                    case "SAPAseDatabase": return AzureVmWorkloadSAPAseDatabaseWorkloadItem.DeserializeAzureVmWorkloadSAPAseDatabaseWorkloadItem(element, options);
+                    case "SAPAseSystem": return AzureVmWorkloadSAPAseSystemWorkloadItem.DeserializeAzureVmWorkloadSAPAseSystemWorkloadItem(element, options);
+                    case "SAPHanaDatabase": return AzureVmWorkloadSAPHanaDatabaseWorkloadItem.DeserializeAzureVmWorkloadSAPHanaDatabaseWorkloadItem(element, options);
+                    case "SAPHanaSystem": return AzureVmWorkloadSAPHanaSystemWorkloadItem.DeserializeAzureVmWorkloadSAPHanaSystemWorkloadItem(element, options);
+                    case "SQLDataBase": return AzureVmWorkloadSQLDatabaseWorkloadItem.DeserializeAzureVmWorkloadSQLDatabaseWorkloadItem(element, options);
+                    case "SQLInstance": return AzureVmWorkloadSQLInstanceWorkloadItem.DeserializeAzureVmWorkloadSQLInstanceWorkloadItem(element, options);
                 }
             }
             return UnknownWorkloadItem.DeserializeUnknownWorkloadItem(element, options);

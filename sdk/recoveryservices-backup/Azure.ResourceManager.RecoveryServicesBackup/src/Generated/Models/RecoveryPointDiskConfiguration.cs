@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="RecoveryPointDiskConfiguration"/>. </summary>
-        public RecoveryPointDiskConfiguration()
+        internal RecoveryPointDiskConfiguration()
         {
             IncludedDiskList = new ChangeTrackingList<DiskInformation>();
             ExcludedDiskList = new ChangeTrackingList<DiskInformation>();
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="includedDiskList"> Information of disks included in backup. </param>
         /// <param name="excludedDiskList"> Information of disks excluded from backup. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RecoveryPointDiskConfiguration(int? numberOfDisksIncludedInBackup, int? numberOfDisksAttachedToVm, IList<DiskInformation> includedDiskList, IList<DiskInformation> excludedDiskList, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RecoveryPointDiskConfiguration(int? numberOfDisksIncludedInBackup, int? numberOfDisksAttachedToVm, IReadOnlyList<DiskInformation> includedDiskList, IReadOnlyList<DiskInformation> excludedDiskList, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             NumberOfDisksIncludedInBackup = numberOfDisksIncludedInBackup;
             NumberOfDisksAttachedToVm = numberOfDisksAttachedToVm;
@@ -68,12 +68,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Number of disks included in backup. </summary>
-        public int? NumberOfDisksIncludedInBackup { get; set; }
+        public int? NumberOfDisksIncludedInBackup { get; }
         /// <summary> Number of disks attached to the VM. </summary>
-        public int? NumberOfDisksAttachedToVm { get; set; }
+        public int? NumberOfDisksAttachedToVm { get; }
         /// <summary> Information of disks included in backup. </summary>
-        public IList<DiskInformation> IncludedDiskList { get; }
+        public IReadOnlyList<DiskInformation> IncludedDiskList { get; }
         /// <summary> Information of disks excluded from backup. </summary>
-        public IList<DiskInformation> ExcludedDiskList { get; }
+        public IReadOnlyList<DiskInformation> ExcludedDiskList { get; }
     }
 }

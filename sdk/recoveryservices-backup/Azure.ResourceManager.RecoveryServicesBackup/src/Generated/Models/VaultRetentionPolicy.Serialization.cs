@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            BackupRetentionPolicy vaultRetention = default;
+            RetentionPolicy vaultRetention = default;
             int snapshotRetentionInDays = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 if (property.NameEquals("vaultRetention"u8))
                 {
-                    vaultRetention = BackupRetentionPolicy.DeserializeBackupRetentionPolicy(property.Value, options);
+                    vaultRetention = RetentionPolicy.DeserializeRetentionPolicy(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("snapshotRetentionInDays"u8))

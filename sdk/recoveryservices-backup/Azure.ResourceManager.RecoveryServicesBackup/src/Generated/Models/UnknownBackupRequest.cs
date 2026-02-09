@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Unknown version of BackupRequest. </summary>
-    internal partial class UnknownBackupRequest : BackupContent
+    internal partial class UnknownBackupRequest : BackupRequest
     {
         /// <summary> Initializes a new instance of <see cref="UnknownBackupRequest"/>. </summary>
         /// <param name="objectType"> This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. </param>

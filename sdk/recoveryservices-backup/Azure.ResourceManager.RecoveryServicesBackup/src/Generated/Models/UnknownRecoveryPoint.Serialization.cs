@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownRecoveryPoint : IUtf8JsonSerializable, IJsonModel<BackupGenericRecoveryPoint>
+    internal partial class UnknownRecoveryPoint : IUtf8JsonSerializable, IJsonModel<RecoveryPoint>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupGenericRecoveryPoint>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<RecoveryPoint>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupGenericRecoveryPoint>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<RecoveryPoint>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericRecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericRecoveryPoint)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(RecoveryPoint)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupGenericRecoveryPoint IJsonModel<BackupGenericRecoveryPoint>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        RecoveryPoint IJsonModel<RecoveryPoint>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericRecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericRecoveryPoint)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(RecoveryPoint)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupGenericRecoveryPoint(document.RootElement, options);
+            return DeserializeRecoveryPoint(document.RootElement, options);
         }
 
         internal static UnknownRecoveryPoint DeserializeUnknownRecoveryPoint(JsonElement element, ModelReaderWriterOptions options = null)
@@ -58,6 +58,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             string objectType = "Unknown";
+            ThreatStatus? threatStatus = default;
+            IReadOnlyList<ThreatInfo> threatInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -67,44 +69,67 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     objectType = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("threatStatus"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    threatStatus = new ThreatStatus(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("threatInfo"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ThreatInfo> array = new List<ThreatInfo>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(Models.ThreatInfo.DeserializeThreatInfo(item, options));
+                    }
+                    threatInfo = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new UnknownRecoveryPoint(objectType, serializedAdditionalRawData);
+            return new UnknownRecoveryPoint(objectType, threatStatus, threatInfo ?? new ChangeTrackingList<ThreatInfo>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupGenericRecoveryPoint>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<RecoveryPoint>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericRecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericRecoveryPoint)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(RecoveryPoint)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupGenericRecoveryPoint IPersistableModel<BackupGenericRecoveryPoint>.Create(BinaryData data, ModelReaderWriterOptions options)
+        RecoveryPoint IPersistableModel<RecoveryPoint>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericRecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<RecoveryPoint>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupGenericRecoveryPoint(document.RootElement, options);
+                        return DeserializeRecoveryPoint(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericRecoveryPoint)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(RecoveryPoint)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupGenericRecoveryPoint>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<RecoveryPoint>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

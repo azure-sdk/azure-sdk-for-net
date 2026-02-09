@@ -51,20 +51,20 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="WorkloadInquiryDetails"/>. </summary>
-        /// <param name="workloadInquiryDetailsType"> Type of the Workload such as SQL, Oracle etc. </param>
+        /// <param name="type"> Type of the Workload such as SQL, Oracle etc. </param>
         /// <param name="itemCount"> Contains the protectable item Count inside this Container. </param>
         /// <param name="inquiryValidation"> Inquiry validation such as permissions and other backup validations. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal WorkloadInquiryDetails(string workloadInquiryDetailsType, long? itemCount, InquiryValidation inquiryValidation, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal WorkloadInquiryDetails(string type, long? itemCount, InquiryValidation inquiryValidation, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            WorkloadInquiryDetailsType = workloadInquiryDetailsType;
+            Type = type;
             ItemCount = itemCount;
             InquiryValidation = inquiryValidation;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Type of the Workload such as SQL, Oracle etc. </summary>
-        public string WorkloadInquiryDetailsType { get; set; }
+        public string Type { get; set; }
         /// <summary> Contains the protectable item Count inside this Container. </summary>
         public long? ItemCount { get; set; }
         /// <summary> Inquiry validation such as permissions and other backup validations. </summary>

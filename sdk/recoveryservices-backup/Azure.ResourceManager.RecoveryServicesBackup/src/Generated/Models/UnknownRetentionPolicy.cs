@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Unknown version of RetentionPolicy. </summary>
-    internal partial class UnknownRetentionPolicy : BackupRetentionPolicy
+    internal partial class UnknownRetentionPolicy : RetentionPolicy
     {
         /// <summary> Initializes a new instance of <see cref="UnknownRetentionPolicy"/>. </summary>
         /// <param name="retentionPolicyType"> This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types. </param>

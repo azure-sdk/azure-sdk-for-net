@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             string objectType = default;
-            ResourceIdentifier targetStorageAccountId = default;
+            string targetStorageAccountId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,11 +94,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 if (property.NameEquals("targetStorageAccountId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    targetStorageAccountId = new ResourceIdentifier(property.Value.GetString());
+                    targetStorageAccountId = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")

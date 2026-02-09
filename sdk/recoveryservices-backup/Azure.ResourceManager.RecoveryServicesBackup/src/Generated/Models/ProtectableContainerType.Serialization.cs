@@ -13,19 +13,19 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     {
         public static string ToSerialString(this ProtectableContainerType value) => value switch
         {
-            ProtectableContainerType.Unknown => "Unknown",
             ProtectableContainerType.Invalid => "Invalid",
+            ProtectableContainerType.Unknown => "Unknown",
             ProtectableContainerType.IaasVmContainer => "IaasVMContainer",
             ProtectableContainerType.IaasVmServiceContainer => "IaasVMServiceContainer",
-            ProtectableContainerType.DpmContainer => "DPMContainer",
+            ProtectableContainerType.DPMContainer => "DPMContainer",
             ProtectableContainerType.AzureBackupServerContainer => "AzureBackupServerContainer",
-            ProtectableContainerType.MabContainer => "MABContainer",
+            ProtectableContainerType.MABContainer => "MABContainer",
             ProtectableContainerType.Cluster => "Cluster",
             ProtectableContainerType.AzureSqlContainer => "AzureSqlContainer",
             ProtectableContainerType.Windows => "Windows",
             ProtectableContainerType.VCenter => "VCenter",
             ProtectableContainerType.VmAppContainer => "VMAppContainer",
-            ProtectableContainerType.SqlAvailabilityGroupWorkLoadContainer => "SQLAGWorkLoadContainer",
+            ProtectableContainerType.SQLAGWorkLoadContainer => "SQLAGWorkLoadContainer",
             ProtectableContainerType.StorageContainer => "StorageContainer",
             ProtectableContainerType.GenericContainer => "GenericContainer",
             ProtectableContainerType.MicrosoftClassicComputeVirtualMachines => "Microsoft.ClassicCompute/virtualMachines",
@@ -36,19 +36,19 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 
         public static ProtectableContainerType ToProtectableContainerType(this string value)
         {
-            if (StringComparer.OrdinalIgnoreCase.Equals(value, "Unknown")) return ProtectableContainerType.Unknown;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "Invalid")) return ProtectableContainerType.Invalid;
+            if (StringComparer.OrdinalIgnoreCase.Equals(value, "Unknown")) return ProtectableContainerType.Unknown;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "IaasVMContainer")) return ProtectableContainerType.IaasVmContainer;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "IaasVMServiceContainer")) return ProtectableContainerType.IaasVmServiceContainer;
-            if (StringComparer.OrdinalIgnoreCase.Equals(value, "DPMContainer")) return ProtectableContainerType.DpmContainer;
+            if (StringComparer.OrdinalIgnoreCase.Equals(value, "DPMContainer")) return ProtectableContainerType.DPMContainer;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "AzureBackupServerContainer")) return ProtectableContainerType.AzureBackupServerContainer;
-            if (StringComparer.OrdinalIgnoreCase.Equals(value, "MABContainer")) return ProtectableContainerType.MabContainer;
+            if (StringComparer.OrdinalIgnoreCase.Equals(value, "MABContainer")) return ProtectableContainerType.MABContainer;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "Cluster")) return ProtectableContainerType.Cluster;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "AzureSqlContainer")) return ProtectableContainerType.AzureSqlContainer;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "Windows")) return ProtectableContainerType.Windows;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "VCenter")) return ProtectableContainerType.VCenter;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "VMAppContainer")) return ProtectableContainerType.VmAppContainer;
-            if (StringComparer.OrdinalIgnoreCase.Equals(value, "SQLAGWorkLoadContainer")) return ProtectableContainerType.SqlAvailabilityGroupWorkLoadContainer;
+            if (StringComparer.OrdinalIgnoreCase.Equals(value, "SQLAGWorkLoadContainer")) return ProtectableContainerType.SQLAGWorkLoadContainer;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "StorageContainer")) return ProtectableContainerType.StorageContainer;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "GenericContainer")) return ProtectableContainerType.GenericContainer;
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "Microsoft.ClassicCompute/virtualMachines")) return ProtectableContainerType.MicrosoftClassicComputeVirtualMachines;

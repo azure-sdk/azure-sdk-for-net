@@ -34,10 +34,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 throw new FormatException($"The model {nameof(RecoveryPointProperties)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(ExpireOn))
+            if (Optional.IsDefined(ExpiryTime))
             {
                 writer.WritePropertyName("expiryTime"u8);
-                writer.WriteStringValue(ExpireOn.Value, "O");
+                writer.WriteStringValue(ExpiryTime);
             }
             if (Optional.IsDefined(RuleName))
             {
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            DateTimeOffset? expiryTime = default;
+            string expiryTime = default;
             string ruleName = default;
             bool? isSoftDeleted = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -95,11 +95,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 if (property.NameEquals("expiryTime"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    expiryTime = property.Value.GetDateTimeOffset("O");
+                    expiryTime = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("ruleName"u8))

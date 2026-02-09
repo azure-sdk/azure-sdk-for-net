@@ -48,19 +48,14 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WriteStartArray();
                 foreach (var item in SourceContainerArmIds)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
                     writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(DoesPauseGC))
+            if (Optional.IsDefined(PauseGC))
             {
                 writer.WritePropertyName("pauseGC"u8);
-                writer.WriteBooleanValue(DoesPauseGC.Value);
+                writer.WriteBooleanValue(PauseGC.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -99,11 +94,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            ResourceIdentifier sourceResourceId = default;
-            AzureLocation sourceRegion = default;
+            string sourceResourceId = default;
+            string sourceRegion = default;
             DataMoveLevel dataMoveLevel = default;
             string correlationId = default;
-            IList<ResourceIdentifier> sourceContainerArmIds = default;
+            IList<string> sourceContainerArmIds = default;
             bool? pauseGC = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -111,12 +106,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 if (property.NameEquals("sourceResourceId"u8))
                 {
-                    sourceResourceId = new ResourceIdentifier(property.Value.GetString());
+                    sourceResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("sourceRegion"u8))
                 {
-                    sourceRegion = new AzureLocation(property.Value.GetString());
+                    sourceRegion = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("dataMoveLevel"u8))
@@ -135,17 +130,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    List<ResourceIdentifier> array = new List<ResourceIdentifier>();
+                    List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(new ResourceIdentifier(item.GetString()));
-                        }
+                        array.Add(item.GetString());
                     }
                     sourceContainerArmIds = array;
                     continue;
@@ -170,7 +158,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 sourceRegion,
                 dataMoveLevel,
                 correlationId,
-                sourceContainerArmIds ?? new ChangeTrackingList<ResourceIdentifier>(),
+                sourceContainerArmIds ?? new ChangeTrackingList<string>(),
                 pauseGC,
                 serializedAdditionalRawData);
         }

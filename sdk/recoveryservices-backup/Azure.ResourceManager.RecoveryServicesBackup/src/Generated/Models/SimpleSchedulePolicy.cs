@@ -11,12 +11,12 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Simple policy schedule. </summary>
-    public partial class SimpleSchedulePolicy : BackupSchedulePolicy
+    public partial class SimpleSchedulePolicy : SchedulePolicy
     {
         /// <summary> Initializes a new instance of <see cref="SimpleSchedulePolicy"/>. </summary>
         public SimpleSchedulePolicy()
         {
-            ScheduleRunDays = new ChangeTrackingList<BackupDayOfWeek>();
+            ScheduleRunDays = new ChangeTrackingList<DayOfWeek>();
             ScheduleRunTimes = new ChangeTrackingList<DateTimeOffset>();
             SchedulePolicyType = "SimpleSchedulePolicy";
         }
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="scheduleRunTimes"> List of times of day this schedule has to be run. </param>
         /// <param name="hourlySchedule"> Hourly Schedule of this Policy. </param>
         /// <param name="scheduleWeeklyFrequency"> At every number weeks this schedule has to be run. </param>
-        internal SimpleSchedulePolicy(string schedulePolicyType, IDictionary<string, BinaryData> serializedAdditionalRawData, ScheduleRunType? scheduleRunFrequency, IList<BackupDayOfWeek> scheduleRunDays, IList<DateTimeOffset> scheduleRunTimes, BackupHourlySchedule hourlySchedule, int? scheduleWeeklyFrequency) : base(schedulePolicyType, serializedAdditionalRawData)
+        internal SimpleSchedulePolicy(string schedulePolicyType, IDictionary<string, BinaryData> serializedAdditionalRawData, ScheduleRunType? scheduleRunFrequency, IList<DayOfWeek> scheduleRunDays, IList<DateTimeOffset> scheduleRunTimes, HourlySchedule hourlySchedule, int? scheduleWeeklyFrequency) : base(schedulePolicyType, serializedAdditionalRawData)
         {
             ScheduleRunFrequency = scheduleRunFrequency;
             ScheduleRunDays = scheduleRunDays;
@@ -42,11 +42,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Frequency of the schedule operation of this policy. </summary>
         public ScheduleRunType? ScheduleRunFrequency { get; set; }
         /// <summary> List of days of week this schedule has to be run. </summary>
-        public IList<BackupDayOfWeek> ScheduleRunDays { get; }
+        public IList<DayOfWeek> ScheduleRunDays { get; }
         /// <summary> List of times of day this schedule has to be run. </summary>
         public IList<DateTimeOffset> ScheduleRunTimes { get; }
         /// <summary> Hourly Schedule of this Policy. </summary>
-        public BackupHourlySchedule HourlySchedule { get; set; }
+        public HourlySchedule HourlySchedule { get; set; }
         /// <summary> At every number weeks this schedule has to be run. </summary>
         public int? ScheduleWeeklyFrequency { get; set; }
     }

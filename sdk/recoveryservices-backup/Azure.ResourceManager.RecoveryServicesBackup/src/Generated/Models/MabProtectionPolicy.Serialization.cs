@@ -67,8 +67,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            BackupSchedulePolicy schedulePolicy = default;
-            BackupRetentionPolicy retentionPolicy = default;
+            SchedulePolicy schedulePolicy = default;
+            RetentionPolicy retentionPolicy = default;
             int? protectedItemsCount = default;
             string backupManagementType = default;
             IList<string> resourceGuardOperationRequests = default;
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    schedulePolicy = BackupSchedulePolicy.DeserializeBackupSchedulePolicy(property.Value, options);
+                    schedulePolicy = SchedulePolicy.DeserializeSchedulePolicy(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("retentionPolicy"u8))
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    retentionPolicy = BackupRetentionPolicy.DeserializeBackupRetentionPolicy(property.Value, options);
+                    retentionPolicy = RetentionPolicy.DeserializeRetentionPolicy(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("protectedItemsCount"u8))

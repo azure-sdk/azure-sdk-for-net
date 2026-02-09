@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownProtectionIntent : IUtf8JsonSerializable, IJsonModel<BackupGenericProtectionIntent>
+    internal partial class UnknownProtectionIntent : IUtf8JsonSerializable, IJsonModel<ProtectionIntent>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupGenericProtectionIntent>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ProtectionIntent>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupGenericProtectionIntent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ProtectionIntent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericProtectionIntent)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ProtectionIntent)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupGenericProtectionIntent IJsonModel<BackupGenericProtectionIntent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ProtectionIntent IJsonModel<ProtectionIntent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericProtectionIntent)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ProtectionIntent)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupGenericProtectionIntent(document.RootElement, options);
+            return DeserializeProtectionIntent(document.RootElement, options);
         }
 
         internal static UnknownProtectionIntent DeserializeUnknownProtectionIntent(JsonElement element, ModelReaderWriterOptions options = null)
@@ -59,10 +59,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             }
             ProtectionIntentItemType protectionIntentItemType = "Unknown";
             BackupManagementType? backupManagementType = default;
-            ResourceIdentifier sourceResourceId = default;
-            ResourceIdentifier itemId = default;
-            ResourceIdentifier policyId = default;
-            BackupProtectionStatus? protectionState = default;
+            string sourceResourceId = default;
+            string itemId = default;
+            string policyId = default;
+            ProtectionStatus? protectionState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -83,29 +83,17 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 if (property.NameEquals("sourceResourceId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sourceResourceId = new ResourceIdentifier(property.Value.GetString());
+                    sourceResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("itemId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    itemId = new ResourceIdentifier(property.Value.GetString());
+                    itemId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("policyId"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    policyId = new ResourceIdentifier(property.Value.GetString());
+                    policyId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("protectionState"u8))
@@ -114,7 +102,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    protectionState = new BackupProtectionStatus(property.Value.GetString());
+                    protectionState = new ProtectionStatus(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -133,35 +121,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupGenericProtectionIntent>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ProtectionIntent>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericProtectionIntent)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ProtectionIntent)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupGenericProtectionIntent IPersistableModel<BackupGenericProtectionIntent>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ProtectionIntent IPersistableModel<ProtectionIntent>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionIntent>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupGenericProtectionIntent(document.RootElement, options);
+                        return DeserializeProtectionIntent(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericProtectionIntent)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ProtectionIntent)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupGenericProtectionIntent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ProtectionIntent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

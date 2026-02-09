@@ -44,10 +44,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("expiryTimeInUtcTicks"u8);
                 writer.WriteNumberValue(ExpiryTimeInUtcTicks.Value);
             }
-            if (Optional.IsDefined(SecurityPin))
+            if (Optional.IsDefined(SecurityPIN))
             {
                 writer.WritePropertyName("securityPIN"u8);
-                writer.WriteStringValue(SecurityPin);
+                writer.WriteStringValue(SecurityPIN);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             }
             string token = default;
             long? expiryTimeInUtcTicks = default;
-            string securityPin = default;
+            string securityPIN = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 if (property.NameEquals("securityPIN"u8))
                 {
-                    securityPin = property.Value.GetString();
+                    securityPIN = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new TokenInformation(token, expiryTimeInUtcTicks, securityPin, serializedAdditionalRawData);
+            return new TokenInformation(token, expiryTimeInUtcTicks, securityPIN, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<TokenInformation>.Write(ModelReaderWriterOptions options)

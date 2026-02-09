@@ -46,11 +46,6 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WriteStartArray();
                 foreach (var item in SourceContainerArmIds)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
                     writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
@@ -97,10 +92,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            ResourceIdentifier targetResourceId = default;
-            AzureLocation targetRegion = default;
+            string targetResourceId = default;
+            string targetRegion = default;
             DataMoveLevel dataMoveLevel = default;
-            IList<ResourceIdentifier> sourceContainerArmIds = default;
+            IList<string> sourceContainerArmIds = default;
             bool? ignoreMoved = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -108,12 +103,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 if (property.NameEquals("targetResourceId"u8))
                 {
-                    targetResourceId = new ResourceIdentifier(property.Value.GetString());
+                    targetResourceId = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("targetRegion"u8))
                 {
-                    targetRegion = new AzureLocation(property.Value.GetString());
+                    targetRegion = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("dataMoveLevel"u8))
@@ -127,17 +122,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    List<ResourceIdentifier> array = new List<ResourceIdentifier>();
+                    List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(new ResourceIdentifier(item.GetString()));
-                        }
+                        array.Add(item.GetString());
                     }
                     sourceContainerArmIds = array;
                     continue;
@@ -161,7 +149,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 targetResourceId,
                 targetRegion,
                 dataMoveLevel,
-                sourceContainerArmIds ?? new ChangeTrackingList<ResourceIdentifier>(),
+                sourceContainerArmIds ?? new ChangeTrackingList<string>(),
                 ignoreMoved,
                 serializedAdditionalRawData);
         }

@@ -11,60 +11,24 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> List of BackupEngineBase resources. </summary>
-    internal partial class BackupEngineBaseResourceList
+    internal partial class BackupEngineBaseResourceList : ResourceList
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
-
         /// <summary> Initializes a new instance of <see cref="BackupEngineBaseResourceList"/>. </summary>
         internal BackupEngineBaseResourceList()
         {
-            Value = new ChangeTrackingList<BackupEngineData>();
+            Value = new ChangeTrackingList<BackupEngineBaseResourceData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="BackupEngineBaseResourceList"/>. </summary>
-        /// <param name="value"> List of resources. </param>
-        /// <param name="nextLink"> The uri to fetch the next page of resources. </param>
+        /// <param name="nextLink"> The URI to fetch the next page of resources, with each API call returning up to 200 resources per page. Use ListNext() to fetch the next page if the total number of resources exceeds 200. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BackupEngineBaseResourceList(IReadOnlyList<BackupEngineData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="value"> List of resources. </param>
+        internal BackupEngineBaseResourceList(string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData, IReadOnlyList<BackupEngineBaseResourceData> value) : base(nextLink, serializedAdditionalRawData)
         {
             Value = value;
-            NextLink = nextLink;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> List of resources. </summary>
-        public IReadOnlyList<BackupEngineData> Value { get; }
-        /// <summary> The uri to fetch the next page of resources. </summary>
-        public string NextLink { get; }
+        public IReadOnlyList<BackupEngineBaseResourceData> Value { get; }
     }
 }

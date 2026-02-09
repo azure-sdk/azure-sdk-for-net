@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Unknown version of BackupEngineBase. </summary>
-    internal partial class UnknownBackupEngineBase : BackupGenericEngine
+    internal partial class UnknownBackupEngineBase : BackupEngineBase
     {
         /// <summary> Initializes a new instance of <see cref="UnknownBackupEngineBase"/>. </summary>
         /// <param name="friendlyName"> Friendly name of the backup engine. </param>

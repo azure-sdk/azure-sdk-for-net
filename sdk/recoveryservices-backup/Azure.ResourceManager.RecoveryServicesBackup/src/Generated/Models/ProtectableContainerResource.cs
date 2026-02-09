@@ -13,7 +13,7 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
     /// <summary> Protectable Container Class. </summary>
-    public partial class ProtectableContainerResource : TrackedResourceData
+    public partial class ProtectableContainerResource : ResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -48,9 +48,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ProtectableContainerResource"/>. </summary>
-        /// <param name="location"> The location. </param>
-        public ProtectableContainerResource(AzureLocation location) : base(location)
+        internal ProtectableContainerResource()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ProtectableContainerResource"/>. </summary>
@@ -58,34 +58,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="etag"> Optional ETag. </param>
         /// <param name="properties">
         /// ProtectableContainerResource properties
         /// Please note <see cref="ProtectableContainer"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="StorageProtectableContainer"/> and <see cref="VmAppContainerProtectableContainer"/>.
+        /// The available derived classes include <see cref="AzureStorageProtectableContainer"/> and <see cref="AzureVmAppContainerProtectableContainer"/>.
         /// </param>
-        /// <param name="eTag"> Optional ETag. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ProtectableContainerResource(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ProtectableContainer properties, ETag? eTag, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ProtectableContainerResource(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string location, IReadOnlyDictionary<string, string> tags, string etag, ProtectableContainer properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
+            Location = location;
+            Tags = tags;
+            ETag = etag;
             Properties = properties;
-            ETag = eTag;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ProtectableContainerResource"/> for deserialization. </summary>
-        internal ProtectableContainerResource()
-        {
-        }
-
+        /// <summary> Resource location. </summary>
+        public string Location { get; }
+        /// <summary> Resource tags. </summary>
+        public IReadOnlyDictionary<string, string> Tags { get; }
+        /// <summary> Optional ETag. </summary>
+        public string ETag { get; }
         /// <summary>
         /// ProtectableContainerResource properties
         /// Please note <see cref="ProtectableContainer"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="StorageProtectableContainer"/> and <see cref="VmAppContainerProtectableContainer"/>.
+        /// The available derived classes include <see cref="AzureStorageProtectableContainer"/> and <see cref="AzureVmAppContainerProtectableContainer"/>.
         /// </summary>
-        public ProtectableContainer Properties { get; set; }
-        /// <summary> Optional ETag. </summary>
-        public ETag? ETag { get; set; }
+        public ProtectableContainer Properties { get; }
     }
 }

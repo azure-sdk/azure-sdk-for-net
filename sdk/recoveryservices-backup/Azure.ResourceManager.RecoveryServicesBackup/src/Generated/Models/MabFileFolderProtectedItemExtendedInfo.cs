@@ -52,13 +52,13 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 
         /// <summary> Initializes a new instance of <see cref="MabFileFolderProtectedItemExtendedInfo"/>. </summary>
         /// <param name="lastRefreshedOn"> Last time when the agent data synced to service. </param>
-        /// <param name="oldestRecoverOn"> The oldest backup copy available. </param>
+        /// <param name="oldestRecoveryPoint"> The oldest backup copy available. </param>
         /// <param name="recoveryPointCount"> Number of backup copies associated with the backup item. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal MabFileFolderProtectedItemExtendedInfo(DateTimeOffset? lastRefreshedOn, DateTimeOffset? oldestRecoverOn, int? recoveryPointCount, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal MabFileFolderProtectedItemExtendedInfo(DateTimeOffset? lastRefreshedOn, DateTimeOffset? oldestRecoveryPoint, int? recoveryPointCount, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             LastRefreshedOn = lastRefreshedOn;
-            OldestRecoverOn = oldestRecoverOn;
+            OldestRecoveryPoint = oldestRecoveryPoint;
             RecoveryPointCount = recoveryPointCount;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Last time when the agent data synced to service. </summary>
         public DateTimeOffset? LastRefreshedOn { get; set; }
         /// <summary> The oldest backup copy available. </summary>
-        public DateTimeOffset? OldestRecoverOn { get; set; }
+        public DateTimeOffset? OldestRecoveryPoint { get; set; }
         /// <summary> Number of backup copies associated with the backup item. </summary>
         public int? RecoveryPointCount { get; set; }
     }

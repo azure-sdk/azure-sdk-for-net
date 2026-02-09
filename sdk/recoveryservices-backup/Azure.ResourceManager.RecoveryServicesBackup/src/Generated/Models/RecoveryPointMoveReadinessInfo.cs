@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="RecoveryPointMoveReadinessInfo"/>. </summary>
-        public RecoveryPointMoveReadinessInfo()
+        internal RecoveryPointMoveReadinessInfo()
         {
         }
 
@@ -61,9 +61,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Gets or sets the is ready for move. </summary>
-        public bool? IsReadyForMove { get; set; }
-        /// <summary> Gets or sets the additional info. </summary>
-        public string AdditionalInfo { get; set; }
+        /// <summary> Gets the is ready for move. </summary>
+        public bool? IsReadyForMove { get; }
+        /// <summary> Gets the additional info. </summary>
+        public string AdditionalInfo { get; }
     }
 }

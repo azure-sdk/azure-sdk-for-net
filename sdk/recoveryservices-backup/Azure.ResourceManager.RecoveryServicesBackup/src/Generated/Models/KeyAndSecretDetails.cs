@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="KeyAndSecretDetails"/>. </summary>
-        public KeyAndSecretDetails()
+        internal KeyAndSecretDetails()
         {
         }
 
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="bekDetails"> BEK is bitlocker encryption key. </param>
         /// <param name="encryptionMechanism"> Encryption mechanism: None/ SinglePass/ DoublePass. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal KeyAndSecretDetails(KekDetails kekDetails, BekDetails bekDetails, string encryptionMechanism, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal KeyAndSecretDetails(KEKDetails kekDetails, BEKDetails bekDetails, string encryptionMechanism, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             KekDetails = kekDetails;
             BekDetails = bekDetails;
@@ -72,10 +72,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> KEK is encryption key for BEK. </summary>
-        public KekDetails KekDetails { get; set; }
+        public KEKDetails KekDetails { get; }
         /// <summary> BEK is bitlocker encryption key. </summary>
-        public BekDetails BekDetails { get; set; }
+        public BEKDetails BekDetails { get; }
         /// <summary> Encryption mechanism: None/ SinglePass/ DoublePass. </summary>
-        public string EncryptionMechanism { get; set; }
+        public string EncryptionMechanism { get; }
     }
 }

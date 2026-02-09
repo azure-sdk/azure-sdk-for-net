@@ -101,12 +101,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 return null;
             }
-            BackupUsagesUnit? unit = default;
+            UsagesUnit? unit = default;
             string quotaPeriod = default;
             DateTimeOffset? nextResetTime = default;
             long? currentValue = default;
             long? limit = default;
-            BackupNameInfo name = default;
+            NameInfo name = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    unit = new BackupUsagesUnit(property.Value.GetString());
+                    unit = new UsagesUnit(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("quotaPeriod"u8))
@@ -158,7 +158,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    name = BackupNameInfo.DeserializeBackupNameInfo(property.Value, options);
+                    name = NameInfo.DeserializeNameInfo(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

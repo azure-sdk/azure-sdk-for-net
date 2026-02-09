@@ -48,12 +48,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Initializes a new instance of <see cref="VaultRetentionPolicy"/>. </summary>
         /// <param name="vaultRetention">
         /// Base class for retention policy.
-        /// Please note <see cref="BackupRetentionPolicy"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="RetentionPolicy"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="LongTermRetentionPolicy"/> and <see cref="SimpleRetentionPolicy"/>.
         /// </param>
         /// <param name="snapshotRetentionInDays"></param>
         /// <exception cref="ArgumentNullException"> <paramref name="vaultRetention"/> is null. </exception>
-        public VaultRetentionPolicy(BackupRetentionPolicy vaultRetention, int snapshotRetentionInDays)
+        public VaultRetentionPolicy(RetentionPolicy vaultRetention, int snapshotRetentionInDays)
         {
             Argument.AssertNotNull(vaultRetention, nameof(vaultRetention));
 
@@ -64,12 +64,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Initializes a new instance of <see cref="VaultRetentionPolicy"/>. </summary>
         /// <param name="vaultRetention">
         /// Base class for retention policy.
-        /// Please note <see cref="BackupRetentionPolicy"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="RetentionPolicy"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="LongTermRetentionPolicy"/> and <see cref="SimpleRetentionPolicy"/>.
         /// </param>
         /// <param name="snapshotRetentionInDays"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VaultRetentionPolicy(BackupRetentionPolicy vaultRetention, int snapshotRetentionInDays, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VaultRetentionPolicy(RetentionPolicy vaultRetention, int snapshotRetentionInDays, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             VaultRetention = vaultRetention;
             SnapshotRetentionInDays = snapshotRetentionInDays;
@@ -83,10 +83,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 
         /// <summary>
         /// Base class for retention policy.
-        /// Please note <see cref="BackupRetentionPolicy"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// Please note <see cref="RetentionPolicy"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="LongTermRetentionPolicy"/> and <see cref="SimpleRetentionPolicy"/>.
         /// </summary>
-        public BackupRetentionPolicy VaultRetention { get; set; }
+        public RetentionPolicy VaultRetention { get; set; }
         /// <summary> Gets or sets the snapshot retention in days. </summary>
         public int SnapshotRetentionInDays { get; set; }
     }

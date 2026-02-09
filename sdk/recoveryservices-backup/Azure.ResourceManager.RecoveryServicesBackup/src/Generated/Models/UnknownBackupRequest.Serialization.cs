@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownBackupRequest : IUtf8JsonSerializable, IJsonModel<BackupContent>
+    internal partial class UnknownBackupRequest : IUtf8JsonSerializable, IJsonModel<BackupRequest>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupContent>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupRequest>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<BackupRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BackupRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupContent)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(BackupRequest)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupContent IJsonModel<BackupContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        BackupRequest IJsonModel<BackupRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BackupRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupContent)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(BackupRequest)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupContent(document.RootElement, options);
+            return DeserializeBackupRequest(document.RootElement, options);
         }
 
         internal static UnknownBackupRequest DeserializeUnknownBackupRequest(JsonElement element, ModelReaderWriterOptions options = null)
@@ -76,35 +76,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             return new UnknownBackupRequest(objectType, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupContent>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<BackupRequest>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BackupRequest>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupContent)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BackupRequest)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupContent IPersistableModel<BackupContent>.Create(BinaryData data, ModelReaderWriterOptions options)
+        BackupRequest IPersistableModel<BackupRequest>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupContent>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<BackupRequest>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupContent(document.RootElement, options);
+                        return DeserializeBackupRequest(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupContent)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BackupRequest)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<BackupRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

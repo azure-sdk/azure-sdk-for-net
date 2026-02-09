@@ -14,20 +14,20 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     /// </summary>
     internal enum ProtectableContainerType
     {
-        /// <summary> Unknown. </summary>
-        Unknown,
         /// <summary> Invalid. </summary>
         Invalid,
+        /// <summary> Unknown. </summary>
+        Unknown,
         /// <summary> IaasVMContainer. </summary>
         IaasVmContainer,
         /// <summary> IaasVMServiceContainer. </summary>
         IaasVmServiceContainer,
         /// <summary> DPMContainer. </summary>
-        DpmContainer,
+        DPMContainer,
         /// <summary> AzureBackupServerContainer. </summary>
         AzureBackupServerContainer,
         /// <summary> MABContainer. </summary>
-        MabContainer,
+        MABContainer,
         /// <summary> Cluster. </summary>
         Cluster,
         /// <summary> AzureSqlContainer. </summary>
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> VMAppContainer. </summary>
         VmAppContainer,
         /// <summary> SQLAGWorkLoadContainer. </summary>
-        SqlAvailabilityGroupWorkLoadContainer,
+        SQLAGWorkLoadContainer,
         /// <summary> StorageContainer. </summary>
         StorageContainer,
         /// <summary> GenericContainer. </summary>

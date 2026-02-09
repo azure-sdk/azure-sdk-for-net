@@ -48,19 +48,19 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <summary> Initializes a new instance of <see cref="DailyRetentionFormat"/>. </summary>
         public DailyRetentionFormat()
         {
-            DaysOfTheMonth = new ChangeTrackingList<BackupDay>();
+            DaysOfTheMonth = new ChangeTrackingList<Day>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DailyRetentionFormat"/>. </summary>
         /// <param name="daysOfTheMonth"> List of days of the month. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DailyRetentionFormat(IList<BackupDay> daysOfTheMonth, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DailyRetentionFormat(IList<Day> daysOfTheMonth, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DaysOfTheMonth = daysOfTheMonth;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> List of days of the month. </summary>
-        public IList<BackupDay> DaysOfTheMonth { get; }
+        public IList<Day> DaysOfTheMonth { get; }
     }
 }

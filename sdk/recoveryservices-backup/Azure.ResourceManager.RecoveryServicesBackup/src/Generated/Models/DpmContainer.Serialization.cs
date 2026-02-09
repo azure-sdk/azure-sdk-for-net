@@ -65,10 +65,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(IsUpgradeAvailable))
+            if (Optional.IsDefined(UpgradeAvailable))
             {
                 writer.WritePropertyName("upgradeAvailable"u8);
-                writer.WriteBooleanValue(IsUpgradeAvailable.Value);
+                writer.WriteBooleanValue(UpgradeAvailable.Value);
             }
             if (Optional.IsDefined(ProtectionStatus))
             {
@@ -106,7 +106,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             {
                 switch (discriminator.GetString())
                 {
-                    case "AzureBackupServerContainer": return BackupServerContainer.DeserializeBackupServerContainer(element, options);
+                    case "AzureBackupServerContainer": return AzureBackupServerContainer.DeserializeAzureBackupServerContainer(element, options);
                 }
             }
             bool? canReRegister = default;
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             IList<string> dpmServers = default;
             bool? upgradeAvailable = default;
             string protectionStatus = default;
-            DpmContainerExtendedInfo extendedInfo = default;
+            DPMContainerExtendedInfo extendedInfo = default;
             string friendlyName = default;
             BackupManagementType? backupManagementType = default;
             string registrationStatus = default;
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    extendedInfo = DpmContainerExtendedInfo.DeserializeDpmContainerExtendedInfo(property.Value, options);
+                    extendedInfo = DPMContainerExtendedInfo.DeserializeDPMContainerExtendedInfo(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("friendlyName"u8))

@@ -19,75 +19,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetSoftDeletedProtectionContainers_ListBackupProtectionContainers()
-        {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/AzureStorage/SoftDeletedContainers_List.json
-            // this example is just showing the usage of "DeletedProtectionContainers_List" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "testRg";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // invoke the operation and iterate over the result
-            string vaultName = "testVault";
-            string filter = "backupManagementType eq 'AzureWorkload'";
-            await foreach (BackupProtectionContainerResource item in resourceGroupResource.GetSoftDeletedProtectionContainersAsync(vaultName, filter: filter))
-            {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                BackupProtectionContainerData resourceData = item.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-            }
-
-            Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task GetProtectableContainers_ListProtectableItemsWithBackupManagementTypeFilterAsAzureStorage()
-        {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/AzureStorage/ProtectableContainers_List.json
-            // this example is just showing the usage of "ProtectableContainers_List" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "testRg";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // invoke the operation and iterate over the result
-            string vaultName = "testvault";
-            string fabricName = "Azure";
-            string filter = "backupManagementType eq 'AzureStorage' and workloadType eq 'AzureFileShare'";
-            await foreach (ProtectableContainerResource item in resourceGroupResource.GetProtectableContainersAsync(vaultName, fabricName, filter: filter))
-            {
-                Console.WriteLine($"Succeeded: {item}");
-            }
-
-            Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
         public async Task RefreshProtectionContainer_TriggerAzureVmDiscovery()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/Common/RefreshContainers.json
-            // this example is just showing the usage of "ProtectionContainers_Refresh" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2026-01-01-preview/Common/RefreshContainers.json
+            // this example is just showing the usage of "ProtectionContainersOperationGroup_Refresh" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -111,9 +46,123 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
+        public async Task GetExportJobsOperationResult_ExportJobsOperationResults()
+        {
+            // Generated from example definition: 2026-01-01-preview/Common/ExportJobsOperationResult.json
+            // this example is just showing the usage of "JobResource_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "NetSDKTestRsVault";
+            string operationId = "00000000-0000-0000-0000-000000000000";
+            OperationResultInfoBaseResource result = await resourceGroupResource.GetExportJobsOperationResultAsync(vaultName, operationId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetBackupProtectionIntents_ListProtectionIntentWithBackupManagementTypeFilter()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureWorkload/BackupProtectionIntent_List.json
+            // this example is just showing the usage of "BackupProtectionIntent_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            string vaultName = "myVault";
+            await foreach (ProtectionIntentResource item in resourceGroupResource.GetBackupProtectionIntentsAsync(vaultName))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetBackupUsageSummaries_GetProtectedItemsUsagesSummary()
+        {
+            // Generated from example definition: 2026-01-01-preview/Common/BackupProtectedItem_UsageSummary_Get.json
+            // this example is just showing the usage of "BackupUsageSummaries_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            string vaultName = "testVault";
+            await foreach (BackupManagementUsage item in resourceGroupResource.GetBackupUsageSummariesAsync(vaultName))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetBackupUsageSummaries_GetProtectedContainersUsagesSummary()
+        {
+            // Generated from example definition: 2026-01-01-preview/Common/BackupProtectionContainers_UsageSummary_Get.json
+            // this example is just showing the usage of "BackupUsageSummaries_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            string vaultName = "testVault";
+            await foreach (BackupManagementUsage item in resourceGroupResource.GetBackupUsageSummariesAsync(vaultName))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
         public async Task ExportJob_ExportJobs()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/Common/TriggerExportJobs.json
+            // Generated from example definition: 2026-01-01-preview/Common/TriggerExportJobs.json
             // this example is just showing the usage of "Jobs_Export" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -137,39 +186,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBackupProtectableItems_ListProtectableItemsWithBackupManagementTypeFilterAsAzureIaasVm()
-        {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/AzureIaasVm/BackupProtectableItems_List.json
-            // this example is just showing the usage of "BackupProtectableItems_List" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "SwaggerTestRg";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // invoke the operation and iterate over the result
-            string vaultName = "NetSDKTestRsVault";
-            string filter = "backupManagementType eq 'AzureIaasVM'";
-            await foreach (WorkloadProtectableItemResource item in resourceGroupResource.GetBackupProtectableItemsAsync(vaultName, filter: filter))
-            {
-                Console.WriteLine($"Succeeded: {item}");
-            }
-
-            Console.WriteLine("Succeeded");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
         public async Task GetBackupProtectedItems_ListProtectedItemsWithBackupManagementTypeFilterAsAzureIaasVm()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/AzureIaasVm/BackupProtectedItems_List.json
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/BackupProtectedItems_List.json
             // this example is just showing the usage of "BackupProtectedItems_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -186,14 +205,253 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
             // invoke the operation and iterate over the result
             string vaultName = "NetSDKTestRsVault";
-            string filter = "backupManagementType eq 'AzureIaasVM' and itemType eq 'VM'";
-            await foreach (BackupProtectedItemResource item in resourceGroupResource.GetBackupProtectedItemsAsync(vaultName, filter: filter))
+            await foreach (ProtectedItemResourceData item in resourceGroupResource.GetBackupProtectedItemsAsync(vaultName))
             {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                BackupProtectedItemData resourceData = item.Data;
                 // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+                Console.WriteLine($"Succeeded on id: {item.Id}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task TriggerValidateOperation_TriggerValidateOperation()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/TriggerValidateOperation_RestoreDisk.json
+            // this example is just showing the usage of "ValidateOperation_Trigger" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "testVault";
+            ValidateOperationRequestResource validateOperationRequestResource = new ValidateOperationRequestResource("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testVault/providers/Microsoft.RecoveryServices/vaults/testVault/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;testRG;testvmName/protectedItems/VM;iaasvmcontainerv2;testRG;testvmName/recoveryPoints/348916168024334", new ValidateIaasVmRestoreOperationRequest
+            {
+                RestoreRequest = new IaasVmRestoreRequest
+                {
+                    RecoveryPointId = "348916168024334",
+                    RecoveryType = RecoveryType.RestoreDisks,
+                    SourceResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/netsdktestrg/providers/Microsoft.Compute/virtualMachines/netvmtestv2vm1",
+                    StorageAccountId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testingRg/providers/Microsoft.Storage/storageAccounts/testAccount",
+                    Region = "southeastasia",
+                    CreateNewCloudService = true,
+                    OriginalStorageAccountOption = false,
+                    EncryptionDetails = new EncryptionDetails
+                    {
+                        EncryptionEnabled = false,
+                    },
+                    IdentityInfo = new IdentityInfo
+                    {
+                        IsSystemAssignedIdentity = false,
+                        ManagedIdentityResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/asmaskarRG1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/asmaskartestmsi",
+                    },
+                },
+            });
+            await resourceGroupResource.TriggerValidateOperationAsync(WaitUntil.Completed, vaultName, validateOperationRequestResource);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetValidateOperationResult_GetOperationResultsOfValidateOperation()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/ValidateOperationResults.json
+            // this example is just showing the usage of "ValidateOperationResults_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "NetSDKTestRsVault";
+            string operationId = "00000000-0000-0000-0000-000000000000";
+            ValidateOperationsResponse result = await resourceGroupResource.GetValidateOperationResultAsync(vaultName, operationId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetValidateOperationStatus_GetOperationStatusOfValidateOperation()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/ValidateOperationStatus.json
+            // this example is just showing the usage of "ValidateOperationStatuses_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "NetSDKTestRsVault";
+            string operationId = "00000000-0000-0000-0000-000000000000";
+            OperationStatus result = await resourceGroupResource.GetValidateOperationStatusAsync(vaultName, operationId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetProtectionContainerRefreshOperationResult_AzureVmDiscoveryOperationResult()
+        {
+            // Generated from example definition: 2026-01-01-preview/Common/RefreshContainers_OperationResults.json
+            // this example is just showing the usage of "ProtectionContainerRefreshOperationResults_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "NetSDKTestRsVault";
+            string fabricName = "Azure";
+            string operationId = "00000000-0000-0000-0000-000000000000";
+            await resourceGroupResource.GetProtectionContainerRefreshOperationResultAsync(vaultName, fabricName, operationId);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetProtectableContainers_ListProtectableItemsWithBackupManagementTypeFilterAsAzureStorage()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureStorage/ProtectableContainers_List.json
+            // this example is just showing the usage of "ProtectableContainers_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            string vaultName = "testvault";
+            string fabricName = "Azure";
+            await foreach (ProtectableContainerResource item in resourceGroupResource.GetProtectableContainersAsync(vaultName, fabricName))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetBackupOperationResult_GetResultForProtectedItemDeleteOperation()
+        {
+            // Generated from example definition: 2026-01-01-preview/Common/ProtectedItem_Delete_OperationResult.json
+            // this example is just showing the usage of "BackupOperationResults_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "PythonSDKBackupTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "PySDKBackupTestRsVault";
+            string operationId = "00000000-0000-0000-0000-000000000000";
+            await resourceGroupResource.GetBackupOperationResultAsync(vaultName, operationId);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetBackupOperationStatus_GetProtectedItemDeleteOperationStatus()
+        {
+            // Generated from example definition: 2026-01-01-preview/Common/ProtectedItem_Delete_OperationStatus.json
+            // this example is just showing the usage of "BackupOperationStatuses_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "PythonSDKBackupTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "PySDKBackupTestRsVault";
+            string operationId = "00000000-0000-0000-0000-000000000000";
+            OperationStatus result = await resourceGroupResource.GetBackupOperationStatusAsync(vaultName, operationId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetBackupProtectableItems_ListProtectableItemsWithBackupManagementTypeFilterAsAzureIaasVm()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/BackupProtectableItems_List.json
+            // this example is just showing the usage of "BackupProtectableItems_List" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "SwaggerTestRg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation and iterate over the result
+            string vaultName = "NetSDKTestRsVault";
+            await foreach (WorkloadProtectableItemResource item in resourceGroupResource.GetBackupProtectableItemsAsync(vaultName))
+            {
+                Console.WriteLine($"Succeeded: {item}");
             }
 
             Console.WriteLine("Succeeded");
@@ -203,7 +461,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetBackupProtectionContainers_ListBackupProtectionContainers()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/AzureStorage/ProtectionContainers_List.json
+            // Generated from example definition: 2026-01-01-preview/AzureStorage/ProtectionContainers_List.json
             // this example is just showing the usage of "BackupProtectionContainers_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -220,14 +478,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
             // invoke the operation and iterate over the result
             string vaultName = "testVault";
-            string filter = "backupManagementType eq 'AzureWorkload'";
-            await foreach (BackupProtectionContainerResource item in resourceGroupResource.GetBackupProtectionContainersAsync(vaultName, filter: filter))
+            await foreach (ProtectionContainerResourceData item in resourceGroupResource.GetBackupProtectionContainersAsync(vaultName))
             {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                BackupProtectionContainerData resourceData = item.Data;
                 // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+                Console.WriteLine($"Succeeded on id: {item.Id}");
             }
 
             Console.WriteLine("Succeeded");
@@ -235,10 +489,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBackupProtectionIntents_ListProtectionIntentWithBackupManagementTypeFilter()
+        public async Task GetDeletedProtectionContainers_ListBackupProtectionContainers()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/AzureWorkload/BackupProtectionIntent_List.json
-            // this example is just showing the usage of "BackupProtectionIntent_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2026-01-01-preview/AzureStorage/SoftDeletedContainers_List.json
+            // this example is just showing the usage of "DeletedProtectionContainers_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -248,19 +502,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
             // this example assumes you already have this ResourceGroupResource created on azure
             // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "myRG";
+            string resourceGroupName = "testRg";
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
             // invoke the operation and iterate over the result
-            string vaultName = "myVault";
-            await foreach (BackupProtectionIntentResource item in resourceGroupResource.GetBackupProtectionIntentsAsync(vaultName))
+            string vaultName = "testVault";
+            await foreach (ProtectionContainerResourceData item in resourceGroupResource.GetDeletedProtectionContainersAsync(vaultName))
             {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                BackupProtectionIntentData resourceData = item.Data;
                 // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+                Console.WriteLine($"Succeeded on id: {item.Id}");
             }
 
             Console.WriteLine("Succeeded");
@@ -268,9 +519,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetSecurityPin_GetVaultSecurityPin()
+        public async Task GetSecurityPIN_GetVaultSecurityPin()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/Common/BackupSecurityPin_Get.json
+            // Generated from example definition: 2026-01-01-preview/Common/BackupSecurityPin_Get.json
             // this example is just showing the usage of "SecurityPINs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -287,16 +538,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
             // invoke the operation
             string vaultName = "SwaggerTest";
-            TokenInformation result = await resourceGroupResource.GetSecurityPinAsync(vaultName);
+            TokenInformation result = await resourceGroupResource.GetSecurityPINAsync(vaultName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task PostFetchTieringCost_GetTheRehydrationCostForRecoveryPoint()
+        public async Task PostFetchTieringCost_GetTheTieringSavingsCostInfoForPolicy()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/TieringCost/FetchTieringCostForRehydrate.json
+            // Generated from example definition: 2026-01-01-preview/TieringCost/FetchTieringCostForPolicy.json
             // this example is just showing the usage of "FetchTieringCost_Post" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -313,7 +564,63 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
             // invoke the operation
             string vaultName = "testVault";
-            FetchTieringCostInfoContent content = new FetchTieringCostInfoForRehydrationContent(
+            FetchTieringCostInfoContent content = new FetchTieringCostSavingsInfoForPolicyRequest(RecoveryPointTierType.HardenedRP, RecoveryPointTierType.ArchivedRP, "monthly");
+            ArmOperation<TieringCostInfo> lro = await resourceGroupResource.PostFetchTieringCostAsync(WaitUntil.Completed, vaultName, content);
+            TieringCostInfo result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task PostFetchTieringCost_GetTheTieringSavingsCostInfoForProtectedItem()
+        {
+            // Generated from example definition: 2026-01-01-preview/TieringCost/FetchTieringCostForProtectedItem.json
+            // this example is just showing the usage of "FetchTieringCost_Post" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "netsdktestrg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "testVault";
+            FetchTieringCostInfoContent content = new FetchTieringCostSavingsInfoForProtectedItemRequest(RecoveryPointTierType.HardenedRP, RecoveryPointTierType.ArchivedRP, "IaasVMContainer;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1", "VM;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1");
+            ArmOperation<TieringCostInfo> lro = await resourceGroupResource.PostFetchTieringCostAsync(WaitUntil.Completed, vaultName, content);
+            TieringCostInfo result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task PostFetchTieringCost_GetTheRehydrationCostForRecoveryPoint()
+        {
+            // Generated from example definition: 2026-01-01-preview/TieringCost/FetchTieringCostForRehydrate.json
+            // this example is just showing the usage of "FetchTieringCost_Post" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "netsdktestrg";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "testVault";
+            FetchTieringCostInfoContent content = new FetchTieringCostInfoForRehydrationRequest(
                 RecoveryPointTierType.ArchivedRP,
                 RecoveryPointTierType.HardenedRP,
                 "IaasVMContainer;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1",
@@ -328,65 +635,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task PostFetchTieringCost_GetTheTieringSavingsCostInfoForPolicy()
-        {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/TieringCost/FetchTieringCostForPolicy.json
-            // this example is just showing the usage of "FetchTieringCost_Post" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "netsdktestrg";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // invoke the operation
-            string vaultName = "testVault";
-            FetchTieringCostInfoContent content = new FetchTieringCostSavingsInfoForPolicyContent(RecoveryPointTierType.HardenedRP, RecoveryPointTierType.ArchivedRP, "monthly");
-            ArmOperation<TieringCostInfo> lro = await resourceGroupResource.PostFetchTieringCostAsync(WaitUntil.Completed, vaultName, content);
-            TieringCostInfo result = lro.Value;
-
-            Console.WriteLine($"Succeeded: {result}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task PostFetchTieringCost_GetTheTieringSavingsCostInfoForProtectedItem()
-        {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/TieringCost/FetchTieringCostForProtectedItem.json
-            // this example is just showing the usage of "FetchTieringCost_Post" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this ResourceGroupResource created on azure
-            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "netsdktestrg";
-            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
-            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
-
-            // invoke the operation
-            string vaultName = "testVault";
-            FetchTieringCostInfoContent content = new FetchTieringCostSavingsInfoForProtectedItemContent(RecoveryPointTierType.HardenedRP, RecoveryPointTierType.ArchivedRP, "IaasVMContainer;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1", "VM;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1");
-            ArmOperation<TieringCostInfo> lro = await resourceGroupResource.PostFetchTieringCostAsync(WaitUntil.Completed, vaultName, content);
-            TieringCostInfo result = lro.Value;
-
-            Console.WriteLine($"Succeeded: {result}");
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
         public async Task PostFetchTieringCost_GetTheTieringSavingsCostInfoForVault()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/TieringCost/FetchTieringCostForVault.json
+            // Generated from example definition: 2026-01-01-preview/TieringCost/FetchTieringCostForVault.json
             // this example is just showing the usage of "FetchTieringCost_Post" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -403,7 +654,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
             // invoke the operation
             string vaultName = "testVault";
-            FetchTieringCostInfoContent content = new FetchTieringCostSavingsInfoForVaultContent(RecoveryPointTierType.HardenedRP, RecoveryPointTierType.ArchivedRP);
+            FetchTieringCostInfoContent content = new FetchTieringCostSavingsInfoForVaultRequest(RecoveryPointTierType.HardenedRP, RecoveryPointTierType.ArchivedRP);
             ArmOperation<TieringCostInfo> lro = await resourceGroupResource.PostFetchTieringCostAsync(WaitUntil.Completed, vaultName, content);
             TieringCostInfo result = lro.Value;
 
@@ -414,7 +665,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task GetGetTieringCostOperationResult_FetchTieringCostOperationResult()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/TieringCost/GetTieringCostOperationResult.json
+            // Generated from example definition: 2026-01-01-preview/TieringCost/GetTieringCostOperationResult.json
             // this example is just showing the usage of "GetTieringCostOperationResult_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -439,10 +690,37 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBackupUsageSummaries_GetProtectedContainersUsagesSummary()
+        public async Task GetTieringCostOperationStatu_FetchTieringCostOperationStatus()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/Common/BackupProtectionContainers_UsageSummary_Get.json
-            // this example is just showing the usage of "BackupUsageSummaries_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2026-01-01-preview/TieringCost/GetTieringCostOperationStatus.json
+            // this example is just showing the usage of "TieringCostOperationStatus_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "04cf684a-d41f-4550-9f70-7708a3a2283b";
+            string resourceGroupName = "gaallaRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "gaallavaultbvtd2msi";
+            string operationId = "0f48183b-0a44-4dca-aec1-bba5daab888a";
+            OperationStatus result = await resourceGroupResource.GetTieringCostOperationStatuAsync(vaultName, operationId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetProtectionIntent_GetProtectionIntentForAnItem()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureWorkload/BackupProtectionIntent_Get.json
+            // this example is just showing the usage of "ProtectionIntentResource_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -452,27 +730,213 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
             // this example assumes you already have this ResourceGroupResource created on azure
             // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "testRG";
+            string resourceGroupName = "myRG";
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
-            // invoke the operation and iterate over the result
-            string vaultName = "testVault";
-            string filter = "type eq 'BackupProtectionContainerCountSummary'";
-            await foreach (BackupManagementUsage item in resourceGroupResource.GetBackupUsageSummariesAsync(vaultName, filter: filter))
+            // invoke the operation
+            string vaultName = "myVault";
+            string fabricName = "Azure";
+            string intentObjectName = "249D9B07-D2EF-4202-AA64-65F35418564E";
+            ProtectionIntentResource result = await resourceGroupResource.GetProtectionIntentAsync(vaultName, fabricName, intentObjectName);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task CreateOrUpdateProtectionIntent_CreateOrUpdateAzureVmProtectionIntent()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/ProtectionIntent_CreateOrUpdate.json
+            // this example is just showing the usage of "ProtectionIntentResource_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "myVault";
+            string fabricName = "Azure";
+            string intentObjectName = "vm;iaasvmcontainerv2;chamsrgtest;chamscandel";
+            ProtectionIntentResource protectionIntentResource = new ProtectionIntentResource(default)
             {
-                Console.WriteLine($"Succeeded: {item}");
-            }
+                Properties = new AzureResourceProtectionIntent
+                {
+                    SourceResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/chamsrgtest/providers/Microsoft.Compute/virtualMachines/chamscandel",
+                    PolicyId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.RecoveryServices/vaults/myVault/backupPolicies/myPolicy",
+                },
+            };
+            ProtectionIntentResource result = await resourceGroupResource.CreateOrUpdateProtectionIntentAsync(vaultName, fabricName, intentObjectName, protectionIntentResource);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeleteProtectionIntent_DeleteProtectionIntentFromItem()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureWorkload/BackupProtectionIntent_Delete.json
+            // this example is just showing the usage of "ProtectionIntentResource_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "myVault";
+            string fabricName = "Azure";
+            string intentObjectName = "249D9B07-D2EF-4202-AA64-65F35418564E";
+            await resourceGroupResource.DeleteProtectionIntentAsync(vaultName, fabricName, intentObjectName);
 
             Console.WriteLine("Succeeded");
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task GetBackupUsageSummaries_GetProtectedItemsUsagesSummary()
+        public async Task GetPrivateEndpointConnection_GetPrivateEndpointConnection()
         {
-            // Generated from example definition: specification/recoveryservicesbackup/resource-manager/Microsoft.RecoveryServices/stable/2025-02-01/examples/Common/BackupProtectedItem_UsageSummary_Get.json
-            // this example is just showing the usage of "BackupUsageSummaries_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: 2026-01-01-preview/PrivateEndpointConnection/GetPrivateEndpointConnection.json
+            // this example is just showing the usage of "PrivateEndpointConnectionResource_Get" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "04cf684a-d41f-4550-9f70-7708a3a2283b";
+            string resourceGroupName = "gaallaRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "gaallavaultbvtd2msi";
+            string privateEndpointConnectionName = "gaallatestpe2.5704c932-249a-490b-a142-1396838cd3b";
+            PrivateEndpointConnectionResource result = await resourceGroupResource.GetPrivateEndpointConnectionAsync(vaultName, privateEndpointConnectionName);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task PutPrivateEndpointConnection_UpdatePrivateEndpointConnection()
+        {
+            // Generated from example definition: 2026-01-01-preview/PrivateEndpointConnection/PutPrivateEndpointConnection.json
+            // this example is just showing the usage of "PrivateEndpointConnectionResource_Put" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "04cf684a-d41f-4550-9f70-7708a3a2283b";
+            string resourceGroupName = "gaallaRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "gaallavaultbvtd2msi";
+            string privateEndpointConnectionName = "gaallatestpe2.5704c932-249a-490b-a142-1396838cd3b";
+            PrivateEndpointConnectionResource privateEndpointConnectionResource = new PrivateEndpointConnectionResource(default)
+            {
+                Properties = new RecoveryServicesBackupPrivateEndpointConnection
+                {
+                    ProvisioningState = ProvisioningState.Succeeded,
+                    PrivateEndpointId = new ResourceIdentifier("/subscriptions/04cf684a-d41f-4550-9f70-7708a3a2283b/resourceGroups/gaallaRG/providers/Microsoft.Network/privateEndpoints/gaallatestpe3"),
+                    GroupIds = { VaultSubResourceType.AzureBackupSecondary },
+                    PrivateLinkServiceConnectionState = new RecoveryServicesBackupPrivateLinkServiceConnectionState
+                    {
+                        Status = PrivateEndpointConnectionStatus.Approved,
+                        Description = "Approved by johndoe@company.com",
+                    },
+                },
+            };
+            ArmOperation<PrivateEndpointConnectionResource> lro = await resourceGroupResource.PutPrivateEndpointConnectionAsync(WaitUntil.Completed, vaultName, privateEndpointConnectionName, privateEndpointConnectionResource);
+            PrivateEndpointConnectionResource result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task DeletePrivateEndpointConnection_DeletePrivateEndpointConnection()
+        {
+            // Generated from example definition: 2026-01-01-preview/PrivateEndpointConnection/DeletePrivateEndpointConnection.json
+            // this example is just showing the usage of "PrivateEndpointConnectionResource_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "04cf684a-d41f-4550-9f70-7708a3a2283b";
+            string resourceGroupName = "gaallaRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "gaallavaultbvtd2msi";
+            string privateEndpointConnectionName = "gaallatestpe2.5704c932-249a-490b-a142-1396838cd3b";
+            await resourceGroupResource.DeletePrivateEndpointConnectionAsync(WaitUntil.Completed, vaultName, privateEndpointConnectionName);
+
+            Console.WriteLine("Succeeded");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task GetOperationStatusPrivateEndpoint_GetOperationStatus()
+        {
+            // Generated from example definition: 2026-01-01-preview/PrivateEndpointConnection/GetPrivateEndpointConnectionOperationStatus.json
+            // this example is just showing the usage of "PrivateEndpointConnectionResource_GetOperationStatus" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "04cf684a-d41f-4550-9f70-7708a3a2283b";
+            string resourceGroupName = "gaallaRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "gaallavaultbvtd2msi";
+            string privateEndpointConnectionName = "gaallatestpe2.5704c932-249a-490b-a142-1396838cd3b";
+            string operationId = "0f48183b-0a44-4dca-aec1-bba5daab888a";
+            OperationStatus result = await resourceGroupResource.GetOperationStatusPrivateEndpointAsync(vaultName, privateEndpointConnectionName, operationId);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task ValidateOperation_ValidateOperation()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/ValidateOperation_RestoreDisk.json
+            // this example is just showing the usage of "OperationOperationGroup_Validate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -486,15 +950,84 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Samples
             ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
             ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
 
-            // invoke the operation and iterate over the result
+            // invoke the operation
             string vaultName = "testVault";
-            string filter = "type eq 'BackupProtectedItemCountSummary'";
-            await foreach (BackupManagementUsage item in resourceGroupResource.GetBackupUsageSummariesAsync(vaultName, filter: filter))
+            ValidateOperationRequestResource validateOperationRequestResource = new ValidateOperationRequestResource("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testVault/providers/Microsoft.RecoveryServices/vaults/testVault/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;testRG;testvmName/protectedItems/VM;iaasvmcontainerv2;testRG;testvmName/recoveryPoints/348916168024334", new ValidateIaasVmRestoreOperationRequest
             {
-                Console.WriteLine($"Succeeded: {item}");
-            }
+                RestoreRequest = new IaasVmRestoreRequest
+                {
+                    RecoveryPointId = "348916168024334",
+                    RecoveryType = RecoveryType.RestoreDisks,
+                    SourceResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/netsdktestrg/providers/Microsoft.Compute/virtualMachines/netvmtestv2vm1",
+                    StorageAccountId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testingRg/providers/Microsoft.Storage/storageAccounts/testAccount",
+                    Region = "southeastasia",
+                    CreateNewCloudService = true,
+                    OriginalStorageAccountOption = false,
+                    EncryptionDetails = new EncryptionDetails
+                    {
+                        EncryptionEnabled = false,
+                    },
+                    IdentityInfo = new IdentityInfo
+                    {
+                        IsSystemAssignedIdentity = false,
+                        ManagedIdentityResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/asmaskarRG1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/asmaskartestmsi",
+                    },
+                },
+            });
+            ValidateOperationsResponse result = await resourceGroupResource.ValidateOperationAsync(vaultName, validateOperationRequestResource);
 
-            Console.WriteLine("Succeeded");
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public async Task ValidateOperation_ValidateOperationWithIdentityBasedRestoreDetails()
+        {
+            // Generated from example definition: 2026-01-01-preview/AzureIaasVm/ValidateOperation_RestoreDisk_IdentityBasedRestoreDetails.json
+            // this example is just showing the usage of "OperationOperationGroup_Validate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ResourceGroupResource created on azure
+            // for more information of creating ResourceGroupResource, please refer to the document of ResourceGroupResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testRG";
+            ResourceIdentifier resourceGroupResourceId = ResourceGroupResource.CreateResourceIdentifier(subscriptionId, resourceGroupName);
+            ResourceGroupResource resourceGroupResource = client.GetResourceGroupResource(resourceGroupResourceId);
+
+            // invoke the operation
+            string vaultName = "testVault";
+            ValidateOperationRequestResource validateOperationRequestResource = new ValidateOperationRequestResource("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testVault/providers/Microsoft.RecoveryServices/vaults/testVault/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;testRG;testvmName/protectedItems/VM;iaasvmcontainerv2;testRG;testvmName/recoveryPoints/348916168024334", new ValidateIaasVmRestoreOperationRequest
+            {
+                RestoreRequest = new IaasVmRestoreRequest
+                {
+                    RecoveryPointId = "348916168024334",
+                    RecoveryType = RecoveryType.RestoreDisks,
+                    SourceResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/netsdktestrg/providers/Microsoft.Compute/virtualMachines/netvmtestv2vm1",
+                    Region = "southeastasia",
+                    CreateNewCloudService = true,
+                    OriginalStorageAccountOption = false,
+                    EncryptionDetails = new EncryptionDetails
+                    {
+                        EncryptionEnabled = false,
+                    },
+                    IdentityInfo = new IdentityInfo
+                    {
+                        IsSystemAssignedIdentity = false,
+                        ManagedIdentityResourceId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/asmaskarRG1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/asmaskartestmsi",
+                    },
+                    IdentityBasedRestoreDetails = new IdentityBasedRestoreDetails
+                    {
+                        TargetStorageAccountId = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testingRg/providers/Microsoft.Storage/storageAccounts/testAccount",
+                    },
+                },
+            });
+            ValidateOperationsResponse result = await resourceGroupResource.ValidateOperationAsync(vaultName, validateOperationRequestResource);
+
+            Console.WriteLine($"Succeeded: {result}");
         }
     }
 }

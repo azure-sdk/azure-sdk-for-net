@@ -13,11 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    internal partial class UnknownProtectionPolicy : IUtf8JsonSerializable, IJsonModel<BackupGenericProtectionPolicy>
+    internal partial class UnknownProtectionPolicy : IUtf8JsonSerializable, IJsonModel<ProtectionPolicy>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BackupGenericProtectionPolicy>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ProtectionPolicy>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<BackupGenericProtectionPolicy>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ProtectionPolicy>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -28,25 +28,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericProtectionPolicy)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ProtectionPolicy)} does not support writing '{format}' format.");
             }
 
             base.JsonModelWriteCore(writer, options);
         }
 
-        BackupGenericProtectionPolicy IJsonModel<BackupGenericProtectionPolicy>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ProtectionPolicy IJsonModel<ProtectionPolicy>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BackupGenericProtectionPolicy)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ProtectionPolicy)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBackupGenericProtectionPolicy(document.RootElement, options);
+            return DeserializeProtectionPolicy(document.RootElement, options);
         }
 
         internal static UnknownProtectionPolicy DeserializeUnknownProtectionPolicy(JsonElement element, ModelReaderWriterOptions options = null)
@@ -101,35 +101,35 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             return new UnknownProtectionPolicy(protectedItemsCount, backupManagementType, resourceGuardOperationRequests ?? new ChangeTrackingList<string>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<BackupGenericProtectionPolicy>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ProtectionPolicy>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerRecoveryServicesBackupContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericProtectionPolicy)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ProtectionPolicy)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BackupGenericProtectionPolicy IPersistableModel<BackupGenericProtectionPolicy>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ProtectionPolicy IPersistableModel<ProtectionPolicy>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<BackupGenericProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ProtectionPolicy>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeBackupGenericProtectionPolicy(document.RootElement, options);
+                        return DeserializeProtectionPolicy(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BackupGenericProtectionPolicy)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ProtectionPolicy)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<BackupGenericProtectionPolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ProtectionPolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

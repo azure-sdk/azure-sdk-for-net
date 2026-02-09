@@ -93,9 +93,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 return null;
             }
             ScheduleRunType? scheduleRunFrequency = default;
-            IList<BackupDayOfWeek> scheduleRunDays = default;
+            IList<DayOfWeek> scheduleRunDays = default;
             IList<DateTimeOffset> scheduleRunTimes = default;
-            BackupHourlySchedule hourlySchedule = default;
+            HourlySchedule hourlySchedule = default;
             int? scheduleWeeklyFrequency = default;
             string schedulePolicyType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
@@ -117,10 +117,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    List<BackupDayOfWeek> array = new List<BackupDayOfWeek>();
+                    List<DayOfWeek> array = new List<DayOfWeek>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetString().ToBackupDayOfWeek());
+                        array.Add(item.GetString().ToDayOfWeek());
                     }
                     scheduleRunDays = array;
                     continue;
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     {
                         continue;
                     }
-                    hourlySchedule = BackupHourlySchedule.DeserializeBackupHourlySchedule(property.Value, options);
+                    hourlySchedule = HourlySchedule.DeserializeHourlySchedule(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("scheduleWeeklyFrequency"u8))
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 schedulePolicyType,
                 serializedAdditionalRawData,
                 scheduleRunFrequency,
-                scheduleRunDays ?? new ChangeTrackingList<BackupDayOfWeek>(),
+                scheduleRunDays ?? new ChangeTrackingList<DayOfWeek>(),
                 scheduleRunTimes ?? new ChangeTrackingList<DateTimeOffset>(),
                 hourlySchedule,
                 scheduleWeeklyFrequency);

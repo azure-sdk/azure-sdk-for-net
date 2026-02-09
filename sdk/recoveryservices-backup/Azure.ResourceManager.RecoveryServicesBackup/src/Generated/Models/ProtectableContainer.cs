@@ -13,7 +13,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     /// <summary>
     /// Protectable Container Class.
     /// Please note <see cref="ProtectableContainer"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="StorageProtectableContainer"/> and <see cref="VmAppContainerProtectableContainer"/>.
+    /// The available derived classes include <see cref="AzureStorageProtectableContainer"/> and <see cref="AzureVmAppContainerProtectableContainer"/>.
     /// </summary>
     public abstract partial class ProtectableContainer
     {
@@ -76,9 +76,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         }
 
         /// <summary> Friendly name of the container. </summary>
-        public string FriendlyName { get; set; }
+        public string FriendlyName { get; }
         /// <summary> Type of backup management for the container. </summary>
-        public BackupManagementType? BackupManagementType { get; set; }
+        public BackupManagementType? BackupManagementType { get; }
         /// <summary>
         /// Type of the container. The value of this property for
         /// 1. Compute Azure VM is Microsoft.Compute/virtualMachines
@@ -86,8 +86,8 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// </summary>
         internal ProtectableContainerType ProtectableContainerType { get; set; }
         /// <summary> Status of health of the container. </summary>
-        public string HealthStatus { get; set; }
+        public string HealthStatus { get; }
         /// <summary> Fabric Id of the container such as ARM Id. </summary>
-        public string ContainerId { get; set; }
+        public string ContainerId { get; }
     }
 }

@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    /// <summary> The IaasVmSnapshotConsistencyType. </summary>
+    /// <summary> The IaasVMSnapshotConsistencyType. </summary>
     public readonly partial struct IaasVmSnapshotConsistencyType : IEquatable<IaasVmSnapshotConsistencyType>
     {
         private readonly string _value;
