@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 				// Update the ManagedOps resource to dnable Defender
 				var patchBody = new ManagedOpPatch
 				{
-					ManagedOpUpdateDesiredConfiguration = new DesiredConfiguration()
+					ManagedOpUpdateDesiredConfiguration = new DesiredConfigurationUpdate()
 					{
 						DefenderForServers = DesiredConfigurationDefenderForServer.Enable,
 						DefenderCspm = DesiredConfigurationDefenderForServer.Enable,
