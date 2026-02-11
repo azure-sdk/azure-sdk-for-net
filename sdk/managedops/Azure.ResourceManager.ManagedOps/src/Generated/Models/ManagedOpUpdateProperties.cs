@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ManagedOps.Models
 {
-    /// <summary> The updatable properties of the ManagedOp. </summary>
+    /// <summary> Updatable properties in the ManagedOps resource. </summary>
     internal partial class ManagedOpUpdateProperties
     {
         /// <summary>
@@ -46,20 +46,30 @@ namespace Azure.ResourceManager.ManagedOps.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ManagedOpUpdateProperties"/>. </summary>
-        public ManagedOpUpdateProperties()
+        /// <param name="desiredConfiguration"> Desired configuration input by the user. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="desiredConfiguration"/> is null. </exception>
+        public ManagedOpUpdateProperties(DesiredConfigurationUpdate desiredConfiguration)
         {
+            Argument.AssertNotNull(desiredConfiguration, nameof(desiredConfiguration));
+
+            DesiredConfiguration = desiredConfiguration;
         }
 
         /// <summary> Initializes a new instance of <see cref="ManagedOpUpdateProperties"/>. </summary>
         /// <param name="desiredConfiguration"> Desired configuration input by the user. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedOpUpdateProperties(DesiredConfiguration desiredConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ManagedOpUpdateProperties(DesiredConfigurationUpdate desiredConfiguration, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DesiredConfiguration = desiredConfiguration;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
+        /// <summary> Initializes a new instance of <see cref="ManagedOpUpdateProperties"/> for deserialization. </summary>
+        internal ManagedOpUpdateProperties()
+        {
+        }
+
         /// <summary> Desired configuration input by the user. </summary>
-        public DesiredConfiguration DesiredConfiguration { get; set; }
+        public DesiredConfigurationUpdate DesiredConfiguration { get; }
     }
 }

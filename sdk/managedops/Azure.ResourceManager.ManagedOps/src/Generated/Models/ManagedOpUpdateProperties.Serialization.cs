@@ -34,11 +34,8 @@ namespace Azure.ResourceManager.ManagedOps.Models
                 throw new FormatException($"The model {nameof(ManagedOpUpdateProperties)} does not support writing '{format}' format.");
             }
 
-            if (Optional.IsDefined(DesiredConfiguration))
-            {
-                writer.WritePropertyName("desiredConfiguration"u8);
-                writer.WriteObjectValue(DesiredConfiguration, options);
-            }
+            writer.WritePropertyName("desiredConfiguration"u8);
+            writer.WriteObjectValue(DesiredConfiguration, options);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -76,18 +73,14 @@ namespace Azure.ResourceManager.ManagedOps.Models
             {
                 return null;
             }
-            DesiredConfiguration desiredConfiguration = default;
+            DesiredConfigurationUpdate desiredConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("desiredConfiguration"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    desiredConfiguration = DesiredConfiguration.DeserializeDesiredConfiguration(property.Value, options);
+                    desiredConfiguration = DesiredConfigurationUpdate.DeserializeDesiredConfigurationUpdate(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ManagedOps.Models
 {
-    /// <summary> ManagedOps model for update operations. </summary>
-    public partial class ManagedOpPatch
+    /// <summary> Updatable parameters in the Desired configuration input. </summary>
+    public partial class DesiredConfigurationUpdate
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,27 +45,25 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ManagedOpPatch"/>. </summary>
-        public ManagedOpPatch()
+        /// <summary> Initializes a new instance of <see cref="DesiredConfigurationUpdate"/>. </summary>
+        public DesiredConfigurationUpdate()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ManagedOpPatch"/>. </summary>
-        /// <param name="properties"> Updatable properties in the ManagedOps resource. </param>
+        /// <summary> Initializes a new instance of <see cref="DesiredConfigurationUpdate"/>. </summary>
+        /// <param name="defenderForServers"> Desired enablement state of the Defender For Servers service. </param>
+        /// <param name="defenderCspm"> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedOpPatch(ManagedOpUpdateProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DesiredConfigurationUpdate(DesiredConfigurationDefenderForServer? defenderForServers, DesiredConfigurationDefenderForServer? defenderCspm, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Properties = properties;
+            DefenderForServers = defenderForServers;
+            DefenderCspm = defenderCspm;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Updatable properties in the ManagedOps resource. </summary>
-        internal ManagedOpUpdateProperties Properties { get; set; }
-        /// <summary> Desired configuration input by the user. </summary>
-        public DesiredConfigurationUpdate ManagedOpUpdateDesiredConfiguration
-        {
-            get => Properties is null ? default : Properties.DesiredConfiguration;
-            set => Properties = new ManagedOpUpdateProperties(value);
-        }
+        /// <summary> Desired enablement state of the Defender For Servers service. </summary>
+        public DesiredConfigurationDefenderForServer? DefenderForServers { get; set; }
+        /// <summary> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </summary>
+        public DesiredConfigurationDefenderForServer? DefenderCspm { get; set; }
     }
 }
