@@ -17,6 +17,32 @@ namespace Azure.AI.Language.QuestionAnswering.Inference
     {
         /// <summary> Registers a <see cref="QuestionAnsweringClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
         /// <param name="builder"> The builder to register with. </param>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <param name="credential"> A credential used to authenticate to the service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public static IAzureClientBuilder<QuestionAnsweringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
+            where TBuilder : IAzureClientFactoryBuilder
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNull(credential, nameof(credential));
+
+            return builder.RegisterClientFactory<QuestionAnsweringClient, QuestionAnsweringClientOptions>(options => new QuestionAnsweringClient(endpoint, credential, options));
+        }
+
+        /// <summary> Registers a <see cref="QuestionAnsweringClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
+        /// <param name="builder"> The builder to register with. </param>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
+        public static IAzureClientBuilder<QuestionAnsweringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringClient<TBuilder>(this TBuilder builder, Uri endpoint)
+            where TBuilder : IAzureClientFactoryBuilderWithCredential
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+
+            return builder.RegisterClientFactory<QuestionAnsweringClient, QuestionAnsweringClientOptions>((options, credential) => new QuestionAnsweringClient(endpoint, credential, options));
+        }
+
+        /// <summary> Registers a <see cref="QuestionAnsweringClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
+        /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"></param>
         /// <param name="credential"></param>
         public static IAzureClientBuilder<QuestionAnsweringClient, QuestionAnsweringClientOptions> AddQuestionAnsweringClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
