@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Azure.Core.Extensions;
 using Azure.Data.SchemaRegistry;
@@ -14,6 +15,19 @@ namespace Microsoft.Extensions.Azure
     /// <summary> Extension methods to add clients to <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
     public static partial class SchemaRegistryClientBuilderExtensions
     {
+        /// <summary> Registers a <see cref="SchemaRegistryClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
+        /// <param name="builder"> The builder to register with. </param>
+        /// <param name="fullyQualifiedNamespace"> The Schema Registry service endpoint, for example 'my-namespace.servicebus.windows.net'. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="fullyQualifiedNamespace"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="fullyQualifiedNamespace"/> is an empty string, and was expected to be non-empty. </exception>
+        public static IAzureClientBuilder<SchemaRegistryClient, SchemaRegistryClientOptions> AddSchemaRegistryClient<TBuilder>(this TBuilder builder, string fullyQualifiedNamespace)
+            where TBuilder : IAzureClientFactoryBuilderWithCredential
+        {
+            Argument.AssertNotNullOrEmpty(fullyQualifiedNamespace, nameof(fullyQualifiedNamespace));
+
+            return builder.RegisterClientFactory<SchemaRegistryClient, SchemaRegistryClientOptions>((options, credential) => new SchemaRegistryClient(fullyQualifiedNamespace, credential, options));
+        }
+
         /// <summary> Registers a <see cref="SchemaRegistryClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="fullyQualifiedNamespace"></param>
