@@ -3,6 +3,7 @@
 ## 1.0.0 (Unreleased)
 
 This release is the first stable release of the Artifact Signing Management client library.
+This is the renamed version of the earlier Trusted Signing library, the codebase is same.
 
 ### Features Added
 
