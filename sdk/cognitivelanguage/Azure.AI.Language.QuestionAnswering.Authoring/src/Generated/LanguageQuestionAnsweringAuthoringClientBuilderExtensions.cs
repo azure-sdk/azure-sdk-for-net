@@ -32,6 +32,18 @@ namespace Microsoft.Extensions.Azure
 
         /// <summary> Registers a <see cref="QuestionAnsweringAuthoringClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
         /// <param name="builder"> The builder to register with. </param>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
+        public static IAzureClientBuilder<QuestionAnsweringAuthoringClient, QuestionAnsweringAuthoringClientOptions> AddQuestionAnsweringAuthoringClient<TBuilder>(this TBuilder builder, Uri endpoint)
+            where TBuilder : IAzureClientFactoryBuilderWithCredential
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+
+            return builder.RegisterClientFactory<QuestionAnsweringAuthoringClient, QuestionAnsweringAuthoringClientOptions>((options, credential) => new QuestionAnsweringAuthoringClient(endpoint, credential, options));
+        }
+
+        /// <summary> Registers a <see cref="QuestionAnsweringAuthoringClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
+        /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"></param>
         public static IAzureClientBuilder<QuestionAnsweringAuthoringClient, QuestionAnsweringAuthoringClientOptions> AddQuestionAnsweringAuthoringClient<TBuilder>(this TBuilder builder, Uri endpoint)
             where TBuilder : IAzureClientFactoryBuilderWithCredential
