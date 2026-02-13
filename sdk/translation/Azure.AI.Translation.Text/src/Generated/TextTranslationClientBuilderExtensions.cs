@@ -17,6 +17,18 @@ namespace Microsoft.Extensions.Azure
     {
         /// <summary> Registers a <see cref="TextTranslationClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
         /// <param name="builder"> The builder to register with. </param>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> is null. </exception>
+        public static IAzureClientBuilder<TextTranslationClient, TextTranslationClientOptions> AddTextTranslationClient<TBuilder>(this TBuilder builder, Uri endpoint)
+            where TBuilder : IAzureClientFactoryBuilder
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+
+            return builder.RegisterClientFactory<TextTranslationClient, TextTranslationClientOptions>(options => new TextTranslationClient(endpoint, options));
+        }
+
+        /// <summary> Registers a <see cref="TextTranslationClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
+        /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"></param>
         public static IAzureClientBuilder<TextTranslationClient, TextTranslationClientOptions> AddTextTranslationClient<TBuilder>(this TBuilder builder, Uri endpoint)
             where TBuilder : IAzureClientFactoryBuilder
