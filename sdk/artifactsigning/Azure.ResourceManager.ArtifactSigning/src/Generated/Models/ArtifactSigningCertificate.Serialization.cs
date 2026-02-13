@@ -16,6 +16,23 @@ namespace Azure.ResourceManager.ArtifactSigning.Models
     /// <summary> Properties of the certificate. </summary>
     public partial class ArtifactSigningCertificate : IJsonModel<ArtifactSigningCertificate>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual ArtifactSigningCertificate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ArtifactSigningCertificate>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeArtifactSigningCertificate(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(ArtifactSigningCertificate)} does not support reading '{options.Format}' format.");
+            }
+        }
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<ArtifactSigningCertificate>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -219,23 +236,6 @@ namespace Azure.ResourceManager.ArtifactSigning.Models
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         ArtifactSigningCertificate IPersistableModel<ArtifactSigningCertificate>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ArtifactSigningCertificate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ArtifactSigningCertificate>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeArtifactSigningCertificate(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(ArtifactSigningCertificate)} does not support reading '{options.Format}' format.");
-            }
-        }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         string IPersistableModel<ArtifactSigningCertificate>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
