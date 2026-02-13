@@ -125,7 +125,15 @@ namespace Azure.AI.DocumentIntelligence
         internal HttpMessage CreateNextGetModelsRequest(Uri nextPage, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
@@ -199,7 +207,15 @@ namespace Azure.AI.DocumentIntelligence
         internal HttpMessage CreateNextGetOperationsRequest(Uri nextPage, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
@@ -294,7 +310,15 @@ namespace Azure.AI.DocumentIntelligence
         internal HttpMessage CreateNextGetClassifiersRequest(Uri nextPage, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;

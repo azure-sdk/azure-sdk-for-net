@@ -18,6 +18,20 @@ namespace Microsoft.Extensions.Azure
     {
         /// <summary> Registers a <see cref="CodeTransparencyClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
         /// <param name="builder"> The builder to register with. </param>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <param name="credential"> A credential used to authenticate to the service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public static IAzureClientBuilder<CodeTransparencyClient, CodeTransparencyClientOptions> AddCodeTransparencyClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
+            where TBuilder : IAzureClientFactoryBuilder
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNull(credential, nameof(credential));
+
+            return builder.RegisterClientFactory<CodeTransparencyClient, CodeTransparencyClientOptions>(options => new CodeTransparencyClient(endpoint, credential, options));
+        }
+
+        /// <summary> Registers a <see cref="CodeTransparencyClient"/> client with the specified <see cref="IAzureClientBuilder{TClient,TOptions}"/>. </summary>
+        /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"></param>
         /// <param name="credential"></param>
         public static IAzureClientBuilder<CodeTransparencyClient, CodeTransparencyClientOptions> AddCodeTransparencyClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)

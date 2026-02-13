@@ -43,7 +43,15 @@ namespace Azure.Developer.DevCenter
         internal HttpMessage CreateNextGetAllEnvironmentsRequest(Uri nextPage, string projectName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
@@ -74,7 +82,15 @@ namespace Azure.Developer.DevCenter
         internal HttpMessage CreateNextGetEnvironmentsRequest(Uri nextPage, string projectName, string userId, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
@@ -162,7 +178,15 @@ namespace Azure.Developer.DevCenter
         internal HttpMessage CreateNextGetCatalogsRequest(Uri nextPage, string projectName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
@@ -208,7 +232,15 @@ namespace Azure.Developer.DevCenter
         internal HttpMessage CreateNextGetEnvironmentDefinitionsRequest(Uri nextPage, string projectName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
@@ -239,7 +271,15 @@ namespace Azure.Developer.DevCenter
         internal HttpMessage CreateNextGetEnvironmentDefinitionsByCatalogRequest(Uri nextPage, string projectName, string catalogName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
@@ -287,7 +327,15 @@ namespace Azure.Developer.DevCenter
         internal HttpMessage CreateNextGetEnvironmentTypesRequest(Uri nextPage, string projectName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(_endpoint);
+                uri.AppendPath(nextPage.OriginalString, false);
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
