@@ -171,7 +171,14 @@ namespace Azure.ResourceManager.WorkloadOrchestration
         internal HttpMessage CreateNextGetByWorkflowVersionRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string contextName, string workflowName, string versionName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;

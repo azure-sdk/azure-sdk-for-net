@@ -39,6 +39,29 @@ namespace Azure.ResourceManager.StorageDiscovery.Models
             }
         }
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<StorageDiscoveryWorkspaceListResult>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerStorageDiscoveryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(StorageDiscoveryWorkspaceListResult)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<StorageDiscoveryWorkspaceListResult>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        StorageDiscoveryWorkspaceListResult IPersistableModel<StorageDiscoveryWorkspaceListResult>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<StorageDiscoveryWorkspaceListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="StorageDiscoveryWorkspaceListResult"/> from. </param>
         internal static StorageDiscoveryWorkspaceListResult FromResponse(Response response)
         {
@@ -149,28 +172,5 @@ namespace Azure.ResourceManager.StorageDiscovery.Models
             }
             return new StorageDiscoveryWorkspaceListResult(value, nextLink, additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<StorageDiscoveryWorkspaceListResult>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<StorageDiscoveryWorkspaceListResult>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerStorageDiscoveryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(StorageDiscoveryWorkspaceListResult)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        StorageDiscoveryWorkspaceListResult IPersistableModel<StorageDiscoveryWorkspaceListResult>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<StorageDiscoveryWorkspaceListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

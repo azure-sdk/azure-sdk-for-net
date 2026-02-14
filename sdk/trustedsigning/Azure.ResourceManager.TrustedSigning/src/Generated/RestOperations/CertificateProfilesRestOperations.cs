@@ -128,7 +128,14 @@ namespace Azure.ResourceManager.TrustedSigning
         internal HttpMessage CreateNextGetByCodeSigningAccountRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string accountName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
