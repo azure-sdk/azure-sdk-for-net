@@ -85,7 +85,14 @@ namespace Azure.ResourceManager.ComputeSchedule
         internal HttpMessage CreateNextGetByScheduledActionRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string scheduledActionName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
@@ -120,7 +127,14 @@ namespace Azure.ResourceManager.ComputeSchedule
         internal HttpMessage CreateNextGetAttachedResourcesRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string scheduledActionName, string occurrenceId, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
             uri.UpdateQuery("api-version", _apiVersion);
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
