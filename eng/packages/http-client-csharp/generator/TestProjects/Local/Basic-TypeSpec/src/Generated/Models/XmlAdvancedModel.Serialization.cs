@@ -164,7 +164,7 @@ namespace BasicTypeSpec
             if (Optional.IsDefined(OptionalInt))
             {
                 writer.WriteStartElement("optionalInt");
-                writer.WriteValue(OptionalInt);
+                writer.WriteValue(OptionalInt.Value);
                 writer.WriteEndElement();
             }
             if (Optional.IsDefined(NullableString))

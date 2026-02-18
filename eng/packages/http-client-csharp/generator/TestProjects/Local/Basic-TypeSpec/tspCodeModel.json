@@ -3403,7 +3403,7 @@
           "type": {
             "$id": "300",
             "kind": "union",
-            "name": "Dfe",
+            "name": "Dfe1",
             "variantTypes": [
               {
                 "$id": "301",
@@ -3444,7 +3444,7 @@
           "type": {
             "$id": "303",
             "kind": "union",
-            "name": "Dfe",
+            "name": "Dfe2",
             "variantTypes": [
               {
                 "$id": "304",
@@ -3485,7 +3485,7 @@
           "type": {
             "$id": "306",
             "kind": "union",
-            "name": "Dfe",
+            "name": "DfeArray",
             "variantTypes": [
               {
                 "$ref": "193"
@@ -4656,7 +4656,8 @@
                         },
                         "valueType": {
                           "$ref": "376"
-                        }
+                        },
+                        "crossLanguageDefinitionId": "BasicTypeSpec.XmlNamespaces.ns1"
                       },
                       {
                         "$id": "378",
@@ -4669,7 +4670,8 @@
                         },
                         "valueType": {
                           "$ref": "376"
-                        }
+                        },
+                        "crossLanguageDefinitionId": "BasicTypeSpec.XmlNamespaces.ns2"
                       }
                     ],
                     "isFixed": true,
@@ -4686,7 +4688,8 @@
                   },
                   "valueType": {
                     "$ref": "376"
-                  }
+                  },
+                  "crossLanguageDefinitionId": "BasicTypeSpec.XmlNamespaces.ns1"
                 }
               }
             },
@@ -4740,7 +4743,8 @@
                   },
                   "valueType": {
                     "$ref": "376"
-                  }
+                  },
+                  "crossLanguageDefinitionId": "BasicTypeSpec.XmlNamespaces.ns2"
                 }
               }
             }
