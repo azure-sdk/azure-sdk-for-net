@@ -1,0 +1,6 @@
+directory: specification/computebulkactions/ComputeBulkActions.Management
+commit: 11e3760c39a41f35de92e5938ad331121255ef09
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
+
+emitterPackageJsonPath: eng/azure-typespec-http-client-csharp-mgmt-emitter-package.json
