@@ -138,6 +138,37 @@ namespace Azure.Generator.Tests.Visitors
         }
 
         [Test]
+        public void DoesNotAppendModelsIfNamespaceAlreadyEndsWithModels()
+        {
+            MockHelpers.LoadMockGenerator(configurationJson: "{ \"package-name\": \"TestLibrary\", \"model-namespace\": true }");
+            var visitor = new TestNamespaceVisitor();
+            var inputType = InputFactory.Model("TestModel", "Samples.Models");
+            var model = new ModelProvider(inputType);
+            var updatedModel = visitor.InvokePreVisitModel(inputType, model);
+
+            Assert.IsNotNull(updatedModel);
+            Assert.AreEqual("Samples.Models", updatedModel!.Type.Namespace);
+        }
+
+        [Test]
+        public void DoesNotAppendModelsIfNamespaceAlreadyEndsWithModelsForEnum()
+        {
+            MockHelpers.LoadMockGenerator(configurationJson: "{ \"package-name\": \"TestLibrary\", \"model-namespace\": true }");
+            var visitor = new TestNamespaceVisitor();
+            List<string> valueList = ["foo", "bar"];
+            var enumValues = valueList.Select(a => (a, a));
+            var inputEnum = InputFactory.StringEnum(
+                "TestEnum",
+                values: enumValues,
+                clientNamespace: "Samples.Models");
+            var enumProvider = EnumProvider.Create(inputEnum);
+            var updatedEnum = visitor.InvokePreVisitEnum(inputEnum, enumProvider);
+
+            Assert.IsNotNull(updatedEnum);
+            Assert.AreEqual("Samples.Models", updatedEnum!.Type.Namespace);
+        }
+
+        [Test]
         public void DoesNotUseModelsNamespaceIfConfigNotSet()
         {
             MockHelpers.LoadMockGenerator();
