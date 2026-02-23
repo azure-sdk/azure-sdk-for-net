@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.Confluent.Tests.Scenario
         {
             CleanupResourceGroups();
         }
-        [RecordedTest]
-        [TestCase]
+        [Test]
+        [LiveOnly]
         public async Task CreateorUpdateConfluentOrg()
         {
             var confluentOrgCollection = GetConfluentOrganizationCollectionAsync();
@@ -41,8 +41,8 @@ namespace Azure.ResourceManager.Confluent.Tests.Scenario
             Assert.NotNull(confluentNewOrg.Value.Data.SsoUri);
         }
 
-        [RecordedTest]
-        [TestCase]
+        [Test]
+        [LiveOnly]
         public async Task ListConfluentOrgsInSubscription()
         {
             int count = 0;
@@ -70,8 +70,8 @@ namespace Azure.ResourceManager.Confluent.Tests.Scenario
             Assert.GreaterOrEqual(count, 1);
         }
 
-        [RecordedTest]
-        [TestCase]
+        [Test]
+        [LiveOnly]
         public async Task DeleteConfluentOrg()
         {
             var confluentOrgCollection = GetConfluentOrganizationCollectionAsync();
