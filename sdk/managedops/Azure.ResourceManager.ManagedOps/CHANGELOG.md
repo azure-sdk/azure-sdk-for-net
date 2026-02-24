@@ -4,8 +4,4 @@
 
 ### Features Added
 
-### Breaking Changes
-
-### Bugs Fixed
-
-### Other Changes
+- Added Microsoft.ManagedOps resource provider SDK
