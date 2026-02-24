@@ -34,8 +34,11 @@ namespace Azure.ResourceManager.ManagedOps.Models
                 throw new FormatException($"The model {nameof(ManagedOpUpdateProperties)} does not support writing '{format}' format.");
             }
 
-            writer.WritePropertyName("desiredConfiguration"u8);
-            writer.WriteObjectValue(DesiredConfiguration, options);
+            if (Optional.IsDefined(DesiredConfiguration))
+            {
+                writer.WritePropertyName("desiredConfiguration"u8);
+                writer.WriteObjectValue(DesiredConfiguration, options);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -80,6 +83,10 @@ namespace Azure.ResourceManager.ManagedOps.Models
             {
                 if (property.NameEquals("desiredConfiguration"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     desiredConfiguration = DesiredConfigurationUpdate.DeserializeDesiredConfigurationUpdate(property.Value, options);
                     continue;
                 }

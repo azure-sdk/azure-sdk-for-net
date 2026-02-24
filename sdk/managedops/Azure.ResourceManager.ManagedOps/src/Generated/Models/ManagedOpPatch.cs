@@ -65,7 +65,12 @@ namespace Azure.ResourceManager.ManagedOps.Models
         public DesiredConfigurationUpdate ManagedOpUpdateDesiredConfiguration
         {
             get => Properties is null ? default : Properties.DesiredConfiguration;
-            set => Properties = new ManagedOpUpdateProperties(value);
+            set
+            {
+                if (Properties is null)
+                    Properties = new ManagedOpUpdateProperties();
+                Properties.DesiredConfiguration = value;
+            }
         }
     }
 }
