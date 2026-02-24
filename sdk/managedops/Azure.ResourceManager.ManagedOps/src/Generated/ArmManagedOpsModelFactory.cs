@@ -8,95 +8,96 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager.ManagedOps.Models
+namespace Azure.ResourceManager._ManagedOps.Models
 {
-    /// <summary> Model factory for models. </summary>
+    /// <summary> A factory class for creating instances of the models for mocking. </summary>
     public static partial class ArmManagedOpsModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="ManagedOps.ManagedOpData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
+
+        /// <summary> The Managed Operations resource. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="properties"> The resource-specific properties for this resource. </param>
-        /// <returns> A new <see cref="ManagedOps.ManagedOpData"/> instance for mocking. </returns>
-        public static ManagedOpData ManagedOpData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ManagedOpsProperties properties = null)
+        /// <returns> A new <see cref="_ManagedOps.ManagedOpData"/> instance for mocking. </returns>
+        public static ManagedOpData ManagedOpData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, ManagedOpsProperties properties = default)
         {
             return new ManagedOpData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                properties,
-                serializedAdditionalRawData: null);
+                additionalBinaryDataProperties: null,
+                properties);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedOpsProperties"/>. </summary>
         /// <param name="sku"> Product plan details of this resource. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="desiredConfiguration"> Desired configuration input by the user. </param>
         /// <param name="services"> Services provisioned by this resource. </param>
-        /// <param name="policyInitiativeAssignmentId"> Policy assignments created for managing services. </param>
+        /// <param name="policyInitiativeAssignmentId"> Policy initiative assignment ID. </param>
         /// <returns> A new <see cref="Models.ManagedOpsProperties"/> instance for mocking. </returns>
-        public static ManagedOpsProperties ManagedOpsProperties(ManagedOpsSku sku = null, ProvisioningState? provisioningState = null, DesiredConfiguration desiredConfiguration = null, ServiceInformation services = null, ResourceIdentifier policyInitiativeAssignmentId = null)
+        public static ManagedOpsProperties ManagedOpsProperties(ManagedOpsSku sku = default, ProvisioningState? provisioningState = default, DesiredConfiguration desiredConfiguration = default, ServiceInformation services = default, ResourceIdentifier policyInitiativeAssignmentId = default)
         {
             return new ManagedOpsProperties(
                 sku,
                 provisioningState,
                 desiredConfiguration,
                 services,
-                policyInitiativeAssignmentId != null ? new PolicyAssignmentProperties(policyInitiativeAssignmentId, serializedAdditionalRawData: null) : null,
-                serializedAdditionalRawData: null);
+                policyInitiativeAssignmentId is null ? default : new PolicyAssignmentProperties(policyInitiativeAssignmentId, null),
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ManagedOpsSku"/>. </summary>
+        /// <summary> Specifies the service plan for this resource. </summary>
         /// <param name="name"> Name of the SKU. </param>
         /// <param name="tier"> Pricing tier of the SKU. </param>
         /// <returns> A new <see cref="Models.ManagedOpsSku"/> instance for mocking. </returns>
-        public static ManagedOpsSku ManagedOpsSku(string name = null, string tier = null)
+        public static ManagedOpsSku ManagedOpsSku(string name = default, string tier = default)
         {
-            return new ManagedOpsSku(name, tier, serializedAdditionalRawData: null);
+            return new ManagedOpsSku(name, tier, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ServiceInformation"/>. </summary>
         /// <param name="changeTrackingAndInventory"> Change Tracking and Inventory service information. </param>
         /// <param name="azureMonitorInsights"> Azure Monitor Insights service information. </param>
-        /// <param name="azureUpdateManagerEnablementStatus"> Azure Update Manager service information. </param>
-        /// <param name="azurePolicyAndMachineEnablementStatus"> Azure Policy and Machine Configuration service information. </param>
-        /// <param name="defenderForServersEnablementStatus"> Defender for Servers service information. </param>
-        /// <param name="defenderCspmEnablementStatus"> Defender for Cloud's Cloud security posture management (CSPM) service information. </param>
+        /// <param name="azureUpdateManagerEnablementStatus"> Indicates whether the service is enabled. </param>
+        /// <param name="azurePolicyAndMachineEnablementStatus"> Indicates whether the service is enabled. </param>
+        /// <param name="defenderForServersEnablementStatus"> Indicates whether the service is enabled. </param>
+        /// <param name="defenderCspmEnablementStatus"> Indicates whether the service is enabled. </param>
         /// <returns> A new <see cref="Models.ServiceInformation"/> instance for mocking. </returns>
-        public static ServiceInformation ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory = null, AzureMonitorInformation azureMonitorInsights = null, ChangeTrackingInformationEnablementStatus? azureUpdateManagerEnablementStatus = null, ChangeTrackingInformationEnablementStatus? azurePolicyAndMachineEnablementStatus = null, ChangeTrackingInformationEnablementStatus? defenderForServersEnablementStatus = null, ChangeTrackingInformationEnablementStatus? defenderCspmEnablementStatus = null)
+        public static ServiceInformation ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory = default, AzureMonitorInformation azureMonitorInsights = default, ChangeTrackingInformationEnablementStatus? azureUpdateManagerEnablementStatus = default, ChangeTrackingInformationEnablementStatus? azurePolicyAndMachineEnablementStatus = default, ChangeTrackingInformationEnablementStatus? defenderForServersEnablementStatus = default, ChangeTrackingInformationEnablementStatus? defenderCspmEnablementStatus = default)
         {
             return new ServiceInformation(
                 changeTrackingAndInventory,
                 azureMonitorInsights,
-                azureUpdateManagerEnablementStatus.HasValue ? new UpdateManagerInformation(azureUpdateManagerEnablementStatus.Value, serializedAdditionalRawData: null) : null,
-                azurePolicyAndMachineEnablementStatus.HasValue ? new GuestConfigurationInformation(azurePolicyAndMachineEnablementStatus.Value, serializedAdditionalRawData: null) : null,
-                defenderForServersEnablementStatus.HasValue ? new DefenderForServersInformation(defenderForServersEnablementStatus.Value, serializedAdditionalRawData: null) : null,
-                defenderCspmEnablementStatus.HasValue ? new DefenderCspmInformation(defenderCspmEnablementStatus.Value, serializedAdditionalRawData: null) : null,
-                serializedAdditionalRawData: null);
+                azureUpdateManagerEnablementStatus is null ? default : new UpdateManagerInformation(azureUpdateManagerEnablementStatus.Value, null),
+                azurePolicyAndMachineEnablementStatus is null ? default : new GuestConfigurationInformation(azurePolicyAndMachineEnablementStatus.Value, null),
+                defenderForServersEnablementStatus is null ? default : new DefenderForServersInformation(defenderForServersEnablementStatus.Value, null),
+                defenderCspmEnablementStatus is null ? default : new DefenderCspmInformation(defenderCspmEnablementStatus.Value, null),
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ChangeTrackingInformation"/>. </summary>
+        /// <summary> Change Tracking and Inventory service information. </summary>
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <returns> A new <see cref="Models.ChangeTrackingInformation"/> instance for mocking. </returns>
-        public static ChangeTrackingInformation ChangeTrackingInformation(ResourceIdentifier dcrId = null, ChangeTrackingInformationEnablementStatus enablementStatus = default)
+        public static ChangeTrackingInformation ChangeTrackingInformation(ResourceIdentifier dcrId = default, ChangeTrackingInformationEnablementStatus enablementStatus = default)
         {
-            return new ChangeTrackingInformation(dcrId, enablementStatus, serializedAdditionalRawData: null);
+            return new ChangeTrackingInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.AzureMonitorInformation"/>. </summary>
+        /// <summary> Azure Monitor Insights service information. </summary>
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <returns> A new <see cref="Models.AzureMonitorInformation"/> instance for mocking. </returns>
-        public static AzureMonitorInformation AzureMonitorInformation(ResourceIdentifier dcrId = null, ChangeTrackingInformationEnablementStatus enablementStatus = default)
+        public static AzureMonitorInformation AzureMonitorInformation(ResourceIdentifier dcrId = default, ChangeTrackingInformationEnablementStatus enablementStatus = default)
         {
-            return new AzureMonitorInformation(dcrId, enablementStatus, serializedAdditionalRawData: null);
+            return new AzureMonitorInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
         }
     }
 }

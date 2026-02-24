@@ -8,43 +8,15 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager.ManagedOps.Models
+namespace Azure.ResourceManager._ManagedOps.Models
 {
     /// <summary> Properties of the ManagedOps resource. </summary>
     public partial class ManagedOpsProperties
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="ManagedOpsProperties"/>. </summary>
         /// <param name="desiredConfiguration"> Desired configuration input by the user. </param>
@@ -62,36 +34,39 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="desiredConfiguration"> Desired configuration input by the user. </param>
         /// <param name="services"> Services provisioned by this resource. </param>
         /// <param name="policyAssignmentProperties"> Policy assignments created for managing services. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedOpsProperties(ManagedOpsSku sku, ProvisioningState? provisioningState, DesiredConfiguration desiredConfiguration, ServiceInformation services, PolicyAssignmentProperties policyAssignmentProperties, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal ManagedOpsProperties(ManagedOpsSku sku, ProvisioningState? provisioningState, DesiredConfiguration desiredConfiguration, ServiceInformation services, PolicyAssignmentProperties policyAssignmentProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Sku = sku;
             ProvisioningState = provisioningState;
             DesiredConfiguration = desiredConfiguration;
             Services = services;
             PolicyAssignmentProperties = policyAssignmentProperties;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ManagedOpsProperties"/> for deserialization. </summary>
-        internal ManagedOpsProperties()
-        {
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Product plan details of this resource. </summary>
         public ManagedOpsSku Sku { get; }
+
         /// <summary> Provisioning state of the resource. </summary>
         public ProvisioningState? ProvisioningState { get; }
+
         /// <summary> Desired configuration input by the user. </summary>
         public DesiredConfiguration DesiredConfiguration { get; set; }
+
         /// <summary> Services provisioned by this resource. </summary>
         public ServiceInformation Services { get; }
+
         /// <summary> Policy assignments created for managing services. </summary>
         internal PolicyAssignmentProperties PolicyAssignmentProperties { get; }
+
         /// <summary> Policy initiative assignment ID. </summary>
         public ResourceIdentifier PolicyInitiativeAssignmentId
         {
-            get => PolicyAssignmentProperties?.PolicyInitiativeAssignmentId;
+            get
+            {
+                return PolicyAssignmentProperties.PolicyInitiativeAssignmentId;
+            }
         }
     }
 }

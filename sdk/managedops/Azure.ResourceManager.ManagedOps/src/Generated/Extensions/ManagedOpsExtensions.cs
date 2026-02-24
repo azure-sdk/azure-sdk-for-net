@@ -8,34 +8,37 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
-using Azure.ResourceManager.ManagedOps.Mocking;
+using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
+using Azure.ResourceManager._ManagedOps.Mocking;
 
-namespace Azure.ResourceManager.ManagedOps
+namespace Azure.ResourceManager._ManagedOps
 {
-    /// <summary> A class to add extension methods to Azure.ResourceManager.ManagedOps. </summary>
+    /// <summary> A class to add extension methods to Azure.ResourceManager._ManagedOps. </summary>
     public static partial class ManagedOpsExtensions
     {
+        /// <param name="client"></param>
         private static MockableManagedOpsArmClient GetMockableManagedOpsArmClient(ArmClient client)
         {
-            return client.GetCachedClient(client0 => new MockableManagedOpsArmClient(client0));
+            return client.GetCachedClient(client0 => new MockableManagedOpsArmClient(client0, ResourceIdentifier.Root));
         }
 
-        private static MockableManagedOpsSubscriptionResource GetMockableManagedOpsSubscriptionResource(ArmResource resource)
+        /// <param name="subscriptionResource"></param>
+        private static MockableManagedOpsSubscriptionResource GetMockableManagedOpsSubscriptionResource(SubscriptionResource subscriptionResource)
         {
-            return resource.GetCachedClient(client => new MockableManagedOpsSubscriptionResource(client, resource.Id));
+            return subscriptionResource.GetCachedClient(client => new MockableManagedOpsSubscriptionResource(client, subscriptionResource.Id));
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="ManagedOpResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ManagedOpResource.CreateResourceIdentifier" /> to create a <see cref="ManagedOpResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing a <see cref="ManagedOpResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableManagedOpsArmClient.GetManagedOpResource(ResourceIdentifier)"/> instead.</description>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableManagedOpsArmClient.GetManagedOpResource(ResourceIdentifier)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
         /// <returns> Returns a <see cref="ManagedOpResource"/> object. </returns>
@@ -47,15 +50,15 @@ namespace Azure.ResourceManager.ManagedOps
         }
 
         /// <summary>
-        /// Gets a collection of ManagedOpResources in the SubscriptionResource.
+        /// Gets a collection of ManagedOps in the <see cref="SubscriptionResource"/>
         /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableManagedOpsSubscriptionResource.GetManagedOps()"/> instead.</description>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableManagedOpsSubscriptionResource.GetManagedOps()"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
-        /// <returns> An object representing collection of ManagedOpResources and their operations over a ManagedOpResource. </returns>
+        /// <returns> An object representing collection of ManagedOps and their operations over a ManagedOpResource. </returns>
         public static ManagedOpCollection GetManagedOps(this SubscriptionResource subscriptionResource)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
@@ -65,34 +68,15 @@ namespace Azure.ResourceManager.ManagedOps
 
         /// <summary>
         /// Gets the information of the ManagedOps instance.
-        /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableManagedOpsSubscriptionResource.GetManagedOpAsync(string,CancellationToken)"/> instead.</description>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableManagedOpsSubscriptionResource.GetManagedOpAsync(string, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="managedOpsName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         [ForwardsClientCalls]
         public static async Task<Response<ManagedOpResource>> GetManagedOpAsync(this SubscriptionResource subscriptionResource, string managedOpsName, CancellationToken cancellationToken = default)
         {
@@ -103,34 +87,15 @@ namespace Azure.ResourceManager.ManagedOps
 
         /// <summary>
         /// Gets the information of the ManagedOps instance.
-        /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableManagedOpsSubscriptionResource.GetManagedOp(string,CancellationToken)"/> instead.</description>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableManagedOpsSubscriptionResource.GetManagedOp(string, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> or <paramref name="managedOpsName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         [ForwardsClientCalls]
         public static Response<ManagedOpResource> GetManagedOp(this SubscriptionResource subscriptionResource, string managedOpsName, CancellationToken cancellationToken = default)
         {

@@ -5,32 +5,45 @@
 
 #nullable disable
 
-using System.ClientModel.Primitives;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
+using Azure.ResourceManager;
 
-namespace Azure.ResourceManager.ManagedOps
+namespace Azure.ResourceManager._ManagedOps
 {
-    internal class ManagedOpOperationSource : IOperationSource<ManagedOpResource>
+    /// <summary></summary>
+    internal partial class ManagedOpOperationSource : IOperationSource<ManagedOpResource>
     {
         private readonly ArmClient _client;
 
+        /// <summary></summary>
+        /// <param name="client"></param>
         internal ManagedOpOperationSource(ArmClient client)
         {
             _client = client;
         }
 
+        /// <param name="response"> The response from the service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns></returns>
         ManagedOpResource IOperationSource<ManagedOpResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
-            var data = ModelReaderWriter.Read<ManagedOpData>(response.Content, ModelReaderWriterOptions.Json, AzureResourceManagerManagedOpsContext.Default);
+            using JsonDocument document = JsonDocument.Parse(response.ContentStream);
+            ManagedOpData data = ManagedOpData.DeserializeManagedOpData(document.RootElement, ModelSerializationExtensions.WireOptions);
             return new ManagedOpResource(_client, data);
         }
 
+        /// <param name="response"> The response from the service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns></returns>
         async ValueTask<ManagedOpResource> IOperationSource<ManagedOpResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
-            var data = ModelReaderWriter.Read<ManagedOpData>(response.Content, ModelReaderWriterOptions.Json, AzureResourceManagerManagedOpsContext.Default);
-            return await Task.FromResult(new ManagedOpResource(_client, data)).ConfigureAwait(false);
+            using JsonDocument document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+            ManagedOpData data = ManagedOpData.DeserializeManagedOpData(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return new ManagedOpResource(_client, data);
         }
     }
 }

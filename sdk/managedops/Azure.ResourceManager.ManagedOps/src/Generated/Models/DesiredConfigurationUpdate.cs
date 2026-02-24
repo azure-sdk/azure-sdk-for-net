@@ -8,42 +8,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager.ManagedOps.Models
+namespace Azure.ResourceManager._ManagedOps.Models
 {
     /// <summary> Updatable parameters in the Desired configuration input. </summary>
     public partial class DesiredConfigurationUpdate
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DesiredConfigurationUpdate"/>. </summary>
         public DesiredConfigurationUpdate()
@@ -53,17 +24,18 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <summary> Initializes a new instance of <see cref="DesiredConfigurationUpdate"/>. </summary>
         /// <param name="defenderForServers"> Desired enablement state of the Defender For Servers service. </param>
         /// <param name="defenderCspm"> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DesiredConfigurationUpdate(DesiredConfigurationDefenderForServer? defenderForServers, DesiredConfigurationDefenderForServer? defenderCspm, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal DesiredConfigurationUpdate(DesiredConfigurationDefenderForServers? defenderForServers, DesiredConfigurationDefenderForServers? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             DefenderForServers = defenderForServers;
             DefenderCspm = defenderCspm;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Desired enablement state of the Defender For Servers service. </summary>
-        public DesiredConfigurationDefenderForServer? DefenderForServers { get; set; }
+        public DesiredConfigurationDefenderForServers? DefenderForServers { get; set; }
+
         /// <summary> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </summary>
-        public DesiredConfigurationDefenderForServer? DefenderCspm { get; set; }
+        public DesiredConfigurationDefenderForServers? DefenderCspm { get; set; }
     }
 }

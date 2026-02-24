@@ -8,57 +8,29 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager.ManagedOps.Models
+namespace Azure.ResourceManager._ManagedOps.Models
 {
     /// <summary> Desired configuration input by the user. </summary>
     public partial class DesiredConfiguration
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DesiredConfiguration"/>. </summary>
-        /// <param name="changeTrackingAndInventory"> Configuration for the Change Tracking and Inventory service. </param>
-        /// <param name="azureMonitorInsights"> Configuration for the Azure Monitor Insights service. </param>
+        /// <param name="changeTrackingAndInventoryLogAnalyticsWorkspaceId"> Log analytics workspace resource ID used by the service. </param>
+        /// <param name="azureMonitorWorkspaceId"> Azure monitor workspace resource ID used by the service. </param>
         /// <param name="userAssignedManagedIdentityId"> User assigned Managed Identity used to perform operations on machines managed by Ops360. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="changeTrackingAndInventory"/>, <paramref name="azureMonitorInsights"/> or <paramref name="userAssignedManagedIdentityId"/> is null. </exception>
-        public DesiredConfiguration(ChangeTrackingConfiguration changeTrackingAndInventory, AzureMonitorConfiguration azureMonitorInsights, ResourceIdentifier userAssignedManagedIdentityId)
+        /// <exception cref="ArgumentNullException"> <paramref name="changeTrackingAndInventoryLogAnalyticsWorkspaceId"/>, <paramref name="azureMonitorWorkspaceId"/> or <paramref name="userAssignedManagedIdentityId"/> is null. </exception>
+        public DesiredConfiguration(ResourceIdentifier changeTrackingAndInventoryLogAnalyticsWorkspaceId, ResourceIdentifier azureMonitorWorkspaceId, ResourceIdentifier userAssignedManagedIdentityId)
         {
-            Argument.AssertNotNull(changeTrackingAndInventory, nameof(changeTrackingAndInventory));
-            Argument.AssertNotNull(azureMonitorInsights, nameof(azureMonitorInsights));
+            Argument.AssertNotNull(changeTrackingAndInventoryLogAnalyticsWorkspaceId, nameof(changeTrackingAndInventoryLogAnalyticsWorkspaceId));
+            Argument.AssertNotNull(azureMonitorWorkspaceId, nameof(azureMonitorWorkspaceId));
             Argument.AssertNotNull(userAssignedManagedIdentityId, nameof(userAssignedManagedIdentityId));
 
-            ChangeTrackingAndInventory = changeTrackingAndInventory;
-            AzureMonitorInsights = azureMonitorInsights;
+            ChangeTrackingAndInventory = new ChangeTrackingConfiguration(changeTrackingAndInventoryLogAnalyticsWorkspaceId);
+            AzureMonitorInsights = new AzureMonitorConfiguration(azureMonitorWorkspaceId);
             UserAssignedManagedIdentityId = userAssignedManagedIdentityId;
         }
 
@@ -68,45 +40,56 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="userAssignedManagedIdentityId"> User assigned Managed Identity used to perform operations on machines managed by Ops360. </param>
         /// <param name="defenderForServers"> Desired enablement state of the Defender For Servers service. </param>
         /// <param name="defenderCspm"> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal DesiredConfiguration(ChangeTrackingConfiguration changeTrackingAndInventory, AzureMonitorConfiguration azureMonitorInsights, ResourceIdentifier userAssignedManagedIdentityId, DesiredConfigurationDefenderForServer? defenderForServers, DesiredConfigurationDefenderForServer? defenderCspm, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal DesiredConfiguration(ChangeTrackingConfiguration changeTrackingAndInventory, AzureMonitorConfiguration azureMonitorInsights, ResourceIdentifier userAssignedManagedIdentityId, DesiredConfigurationDefenderForServers? defenderForServers, DesiredConfigurationDefenderForServers? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ChangeTrackingAndInventory = changeTrackingAndInventory;
             AzureMonitorInsights = azureMonitorInsights;
             UserAssignedManagedIdentityId = userAssignedManagedIdentityId;
             DefenderForServers = defenderForServers;
             DefenderCspm = defenderCspm;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="DesiredConfiguration"/> for deserialization. </summary>
-        internal DesiredConfiguration()
-        {
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Configuration for the Change Tracking and Inventory service. </summary>
         internal ChangeTrackingConfiguration ChangeTrackingAndInventory { get; set; }
-        /// <summary> Log analytics workspace resource ID used by the service. </summary>
-        public ResourceIdentifier ChangeTrackingAndInventoryLogAnalyticsWorkspaceId
-        {
-            get => ChangeTrackingAndInventory is null ? default : ChangeTrackingAndInventory.LogAnalyticsWorkspaceId;
-            set => ChangeTrackingAndInventory = new ChangeTrackingConfiguration(value);
-        }
 
         /// <summary> Configuration for the Azure Monitor Insights service. </summary>
         internal AzureMonitorConfiguration AzureMonitorInsights { get; set; }
-        /// <summary> Azure monitor workspace resource ID used by the service. </summary>
-        public ResourceIdentifier AzureMonitorWorkspaceId
-        {
-            get => AzureMonitorInsights is null ? default : AzureMonitorInsights.AzureMonitorWorkspaceId;
-            set => AzureMonitorInsights = new AzureMonitorConfiguration(value);
-        }
 
         /// <summary> User assigned Managed Identity used to perform operations on machines managed by Ops360. </summary>
         public ResourceIdentifier UserAssignedManagedIdentityId { get; set; }
+
         /// <summary> Desired enablement state of the Defender For Servers service. </summary>
-        public DesiredConfigurationDefenderForServer? DefenderForServers { get; set; }
+        public DesiredConfigurationDefenderForServers? DefenderForServers { get; set; }
+
         /// <summary> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </summary>
-        public DesiredConfigurationDefenderForServer? DefenderCspm { get; set; }
+        public DesiredConfigurationDefenderForServers? DefenderCspm { get; set; }
+
+        /// <summary> Log analytics workspace resource ID used by the service. </summary>
+        public ResourceIdentifier ChangeTrackingAndInventoryLogAnalyticsWorkspaceId
+        {
+            get
+            {
+                return ChangeTrackingAndInventory is null ? default : ChangeTrackingAndInventory.LogAnalyticsWorkspaceId;
+            }
+            set
+            {
+                ChangeTrackingAndInventory = new ChangeTrackingConfiguration(value);
+            }
+        }
+
+        /// <summary> Azure monitor workspace resource ID used by the service. </summary>
+        public ResourceIdentifier AzureMonitorWorkspaceId
+        {
+            get
+            {
+                return AzureMonitorInsights is null ? default : AzureMonitorInsights.AzureMonitorWorkspaceId;
+            }
+            set
+            {
+                AzureMonitorInsights = new AzureMonitorConfiguration(value);
+            }
+        }
     }
 }

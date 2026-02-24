@@ -8,33 +8,31 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources;
+using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager.ManagedOps.Mocking
+namespace Azure.ResourceManager._ManagedOps.Mocking
 {
-    /// <summary> A class to add extension methods to SubscriptionResource. </summary>
+    /// <summary> A class to add extension methods to <see cref="SubscriptionResource"/>. </summary>
     public partial class MockableManagedOpsSubscriptionResource : ArmResource
     {
-        /// <summary> Initializes a new instance of the <see cref="MockableManagedOpsSubscriptionResource"/> class for mocking. </summary>
+        /// <summary> Initializes a new instance of MockableManagedOpsSubscriptionResource for mocking. </summary>
         protected MockableManagedOpsSubscriptionResource()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="MockableManagedOpsSubscriptionResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="MockableManagedOpsSubscriptionResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal MockableManagedOpsSubscriptionResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
         }
 
-        private string GetApiVersionOrNull(ResourceType resourceType)
-        {
-            TryGetApiVersion(resourceType, out string apiVersion);
-            return apiVersion;
-        }
-
-        /// <summary> Gets a collection of ManagedOpResources in the SubscriptionResource. </summary>
-        /// <returns> An object representing collection of ManagedOpResources and their operations over a ManagedOpResource. </returns>
+        /// <summary> Gets a collection of ManagedOps in the <see cref="SubscriptionResource"/>. </summary>
+        /// <returns> An object representing collection of ManagedOps and their operations over a ManagedOpResource. </returns>
         public virtual ManagedOpCollection GetManagedOps()
         {
             return GetCachedClient(client => new ManagedOpCollection(client, Id));
@@ -44,20 +42,16 @@ namespace Azure.ResourceManager.ManagedOps.Mocking
         /// Gets the information of the ManagedOps instance.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -68,6 +62,8 @@ namespace Azure.ResourceManager.ManagedOps.Mocking
         [ForwardsClientCalls]
         public virtual async Task<Response<ManagedOpResource>> GetManagedOpAsync(string managedOpsName, CancellationToken cancellationToken = default)
         {
+            Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
+
             return await GetManagedOps().GetAsync(managedOpsName, cancellationToken).ConfigureAwait(false);
         }
 
@@ -75,20 +71,16 @@ namespace Azure.ResourceManager.ManagedOps.Mocking
         /// Gets the information of the ManagedOps instance.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -99,6 +91,8 @@ namespace Azure.ResourceManager.ManagedOps.Mocking
         [ForwardsClientCalls]
         public virtual Response<ManagedOpResource> GetManagedOp(string managedOpsName, CancellationToken cancellationToken = default)
         {
+            Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
+
             return GetManagedOps().Get(managedOpsName, cancellationToken);
         }
     }

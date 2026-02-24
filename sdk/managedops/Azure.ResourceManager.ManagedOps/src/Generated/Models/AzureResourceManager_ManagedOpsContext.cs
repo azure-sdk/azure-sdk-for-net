@@ -6,14 +6,15 @@
 #nullable disable
 
 using System.ClientModel.Primitives;
-using Azure.ResourceManager.ManagedOps.Models;
+using Azure;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager._ManagedOps.Models;
 
-namespace Azure.ResourceManager.ManagedOps
+namespace Azure.ResourceManager._ManagedOps
 {
     /// <summary>
     /// Context class which will be filled in by the System.ClientModel.SourceGeneration.
-    /// For more information see 'https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md'
+    /// For more information <see href='https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md' />
     /// </summary>
     [ModelReaderWriterBuildable(typeof(AzureMonitorConfiguration))]
     [ModelReaderWriterBuildable(typeof(AzureMonitorInformation))]
@@ -36,7 +37,7 @@ namespace Azure.ResourceManager.ManagedOps
     [ModelReaderWriterBuildable(typeof(ServiceInformation))]
     [ModelReaderWriterBuildable(typeof(SystemData))]
     [ModelReaderWriterBuildable(typeof(UpdateManagerInformation))]
-    public partial class AzureResourceManagerManagedOpsContext : ModelReaderWriterContext
+    public partial class AzureResourceManager_ManagedOpsContext : ModelReaderWriterContext
     {
     }
 }

@@ -8,42 +8,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager.ManagedOps.Models
+namespace Azure.ResourceManager._ManagedOps.Models
 {
     /// <summary> Services provisioned by this resource. </summary>
     public partial class ServiceInformation
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="ServiceInformation"/>. </summary>
         internal ServiceInformation()
@@ -57,8 +28,8 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="azurePolicyAndMachineConfiguration"> Azure Policy and Machine Configuration service information. </param>
         /// <param name="defenderForServers"> Defender for Servers service information. </param>
         /// <param name="defenderCspm"> Defender for Cloud's Cloud security posture management (CSPM) service information. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory, AzureMonitorInformation azureMonitorInsights, UpdateManagerInformation azureUpdateManager, GuestConfigurationInformation azurePolicyAndMachineConfiguration, DefenderForServersInformation defenderForServers, DefenderCspmInformation defenderCspm, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory, AzureMonitorInformation azureMonitorInsights, UpdateManagerInformation azureUpdateManager, GuestConfigurationInformation azurePolicyAndMachineConfiguration, DefenderForServersInformation defenderForServers, DefenderCspmInformation defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ChangeTrackingAndInventory = changeTrackingAndInventory;
             AzureMonitorInsights = azureMonitorInsights;
@@ -66,43 +37,61 @@ namespace Azure.ResourceManager.ManagedOps.Models
             AzurePolicyAndMachineConfiguration = azurePolicyAndMachineConfiguration;
             DefenderForServers = defenderForServers;
             DefenderCspm = defenderCspm;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Change Tracking and Inventory service information. </summary>
         public ChangeTrackingInformation ChangeTrackingAndInventory { get; }
+
         /// <summary> Azure Monitor Insights service information. </summary>
         public AzureMonitorInformation AzureMonitorInsights { get; }
+
         /// <summary> Azure Update Manager service information. </summary>
         internal UpdateManagerInformation AzureUpdateManager { get; }
-        /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? AzureUpdateManagerEnablementStatus
-        {
-            get => AzureUpdateManager?.EnablementStatus;
-        }
 
         /// <summary> Azure Policy and Machine Configuration service information. </summary>
         internal GuestConfigurationInformation AzurePolicyAndMachineConfiguration { get; }
-        /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? AzurePolicyAndMachineEnablementStatus
-        {
-            get => AzurePolicyAndMachineConfiguration?.EnablementStatus;
-        }
 
         /// <summary> Defender for Servers service information. </summary>
         internal DefenderForServersInformation DefenderForServers { get; }
-        /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? DefenderForServersEnablementStatus
-        {
-            get => DefenderForServers?.EnablementStatus;
-        }
 
         /// <summary> Defender for Cloud's Cloud security posture management (CSPM) service information. </summary>
         internal DefenderCspmInformation DefenderCspm { get; }
+
+        /// <summary> Indicates whether the service is enabled. </summary>
+        public ChangeTrackingInformationEnablementStatus? AzureUpdateManagerEnablementStatus
+        {
+            get
+            {
+                return AzureUpdateManager.EnablementStatus;
+            }
+        }
+
+        /// <summary> Indicates whether the service is enabled. </summary>
+        public ChangeTrackingInformationEnablementStatus? AzurePolicyAndMachineEnablementStatus
+        {
+            get
+            {
+                return AzurePolicyAndMachineConfiguration.EnablementStatus;
+            }
+        }
+
+        /// <summary> Indicates whether the service is enabled. </summary>
+        public ChangeTrackingInformationEnablementStatus? DefenderForServersEnablementStatus
+        {
+            get
+            {
+                return DefenderForServers.EnablementStatus;
+            }
+        }
+
         /// <summary> Indicates whether the service is enabled. </summary>
         public ChangeTrackingInformationEnablementStatus? DefenderCspmEnablementStatus
         {
-            get => DefenderCspm?.EnablementStatus;
+            get
+            {
+                return DefenderCspm.EnablementStatus;
+            }
         }
     }
 }

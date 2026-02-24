@@ -8,15 +8,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Autorest.CSharp.Core;
+using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
 
-namespace Azure.ResourceManager.ManagedOps
+namespace Azure.ResourceManager._ManagedOps
 {
     /// <summary>
     /// A class representing a collection of <see cref="ManagedOpResource"/> and their operations.
@@ -25,51 +26,49 @@ namespace Azure.ResourceManager.ManagedOps
     /// </summary>
     public partial class ManagedOpCollection : ArmCollection, IEnumerable<ManagedOpResource>, IAsyncEnumerable<ManagedOpResource>
     {
-        private readonly ClientDiagnostics _managedOpClientDiagnostics;
-        private readonly ManagedOpsRestOperations _managedOpRestClient;
+        private readonly ClientDiagnostics _managedOpsClientDiagnostics;
+        private readonly ManagedOps _managedOpsRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="ManagedOpCollection"/> class for mocking. </summary>
+        /// <summary> Initializes a new instance of ManagedOpCollection for mocking. </summary>
         protected ManagedOpCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="ManagedOpCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="ManagedOpCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
-        /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
+        /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal ManagedOpCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _managedOpClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ManagedOps", ManagedOpResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ManagedOpResource.ResourceType, out string managedOpApiVersion);
-            _managedOpRestClient = new ManagedOpsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, managedOpApiVersion);
-#if DEBUG
-			ValidateResourceId(Id);
-#endif
+            _managedOpsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager._ManagedOps", ManagedOpResource.ResourceType.Namespace, Diagnostics);
+            _managedOpsRestClient = new ManagedOps(_managedOpsClientDiagnostics, Pipeline, Endpoint, managedOpApiVersion ?? "2025-07-28-preview");
+            ValidateResourceId(id);
         }
 
+        /// <param name="id"></param>
+        [Conditional("DEBUG")]
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
             if (id.ResourceType != SubscriptionResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SubscriptionResource.ResourceType), nameof(id));
+            {
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, SubscriptionResource.ResourceType), id);
+            }
         }
 
         /// <summary>
         /// Creates or updates the ManagedOps instance.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_CreateOrUpdate</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_CreateOrUpdate. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -77,21 +76,34 @@ namespace Azure.ResourceManager.ManagedOps
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<ArmOperation<ManagedOpResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string managedOpsName, ManagedOpData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _managedOpRestClient.CreateOrUpdateAsync(Id.SubscriptionId, managedOpsName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ManagedOpsArmOperation<ManagedOpResource>(new ManagedOpOperationSource(Client), _managedOpClientDiagnostics, Pipeline, _managedOpRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, managedOpsName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, ManagedOpData.ToRequestContent(data), context);
+                Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                ManagedOpsArmOperation<ManagedOpResource> operation = new ManagedOpsArmOperation<ManagedOpResource>(
+                    new ManagedOpOperationSource(Client),
+                    _managedOpsClientDiagnostics,
+                    Pipeline,
+                    message.Request,
+                    response,
+                    OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
+                {
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                }
                 return operation;
             }
             catch (Exception e)
@@ -105,20 +117,16 @@ namespace Azure.ResourceManager.ManagedOps
         /// Creates or updates the ManagedOps instance.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_CreateOrUpdate</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_CreateOrUpdate. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -126,21 +134,34 @@ namespace Azure.ResourceManager.ManagedOps
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual ArmOperation<ManagedOpResource> CreateOrUpdate(WaitUntil waitUntil, string managedOpsName, ManagedOpData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _managedOpRestClient.CreateOrUpdate(Id.SubscriptionId, managedOpsName, data, cancellationToken);
-                var operation = new ManagedOpsArmOperation<ManagedOpResource>(new ManagedOpOperationSource(Client), _managedOpClientDiagnostics, Pipeline, _managedOpRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, managedOpsName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, ManagedOpData.ToRequestContent(data), context);
+                Response response = Pipeline.ProcessMessage(message, context);
+                ManagedOpsArmOperation<ManagedOpResource> operation = new ManagedOpsArmOperation<ManagedOpResource>(
+                    new ManagedOpOperationSource(Client),
+                    _managedOpsClientDiagnostics,
+                    Pipeline,
+                    message.Request,
+                    response,
+                    OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
+                {
                     operation.WaitForCompletion(cancellationToken);
+                }
                 return operation;
             }
             catch (Exception e)
@@ -154,38 +175,42 @@ namespace Azure.ResourceManager.ManagedOps
         /// Gets the information of the ManagedOps instance.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<Response<ManagedOpResource>> GetAsync(string managedOpsName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.Get");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Get");
             scope.Start();
             try
             {
-                var response = await _managedOpRestClient.GetAsync(Id.SubscriptionId, managedOpsName, cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<ManagedOpData> response = Response.FromValue(ManagedOpData.FromResponse(result), result);
                 if (response.Value == null)
+                {
                     throw new RequestFailedException(response.GetRawResponse());
+                }
                 return Response.FromValue(new ManagedOpResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -199,38 +224,42 @@ namespace Azure.ResourceManager.ManagedOps
         /// Gets the information of the ManagedOps instance.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual Response<ManagedOpResource> Get(string managedOpsName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.Get");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Get");
             scope.Start();
             try
             {
-                var response = _managedOpRestClient.Get(Id.SubscriptionId, managedOpsName, cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<ManagedOpData> response = Response.FromValue(ManagedOpData.FromResponse(result), result);
                 if (response.Value == null)
+                {
                     throw new RequestFailedException(response.GetRawResponse());
+                }
                 return Response.FromValue(new ManagedOpResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -244,50 +273,44 @@ namespace Azure.ResourceManager.ManagedOps
         /// List all ManagedOps instances in the subscription.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_List</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_List. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="ManagedOpResource"/> that may take multiple service requests to iterate over. </returns>
+        /// <returns> A collection of <see cref="ManagedOpResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ManagedOpResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _managedOpRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _managedOpRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ManagedOpResource(Client, ManagedOpData.DeserializeManagedOpData(e)), _managedOpClientDiagnostics, Pipeline, "ManagedOpCollection.GetAll", "value", "nextLink", cancellationToken);
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new AsyncPageableWrapper<ManagedOpData, ManagedOpResource>(new ManagedOpsGetAllAsyncCollectionResultOfT(_managedOpsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ManagedOpResource(Client, data));
         }
 
         /// <summary>
         /// List all ManagedOps instances in the subscription.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_List</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_List. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -295,45 +318,61 @@ namespace Azure.ResourceManager.ManagedOps
         /// <returns> A collection of <see cref="ManagedOpResource"/> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ManagedOpResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _managedOpRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _managedOpRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ManagedOpResource(Client, ManagedOpData.DeserializeManagedOpData(e)), _managedOpClientDiagnostics, Pipeline, "ManagedOpCollection.GetAll", "value", "nextLink", cancellationToken);
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PageableWrapper<ManagedOpData, ManagedOpResource>(new ManagedOpsGetAllCollectionResultOfT(_managedOpsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ManagedOpResource(Client, data));
         }
 
         /// <summary>
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<Response<bool>> ExistsAsync(string managedOpsName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _managedOpRestClient.GetAsync(Id.SubscriptionId, managedOpsName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
+                Response result = message.Response;
+                Response<ManagedOpData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(ManagedOpData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((ManagedOpData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -347,36 +386,50 @@ namespace Azure.ResourceManager.ManagedOps
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual Response<bool> Exists(string managedOpsName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
             scope.Start();
             try
             {
-                var response = _managedOpRestClient.Get(Id.SubscriptionId, managedOpsName, cancellationToken: cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                Pipeline.Send(message, context.CancellationToken);
+                Response result = message.Response;
+                Response<ManagedOpData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(ManagedOpData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((ManagedOpData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -390,38 +443,54 @@ namespace Azure.ResourceManager.ManagedOps
         /// Tries to get details for this resource from the service.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<NullableResponse<ManagedOpResource>> GetIfExistsAsync(string managedOpsName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _managedOpRestClient.GetAsync(Id.SubscriptionId, managedOpsName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
+                Response result = message.Response;
+                Response<ManagedOpData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(ManagedOpData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((ManagedOpData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 if (response.Value == null)
+                {
                     return new NoValueResponse<ManagedOpResource>(response.GetRawResponse());
+                }
                 return Response.FromValue(new ManagedOpResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -435,38 +504,54 @@ namespace Azure.ResourceManager.ManagedOps
         /// Tries to get details for this resource from the service.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ManagedOps/managedOps/{managedOpsName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedOp_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-07-28-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ManagedOpResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-28-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="managedOpsName"> Name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="managedOpsName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="managedOpsName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual NullableResponse<ManagedOpResource> GetIfExists(string managedOpsName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using var scope = _managedOpClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
+            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _managedOpRestClient.Get(Id.SubscriptionId, managedOpsName, cancellationToken: cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                Pipeline.Send(message, context.CancellationToken);
+                Response result = message.Response;
+                Response<ManagedOpData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(ManagedOpData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((ManagedOpData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 if (response.Value == null)
+                {
                     return new NoValueResponse<ManagedOpResource>(response.GetRawResponse());
+                }
                 return Response.FromValue(new ManagedOpResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -486,6 +571,7 @@ namespace Azure.ResourceManager.ManagedOps
             return GetAll().GetEnumerator();
         }
 
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
         IAsyncEnumerator<ManagedOpResource> IAsyncEnumerable<ManagedOpResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);

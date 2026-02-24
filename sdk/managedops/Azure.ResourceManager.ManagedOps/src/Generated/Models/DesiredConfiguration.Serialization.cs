@@ -10,13 +10,37 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager.ManagedOps.Models
+namespace Azure.ResourceManager._ManagedOps.Models
 {
-    public partial class DesiredConfiguration : IUtf8JsonSerializable, IJsonModel<DesiredConfiguration>
+    /// <summary> Desired configuration input by the user. </summary>
+    public partial class DesiredConfiguration : IJsonModel<DesiredConfiguration>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<DesiredConfiguration>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        /// <summary> Initializes a new instance of <see cref="DesiredConfiguration"/> for deserialization. </summary>
+        internal DesiredConfiguration()
+        {
+        }
 
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual DesiredConfiguration PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeDesiredConfiguration(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(DesiredConfiguration)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<DesiredConfiguration>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
@@ -28,12 +52,11 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DesiredConfiguration)} does not support writing '{format}' format.");
             }
-
             writer.WritePropertyName("changeTrackingAndInventory"u8);
             writer.WriteObjectValue(ChangeTrackingAndInventory, options);
             writer.WritePropertyName("azureMonitorInsights"u8);
@@ -50,15 +73,15 @@ namespace Azure.ResourceManager.ManagedOps.Models
                 writer.WritePropertyName("defenderCspm"u8);
                 writer.WriteStringValue(DefenderCspm.Value.ToString());
             }
-            if (options.Format != "W" && _serializedAdditionalRawData != null)
+            if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
-                foreach (var item in _serializedAdditionalRawData)
+                foreach (var item in _additionalBinaryDataProperties)
                 {
                     writer.WritePropertyName(item.Key);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
+                    writer.WriteRawValue(item.Value);
 #else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    using (JsonDocument document = JsonDocument.Parse(item.Value))
                     {
                         JsonSerializer.Serialize(writer, document.RootElement);
                     }
@@ -67,22 +90,27 @@ namespace Azure.ResourceManager.ManagedOps.Models
             }
         }
 
-        DesiredConfiguration IJsonModel<DesiredConfiguration>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        DesiredConfiguration IJsonModel<DesiredConfiguration>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual DesiredConfiguration JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(DesiredConfiguration)} does not support reading '{format}' format.");
             }
-
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
             return DeserializeDesiredConfiguration(document.RootElement, options);
         }
 
-        internal static DesiredConfiguration DeserializeDesiredConfiguration(JsonElement element, ModelReaderWriterOptions options = null)
+        /// <param name="element"> The JSON element to deserialize. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        internal static DesiredConfiguration DeserializeDesiredConfiguration(JsonElement element, ModelReaderWriterOptions options)
         {
-            options ??= ModelSerializationExtensions.WireOptions;
-
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
@@ -90,89 +118,79 @@ namespace Azure.ResourceManager.ManagedOps.Models
             ChangeTrackingConfiguration changeTrackingAndInventory = default;
             AzureMonitorConfiguration azureMonitorInsights = default;
             ResourceIdentifier userAssignedManagedIdentityId = default;
-            DesiredConfigurationDefenderForServer? defenderForServers = default;
-            DesiredConfigurationDefenderForServer? defenderCspm = default;
-            IDictionary<string, BinaryData> serializedAdditionalRawData = default;
-            Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
-            foreach (var property in element.EnumerateObject())
+            DesiredConfigurationDefenderForServers? defenderForServers = default;
+            DesiredConfigurationDefenderForServers? defenderCspm = default;
+            IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
+            foreach (var prop in element.EnumerateObject())
             {
-                if (property.NameEquals("changeTrackingAndInventory"u8))
+                if (prop.NameEquals("changeTrackingAndInventory"u8))
                 {
-                    changeTrackingAndInventory = ChangeTrackingConfiguration.DeserializeChangeTrackingConfiguration(property.Value, options);
+                    changeTrackingAndInventory = ChangeTrackingConfiguration.DeserializeChangeTrackingConfiguration(prop.Value, options);
                     continue;
                 }
-                if (property.NameEquals("azureMonitorInsights"u8))
+                if (prop.NameEquals("azureMonitorInsights"u8))
                 {
-                    azureMonitorInsights = AzureMonitorConfiguration.DeserializeAzureMonitorConfiguration(property.Value, options);
+                    azureMonitorInsights = AzureMonitorConfiguration.DeserializeAzureMonitorConfiguration(prop.Value, options);
                     continue;
                 }
-                if (property.NameEquals("userAssignedManagedIdentityId"u8))
+                if (prop.NameEquals("userAssignedManagedIdentityId"u8))
                 {
-                    userAssignedManagedIdentityId = new ResourceIdentifier(property.Value.GetString());
+                    userAssignedManagedIdentityId = new ResourceIdentifier(prop.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("defenderForServers"u8))
+                if (prop.NameEquals("defenderForServers"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    defenderForServers = new DesiredConfigurationDefenderForServer(property.Value.GetString());
+                    defenderForServers = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("defenderCspm"u8))
+                if (prop.NameEquals("defenderCspm"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    defenderCspm = new DesiredConfigurationDefenderForServer(property.Value.GetString());
+                    defenderCspm = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
                 {
-                    rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
+                    additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            serializedAdditionalRawData = rawDataDictionary;
             return new DesiredConfiguration(
                 changeTrackingAndInventory,
                 azureMonitorInsights,
                 userAssignedManagedIdentityId,
                 defenderForServers,
                 defenderCspm,
-                serializedAdditionalRawData);
+                additionalBinaryDataProperties);
         }
 
-        BinaryData IPersistableModel<DesiredConfiguration>.Write(ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<DesiredConfiguration>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerManagedOpsContext.Default);
+                    return ModelReaderWriter.Write(this, options, AzureResourceManager_ManagedOpsContext.Default);
                 default:
                     throw new FormatException($"The model {nameof(DesiredConfiguration)} does not support writing '{options.Format}' format.");
             }
         }
 
-        DesiredConfiguration IPersistableModel<DesiredConfiguration>.Create(BinaryData data, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<DesiredConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        DesiredConfiguration IPersistableModel<DesiredConfiguration>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
-            switch (format)
-            {
-                case "J":
-                    {
-                        using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeDesiredConfiguration(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(DesiredConfiguration)} does not support reading '{options.Format}' format.");
-            }
-        }
-
+        /// <param name="options"> The client options for reading and writing models. </param>
         string IPersistableModel<DesiredConfiguration>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

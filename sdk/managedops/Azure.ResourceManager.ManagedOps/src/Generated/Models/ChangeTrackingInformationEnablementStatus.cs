@@ -7,51 +7,71 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager.ManagedOps.Models
+namespace Azure.ResourceManager._ManagedOps.Models
 {
-    /// <summary> The ChangeTrackingInformationEnablementStatus. </summary>
+    /// <summary></summary>
     public readonly partial struct ChangeTrackingInformationEnablementStatus : IEquatable<ChangeTrackingInformationEnablementStatus>
     {
         private readonly string _value;
-
-        /// <summary> Initializes a new instance of <see cref="ChangeTrackingInformationEnablementStatus"/>. </summary>
-        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        public ChangeTrackingInformationEnablementStatus(string value)
-        {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
-        }
-
         private const string EnabledValue = "Enabled";
         private const string InProgressValue = "InProgress";
         private const string FailedValue = "Failed";
         private const string DisabledValue = "Disabled";
 
-        /// <summary> Enabled. </summary>
+        /// <summary> Initializes a new instance of <see cref="ChangeTrackingInformationEnablementStatus"/>. </summary>
+        /// <param name="value"> The value. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        public ChangeTrackingInformationEnablementStatus(string value)
+        {
+            Argument.AssertNotNull(value, nameof(value));
+
+            _value = value;
+        }
+
+        /// <summary> Gets the Enabled. </summary>
         public static ChangeTrackingInformationEnablementStatus Enabled { get; } = new ChangeTrackingInformationEnablementStatus(EnabledValue);
-        /// <summary> InProgress. </summary>
+
+        /// <summary> Gets the InProgress. </summary>
         public static ChangeTrackingInformationEnablementStatus InProgress { get; } = new ChangeTrackingInformationEnablementStatus(InProgressValue);
-        /// <summary> Failed. </summary>
+
+        /// <summary> Gets the Failed. </summary>
         public static ChangeTrackingInformationEnablementStatus Failed { get; } = new ChangeTrackingInformationEnablementStatus(FailedValue);
-        /// <summary> Disabled. </summary>
+
+        /// <summary> Gets the Disabled. </summary>
         public static ChangeTrackingInformationEnablementStatus Disabled { get; } = new ChangeTrackingInformationEnablementStatus(DisabledValue);
+
         /// <summary> Determines if two <see cref="ChangeTrackingInformationEnablementStatus"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(ChangeTrackingInformationEnablementStatus left, ChangeTrackingInformationEnablementStatus right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="ChangeTrackingInformationEnablementStatus"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(ChangeTrackingInformationEnablementStatus left, ChangeTrackingInformationEnablementStatus right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="ChangeTrackingInformationEnablementStatus"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="ChangeTrackingInformationEnablementStatus"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator ChangeTrackingInformationEnablementStatus(string value) => new ChangeTrackingInformationEnablementStatus(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="ChangeTrackingInformationEnablementStatus"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator ChangeTrackingInformationEnablementStatus?(string value) => value == null ? null : new ChangeTrackingInformationEnablementStatus(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is ChangeTrackingInformationEnablementStatus other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(ChangeTrackingInformationEnablementStatus other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }
