@@ -16,16 +16,19 @@ namespace Azure.Communication.ProgrammableConnectivity
         private static ResponseClassifier _pipelineMessageClassifier200;
         private static ResponseClassifier _pipelineMessageClassifier302;
 
-        private static ResponseClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 = new StatusCodeClassifier(stackalloc ushort[] { 200 });
+        private static ResponseClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= new StatusCodeClassifier(stackalloc ushort[] { 200 });
 
-        private static ResponseClassifier PipelineMessageClassifier302 => _pipelineMessageClassifier302 = new StatusCodeClassifier(stackalloc ushort[] { 302 });
+        private static ResponseClassifier PipelineMessageClassifier302 => _pipelineMessageClassifier302 ??= new StatusCodeClassifier(stackalloc ushort[] { 302 });
 
         internal HttpMessage CreateVerifyWithoutCodeRequest(string apcGatewayId, RequestContent content, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/number-verification/number:verify", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier302);
             Request request = message.Request;
             request.Uri = uri;
@@ -41,7 +44,10 @@ namespace Azure.Communication.ProgrammableConnectivity
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/number-verification/number:verify", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage(context, PipelineMessageClassifier200);
             Request request = message.Request;
             request.Uri = uri;
