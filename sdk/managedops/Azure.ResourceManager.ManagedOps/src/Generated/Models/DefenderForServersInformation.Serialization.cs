@@ -100,13 +100,13 @@ namespace Azure.ResourceManager.ManagedOps.Models
             {
                 return null;
             }
-            EnablementStatus enablementStatus = default;
+            ChangeTrackingInformationEnablementStatus enablementStatus = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("enablementStatus"u8))
                 {
-                    enablementStatus = new EnablementStatus(prop.Value.GetString());
+                    enablementStatus = new ChangeTrackingInformationEnablementStatus(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

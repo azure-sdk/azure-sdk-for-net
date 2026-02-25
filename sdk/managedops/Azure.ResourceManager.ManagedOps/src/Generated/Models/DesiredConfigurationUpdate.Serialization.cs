@@ -103,8 +103,8 @@ namespace Azure.ResourceManager.ManagedOps.Models
             {
                 return null;
             }
-            DesiredEnablementState? defenderForServers = default;
-            DesiredEnablementState? defenderCspm = default;
+            DesiredConfigurationDefenderForServers? defenderForServers = default;
+            DesiredConfigurationDefenderForServers? defenderCspm = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    defenderForServers = new DesiredEnablementState(prop.Value.GetString());
+                    defenderForServers = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("defenderCspm"u8))
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    defenderCspm = new DesiredEnablementState(prop.Value.GetString());
+                    defenderCspm = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

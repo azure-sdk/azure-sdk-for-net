@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
 
         /// <summary> Initializes a new instance of <see cref="GuestConfigurationInformation"/>. </summary>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
-        internal GuestConfigurationInformation(EnablementStatus enablementStatus)
+        internal GuestConfigurationInformation(ChangeTrackingInformationEnablementStatus enablementStatus)
         {
             EnablementStatus = enablementStatus;
         }
@@ -26,13 +26,13 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <summary> Initializes a new instance of <see cref="GuestConfigurationInformation"/>. </summary>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal GuestConfigurationInformation(EnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal GuestConfigurationInformation(ChangeTrackingInformationEnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             EnablementStatus = enablementStatus;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public EnablementStatus EnablementStatus { get; }
+        public ChangeTrackingInformationEnablementStatus EnablementStatus { get; }
     }
 }

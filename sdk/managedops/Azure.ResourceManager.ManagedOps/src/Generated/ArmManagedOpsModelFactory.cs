@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="defenderForServersEnablementStatus"> Indicates whether the service is enabled. </param>
         /// <param name="defenderCspmEnablementStatus"> Indicates whether the service is enabled. </param>
         /// <returns> A new <see cref="Models.ServiceInformation"/> instance for mocking. </returns>
-        public static ServiceInformation ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory = default, AzureMonitorInformation azureMonitorInsights = default, EnablementStatus? azureUpdateManagerEnablementStatus = default, EnablementStatus? azurePolicyAndMachineEnablementStatus = default, EnablementStatus? defenderForServersEnablementStatus = default, EnablementStatus? defenderCspmEnablementStatus = default)
+        public static ServiceInformation ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory = default, AzureMonitorInformation azureMonitorInsights = default, ChangeTrackingInformationEnablementStatus? azureUpdateManagerEnablementStatus = default, ChangeTrackingInformationEnablementStatus? azurePolicyAndMachineEnablementStatus = default, ChangeTrackingInformationEnablementStatus? defenderForServersEnablementStatus = default, ChangeTrackingInformationEnablementStatus? defenderCspmEnablementStatus = default)
         {
             return new ServiceInformation(
                 changeTrackingAndInventory,
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <returns> A new <see cref="Models.ChangeTrackingInformation"/> instance for mocking. </returns>
-        public static ChangeTrackingInformation ChangeTrackingInformation(ResourceIdentifier dcrId = default, EnablementStatus enablementStatus = default)
+        public static ChangeTrackingInformation ChangeTrackingInformation(ResourceIdentifier dcrId = default, ChangeTrackingInformationEnablementStatus enablementStatus = default)
         {
             return new ChangeTrackingInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
         }
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <returns> A new <see cref="Models.AzureMonitorInformation"/> instance for mocking. </returns>
-        public static AzureMonitorInformation AzureMonitorInformation(ResourceIdentifier dcrId = default, EnablementStatus enablementStatus = default)
+        public static AzureMonitorInformation AzureMonitorInformation(ResourceIdentifier dcrId = default, ChangeTrackingInformationEnablementStatus enablementStatus = default)
         {
             return new AzureMonitorInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
         }
