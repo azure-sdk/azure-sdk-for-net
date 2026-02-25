@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_CreateOrUpdate. </description>
+        /// <description> ManagedOps_CreateOrUpdate. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_CreateOrUpdate. </description>
+        /// <description> ManagedOps_CreateOrUpdate. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -180,7 +180,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -229,7 +229,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -278,7 +278,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_List. </description>
+        /// <description> ManagedOps_List. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_List. </description>
+        /// <description> ManagedOps_List. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -334,7 +334,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -391,7 +391,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -448,7 +448,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -509,7 +509,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>

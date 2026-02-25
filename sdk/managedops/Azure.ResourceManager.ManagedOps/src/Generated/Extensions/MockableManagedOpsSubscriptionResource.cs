@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.ManagedOps.Mocking
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.ManagedOps.Mocking
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>

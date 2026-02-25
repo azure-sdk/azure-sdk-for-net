@@ -100,7 +100,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Get. </description>
+        /// <description> ManagedOps_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Update. </description>
+        /// <description> ManagedOps_Update. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Update. </description>
+        /// <description> ManagedOps_Update. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -314,7 +314,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Delete. </description>
+        /// <description> ManagedOps_Delete. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -363,7 +363,7 @@ namespace Azure.ResourceManager.ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOperations_Delete. </description>
+        /// <description> ManagedOps_Delete. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
