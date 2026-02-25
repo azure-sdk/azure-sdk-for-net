@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager;
+using Azure.ResourceManager.ManagedOps.Mocking;
 using Azure.ResourceManager.Resources;
-using Azure.ResourceManager._ManagedOps.Mocking;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
-    /// <summary> A class to add extension methods to Azure.ResourceManager._ManagedOps. </summary>
+    /// <summary> A class to add extension methods to Azure.ResourceManager.ManagedOps. </summary>
     public static partial class ManagedOpsExtensions
     {
         /// <param name="client"></param>

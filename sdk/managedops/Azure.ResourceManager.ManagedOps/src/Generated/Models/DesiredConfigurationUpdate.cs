@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Updatable parameters in the Desired configuration input. </summary>
     public partial class DesiredConfigurationUpdate

@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Policy assignments created for managing services. </summary>
     internal partial class PolicyAssignmentProperties

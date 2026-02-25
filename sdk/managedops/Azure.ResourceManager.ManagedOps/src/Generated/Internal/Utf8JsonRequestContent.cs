@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     internal partial class Utf8JsonRequestContent : RequestContent
     {

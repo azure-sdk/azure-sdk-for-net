@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Azure Monitor Insights service information. </summary>
     public partial class AzureMonitorInformation

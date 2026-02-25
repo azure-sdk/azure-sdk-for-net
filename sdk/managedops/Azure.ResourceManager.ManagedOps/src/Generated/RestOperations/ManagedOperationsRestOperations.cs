@@ -10,24 +10,24 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
-    internal partial class ManagedOps
+    internal partial class ManagedOperations
     {
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of ManagedOps for mocking. </summary>
-        protected ManagedOps()
+        /// <summary> Initializes a new instance of ManagedOperations for mocking. </summary>
+        protected ManagedOperations()
         {
         }
 
-        /// <summary> Initializes a new instance of ManagedOps. </summary>
+        /// <summary> Initializes a new instance of ManagedOperations. </summary>
         /// <param name="clientDiagnostics"> The ClientDiagnostics is used to provide tracing support for the client library. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="endpoint"> Service endpoint. </param>
         /// <param name="apiVersion"></param>
-        internal ManagedOps(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Uri endpoint, string apiVersion)
+        internal ManagedOperations(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Uri endpoint, string apiVersion)
         {
             ClientDiagnostics = clientDiagnostics;
             _endpoint = endpoint;

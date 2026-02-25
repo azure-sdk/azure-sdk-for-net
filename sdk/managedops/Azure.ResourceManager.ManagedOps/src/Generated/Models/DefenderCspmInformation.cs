@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Defender Cloud Security Posture Management (CSPM) service information. </summary>
     internal partial class DefenderCspmInformation

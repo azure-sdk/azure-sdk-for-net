@@ -8,10 +8,10 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.ManagedOps.Models;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager._ManagedOps.Models;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     /// <summary> The Managed Operations resource. </summary>
     public partial class ManagedOpData : ResourceData

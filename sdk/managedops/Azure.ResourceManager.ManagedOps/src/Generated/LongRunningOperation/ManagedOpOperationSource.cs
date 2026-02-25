@@ -12,7 +12,7 @@ using Azure;
 using Azure.Core;
 using Azure.ResourceManager;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     /// <summary></summary>
     internal partial class ManagedOpOperationSource : IOperationSource<ManagedOpResource>

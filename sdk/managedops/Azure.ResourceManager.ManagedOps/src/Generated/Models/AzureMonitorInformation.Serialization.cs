@@ -10,9 +10,9 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager._ManagedOps;
+using Azure.ResourceManager.ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Azure Monitor Insights service information. </summary>
     public partial class AzureMonitorInformation : IJsonModel<AzureMonitorInformation>
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager._ManagedOps.Models
             switch (format)
             {
                 case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManager_ManagedOpsContext.Default);
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerManagedOpsContext.Default);
                 default:
                     throw new FormatException($"The model {nameof(AzureMonitorInformation)} does not support writing '{options.Format}' format.");
             }

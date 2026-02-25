@@ -7,10 +7,10 @@
 
 using System.ClientModel.Primitives;
 using Azure;
+using Azure.ResourceManager.ManagedOps.Models;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager._ManagedOps.Models;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     /// <summary>
     /// Context class which will be filled in by the System.ClientModel.SourceGeneration.
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager._ManagedOps
     [ModelReaderWriterBuildable(typeof(ServiceInformation))]
     [ModelReaderWriterBuildable(typeof(SystemData))]
     [ModelReaderWriterBuildable(typeof(UpdateManagerInformation))]
-    public partial class AzureResourceManager_ManagedOpsContext : ModelReaderWriterContext
+    public partial class AzureResourceManagerManagedOpsContext : ModelReaderWriterContext
     {
     }
 }

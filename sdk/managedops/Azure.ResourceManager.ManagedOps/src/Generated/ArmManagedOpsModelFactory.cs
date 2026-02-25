@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Azure;
 using Azure.Core;
+using Azure.ResourceManager.ManagedOps;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> A factory class for creating instances of the models for mocking. </summary>
     public static partial class ArmManagedOpsModelFactory
@@ -25,7 +25,7 @@ namespace Azure.ResourceManager._ManagedOps.Models
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="properties"> The resource-specific properties for this resource. </param>
-        /// <returns> A new <see cref="_ManagedOps.ManagedOpData"/> instance for mocking. </returns>
+        /// <returns> A new <see cref="ManagedOps.ManagedOpData"/> instance for mocking. </returns>
         public static ManagedOpData ManagedOpData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, ManagedOpsProperties properties = default)
         {
             return new ManagedOpData(

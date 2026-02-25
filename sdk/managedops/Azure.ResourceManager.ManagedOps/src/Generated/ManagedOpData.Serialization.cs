@@ -12,10 +12,10 @@ using System.Text;
 using System.Text.Json;
 using Azure;
 using Azure.Core;
+using Azure.ResourceManager.ManagedOps.Models;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager._ManagedOps.Models;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     /// <summary> The Managed Operations resource. </summary>
     public partial class ManagedOpData : ResourceData, IJsonModel<ManagedOpData>
@@ -132,7 +132,7 @@ namespace Azure.ResourceManager._ManagedOps
                     {
                         continue;
                     }
-                    systemData = ModelReaderWriter.Read<SystemData>(new BinaryData(Encoding.UTF8.GetBytes(prop.Value.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManager_ManagedOpsContext.Default);
+                    systemData = ModelReaderWriter.Read<SystemData>(new BinaryData(Encoding.UTF8.GetBytes(prop.Value.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerManagedOpsContext.Default);
                     continue;
                 }
                 if (prop.NameEquals("properties"u8))
@@ -168,7 +168,7 @@ namespace Azure.ResourceManager._ManagedOps
             switch (format)
             {
                 case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManager_ManagedOpsContext.Default);
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerManagedOpsContext.Default);
                 default:
                     throw new FormatException($"The model {nameof(ManagedOpData)} does not support writing '{options.Format}' format.");
             }

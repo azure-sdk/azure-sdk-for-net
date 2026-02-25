@@ -8,9 +8,9 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager._ManagedOps;
+using Azure.ResourceManager.ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Desired configuration input by the user. </summary>
     public partial class DesiredConfiguration

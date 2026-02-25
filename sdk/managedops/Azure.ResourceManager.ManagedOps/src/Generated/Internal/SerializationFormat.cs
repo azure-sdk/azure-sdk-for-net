@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     internal enum SerializationFormat
     {

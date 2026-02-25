@@ -7,9 +7,9 @@
 
 using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ResourceManager._ManagedOps;
+using Azure.ResourceManager.ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Mocking
+namespace Azure.ResourceManager.ManagedOps.Mocking
 {
     /// <summary> A class to add extension methods to <see cref="ArmClient"/>. </summary>
     public partial class MockableManagedOpsArmClient : ArmResource

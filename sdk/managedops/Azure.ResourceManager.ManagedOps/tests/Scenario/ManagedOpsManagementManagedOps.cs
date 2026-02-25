@@ -43,8 +43,8 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 				{
 					ManagedOpUpdateDesiredConfiguration = new DesiredConfigurationUpdate()
 					{
-						DefenderForServers = DesiredConfigurationDefenderForServer.Enable,
-						DefenderCspm = DesiredConfigurationDefenderForServer.Enable,
+						DefenderForServers = DesiredConfigurationDefenderForServers.Enable,
+						DefenderCspm = DesiredConfigurationDefenderForServers.Enable,
 					}
 				};
 
@@ -54,8 +54,8 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 
 				ManagedOpResource fetchedAfterPatch = await collection.GetAsync(ManagedOpsName);
 				var desiredConfig = fetchedAfterPatch.Data.Properties.DesiredConfiguration;
-				Assert.AreEqual(DesiredConfigurationDefenderForServer.Enable, desiredConfig.DefenderForServers);
-				Assert.AreEqual(DesiredConfigurationDefenderForServer.Enable, desiredConfig.DefenderCspm);
+				Assert.AreEqual(DesiredConfigurationDefenderForServers.Enable, desiredConfig.DefenderForServers);
+				Assert.AreEqual(DesiredConfigurationDefenderForServers.Enable, desiredConfig.DefenderCspm);
 			}
 			finally
 			{
@@ -88,13 +88,13 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 			var azureMonitorWorkspaceId = new ResourceIdentifier(TestEnvironment.AzureMonitorWorkspaceId);
 			var userAssignedIdentityId = new ResourceIdentifier(TestEnvironment.UserAssignedManagedIdentityId);
 
-			DesiredConfigurationDefenderForServer defenderSetting = enableDefender
-				? DesiredConfigurationDefenderForServer.Enable
-				: DesiredConfigurationDefenderForServer.Disable;
+			DesiredConfigurationDefenderForServers defenderSetting = enableDefender
+				? DesiredConfigurationDefenderForServers.Enable
+				: DesiredConfigurationDefenderForServers.Disable;
 
 			return new DesiredConfiguration(
-				new ChangeTrackingConfiguration(logAnalyticsWorkspaceId),
-				new AzureMonitorConfiguration(azureMonitorWorkspaceId),
+				logAnalyticsWorkspaceId,
+				azureMonitorWorkspaceId,
 				userAssignedIdentityId)
 			{
 				DefenderForServers = defenderSetting,

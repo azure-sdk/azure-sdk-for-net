@@ -7,9 +7,9 @@
 
 using System;
 using System.ComponentModel;
-using Azure.ResourceManager._ManagedOps;
+using Azure.ResourceManager.ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary></summary>
     public readonly partial struct DesiredConfigurationDefenderForServers : IEquatable<DesiredConfigurationDefenderForServers>

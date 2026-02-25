@@ -9,9 +9,9 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.ResourceManager._ManagedOps;
+using Azure.ResourceManager.ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Specifies the service plan for this resource. </summary>
     public partial class ManagedOpsSku : IJsonModel<ManagedOpsSku>
@@ -135,7 +135,7 @@ namespace Azure.ResourceManager._ManagedOps.Models
             switch (format)
             {
                 case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManager_ManagedOpsContext.Default);
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerManagedOpsContext.Default);
                 default:
                     throw new FormatException($"The model {nameof(ManagedOpsSku)} does not support writing '{options.Format}' format.");
             }

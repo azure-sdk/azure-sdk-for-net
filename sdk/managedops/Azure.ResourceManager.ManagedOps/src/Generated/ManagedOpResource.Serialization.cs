@@ -9,7 +9,7 @@ using System;
 using System.ClientModel.Primitives;
 using System.Text.Json;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     /// <summary></summary>
     public partial class ManagedOpResource : IJsonModel<ManagedOpData>
@@ -27,11 +27,11 @@ namespace Azure.ResourceManager._ManagedOps
         ManagedOpData IJsonModel<ManagedOpData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => DataDeserializationInstance.Create(ref reader, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ManagedOpData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<ManagedOpData>(Data, options, AzureResourceManager_ManagedOpsContext.Default);
+        BinaryData IPersistableModel<ManagedOpData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<ManagedOpData>(Data, options, AzureResourceManagerManagedOpsContext.Default);
 
         /// <param name="data"> The binary data to be processed. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ManagedOpData IPersistableModel<ManagedOpData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<ManagedOpData>(data, options, AzureResourceManager_ManagedOpsContext.Default);
+        ManagedOpData IPersistableModel<ManagedOpData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<ManagedOpData>(data, options, AzureResourceManagerManagedOpsContext.Default);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         string IPersistableModel<ManagedOpData>.GetFormatFromOptions(ModelReaderWriterOptions options) => DataDeserializationInstance.GetFormatFromOptions(options);

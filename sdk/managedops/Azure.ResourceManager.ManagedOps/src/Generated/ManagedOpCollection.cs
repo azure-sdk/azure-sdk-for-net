@@ -17,7 +17,7 @@ using Azure.Core.Pipeline;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
 
-namespace Azure.ResourceManager._ManagedOps
+namespace Azure.ResourceManager.ManagedOps
 {
     /// <summary>
     /// A class representing a collection of <see cref="ManagedOpResource"/> and their operations.
@@ -26,8 +26,8 @@ namespace Azure.ResourceManager._ManagedOps
     /// </summary>
     public partial class ManagedOpCollection : ArmCollection, IEnumerable<ManagedOpResource>, IAsyncEnumerable<ManagedOpResource>
     {
-        private readonly ClientDiagnostics _managedOpsClientDiagnostics;
-        private readonly ManagedOps _managedOpsRestClient;
+        private readonly ClientDiagnostics _managedOperationsClientDiagnostics;
+        private readonly ManagedOperations _managedOperationsRestClient;
 
         /// <summary> Initializes a new instance of ManagedOpCollection for mocking. </summary>
         protected ManagedOpCollection()
@@ -40,8 +40,8 @@ namespace Azure.ResourceManager._ManagedOps
         internal ManagedOpCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
             TryGetApiVersion(ManagedOpResource.ResourceType, out string managedOpApiVersion);
-            _managedOpsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager._ManagedOps", ManagedOpResource.ResourceType.Namespace, Diagnostics);
-            _managedOpsRestClient = new ManagedOps(_managedOpsClientDiagnostics, Pipeline, Endpoint, managedOpApiVersion ?? "2025-07-28-preview");
+            _managedOperationsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ManagedOps", ManagedOpResource.ResourceType.Namespace, Diagnostics);
+            _managedOperationsRestClient = new ManagedOperations(_managedOperationsClientDiagnostics, Pipeline, Endpoint, managedOpApiVersion ?? "2025-07-28-preview");
             ValidateResourceId(id);
         }
 
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_CreateOrUpdate. </description>
+        /// <description> ManagedOperations_CreateOrUpdate. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager._ManagedOps
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -91,11 +91,11 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, ManagedOpData.ToRequestContent(data), context);
+                HttpMessage message = _managedOperationsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, ManagedOpData.ToRequestContent(data), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ManagedOpsArmOperation<ManagedOpResource> operation = new ManagedOpsArmOperation<ManagedOpResource>(
                     new ManagedOpOperationSource(Client),
-                    _managedOpsClientDiagnostics,
+                    _managedOperationsClientDiagnostics,
                     Pipeline,
                     message.Request,
                     response,
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_CreateOrUpdate. </description>
+        /// <description> ManagedOperations_CreateOrUpdate. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager._ManagedOps
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -149,11 +149,11 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, ManagedOpData.ToRequestContent(data), context);
+                HttpMessage message = _managedOperationsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, ManagedOpData.ToRequestContent(data), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ManagedOpsArmOperation<ManagedOpResource> operation = new ManagedOpsArmOperation<ManagedOpResource>(
                     new ManagedOpOperationSource(Client),
-                    _managedOpsClientDiagnostics,
+                    _managedOperationsClientDiagnostics,
                     Pipeline,
                     message.Request,
                     response,
@@ -180,7 +180,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager._ManagedOps
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Get");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.Get");
             scope.Start();
             try
             {
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                HttpMessage message = _managedOperationsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 Response<ManagedOpData> response = Response.FromValue(ManagedOpData.FromResponse(result), result);
                 if (response.Value == null)
@@ -229,7 +229,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -245,7 +245,7 @@ namespace Azure.ResourceManager._ManagedOps
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Get");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.Get");
             scope.Start();
             try
             {
@@ -253,7 +253,7 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                HttpMessage message = _managedOperationsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
                 Response result = Pipeline.ProcessMessage(message, context);
                 Response<ManagedOpData> response = Response.FromValue(ManagedOpData.FromResponse(result), result);
                 if (response.Value == null)
@@ -278,7 +278,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_List. </description>
+        /// <description> ManagedOperations_List. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -294,7 +294,7 @@ namespace Azure.ResourceManager._ManagedOps
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<ManagedOpData, ManagedOpResource>(new ManagedOpsGetAllAsyncCollectionResultOfT(_managedOpsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ManagedOpResource(Client, data));
+            return new AsyncPageableWrapper<ManagedOpData, ManagedOpResource>(new ManagedOperationsGetAllAsyncCollectionResultOfT(_managedOperationsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ManagedOpResource(Client, data));
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_List. </description>
+        /// <description> ManagedOperations_List. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager._ManagedOps
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<ManagedOpData, ManagedOpResource>(new ManagedOpsGetAllCollectionResultOfT(_managedOpsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ManagedOpResource(Client, data));
+            return new PageableWrapper<ManagedOpData, ManagedOpResource>(new ManagedOperationsGetAllCollectionResultOfT(_managedOperationsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ManagedOpResource(Client, data));
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -350,7 +350,7 @@ namespace Azure.ResourceManager._ManagedOps
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
             scope.Start();
             try
             {
@@ -358,7 +358,7 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                HttpMessage message = _managedOperationsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
                 Response<ManagedOpData> response = default;
@@ -391,7 +391,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -407,7 +407,7 @@ namespace Azure.ResourceManager._ManagedOps
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.Exists");
             scope.Start();
             try
             {
@@ -415,7 +415,7 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                HttpMessage message = _managedOperationsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
                 Response<ManagedOpData> response = default;
@@ -448,7 +448,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -464,7 +464,7 @@ namespace Azure.ResourceManager._ManagedOps
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
             scope.Start();
             try
             {
@@ -472,7 +472,7 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                HttpMessage message = _managedOperationsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
                 Response<ManagedOpData> response = default;
@@ -509,7 +509,7 @@ namespace Azure.ResourceManager._ManagedOps
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -525,7 +525,7 @@ namespace Azure.ResourceManager._ManagedOps
         {
             Argument.AssertNotNullOrEmpty(managedOpsName, nameof(managedOpsName));
 
-            using DiagnosticScope scope = _managedOpsClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
+            using DiagnosticScope scope = _managedOperationsClientDiagnostics.CreateScope("ManagedOpCollection.GetIfExists");
             scope.Start();
             try
             {
@@ -533,7 +533,7 @@ namespace Azure.ResourceManager._ManagedOps
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _managedOpsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
+                HttpMessage message = _managedOperationsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), managedOpsName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
                 Response<ManagedOpData> response = default;

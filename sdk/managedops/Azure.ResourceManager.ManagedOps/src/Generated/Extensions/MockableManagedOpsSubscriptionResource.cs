@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager;
+using Azure.ResourceManager.ManagedOps;
 using Azure.ResourceManager.Resources;
-using Azure.ResourceManager._ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Mocking
+namespace Azure.ResourceManager.ManagedOps.Mocking
 {
     /// <summary> A class to add extension methods to <see cref="SubscriptionResource"/>. </summary>
     public partial class MockableManagedOpsSubscriptionResource : ArmResource
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager._ManagedOps.Mocking
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager._ManagedOps.Mocking
         /// </item>
         /// <item>
         /// <term> Operation Id. </term>
-        /// <description> ManagedOps_Get. </description>
+        /// <description> ManagedOperations_Get. </description>
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>

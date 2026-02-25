@@ -8,9 +8,9 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager._ManagedOps;
+using Azure.ResourceManager.ManagedOps;
 
-namespace Azure.ResourceManager._ManagedOps.Models
+namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Configuration for the Change Tracking and Inventory service. </summary>
     internal partial class ChangeTrackingConfiguration
