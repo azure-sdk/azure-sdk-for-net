@@ -1,4 +1,4 @@
 directory: specification/healthbot/HealthBot.Management
-commit: 6d7e71aa773b56701807800711635a3ea0e47f49
+commit: 552fecbf27b54042b2e3adf1a2d728435c6e0ff1
 repo: Azure/azure-rest-api-specs
 emitterPackageJsonPath: "eng/azure-typespec-http-client-csharp-mgmt-emitter-package.json"
