@@ -104,6 +104,11 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsDefined(UpdateProperties))
+            {
+                writer.WritePropertyName("updateProperties"u8);
+                writer.WriteObjectValue(UpdateProperties, options);
+            }
             if (options.Format != "W")
             {
                 writer.WritePropertyName("transactionId"u8);
@@ -168,6 +173,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DateTimeOffset releaseOn = default;
             DisconnectedOperationsReleaseType releaseType = default;
             IReadOnlyList<string> compatibleVersions = default;
+            ImageUpdateProperties updateProperties = default;
             string transactionId = default;
             Uri downloadLink = default;
             DateTimeOffset linkExpiry = default;
@@ -229,6 +235,15 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     compatibleVersions = array;
                     continue;
                 }
+                if (prop.NameEquals("updateProperties"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    updateProperties = ImageUpdateProperties.DeserializeImageUpdateProperties(prop.Value, options);
+                    continue;
+                }
                 if (prop.NameEquals("transactionId"u8))
                 {
                     transactionId = prop.Value.GetString();
@@ -257,6 +272,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 releaseOn,
                 releaseType,
                 compatibleVersions ?? new ChangeTrackingList<string>(),
+                updateProperties,
                 transactionId,
                 downloadLink,
                 linkExpiry,

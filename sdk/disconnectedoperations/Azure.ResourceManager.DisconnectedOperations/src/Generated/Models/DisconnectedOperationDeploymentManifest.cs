@@ -30,8 +30,10 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="billingModel"> The billing model. </param>
         /// <param name="connectionIntent"> The connection intent. </param>
         /// <param name="cloud"> The cloud in which the resource is registered. </param>
+        /// <param name="billingConfiguration"> The billing configuration. </param>
+        /// <param name="benefitPlans"> The benefit plans. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId, string resourceName, string stampId, string location, DisconnectedOperationsBillingModel billingModel, DisconnectedOperationsConnectionIntent connectionIntent, string cloud, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId, string resourceName, string stampId, string location, DisconnectedOperationsBillingModel billingModel, DisconnectedOperationsConnectionIntent connectionIntent, string cloud, BillingConfiguration billingConfiguration, BenefitPlans benefitPlans, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ResourceId = resourceId;
             ResourceName = resourceName;
@@ -40,6 +42,8 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             BillingModel = billingModel;
             ConnectionIntent = connectionIntent;
             Cloud = cloud;
+            BillingConfiguration = billingConfiguration;
+            BenefitPlans = benefitPlans;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -63,5 +67,11 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
 
         /// <summary> The cloud in which the resource is registered. </summary>
         public string Cloud { get; }
+
+        /// <summary> The billing configuration. </summary>
+        public BillingConfiguration BillingConfiguration { get; }
+
+        /// <summary> The benefit plans. </summary>
+        public BenefitPlans BenefitPlans { get; }
     }
 }

@@ -17,6 +17,9 @@ namespace Azure.ResourceManager.DisconnectedOperations
     /// For more information <see href='https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md' />
     /// </summary>
     [ModelReaderWriterBuildable(typeof(ArtifactListResult))]
+    [ModelReaderWriterBuildable(typeof(BenefitPlans))]
+    [ModelReaderWriterBuildable(typeof(BillingConfiguration))]
+    [ModelReaderWriterBuildable(typeof(BillingPeriod))]
     [ModelReaderWriterBuildable(typeof(DisconnectedOperationData))]
     [ModelReaderWriterBuildable(typeof(DisconnectedOperationDeploymentManifest))]
     [ModelReaderWriterBuildable(typeof(DisconnectedOperationListResult))]
@@ -32,7 +35,12 @@ namespace Azure.ResourceManager.DisconnectedOperations
     [ModelReaderWriterBuildable(typeof(DisconnectedOperationsImageProperties))]
     [ModelReaderWriterBuildable(typeof(DisconnectedOperationsImageResource))]
     [ModelReaderWriterBuildable(typeof(DisconnectedOperationUpdateProperties))]
+    [ModelReaderWriterBuildable(typeof(HardwareSettingData))]
+    [ModelReaderWriterBuildable(typeof(HardwareSettingListResult))]
+    [ModelReaderWriterBuildable(typeof(HardwareSettingProperties))]
+    [ModelReaderWriterBuildable(typeof(HardwareSettingResource))]
     [ModelReaderWriterBuildable(typeof(ImageListResult))]
+    [ModelReaderWriterBuildable(typeof(ImageUpdateProperties))]
     [ModelReaderWriterBuildable(typeof(ResponseError))]
     [ModelReaderWriterBuildable(typeof(SystemData))]
     public partial class AzureResourceManagerDisconnectedOperationsContext : ModelReaderWriterContext

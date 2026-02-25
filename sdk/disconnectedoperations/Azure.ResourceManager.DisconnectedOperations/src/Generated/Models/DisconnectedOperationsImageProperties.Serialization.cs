@@ -96,6 +96,11 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsDefined(UpdateProperties))
+            {
+                writer.WritePropertyName("updateProperties"u8);
+                writer.WriteObjectValue(UpdateProperties, options);
+            }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -145,6 +150,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DateTimeOffset releaseOn = default;
             DisconnectedOperationsReleaseType releaseType = default;
             IReadOnlyList<string> compatibleVersions = default;
+            ImageUpdateProperties updateProperties = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -203,6 +209,15 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     compatibleVersions = array;
                     continue;
                 }
+                if (prop.NameEquals("updateProperties"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    updateProperties = ImageUpdateProperties.DeserializeImageUpdateProperties(prop.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
@@ -216,6 +231,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 releaseOn,
                 releaseType,
                 compatibleVersions ?? new ChangeTrackingList<string>(),
+                updateProperties,
                 additionalBinaryDataProperties);
         }
 

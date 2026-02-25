@@ -52,5 +52,14 @@ namespace Azure.ResourceManager.DisconnectedOperations.Mocking
             DisconnectedOperationsArtifactResource.ValidateResourceId(id);
             return new DisconnectedOperationsArtifactResource(Client, id);
         }
+
+        /// <summary> Gets an object representing a <see cref="HardwareSettingResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="HardwareSettingResource"/> object. </returns>
+        public virtual HardwareSettingResource GetHardwareSettingResource(ResourceIdentifier id)
+        {
+            HardwareSettingResource.ValidateResourceId(id);
+            return new HardwareSettingResource(Client, id);
+        }
     }
 }

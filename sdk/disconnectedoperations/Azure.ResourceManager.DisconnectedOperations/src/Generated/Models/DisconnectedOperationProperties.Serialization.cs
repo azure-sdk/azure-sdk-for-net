@@ -88,6 +88,16 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 writer.WritePropertyName("deviceVersion"u8);
                 writer.WriteStringValue(DeviceVersion);
             }
+            if (Optional.IsDefined(BillingConfiguration))
+            {
+                writer.WritePropertyName("billingConfiguration"u8);
+                writer.WriteObjectValue(BillingConfiguration, options);
+            }
+            if (Optional.IsDefined(BenefitPlans))
+            {
+                writer.WritePropertyName("benefitPlans"u8);
+                writer.WriteObjectValue(BenefitPlans, options);
+            }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -137,6 +147,8 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DisconnectedOperationsConnectionStatus? connectionStatus = default;
             DisconnectedOperationsRegistrationStatus? registrationStatus = default;
             string deviceVersion = default;
+            BillingConfiguration billingConfiguration = default;
+            BenefitPlans benefitPlans = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -187,6 +199,24 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     deviceVersion = prop.Value.GetString();
                     continue;
                 }
+                if (prop.NameEquals("billingConfiguration"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    billingConfiguration = BillingConfiguration.DeserializeBillingConfiguration(prop.Value, options);
+                    continue;
+                }
+                if (prop.NameEquals("benefitPlans"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    benefitPlans = BenefitPlans.DeserializeBenefitPlans(prop.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
@@ -200,6 +230,8 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 connectionStatus,
                 registrationStatus,
                 deviceVersion,
+                billingConfiguration,
+                benefitPlans,
                 additionalBinaryDataProperties);
         }
 

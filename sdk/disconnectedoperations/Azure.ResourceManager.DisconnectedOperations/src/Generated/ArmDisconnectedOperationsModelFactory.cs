@@ -50,8 +50,10 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="connectionStatus"> The connection status. </param>
         /// <param name="registrationStatus"> The registration intent. </param>
         /// <param name="deviceVersion"> The device version. </param>
+        /// <param name="billingConfiguration"> The billing configuration. </param>
+        /// <param name="benefitPlans"> The benefit plans. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationProperties"/> instance for mocking. </returns>
-        public static DisconnectedOperationProperties DisconnectedOperationProperties(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string stampId = default, DisconnectedOperationsBillingModel billingModel = default, DisconnectedOperationsConnectionIntent connectionIntent = default, DisconnectedOperationsConnectionStatus? connectionStatus = default, DisconnectedOperationsRegistrationStatus? registrationStatus = default, string deviceVersion = default)
+        public static DisconnectedOperationProperties DisconnectedOperationProperties(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string stampId = default, DisconnectedOperationsBillingModel billingModel = default, DisconnectedOperationsConnectionIntent connectionIntent = default, DisconnectedOperationsConnectionStatus? connectionStatus = default, DisconnectedOperationsRegistrationStatus? registrationStatus = default, string deviceVersion = default, BillingConfiguration billingConfiguration = default, BenefitPlans benefitPlans = default)
         {
             return new DisconnectedOperationProperties(
                 provisioningState,
@@ -61,7 +63,31 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 connectionStatus,
                 registrationStatus,
                 deviceVersion,
+                billingConfiguration,
+                benefitPlans,
                 additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The billing configuration. </summary>
+        /// <param name="autoRenew"> The auto renew setting. </param>
+        /// <param name="billingStatus"> The billing status. </param>
+        /// <param name="current"> The current billing configuration. </param>
+        /// <param name="upcoming"> The upcoming billing configuration. </param>
+        /// <returns> A new <see cref="Models.BillingConfiguration"/> instance for mocking. </returns>
+        public static BillingConfiguration BillingConfiguration(AutoRenew autoRenew = default, BillingStatus billingStatus = default, BillingPeriod current = default, BillingPeriod upcoming = default)
+        {
+            return new BillingConfiguration(autoRenew, billingStatus, current, upcoming, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The billing period. </summary>
+        /// <param name="cores"> The number of cores. </param>
+        /// <param name="pricingModel"> The pricing model. </param>
+        /// <param name="startOn"> The billing start date. </param>
+        /// <param name="endOn"> The billing end date. </param>
+        /// <returns> A new <see cref="Models.BillingPeriod"/> instance for mocking. </returns>
+        public static BillingPeriod BillingPeriod(int cores = default, PricingModel pricingModel = default, DateTimeOffset? startOn = default, DateTimeOffset? endOn = default)
+        {
+            return new BillingPeriod(cores, pricingModel, startOn, endOn, additionalBinaryDataProperties: null);
         }
 
         /// <summary> The type used for update operations of the DisconnectedOperation. </summary>
@@ -83,8 +109,10 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="billingModel"> The billing model. </param>
         /// <param name="connectionIntent"> The connection intent. </param>
         /// <param name="cloud"> The cloud in which the resource is registered. </param>
+        /// <param name="billingConfiguration"> The billing configuration. </param>
+        /// <param name="benefitPlans"> The benefit plans. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationDeploymentManifest"/> instance for mocking. </returns>
-        public static DisconnectedOperationDeploymentManifest DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId = default, string resourceName = default, string stampId = default, string location = default, DisconnectedOperationsBillingModel billingModel = default, DisconnectedOperationsConnectionIntent connectionIntent = default, string cloud = default)
+        public static DisconnectedOperationDeploymentManifest DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId = default, string resourceName = default, string stampId = default, string location = default, DisconnectedOperationsBillingModel billingModel = default, DisconnectedOperationsConnectionIntent connectionIntent = default, string cloud = default, BillingConfiguration billingConfiguration = default, BenefitPlans benefitPlans = default)
         {
             return new DisconnectedOperationDeploymentManifest(
                 resourceId,
@@ -94,6 +122,8 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 billingModel,
                 connectionIntent,
                 cloud,
+                billingConfiguration,
+                benefitPlans,
                 additionalBinaryDataProperties: null);
         }
 
@@ -123,8 +153,9 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="releaseOn"> The release date. </param>
         /// <param name="releaseType"> The release type. </param>
         /// <param name="compatibleVersions"> The versions that are compatible for this update package. </param>
+        /// <param name="updateProperties"> Image update properties for update release type image. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationsImageProperties"/> instance for mocking. </returns>
-        public static DisconnectedOperationsImageProperties DisconnectedOperationsImageProperties(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string releaseVersion = default, string releaseDisplayName = default, string releaseNotes = default, DateTimeOffset releaseOn = default, DisconnectedOperationsReleaseType releaseType = default, IEnumerable<string> compatibleVersions = default)
+        public static DisconnectedOperationsImageProperties DisconnectedOperationsImageProperties(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string releaseVersion = default, string releaseDisplayName = default, string releaseNotes = default, DateTimeOffset releaseOn = default, DisconnectedOperationsReleaseType releaseType = default, IEnumerable<string> compatibleVersions = default, ImageUpdateProperties updateProperties = default)
         {
             compatibleVersions ??= new ChangeTrackingList<string>();
 
@@ -136,6 +167,25 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 releaseOn,
                 releaseType,
                 compatibleVersions.ToList(),
+                updateProperties,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The update properties of the Update Release type Image. </summary>
+        /// <param name="systemReboot"> Indicates if a system reboot is required after applying the update. </param>
+        /// <param name="securityUpdates"> Details of security updates included in this image release. </param>
+        /// <param name="osVersion"> The operating system version provided by this image update. </param>
+        /// <param name="agentVersion"> The version(s) of the agent software included in this image update. </param>
+        /// <param name="featureUpdates"> Details of feature updates included in this image release. </param>
+        /// <returns> A new <see cref="Models.ImageUpdateProperties"/> instance for mocking. </returns>
+        public static ImageUpdateProperties ImageUpdateProperties(SystemReboot systemReboot = default, string securityUpdates = default, string osVersion = default, string agentVersion = default, string featureUpdates = default)
+        {
+            return new ImageUpdateProperties(
+                systemReboot,
+                securityUpdates,
+                osVersion,
+                agentVersion,
+                featureUpdates,
                 additionalBinaryDataProperties: null);
         }
 
@@ -147,11 +197,12 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="releaseOn"> The release date. </param>
         /// <param name="releaseType"> The release type. </param>
         /// <param name="compatibleVersions"> The versions that are compatible for this update package. </param>
+        /// <param name="updateProperties"> Image update properties for update release type image. </param>
         /// <param name="transactionId"> The unique identifier of the download. </param>
         /// <param name="downloadLink"> The download URI. </param>
         /// <param name="linkExpiry"> The download link expiry time. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationsImageDownloadResult"/> instance for mocking. </returns>
-        public static DisconnectedOperationsImageDownloadResult DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string releaseVersion = default, string releaseDisplayName = default, string releaseNotes = default, DateTimeOffset releaseOn = default, DisconnectedOperationsReleaseType releaseType = default, IEnumerable<string> compatibleVersions = default, string transactionId = default, Uri downloadLink = default, DateTimeOffset linkExpiry = default)
+        public static DisconnectedOperationsImageDownloadResult DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string releaseVersion = default, string releaseDisplayName = default, string releaseNotes = default, DateTimeOffset releaseOn = default, DisconnectedOperationsReleaseType releaseType = default, IEnumerable<string> compatibleVersions = default, ImageUpdateProperties updateProperties = default, string transactionId = default, Uri downloadLink = default, DateTimeOffset linkExpiry = default)
         {
             compatibleVersions ??= new ChangeTrackingList<string>();
 
@@ -163,6 +214,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 releaseOn,
                 releaseType,
                 compatibleVersions.ToList(),
+                updateProperties,
                 transactionId,
                 downloadLink,
                 linkExpiry,
@@ -224,6 +276,52 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 size,
                 downloadLink,
                 linkExpiry,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Hardware settings resource. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
+        /// <returns> A new <see cref="DisconnectedOperations.HardwareSettingData"/> instance for mocking. </returns>
+        public static HardwareSettingData HardwareSettingData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, HardwareSettingProperties properties = default)
+        {
+            return new HardwareSettingData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                properties);
+        }
+
+        /// <summary> The hardware setting properties. </summary>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
+        /// <param name="totalCores"> The total number of cores. </param>
+        /// <param name="diskSpaceInGb"> The disk space in GB. </param>
+        /// <param name="memoryInGb"> The memory in GB. </param>
+        /// <param name="oem"> The OEM. </param>
+        /// <param name="hardwareSku"> The hardware SKU. </param>
+        /// <param name="nodes"> The number of nodes. </param>
+        /// <param name="versionAtRegistration"> The active version at registration. </param>
+        /// <param name="solutionBuilderExtension"> The solution builder extension at registration. </param>
+        /// <param name="deviceId"> The unique Id of the device. </param>
+        /// <returns> A new <see cref="Models.HardwareSettingProperties"/> instance for mocking. </returns>
+        public static HardwareSettingProperties HardwareSettingProperties(DisconnectedOperationsResourceProvisioningState? provisioningState = default, int totalCores = default, int diskSpaceInGb = default, int memoryInGb = default, string oem = default, string hardwareSku = default, int nodes = default, string versionAtRegistration = default, string solutionBuilderExtension = default, string deviceId = default)
+        {
+            return new HardwareSettingProperties(
+                provisioningState,
+                totalCores,
+                diskSpaceInGb,
+                memoryInGb,
+                oem,
+                hardwareSku,
+                nodes,
+                versionAtRegistration,
+                solutionBuilderExtension,
+                deviceId,
                 additionalBinaryDataProperties: null);
         }
     }
