@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ManagedOps
                     yield break;
                 }
                 ManagedOpListResult result = ManagedOpListResult.FromResponse(response);
-                yield return Page<ManagedOpData>.FromValues((IReadOnlyList<ManagedOpData>)result.Value, nextPage?.AbsoluteUri, response);
+                yield return Page<ManagedOpData>.FromValues((IReadOnlyList<ManagedOpData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 nextPage = result.NextLink;
                 if (nextPage == null)
                 {
