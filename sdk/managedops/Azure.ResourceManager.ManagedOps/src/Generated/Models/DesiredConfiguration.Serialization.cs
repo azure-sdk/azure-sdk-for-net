@@ -118,8 +118,8 @@ namespace Azure.ResourceManager.ManagedOps.Models
             ChangeTrackingConfiguration changeTrackingAndInventory = default;
             AzureMonitorConfiguration azureMonitorInsights = default;
             ResourceIdentifier userAssignedManagedIdentityId = default;
-            DesiredConfigurationDefenderForServers? defenderForServers = default;
-            DesiredConfigurationDefenderForServers? defenderCspm = default;
+            DesiredEnablementState? defenderForServers = default;
+            DesiredEnablementState? defenderCspm = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    defenderForServers = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
+                    defenderForServers = new DesiredEnablementState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("defenderCspm"u8))
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    defenderCspm = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
+                    defenderCspm = new DesiredEnablementState(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

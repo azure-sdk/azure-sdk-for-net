@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="defenderForServers"> Desired enablement state of the Defender For Servers service. </param>
         /// <param name="defenderCspm"> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DesiredConfigurationUpdate(DesiredConfigurationDefenderForServers? defenderForServers, DesiredConfigurationDefenderForServers? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DesiredConfigurationUpdate(DesiredEnablementState? defenderForServers, DesiredEnablementState? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             DefenderForServers = defenderForServers;
             DefenderCspm = defenderCspm;
@@ -33,9 +33,9 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Desired enablement state of the Defender For Servers service. </summary>
-        public DesiredConfigurationDefenderForServers? DefenderForServers { get; set; }
+        public DesiredEnablementState? DefenderForServers { get; set; }
 
         /// <summary> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </summary>
-        public DesiredConfigurationDefenderForServers? DefenderCspm { get; set; }
+        public DesiredEnablementState? DefenderCspm { get; set; }
     }
 }

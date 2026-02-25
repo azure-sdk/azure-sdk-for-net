@@ -43,8 +43,8 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 				{
 					ManagedOpUpdateDesiredConfiguration = new DesiredConfigurationUpdate()
 					{
-						DefenderForServers = DesiredConfigurationDefenderForServers.Enable,
-						DefenderCspm = DesiredConfigurationDefenderForServers.Enable,
+						DefenderForServers = DesiredEnablementState.Enable,
+						DefenderCspm = DesiredEnablementState.Enable,
 					}
 				};
 
@@ -54,8 +54,8 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 
 				ManagedOpResource fetchedAfterPatch = await collection.GetAsync(ManagedOpsName);
 				var desiredConfig = fetchedAfterPatch.Data.Properties.DesiredConfiguration;
-				Assert.AreEqual(DesiredConfigurationDefenderForServers.Enable, desiredConfig.DefenderForServers);
-				Assert.AreEqual(DesiredConfigurationDefenderForServers.Enable, desiredConfig.DefenderCspm);
+				Assert.AreEqual(DesiredEnablementState.Enable, desiredConfig.DefenderForServers);
+				Assert.AreEqual(DesiredEnablementState.Enable, desiredConfig.DefenderCspm);
 			}
 			finally
 			{
@@ -88,9 +88,9 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 			var azureMonitorWorkspaceId = new ResourceIdentifier(TestEnvironment.AzureMonitorWorkspaceId);
 			var userAssignedIdentityId = new ResourceIdentifier(TestEnvironment.UserAssignedManagedIdentityId);
 
-			DesiredConfigurationDefenderForServers defenderSetting = enableDefender
-				? DesiredConfigurationDefenderForServers.Enable
-				: DesiredConfigurationDefenderForServers.Disable;
+			DesiredEnablementState defenderSetting = enableDefender
+				? DesiredEnablementState.Enable
+				: DesiredEnablementState.Disable;
 
 			return new DesiredConfiguration(
 				logAnalyticsWorkspaceId,

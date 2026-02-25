@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         internal DefenderCspmInformation DefenderCspm { get; }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? AzureUpdateManagerEnablementStatus
+        public EnablementStatus? AzureUpdateManagerEnablementStatus
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? AzurePolicyAndMachineEnablementStatus
+        public EnablementStatus? AzurePolicyAndMachineEnablementStatus
         {
             get
             {
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? DefenderForServersEnablementStatus
+        public EnablementStatus? DefenderForServersEnablementStatus
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? DefenderCspmEnablementStatus
+        public EnablementStatus? DefenderCspmEnablementStatus
         {
             get
             {

@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <summary> Initializes a new instance of <see cref="ChangeTrackingInformation"/>. </summary>
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
-        internal ChangeTrackingInformation(ResourceIdentifier dcrId, ChangeTrackingInformationEnablementStatus enablementStatus)
+        internal ChangeTrackingInformation(ResourceIdentifier dcrId, EnablementStatus enablementStatus)
         {
             DcrId = dcrId;
             EnablementStatus = enablementStatus;
@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ChangeTrackingInformation(ResourceIdentifier dcrId, ChangeTrackingInformationEnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChangeTrackingInformation(ResourceIdentifier dcrId, EnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             DcrId = dcrId;
             EnablementStatus = enablementStatus;
@@ -41,6 +41,6 @@ namespace Azure.ResourceManager.ManagedOps.Models
         public ResourceIdentifier DcrId { get; }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus EnablementStatus { get; }
+        public EnablementStatus EnablementStatus { get; }
     }
 }
