@@ -13,17 +13,17 @@ using Azure.ResourceManager.ManagedOps;
 namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Desired configuration input by the user. </summary>
-    public partial class DesiredConfiguration
+    public partial class ManagedOpsDesiredConfiguration
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="DesiredConfiguration"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsDesiredConfiguration"/>. </summary>
         /// <param name="changeTrackingAndInventoryLogAnalyticsWorkspaceId"> Log analytics workspace resource ID used by the service. </param>
         /// <param name="azureMonitorWorkspaceId"> Azure monitor workspace resource ID used by the service. </param>
         /// <param name="userAssignedManagedIdentityId"> User assigned Managed Identity used to perform operations on machines managed by Ops360. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="changeTrackingAndInventoryLogAnalyticsWorkspaceId"/>, <paramref name="azureMonitorWorkspaceId"/> or <paramref name="userAssignedManagedIdentityId"/> is null. </exception>
-        public DesiredConfiguration(ResourceIdentifier changeTrackingAndInventoryLogAnalyticsWorkspaceId, ResourceIdentifier azureMonitorWorkspaceId, ResourceIdentifier userAssignedManagedIdentityId)
+        public ManagedOpsDesiredConfiguration(ResourceIdentifier changeTrackingAndInventoryLogAnalyticsWorkspaceId, ResourceIdentifier azureMonitorWorkspaceId, ResourceIdentifier userAssignedManagedIdentityId)
         {
             Argument.AssertNotNull(changeTrackingAndInventoryLogAnalyticsWorkspaceId, nameof(changeTrackingAndInventoryLogAnalyticsWorkspaceId));
             Argument.AssertNotNull(azureMonitorWorkspaceId, nameof(azureMonitorWorkspaceId));
@@ -34,14 +34,14 @@ namespace Azure.ResourceManager.ManagedOps.Models
             UserAssignedManagedIdentityId = userAssignedManagedIdentityId;
         }
 
-        /// <summary> Initializes a new instance of <see cref="DesiredConfiguration"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsDesiredConfiguration"/>. </summary>
         /// <param name="changeTrackingAndInventory"> Configuration for the Change Tracking and Inventory service. </param>
         /// <param name="azureMonitorInsights"> Configuration for the Azure Monitor Insights service. </param>
         /// <param name="userAssignedManagedIdentityId"> User assigned Managed Identity used to perform operations on machines managed by Ops360. </param>
         /// <param name="defenderForServers"> Desired enablement state of the Defender For Servers service. </param>
         /// <param name="defenderCspm"> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DesiredConfiguration(ChangeTrackingConfiguration changeTrackingAndInventory, AzureMonitorConfiguration azureMonitorInsights, ResourceIdentifier userAssignedManagedIdentityId, DesiredConfigurationDefenderForServers? defenderForServers, DesiredConfigurationDefenderForServers? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ManagedOpsDesiredConfiguration(ChangeTrackingConfiguration changeTrackingAndInventory, AzureMonitorConfiguration azureMonitorInsights, ResourceIdentifier userAssignedManagedIdentityId, ManagedOpsDesiredEnablementState? defenderForServers, ManagedOpsDesiredEnablementState? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ChangeTrackingAndInventory = changeTrackingAndInventory;
             AzureMonitorInsights = azureMonitorInsights;
@@ -61,10 +61,10 @@ namespace Azure.ResourceManager.ManagedOps.Models
         public ResourceIdentifier UserAssignedManagedIdentityId { get; set; }
 
         /// <summary> Desired enablement state of the Defender For Servers service. </summary>
-        public DesiredConfigurationDefenderForServers? DefenderForServers { get; set; }
+        public ManagedOpsDesiredEnablementState? DefenderForServers { get; set; }
 
         /// <summary> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </summary>
-        public DesiredConfigurationDefenderForServers? DefenderCspm { get; set; }
+        public ManagedOpsDesiredEnablementState? DefenderCspm { get; set; }
 
         /// <summary> Log analytics workspace resource ID used by the service. </summary>
         public ResourceIdentifier ChangeTrackingAndInventoryLogAnalyticsWorkspaceId

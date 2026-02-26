@@ -14,51 +14,51 @@ using Azure.ResourceManager.ManagedOps;
 namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Updatable parameters in the Desired configuration input. </summary>
-    public partial class DesiredConfigurationUpdate : IJsonModel<DesiredConfigurationUpdate>
+    public partial class ManagedOpsDesiredConfigurationUpdate : IJsonModel<ManagedOpsDesiredConfigurationUpdate>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual DesiredConfigurationUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ManagedOpsDesiredConfigurationUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsDesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeDesiredConfigurationUpdate(document.RootElement, options);
+                        return DeserializeManagedOpsDesiredConfigurationUpdate(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(DesiredConfigurationUpdate)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ManagedOpsDesiredConfigurationUpdate)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsDesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerManagedOpsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(DesiredConfigurationUpdate)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ManagedOpsDesiredConfigurationUpdate)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<DesiredConfigurationUpdate>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ManagedOpsDesiredConfigurationUpdate>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        DesiredConfigurationUpdate IPersistableModel<DesiredConfigurationUpdate>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ManagedOpsDesiredConfigurationUpdate IPersistableModel<ManagedOpsDesiredConfigurationUpdate>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<DesiredConfigurationUpdate>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ManagedOpsDesiredConfigurationUpdate>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<DesiredConfigurationUpdate>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ManagedOpsDesiredConfigurationUpdate>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -69,10 +69,10 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsDesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DesiredConfigurationUpdate)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ManagedOpsDesiredConfigurationUpdate)} does not support writing '{format}' format.");
             }
             if (Optional.IsDefined(DefenderForServers))
             {
@@ -103,31 +103,31 @@ namespace Azure.ResourceManager.ManagedOps.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        DesiredConfigurationUpdate IJsonModel<DesiredConfigurationUpdate>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ManagedOpsDesiredConfigurationUpdate IJsonModel<ManagedOpsDesiredConfigurationUpdate>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual DesiredConfigurationUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ManagedOpsDesiredConfigurationUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsDesiredConfigurationUpdate>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DesiredConfigurationUpdate)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ManagedOpsDesiredConfigurationUpdate)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeDesiredConfigurationUpdate(document.RootElement, options);
+            return DeserializeManagedOpsDesiredConfigurationUpdate(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static DesiredConfigurationUpdate DeserializeDesiredConfigurationUpdate(JsonElement element, ModelReaderWriterOptions options)
+        internal static ManagedOpsDesiredConfigurationUpdate DeserializeManagedOpsDesiredConfigurationUpdate(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            DesiredConfigurationDefenderForServers? defenderForServers = default;
-            DesiredConfigurationDefenderForServers? defenderCspm = default;
+            ManagedOpsDesiredEnablementState? defenderForServers = default;
+            ManagedOpsDesiredEnablementState? defenderCspm = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    defenderForServers = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
+                    defenderForServers = new ManagedOpsDesiredEnablementState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("defenderCspm"u8))
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    defenderCspm = new DesiredConfigurationDefenderForServers(prop.Value.GetString());
+                    defenderCspm = new ManagedOpsDesiredEnablementState(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new DesiredConfigurationUpdate(defenderForServers, defenderCspm, additionalBinaryDataProperties);
+            return new ManagedOpsDesiredConfigurationUpdate(defenderForServers, defenderCspm, additionalBinaryDataProperties);
         }
     }
 }

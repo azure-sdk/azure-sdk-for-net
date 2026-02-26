@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="services"> Services provisioned by this resource. </param>
         /// <param name="policyInitiativeAssignmentId"> Policy initiative assignment ID. </param>
         /// <returns> A new <see cref="Models.ManagedOpsProperties"/> instance for mocking. </returns>
-        public static ManagedOpsProperties ManagedOpsProperties(ManagedOpsSku sku = default, ManagedOpsProvisioningState? provisioningState = default, DesiredConfiguration desiredConfiguration = default, ManagedOpsServiceInformation services = default, ResourceIdentifier policyInitiativeAssignmentId = default)
+        public static ManagedOpsProperties ManagedOpsProperties(ManagedOpsSku sku = default, ManagedOpsProvisioningState? provisioningState = default, ManagedOpsDesiredConfiguration desiredConfiguration = default, ManagedOpsServiceInformation services = default, ResourceIdentifier policyInitiativeAssignmentId = default)
         {
             return new ManagedOpsProperties(
                 sku,

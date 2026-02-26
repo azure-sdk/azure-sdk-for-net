@@ -11,21 +11,21 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Updatable parameters in the Desired configuration input. </summary>
-    public partial class DesiredConfigurationUpdate
+    public partial class ManagedOpsDesiredConfigurationUpdate
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="DesiredConfigurationUpdate"/>. </summary>
-        public DesiredConfigurationUpdate()
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsDesiredConfigurationUpdate"/>. </summary>
+        public ManagedOpsDesiredConfigurationUpdate()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="DesiredConfigurationUpdate"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsDesiredConfigurationUpdate"/>. </summary>
         /// <param name="defenderForServers"> Desired enablement state of the Defender For Servers service. </param>
         /// <param name="defenderCspm"> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DesiredConfigurationUpdate(DesiredConfigurationDefenderForServers? defenderForServers, DesiredConfigurationDefenderForServers? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ManagedOpsDesiredConfigurationUpdate(ManagedOpsDesiredEnablementState? defenderForServers, ManagedOpsDesiredEnablementState? defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             DefenderForServers = defenderForServers;
             DefenderCspm = defenderCspm;
@@ -33,9 +33,9 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Desired enablement state of the Defender For Servers service. </summary>
-        public DesiredConfigurationDefenderForServers? DefenderForServers { get; set; }
+        public ManagedOpsDesiredEnablementState? DefenderForServers { get; set; }
 
         /// <summary> Desired enablement state of the Defender Cloud Security Posture Management (CSPM) service. </summary>
-        public DesiredConfigurationDefenderForServers? DefenderCspm { get; set; }
+        public ManagedOpsDesiredEnablementState? DefenderCspm { get; set; }
     }
 }

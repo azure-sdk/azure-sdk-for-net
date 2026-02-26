@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
             {
                 return null;
             }
-            DesiredConfigurationUpdate desiredConfiguration = default;
+            ManagedOpsDesiredConfigurationUpdate desiredConfiguration = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    desiredConfiguration = DesiredConfigurationUpdate.DeserializeDesiredConfigurationUpdate(prop.Value, options);
+                    desiredConfiguration = ManagedOpsDesiredConfigurationUpdate.DeserializeManagedOpsDesiredConfigurationUpdate(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

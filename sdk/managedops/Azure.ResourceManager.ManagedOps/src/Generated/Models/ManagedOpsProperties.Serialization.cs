@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
             }
             ManagedOpsSku sku = default;
             ManagedOpsProvisioningState? provisioningState = default;
-            DesiredConfiguration desiredConfiguration = default;
+            ManagedOpsDesiredConfiguration desiredConfiguration = default;
             ManagedOpsServiceInformation services = default;
             PolicyAssignmentProperties policyAssignmentProperties = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                 }
                 if (prop.NameEquals("desiredConfiguration"u8))
                 {
-                    desiredConfiguration = DesiredConfiguration.DeserializeDesiredConfiguration(prop.Value, options);
+                    desiredConfiguration = ManagedOpsDesiredConfiguration.DeserializeManagedOpsDesiredConfiguration(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("services"u8))

@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <summary> Initializes a new instance of <see cref="ManagedOpsProperties"/>. </summary>
         /// <param name="desiredConfiguration"> Desired configuration input by the user. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="desiredConfiguration"/> is null. </exception>
-        public ManagedOpsProperties(DesiredConfiguration desiredConfiguration)
+        public ManagedOpsProperties(ManagedOpsDesiredConfiguration desiredConfiguration)
         {
             Argument.AssertNotNull(desiredConfiguration, nameof(desiredConfiguration));
 
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="services"> Services provisioned by this resource. </param>
         /// <param name="policyAssignmentProperties"> Policy assignments created for managing services. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedOpsProperties(ManagedOpsSku sku, ManagedOpsProvisioningState? provisioningState, DesiredConfiguration desiredConfiguration, ManagedOpsServiceInformation services, PolicyAssignmentProperties policyAssignmentProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ManagedOpsProperties(ManagedOpsSku sku, ManagedOpsProvisioningState? provisioningState, ManagedOpsDesiredConfiguration desiredConfiguration, ManagedOpsServiceInformation services, PolicyAssignmentProperties policyAssignmentProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Sku = sku;
             ProvisioningState = provisioningState;
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         public ManagedOpsProvisioningState? ProvisioningState { get; }
 
         /// <summary> Desired configuration input by the user. </summary>
-        public DesiredConfiguration DesiredConfiguration { get; set; }
+        public ManagedOpsDesiredConfiguration DesiredConfiguration { get; set; }
 
         /// <summary> Services provisioned by this resource. </summary>
         public ManagedOpsServiceInformation Services { get; }
