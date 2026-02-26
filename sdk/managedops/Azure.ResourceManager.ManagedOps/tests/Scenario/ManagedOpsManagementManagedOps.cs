@@ -41,10 +41,10 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 				// Update the ManagedOps resource to dnable Defender
 				var patchBody = new ManagedOpPatch
 				{
-					ManagedOpUpdateDesiredConfiguration = new DesiredConfigurationUpdate()
+					ManagedOpUpdateDesiredConfiguration = new ManagedOpsDesiredConfigurationUpdate()
 					{
-						DefenderForServers = DesiredConfigurationDefenderForServers.Enable,
-						DefenderCspm = DesiredConfigurationDefenderForServers.Enable,
+						DefenderForServers = ManagedOpsDesiredEnablementState.Enable,
+						DefenderCspm = ManagedOpsDesiredEnablementState.Enable,
 					}
 				};
 
@@ -54,8 +54,8 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 
 				ManagedOpResource fetchedAfterPatch = await collection.GetAsync(ManagedOpsName);
 				var desiredConfig = fetchedAfterPatch.Data.Properties.DesiredConfiguration;
-				Assert.AreEqual(DesiredConfigurationDefenderForServers.Enable, desiredConfig.DefenderForServers);
-				Assert.AreEqual(DesiredConfigurationDefenderForServers.Enable, desiredConfig.DefenderCspm);
+				Assert.AreEqual(ManagedOpsDesiredEnablementState.Enable, desiredConfig.DefenderForServers);
+				Assert.AreEqual(ManagedOpsDesiredEnablementState.Enable, desiredConfig.DefenderCspm);
 			}
 			finally
 			{
@@ -82,17 +82,17 @@ namespace Azure.ResourceManager.ManagedOps.Tests.Scenario
 			return lro.Value;
 		}
 
-		private DesiredConfiguration CreateDesiredConfiguration(bool enableDefender)
+		private ManagedOpsDesiredConfiguration CreateDesiredConfiguration(bool enableDefender)
 		{
 			var logAnalyticsWorkspaceId = new ResourceIdentifier(TestEnvironment.ChangeTrackingWorkspaceId);
 			var azureMonitorWorkspaceId = new ResourceIdentifier(TestEnvironment.AzureMonitorWorkspaceId);
 			var userAssignedIdentityId = new ResourceIdentifier(TestEnvironment.UserAssignedManagedIdentityId);
 
-			DesiredConfigurationDefenderForServers defenderSetting = enableDefender
-				? DesiredConfigurationDefenderForServers.Enable
-				: DesiredConfigurationDefenderForServers.Disable;
+			ManagedOpsDesiredEnablementState defenderSetting = enableDefender
+				? ManagedOpsDesiredEnablementState.Enable
+				: ManagedOpsDesiredEnablementState.Disable;
 
-			return new DesiredConfiguration(
+			return new ManagedOpsDesiredConfiguration(
 				logAnalyticsWorkspaceId,
 				azureMonitorWorkspaceId,
 				userAssignedIdentityId)
