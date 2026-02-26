@@ -15,56 +15,56 @@ using Azure.ResourceManager.ManagedOps;
 namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Change Tracking and Inventory service information. </summary>
-    public partial class ChangeTrackingInformation : IJsonModel<ChangeTrackingInformation>
+    public partial class ManagedOpsChangeTrackingInformation : IJsonModel<ManagedOpsChangeTrackingInformation>
     {
-        /// <summary> Initializes a new instance of <see cref="ChangeTrackingInformation"/> for deserialization. </summary>
-        internal ChangeTrackingInformation()
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsChangeTrackingInformation"/> for deserialization. </summary>
+        internal ManagedOpsChangeTrackingInformation()
         {
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ChangeTrackingInformation PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ManagedOpsChangeTrackingInformation PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeChangeTrackingInformation(document.RootElement, options);
+                        return DeserializeManagedOpsChangeTrackingInformation(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ChangeTrackingInformation)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ManagedOpsChangeTrackingInformation)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerManagedOpsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(ChangeTrackingInformation)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ManagedOpsChangeTrackingInformation)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ChangeTrackingInformation>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ManagedOpsChangeTrackingInformation>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ChangeTrackingInformation IPersistableModel<ChangeTrackingInformation>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ManagedOpsChangeTrackingInformation IPersistableModel<ManagedOpsChangeTrackingInformation>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ChangeTrackingInformation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ManagedOpsChangeTrackingInformation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<ChangeTrackingInformation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ManagedOpsChangeTrackingInformation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -75,10 +75,10 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChangeTrackingInformation)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ManagedOpsChangeTrackingInformation)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("dcrId"u8);
             writer.WriteStringValue(DcrId);
@@ -103,31 +103,31 @@ namespace Azure.ResourceManager.ManagedOps.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ChangeTrackingInformation IJsonModel<ChangeTrackingInformation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ManagedOpsChangeTrackingInformation IJsonModel<ManagedOpsChangeTrackingInformation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ChangeTrackingInformation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ManagedOpsChangeTrackingInformation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsChangeTrackingInformation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ChangeTrackingInformation)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ManagedOpsChangeTrackingInformation)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeChangeTrackingInformation(document.RootElement, options);
+            return DeserializeManagedOpsChangeTrackingInformation(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static ChangeTrackingInformation DeserializeChangeTrackingInformation(JsonElement element, ModelReaderWriterOptions options)
+        internal static ManagedOpsChangeTrackingInformation DeserializeManagedOpsChangeTrackingInformation(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
             ResourceIdentifier dcrId = default;
-            ChangeTrackingInformationEnablementStatus enablementStatus = default;
+            ManagedOpsEnablementStatus enablementStatus = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                 }
                 if (prop.NameEquals("enablementStatus"u8))
                 {
-                    enablementStatus = new ChangeTrackingInformationEnablementStatus(prop.Value.GetString());
+                    enablementStatus = new ManagedOpsEnablementStatus(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ChangeTrackingInformation(dcrId, enablementStatus, additionalBinaryDataProperties);
+            return new ManagedOpsChangeTrackingInformation(dcrId, enablementStatus, additionalBinaryDataProperties);
         }
     }
 }

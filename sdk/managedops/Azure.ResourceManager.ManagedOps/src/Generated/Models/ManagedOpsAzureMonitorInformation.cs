@@ -12,25 +12,25 @@ using Azure.Core;
 namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Azure Monitor Insights service information. </summary>
-    public partial class AzureMonitorInformation
+    public partial class ManagedOpsAzureMonitorInformation
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="AzureMonitorInformation"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsAzureMonitorInformation"/>. </summary>
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
-        internal AzureMonitorInformation(ResourceIdentifier dcrId, ChangeTrackingInformationEnablementStatus enablementStatus)
+        internal ManagedOpsAzureMonitorInformation(ResourceIdentifier dcrId, ManagedOpsEnablementStatus enablementStatus)
         {
             DcrId = dcrId;
             EnablementStatus = enablementStatus;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AzureMonitorInformation"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsAzureMonitorInformation"/>. </summary>
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AzureMonitorInformation(ResourceIdentifier dcrId, ChangeTrackingInformationEnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ManagedOpsAzureMonitorInformation(ResourceIdentifier dcrId, ManagedOpsEnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             DcrId = dcrId;
             EnablementStatus = enablementStatus;
@@ -41,6 +41,6 @@ namespace Azure.ResourceManager.ManagedOps.Models
         public ResourceIdentifier DcrId { get; }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus EnablementStatus { get; }
+        public ManagedOpsEnablementStatus EnablementStatus { get; }
     }
 }

@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Services provisioned by this resource. </summary>
-    public partial class ServiceInformation
+    public partial class ManagedOpsServiceInformation
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="ServiceInformation"/>. </summary>
-        internal ServiceInformation()
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsServiceInformation"/>. </summary>
+        internal ManagedOpsServiceInformation()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ServiceInformation"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsServiceInformation"/>. </summary>
         /// <param name="changeTrackingAndInventory"> Change Tracking and Inventory service information. </param>
         /// <param name="azureMonitorInsights"> Azure Monitor Insights service information. </param>
         /// <param name="azureUpdateManager"> Azure Update Manager service information. </param>
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="defenderForServers"> Defender for Servers service information. </param>
         /// <param name="defenderCspm"> Defender for Cloud's Cloud security posture management (CSPM) service information. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory, AzureMonitorInformation azureMonitorInsights, UpdateManagerInformation azureUpdateManager, GuestConfigurationInformation azurePolicyAndMachineConfiguration, DefenderForServersInformation defenderForServers, DefenderCspmInformation defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ManagedOpsServiceInformation(ManagedOpsChangeTrackingInformation changeTrackingAndInventory, ManagedOpsAzureMonitorInformation azureMonitorInsights, UpdateManagerInformation azureUpdateManager, GuestConfigurationInformation azurePolicyAndMachineConfiguration, DefenderForServersInformation defenderForServers, DefenderCspmInformation defenderCspm, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ChangeTrackingAndInventory = changeTrackingAndInventory;
             AzureMonitorInsights = azureMonitorInsights;
@@ -41,10 +41,10 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Change Tracking and Inventory service information. </summary>
-        public ChangeTrackingInformation ChangeTrackingAndInventory { get; }
+        public ManagedOpsChangeTrackingInformation ChangeTrackingAndInventory { get; }
 
         /// <summary> Azure Monitor Insights service information. </summary>
-        public AzureMonitorInformation AzureMonitorInsights { get; }
+        public ManagedOpsAzureMonitorInformation AzureMonitorInsights { get; }
 
         /// <summary> Azure Update Manager service information. </summary>
         internal UpdateManagerInformation AzureUpdateManager { get; }
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         internal DefenderCspmInformation DefenderCspm { get; }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? AzureUpdateManagerEnablementStatus
+        public ManagedOpsEnablementStatus? AzureUpdateManagerEnablementStatus
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? AzurePolicyAndMachineEnablementStatus
+        public ManagedOpsEnablementStatus? AzurePolicyAndMachineEnablementStatus
         {
             get
             {
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? DefenderForServersEnablementStatus
+        public ManagedOpsEnablementStatus? DefenderForServersEnablementStatus
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus? DefenderCspmEnablementStatus
+        public ManagedOpsEnablementStatus? DefenderCspmEnablementStatus
         {
             get
             {

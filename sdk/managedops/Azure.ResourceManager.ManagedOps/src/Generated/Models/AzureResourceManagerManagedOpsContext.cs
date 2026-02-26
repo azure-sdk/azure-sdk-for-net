@@ -17,9 +17,7 @@ namespace Azure.ResourceManager.ManagedOps
     /// For more information <see href='https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md' />
     /// </summary>
     [ModelReaderWriterBuildable(typeof(AzureMonitorConfiguration))]
-    [ModelReaderWriterBuildable(typeof(AzureMonitorInformation))]
     [ModelReaderWriterBuildable(typeof(ChangeTrackingConfiguration))]
-    [ModelReaderWriterBuildable(typeof(ChangeTrackingInformation))]
     [ModelReaderWriterBuildable(typeof(DefenderCspmInformation))]
     [ModelReaderWriterBuildable(typeof(DefenderForServersInformation))]
     [ModelReaderWriterBuildable(typeof(DesiredConfiguration))]
@@ -29,12 +27,14 @@ namespace Azure.ResourceManager.ManagedOps
     [ModelReaderWriterBuildable(typeof(ManagedOpListResult))]
     [ModelReaderWriterBuildable(typeof(ManagedOpPatch))]
     [ModelReaderWriterBuildable(typeof(ManagedOpResource))]
+    [ModelReaderWriterBuildable(typeof(ManagedOpsAzureMonitorInformation))]
+    [ModelReaderWriterBuildable(typeof(ManagedOpsChangeTrackingInformation))]
     [ModelReaderWriterBuildable(typeof(ManagedOpsProperties))]
+    [ModelReaderWriterBuildable(typeof(ManagedOpsServiceInformation))]
     [ModelReaderWriterBuildable(typeof(ManagedOpsSku))]
     [ModelReaderWriterBuildable(typeof(ManagedOpUpdateProperties))]
     [ModelReaderWriterBuildable(typeof(PolicyAssignmentProperties))]
     [ModelReaderWriterBuildable(typeof(ResponseError))]
-    [ModelReaderWriterBuildable(typeof(ServiceInformation))]
     [ModelReaderWriterBuildable(typeof(SystemData))]
     [ModelReaderWriterBuildable(typeof(UpdateManagerInformation))]
     public partial class AzureResourceManagerManagedOpsContext : ModelReaderWriterContext

@@ -15,56 +15,56 @@ using Azure.ResourceManager.ManagedOps;
 namespace Azure.ResourceManager.ManagedOps.Models
 {
     /// <summary> Azure Monitor Insights service information. </summary>
-    public partial class AzureMonitorInformation : IJsonModel<AzureMonitorInformation>
+    public partial class ManagedOpsAzureMonitorInformation : IJsonModel<ManagedOpsAzureMonitorInformation>
     {
-        /// <summary> Initializes a new instance of <see cref="AzureMonitorInformation"/> for deserialization. </summary>
-        internal AzureMonitorInformation()
+        /// <summary> Initializes a new instance of <see cref="ManagedOpsAzureMonitorInformation"/> for deserialization. </summary>
+        internal ManagedOpsAzureMonitorInformation()
         {
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual AzureMonitorInformation PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ManagedOpsAzureMonitorInformation PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<AzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsAzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeAzureMonitorInformation(document.RootElement, options);
+                        return DeserializeManagedOpsAzureMonitorInformation(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AzureMonitorInformation)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ManagedOpsAzureMonitorInformation)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<AzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsAzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerManagedOpsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(AzureMonitorInformation)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ManagedOpsAzureMonitorInformation)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<AzureMonitorInformation>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ManagedOpsAzureMonitorInformation>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        AzureMonitorInformation IPersistableModel<AzureMonitorInformation>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ManagedOpsAzureMonitorInformation IPersistableModel<ManagedOpsAzureMonitorInformation>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<AzureMonitorInformation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ManagedOpsAzureMonitorInformation>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<AzureMonitorInformation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ManagedOpsAzureMonitorInformation>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -75,10 +75,10 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<AzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsAzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureMonitorInformation)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ManagedOpsAzureMonitorInformation)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("dcrId"u8);
             writer.WriteStringValue(DcrId);
@@ -103,31 +103,31 @@ namespace Azure.ResourceManager.ManagedOps.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        AzureMonitorInformation IJsonModel<AzureMonitorInformation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ManagedOpsAzureMonitorInformation IJsonModel<ManagedOpsAzureMonitorInformation>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual AzureMonitorInformation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ManagedOpsAzureMonitorInformation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<AzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ManagedOpsAzureMonitorInformation>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AzureMonitorInformation)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ManagedOpsAzureMonitorInformation)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAzureMonitorInformation(document.RootElement, options);
+            return DeserializeManagedOpsAzureMonitorInformation(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static AzureMonitorInformation DeserializeAzureMonitorInformation(JsonElement element, ModelReaderWriterOptions options)
+        internal static ManagedOpsAzureMonitorInformation DeserializeManagedOpsAzureMonitorInformation(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
             ResourceIdentifier dcrId = default;
-            ChangeTrackingInformationEnablementStatus enablementStatus = default;
+            ManagedOpsEnablementStatus enablementStatus = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                 }
                 if (prop.NameEquals("enablementStatus"u8))
                 {
-                    enablementStatus = new ChangeTrackingInformationEnablementStatus(prop.Value.GetString());
+                    enablementStatus = new ManagedOpsEnablementStatus(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new AzureMonitorInformation(dcrId, enablementStatus, additionalBinaryDataProperties);
+            return new ManagedOpsAzureMonitorInformation(dcrId, enablementStatus, additionalBinaryDataProperties);
         }
     }
 }

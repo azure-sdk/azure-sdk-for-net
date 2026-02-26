@@ -83,61 +83,12 @@ namespace Azure.ResourceManager.ManagedOps.Models
 {
     public static partial class ArmManagedOpsModelFactory
     {
-        public static Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation AzureMonitorInformation(Azure.Core.ResourceIdentifier dcrId = null, Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus enablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus)) { throw null; }
-        public static Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation ChangeTrackingInformation(Azure.Core.ResourceIdentifier dcrId = null, Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus enablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus)) { throw null; }
         public static Azure.ResourceManager.ManagedOps.ManagedOpData ManagedOpData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties properties = null) { throw null; }
-        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties ManagedOpsProperties(Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku sku = null, Azure.ResourceManager.ManagedOps.Models.ProvisioningState? provisioningState = default(Azure.ResourceManager.ManagedOps.Models.ProvisioningState?), Azure.ResourceManager.ManagedOps.Models.DesiredConfiguration desiredConfiguration = null, Azure.ResourceManager.ManagedOps.Models.ServiceInformation services = null, Azure.Core.ResourceIdentifier policyInitiativeAssignmentId = null) { throw null; }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation ManagedOpsAzureMonitorInformation(Azure.Core.ResourceIdentifier dcrId = null, Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus enablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus)) { throw null; }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation ManagedOpsChangeTrackingInformation(Azure.Core.ResourceIdentifier dcrId = null, Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus enablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus)) { throw null; }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties ManagedOpsProperties(Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku sku = null, Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState? provisioningState = default(Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState?), Azure.ResourceManager.ManagedOps.Models.DesiredConfiguration desiredConfiguration = null, Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation services = null, Azure.Core.ResourceIdentifier policyInitiativeAssignmentId = null) { throw null; }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation ManagedOpsServiceInformation(Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation changeTrackingAndInventory = null, Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation azureMonitorInsights = null, Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? azureUpdateManagerEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus?), Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? azurePolicyAndMachineEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus?), Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? defenderForServersEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus?), Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? defenderCspmEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus?)) { throw null; }
         public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku ManagedOpsSku(string name = null, string tier = null) { throw null; }
-        public static Azure.ResourceManager.ManagedOps.Models.ServiceInformation ServiceInformation(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation changeTrackingAndInventory = null, Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation azureMonitorInsights = null, Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? azureUpdateManagerEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus?), Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? azurePolicyAndMachineEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus?), Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? defenderForServersEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus?), Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? defenderCspmEnablementStatus = default(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus?)) { throw null; }
-    }
-    public partial class AzureMonitorInformation : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation>
-    {
-        internal AzureMonitorInformation() { }
-        public Azure.Core.ResourceIdentifier DcrId { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus EnablementStatus { get { throw null; } }
-        protected virtual Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        protected virtual Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-    }
-    public partial class ChangeTrackingInformation : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation>
-    {
-        internal ChangeTrackingInformation() { }
-        public Azure.Core.ResourceIdentifier DcrId { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus EnablementStatus { get { throw null; } }
-        protected virtual Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        protected virtual Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct ChangeTrackingInformationEnablementStatus : System.IEquatable<Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public ChangeTrackingInformationEnablementStatus(string value) { throw null; }
-        public static Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus Disabled { get { throw null; } }
-        public static Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus Enabled { get { throw null; } }
-        public static Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus Failed { get { throw null; } }
-        public static Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus InProgress { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus other) { throw null; }
-        public override bool Equals(object obj) { throw null; }
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus left, Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus right) { throw null; }
-        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus (string value) { throw null; }
-        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus left, Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus right) { throw null; }
-        public override string ToString() { throw null; }
     }
     public partial class DesiredConfiguration : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.DesiredConfiguration>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.DesiredConfiguration>
     {
@@ -203,13 +154,62 @@ namespace Azure.ResourceManager.ManagedOps.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpPatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpPatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    public partial class ManagedOpsAzureMonitorInformation : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation>
+    {
+        internal ManagedOpsAzureMonitorInformation() { }
+        public Azure.Core.ResourceIdentifier DcrId { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus EnablementStatus { get { throw null; } }
+        protected virtual Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        protected virtual Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ManagedOpsChangeTrackingInformation : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation>
+    {
+        internal ManagedOpsChangeTrackingInformation() { }
+        public Azure.Core.ResourceIdentifier DcrId { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus EnablementStatus { get { throw null; } }
+        protected virtual Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        protected virtual Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ManagedOpsEnablementStatus : System.IEquatable<Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ManagedOpsEnablementStatus(string value) { throw null; }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus Disabled { get { throw null; } }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus Enabled { get { throw null; } }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus Failed { get { throw null; } }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus InProgress { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus other) { throw null; }
+        public override bool Equals(object obj) { throw null; }
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus left, Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus right) { throw null; }
+        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus (string value) { throw null; }
+        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus left, Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class ManagedOpsProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties>
     {
         public ManagedOpsProperties(Azure.ResourceManager.ManagedOps.Models.DesiredConfiguration desiredConfiguration) { }
         public Azure.ResourceManager.ManagedOps.Models.DesiredConfiguration DesiredConfiguration { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier PolicyInitiativeAssignmentId { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ProvisioningState? ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ServiceInformation Services { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation Services { get { throw null; } }
         public Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku Sku { get { throw null; } }
         protected virtual Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -220,6 +220,45 @@ namespace Azure.ResourceManager.ManagedOps.Models
         Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ManagedOpsProvisioningState : System.IEquatable<Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ManagedOpsProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState Canceled { get { throw null; } }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState Provisioning { get { throw null; } }
+        public static Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState Succeeded { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState other) { throw null; }
+        public override bool Equals(object obj) { throw null; }
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState left, Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState (string value) { throw null; }
+        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState? (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState left, Azure.ResourceManager.ManagedOps.Models.ManagedOpsProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class ManagedOpsServiceInformation : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation>
+    {
+        internal ManagedOpsServiceInformation() { }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsAzureMonitorInformation AzureMonitorInsights { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? AzurePolicyAndMachineEnablementStatus { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? AzureUpdateManagerEnablementStatus { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsChangeTrackingInformation ChangeTrackingAndInventory { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? DefenderCspmEnablementStatus { get { throw null; } }
+        public Azure.ResourceManager.ManagedOps.Models.ManagedOpsEnablementStatus? DefenderForServersEnablementStatus { get { throw null; } }
+        protected virtual Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        protected virtual Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsServiceInformation>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class ManagedOpsSku : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku>
     {
@@ -235,44 +274,5 @@ namespace Azure.ResourceManager.ManagedOps.Models
         Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ManagedOpsSku>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct ProvisioningState : System.IEquatable<Azure.ResourceManager.ManagedOps.Models.ProvisioningState>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public ProvisioningState(string value) { throw null; }
-        public static Azure.ResourceManager.ManagedOps.Models.ProvisioningState Canceled { get { throw null; } }
-        public static Azure.ResourceManager.ManagedOps.Models.ProvisioningState Deleting { get { throw null; } }
-        public static Azure.ResourceManager.ManagedOps.Models.ProvisioningState Failed { get { throw null; } }
-        public static Azure.ResourceManager.ManagedOps.Models.ProvisioningState Provisioning { get { throw null; } }
-        public static Azure.ResourceManager.ManagedOps.Models.ProvisioningState Succeeded { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.ManagedOps.Models.ProvisioningState other) { throw null; }
-        public override bool Equals(object obj) { throw null; }
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.ManagedOps.Models.ProvisioningState left, Azure.ResourceManager.ManagedOps.Models.ProvisioningState right) { throw null; }
-        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ProvisioningState (string value) { throw null; }
-        public static implicit operator Azure.ResourceManager.ManagedOps.Models.ProvisioningState? (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.ManagedOps.Models.ProvisioningState left, Azure.ResourceManager.ManagedOps.Models.ProvisioningState right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    public partial class ServiceInformation : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ServiceInformation>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ServiceInformation>
-    {
-        internal ServiceInformation() { }
-        public Azure.ResourceManager.ManagedOps.Models.AzureMonitorInformation AzureMonitorInsights { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? AzurePolicyAndMachineEnablementStatus { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? AzureUpdateManagerEnablementStatus { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformation ChangeTrackingAndInventory { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? DefenderCspmEnablementStatus { get { throw null; } }
-        public Azure.ResourceManager.ManagedOps.Models.ChangeTrackingInformationEnablementStatus? DefenderForServersEnablementStatus { get { throw null; } }
-        protected virtual Azure.ResourceManager.ManagedOps.Models.ServiceInformation JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        protected virtual Azure.ResourceManager.ManagedOps.Models.ServiceInformation PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        Azure.ResourceManager.ManagedOps.Models.ServiceInformation System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ServiceInformation>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ManagedOps.Models.ServiceInformation>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.ManagedOps.Models.ServiceInformation System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ServiceInformation>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ServiceInformation>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ManagedOps.Models.ServiceInformation>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
 }

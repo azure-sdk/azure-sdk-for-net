@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="services"> Services provisioned by this resource. </param>
         /// <param name="policyAssignmentProperties"> Policy assignments created for managing services. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ManagedOpsProperties(ManagedOpsSku sku, ProvisioningState? provisioningState, DesiredConfiguration desiredConfiguration, ServiceInformation services, PolicyAssignmentProperties policyAssignmentProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ManagedOpsProperties(ManagedOpsSku sku, ManagedOpsProvisioningState? provisioningState, DesiredConfiguration desiredConfiguration, ManagedOpsServiceInformation services, PolicyAssignmentProperties policyAssignmentProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Sku = sku;
             ProvisioningState = provisioningState;
@@ -49,13 +49,13 @@ namespace Azure.ResourceManager.ManagedOps.Models
         public ManagedOpsSku Sku { get; }
 
         /// <summary> Provisioning state of the resource. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ManagedOpsProvisioningState? ProvisioningState { get; }
 
         /// <summary> Desired configuration input by the user. </summary>
         public DesiredConfiguration DesiredConfiguration { get; set; }
 
         /// <summary> Services provisioned by this resource. </summary>
-        public ServiceInformation Services { get; }
+        public ManagedOpsServiceInformation Services { get; }
 
         /// <summary> Policy assignments created for managing services. </summary>
         internal PolicyAssignmentProperties PolicyAssignmentProperties { get; }

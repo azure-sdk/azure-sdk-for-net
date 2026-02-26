@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="services"> Services provisioned by this resource. </param>
         /// <param name="policyInitiativeAssignmentId"> Policy initiative assignment ID. </param>
         /// <returns> A new <see cref="Models.ManagedOpsProperties"/> instance for mocking. </returns>
-        public static ManagedOpsProperties ManagedOpsProperties(ManagedOpsSku sku = default, ProvisioningState? provisioningState = default, DesiredConfiguration desiredConfiguration = default, ServiceInformation services = default, ResourceIdentifier policyInitiativeAssignmentId = default)
+        public static ManagedOpsProperties ManagedOpsProperties(ManagedOpsSku sku = default, ManagedOpsProvisioningState? provisioningState = default, DesiredConfiguration desiredConfiguration = default, ManagedOpsServiceInformation services = default, ResourceIdentifier policyInitiativeAssignmentId = default)
         {
             return new ManagedOpsProperties(
                 sku,
@@ -69,10 +69,10 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <param name="azurePolicyAndMachineEnablementStatus"> Indicates whether the service is enabled. </param>
         /// <param name="defenderForServersEnablementStatus"> Indicates whether the service is enabled. </param>
         /// <param name="defenderCspmEnablementStatus"> Indicates whether the service is enabled. </param>
-        /// <returns> A new <see cref="Models.ServiceInformation"/> instance for mocking. </returns>
-        public static ServiceInformation ServiceInformation(ChangeTrackingInformation changeTrackingAndInventory = default, AzureMonitorInformation azureMonitorInsights = default, ChangeTrackingInformationEnablementStatus? azureUpdateManagerEnablementStatus = default, ChangeTrackingInformationEnablementStatus? azurePolicyAndMachineEnablementStatus = default, ChangeTrackingInformationEnablementStatus? defenderForServersEnablementStatus = default, ChangeTrackingInformationEnablementStatus? defenderCspmEnablementStatus = default)
+        /// <returns> A new <see cref="Models.ManagedOpsServiceInformation"/> instance for mocking. </returns>
+        public static ManagedOpsServiceInformation ManagedOpsServiceInformation(ManagedOpsChangeTrackingInformation changeTrackingAndInventory = default, ManagedOpsAzureMonitorInformation azureMonitorInsights = default, ManagedOpsEnablementStatus? azureUpdateManagerEnablementStatus = default, ManagedOpsEnablementStatus? azurePolicyAndMachineEnablementStatus = default, ManagedOpsEnablementStatus? defenderForServersEnablementStatus = default, ManagedOpsEnablementStatus? defenderCspmEnablementStatus = default)
         {
-            return new ServiceInformation(
+            return new ManagedOpsServiceInformation(
                 changeTrackingAndInventory,
                 azureMonitorInsights,
                 azureUpdateManagerEnablementStatus is null ? default : new UpdateManagerInformation(azureUpdateManagerEnablementStatus.Value, null),
@@ -85,19 +85,19 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <summary> Change Tracking and Inventory service information. </summary>
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
-        /// <returns> A new <see cref="Models.ChangeTrackingInformation"/> instance for mocking. </returns>
-        public static ChangeTrackingInformation ChangeTrackingInformation(ResourceIdentifier dcrId = default, ChangeTrackingInformationEnablementStatus enablementStatus = default)
+        /// <returns> A new <see cref="Models.ManagedOpsChangeTrackingInformation"/> instance for mocking. </returns>
+        public static ManagedOpsChangeTrackingInformation ManagedOpsChangeTrackingInformation(ResourceIdentifier dcrId = default, ManagedOpsEnablementStatus enablementStatus = default)
         {
-            return new ChangeTrackingInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
+            return new ManagedOpsChangeTrackingInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Azure Monitor Insights service information. </summary>
         /// <param name="dcrId"> ID of Data Collection Rule (DCR) associated with this service. </param>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
-        /// <returns> A new <see cref="Models.AzureMonitorInformation"/> instance for mocking. </returns>
-        public static AzureMonitorInformation AzureMonitorInformation(ResourceIdentifier dcrId = default, ChangeTrackingInformationEnablementStatus enablementStatus = default)
+        /// <returns> A new <see cref="Models.ManagedOpsAzureMonitorInformation"/> instance for mocking. </returns>
+        public static ManagedOpsAzureMonitorInformation ManagedOpsAzureMonitorInformation(ResourceIdentifier dcrId = default, ManagedOpsEnablementStatus enablementStatus = default)
         {
-            return new AzureMonitorInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
+            return new ManagedOpsAzureMonitorInformation(dcrId, enablementStatus, additionalBinaryDataProperties: null);
         }
     }
 }

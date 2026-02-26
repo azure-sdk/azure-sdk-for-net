@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
 
         /// <summary> Initializes a new instance of <see cref="DefenderForServersInformation"/>. </summary>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
-        internal DefenderForServersInformation(ChangeTrackingInformationEnablementStatus enablementStatus)
+        internal DefenderForServersInformation(ManagedOpsEnablementStatus enablementStatus)
         {
             EnablementStatus = enablementStatus;
         }
@@ -26,13 +26,13 @@ namespace Azure.ResourceManager.ManagedOps.Models
         /// <summary> Initializes a new instance of <see cref="DefenderForServersInformation"/>. </summary>
         /// <param name="enablementStatus"> Indicates whether the service is enabled. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DefenderForServersInformation(ChangeTrackingInformationEnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DefenderForServersInformation(ManagedOpsEnablementStatus enablementStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             EnablementStatus = enablementStatus;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Indicates whether the service is enabled. </summary>
-        public ChangeTrackingInformationEnablementStatus EnablementStatus { get; }
+        public ManagedOpsEnablementStatus EnablementStatus { get; }
     }
 }

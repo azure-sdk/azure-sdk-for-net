@@ -144,9 +144,9 @@ namespace Azure.ResourceManager.ManagedOps.Models
                 return null;
             }
             ManagedOpsSku sku = default;
-            ProvisioningState? provisioningState = default;
+            ManagedOpsProvisioningState? provisioningState = default;
             DesiredConfiguration desiredConfiguration = default;
-            ServiceInformation services = default;
+            ManagedOpsServiceInformation services = default;
             PolicyAssignmentProperties policyAssignmentProperties = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ManagedOpsProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("desiredConfiguration"u8))
@@ -180,7 +180,7 @@ namespace Azure.ResourceManager.ManagedOps.Models
                     {
                         continue;
                     }
-                    services = ServiceInformation.DeserializeServiceInformation(prop.Value, options);
+                    services = ManagedOpsServiceInformation.DeserializeManagedOpsServiceInformation(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("policyAssignmentProperties"u8))
