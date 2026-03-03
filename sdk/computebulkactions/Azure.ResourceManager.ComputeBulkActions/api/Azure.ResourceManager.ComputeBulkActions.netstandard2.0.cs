@@ -11,10 +11,8 @@ namespace Azure.ResourceManager.ComputeBulkActions
         protected BulkActionCollection() { }
         public virtual Azure.Response<bool> Exists(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> Get(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> Get(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource>> GetAsync(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource>> GetAsync(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Models.OperationStatusResult> Get(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Models.OperationStatusResult>> GetAsync(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.NullableResponse<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> GetIfExists(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.NullableResponse<Azure.ResourceManager.ComputeBulkActions.BulkActionResource>> GetIfExistsAsync(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
@@ -35,10 +33,6 @@ namespace Azure.ResourceManager.ComputeBulkActions
     }
     public static partial class ComputeBulkActionsExtensions
     {
-        public static Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> GetBulkAction(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.Core.AzureLocation location, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> GetBulkAction(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource>> GetBulkActionAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.Core.AzureLocation location, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource>> GetBulkActionAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.ComputeBulkActions.BulkActionResource GetBulkActionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.ComputeBulkActions.BulkActionCollection GetBulkActions(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.Core.AzureLocation location) { throw null; }
         public static Azure.ResourceManager.ComputeBulkActions.BulkActionCollection GetBulkActions(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource) { throw null; }
@@ -100,8 +94,6 @@ namespace Azure.ResourceManager.ComputeBulkActions.Mocking
     public partial class MockableComputeBulkActionsSubscriptionResource : Azure.ResourceManager.ArmResource
     {
         protected MockableComputeBulkActionsSubscriptionResource() { }
-        public virtual Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> GetBulkAction(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ComputeBulkActions.BulkActionResource>> GetBulkActionAsync(Azure.Core.AzureLocation location, string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ComputeBulkActions.BulkActionCollection GetBulkActions() { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> GetBulkActions(Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.ComputeBulkActions.BulkActionResource> GetBulkActionsAsync(Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }

@@ -6,17 +6,10 @@
 #nullable disable
 
 using System;
-using System.ClientModel.Primitives;
 using System.Diagnostics;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
-using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.ComputeBulkActions
@@ -92,106 +85,6 @@ namespace Azure.ResourceManager.ComputeBulkActions
             if (id.ResourceType != ResourceType)
             {
                 throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), id);
-            }
-        }
-
-        /// <summary>
-        /// Get the status of a LaunchBulkInstancesOperation.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ComputeBulkActions/locations/{location}/operations/{id}. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> BulkActions_GetOperationStatus. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-02-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="BulkActionResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<OperationStatusResult>> GetAsync(CancellationToken cancellationToken = default)
-        {
-            using DiagnosticScope scope = _bulkActionsClientDiagnostics.CreateScope("BulkActionResource.Get");
-            scope.Start();
-            try
-            {
-                RequestContext context = new RequestContext
-                {
-                    CancellationToken = cancellationToken
-                };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), Id.Parent.Name, Id.Name, context);
-                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                using var document = await JsonDocument.ParseAsync(result.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                var value = ModelReaderWriter.Read<OperationStatusResult>(new BinaryData(Encoding.UTF8.GetBytes(document.RootElement.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerComputeBulkActionsContext.Default);
-                Response<OperationStatusResult> response = Response.FromValue(value, result);
-                if (response.Value == null)
-                {
-                    throw new RequestFailedException(response.GetRawResponse());
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get the status of a LaunchBulkInstancesOperation.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ComputeBulkActions/locations/{location}/operations/{id}. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> BulkActions_GetOperationStatus. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-02-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="BulkActionResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<OperationStatusResult> Get(CancellationToken cancellationToken = default)
-        {
-            using DiagnosticScope scope = _bulkActionsClientDiagnostics.CreateScope("BulkActionResource.Get");
-            scope.Start();
-            try
-            {
-                RequestContext context = new RequestContext
-                {
-                    CancellationToken = cancellationToken
-                };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), Id.Parent.Name, Id.Name, context);
-                Response result = Pipeline.ProcessMessage(message, context);
-                using var document = JsonDocument.Parse(result.ContentStream);
-                var value = ModelReaderWriter.Read<OperationStatusResult>(new BinaryData(Encoding.UTF8.GetBytes(document.RootElement.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerComputeBulkActionsContext.Default);
-                Response<OperationStatusResult> response = Response.FromValue(value, result);
-                if (response.Value == null)
-                {
-                    throw new RequestFailedException(response.GetRawResponse());
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
             }
         }
     }

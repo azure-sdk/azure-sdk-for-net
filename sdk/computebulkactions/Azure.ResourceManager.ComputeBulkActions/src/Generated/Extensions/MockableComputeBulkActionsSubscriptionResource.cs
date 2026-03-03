@@ -14,7 +14,6 @@ using Azure.Core.Pipeline;
 using Azure.ResourceManager;
 using Azure.ResourceManager.ComputeBulkActions;
 using Azure.ResourceManager.ComputeBulkActions.Models;
-using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.ComputeBulkActions.Mocking
@@ -46,66 +45,6 @@ namespace Azure.ResourceManager.ComputeBulkActions.Mocking
         public virtual BulkActionCollection GetBulkActions()
         {
             return GetCachedClient(client => new BulkActionCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get the status of a LaunchBulkInstancesOperation.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ComputeBulkActions/locations/{location}/operations/{id}. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> BulkActions_GetOperationStatus. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-02-01-preview. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The location name. </param>
-        /// <param name="id"> The async operation id. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<BulkActionResource>> GetBulkActionAsync(AzureLocation location, string id, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(id, nameof(id));
-
-            return await GetBulkActions().GetAsync(location, id, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get the status of a LaunchBulkInstancesOperation.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/providers/Microsoft.ComputeBulkActions/locations/{location}/operations/{id}. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> BulkActions_GetOperationStatus. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-02-01-preview. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The location name. </param>
-        /// <param name="id"> The async operation id. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<BulkActionResource> GetBulkAction(AzureLocation location, string id, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(id, nameof(id));
-
-            return GetBulkActions().Get(location, id, cancellationToken);
         }
 
         /// <summary>
