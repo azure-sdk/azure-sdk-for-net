@@ -48,40 +48,6 @@ namespace Azure.ResourceManager.ComputeBulkActions.Models
         /// <summary> The configuration parameters used while creating AllInstancesDown scheduled event setting creation. </summary>
         internal AllInstancesDown AllInstancesDown { get; set; }
 
-        /// <summary> Specifies Redeploy Scheduled Event related configurations. </summary>
-        public bool? AutomaticallyApprove
-        {
-            get
-            {
-                return UserInitiatedRedeploy is null ? default : UserInitiatedRedeploy.AutomaticallyApprove;
-            }
-            set
-            {
-                if (UserInitiatedRedeploy is null)
-                {
-                    UserInitiatedRedeploy = new UserInitiatedRedeploy();
-                }
-                UserInitiatedRedeploy.AutomaticallyApprove = value;
-            }
-        }
-
-        /// <summary> Specifies Reboot Scheduled Event related configurations. </summary>
-        public bool? AutomaticallyApprove
-        {
-            get
-            {
-                return UserInitiatedReboot is null ? default : UserInitiatedReboot.AutomaticallyApprove;
-            }
-            set
-            {
-                if (UserInitiatedReboot is null)
-                {
-                    UserInitiatedReboot = new UserInitiatedReboot();
-                }
-                UserInitiatedReboot.AutomaticallyApprove = value;
-            }
-        }
-
         /// <summary> The configuration parameters used while creating eventGridAndResourceGraph Scheduled Event setting. </summary>
         public EventGridAndResourceGraph ScheduledEventsAdditionalPublishingTargetsEventGridAndResourceGraph
         {
@@ -96,23 +62,6 @@ namespace Azure.ResourceManager.ComputeBulkActions.Models
                     ScheduledEventsAdditionalPublishingTargets = new ScheduledEventsAdditionalPublishingTargets();
                 }
                 ScheduledEventsAdditionalPublishingTargets.EventGridAndResourceGraph = value;
-            }
-        }
-
-        /// <summary> Specifies if Scheduled Events should be auto-approved when all instances are down. Its default value is true. </summary>
-        public bool? AutomaticallyApprove
-        {
-            get
-            {
-                return AllInstancesDown is null ? default : AllInstancesDown.AutomaticallyApprove;
-            }
-            set
-            {
-                if (AllInstancesDown is null)
-                {
-                    AllInstancesDown = new AllInstancesDown();
-                }
-                AllInstancesDown.AutomaticallyApprove = value;
             }
         }
     }

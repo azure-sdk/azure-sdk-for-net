@@ -6,7 +6,10 @@
 #nullable disable
 
 using System;
+using System.ClientModel.Primitives;
 using System.Diagnostics;
+using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -27,6 +30,7 @@ namespace Azure.ResourceManager.ComputeBulkActions
     {
         private readonly ClientDiagnostics _bulkActionsClientDiagnostics;
         private readonly BulkActions _bulkActionsRestClient;
+        private readonly AzureLocation _location;
 
         /// <summary> Initializes a new instance of BulkActionCollection for mocking. </summary>
         protected BulkActionCollection()
@@ -42,6 +46,15 @@ namespace Azure.ResourceManager.ComputeBulkActions
             _bulkActionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ComputeBulkActions", BulkActionResource.ResourceType.Namespace, Diagnostics);
             _bulkActionsRestClient = new BulkActions(_bulkActionsClientDiagnostics, Pipeline, Endpoint, bulkActionApiVersion ?? "2026-02-01-preview");
             BulkActionCollection.ValidateResourceId(id);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="BulkActionCollection"/> class. </summary>
+        /// <param name="client"> The client parameters to use in these operations. </param>
+        /// <param name="id"> The identifier of the resource that is the target of operations. </param>
+        /// <param name="location"> The location for the resource. </param>
+        internal BulkActionCollection(ArmClient client, ResourceIdentifier id, AzureLocation location) : this(client, id)
+        {
+            _location = location;
         }
 
         /// <param name="id"></param>
@@ -76,7 +89,7 @@ namespace Azure.ResourceManager.ComputeBulkActions
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<OperationStatusResult>> GetAsync(AzureLocation location, string id, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<BulkActionResource>> GetAsync(AzureLocation location, string id, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(id, nameof(id));
 
@@ -88,20 +101,29 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), location, id, context);
+                HttpMessage message = _bulkActionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, location, id, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<OperationStatusResult> response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
-                if (response.Value == null)
+                using var document = JsonDocument.Parse(result.ContentStream);
+                var data = LocationBasedLaunchBulkInstancesOperationData.DeserializeLocationBasedLaunchBulkInstancesOperationData(document.RootElement, ModelSerializationExtensions.WireOptions);
+                if (data == null)
                 {
-                    throw new RequestFailedException(response.GetRawResponse());
+                    throw new RequestFailedException(result);
                 }
-                return response;
+                return Response.FromValue(new BulkActionResource(Client, data), result);
             }
             catch (Exception e)
             {
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary> Gets a resource by name (without location parameter, uses stored location). </summary>
+        /// <param name="id"> The name/id of the resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<BulkActionResource>> GetAsync(string id, CancellationToken cancellationToken = default)
+        {
+            return await GetAsync(_location, id, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -126,7 +148,7 @@ namespace Azure.ResourceManager.ComputeBulkActions
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<OperationStatusResult> Get(AzureLocation location, string id, CancellationToken cancellationToken = default)
+        public virtual Response<BulkActionResource> Get(AzureLocation location, string id, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(id, nameof(id));
 
@@ -138,20 +160,29 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), location, id, context);
+                HttpMessage message = _bulkActionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, location, id, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<OperationStatusResult> response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
-                if (response.Value == null)
+                using var document = JsonDocument.Parse(result.ContentStream);
+                var data = LocationBasedLaunchBulkInstancesOperationData.DeserializeLocationBasedLaunchBulkInstancesOperationData(document.RootElement, ModelSerializationExtensions.WireOptions);
+                if (data == null)
                 {
-                    throw new RequestFailedException(response.GetRawResponse());
+                    throw new RequestFailedException(result);
                 }
-                return response;
+                return Response.FromValue(new BulkActionResource(Client, data), result);
             }
             catch (Exception e)
             {
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary> Gets a resource by name (without location parameter, uses stored location). </summary>
+        /// <param name="id"> The name/id of the resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<BulkActionResource> Get(string id, CancellationToken cancellationToken = default)
+        {
+            return Get(_location, id, cancellationToken);
         }
 
         /// <summary>
@@ -188,22 +219,18 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), location, id, context);
+                HttpMessage message = _bulkActionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, location, id, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
-                Response<OperationStatusResult> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
-                        break;
+                        return Response.FromValue(true, result);
                     case 404:
-                        response = Response.FromValue((OperationStatusResult)null, result);
-                        break;
+                        return Response.FromValue(false, result);
                     default:
                         throw new RequestFailedException(result);
                 }
-                return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -246,22 +273,18 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), location, id, context);
+                HttpMessage message = _bulkActionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, location, id, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
-                Response<OperationStatusResult> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
-                        break;
+                        return Response.FromValue(true, result);
                     case 404:
-                        response = Response.FromValue((OperationStatusResult)null, result);
-                        break;
+                        return Response.FromValue(false, result);
                     default:
                         throw new RequestFailedException(result);
                 }
-                return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -304,26 +327,22 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), location, id, context);
+                HttpMessage message = _bulkActionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, location, id, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
-                Response<OperationStatusResult> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
-                        break;
+                        using (var document = JsonDocument.Parse(result.ContentStream))
+                        {
+                            var data = LocationBasedLaunchBulkInstancesOperationData.DeserializeLocationBasedLaunchBulkInstancesOperationData(document.RootElement, ModelSerializationExtensions.WireOptions);
+                            return Response.FromValue(new BulkActionResource(Client, data), result);
+                        }
                     case 404:
-                        response = Response.FromValue((OperationStatusResult)null, result);
-                        break;
+                        return new NoValueResponse<BulkActionResource>(result);
                     default:
                         throw new RequestFailedException(result);
                 }
-                if (response.Value == null)
-                {
-                    return new NoValueResponse<BulkActionResource>(response.GetRawResponse());
-                }
-                return Response.FromValue(new BulkActionResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -366,26 +385,22 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), location, id, context);
+                HttpMessage message = _bulkActionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, location, id, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
-                Response<OperationStatusResult> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
-                        break;
+                        using (var document = JsonDocument.Parse(result.ContentStream))
+                        {
+                            var data = LocationBasedLaunchBulkInstancesOperationData.DeserializeLocationBasedLaunchBulkInstancesOperationData(document.RootElement, ModelSerializationExtensions.WireOptions);
+                            return Response.FromValue(new BulkActionResource(Client, data), result);
+                        }
                     case 404:
-                        response = Response.FromValue((OperationStatusResult)null, result);
-                        break;
+                        return new NoValueResponse<BulkActionResource>(result);
                     default:
                         throw new RequestFailedException(result);
                 }
-                if (response.Value == null)
-                {
-                    return new NoValueResponse<BulkActionResource>(response.GetRawResponse());
-                }
-                return Response.FromValue(new BulkActionResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {

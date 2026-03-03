@@ -58,24 +58,6 @@ namespace Azure.ResourceManager.ComputeBulkActions
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="BulkActionResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableComputeBulkActionsArmClient.GetBulkActionResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="BulkActionResource"/> object. </returns>
-        public static BulkActionResource GetBulkActionResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableComputeBulkActionsArmClient(client).GetBulkActionResource(id);
-        }
-
-        /// <summary>
         /// Gets a collection of BulkActions in the <see cref="ResourceGroupResource"/>
         /// <item>
         /// <term> Mocking. </term>
@@ -207,7 +189,7 @@ namespace Azure.ResourceManager.ComputeBulkActions
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         [ForwardsClientCalls]
-        public static async Task<Response<OperationStatusResult>> GetBulkActionAsync(this SubscriptionResource subscriptionResource, AzureLocation location, string id, CancellationToken cancellationToken = default)
+        public static async Task<Response<BulkActionResource>> GetBulkActionAsync(this SubscriptionResource subscriptionResource, AzureLocation location, string id, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -227,7 +209,7 @@ namespace Azure.ResourceManager.ComputeBulkActions
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         [ForwardsClientCalls]
-        public static Response<OperationStatusResult> GetBulkAction(this SubscriptionResource subscriptionResource, AzureLocation location, string id, CancellationToken cancellationToken = default)
+        public static Response<BulkActionResource> GetBulkAction(this SubscriptionResource subscriptionResource, AzureLocation location, string id, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 

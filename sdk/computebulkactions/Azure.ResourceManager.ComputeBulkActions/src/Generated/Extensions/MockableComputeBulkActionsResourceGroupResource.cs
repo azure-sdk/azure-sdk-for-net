@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.ComputeBulkActions.Mocking
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
 
-            return await GetBulkActions(location).GetAsync(name, cancellationToken).ConfigureAwait(false);
+            return await GetBulkActions(location).GetAsync(location, name, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.ComputeBulkActions.Mocking
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
 
-            return GetBulkActions(location).Get(name, cancellationToken);
+            return GetBulkActions(location).Get(location, name, cancellationToken);
         }
 
         /// <summary>

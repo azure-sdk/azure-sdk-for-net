@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.ComputeBulkActions.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<OperationStatusResult>> GetBulkActionAsync(AzureLocation location, string id, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<BulkActionResource>> GetBulkActionAsync(AzureLocation location, string id, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(id, nameof(id));
 
@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.ComputeBulkActions.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="id"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<OperationStatusResult> GetBulkAction(AzureLocation location, string id, CancellationToken cancellationToken = default)
+        public virtual Response<BulkActionResource> GetBulkAction(AzureLocation location, string id, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(id, nameof(id));
 

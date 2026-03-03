@@ -6,7 +6,10 @@
 #nullable disable
 
 using System;
+using System.ClientModel.Primitives;
 using System.Diagnostics;
+using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -126,7 +129,9 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 };
                 HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), Id.Parent.Name, Id.Name, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<OperationStatusResult> response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
+                using var document = await JsonDocument.ParseAsync(result.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                var value = ModelReaderWriter.Read<OperationStatusResult>(new BinaryData(Encoding.UTF8.GetBytes(document.RootElement.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerComputeBulkActionsContext.Default);
+                Response<OperationStatusResult> response = Response.FromValue(value, result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -174,7 +179,9 @@ namespace Azure.ResourceManager.ComputeBulkActions
                 };
                 HttpMessage message = _bulkActionsRestClient.CreateGetOperationStatusRequest(Guid.Parse(Id.SubscriptionId), Id.Parent.Name, Id.Name, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<OperationStatusResult> response = Response.FromValue(OperationStatusResult.FromResponse(result), result);
+                using var document = JsonDocument.Parse(result.ContentStream);
+                var value = ModelReaderWriter.Read<OperationStatusResult>(new BinaryData(Encoding.UTF8.GetBytes(document.RootElement.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerComputeBulkActionsContext.Default);
+                Response<OperationStatusResult> response = Response.FromValue(value, result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
