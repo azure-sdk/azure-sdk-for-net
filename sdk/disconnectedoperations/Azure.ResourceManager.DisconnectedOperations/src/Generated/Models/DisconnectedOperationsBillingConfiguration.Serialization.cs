@@ -14,33 +14,33 @@ using Azure.ResourceManager.DisconnectedOperations;
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
     /// <summary> The billing configuration. </summary>
-    public partial class BillingConfiguration : IJsonModel<BillingConfiguration>
+    public partial class DisconnectedOperationsBillingConfiguration : IJsonModel<DisconnectedOperationsBillingConfiguration>
     {
-        /// <summary> Initializes a new instance of <see cref="BillingConfiguration"/> for deserialization. </summary>
-        internal BillingConfiguration()
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsBillingConfiguration"/> for deserialization. </summary>
+        internal DisconnectedOperationsBillingConfiguration()
         {
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BillingConfiguration PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual DisconnectedOperationsBillingConfiguration PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeBillingConfiguration(document.RootElement, options);
+                        return DeserializeDisconnectedOperationsBillingConfiguration(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BillingConfiguration)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DisconnectedOperationsBillingConfiguration)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<BillingConfiguration>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DisconnectedOperationsBillingConfiguration>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -51,10 +51,10 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BillingConfiguration)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DisconnectedOperationsBillingConfiguration)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("autoRenew"u8);
             writer.WriteStringValue(AutoRenew.ToString());
@@ -89,49 +89,49 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        BillingConfiguration IJsonModel<BillingConfiguration>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        DisconnectedOperationsBillingConfiguration IJsonModel<DisconnectedOperationsBillingConfiguration>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BillingConfiguration JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual DisconnectedOperationsBillingConfiguration JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BillingConfiguration)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DisconnectedOperationsBillingConfiguration)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBillingConfiguration(document.RootElement, options);
+            return DeserializeDisconnectedOperationsBillingConfiguration(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static BillingConfiguration DeserializeBillingConfiguration(JsonElement element, ModelReaderWriterOptions options)
+        internal static DisconnectedOperationsBillingConfiguration DeserializeDisconnectedOperationsBillingConfiguration(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            AutoRenew autoRenew = default;
-            BillingStatus billingStatus = default;
-            BillingPeriod current = default;
-            BillingPeriod upcoming = default;
+            DisconnectedOperationsAutoRenew autoRenew = default;
+            DisconnectedOperationsBillingStatus billingStatus = default;
+            DisconnectedOperationsBillingPeriod current = default;
+            DisconnectedOperationsBillingPeriod upcoming = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("autoRenew"u8))
                 {
-                    autoRenew = new AutoRenew(prop.Value.GetString());
+                    autoRenew = new DisconnectedOperationsAutoRenew(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("billingStatus"u8))
                 {
-                    billingStatus = new BillingStatus(prop.Value.GetString());
+                    billingStatus = new DisconnectedOperationsBillingStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("current"u8))
                 {
-                    current = BillingPeriod.DeserializeBillingPeriod(prop.Value, options);
+                    current = DisconnectedOperationsBillingPeriod.DeserializeDisconnectedOperationsBillingPeriod(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("upcoming"u8))
@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     {
                         continue;
                     }
-                    upcoming = BillingPeriod.DeserializeBillingPeriod(prop.Value, options);
+                    upcoming = DisconnectedOperationsBillingPeriod.DeserializeDisconnectedOperationsBillingPeriod(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -148,30 +148,30 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new BillingConfiguration(autoRenew, billingStatus, current, upcoming, additionalBinaryDataProperties);
+            return new DisconnectedOperationsBillingConfiguration(autoRenew, billingStatus, current, upcoming, additionalBinaryDataProperties);
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<BillingConfiguration>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DisconnectedOperationsBillingConfiguration>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBillingConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerDisconnectedOperationsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BillingConfiguration)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DisconnectedOperationsBillingConfiguration)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        BillingConfiguration IPersistableModel<BillingConfiguration>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        DisconnectedOperationsBillingConfiguration IPersistableModel<DisconnectedOperationsBillingConfiguration>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<BillingConfiguration>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DisconnectedOperationsBillingConfiguration>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

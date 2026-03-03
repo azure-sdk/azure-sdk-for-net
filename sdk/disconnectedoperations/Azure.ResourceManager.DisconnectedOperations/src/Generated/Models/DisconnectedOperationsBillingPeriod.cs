@@ -11,27 +11,27 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
     /// <summary> The billing period. </summary>
-    public partial class BillingPeriod
+    public partial class DisconnectedOperationsBillingPeriod
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="BillingPeriod"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsBillingPeriod"/>. </summary>
         /// <param name="cores"> The number of cores. </param>
         /// <param name="pricingModel"> The pricing model. </param>
-        public BillingPeriod(int cores, PricingModel pricingModel)
+        public DisconnectedOperationsBillingPeriod(int cores, DisconnectedOperationsPricingModel pricingModel)
         {
             Cores = cores;
             PricingModel = pricingModel;
         }
 
-        /// <summary> Initializes a new instance of <see cref="BillingPeriod"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsBillingPeriod"/>. </summary>
         /// <param name="cores"> The number of cores. </param>
         /// <param name="pricingModel"> The pricing model. </param>
         /// <param name="startOn"> The billing start date. </param>
         /// <param name="endOn"> The billing end date. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal BillingPeriod(int cores, PricingModel pricingModel, DateTimeOffset? startOn, DateTimeOffset? endOn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationsBillingPeriod(int cores, DisconnectedOperationsPricingModel pricingModel, DateTimeOffset? startOn, DateTimeOffset? endOn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Cores = cores;
             PricingModel = pricingModel;
@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         public int Cores { get; set; }
 
         /// <summary> The pricing model. </summary>
-        public PricingModel PricingModel { get; set; }
+        public DisconnectedOperationsPricingModel PricingModel { get; set; }
 
         /// <summary> The billing start date. </summary>
         public DateTimeOffset? StartOn { get; }

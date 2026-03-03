@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             }
             writer.WritePropertyName("value"u8);
             writer.WriteStartArray();
-            foreach (HardwareSettingData item in Value)
+            foreach (DisconnectedOperationsHardwareSettingData item in Value)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -118,17 +118,17 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             {
                 return null;
             }
-            IList<HardwareSettingData> value = default;
+            IList<DisconnectedOperationsHardwareSettingData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("value"u8))
                 {
-                    List<HardwareSettingData> array = new List<HardwareSettingData>();
+                    List<DisconnectedOperationsHardwareSettingData> array = new List<DisconnectedOperationsHardwareSettingData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(HardwareSettingData.DeserializeHardwareSettingData(item, options));
+                        array.Add(DisconnectedOperationsHardwareSettingData.DeserializeDisconnectedOperationsHardwareSettingData(item, options));
                     }
                     value = array;
                     continue;

@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="downloadLink"> The download URI. </param>
         /// <param name="linkExpiry"> The download link expiry time. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState, string releaseVersion, string releaseDisplayName, string releaseNotes, DateTimeOffset releaseOn, DisconnectedOperationsReleaseType releaseType, IReadOnlyList<string> compatibleVersions, ImageUpdateProperties updateProperties, string transactionId, Uri downloadLink, DateTimeOffset linkExpiry, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState, string releaseVersion, string releaseDisplayName, string releaseNotes, DateTimeOffset releaseOn, DisconnectedOperationsReleaseType releaseType, IReadOnlyList<string> compatibleVersions, DisconnectedOperationsImageUpdateProperties updateProperties, string transactionId, Uri downloadLink, DateTimeOffset linkExpiry, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             ReleaseVersion = releaseVersion;
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         public IReadOnlyList<string> CompatibleVersions { get; }
 
         /// <summary> Image update properties for update release type image. </summary>
-        public ImageUpdateProperties UpdateProperties { get; }
+        public DisconnectedOperationsImageUpdateProperties UpdateProperties { get; }
 
         /// <summary> The unique identifier of the download. </summary>
         public string TransactionId { get; }

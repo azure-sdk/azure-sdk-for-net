@@ -12,16 +12,16 @@ using Azure.ResourceManager.DisconnectedOperations;
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
     /// <summary> The billing configuration. </summary>
-    public partial class BillingConfiguration
+    public partial class DisconnectedOperationsBillingConfiguration
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="BillingConfiguration"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsBillingConfiguration"/>. </summary>
         /// <param name="autoRenew"> The auto renew setting. </param>
         /// <param name="current"> The current billing configuration. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="current"/> is null. </exception>
-        public BillingConfiguration(AutoRenew autoRenew, BillingPeriod current)
+        public DisconnectedOperationsBillingConfiguration(DisconnectedOperationsAutoRenew autoRenew, DisconnectedOperationsBillingPeriod current)
         {
             Argument.AssertNotNull(current, nameof(current));
 
@@ -29,13 +29,13 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             Current = current;
         }
 
-        /// <summary> Initializes a new instance of <see cref="BillingConfiguration"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsBillingConfiguration"/>. </summary>
         /// <param name="autoRenew"> The auto renew setting. </param>
         /// <param name="billingStatus"> The billing status. </param>
         /// <param name="current"> The current billing configuration. </param>
         /// <param name="upcoming"> The upcoming billing configuration. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal BillingConfiguration(AutoRenew autoRenew, BillingStatus billingStatus, BillingPeriod current, BillingPeriod upcoming, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationsBillingConfiguration(DisconnectedOperationsAutoRenew autoRenew, DisconnectedOperationsBillingStatus billingStatus, DisconnectedOperationsBillingPeriod current, DisconnectedOperationsBillingPeriod upcoming, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AutoRenew = autoRenew;
             BillingStatus = billingStatus;
@@ -45,15 +45,15 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         }
 
         /// <summary> The auto renew setting. </summary>
-        public AutoRenew AutoRenew { get; set; }
+        public DisconnectedOperationsAutoRenew AutoRenew { get; set; }
 
         /// <summary> The billing status. </summary>
-        public BillingStatus BillingStatus { get; }
+        public DisconnectedOperationsBillingStatus BillingStatus { get; }
 
         /// <summary> The current billing configuration. </summary>
-        public BillingPeriod Current { get; set; }
+        public DisconnectedOperationsBillingPeriod Current { get; set; }
 
         /// <summary> The upcoming billing configuration. </summary>
-        public BillingPeriod Upcoming { get; set; }
+        public DisconnectedOperationsBillingPeriod Upcoming { get; set; }
     }
 }

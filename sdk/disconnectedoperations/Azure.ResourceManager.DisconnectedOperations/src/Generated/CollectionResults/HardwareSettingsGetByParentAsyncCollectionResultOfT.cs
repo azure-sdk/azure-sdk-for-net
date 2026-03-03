@@ -15,7 +15,7 @@ using Azure.ResourceManager.DisconnectedOperations.Models;
 
 namespace Azure.ResourceManager.DisconnectedOperations
 {
-    internal partial class HardwareSettingsGetByParentAsyncCollectionResultOfT : AsyncPageable<HardwareSettingData>
+    internal partial class HardwareSettingsGetByParentAsyncCollectionResultOfT : AsyncPageable<DisconnectedOperationsHardwareSettingData>
     {
         private readonly HardwareSettings _client;
         private readonly Guid _subscriptionId;
@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="continuationToken"> A continuation token indicating where to resume paging. </param>
         /// <param name="pageSizeHint"> The number of items per page. </param>
         /// <returns> The pages of HardwareSettingsGetByParentAsyncCollectionResultOfT as an enumerable collection. </returns>
-        public override async IAsyncEnumerable<Page<HardwareSettingData>> AsPages(string continuationToken, int? pageSizeHint)
+        public override async IAsyncEnumerable<Page<DisconnectedOperationsHardwareSettingData>> AsPages(string continuationToken, int? pageSizeHint)
         {
             Uri nextPage = continuationToken != null ? new Uri(continuationToken) : null;
             while (true)
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
                     yield break;
                 }
                 HardwareSettingListResult result = HardwareSettingListResult.FromResponse(response);
-                yield return Page<HardwareSettingData>.FromValues((IReadOnlyList<HardwareSettingData>)result.Value, nextPage?.AbsoluteUri, response);
+                yield return Page<DisconnectedOperationsHardwareSettingData>.FromValues((IReadOnlyList<DisconnectedOperationsHardwareSettingData>)result.Value, nextPage?.AbsoluteUri, response);
                 nextPage = result.NextLink;
                 if (nextPage == null)
                 {
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetByParentRequest(nextLink, _subscriptionId, _resourceGroupName, _name, _context) : _client.CreateGetByParentRequest(_subscriptionId, _resourceGroupName, _name, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("HardwareSettingCollection.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.GetAll");
             scope.Start();
             try
             {

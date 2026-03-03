@@ -13,34 +13,29 @@ using Azure.ResourceManager.DisconnectedOperations;
 
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
-    /// <summary> The billing period. </summary>
-    public partial class BillingPeriod : IJsonModel<BillingPeriod>
+    /// <summary> The benefit plans. </summary>
+    public partial class DisconnectedOperationsBenefitPlans : IJsonModel<DisconnectedOperationsBenefitPlans>
     {
-        /// <summary> Initializes a new instance of <see cref="BillingPeriod"/> for deserialization. </summary>
-        internal BillingPeriod()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BillingPeriod PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual DisconnectedOperationsBenefitPlans PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingPeriod>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBenefitPlans>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeBillingPeriod(document.RootElement, options);
+                        return DeserializeDisconnectedOperationsBenefitPlans(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(BillingPeriod)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DisconnectedOperationsBenefitPlans)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<BillingPeriod>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DisconnectedOperationsBenefitPlans>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -51,24 +46,20 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingPeriod>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBenefitPlans>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BillingPeriod)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DisconnectedOperationsBenefitPlans)} does not support writing '{format}' format.");
             }
-            writer.WritePropertyName("cores"u8);
-            writer.WriteNumberValue(Cores);
-            writer.WritePropertyName("pricingModel"u8);
-            writer.WriteStringValue(PricingModel.ToString());
-            if (options.Format != "W" && Optional.IsDefined(StartOn))
+            if (Optional.IsDefined(AzureHybridWindowsServerBenefit))
             {
-                writer.WritePropertyName("startDate"u8);
-                writer.WriteStringValue(StartOn.Value, "D");
+                writer.WritePropertyName("azureHybridWindowsServerBenefit"u8);
+                writer.WriteStringValue(AzureHybridWindowsServerBenefit.Value.ToString());
             }
-            if (options.Format != "W" && Optional.IsDefined(EndOn))
+            if (Optional.IsDefined(WindowsServerVmCount))
             {
-                writer.WritePropertyName("endDate"u8);
-                writer.WriteStringValue(EndOn.Value, "D");
+                writer.WritePropertyName("windowsServerVmCount"u8);
+                writer.WriteNumberValue(WindowsServerVmCount.Value);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -89,62 +80,50 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        BillingPeriod IJsonModel<BillingPeriod>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        DisconnectedOperationsBenefitPlans IJsonModel<DisconnectedOperationsBenefitPlans>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BillingPeriod JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual DisconnectedOperationsBenefitPlans JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingPeriod>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBenefitPlans>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(BillingPeriod)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DisconnectedOperationsBenefitPlans)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeBillingPeriod(document.RootElement, options);
+            return DeserializeDisconnectedOperationsBenefitPlans(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static BillingPeriod DeserializeBillingPeriod(JsonElement element, ModelReaderWriterOptions options)
+        internal static DisconnectedOperationsBenefitPlans DeserializeDisconnectedOperationsBenefitPlans(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            int cores = default;
-            PricingModel pricingModel = default;
-            DateTimeOffset? startOn = default;
-            DateTimeOffset? endOn = default;
+            DisconnectedOperationsBenefitPlanStatus? azureHybridWindowsServerBenefit = default;
+            int? windowsServerVmCount = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
-                if (prop.NameEquals("cores"u8))
-                {
-                    cores = prop.Value.GetInt32();
-                    continue;
-                }
-                if (prop.NameEquals("pricingModel"u8))
-                {
-                    pricingModel = new PricingModel(prop.Value.GetString());
-                    continue;
-                }
-                if (prop.NameEquals("startDate"u8))
+                if (prop.NameEquals("azureHybridWindowsServerBenefit"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    startOn = prop.Value.GetDateTimeOffset("D");
+                    azureHybridWindowsServerBenefit = new DisconnectedOperationsBenefitPlanStatus(prop.Value.GetString());
                     continue;
                 }
-                if (prop.NameEquals("endDate"u8))
+                if (prop.NameEquals("windowsServerVmCount"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    endOn = prop.Value.GetDateTimeOffset("D");
+                    windowsServerVmCount = prop.Value.GetInt32();
                     continue;
                 }
                 if (options.Format != "W")
@@ -152,30 +131,30 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new BillingPeriod(cores, pricingModel, startOn, endOn, additionalBinaryDataProperties);
+            return new DisconnectedOperationsBenefitPlans(azureHybridWindowsServerBenefit, windowsServerVmCount, additionalBinaryDataProperties);
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<BillingPeriod>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DisconnectedOperationsBenefitPlans>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<BillingPeriod>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsBenefitPlans>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerDisconnectedOperationsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(BillingPeriod)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DisconnectedOperationsBenefitPlans)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        BillingPeriod IPersistableModel<BillingPeriod>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        DisconnectedOperationsBenefitPlans IPersistableModel<DisconnectedOperationsBenefitPlans>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<BillingPeriod>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DisconnectedOperationsBenefitPlans>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

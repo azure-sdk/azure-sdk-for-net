@@ -12,12 +12,12 @@ using Azure.ResourceManager.DisconnectedOperations;
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
     /// <summary> The hardware setting properties. </summary>
-    public partial class HardwareSettingProperties
+    public partial class DisconnectedOperationsHardwareSettingProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="HardwareSettingProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsHardwareSettingProperties"/>. </summary>
         /// <param name="totalCores"> The total number of cores. </param>
         /// <param name="diskSpaceInGb"> The disk space in GB. </param>
         /// <param name="memoryInGb"> The memory in GB. </param>
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="solutionBuilderExtension"> The solution builder extension at registration. </param>
         /// <param name="deviceId"> The unique Id of the device. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="oem"/>, <paramref name="hardwareSku"/>, <paramref name="versionAtRegistration"/>, <paramref name="solutionBuilderExtension"/> or <paramref name="deviceId"/> is null. </exception>
-        public HardwareSettingProperties(int totalCores, int diskSpaceInGb, int memoryInGb, string oem, string hardwareSku, int nodes, string versionAtRegistration, string solutionBuilderExtension, string deviceId)
+        public DisconnectedOperationsHardwareSettingProperties(int totalCores, int diskSpaceInGb, int memoryInGb, string oem, string hardwareSku, int nodes, string versionAtRegistration, string solutionBuilderExtension, string deviceId)
         {
             Argument.AssertNotNull(oem, nameof(oem));
             Argument.AssertNotNull(hardwareSku, nameof(hardwareSku));
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DeviceId = deviceId;
         }
 
-        /// <summary> Initializes a new instance of <see cref="HardwareSettingProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsHardwareSettingProperties"/>. </summary>
         /// <param name="provisioningState"> The resource provisioning state. </param>
         /// <param name="totalCores"> The total number of cores. </param>
         /// <param name="diskSpaceInGb"> The disk space in GB. </param>
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="solutionBuilderExtension"> The solution builder extension at registration. </param>
         /// <param name="deviceId"> The unique Id of the device. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal HardwareSettingProperties(DisconnectedOperationsResourceProvisioningState? provisioningState, int totalCores, int diskSpaceInGb, int memoryInGb, string oem, string hardwareSku, int nodes, string versionAtRegistration, string solutionBuilderExtension, string deviceId, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationsHardwareSettingProperties(DisconnectedOperationsResourceProvisioningState? provisioningState, int totalCores, int diskSpaceInGb, int memoryInGb, string oem, string hardwareSku, int nodes, string versionAtRegistration, string solutionBuilderExtension, string deviceId, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             TotalCores = totalCores;

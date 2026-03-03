@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DateTimeOffset releaseOn = default;
             DisconnectedOperationsReleaseType releaseType = default;
             IReadOnlyList<string> compatibleVersions = default;
-            ImageUpdateProperties updateProperties = default;
+            DisconnectedOperationsImageUpdateProperties updateProperties = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     {
                         continue;
                     }
-                    updateProperties = ImageUpdateProperties.DeserializeImageUpdateProperties(prop.Value, options);
+                    updateProperties = DisconnectedOperationsImageUpdateProperties.DeserializeDisconnectedOperationsImageUpdateProperties(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

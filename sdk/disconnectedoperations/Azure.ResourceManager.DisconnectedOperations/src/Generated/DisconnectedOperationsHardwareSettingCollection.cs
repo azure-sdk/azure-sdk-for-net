@@ -19,28 +19,28 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.DisconnectedOperations
 {
     /// <summary>
-    /// A class representing a collection of <see cref="HardwareSettingResource"/> and their operations.
-    /// Each <see cref="HardwareSettingResource"/> in the collection will belong to the same instance of <see cref="DisconnectedOperationResource"/>.
-    /// To get a <see cref="HardwareSettingCollection"/> instance call the GetHardwareSettings method from an instance of <see cref="DisconnectedOperationResource"/>.
+    /// A class representing a collection of <see cref="DisconnectedOperationsHardwareSettingResource"/> and their operations.
+    /// Each <see cref="DisconnectedOperationsHardwareSettingResource"/> in the collection will belong to the same instance of <see cref="DisconnectedOperationResource"/>.
+    /// To get a <see cref="DisconnectedOperationsHardwareSettingCollection"/> instance call the GetDisconnectedOperationsHardwareSettings method from an instance of <see cref="DisconnectedOperationResource"/>.
     /// </summary>
-    public partial class HardwareSettingCollection : ArmCollection, IEnumerable<HardwareSettingResource>, IAsyncEnumerable<HardwareSettingResource>
+    public partial class DisconnectedOperationsHardwareSettingCollection : ArmCollection, IEnumerable<DisconnectedOperationsHardwareSettingResource>, IAsyncEnumerable<DisconnectedOperationsHardwareSettingResource>
     {
         private readonly ClientDiagnostics _hardwareSettingsClientDiagnostics;
         private readonly HardwareSettings _hardwareSettingsRestClient;
 
-        /// <summary> Initializes a new instance of HardwareSettingCollection for mocking. </summary>
-        protected HardwareSettingCollection()
+        /// <summary> Initializes a new instance of DisconnectedOperationsHardwareSettingCollection for mocking. </summary>
+        protected DisconnectedOperationsHardwareSettingCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="HardwareSettingCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsHardwareSettingCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal HardwareSettingCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal DisconnectedOperationsHardwareSettingCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            TryGetApiVersion(HardwareSettingResource.ResourceType, out string hardwareSettingApiVersion);
-            _hardwareSettingsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DisconnectedOperations", HardwareSettingResource.ResourceType.Namespace, Diagnostics);
-            _hardwareSettingsRestClient = new HardwareSettings(_hardwareSettingsClientDiagnostics, Pipeline, Endpoint, hardwareSettingApiVersion ?? "2026-03-15");
+            TryGetApiVersion(DisconnectedOperationsHardwareSettingResource.ResourceType, out string disconnectedOperationsHardwareSettingApiVersion);
+            _hardwareSettingsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DisconnectedOperations", DisconnectedOperationsHardwareSettingResource.ResourceType.Namespace, Diagnostics);
+            _hardwareSettingsRestClient = new HardwareSettings(_hardwareSettingsClientDiagnostics, Pipeline, Endpoint, disconnectedOperationsHardwareSettingApiVersion ?? "2026-03-15");
             ValidateResourceId(id);
         }
 
@@ -77,12 +77,12 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<HardwareSettingResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string hardwareSettingName, HardwareSettingData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<DisconnectedOperationsHardwareSettingResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string hardwareSettingName, DisconnectedOperationsHardwareSettingData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -90,10 +90,10 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, HardwareSettingData.ToRequestContent(data), context);
+                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, DisconnectedOperationsHardwareSettingData.ToRequestContent(data), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                DisconnectedOperationsArmOperation<HardwareSettingResource> operation = new DisconnectedOperationsArmOperation<HardwareSettingResource>(
-                    new HardwareSettingOperationSource(Client),
+                DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource> operation = new DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource>(
+                    new DisconnectedOperationsHardwareSettingOperationSource(Client),
                     _hardwareSettingsClientDiagnostics,
                     Pipeline,
                     message.Request,
@@ -135,12 +135,12 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<HardwareSettingResource> CreateOrUpdate(WaitUntil waitUntil, string hardwareSettingName, HardwareSettingData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<DisconnectedOperationsHardwareSettingResource> CreateOrUpdate(WaitUntil waitUntil, string hardwareSettingName, DisconnectedOperationsHardwareSettingData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.CreateOrUpdate");
             scope.Start();
             try
             {
@@ -148,10 +148,10 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, HardwareSettingData.ToRequestContent(data), context);
+                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, DisconnectedOperationsHardwareSettingData.ToRequestContent(data), context);
                 Response response = Pipeline.ProcessMessage(message, context);
-                DisconnectedOperationsArmOperation<HardwareSettingResource> operation = new DisconnectedOperationsArmOperation<HardwareSettingResource>(
-                    new HardwareSettingOperationSource(Client),
+                DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource> operation = new DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource>(
+                    new DisconnectedOperationsHardwareSettingOperationSource(Client),
                     _hardwareSettingsClientDiagnostics,
                     Pipeline,
                     message.Request,
@@ -191,11 +191,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<HardwareSettingResource>> GetAsync(string hardwareSettingName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DisconnectedOperationsHardwareSettingResource>> GetAsync(string hardwareSettingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.Get");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.Get");
             scope.Start();
             try
             {
@@ -205,12 +205,12 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 };
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<HardwareSettingData> response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                Response<DisconnectedOperationsHardwareSettingData> response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new HardwareSettingResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DisconnectedOperationsHardwareSettingResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -240,11 +240,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<HardwareSettingResource> Get(string hardwareSettingName, CancellationToken cancellationToken = default)
+        public virtual Response<DisconnectedOperationsHardwareSettingResource> Get(string hardwareSettingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.Get");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.Get");
             scope.Start();
             try
             {
@@ -254,12 +254,12 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 };
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<HardwareSettingData> response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                Response<DisconnectedOperationsHardwareSettingData> response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new HardwareSettingResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DisconnectedOperationsHardwareSettingResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -286,14 +286,14 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="HardwareSettingResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<HardwareSettingResource> GetAllAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="DisconnectedOperationsHardwareSettingResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<DisconnectedOperationsHardwareSettingResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<HardwareSettingData, HardwareSettingResource>(new HardwareSettingsGetByParentAsyncCollectionResultOfT(_hardwareSettingsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new HardwareSettingResource(Client, data));
+            return new AsyncPageableWrapper<DisconnectedOperationsHardwareSettingData, DisconnectedOperationsHardwareSettingResource>(new HardwareSettingsGetByParentAsyncCollectionResultOfT(_hardwareSettingsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new DisconnectedOperationsHardwareSettingResource(Client, data));
         }
 
         /// <summary>
@@ -314,14 +314,14 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="HardwareSettingResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<HardwareSettingResource> GetAll(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="DisconnectedOperationsHardwareSettingResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<DisconnectedOperationsHardwareSettingResource> GetAll(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<HardwareSettingData, HardwareSettingResource>(new HardwareSettingsGetByParentCollectionResultOfT(_hardwareSettingsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new HardwareSettingResource(Client, data));
+            return new PageableWrapper<DisconnectedOperationsHardwareSettingData, DisconnectedOperationsHardwareSettingResource>(new HardwareSettingsGetByParentCollectionResultOfT(_hardwareSettingsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new DisconnectedOperationsHardwareSettingResource(Client, data));
         }
 
         /// <summary>
@@ -349,7 +349,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.Exists");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.Exists");
             scope.Start();
             try
             {
@@ -360,14 +360,14 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
-                Response<HardwareSettingData> response = default;
+                Response<DisconnectedOperationsHardwareSettingData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                        response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((HardwareSettingData)null, result);
+                        response = Response.FromValue((DisconnectedOperationsHardwareSettingData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
@@ -406,7 +406,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.Exists");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.Exists");
             scope.Start();
             try
             {
@@ -417,14 +417,14 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
-                Response<HardwareSettingData> response = default;
+                Response<DisconnectedOperationsHardwareSettingData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                        response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((HardwareSettingData)null, result);
+                        response = Response.FromValue((DisconnectedOperationsHardwareSettingData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
@@ -459,11 +459,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<NullableResponse<HardwareSettingResource>> GetIfExistsAsync(string hardwareSettingName, CancellationToken cancellationToken = default)
+        public virtual async Task<NullableResponse<DisconnectedOperationsHardwareSettingResource>> GetIfExistsAsync(string hardwareSettingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.GetIfExists");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.GetIfExists");
             scope.Start();
             try
             {
@@ -474,23 +474,23 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
-                Response<HardwareSettingData> response = default;
+                Response<DisconnectedOperationsHardwareSettingData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                        response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((HardwareSettingData)null, result);
+                        response = Response.FromValue((DisconnectedOperationsHardwareSettingData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
                 }
                 if (response.Value == null)
                 {
-                    return new NoValueResponse<HardwareSettingResource>(response.GetRawResponse());
+                    return new NoValueResponse<DisconnectedOperationsHardwareSettingResource>(response.GetRawResponse());
                 }
-                return Response.FromValue(new HardwareSettingResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DisconnectedOperationsHardwareSettingResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -520,11 +520,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual NullableResponse<HardwareSettingResource> GetIfExists(string hardwareSettingName, CancellationToken cancellationToken = default)
+        public virtual NullableResponse<DisconnectedOperationsHardwareSettingResource> GetIfExists(string hardwareSettingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingCollection.GetIfExists");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingCollection.GetIfExists");
             scope.Start();
             try
             {
@@ -535,23 +535,23 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, hardwareSettingName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
-                Response<HardwareSettingData> response = default;
+                Response<DisconnectedOperationsHardwareSettingData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                        response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((HardwareSettingData)null, result);
+                        response = Response.FromValue((DisconnectedOperationsHardwareSettingData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
                 }
                 if (response.Value == null)
                 {
-                    return new NoValueResponse<HardwareSettingResource>(response.GetRawResponse());
+                    return new NoValueResponse<DisconnectedOperationsHardwareSettingResource>(response.GetRawResponse());
                 }
-                return Response.FromValue(new HardwareSettingResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DisconnectedOperationsHardwareSettingResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -560,7 +560,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
             }
         }
 
-        IEnumerator<HardwareSettingResource> IEnumerable<HardwareSettingResource>.GetEnumerator()
+        IEnumerator<DisconnectedOperationsHardwareSettingResource> IEnumerable<DisconnectedOperationsHardwareSettingResource>.GetEnumerator()
         {
             return GetAll().GetEnumerator();
         }
@@ -571,7 +571,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         }
 
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        IAsyncEnumerator<HardwareSettingResource> IAsyncEnumerable<HardwareSettingResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
+        IAsyncEnumerator<DisconnectedOperationsHardwareSettingResource> IAsyncEnumerable<DisconnectedOperationsHardwareSettingResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }

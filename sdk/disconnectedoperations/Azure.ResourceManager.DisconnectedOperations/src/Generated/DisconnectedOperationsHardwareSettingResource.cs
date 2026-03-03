@@ -17,40 +17,40 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.DisconnectedOperations
 {
     /// <summary>
-    /// A class representing a HardwareSetting along with the instance operations that can be performed on it.
-    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="HardwareSettingResource"/> from an instance of <see cref="ArmClient"/> using the GetResource method.
-    /// Otherwise you can get one from its parent resource <see cref="DisconnectedOperationResource"/> using the GetHardwareSettings method.
+    /// A class representing a DisconnectedOperationsHardwareSetting along with the instance operations that can be performed on it.
+    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="DisconnectedOperationsHardwareSettingResource"/> from an instance of <see cref="ArmClient"/> using the GetResource method.
+    /// Otherwise you can get one from its parent resource <see cref="DisconnectedOperationResource"/> using the GetDisconnectedOperationsHardwareSettings method.
     /// </summary>
-    public partial class HardwareSettingResource : ArmResource
+    public partial class DisconnectedOperationsHardwareSettingResource : ArmResource
     {
         private readonly ClientDiagnostics _hardwareSettingsClientDiagnostics;
         private readonly HardwareSettings _hardwareSettingsRestClient;
-        private readonly HardwareSettingData _data;
+        private readonly DisconnectedOperationsHardwareSettingData _data;
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.Edge/disconnectedOperations/hardwareSettings";
 
-        /// <summary> Initializes a new instance of HardwareSettingResource for mocking. </summary>
-        protected HardwareSettingResource()
+        /// <summary> Initializes a new instance of DisconnectedOperationsHardwareSettingResource for mocking. </summary>
+        protected DisconnectedOperationsHardwareSettingResource()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="HardwareSettingResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsHardwareSettingResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal HardwareSettingResource(ArmClient client, HardwareSettingData data) : this(client, data.Id)
+        internal DisconnectedOperationsHardwareSettingResource(ArmClient client, DisconnectedOperationsHardwareSettingData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
         }
 
-        /// <summary> Initializes a new instance of <see cref="HardwareSettingResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsHardwareSettingResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal HardwareSettingResource(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal DisconnectedOperationsHardwareSettingResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            TryGetApiVersion(ResourceType, out string hardwareSettingApiVersion);
+            TryGetApiVersion(ResourceType, out string disconnectedOperationsHardwareSettingApiVersion);
             _hardwareSettingsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DisconnectedOperations", ResourceType.Namespace, Diagnostics);
-            _hardwareSettingsRestClient = new HardwareSettings(_hardwareSettingsClientDiagnostics, Pipeline, Endpoint, hardwareSettingApiVersion ?? "2026-03-15");
+            _hardwareSettingsRestClient = new HardwareSettings(_hardwareSettingsClientDiagnostics, Pipeline, Endpoint, disconnectedOperationsHardwareSettingApiVersion ?? "2026-03-15");
             ValidateResourceId(id);
         }
 
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         public virtual bool HasData { get; }
 
         /// <summary> Gets the data representing this Feature. </summary>
-        public virtual HardwareSettingData Data
+        public virtual DisconnectedOperationsHardwareSettingData Data
         {
             get
             {
@@ -108,14 +108,14 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="HardwareSettingResource"/>. </description>
+        /// <description> <see cref="DisconnectedOperationsHardwareSettingResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<HardwareSettingResource>> GetAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DisconnectedOperationsHardwareSettingResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingResource.Get");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingResource.Get");
             scope.Start();
             try
             {
@@ -125,12 +125,12 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 };
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<HardwareSettingData> response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                Response<DisconnectedOperationsHardwareSettingData> response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new HardwareSettingResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DisconnectedOperationsHardwareSettingResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -156,14 +156,14 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="HardwareSettingResource"/>. </description>
+        /// <description> <see cref="DisconnectedOperationsHardwareSettingResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<HardwareSettingResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<DisconnectedOperationsHardwareSettingResource> Get(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingResource.Get");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingResource.Get");
             scope.Start();
             try
             {
@@ -173,12 +173,12 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 };
                 HttpMessage message = _hardwareSettingsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<HardwareSettingData> response = Response.FromValue(HardwareSettingData.FromResponse(result), result);
+                Response<DisconnectedOperationsHardwareSettingData> response = Response.FromValue(DisconnectedOperationsHardwareSettingData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new HardwareSettingResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DisconnectedOperationsHardwareSettingResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="HardwareSettingResource"/>. </description>
+        /// <description> <see cref="DisconnectedOperationsHardwareSettingResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -212,7 +212,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingResource.Delete");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingResource.Delete");
             scope.Start();
             try
             {
@@ -253,7 +253,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="HardwareSettingResource"/>. </description>
+        /// <description> <see cref="DisconnectedOperationsHardwareSettingResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -261,7 +261,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingResource.Delete");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingResource.Delete");
             scope.Start();
             try
             {
@@ -286,7 +286,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         }
 
         /// <summary>
-        /// Update a HardwareSetting.
+        /// Update a DisconnectedOperationsHardwareSetting.
         /// <list type="bullet">
         /// <item>
         /// <term> Request Path. </term>
@@ -302,7 +302,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="HardwareSettingResource"/>. </description>
+        /// <description> <see cref="DisconnectedOperationsHardwareSettingResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -310,11 +310,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<HardwareSettingResource>> UpdateAsync(WaitUntil waitUntil, HardwareSettingData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<DisconnectedOperationsHardwareSettingResource>> UpdateAsync(WaitUntil waitUntil, DisconnectedOperationsHardwareSettingData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingResource.Update");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingResource.Update");
             scope.Start();
             try
             {
@@ -322,10 +322,10 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, HardwareSettingData.ToRequestContent(data), context);
+                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, DisconnectedOperationsHardwareSettingData.ToRequestContent(data), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                DisconnectedOperationsArmOperation<HardwareSettingResource> operation = new DisconnectedOperationsArmOperation<HardwareSettingResource>(
-                    new HardwareSettingOperationSource(Client),
+                DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource> operation = new DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource>(
+                    new DisconnectedOperationsHardwareSettingOperationSource(Client),
                     _hardwareSettingsClientDiagnostics,
                     Pipeline,
                     message.Request,
@@ -345,7 +345,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         }
 
         /// <summary>
-        /// Update a HardwareSetting.
+        /// Update a DisconnectedOperationsHardwareSetting.
         /// <list type="bullet">
         /// <item>
         /// <term> Request Path. </term>
@@ -361,7 +361,7 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="HardwareSettingResource"/>. </description>
+        /// <description> <see cref="DisconnectedOperationsHardwareSettingResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -369,11 +369,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<HardwareSettingResource> Update(WaitUntil waitUntil, HardwareSettingData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<DisconnectedOperationsHardwareSettingResource> Update(WaitUntil waitUntil, DisconnectedOperationsHardwareSettingData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("HardwareSettingResource.Update");
+            using DiagnosticScope scope = _hardwareSettingsClientDiagnostics.CreateScope("DisconnectedOperationsHardwareSettingResource.Update");
             scope.Start();
             try
             {
@@ -381,10 +381,10 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, HardwareSettingData.ToRequestContent(data), context);
+                HttpMessage message = _hardwareSettingsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, DisconnectedOperationsHardwareSettingData.ToRequestContent(data), context);
                 Response response = Pipeline.ProcessMessage(message, context);
-                DisconnectedOperationsArmOperation<HardwareSettingResource> operation = new DisconnectedOperationsArmOperation<HardwareSettingResource>(
-                    new HardwareSettingOperationSource(Client),
+                DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource> operation = new DisconnectedOperationsArmOperation<DisconnectedOperationsHardwareSettingResource>(
+                    new DisconnectedOperationsHardwareSettingOperationSource(Client),
                     _hardwareSettingsClientDiagnostics,
                     Pipeline,
                     message.Request,

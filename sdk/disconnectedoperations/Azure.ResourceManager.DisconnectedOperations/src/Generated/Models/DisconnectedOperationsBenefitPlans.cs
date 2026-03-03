@@ -11,21 +11,21 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
     /// <summary> The benefit plans. </summary>
-    public partial class BenefitPlans
+    public partial class DisconnectedOperationsBenefitPlans
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="BenefitPlans"/>. </summary>
-        public BenefitPlans()
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsBenefitPlans"/>. </summary>
+        public DisconnectedOperationsBenefitPlans()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="BenefitPlans"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsBenefitPlans"/>. </summary>
         /// <param name="azureHybridWindowsServerBenefit"> Azure Hybrid Windows Server Benefit plan. </param>
         /// <param name="windowsServerVmCount"> Number of Windows Server VMs to license under the Azure Hybrid Benefit plan. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal BenefitPlans(BenefitPlanStatus? azureHybridWindowsServerBenefit, int? windowsServerVmCount, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationsBenefitPlans(DisconnectedOperationsBenefitPlanStatus? azureHybridWindowsServerBenefit, int? windowsServerVmCount, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AzureHybridWindowsServerBenefit = azureHybridWindowsServerBenefit;
             WindowsServerVmCount = windowsServerVmCount;
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         }
 
         /// <summary> Azure Hybrid Windows Server Benefit plan. </summary>
-        public BenefitPlanStatus? AzureHybridWindowsServerBenefit { get; set; }
+        public DisconnectedOperationsBenefitPlanStatus? AzureHybridWindowsServerBenefit { get; set; }
 
         /// <summary> Number of Windows Server VMs to license under the Azure Hybrid Benefit plan. </summary>
         public int? WindowsServerVmCount { get; set; }

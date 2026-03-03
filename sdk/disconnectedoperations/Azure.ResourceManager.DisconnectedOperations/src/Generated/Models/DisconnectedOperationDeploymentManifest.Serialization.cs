@@ -154,8 +154,8 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DisconnectedOperationsBillingModel billingModel = default;
             DisconnectedOperationsConnectionIntent connectionIntent = default;
             string cloud = default;
-            BillingConfiguration billingConfiguration = default;
-            BenefitPlans benefitPlans = default;
+            DisconnectedOperationsBillingConfiguration billingConfiguration = default;
+            DisconnectedOperationsBenefitPlans benefitPlans = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     {
                         continue;
                     }
-                    billingConfiguration = BillingConfiguration.DeserializeBillingConfiguration(prop.Value, options);
+                    billingConfiguration = DisconnectedOperationsBillingConfiguration.DeserializeDisconnectedOperationsBillingConfiguration(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("benefitPlans"u8))
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     {
                         continue;
                     }
-                    benefitPlans = BenefitPlans.DeserializeBenefitPlans(prop.Value, options);
+                    benefitPlans = DisconnectedOperationsBenefitPlans.DeserializeDisconnectedOperationsBenefitPlans(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

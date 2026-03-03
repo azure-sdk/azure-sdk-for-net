@@ -14,33 +14,33 @@ using Azure.ResourceManager.DisconnectedOperations;
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
     /// <summary> The hardware setting properties. </summary>
-    public partial class HardwareSettingProperties : IJsonModel<HardwareSettingProperties>
+    public partial class DisconnectedOperationsHardwareSettingProperties : IJsonModel<DisconnectedOperationsHardwareSettingProperties>
     {
-        /// <summary> Initializes a new instance of <see cref="HardwareSettingProperties"/> for deserialization. </summary>
-        internal HardwareSettingProperties()
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsHardwareSettingProperties"/> for deserialization. </summary>
+        internal DisconnectedOperationsHardwareSettingProperties()
         {
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual HardwareSettingProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual DisconnectedOperationsHardwareSettingProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<HardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsHardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeHardwareSettingProperties(document.RootElement, options);
+                        return DeserializeDisconnectedOperationsHardwareSettingProperties(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(HardwareSettingProperties)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DisconnectedOperationsHardwareSettingProperties)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<HardwareSettingProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DisconnectedOperationsHardwareSettingProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -51,10 +51,10 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<HardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsHardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(HardwareSettingProperties)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DisconnectedOperationsHardwareSettingProperties)} does not support writing '{format}' format.");
             }
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
@@ -98,24 +98,24 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        HardwareSettingProperties IJsonModel<HardwareSettingProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        DisconnectedOperationsHardwareSettingProperties IJsonModel<DisconnectedOperationsHardwareSettingProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual HardwareSettingProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual DisconnectedOperationsHardwareSettingProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<HardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsHardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(HardwareSettingProperties)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DisconnectedOperationsHardwareSettingProperties)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeHardwareSettingProperties(document.RootElement, options);
+            return DeserializeDisconnectedOperationsHardwareSettingProperties(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static HardwareSettingProperties DeserializeHardwareSettingProperties(JsonElement element, ModelReaderWriterOptions options)
+        internal static DisconnectedOperationsHardwareSettingProperties DeserializeDisconnectedOperationsHardwareSettingProperties(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -193,7 +193,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new HardwareSettingProperties(
+            return new DisconnectedOperationsHardwareSettingProperties(
                 provisioningState,
                 totalCores,
                 diskSpaceInGb,
@@ -208,26 +208,26 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<HardwareSettingProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DisconnectedOperationsHardwareSettingProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<HardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsHardwareSettingProperties>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerDisconnectedOperationsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(HardwareSettingProperties)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DisconnectedOperationsHardwareSettingProperties)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        HardwareSettingProperties IPersistableModel<HardwareSettingProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        DisconnectedOperationsHardwareSettingProperties IPersistableModel<DisconnectedOperationsHardwareSettingProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<HardwareSettingProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DisconnectedOperationsHardwareSettingProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

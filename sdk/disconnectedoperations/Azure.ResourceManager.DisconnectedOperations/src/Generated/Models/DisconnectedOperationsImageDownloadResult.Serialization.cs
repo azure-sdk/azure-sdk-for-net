@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DateTimeOffset releaseOn = default;
             DisconnectedOperationsReleaseType releaseType = default;
             IReadOnlyList<string> compatibleVersions = default;
-            ImageUpdateProperties updateProperties = default;
+            DisconnectedOperationsImageUpdateProperties updateProperties = default;
             string transactionId = default;
             Uri downloadLink = default;
             DateTimeOffset linkExpiry = default;
@@ -241,7 +241,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                     {
                         continue;
                     }
-                    updateProperties = ImageUpdateProperties.DeserializeImageUpdateProperties(prop.Value, options);
+                    updateProperties = DisconnectedOperationsImageUpdateProperties.DeserializeDisconnectedOperationsImageUpdateProperties(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("transactionId"u8))

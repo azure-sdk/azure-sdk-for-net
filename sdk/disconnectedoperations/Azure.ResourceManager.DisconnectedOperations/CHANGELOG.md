@@ -3,6 +3,8 @@
 ## 1.0.0 (Unreleased)
 
 ### Features Added
+- Added support for `HardwareSetting` resource.
+- Updated API version to `2026-03-15`
 
 ### Breaking Changes
 

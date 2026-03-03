@@ -11,24 +11,24 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.DisconnectedOperations.Models
 {
     /// <summary> The update properties of the Update Release type Image. </summary>
-    public partial class ImageUpdateProperties
+    public partial class DisconnectedOperationsImageUpdateProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="ImageUpdateProperties"/>. </summary>
-        internal ImageUpdateProperties()
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsImageUpdateProperties"/>. </summary>
+        internal DisconnectedOperationsImageUpdateProperties()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ImageUpdateProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DisconnectedOperationsImageUpdateProperties"/>. </summary>
         /// <param name="systemReboot"> Indicates if a system reboot is required after applying the update. </param>
         /// <param name="securityUpdates"> Details of security updates included in this image release. </param>
         /// <param name="osVersion"> The operating system version provided by this image update. </param>
         /// <param name="agentVersion"> The version(s) of the agent software included in this image update. </param>
         /// <param name="featureUpdates"> Details of feature updates included in this image release. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ImageUpdateProperties(SystemReboot systemReboot, string securityUpdates, string osVersion, string agentVersion, string featureUpdates, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationsImageUpdateProperties(DisconnectedOperationsSystemReboot systemReboot, string securityUpdates, string osVersion, string agentVersion, string featureUpdates, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             SystemReboot = systemReboot;
             SecurityUpdates = securityUpdates;
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         }
 
         /// <summary> Indicates if a system reboot is required after applying the update. </summary>
-        public SystemReboot SystemReboot { get; }
+        public DisconnectedOperationsSystemReboot SystemReboot { get; }
 
         /// <summary> Details of security updates included in this image release. </summary>
         public string SecurityUpdates { get; }

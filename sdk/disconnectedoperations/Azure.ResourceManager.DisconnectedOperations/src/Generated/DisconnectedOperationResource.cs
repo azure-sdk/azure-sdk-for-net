@@ -794,11 +794,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
             return GetDisconnectedOperationsImages().Get(imageName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of HardwareSettings in the <see cref="DisconnectedOperationResource"/>. </summary>
-        /// <returns> An object representing collection of HardwareSettings and their operations over a HardwareSettingResource. </returns>
-        public virtual HardwareSettingCollection GetHardwareSettings()
+        /// <summary> Gets a collection of DisconnectedOperationsHardwareSettings in the <see cref="DisconnectedOperationResource"/>. </summary>
+        /// <returns> An object representing collection of DisconnectedOperationsHardwareSettings and their operations over a DisconnectedOperationsHardwareSettingResource. </returns>
+        public virtual DisconnectedOperationsHardwareSettingCollection GetDisconnectedOperationsHardwareSettings()
         {
-            return GetCachedClient(client => new HardwareSettingCollection(client, Id));
+            return GetCachedClient(client => new DisconnectedOperationsHardwareSettingCollection(client, Id));
         }
 
         /// <summary> Get the hardware settings resource. </summary>
@@ -807,11 +807,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<HardwareSettingResource>> GetHardwareSettingAsync(string hardwareSettingName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DisconnectedOperationsHardwareSettingResource>> GetDisconnectedOperationsHardwareSettingAsync(string hardwareSettingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            return await GetHardwareSettings().GetAsync(hardwareSettingName, cancellationToken).ConfigureAwait(false);
+            return await GetDisconnectedOperationsHardwareSettings().GetAsync(hardwareSettingName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary> Get the hardware settings resource. </summary>
@@ -820,11 +820,11 @@ namespace Azure.ResourceManager.DisconnectedOperations
         /// <exception cref="ArgumentNullException"> <paramref name="hardwareSettingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="hardwareSettingName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<HardwareSettingResource> GetHardwareSetting(string hardwareSettingName, CancellationToken cancellationToken = default)
+        public virtual Response<DisconnectedOperationsHardwareSettingResource> GetDisconnectedOperationsHardwareSetting(string hardwareSettingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(hardwareSettingName, nameof(hardwareSettingName));
 
-            return GetHardwareSettings().Get(hardwareSettingName, cancellationToken);
+            return GetDisconnectedOperationsHardwareSettings().Get(hardwareSettingName, cancellationToken);
         }
     }
 }
