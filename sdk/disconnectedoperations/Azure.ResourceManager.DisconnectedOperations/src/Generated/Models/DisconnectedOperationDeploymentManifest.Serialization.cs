@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             ResourceIdentifier resourceId = default;
             string resourceName = default;
             string stampId = default;
-            string location = default;
+            AzureLocation location = default;
             DisconnectedOperationsBillingModel billingModel = default;
             DisconnectedOperationsConnectionIntent connectionIntent = default;
             string cloud = default;
@@ -199,7 +199,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 }
                 if (prop.NameEquals("location"u8))
                 {
-                    location = prop.Value.GetString();
+                    location = new AzureLocation(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("billingModel"u8))

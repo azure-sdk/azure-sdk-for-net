@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="billingConfiguration"> The billing configuration. </param>
         /// <param name="benefitPlans"> The benefit plans. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationDeploymentManifest"/> instance for mocking. </returns>
-        public static DisconnectedOperationDeploymentManifest DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId = default, string resourceName = default, string stampId = default, string location = default, DisconnectedOperationsBillingModel billingModel = default, DisconnectedOperationsConnectionIntent connectionIntent = default, string cloud = default, DisconnectedOperationsBillingConfiguration billingConfiguration = default, DisconnectedOperationsBenefitPlans benefitPlans = default)
+        public static DisconnectedOperationDeploymentManifest DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId = default, string resourceName = default, string stampId = default, AzureLocation location = default, DisconnectedOperationsBillingModel billingModel = default, DisconnectedOperationsConnectionIntent connectionIntent = default, string cloud = default, DisconnectedOperationsBillingConfiguration billingConfiguration = default, DisconnectedOperationsBenefitPlans benefitPlans = default)
         {
             return new DisconnectedOperationDeploymentManifest(
                 resourceId,
@@ -200,9 +200,9 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="updateProperties"> Image update properties for update release type image. </param>
         /// <param name="transactionId"> The unique identifier of the download. </param>
         /// <param name="downloadLink"> The download URI. </param>
-        /// <param name="linkExpiry"> The download link expiry time. </param>
+        /// <param name="linkExpiresOn"> The download link expiry time. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationsImageDownloadResult"/> instance for mocking. </returns>
-        public static DisconnectedOperationsImageDownloadResult DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string releaseVersion = default, string releaseDisplayName = default, string releaseNotes = default, DateTimeOffset releaseOn = default, DisconnectedOperationsReleaseType releaseType = default, IEnumerable<string> compatibleVersions = default, DisconnectedOperationsImageUpdateProperties updateProperties = default, string transactionId = default, Uri downloadLink = default, DateTimeOffset linkExpiry = default)
+        public static DisconnectedOperationsImageDownloadResult DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState = default, string releaseVersion = default, string releaseDisplayName = default, string releaseNotes = default, DateTimeOffset releaseOn = default, DisconnectedOperationsReleaseType releaseType = default, IEnumerable<string> compatibleVersions = default, DisconnectedOperationsImageUpdateProperties updateProperties = default, string transactionId = default, Uri downloadLink = default, DateTimeOffset linkExpiresOn = default)
         {
             compatibleVersions ??= new ChangeTrackingList<string>();
 
@@ -217,7 +217,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 updateProperties,
                 transactionId,
                 downloadLink,
-                linkExpiry,
+                linkExpiresOn,
                 additionalBinaryDataProperties: null);
         }
 
@@ -264,9 +264,9 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="description"> The artifact description. </param>
         /// <param name="size"> The artifact size in MB. </param>
         /// <param name="downloadLink"> The download URI. </param>
-        /// <param name="linkExpiry"> The download link expiry time. </param>
+        /// <param name="linkExpiresOn"> The download link expiry time. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationsArtifactDownloadResult"/> instance for mocking. </returns>
-        public static DisconnectedOperationsArtifactDownloadResult DisconnectedOperationsArtifactDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState = default, int artifactOrder = default, string title = default, string description = default, long? size = default, Uri downloadLink = default, DateTimeOffset linkExpiry = default)
+        public static DisconnectedOperationsArtifactDownloadResult DisconnectedOperationsArtifactDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState = default, int artifactOrder = default, string title = default, string description = default, long? size = default, Uri downloadLink = default, DateTimeOffset linkExpiresOn = default)
         {
             return new DisconnectedOperationsArtifactDownloadResult(
                 provisioningState,
@@ -275,7 +275,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 description,
                 size,
                 downloadLink,
-                linkExpiry,
+                linkExpiresOn,
                 additionalBinaryDataProperties: null);
         }
 
@@ -309,7 +309,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="solutionBuilderExtension"> The solution builder extension at registration. </param>
         /// <param name="deviceId"> The unique Id of the device. </param>
         /// <returns> A new <see cref="Models.DisconnectedOperationsHardwareSettingProperties"/> instance for mocking. </returns>
-        public static DisconnectedOperationsHardwareSettingProperties DisconnectedOperationsHardwareSettingProperties(DisconnectedOperationsResourceProvisioningState? provisioningState = default, int totalCores = default, int diskSpaceInGb = default, int memoryInGb = default, string oem = default, string hardwareSku = default, int nodes = default, string versionAtRegistration = default, string solutionBuilderExtension = default, string deviceId = default)
+        public static DisconnectedOperationsHardwareSettingProperties DisconnectedOperationsHardwareSettingProperties(DisconnectedOperationsResourceProvisioningState? provisioningState = default, int totalCores = default, int diskSpaceInGb = default, int memoryInGb = default, string oem = default, string hardwareSku = default, int nodes = default, string versionAtRegistration = default, string solutionBuilderExtension = default, Guid deviceId = default)
         {
             return new DisconnectedOperationsHardwareSettingProperties(
                 provisioningState,

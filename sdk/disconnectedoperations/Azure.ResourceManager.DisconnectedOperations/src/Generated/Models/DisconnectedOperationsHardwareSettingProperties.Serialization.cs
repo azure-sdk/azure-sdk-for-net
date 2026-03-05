@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             int nodes = default;
             string versionAtRegistration = default;
             string solutionBuilderExtension = default;
-            string deviceId = default;
+            Guid deviceId = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -208,7 +208,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 }
                 if (prop.NameEquals("deviceId"u8))
                 {
-                    deviceId = prop.Value.GetString();
+                    deviceId = new Guid(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

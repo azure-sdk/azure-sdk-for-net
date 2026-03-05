@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="billingConfiguration"> The billing configuration. </param>
         /// <param name="benefitPlans"> The benefit plans. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId, string resourceName, string stampId, string location, DisconnectedOperationsBillingModel billingModel, DisconnectedOperationsConnectionIntent connectionIntent, string cloud, DisconnectedOperationsBillingConfiguration billingConfiguration, DisconnectedOperationsBenefitPlans benefitPlans, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationDeploymentManifest(ResourceIdentifier resourceId, string resourceName, string stampId, AzureLocation location, DisconnectedOperationsBillingModel billingModel, DisconnectedOperationsConnectionIntent connectionIntent, string cloud, DisconnectedOperationsBillingConfiguration billingConfiguration, DisconnectedOperationsBenefitPlans benefitPlans, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ResourceId = resourceId;
             ResourceName = resourceName;
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         public string StampId { get; }
 
         /// <summary> The resource location. </summary>
-        public string Location { get; }
+        public AzureLocation Location { get; }
 
         /// <summary> The billing model. </summary>
         public DisconnectedOperationsBillingModel BillingModel { get; }

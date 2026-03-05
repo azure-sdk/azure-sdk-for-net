@@ -34,9 +34,9 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         /// <param name="updateProperties"> Image update properties for update release type image. </param>
         /// <param name="transactionId"> The unique identifier of the download. </param>
         /// <param name="downloadLink"> The download URI. </param>
-        /// <param name="linkExpiry"> The download link expiry time. </param>
+        /// <param name="linkExpiresOn"> The download link expiry time. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState, string releaseVersion, string releaseDisplayName, string releaseNotes, DateTimeOffset releaseOn, DisconnectedOperationsReleaseType releaseType, IReadOnlyList<string> compatibleVersions, DisconnectedOperationsImageUpdateProperties updateProperties, string transactionId, Uri downloadLink, DateTimeOffset linkExpiry, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DisconnectedOperationsImageDownloadResult(DisconnectedOperationsResourceProvisioningState? provisioningState, string releaseVersion, string releaseDisplayName, string releaseNotes, DateTimeOffset releaseOn, DisconnectedOperationsReleaseType releaseType, IReadOnlyList<string> compatibleVersions, DisconnectedOperationsImageUpdateProperties updateProperties, string transactionId, Uri downloadLink, DateTimeOffset linkExpiresOn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             ReleaseVersion = releaseVersion;
@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             UpdateProperties = updateProperties;
             TransactionId = transactionId;
             DownloadLink = downloadLink;
-            LinkExpiry = linkExpiry;
+            LinkExpiresOn = linkExpiresOn;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -83,6 +83,6 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
         public Uri DownloadLink { get; }
 
         /// <summary> The download link expiry time. </summary>
-        public DateTimeOffset LinkExpiry { get; }
+        public DateTimeOffset LinkExpiresOn { get; }
     }
 }

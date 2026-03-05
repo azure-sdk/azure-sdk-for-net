@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             if (options.Format != "W")
             {
                 writer.WritePropertyName("linkExpiry"u8);
-                writer.WriteStringValue(LinkExpiry, "O");
+                writer.WriteStringValue(LinkExpiresOn, "O");
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -199,7 +199,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
             DisconnectedOperationsImageUpdateProperties updateProperties = default;
             string transactionId = default;
             Uri downloadLink = default;
-            DateTimeOffset linkExpiry = default;
+            DateTimeOffset linkExpiresOn = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 }
                 if (prop.NameEquals("linkExpiry"u8))
                 {
-                    linkExpiry = prop.Value.GetDateTimeOffset("O");
+                    linkExpiresOn = prop.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (options.Format != "W")
@@ -298,7 +298,7 @@ namespace Azure.ResourceManager.DisconnectedOperations.Models
                 updateProperties,
                 transactionId,
                 downloadLink,
-                linkExpiry,
+                linkExpiresOn,
                 additionalBinaryDataProperties);
         }
     }
