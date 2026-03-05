@@ -40,6 +40,29 @@ namespace Azure.ResourceManager.ComputeBulkActions.Models
             }
         }
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<HibernateResourceOperationResponse>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerComputeBulkActionsContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(HibernateResourceOperationResponse)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<HibernateResourceOperationResponse>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        HibernateResourceOperationResponse IPersistableModel<HibernateResourceOperationResponse>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<HibernateResourceOperationResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="HibernateResourceOperationResponse"/> from. </param>
         internal static HibernateResourceOperationResponse FromResponse(Response response)
         {
@@ -166,28 +189,5 @@ namespace Azure.ResourceManager.ComputeBulkActions.Models
             }
             return new HibernateResourceOperationResponse(description, @type, location, results ?? new ChangeTrackingList<ResourceOperation>(), additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<HibernateResourceOperationResponse>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<HibernateResourceOperationResponse>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerComputeBulkActionsContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(HibernateResourceOperationResponse)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        HibernateResourceOperationResponse IPersistableModel<HibernateResourceOperationResponse>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<HibernateResourceOperationResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

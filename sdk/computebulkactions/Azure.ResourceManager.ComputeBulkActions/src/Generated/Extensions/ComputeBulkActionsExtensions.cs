@@ -57,50 +57,6 @@ namespace Azure.ResourceManager.ComputeBulkActions
         }
 
         /// <summary>
-        /// List VirtualMachine resources of a LaunchBulkInstancesOperation.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableComputeBulkActionsResourceGroupResource.GetVirtualMachinesAsync(AzureLocation, string, string, string, CancellationToken)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
-        /// <param name="name"> The name of the LaunchBulkInstancesOperation. </param>
-        /// <param name="filter"> Filter expression to filter the virtual machines. </param>
-        /// <param name="skiptoken"> Skip token for pagination. Uses the token from a previous response to fetch the next page of results. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="VirtualMachine"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<VirtualMachine> GetVirtualMachinesAsync(this ResourceGroupResource resourceGroupResource, AzureLocation location, string name, string filter = default, string skiptoken = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return GetMockableComputeBulkActionsResourceGroupResource(resourceGroupResource).GetVirtualMachinesAsync(location, name, filter, skiptoken, cancellationToken);
-        }
-
-        /// <summary>
-        /// List VirtualMachine resources of a LaunchBulkInstancesOperation.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableComputeBulkActionsResourceGroupResource.GetVirtualMachines(AzureLocation, string, string, string, CancellationToken)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
-        /// <param name="name"> The name of the LaunchBulkInstancesOperation. </param>
-        /// <param name="filter"> Filter expression to filter the virtual machines. </param>
-        /// <param name="skiptoken"> Skip token for pagination. Uses the token from a previous response to fetch the next page of results. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="VirtualMachine"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<VirtualMachine> GetVirtualMachines(this ResourceGroupResource resourceGroupResource, AzureLocation location, string name, string filter = default, string skiptoken = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return GetMockableComputeBulkActionsResourceGroupResource(resourceGroupResource).GetVirtualMachines(location, name, filter, skiptoken, cancellationToken);
-        }
-
-        /// <summary>
         /// Gets a collection of BulkActions in the <see cref="SubscriptionResource"/>
         /// <item>
         /// <term> Mocking. </term>

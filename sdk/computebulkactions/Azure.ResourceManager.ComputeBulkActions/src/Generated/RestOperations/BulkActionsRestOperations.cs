@@ -53,7 +53,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/launchBulkInstancesOperations/", false);
             uri.AppendPath(name, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -72,7 +75,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/operations/", false);
             uri.AppendPath(id, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -93,7 +99,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/launchBulkInstancesOperations/", false);
             uri.AppendPath(name, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -116,7 +125,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/launchBulkInstancesOperations/", false);
             uri.AppendPath(name, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             if (deleteInstances != null)
             {
                 uri.AppendQuery("deleteInstances", TypeFormatters.ConvertToString(deleteInstances), true);
@@ -141,7 +153,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/launchBulkInstancesOperations/", false);
             uri.AppendPath(name, true);
             uri.AppendPath("/cancel", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -160,7 +175,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/launchBulkInstancesOperations", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -172,8 +190,18 @@ namespace Azure.ResourceManager.ComputeBulkActions
         internal HttpMessage CreateNextGetByResourceGroupRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, AzureLocation location, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
-            uri.UpdateQuery("api-version", _apiVersion);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
+            if (_apiVersion != null)
+            {
+                uri.UpdateQuery("api-version", _apiVersion);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -191,7 +219,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/launchBulkInstancesOperations", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -203,8 +234,18 @@ namespace Azure.ResourceManager.ComputeBulkActions
         internal HttpMessage CreateNextGetBySubscriptionRequest(Uri nextPage, Guid subscriptionId, AzureLocation location, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
-            uri.UpdateQuery("api-version", _apiVersion);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
+            if (_apiVersion != null)
+            {
+                uri.UpdateQuery("api-version", _apiVersion);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -226,7 +267,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/launchBulkInstancesOperations/", false);
             uri.AppendPath(name, true);
             uri.AppendPath("/virtualMachines", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             if (filter != null)
             {
                 uri.AppendQuery("$filter", filter, true);
@@ -246,8 +290,18 @@ namespace Azure.ResourceManager.ComputeBulkActions
         internal HttpMessage CreateNextGetVirtualMachinesRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, AzureLocation location, string name, string filter, string skiptoken, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
-            uri.UpdateQuery("api-version", _apiVersion);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
+            if (_apiVersion != null)
+            {
+                uri.UpdateQuery("api-version", _apiVersion);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -265,7 +319,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/virtualMachinesExecuteDeallocate", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -285,7 +342,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/virtualMachinesExecuteHibernate", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -305,7 +365,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/virtualMachinesExecuteStart", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -325,7 +388,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/virtualMachinesExecuteCreate", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -345,7 +411,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/virtualMachinesExecuteDelete", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -365,7 +434,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/virtualMachinesGetOperationStatus", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -385,7 +457,10 @@ namespace Azure.ResourceManager.ComputeBulkActions
             uri.AppendPath("/providers/Microsoft.ComputeBulkActions/locations/", false);
             uri.AppendPath(location.ToString(), true);
             uri.AppendPath("/virtualMachinesCancelOperations", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;

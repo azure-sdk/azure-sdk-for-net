@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.ComputeBulkActions
                     yield break;
                 }
                 VirtualMachineListResult result = VirtualMachineListResult.FromResponse(response);
-                yield return Page<VirtualMachine>.FromValues((IReadOnlyList<VirtualMachine>)result.Value, nextPage?.AbsoluteUri, response);
+                yield return Page<VirtualMachine>.FromValues((IReadOnlyList<VirtualMachine>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 nextPage = result.NextLink;
                 if (nextPage == null)
                 {
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.ComputeBulkActions
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetVirtualMachinesRequest(nextLink, _subscriptionId, _resourceGroupName, _location, _name, _filter, _skiptoken, _context) : _client.CreateGetVirtualMachinesRequest(_subscriptionId, _resourceGroupName, _location, _name, _filter, _skiptoken, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableComputeBulkActionsResourceGroupResource.GetVirtualMachines");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("BulkActionResource.GetVirtualMachines");
             scope.Start();
             try
             {

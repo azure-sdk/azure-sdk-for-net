@@ -52,13 +52,13 @@ namespace Azure.ResourceManager.ComputeBulkActions
                     yield break;
                 }
                 LaunchBulkInstancesOperationListResult result = LaunchBulkInstancesOperationListResult.FromResponse(response);
-                yield return Page<LocationBasedLaunchBulkInstancesOperationData>.FromValues((IReadOnlyList<LocationBasedLaunchBulkInstancesOperationData>)result.Value, nextPage?.AbsoluteUri, response);
+                yield return Page<LocationBasedLaunchBulkInstancesOperationData>.FromValues((IReadOnlyList<LocationBasedLaunchBulkInstancesOperationData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 string nextPageString = result.NextLink;
                 if (string.IsNullOrEmpty(nextPageString))
                 {
                     yield break;
                 }
-                nextPage = new Uri(nextPageString);
+                nextPage = new Uri(nextPageString, UriKind.RelativeOrAbsolute);
             }
         }
 

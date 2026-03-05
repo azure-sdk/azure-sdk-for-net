@@ -58,7 +58,11 @@ namespace Azure.ResourceManager.ComputeBulkActions.Models
         {
             get
             {
-                return Resources is null ? default : Resources.Ids;
+                if (Resources is null)
+                {
+                    Resources = new Resources();
+                }
+                return Resources.Ids;
             }
         }
     }
