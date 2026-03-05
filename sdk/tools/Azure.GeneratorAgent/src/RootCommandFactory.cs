@@ -23,6 +23,7 @@ public class RootCommandFactory
     private readonly ValidationService _validator;
     private readonly GitService _gitService;
     private readonly FileService _fileService;
+    private readonly AppSettings _settings;
     private readonly Task<CopilotService>? _copilotServiceTask;
     private readonly ILogger<RootCommandFactory> _logger;
 
@@ -32,13 +33,15 @@ public class RootCommandFactory
     /// <param name="validator">Validation service.</param>
     /// <param name="gitService">Git service.</param>
     /// <param name="fileService">File service.</param>
+    /// <param name="settings">Application settings.</param>
     /// <param name="logger">Logger instance.</param>
     /// <param name="copilotServiceTask">Optional task that resolves to the initialized CopilotService singleton.</param>
-    public RootCommandFactory(ValidationService validator, GitService gitService, FileService fileService, ILogger<RootCommandFactory> logger, Task<CopilotService>? copilotServiceTask = null)
+    public RootCommandFactory(ValidationService validator, GitService gitService, FileService fileService, AppSettings settings, ILogger<RootCommandFactory> logger, Task<CopilotService>? copilotServiceTask = null)
     {
         _validator = validator;
         _gitService = gitService;
         _fileService = fileService;
+        _settings = settings;
         _copilotServiceTask = copilotServiceTask;
         _logger = logger;
     }
@@ -91,11 +94,10 @@ public class RootCommandFactory
                 throw new ArgumentException("SDK path argument is required but was not provided", nameof(sdkPath));
             }
 
-            _logger.LogInformation("Starting migrate command for SDK path: {SdkPath}", sdkPath);
+            _logger.LogInformation("Migrating: {SdkPath}", sdkPath);
 
-            // Create command-specific timeout linked to app cancellation
             using var commandCts = CancellationTokenSource.CreateLinkedTokenSource(appCancellationToken);
-            commandCts.CancelAfter(TimeSpan.FromMinutes(10));
+            commandCts.CancelAfter(_settings.WorkflowTimeout);
             var cancellationToken = commandCts.Token;
 
             try
@@ -114,23 +116,36 @@ public class RootCommandFactory
                 var relativeDirectory = await _fileService.ReadDirectoryFieldAsync(tspLocationPath, cancellationToken).ConfigureAwait(false);
                 _validator.ValidateRepositoryPath(relativeDirectory);
 
-                // Step 4: Resolve valid commit SHA and directory path
-                _logger.LogDebug("Step 4: Resolving commit information and directory path");
-                var (commitSha, finalDirectory) = await ResolveCommitAndDirectoryAsync(validatedPath, tspLocationPath, relativeDirectory, cancellationToken).ConfigureAwait(false);
+                // Step 4: Get Copilot service once for reuse
+                _logger.LogDebug("Step 4: Initializing Copilot service");
+                if (_copilotServiceTask is null)
+                {
+                    throw new InvalidOperationException("Copilot service task was not initialized");
+                }
+                var copilotService = await _copilotServiceTask.ConfigureAwait(false);
+
+                // Step 5: Resolve valid commit SHA and directory path
+                _logger.LogDebug("Step 5: Resolving commit information and directory path");
+                var (commitSha, finalDirectory) = await ResolveCommitAndDirectoryAsync(validatedPath, tspLocationPath, relativeDirectory, copilotService, cancellationToken).ConfigureAwait(false);
 
                 if (commitSha == null || string.IsNullOrEmpty(finalDirectory))
                 {
                     throw new InvalidOperationException("Unable to resolve valid commit and directory path");
                 }
 
-                _logger.LogInformation("Retrieved latest commit: {CommitSha} for path: {Directory}", commitSha, finalDirectory);
+                _logger.LogInformation("Commit: {CommitSha}", commitSha);
+                _logger.LogInformation("Spec: {FinalDirectory}", finalDirectory);
 
-                // Step 5: Update tsp-location.yaml
-                _logger.LogDebug("Step 5: Updating tsp-location.yaml fields");
+                // Step 6: Update tsp-location.yaml
+                _logger.LogDebug("Step 6: Updating tsp-location.yaml fields");
                 await _fileService.WriteFieldAsync(tspLocationPath, CommitField, commitSha, cancellationToken).ConfigureAwait(false);
                 await _fileService.WriteFieldAsync(tspLocationPath, EmitterPackageJsonPathField, DefaultEmitterPackageJsonPath, cancellationToken).ConfigureAwait(false);
 
-                _logger.LogInformation("Successfully completed migration for SDK path: {SdkPath}", sdkPath);
+                // Step 7: Run code generation, fix errors, then build and fix errors
+                _logger.LogDebug("Step 7: Delegating build-fix cycle to Copilot");
+                await copilotService.HandleBuildFixCycleAsync(validatedPath, cancellationToken).ConfigureAwait(false);
+
+                _logger.LogInformation("Migration completed: {SdkPath}", sdkPath);
             }
             catch (OperationCanceledException) when (appCancellationToken.IsCancellationRequested)
             {
@@ -139,7 +154,7 @@ public class RootCommandFactory
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
-                _logger.LogWarning("Migrate command timed out after 10 minutes");
+                _logger.LogWarning("Migrate command timed out after {Timeout}", _settings.WorkflowTimeout);
                 throw;
             }
             catch (ArgumentException ex)
@@ -175,7 +190,7 @@ public class RootCommandFactory
     /// <summary>
     /// Resolves a valid commit SHA and directory path, using Copilot to correct the path if needed.
     /// </summary>
-    private async Task<(string? CommitSha, string? FinalDirectory)> ResolveCommitAndDirectoryAsync(string validatedPath, string tspLocationPath, string? initialDirectory, CancellationToken cancellationToken)
+    private async Task<(string? CommitSha, string? FinalDirectory)> ResolveCommitAndDirectoryAsync(string validatedPath, string tspLocationPath, string? initialDirectory, CopilotService copilotService, CancellationToken cancellationToken)
     {
         // Try with initial directory first
         if (!string.IsNullOrEmpty(initialDirectory))
@@ -183,21 +198,14 @@ public class RootCommandFactory
             var commitSha = await _gitService.TryGetCommitForPath(DefaultOwner, DefaultSpecsRepository, initialDirectory, cancellationToken).ConfigureAwait(false);
             if (commitSha != null)
             {
-                _logger.LogInformation("Found valid commit {CommitSha} for existing directory: {Directory}", commitSha, initialDirectory);
+                _logger.LogDebug("Found valid commit {CommitSha} for existing directory: {Directory}", commitSha, initialDirectory);
                 return (commitSha, initialDirectory);
             }
         }
 
         // Directory not found or invalid, use Copilot to fix it
-        _logger.LogInformation("Directory path {Path} not found or invalid, using Copilot to find and update correct path", initialDirectory);
+        _logger.LogDebug("Directory path {Path} not found or invalid, using Copilot to find correct path", initialDirectory);
 
-        if (_copilotServiceTask == null)
-        {
-            _logger.LogError("Copilot service is not available. Ensure the migrate command is invoked with a valid sdk-path argument.");
-            return (null, null);
-        }
-
-        var copilotService = await _copilotServiceTask.ConfigureAwait(false);
         await copilotService.UpdateTspLocationFileAsync(validatedPath, DefaultSpecsRepository, cancellationToken).ConfigureAwait(false);
 
         var updatedDirectory = await _fileService.ReadDirectoryFieldAsync(tspLocationPath, cancellationToken).ConfigureAwait(false);
@@ -213,7 +221,7 @@ public class RootCommandFactory
 
         if (updatedCommitSha != null)
         {
-            _logger.LogInformation("Found valid commit {CommitSha} for Copilot-updated directory: {Directory}", updatedCommitSha, updatedDirectory);
+            _logger.LogDebug("Found valid commit {CommitSha} for Copilot-updated directory: {Directory}", updatedCommitSha, updatedDirectory);
             return (updatedCommitSha, updatedDirectory);
         }
 
