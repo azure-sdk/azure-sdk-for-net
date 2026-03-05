@@ -37,6 +37,41 @@ namespace Azure.ResourceManager.DisconnectedOperations
             }
         }
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsHardwareSettingData>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerDisconnectedOperationsContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(DisconnectedOperationsHardwareSettingData)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<DisconnectedOperationsHardwareSettingData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        DisconnectedOperationsHardwareSettingData IPersistableModel<DisconnectedOperationsHardwareSettingData>.Create(BinaryData data, ModelReaderWriterOptions options) => (DisconnectedOperationsHardwareSettingData)PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<DisconnectedOperationsHardwareSettingData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="disconnectedOperationsHardwareSettingData"> The <see cref="DisconnectedOperationsHardwareSettingData"/> to serialize into <see cref="RequestContent"/>. </param>
+        internal static RequestContent ToRequestContent(DisconnectedOperationsHardwareSettingData disconnectedOperationsHardwareSettingData)
+        {
+            if (disconnectedOperationsHardwareSettingData == null)
+            {
+                return null;
+            }
+            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(disconnectedOperationsHardwareSettingData, ModelSerializationExtensions.WireOptions);
+            return content;
+        }
+
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="DisconnectedOperationsHardwareSettingData"/> from. </param>
         internal static DisconnectedOperationsHardwareSettingData FromResponse(Response response)
         {
@@ -156,41 +191,6 @@ namespace Azure.ResourceManager.DisconnectedOperations
                 systemData,
                 additionalBinaryDataProperties,
                 properties);
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<DisconnectedOperationsHardwareSettingData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<DisconnectedOperationsHardwareSettingData>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerDisconnectedOperationsContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(DisconnectedOperationsHardwareSettingData)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        DisconnectedOperationsHardwareSettingData IPersistableModel<DisconnectedOperationsHardwareSettingData>.Create(BinaryData data, ModelReaderWriterOptions options) => (DisconnectedOperationsHardwareSettingData)PersistableModelCreateCore(data, options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<DisconnectedOperationsHardwareSettingData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-
-        /// <param name="disconnectedOperationsHardwareSettingData"> The <see cref="DisconnectedOperationsHardwareSettingData"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(DisconnectedOperationsHardwareSettingData disconnectedOperationsHardwareSettingData)
-        {
-            if (disconnectedOperationsHardwareSettingData == null)
-            {
-                return null;
-            }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(disconnectedOperationsHardwareSettingData, ModelSerializationExtensions.WireOptions);
-            return content;
         }
     }
 }
