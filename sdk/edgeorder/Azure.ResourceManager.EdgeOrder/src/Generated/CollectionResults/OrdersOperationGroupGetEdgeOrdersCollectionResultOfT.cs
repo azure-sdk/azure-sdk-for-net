@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.EdgeOrder
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetEdgeOrdersRequest(nextLink, _subscriptionId, _resourceGroupName, _skipToken, _top, _context) : _client.CreateGetEdgeOrdersRequest(_subscriptionId, _resourceGroupName, _skipToken, _top, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableEdgeOrderResourceGroupResource.GetEdgeOrders");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("EdgeOrderCollection.GetAll");
             scope.Start();
             try
             {
