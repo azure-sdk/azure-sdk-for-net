@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.KeyVault
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetDeletedKeyVaultsRequest(nextLink, _subscriptionId, _context) : _client.CreateGetDeletedKeyVaultsRequest(_subscriptionId, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableKeyVaultSubscriptionResource.GetDeletedKeyVaults");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("DeletedKeyVaultCollection.GetAll");
             scope.Start();
             try
             {
