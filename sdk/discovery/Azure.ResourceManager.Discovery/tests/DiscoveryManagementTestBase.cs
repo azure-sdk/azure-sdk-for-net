@@ -20,7 +20,8 @@ namespace Azure.ResourceManager.Discovery.Tests
     public class DiscoveryManagementTestBase : ManagementRecordedTestBase<DiscoveryManagementTestEnvironment>
     {
         private const string EuapHost = "eastus2euap.management.azure.com";
-        protected AzureLocation DefaultLocation => new AzureLocation("centraluseuap");
+        protected const string SubscriptionId = "31b0b6a5-2647-47eb-8a38-7d12047ee8ec";
+        protected AzureLocation DefaultLocation => new AzureLocation("uksouth");
         protected ArmClient Client { get; private set; }
         protected SubscriptionResource DefaultSubscription { get; private set; }
 
@@ -46,25 +47,6 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             Client = GetArmClient(armOptions);
             DefaultSubscription = await Client.GetDefaultSubscriptionAsync().ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Creates a new resource group for testing.
-        /// </summary>
-        protected async Task<ResourceGroupResource> CreateResourceGroupAsync()
-        {
-            var resourceGroupName = Recording.GenerateAssetName("discovery-rg-");
-            var rgOp = await DefaultSubscription.GetResourceGroups().CreateOrUpdateAsync(
-                WaitUntil.Completed,
-                resourceGroupName,
-                new ResourceGroupData(DefaultLocation)
-                {
-                    Tags =
-                    {
-                        { "test", "discovery" }
-                    }
-                });
-            return rgOp.Value;
         }
 
         /// <summary>

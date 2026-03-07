@@ -39,5 +39,25 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Gets the name of a Tool resource for testing.
         /// </summary>
         public string ToolName => GetRecordedVariable("AZURE_DISCOVERY_TOOL_NAME");
+
+        /// <summary>
+        /// Gets the name of a StorageContainer resource for testing.
+        /// </summary>
+        public string StorageContainerName => GetRecordedVariable("AZURE_DISCOVERY_STORAGE_CONTAINER_NAME");
+
+        /// <summary>
+        /// Gets the name of a StorageAsset resource for testing.
+        /// </summary>
+        public string StorageAssetName => GetRecordedVariable("AZURE_DISCOVERY_STORAGE_ASSET_NAME");
+
+        /// <summary>
+        /// Gets the name of a ChatModelDeployment resource for testing.
+        /// </summary>
+        public string ChatModelDeploymentName => GetRecordedVariable("AZURE_DISCOVERY_CHAT_MODEL_DEPLOYMENT_NAME");
+
+        /// <summary>
+        /// Gets the name of a NodePool resource for testing.
+        /// </summary>
+        public string NodePoolName => GetRecordedVariable("AZURE_DISCOVERY_NODE_POOL_NAME");
     }
 }

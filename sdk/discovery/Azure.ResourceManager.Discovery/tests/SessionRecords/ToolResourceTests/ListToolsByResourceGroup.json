@@ -1,0 +1,295 @@
+{
+  "Entries": [
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec?api-version=2022-12-01",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-f49fd790b83fe69204c5a76c7e843ace-84ecdd131881e763-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "479",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:13:34 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "5f5bf84c-a50f-41aa-848f-5509d321ee95",
+        "x-ms-ratelimit-remaining-subscription-reads": "1099",
+        "x-ms-request-id": "5f5bf84c-a50f-41aa-848f-5509d321ee95",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221335Z:5f5bf84c-a50f-41aa-848f-5509d321ee95",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: 28331C7CAF5449818CDC79F4D5DF07FF Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:13:35Z"
+      },
+      "ResponseBody": {
+        "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec",
+        "authorizationSource": "RoleBased",
+        "managedByTenants": [],
+        "tags": {
+          "Az.Sec.AnonymousBlobEnforcement::OptIn": "all_regions"
+        },
+        "subscriptionId": "31b0b6a5-2647-47eb-8a38-7d12047ee8ec",
+        "tenantId": "00000000-0000-0000-0000-000000000000",
+        "displayName": "Discovery-copilot-devslice1-uksouth",
+        "state": "Enabled",
+        "subscriptionPolicies": {
+          "locationPlacementId": "Internal_2014-09-01",
+          "quotaId": "Internal_2014-09-01",
+          "spendingLimit": "Off"
+        }
+      }
+    },
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourcegroups/olawal?api-version=2022-09-01",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-2582574e7546b7f3c7e25b62643051a0-5499c1edd641ac05-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "294",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:13:34 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "e2966d54-eae2-4dcc-ac77-94026c04e51e",
+        "x-ms-ratelimit-remaining-subscription-reads": "1099",
+        "x-ms-request-id": "e2966d54-eae2-4dcc-ac77-94026c04e51e",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221335Z:e2966d54-eae2-4dcc-ac77-94026c04e51e",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: 86864C0C7DEA4699AC1349863BD45D65 Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:13:35Z"
+      },
+      "ResponseBody": {
+        "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal",
+        "name": "olawal",
+        "type": "Microsoft.Resources/resourceGroups",
+        "location": "uksouth",
+        "tags": {
+          "SkipAutoDeleteTill": "2026-12-31",
+          "Created": "2026-03-07T21:51:58.5374919Z"
+        },
+        "properties": {
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/tools?api-version=2026-02-01-preview",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-e6931761826e3194be91890074511058-29f8583e56417774-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "2880",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:13:36 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "a6266ea2-3ba9-4e6d-816f-996e3ee1ba20",
+        "x-ms-original-request-ids": [
+          "f2812c0c-18c6-4544-bf8d-a6a48aa8db35",
+          "477ed2eb-f028-47f8-945a-99e5e9904637",
+          "34432652-bf24-4ef1-984e-b8188f8f14b4",
+          "26958f5a-e332-410b-beea-da33166980d7",
+          "b1a28084-0933-42dd-9cbe-ef908e5de01e",
+          "6d91eb43-428e-4763-8360-bcdb8633afce"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": "1099",
+        "x-ms-request-id": "a6266ea2-3ba9-4e6d-816f-996e3ee1ba20",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221337Z:a6266ea2-3ba9-4e6d-816f-996e3ee1ba20",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: C8CD3DA40B9F44B69B2F57161D2B1EA1 Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:13:35Z"
+      },
+      "ResponseBody": {
+        "value": [
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/tools/test-tool-50d87c62",
+            "name": "test-tool-50d87c62",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-05T16:59:40.0258391Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-05T16:59:40.0258391Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings.",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/tools/test-tool-dotnet01",
+            "name": "test-tool-dotnet01",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-07T20:37:55.7026424Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-07T20:58:43.455887Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings.",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "Variables": {
+    "AZURE_RESOURCE_GROUP_NAME": "olawal",
+    "RandomSeed": "2066312446",
+    "RESOURCE_MANAGER_URL": null,
+    "SUBSCRIPTION_ID": "31b0b6a5-2647-47eb-8a38-7d12047ee8ec"
+  }
+}

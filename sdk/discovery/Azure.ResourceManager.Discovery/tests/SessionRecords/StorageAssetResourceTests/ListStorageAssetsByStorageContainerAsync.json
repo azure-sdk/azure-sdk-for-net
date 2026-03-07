@@ -1,0 +1,222 @@
+{
+  "Entries": [
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec?api-version=2022-12-01",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-41793310e7350998cad1e416082efce0-d335b87d162c10b3-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "479",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:10:09 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "486c3991-ece6-4ffe-a68d-b77c5b61f24f",
+        "x-ms-ratelimit-remaining-subscription-reads": "1099",
+        "x-ms-request-id": "486c3991-ece6-4ffe-a68d-b77c5b61f24f",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221010Z:486c3991-ece6-4ffe-a68d-b77c5b61f24f",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: 0645F1BC8720482289CB884EF45AFDAA Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:10:10Z"
+      },
+      "ResponseBody": {
+        "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec",
+        "authorizationSource": "RoleBased",
+        "managedByTenants": [],
+        "tags": {
+          "Az.Sec.AnonymousBlobEnforcement::OptIn": "all_regions"
+        },
+        "subscriptionId": "31b0b6a5-2647-47eb-8a38-7d12047ee8ec",
+        "tenantId": "00000000-0000-0000-0000-000000000000",
+        "displayName": "Discovery-copilot-devslice1-uksouth",
+        "state": "Enabled",
+        "subscriptionPolicies": {
+          "locationPlacementId": "Internal_2014-09-01",
+          "quotaId": "Internal_2014-09-01",
+          "spendingLimit": "Off"
+        }
+      }
+    },
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourcegroups/olawal?api-version=2022-09-01",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-78457c48ba421f1a884f08b71f9a5ab9-c22214bb4c25226d-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "294",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:10:09 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "e99bee6d-4867-468c-99ed-9ce7b338ed25",
+        "x-ms-ratelimit-remaining-subscription-reads": "1098",
+        "x-ms-request-id": "e99bee6d-4867-468c-99ed-9ce7b338ed25",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221010Z:e99bee6d-4867-468c-99ed-9ce7b338ed25",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: CEBA844A0792462CBCF7ED9B0F22B682 Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:10:10Z"
+      },
+      "ResponseBody": {
+        "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal",
+        "name": "olawal",
+        "type": "Microsoft.Resources/resourceGroups",
+        "location": "uksouth",
+        "tags": {
+          "SkipAutoDeleteTill": "2026-12-31",
+          "Created": "2026-03-07T21:51:58.5374919Z"
+        },
+        "properties": {
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/storageContainers/test-sc-dotnet01?api-version=2026-02-01-preview",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-70140ebd94453ab0c02aed4f22627cb9-1ce9eca37de8df1a-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "699",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:10:10 GMT",
+        "ETag": "\"00000e9d-0000-1100-0000-69ac8c5f0000\"",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-correlation-request-id": "4b804681-3644-4e2b-8bbb-0f65fb7f89e4",
+        "x-ms-providerhub-traffic": "True",
+        "x-ms-ratelimit-remaining-subscription-reads": "1097",
+        "x-ms-request-id": "d70371b7-26f3-489d-afaf-f1c464063bf6",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221010Z:4b804681-3644-4e2b-8bbb-0f65fb7f89e4",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: 0C82DED4437B4F048F25D8B40EFD6ACF Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:10:10Z"
+      },
+      "ResponseBody": {
+        "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/storageContainers/test-sc-dotnet01",
+        "name": "test-sc-dotnet01",
+        "type": "microsoft.discovery/storagecontainers",
+        "location": "uksouth",
+        "tags": {},
+        "systemData": {
+          "createdBy": "Sanitized",
+          "createdByType": "User",
+          "createdAt": "2026-03-07T20:22:46.3182573Z",
+          "lastModifiedBy": "Sanitized",
+          "lastModifiedByType": "User",
+          "lastModifiedAt": "2026-03-07T20:35:46.2964063Z"
+        },
+        "properties": {
+          "storageStore": {
+            "storageAccountId": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Storage/storageAccounts/mytststr",
+            "kind": "AzureStorageBlob"
+          },
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/storageContainers/test-sc-dotnet01/storageAssets?api-version=2026-02-01-preview",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-f3761dadee6f661500d2de852eae14cf-da63e885c8458f78-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "650",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:10:10 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "574714f1-a67b-4bd2-9d8a-a5b536176b0b",
+        "x-ms-original-request-ids": [
+          "d085c3ab-b1a6-40a4-882e-5616dcad9325",
+          "63c59505-1b08-4c65-9310-cd9883b8d4a5",
+          "3d09b40f-cef1-4024-be75-b778e3edda99",
+          "27d87f57-4dcc-4841-bb1e-e995421dde5a",
+          "b62e916d-dbae-4fd8-85ba-d522a107ecf3",
+          "ab27c695-3021-43a8-ae02-a5ede16f34f6"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": "1096",
+        "x-ms-request-id": "574714f1-a67b-4bd2-9d8a-a5b536176b0b",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221011Z:574714f1-a67b-4bd2-9d8a-a5b536176b0b",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: 8C6897F7B8D843D2BE130927006068C0 Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:10:10Z"
+      },
+      "ResponseBody": {
+        "value": [
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/storageContainers/test-sc-dotnet01/storageAssets/test-sa-dotnet01",
+            "name": "test-sa-dotnet01",
+            "type": "microsoft.discovery/storagecontainers/storageassets",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-07T21:42:24.0316706Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-07T21:44:18.8797312Z"
+            },
+            "properties": {
+              "description": "Test storage asset for .NET SDK validation",
+              "path": "data/test-assets",
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "Variables": {
+    "AZURE_DISCOVERY_STORAGE_CONTAINER_NAME": "test-sc-dotnet01",
+    "AZURE_RESOURCE_GROUP_NAME": "olawal",
+    "RandomSeed": "464372322",
+    "RESOURCE_MANAGER_URL": null,
+    "SUBSCRIPTION_ID": "31b0b6a5-2647-47eb-8a38-7d12047ee8ec"
+  }
+}

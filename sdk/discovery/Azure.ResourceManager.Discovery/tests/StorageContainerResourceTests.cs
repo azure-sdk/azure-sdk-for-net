@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Core.TestFramework;
+using Azure.ResourceManager.Discovery.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -22,7 +24,6 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageContainer in the subscription")]
         public async Task ListStorageContainersBySubscription()
         {
             // Arrange & Act
@@ -37,7 +38,6 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageContainer in the resource group")]
         public async Task ListStorageContainersByResourceGroup()
         {
             // Arrange
@@ -55,14 +55,11 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageContainer")]
         public async Task GetStorageContainer()
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Replace with actual storage container name from TestEnvironment
-            var storageContainerName = "test-storagecontainer";
+            var storageContainerName = TestEnvironment.StorageContainerName;
 
             // Act
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
@@ -73,22 +70,19 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires StorageContainerProperties with storage configuration")]
         public async Task CreateStorageContainer()
         {
-            // Arrange
-            var resourceGroup = await CreateResourceGroupAsync();
-            var storageContainerName = Recording.GenerateAssetName("storage-");
+            // Arrange - matching Python/Java payload
+            var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
+            var storageContainerName = "test-sc-dotnet01";
 
-            // TODO: StorageContainer creation requires:
-            // 1. StorageContainerProperties with storage store configuration
-            // 2. Network configuration
+            var subscriptionId = DefaultSubscription.Data.SubscriptionId;
+            var storageAccountId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourceGroups/olawal/providers/Microsoft.Storage/storageAccounts/mytststr");
+
             var storageContainerData = new StorageContainerData(DefaultLocation)
             {
-                Tags =
-                {
-                    { "test", "value" }
-                }
+                Properties = new StorageContainerProperties(
+                    new AzureStorageBlobStore(storageAccountId)),
             };
 
             // Act
@@ -108,14 +102,12 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Replace with actual storage container name from TestEnvironment
-            var storageContainerName = "test-storagecontainer";
+            var storageContainerName = TestEnvironment.StorageContainerName;
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = storageContainer.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await resourceGroup.GetStorageContainers().CreateOrUpdateAsync(
@@ -125,19 +117,15 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageContainer to delete")]
         public async Task DeleteStorageContainer()
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Either create a StorageContainer first, then delete it
-            // Or use an existing container that can be deleted
-            var storageContainerName = "storage-to-delete";
+            var storageContainerName = "test-sc-dotnet01";
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
 
             // Act

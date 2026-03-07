@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Core.TestFramework;
+using Azure.ResourceManager.Discovery.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -68,29 +70,31 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires WorkspaceProperties with Identity (user-assigned managed identity resource ID) and linked supercomputer")]
+        [Ignore("Recording not yet captured")]
         public async Task CreateWorkspace()
         {
             // Arrange
-            var resourceGroup = await CreateResourceGroupAsync();
-            var workspaceName = Recording.GenerateAssetName("workspace-");
+            var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
+            var workspaceName = "test-wrksp-dotnet01";
 
-            // TODO: Workspace creation requires:
-            // 1. A user-assigned managed identity
-            // 2. WorkspaceProperties with the Identity object
-            // 3. Optionally linked supercomputer IDs
-            // Example:
-            // var identityId = new ResourceIdentifier("/subscriptions/.../resourceGroups/.../providers/Microsoft.ManagedIdentity/userAssignedIdentities/...");
-            // var identity = new Discovery.Models.Identity(identityId);
-            // var properties = new WorkspaceProperties(identity);
-            // var workspaceData = new WorkspaceData(DefaultLocation) { Properties = properties };
+            var subscriptionId = DefaultSubscription.Data.SubscriptionId;
+            var miId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourcegroups/olawal/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myidentity");
 
             var workspaceData = new WorkspaceData(DefaultLocation)
             {
-                Tags =
+                Properties = new WorkspaceProperties(new Discovery.Models.Identity(miId))
                 {
-                    { "test", "value" }
-                }
+                    AgentSubnetId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourceGroups/olawal/providers/Microsoft.Network/virtualNetworks/newapiv/subnets/default3"),
+                    PrivateEndpointSubnetId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourceGroups/olawal/providers/Microsoft.Network/virtualNetworks/newapiv/subnets/default"),
+                    WorkspaceSubnetId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourceGroups/olawal/providers/Microsoft.Network/virtualNetworks/newapiv/subnets/default2"),
+                    CustomerManagedKeys = Discovery.Models.CustomerManagedKeys.Enabled,
+                    KeyVaultProperties = new Discovery.Models.KeyVaultProperties(new System.Uri("https://newapik.vault.azure.net/"), "discoverykey")
+                    {
+                        KeyVersion = "2c9db3cf55d247b4a1c1831fbbdad906"
+                    },
+                    LogAnalyticsClusterId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourceGroups/olawal/providers/Microsoft.OperationalInsights/clusters/mycluse"),
+                    PublicNetworkAccess = Discovery.Models.PublicNetworkAccess.Disabled,
+                },
             };
 
             // Act
@@ -110,11 +114,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Either:
-            // 1. Create a workspace first, then delete it
-            // 2. Or use TestEnvironment.WorkspaceName if deletion is acceptable
-            var workspaceName = "workspace-to-delete";
+            var workspaceName = "test-wrksp-dotnet01";
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(workspaceName);
 
             // Act
@@ -133,9 +133,9 @@ namespace Azure.ResourceManager.Discovery.Tests
             var workspaceName = TestEnvironment.WorkspaceName;
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(workspaceName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = workspace.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await resourceGroup.GetWorkspaces().CreateOrUpdateAsync(
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
     }
 }

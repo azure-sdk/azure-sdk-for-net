@@ -68,28 +68,14 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires proper setup with workload identities and managed resource group configuration")]
+        [Ignore("Recording not yet captured")]
         public async Task CreateBookshelf()
         {
-            // Arrange
-            var resourceGroup = await CreateResourceGroupAsync();
-            var bookshelfName = Recording.GenerateAssetName("bookshelf-");
+            // Arrange - Bookshelf only requires location (matching Python/Java)
+            var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
+            var bookshelfName = "test-bookshelf-dotnet02";
 
-            // TODO: Bookshelf creation may require additional configuration:
-            // 1. WorkloadIdentities (user-assigned managed identities)
-            // 2. Proper network configuration
-            // Example:
-            // var properties = new BookshelfProperties();
-            // properties.WorkloadIdentities.Add("identityKey", new UserAssignedIdentity());
-            // var bookshelfData = new BookshelfData(DefaultLocation) { Properties = properties };
-
-            var bookshelfData = new BookshelfData(DefaultLocation)
-            {
-                Tags =
-                {
-                    { "test", "value" }
-                }
-            };
+            var bookshelfData = new BookshelfData(DefaultLocation);
 
             // Act
             var operation = await resourceGroup.GetBookshelves().CreateOrUpdateAsync(
@@ -108,11 +94,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Either:
-            // 1. Create a bookshelf first, then delete it
-            // 2. Or use TestEnvironment.BookshelfName if deletion is acceptable
-            var bookshelfName = "bookshelf-to-delete";
+            var bookshelfName = "test-bookshelf-dotnet02";
             var bookshelf = await resourceGroup.GetBookshelves().GetAsync(bookshelfName);
 
             // Act
@@ -131,9 +113,9 @@ namespace Azure.ResourceManager.Discovery.Tests
             var bookshelfName = TestEnvironment.BookshelfName;
             var bookshelf = await resourceGroup.GetBookshelves().GetAsync(bookshelfName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = bookshelf.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await resourceGroup.GetBookshelves().CreateOrUpdateAsync(
@@ -143,7 +125,7 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
     }
 }

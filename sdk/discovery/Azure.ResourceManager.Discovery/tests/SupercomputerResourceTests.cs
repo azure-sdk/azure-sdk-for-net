@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Core.TestFramework;
+using Azure.ResourceManager.Discovery.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -70,22 +72,25 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires SupercomputerProperties with SupercomputerIdentities and network configuration")]
+        [Ignore("Recording not yet captured")]
         public async Task CreateSupercomputer()
         {
             // Arrange
-            var resourceGroup = await CreateResourceGroupAsync();
-            var supercomputerName = Recording.GenerateAssetName("supercomputer-");
+            var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
+            var supercomputerName = "test-sc-dotnet02";
 
-            // TODO: Supercomputer creation requires:
-            // 1. SupercomputerProperties with SupercomputerIdentities
-            // 2. Network configuration (subnet IDs, etc.)
+            var subscriptionId = DefaultSubscription.Data.SubscriptionId;
+            var miId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourcegroups/olawal/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myidentity");
+            var subnetId = new ResourceIdentifier($"/subscriptions/{subscriptionId}/resourceGroups/olawal/providers/Microsoft.Network/virtualNetworks/newapiv/subnets/default");
+
+            var identities = new SupercomputerIdentities(
+                clusterIdentity: new Discovery.Models.Identity(miId),
+                kubeletIdentity: new Discovery.Models.Identity(miId));
+            identities.WorkloadIdentities.Add(miId.ToString(), new Azure.ResourceManager.Models.UserAssignedIdentity());
+
             var supercomputerData = new SupercomputerData(DefaultLocation)
             {
-                Tags =
-                {
-                    { "test", "value" }
-                }
+                Properties = new SupercomputerProperties(subnetId, identities),
             };
 
             // Act
@@ -105,10 +110,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Either create a supercomputer first, then delete it
-            // Or use TestEnvironment.SupercomputerName if deletion is acceptable
-            var supercomputerName = "supercomputer-to-delete";
+            var supercomputerName = "test-sc-dotnet02";
             var supercomputer = await resourceGroup.GetSupercomputers().GetAsync(supercomputerName);
 
             // Act
@@ -127,9 +129,9 @@ namespace Azure.ResourceManager.Discovery.Tests
             var supercomputerName = TestEnvironment.SupercomputerName;
             var supercomputer = await resourceGroup.GetSupercomputers().GetAsync(supercomputerName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = supercomputer.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await resourceGroup.GetSupercomputers().CreateOrUpdateAsync(
@@ -139,7 +141,7 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
     }
 }

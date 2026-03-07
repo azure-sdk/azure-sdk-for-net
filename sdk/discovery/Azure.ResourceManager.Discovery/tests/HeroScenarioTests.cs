@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // ===== STEP 1: Create a Workspace =====
             TestContext.WriteLine("Step 1: Creating Workspace...");
-            var resourceGroup = await CreateResourceGroupAsync();
+            var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspaces = resourceGroup.GetWorkspaces();
 
             var workspaceData = new WorkspaceData(DefaultLocation)
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         [Ignore("No session recordings available")]
         public async Task Step1_CreateWorkspace()
         {
-            var resourceGroup = await CreateResourceGroupAsync();
+            var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspaces = resourceGroup.GetWorkspaces();
 
             var workspaceData = new WorkspaceData(DefaultLocation);
@@ -184,7 +184,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         [Ignore("No session recordings available")]
         public async Task Step2_CreateProject()
         {
-            var resourceGroup = await CreateResourceGroupAsync();
+            var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspace = (await resourceGroup.GetWorkspaces().CreateOrUpdateAsync(
                 WaitUntil.Completed,
                 _workspaceName,

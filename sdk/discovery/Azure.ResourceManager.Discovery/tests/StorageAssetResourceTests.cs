@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Core.TestFramework;
+using Azure.ResourceManager.Discovery.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -22,14 +24,11 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageContainer and StorageAssets")]
         public async Task ListStorageAssetsByStorageContainer()
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Replace with actual storage container name from TestEnvironment
-            var storageContainerName = "test-storagecontainer";
+            var storageContainerName = TestEnvironment.StorageContainerName;
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
 
             // Act
@@ -44,16 +43,13 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageContainer and StorageAsset")]
         public async Task GetStorageAsset()
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Replace with actual storage container and asset names from TestEnvironment
-            var storageContainerName = "test-storagecontainer";
+            var storageContainerName = TestEnvironment.StorageContainerName;
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
-            var storageAssetName = "test-storageasset";
+            var storageAssetName = TestEnvironment.StorageAssetName;
 
             // Act
             var storageAsset = await storageContainer.Value.GetStorageAssets().GetAsync(storageAssetName);
@@ -64,25 +60,20 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires StorageAssetProperties with path configuration")]
         public async Task CreateStorageAsset()
         {
-            // Arrange
+            // Arrange - matching Python/Java payload
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Replace with actual storage container name
-            var storageContainerName = "test-storagecontainer";
+            var storageContainerName = TestEnvironment.StorageContainerName;
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
-            var storageAssetName = Recording.GenerateAssetName("asset-");
+            var storageAssetName = "test-sa-dotnet01";
 
-            // TODO: StorageAsset creation requires:
-            // 1. StorageAssetProperties with path configuration
             var storageAssetData = new StorageAssetData(DefaultLocation)
             {
-                Tags =
+                Properties = new StorageAssetProperties("Test storage asset for .NET SDK validation")
                 {
-                    { "test", "value" }
-                }
+                    Path = "data/test-assets",
+                },
             };
 
             // Act
@@ -102,16 +93,14 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Replace with actual storage container and asset names from TestEnvironment
-            var storageContainerName = "test-storagecontainer";
+            var storageContainerName = TestEnvironment.StorageContainerName;
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
-            var storageAssetName = "test-storageasset";
+            var storageAssetName = TestEnvironment.StorageAssetName;
             var storageAsset = await storageContainer.Value.GetStorageAssets().GetAsync(storageAssetName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = storageAsset.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await storageContainer.Value.GetStorageAssets().CreateOrUpdateAsync(
@@ -121,23 +110,17 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageAsset to delete")]
         public async Task DeleteStorageAsset()
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-
-            // TODO: Replace with actual storage container name
-            var storageContainerName = "test-storagecontainer";
+            var storageContainerName = TestEnvironment.StorageContainerName;
             var storageContainer = await resourceGroup.GetStorageContainers().GetAsync(storageContainerName);
-
-            // TODO: Either create a StorageAsset first, then delete it
-            // Or use an existing asset that can be deleted
-            var storageAssetName = "asset-to-delete";
+            var storageAssetName = "test-sa-dotnet01";
             var storageAsset = await storageContainer.Value.GetStorageAssets().GetAsync(storageAssetName);
 
             // Act

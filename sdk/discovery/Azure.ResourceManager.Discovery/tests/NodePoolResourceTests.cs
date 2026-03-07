@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Core.TestFramework;
+using Azure.ResourceManager.Discovery.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -47,9 +49,7 @@ namespace Azure.ResourceManager.Discovery.Tests
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var supercomputer = await resourceGroup.GetSupercomputers().GetAsync(TestEnvironment.SupercomputerName);
-
-            // TODO: Replace with actual node pool name from TestEnvironment
-            var nodePoolName = "test-nodepool";
+            var nodePoolName = TestEnvironment.NodePoolName;
 
             // Act
             var nodePool = await supercomputer.Value.GetNodePools().GetAsync(nodePoolName);
@@ -63,21 +63,20 @@ namespace Azure.ResourceManager.Discovery.Tests
         [Ignore("Requires NodePoolProperties with VM size and network configuration")]
         public async Task CreateNodePool()
         {
-            // Arrange
+            // Arrange - matching Python/Java payload
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var supercomputer = await resourceGroup.GetSupercomputers().GetAsync(TestEnvironment.SupercomputerName);
-            var nodePoolName = Recording.GenerateAssetName("nodepool-");
+            var nodePoolName = "test-np-dotnet01";
 
-            // TODO: NodePool creation requires:
-            // 1. NodePoolProperties with VmSize
-            // 2. Network configuration (subnet IDs)
-            // 3. Node count and scaling configuration
+            var subnetId = new ResourceIdentifier($"/subscriptions/{SubscriptionId}/resourceGroups/{TestEnvironment.ResourceGroupName}/providers/Microsoft.Network/virtualNetworks/newapiv/subnets/default");
+
             var nodePoolData = new NodePoolData(DefaultLocation)
             {
-                Tags =
+                Properties = new NodePoolProperties(subnetId, new VmSize("Standard_D4s_v6"), 3)
                 {
-                    { "test", "value" }
-                }
+                    MinNodeCount = 1,
+                    ScaleSetPriority = ScaleSetPriority.Regular,
+                },
             };
 
             // Act
@@ -98,14 +97,12 @@ namespace Azure.ResourceManager.Discovery.Tests
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var supercomputer = await resourceGroup.GetSupercomputers().GetAsync(TestEnvironment.SupercomputerName);
-
-            // TODO: Replace with actual node pool name from TestEnvironment
-            var nodePoolName = "test-nodepool";
+            var nodePoolName = TestEnvironment.NodePoolName;
             var nodePool = await supercomputer.Value.GetNodePools().GetAsync(nodePoolName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = nodePool.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await supercomputer.Value.GetNodePools().CreateOrUpdateAsync(
@@ -115,7 +112,7 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
 
         [RecordedTest]
@@ -125,10 +122,7 @@ namespace Azure.ResourceManager.Discovery.Tests
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var supercomputer = await resourceGroup.GetSupercomputers().GetAsync(TestEnvironment.SupercomputerName);
-
-            // TODO: Either create a NodePool first, then delete it
-            // Or use an existing node pool that can be deleted
-            var nodePoolName = "nodepool-to-delete";
+            var nodePoolName = "test-np-dotnet01";
             var nodePool = await supercomputer.Value.GetNodePools().GetAsync(nodePoolName);
 
             // Act

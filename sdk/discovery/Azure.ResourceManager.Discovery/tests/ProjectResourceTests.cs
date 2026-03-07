@@ -59,19 +59,12 @@ namespace Azure.ResourceManager.Discovery.Tests
         [Ignore("Requires proper ProjectProperties configuration with settings")]
         public async Task CreateProject()
         {
-            // Arrange
+            // Arrange - matching Python/Java payload (location only)
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(TestEnvironment.WorkspaceName);
-            var projectName = Recording.GenerateAssetName("project-");
+            var projectName = "test-proj-dotnet01";
 
-            // TODO: Project creation may require ProjectProperties with ProjectSettings
-            var projectData = new ProjectData(DefaultLocation)
-            {
-                Tags =
-                {
-                    { "test", "value" }
-                }
-            };
+            var projectData = new ProjectData(DefaultLocation);
 
             // Act
             var operation = await workspace.Value.GetProjects().CreateOrUpdateAsync(
@@ -91,10 +84,7 @@ namespace Azure.ResourceManager.Discovery.Tests
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(TestEnvironment.WorkspaceName);
-
-            // TODO: Either create a project first, then delete it
-            // Or use TestEnvironment.ProjectName if deletion is acceptable
-            var projectName = "project-to-delete";
+            var projectName = "test-proj-dotnet01";
             var project = await workspace.Value.GetProjects().GetAsync(projectName);
 
             // Act
@@ -114,9 +104,9 @@ namespace Azure.ResourceManager.Discovery.Tests
             var projectName = TestEnvironment.ProjectName;
             var project = await workspace.Value.GetProjects().GetAsync(projectName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = project.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await workspace.Value.GetProjects().CreateOrUpdateAsync(
@@ -126,7 +116,7 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
     }
 }

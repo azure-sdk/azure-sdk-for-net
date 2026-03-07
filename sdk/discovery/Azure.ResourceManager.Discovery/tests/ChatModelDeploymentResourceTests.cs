@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Core.TestFramework;
+using Azure.ResourceManager.Discovery.Models;
 using Azure.ResourceManager.Resources;
 using NUnit.Framework;
 
@@ -47,9 +49,7 @@ namespace Azure.ResourceManager.Discovery.Tests
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(TestEnvironment.WorkspaceName);
-
-            // TODO: Replace with actual chat model deployment name from TestEnvironment
-            var chatModelDeploymentName = "test-deployment";
+            var chatModelDeploymentName = TestEnvironment.ChatModelDeploymentName;
 
             // Act
             var chatModelDeployment = await workspace.Value.GetChatModelDeployments().GetAsync(chatModelDeploymentName);
@@ -63,20 +63,14 @@ namespace Azure.ResourceManager.Discovery.Tests
         [Ignore("Requires ChatModelDeploymentProperties with model configuration")]
         public async Task CreateChatModelDeployment()
         {
-            // Arrange
+            // Arrange - matching Python/Java payload (modelFormat=OpenAI, modelName=gpt-4o)
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(TestEnvironment.WorkspaceName);
-            var chatModelDeploymentName = Recording.GenerateAssetName("deployment-");
+            var chatModelDeploymentName = "test-cmd-dotnet01";
 
-            // TODO: ChatModelDeployment creation requires:
-            // 1. ChatModelDeploymentProperties with model name and configuration
-            // 2. Proper model endpoint and key configuration
             var chatModelDeploymentData = new ChatModelDeploymentData(DefaultLocation)
             {
-                Tags =
-                {
-                    { "test", "value" }
-                }
+                Properties = new ChatModelDeploymentProperties("OpenAI", "gpt-4o"),
             };
 
             // Act
@@ -97,14 +91,12 @@ namespace Azure.ResourceManager.Discovery.Tests
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(TestEnvironment.WorkspaceName);
-
-            // TODO: Replace with actual chat model deployment name from TestEnvironment
-            var chatModelDeploymentName = "test-deployment";
+            var chatModelDeploymentName = TestEnvironment.ChatModelDeploymentName;
             var chatModelDeployment = await workspace.Value.GetChatModelDeployments().GetAsync(chatModelDeploymentName);
 
-            // Create update data with modified tags
+            // Update tags matching Python/Java pattern
             var updateData = chatModelDeployment.Value.Data;
-            updateData.Tags["updated"] = "true";
+            updateData.Tags["SkipAutoDeleteTill"] = "2026-12-31";
 
             // Act
             var operation = await workspace.Value.GetChatModelDeployments().CreateOrUpdateAsync(
@@ -114,7 +106,7 @@ namespace Azure.ResourceManager.Discovery.Tests
 
             // Assert
             Assert.That(operation.HasCompleted, Is.True);
-            Assert.That(operation.Value.Data.Tags.ContainsKey("updated"), Is.True);
+            Assert.That(operation.Value.Data.Tags.ContainsKey("SkipAutoDeleteTill"), Is.True);
         }
 
         [RecordedTest]
@@ -124,10 +116,7 @@ namespace Azure.ResourceManager.Discovery.Tests
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
             var workspace = await resourceGroup.GetWorkspaces().GetAsync(TestEnvironment.WorkspaceName);
-
-            // TODO: Either create a ChatModelDeployment first, then delete it
-            // Or use an existing deployment that can be deleted
-            var chatModelDeploymentName = "deployment-to-delete";
+            var chatModelDeploymentName = "test-cmd-dotnet01";
             var chatModelDeployment = await workspace.Value.GetChatModelDeployments().GetAsync(chatModelDeploymentName);
 
             // Act

@@ -1,0 +1,1770 @@
+{
+  "Entries": [
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec?api-version=2022-12-01",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-5c9927aae21ed67137d5204e9c63d3e3-d3b43270cae6da56-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "479",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:14:36 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "1dcbae9a-d1fd-43f5-b8d5-e0236261ca6b",
+        "x-ms-ratelimit-remaining-subscription-reads": "1099",
+        "x-ms-request-id": "1dcbae9a-d1fd-43f5-b8d5-e0236261ca6b",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221436Z:1dcbae9a-d1fd-43f5-b8d5-e0236261ca6b",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: B4B834A18F7247F1A4868700F220F5B6 Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:14:36Z"
+      },
+      "ResponseBody": {
+        "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec",
+        "authorizationSource": "RoleBased",
+        "managedByTenants": [],
+        "tags": {
+          "Az.Sec.AnonymousBlobEnforcement::OptIn": "all_regions"
+        },
+        "subscriptionId": "31b0b6a5-2647-47eb-8a38-7d12047ee8ec",
+        "tenantId": "00000000-0000-0000-0000-000000000000",
+        "displayName": "Discovery-copilot-devslice1-uksouth",
+        "state": "Enabled",
+        "subscriptionPolicies": {
+          "locationPlacementId": "Internal_2014-09-01",
+          "quotaId": "Internal_2014-09-01",
+          "spendingLimit": "Off"
+        }
+      }
+    },
+    {
+      "RequestUri": "https://eastus2euap.management.azure.com/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/providers/Microsoft.Discovery/tools?api-version=2026-02-01-preview",
+      "RequestMethod": "GET",
+      "RequestHeaders": {
+        "Accept": "application/json",
+        "Authorization": "Sanitized",
+        "traceparent": "00-6cce8061a856cbed20440495e28f7e20-f781bfe8780efec0-00",
+        "User-Agent": "azsdk-net-ResourceManager/1.14.0 (.NET 10.0.3; Microsoft Windows 10.0.26200)",
+        "x-ms-client-request-id": "Sanitized",
+        "x-ms-return-client-request-id": "true"
+      },
+      "RequestBody": null,
+      "StatusCode": 200,
+      "ResponseHeaders": {
+        "Cache-Control": "no-cache",
+        "Content-Length": "41913",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 07 Mar 2026 22:14:37 GMT",
+        "Expires": "-1",
+        "Pragma": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Cache": "CONFIG_NOCACHE",
+        "X-Content-Type-Options": "nosniff",
+        "x-ms-correlation-request-id": "cc558880-feaf-4d3c-af8e-ad97c8dceb6c",
+        "x-ms-original-request-ids": [
+          "ff9fa5f3-6372-4b90-8c9f-52fbeabb7981",
+          "98d96cd7-cc7f-4c1d-b3e7-a971ad5dac10",
+          "3adaa9fd-8384-4b72-8967-476b152a10de",
+          "26be1d57-7eb6-4acf-a5dd-e6d46a264ece",
+          "52d38ea2-7e6a-479f-a1be-cb90c2e0644e",
+          "ce146a79-fc7e-4424-a04d-d48b440b85fe"
+        ],
+        "x-ms-ratelimit-remaining-subscription-reads": "1099",
+        "x-ms-request-id": "cc558880-feaf-4d3c-af8e-ad97c8dceb6c",
+        "x-ms-routing-request-id": "EASTUS2EUAP:20260307T221437Z:cc558880-feaf-4d3c-af8e-ad97c8dceb6c",
+        "x-ms-throttling-version": "v2",
+        "X-MSEdge-Ref": "Ref A: B1C710A600F24D1EA2F265B0A149C378 Ref B: SN4AA2022305017 Ref C: 2026-03-07T22:14:37Z"
+      },
+      "ResponseBody": {
+        "value": [
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rg-devslice-uksouth/providers/Microsoft.Discovery/tools/itmolptluks1",
+            "name": "itmolptluks1",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "Application",
+              "createdAt": "2025-09-16T11:09:11.8986542Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2025-09-16T11:18:07.8437828Z"
+            },
+            "properties": {
+              "environmentVariables": {
+                "LOGP_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-logp",
+                "BOILING_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-bp",
+                "CRITICAL_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-tc",
+                "DENSITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-density",
+                "SOLUBILITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-solubility"
+              },
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings read from .txt files in a directory. Note, input mount path where the SMILES data will be stored for the computation is \"/app/input_smiles\". Multiple smiles may be processed within the same run as long as they are mounted to the same input path. Outputs will be stored in \"/app/outputs\"\".",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/itmolptlrp114",
+            "name": "itmolptlrp114",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "Application",
+              "createdAt": "2026-01-15T00:40:15.3174601Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-01-15T00:49:16.0537055Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings read from .txt files in a directory. Note, input mount path where the SMILES data will be stored for the computation is \"/app/input_smiles\". Multiple smiles may be processed within the same run as long as they are mounted to the same input path. Outputs will be stored in \"/app/outputs\"\".",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {
+                "LOGP_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-logp",
+                "BOILING_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-bp",
+                "CRITICAL_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-tc",
+                "DENSITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-density",
+                "SOLUBILITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-solubility"
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/itcorpythtlrp114",
+            "name": "itcorpythtlrp114",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "Application",
+              "createdAt": "2026-01-15T00:40:39.3470173Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-01-15T00:48:18.2325096Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/ittestiotlrp114",
+            "name": "ittestiotlrp114",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "Application",
+              "createdAt": "2026-01-15T00:41:02.0050284Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-01-15T00:48:19.5365998Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "testiotool",
+                "description": "This tool is used to test inline files and output mount configurations.",
+                "version": "1.0.0",
+                "category": "testing",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/testiotool:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "2Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "test_inline_and_output",
+                    "description": "Test action to validate inline file input and output mount functionality.",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "test_inline_file": {
+                          "type": "string",
+                          "description": "This is a test inline file, you should provide some dummy text"
+                        }
+                      },
+                      "required": [
+                        "test_inline_file"
+                      ]
+                    },
+                    "command": "python test_io_script.py",
+                    "inline_files": [
+                      {
+                        "mount_path": "/app/input/test_file.txt",
+                        "content": "{{{ test_inline_file }}}"
+                      }
+                    ],
+                    "output_mount_configurations": [
+                      {
+                        "mount_path": "/app/outputs/",
+                        "auto_promote": true,
+                        "output_name": "testiooutput",
+                        "output_description": "Test output files generated from processing the inline input file"
+                      }
+                    ],
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/molpredictor4h74wc",
+            "name": "molpredictor4h74wc",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-12T20:02:50.7457408Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-02-12T20:03:17.4513262Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings read from .txt files in a directory. Note, input mount path where the SMILES data will be stored for the computation is \"/app/input_smiles\". Multiple smiles may be processed within the same run as long as they are mounted to the same input path. Outputs will be stored in \"/app/outputs\".",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/itcorpythtl4h74wc",
+            "name": "itcorpythtl4h74wc",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-12T20:02:50.8238918Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-02-12T20:03:53.4456326Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/itcorpythtlpujupx",
+            "name": "itcorpythtlpujupx",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-13T17:13:37.8488789Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-02-13T17:14:12.587767Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/molpredictorpujupx",
+            "name": "molpredictorpujupx",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-13T17:13:38.3175742Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-02-13T17:13:58.3227152Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings read from .txt files in a directory. Note, input mount path where the SMILES data will be stored for the computation is \"/app/input_smiles\". Multiple smiles may be processed within the same run as long as they are mounted to the same input path. Outputs will be stored in \"/app/outputs\".",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/itcorpythtlhjyoch",
+            "name": "itcorpythtlhjyoch",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-14T01:12:40.1293186Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-02-14T01:13:00.4649916Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rp114-rg/providers/Microsoft.Discovery/tools/molpredictorhjyoch",
+            "name": "molpredictorhjyoch",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-14T01:12:40.4886867Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-02-14T01:13:14.7006469Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings read from .txt files in a directory. Note, input mount path where the SMILES data will be stored for the computation is \"/app/input_smiles\". Multiple smiles may be processed within the same run as long as they are mounted to the same input path. Outputs will be stored in \"/app/outputs\".",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/alchocro-test-copilotsandbox/providers/Microsoft.Discovery/tools/testukstool",
+            "name": "testukstool",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-26T02:02:25.3606852Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-02-26T02:02:25.3606852Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/tools/test-tool-50d87c62",
+            "name": "test-tool-50d87c62",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-05T16:59:40.0258391Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-05T16:59:40.0258391Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings.",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/umamm-wksp-test-0305/providers/Microsoft.Discovery/tools/itmolptlnw0305b",
+            "name": "itmolptlnw0305b",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-06T03:19:34.9804976Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-06T03:57:45.4316122Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings read from .txt files in a directory. Note, input mount path where the SMILES data will be stored for the computation is \"/app/input_smiles\". Multiple smiles may be processed within the same run as long as they are mounted to the same input path. Outputs will be stored in \"/app/outputs\"\".",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {
+                "LOGP_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-logp",
+                "BOILING_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-bp",
+                "CRITICAL_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-tc",
+                "DENSITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-density",
+                "SOLUBILITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-solubility"
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/umamm-wksp-test-0305/providers/Microsoft.Discovery/tools/itcorpythtlnw0305b",
+            "name": "itcorpythtlnw0305b",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-06T03:58:51.2936362Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-06T04:46:11.7245688Z"
+            },
+            "properties": {
+              "version": "1.0.0-patched",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {
+                "DUMMY_VAR": "unused_value"
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/umamm-wksp-test-0305/providers/Microsoft.Discovery/tools/ittestiotlnw0305b",
+            "name": "ittestiotlnw0305b",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-06T03:59:55.9003288Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-06T03:59:55.9003288Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "testiotool",
+                "description": "This tool is used to test inline files and output mount configurations.",
+                "version": "1.0.0",
+                "category": "testing",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/testiotool:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "2Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "test_inline_and_output",
+                    "description": "Test action to validate inline file input and output mount functionality.",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "test_inline_file": {
+                          "type": "string",
+                          "description": "This is a test inline file, you should provide some dummy text"
+                        }
+                      },
+                      "required": [
+                        "test_inline_file"
+                      ]
+                    },
+                    "command": "python test_io_script.py",
+                    "inline_files": [
+                      {
+                        "mount_path": "/app/input/test_file.txt",
+                        "content": "{{{ test_inline_file }}}"
+                      }
+                    ],
+                    "output_mount_configurations": [
+                      {
+                        "mount_path": "/app/outputs/",
+                        "auto_promote": true,
+                        "output_name": "testiooutput",
+                        "output_description": "Test output files generated from processing the inline input file"
+                      }
+                    ],
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rg-sdronavalli/providers/Microsoft.Discovery/tools/itmolptlsdr07",
+            "name": "itmolptlsdr07",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "Application",
+              "createdAt": "2026-03-06T21:32:06.3377546Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-03-06T21:47:03.0676495Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings read from .txt files in a directory. Note, input mount path where the SMILES data will be stored for the computation is \"/app/input_smiles\". Multiple smiles may be processed within the same run as long as they are mounted to the same input path. Outputs will be stored in \"/app/outputs\"\".",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {
+                "LOGP_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-logp",
+                "BOILING_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-bp",
+                "CRITICAL_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-tc",
+                "DENSITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-density",
+                "SOLUBILITY_ENDPOINT_ID": "/subscriptions/8bd6cf1f-7ca2-4b66-8ec3-3a7620027b80/resourceGroups/alzam-westus-gpu/providers/Microsoft.MachineLearningServices/workspaces/alzam-westus-gpu-ws/onlineEndpoints/molpredictor-solubility"
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rg-sdronavalli/providers/Microsoft.Discovery/tools/itcorpythtlsdr07",
+            "name": "itcorpythtlsdr07",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "Application",
+              "createdAt": "2026-03-06T21:33:21.168418Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-03-06T21:43:36.7033285Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/rg-sdronavalli/providers/Microsoft.Discovery/tools/ittestiotlsdr07",
+            "name": "ittestiotlsdr07",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "Application",
+              "createdAt": "2026-03-06T21:34:55.7586326Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "Application",
+              "lastModifiedAt": "2026-03-06T21:43:37.0512281Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "testiotool",
+                "description": "This tool is used to test inline files and output mount configurations.",
+                "version": "1.0.0",
+                "category": "testing",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/testiotool:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "2Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "test_inline_and_output",
+                    "description": "Test action to validate inline file input and output mount functionality.",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "test_inline_file": {
+                          "type": "string",
+                          "description": "This is a test inline file, you should provide some dummy text"
+                        }
+                      },
+                      "required": [
+                        "test_inline_file"
+                      ]
+                    },
+                    "command": "python test_io_script.py",
+                    "inline_files": [
+                      {
+                        "mount_path": "/app/input/test_file.txt",
+                        "content": "{{{ test_inline_file }}}"
+                      }
+                    ],
+                    "output_mount_configurations": [
+                      {
+                        "mount_path": "/app/outputs/",
+                        "auto_promote": true,
+                        "output_name": "testiooutput",
+                        "output_description": "Test output files generated from processing the inline input file"
+                      }
+                    ],
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/olawal/providers/Microsoft.Discovery/tools/test-tool-dotnet01",
+            "name": "test-tool-dotnet01",
+            "type": "microsoft.discovery/tools",
+            "location": "uksouth",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-03-07T20:37:55.7026424Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-03-07T20:58:43.455887Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "molpredictor",
+                "description": "Molecular property prediction for single SMILES strings.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "name": "worker",
+                    "infra_type": "container",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/molpredictor:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "1Gi",
+                        "storage": "32",
+                        "gpu": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "1Gi",
+                        "storage": "64",
+                        "gpu": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "actions": [
+                  {
+                    "name": "predict",
+                    "description": "Predict molecular properties for SMILES strings.",
+                    "input_schema": {
+                      "type": "object",
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "The property to predict. Must be one of [log_p, boiling_point, solubility, density, critical_point]"
+                        }
+                      },
+                      "required": [
+                        "action"
+                      ]
+                    },
+                    "command": "python molpredictor.py --action {{ action }}",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/alchocro-test-copilotsandbox/providers/Microsoft.Discovery/tools/tooltestpublicprev2",
+            "name": "tooltestpublicprev2",
+            "type": "microsoft.discovery/tools",
+            "location": "eastus2euap",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-27T21:13:22.6154699Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-02-27T21:13:22.6154699Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/bookshelf-indexing-eastus2/providers/Microsoft.Discovery/tools/indexing-prod",
+            "name": "indexing-prod",
+            "type": "microsoft.discovery/tools",
+            "location": "eastus2",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2025-08-22T17:39:43.5552623Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2025-08-22T18:10:26.5363936Z"
+            },
+            "properties": {
+              "environmentVariables": {},
+              "version": "0.0.1",
+              "definitionContent": {
+                "name": "bookshelf",
+                "version": "1.0",
+                "infra": [
+                  {
+                    "name": "indexing",
+                    "image": {
+                      "acr": "acrbslftestprod.azurecr.io/bookshelf-indexing-service:3902098"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "4Gi",
+                        "gpu": 0
+                      },
+                      "max_resources": {
+                        "cpu": "4",
+                        "ram": "8Gi",
+                        "gpu": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/bookshelf-indexing-eastus2/providers/Microsoft.Discovery/tools/indexing-canary",
+            "name": "indexing-canary",
+            "type": "microsoft.discovery/tools",
+            "location": "eastus2",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2025-08-22T17:42:21.2183803Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2025-08-22T17:42:21.2183803Z"
+            },
+            "properties": {
+              "environmentVariables": {},
+              "version": "0.0.1",
+              "definitionContent": {
+                "name": "bookshelf",
+                "version": "1.0",
+                "infra": [
+                  {
+                    "name": "indexing",
+                    "image": {
+                      "acr": "acrbslftestprod.azurecr.io/bookshelf-indexing-service-canary:3908498"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "4Gi",
+                        "gpu": 0
+                      },
+                      "max_resources": {
+                        "cpu": "4",
+                        "ram": "8Gi",
+                        "gpu": 0
+                      }
+                    }
+                  }
+                ]
+              },
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/alchocro-test-copilotsandbox/providers/Microsoft.Discovery/tools/testeustool",
+            "name": "testeustool",
+            "type": "microsoft.discovery/tools",
+            "location": "eastus",
+            "tags": {},
+            "systemData": {
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-02-26T02:07:20.087512Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          },
+          {
+            "id": "/subscriptions/31b0b6a5-2647-47eb-8a38-7d12047ee8ec/resourceGroups/alchocro-test-copilotsandbox/providers/Microsoft.Discovery/tools/tooltestpublicprev4",
+            "name": "tooltestpublicprev4",
+            "type": "microsoft.discovery/tools",
+            "location": "eastus",
+            "tags": {},
+            "systemData": {
+              "createdBy": "Sanitized",
+              "createdByType": "User",
+              "createdAt": "2026-02-27T21:16:19.3888378Z",
+              "lastModifiedBy": "Sanitized",
+              "lastModifiedByType": "User",
+              "lastModifiedAt": "2026-02-27T21:16:19.3888378Z"
+            },
+            "properties": {
+              "version": "1.0.0",
+              "definitionContent": {
+                "name": "corepython",
+                "description": "This is the coding tool for CorePython cheminformatics operations.",
+                "version": "1.0.0",
+                "category": "cheminformatics",
+                "license": "MIT",
+                "infra": [
+                  {
+                    "infra_type": "container",
+                    "name": "worker",
+                    "image": {
+                      "acr": "demodiscoveryacr.azurecr.io/corepython:latest"
+                    },
+                    "compute": {
+                      "min_resources": {
+                        "cpu": "1",
+                        "ram": "2Gi",
+                        "gpu": "0",
+                        "storage": "0"
+                      },
+                      "max_resources": {
+                        "cpu": "2",
+                        "ram": "4Gi",
+                        "storage": "0"
+                      },
+                      "recommended_sku": [
+                        "Standard_D4s_v6"
+                      ],
+                      "pool_type": "static",
+                      "pool_size": 1
+                    }
+                  }
+                ],
+                "code_environments": [
+                  {
+                    "language": "python",
+                    "command": "python3 \"/{{ scriptName }}\"",
+                    "description": "Python code environment with RDKit for molecular manipulation, cheminformatics, and property calculations, as well as general Python code execution. Note: All file outputs should be written to directory /app/outputs. DO NOT FORGET THIS. DO NOT WRITE OUTPUTS TO ANY OTHER DIRECTORY. Utilize the outputMounts parameter to make sure this is mounted correctly and captured after script execution.",
+                    "infra_node": "worker"
+                  }
+                ]
+              },
+              "environmentVariables": {},
+              "provisioningState": "Succeeded"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "Variables": {
+    "RandomSeed": "1477551809",
+    "RESOURCE_MANAGER_URL": null,
+    "SUBSCRIPTION_ID": "31b0b6a5-2647-47eb-8a38-7d12047ee8ec"
+  }
+}
