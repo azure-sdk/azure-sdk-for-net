@@ -988,10 +988,10 @@
 # ServiceOwners:                                                   @atastrophic @rohankhandelwal
 
 # PRLabel: %Discovery %Mgmt
-/sdk/discovery/                                                    @olawal @alchocro @anmaga
+/sdk/discovery/                                                    @oylawal @achocron
 
 # ServiceLabel: %Discovery %Mgmt
-# ServiceOwners:                                                   @olawal @alchocro @anmaga
+# ServiceOwners:                                                   @achocron
 
 # PRLabel: %Durable Task Scheduler %Mgmt
 /sdk/durabletask/Azure.ResourceManager.*/                          @berndverst @kaibocai @torosent @philliphoff @cgillum
