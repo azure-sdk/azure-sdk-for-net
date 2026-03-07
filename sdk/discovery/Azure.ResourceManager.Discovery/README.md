@@ -45,7 +45,7 @@ Documentation is available to help you learn how to use this package:
 ## Examples
 
 Code samples for using the management library for .NET can be found in the following locations:
-- [.NET Management Library Code Samples](https://aka.ms/azsdk/net/mgmt/samples)
+- [.NET Management Library Code Samples](https://github.com/Azure/azure-sdk-for-net/tree/main/sdk/discovery/Azure.ResourceManager.Discovery)
 
 ## Troubleshooting
 
