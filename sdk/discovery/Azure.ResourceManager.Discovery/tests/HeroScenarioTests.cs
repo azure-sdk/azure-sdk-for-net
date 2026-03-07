@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// 10. Query Knowledge Base
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task HeroScenario_RunToolOnSupercomputer()
         {
             // ===== STEP 1: Create a Workspace =====
@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 1: Create a Workspace via ARM.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step1_CreateWorkspace()
         {
             var resourceGroup = await CreateResourceGroupAsync();
@@ -181,7 +181,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 2: Create a Project in the Workspace via ARM.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step2_CreateProject()
         {
             var resourceGroup = await CreateResourceGroupAsync();
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 3: Verify Supercomputer exists.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step3_GetSupercomputer()
         {
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
@@ -222,7 +222,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 4: Get Node Pool from Supercomputer.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step4_GetNodePool()
         {
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
@@ -251,7 +251,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 5: Get Tool Definition.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step5_GetTool()
         {
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
@@ -271,7 +271,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// This requires the WorkspaceClient from Azure.Discovery.Workspace.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step6And7_CreateInvestigationAndRunTool()
         {
             // This test would:
@@ -291,7 +291,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 8: Monitor Run Status.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step8_MonitorRunStatus()
         {
             // This test would poll the tool run status using WorkspaceClient
@@ -302,7 +302,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 9: Create Task for Results.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step9_CreateTask()
         {
             // This test would create a task to process results
@@ -313,7 +313,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         /// Step 10: Query Knowledge Base for insights.
         /// </summary>
         [RecordedTest]
-
+        [Ignore("No session recordings available")]
         public async Task Step10_QueryKnowledgeBase()
         {
             // This test would search the knowledge base using BookshelfClient
