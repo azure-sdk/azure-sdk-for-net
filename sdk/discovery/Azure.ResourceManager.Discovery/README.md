@@ -6,7 +6,7 @@ This library supports managing Microsoft Azure Discovery resources.
 
 This library follows the [new Azure SDK guidelines](https://azure.github.io/azure-sdk/general_introduction.html), and provides many core capabilities:
 
-    - Support MSAL.NET, Azure.Identity is out of box for supporting MSAL.NET.
+    - Support MSAL.NET. Azure.Identity provides out-of-the-box support for MSAL.NET.
     - Support [OpenTelemetry](https://opentelemetry.io/) for distributed tracing.
     - HTTP pipeline with custom policies.
     - Better error-handling.
@@ -24,7 +24,7 @@ dotnet add package Azure.ResourceManager.Discovery --prerelease
 
 ### Prerequisites
 
-* You must have an [Microsoft Azure subscription](https://azure.microsoft.com/free/dotnet/).
+* You must have a [Microsoft Azure subscription](https://azure.microsoft.com/free/dotnet/).
 
 ### Authenticate the Client
 
