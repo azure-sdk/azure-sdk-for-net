@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // Arrange - Bookshelf only requires location (matching Python/Java)
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-            var bookshelfName = "test-bookshelf-dotnet02";
+            var bookshelfName = TestEnvironment.BookshelfName;
 
             var bookshelfData = new BookshelfData(DefaultLocation);
 
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Discovery.Tests
         {
             // Arrange
             var resourceGroup = await GetResourceGroupAsync(TestEnvironment.ResourceGroupName);
-            var bookshelfName = "test-bookshelf-dotnet02";
+            var bookshelfName = TestEnvironment.BookshelfName;
             var bookshelf = await resourceGroup.GetBookshelves().GetAsync(bookshelfName);
 
             // Act

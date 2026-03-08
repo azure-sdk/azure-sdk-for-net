@@ -88,7 +88,6 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageAsset to update")]
         public async Task UpdateStorageAsset()
         {
             // Arrange

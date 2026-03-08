@@ -143,7 +143,6 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing Tool to update")]
         public async Task UpdateTool()
         {
             // Arrange

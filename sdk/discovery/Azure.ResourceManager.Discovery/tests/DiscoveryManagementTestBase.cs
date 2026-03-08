@@ -17,6 +17,8 @@ namespace Azure.ResourceManager.Discovery.Tests
     /// Base class for Azure.ResourceManager.Discovery tests.
     /// Provides ARM client creation and common test utilities.
     /// </summary>
+    // LRO operations (Create/Delete for Bookshelf, Workspace, Supercomputer) can take up to 2 hours.
+    [Timeout(9000000)] // 2.5 hours in ms
     public class DiscoveryManagementTestBase : ManagementRecordedTestBase<DiscoveryManagementTestEnvironment>
     {
         private const string EuapHost = "eastus2euap.management.azure.com";

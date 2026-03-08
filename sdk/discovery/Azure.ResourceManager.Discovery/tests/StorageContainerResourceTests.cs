@@ -97,7 +97,6 @@ namespace Azure.ResourceManager.Discovery.Tests
         }
 
         [RecordedTest]
-        [Ignore("Requires existing StorageContainer to update")]
         public async Task UpdateStorageContainer()
         {
             // Arrange
