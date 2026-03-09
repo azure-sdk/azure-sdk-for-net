@@ -13,52 +13,57 @@ using Azure.ResourceManager.DurableTask;
 
 namespace Azure.ResourceManager.DurableTask.Models
 {
-    /// <summary> The Scheduler resource properties to be updated. </summary>
-    public partial class DurableTaskSchedulerPatchProperties : IJsonModel<DurableTaskSchedulerPatchProperties>
+    /// <summary> Properties of the private endpoint connection. </summary>
+    public partial class PrivateEndpointConnectionProperties : IJsonModel<PrivateEndpointConnectionProperties>
     {
+        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionProperties"/> for deserialization. </summary>
+        internal PrivateEndpointConnectionProperties()
+        {
+        }
+
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual DurableTaskSchedulerPatchProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual PrivateEndpointConnectionProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPatchProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeDurableTaskSchedulerPatchProperties(document.RootElement, options);
+                        return DeserializePrivateEndpointConnectionProperties(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(DurableTaskSchedulerPatchProperties)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPatchProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerDurableTaskContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(DurableTaskSchedulerPatchProperties)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<DurableTaskSchedulerPatchProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<PrivateEndpointConnectionProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        DurableTaskSchedulerPatchProperties IPersistableModel<DurableTaskSchedulerPatchProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        PrivateEndpointConnectionProperties IPersistableModel<PrivateEndpointConnectionProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<DurableTaskSchedulerPatchProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<PrivateEndpointConnectionProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<DurableTaskSchedulerPatchProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<PrivateEndpointConnectionProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -69,26 +74,16 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPatchProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DurableTaskSchedulerPatchProperties)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support writing '{format}' format.");
             }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
+            if (options.Format != "W" && Optional.IsCollectionDefined(GroupIds))
             {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(Endpoint))
-            {
-                writer.WritePropertyName("endpoint"u8);
-                writer.WriteStringValue(Endpoint);
-            }
-            if (Optional.IsCollectionDefined(IPAllowlist))
-            {
-                writer.WritePropertyName("ipAllowlist"u8);
+                writer.WritePropertyName("groupIds"u8);
                 writer.WriteStartArray();
-                foreach (string item in IPAllowlist)
+                foreach (string item in GroupIds)
                 {
                     if (item == null)
                     {
@@ -99,15 +94,17 @@ namespace Azure.ResourceManager.DurableTask.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(PrivateEndpoint))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku, options);
+                writer.WritePropertyName("privateEndpoint"u8);
+                writer.WriteObjectValue(PrivateEndpoint, options);
             }
-            if (Optional.IsDefined(PublicNetworkAccess))
+            writer.WritePropertyName("privateLinkServiceConnectionState"u8);
+            writer.WriteObjectValue(PrivateLinkServiceConnectionState, options);
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
-                writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
+                writer.WritePropertyName("provisioningState"u8);
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -128,52 +125,37 @@ namespace Azure.ResourceManager.DurableTask.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        DurableTaskSchedulerPatchProperties IJsonModel<DurableTaskSchedulerPatchProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        PrivateEndpointConnectionProperties IJsonModel<PrivateEndpointConnectionProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual DurableTaskSchedulerPatchProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual PrivateEndpointConnectionProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPatchProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(DurableTaskSchedulerPatchProperties)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeDurableTaskSchedulerPatchProperties(document.RootElement, options);
+            return DeserializePrivateEndpointConnectionProperties(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static DurableTaskSchedulerPatchProperties DeserializeDurableTaskSchedulerPatchProperties(JsonElement element, ModelReaderWriterOptions options)
+        internal static PrivateEndpointConnectionProperties DeserializePrivateEndpointConnectionProperties(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            DurableTaskProvisioningState? provisioningState = default;
-            string endpoint = default;
-            IList<string> ipAllowlist = default;
-            DurableTaskSchedulerSkuUpdate sku = default;
-            PublicNetworkAccess? publicNetworkAccess = default;
+            IReadOnlyList<string> groupIds = default;
+            PrivateEndpoint privateEndpoint = default;
+            DurableTaskPrivateLinkServiceConnectionState privateLinkServiceConnectionState = default;
+            DurableTaskPrivateEndpointConnectionProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
-                if (prop.NameEquals("provisioningState"u8))
-                {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    provisioningState = new DurableTaskProvisioningState(prop.Value.GetString());
-                    continue;
-                }
-                if (prop.NameEquals("endpoint"u8))
-                {
-                    endpoint = prop.Value.GetString();
-                    continue;
-                }
-                if (prop.NameEquals("ipAllowlist"u8))
+                if (prop.NameEquals("groupIds"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -191,25 +173,30 @@ namespace Azure.ResourceManager.DurableTask.Models
                             array.Add(item.GetString());
                         }
                     }
-                    ipAllowlist = array;
+                    groupIds = array;
                     continue;
                 }
-                if (prop.NameEquals("sku"u8))
+                if (prop.NameEquals("privateEndpoint"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sku = DurableTaskSchedulerSkuUpdate.DeserializeDurableTaskSchedulerSkuUpdate(prop.Value, options);
+                    privateEndpoint = PrivateEndpoint.DeserializePrivateEndpoint(prop.Value, options);
                     continue;
                 }
-                if (prop.NameEquals("publicNetworkAccess"u8))
+                if (prop.NameEquals("privateLinkServiceConnectionState"u8))
+                {
+                    privateLinkServiceConnectionState = DurableTaskPrivateLinkServiceConnectionState.DeserializeDurableTaskPrivateLinkServiceConnectionState(prop.Value, options);
+                    continue;
+                }
+                if (prop.NameEquals("provisioningState"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    publicNetworkAccess = new PublicNetworkAccess(prop.Value.GetString());
+                    provisioningState = new DurableTaskPrivateEndpointConnectionProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -217,13 +204,7 @@ namespace Azure.ResourceManager.DurableTask.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new DurableTaskSchedulerPatchProperties(
-                provisioningState,
-                endpoint,
-                ipAllowlist ?? new ChangeTrackingList<string>(),
-                sku,
-                publicNetworkAccess,
-                additionalBinaryDataProperties);
+            return new PrivateEndpointConnectionProperties(groupIds ?? new ChangeTrackingList<string>(), privateEndpoint, privateLinkServiceConnectionState, provisioningState, additionalBinaryDataProperties);
         }
     }
 }
