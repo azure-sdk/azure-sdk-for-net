@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.KeyVault
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetDeletedManagedHsmsRequest(nextLink, _subscriptionId, _context) : _client.CreateGetDeletedManagedHsmsRequest(_subscriptionId, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableKeyVaultSubscriptionResource.GetDeletedManagedHsms");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("DeletedManagedHsmCollection.GetAll");
             scope.Start();
             try
             {
