@@ -7,8 +7,11 @@
 ### Breaking Changes
 
 ### Bugs Fixed
+- Fixed bug where `StorageResourceCreationMode.SkipIfExists` failed on existing destination directories during container transfers. Existing directories are now skipped without error.
+- Fixed file handle leaks in local checkpointer that prevented checkpoint files from being accessed after transfer pause or completion by replacing MemoryMappedFiles with direct file access.
 
 ### Other Changes
+- Made TransferManager.DisposeAsync public
 
 ## 12.3.0 (2025-10-21)
 
