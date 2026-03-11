@@ -16,6 +16,46 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The parameters for updating the properties of a container registry. </summary>
     internal partial class RegistryPropertiesUpdateParameters : IJsonModel<RegistryPropertiesUpdateParameters>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual RegistryPropertiesUpdateParameters PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<RegistryPropertiesUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeRegistryPropertiesUpdateParameters(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(RegistryPropertiesUpdateParameters)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<RegistryPropertiesUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(RegistryPropertiesUpdateParameters)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<RegistryPropertiesUpdateParameters>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        RegistryPropertiesUpdateParameters IPersistableModel<RegistryPropertiesUpdateParameters>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<RegistryPropertiesUpdateParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<RegistryPropertiesUpdateParameters>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -59,6 +99,16 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 writer.WritePropertyName("dataEndpointEnabled"u8);
                 writer.WriteBooleanValue(DataEndpointEnabled.Value);
             }
+            if (Optional.IsDefined(RegionalEndpoints))
+            {
+                writer.WritePropertyName("regionalEndpoints"u8);
+                writer.WriteStringValue(RegionalEndpoints.Value.ToString());
+            }
+            if (Optional.IsDefined(EndpointProtocol))
+            {
+                writer.WritePropertyName("endpointProtocol"u8);
+                writer.WriteStringValue(EndpointProtocol.Value.ToString());
+            }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
@@ -78,6 +128,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("anonymousPullEnabled"u8);
                 writer.WriteBooleanValue(AnonymousPullEnabled.Value);
+            }
+            if (Optional.IsDefined(MetadataSearch))
+            {
+                writer.WritePropertyName("metadataSearch"u8);
+                writer.WriteStringValue(MetadataSearch.Value.ToString());
             }
             if (Optional.IsDefined(RoleAssignmentMode))
             {
@@ -131,10 +186,13 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             Policies policies = default;
             EncryptionProperty encryption = default;
             bool? dataEndpointEnabled = default;
+            RegionalEndpoints? regionalEndpoints = default;
+            EndpointProtocol? endpointProtocol = default;
             PublicNetworkAccess? publicNetworkAccess = default;
             NetworkRuleBypassOptions? networkRuleBypassOptions = default;
             bool? networkRuleBypassAllowedForTasks = default;
             bool? anonymousPullEnabled = default;
+            MetadataSearch? metadataSearch = default;
             RoleAssignmentMode? roleAssignmentMode = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -184,6 +242,24 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     dataEndpointEnabled = prop.Value.GetBoolean();
                     continue;
                 }
+                if (prop.NameEquals("regionalEndpoints"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    regionalEndpoints = new RegionalEndpoints(prop.Value.GetString());
+                    continue;
+                }
+                if (prop.NameEquals("endpointProtocol"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    endpointProtocol = new EndpointProtocol(prop.Value.GetString());
+                    continue;
+                }
                 if (prop.NameEquals("publicNetworkAccess"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
@@ -220,6 +296,15 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     anonymousPullEnabled = prop.Value.GetBoolean();
                     continue;
                 }
+                if (prop.NameEquals("metadataSearch"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    metadataSearch = new MetadataSearch(prop.Value.GetString());
+                    continue;
+                }
                 if (prop.NameEquals("roleAssignmentMode"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
@@ -240,52 +325,15 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 policies,
                 encryption,
                 dataEndpointEnabled,
+                regionalEndpoints,
+                endpointProtocol,
                 publicNetworkAccess,
                 networkRuleBypassOptions,
                 networkRuleBypassAllowedForTasks,
                 anonymousPullEnabled,
+                metadataSearch,
                 roleAssignmentMode,
                 additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<RegistryPropertiesUpdateParameters>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<RegistryPropertiesUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(RegistryPropertiesUpdateParameters)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        RegistryPropertiesUpdateParameters IPersistableModel<RegistryPropertiesUpdateParameters>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual RegistryPropertiesUpdateParameters PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<RegistryPropertiesUpdateParameters>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeRegistryPropertiesUpdateParameters(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(RegistryPropertiesUpdateParameters)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<RegistryPropertiesUpdateParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

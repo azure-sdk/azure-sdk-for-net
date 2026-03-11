@@ -20,6 +20,65 @@ namespace Azure.ResourceManager.ContainerRegistry
     /// <summary> An object that represents a scope map for a container registry. </summary>
     public partial class ScopeMapData : ResourceData, IJsonModel<ScopeMapData>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ScopeMapData>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeScopeMapData(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(ScopeMapData)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ScopeMapData>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(ScopeMapData)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<ScopeMapData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        ScopeMapData IPersistableModel<ScopeMapData>.Create(BinaryData data, ModelReaderWriterOptions options) => (ScopeMapData)PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<ScopeMapData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="scopeMapData"> The <see cref="ScopeMapData"/> to serialize into <see cref="RequestContent"/>. </param>
+        internal static RequestContent ToRequestContent(ScopeMapData scopeMapData)
+        {
+            if (scopeMapData == null)
+            {
+                return null;
+            }
+            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(scopeMapData, ModelSerializationExtensions.WireOptions);
+            return content;
+        }
+
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="ScopeMapData"/> from. </param>
+        internal static ScopeMapData FromResponse(Response response)
+        {
+            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
+            return DeserializeScopeMapData(document.RootElement, ModelSerializationExtensions.WireOptions);
+        }
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<ScopeMapData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -132,65 +191,6 @@ namespace Azure.ResourceManager.ContainerRegistry
                 systemData,
                 additionalBinaryDataProperties,
                 properties);
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ScopeMapData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ScopeMapData>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(ScopeMapData)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        ScopeMapData IPersistableModel<ScopeMapData>.Create(BinaryData data, ModelReaderWriterOptions options) => (ScopeMapData)PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ScopeMapData>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeScopeMapData(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(ScopeMapData)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ScopeMapData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-
-        /// <param name="scopeMapData"> The <see cref="ScopeMapData"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(ScopeMapData scopeMapData)
-        {
-            if (scopeMapData == null)
-            {
-                return null;
-            }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(scopeMapData, ModelSerializationExtensions.WireOptions);
-            return content;
-        }
-
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="ScopeMapData"/> from. </param>
-        internal static ScopeMapData FromResponse(Response response)
-        {
-            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeScopeMapData(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
     }
 }

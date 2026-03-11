@@ -22,17 +22,22 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="RegistryNameStatus"/>. </summary>
+        /// <param name="availableLoginServerName"> The complete login server name with domain name label (DNL) hash, if available. </param>
         /// <param name="nameAvailable"> The value that indicates whether the name is available. </param>
         /// <param name="reason"> If any, the reason that the name is not available. </param>
         /// <param name="message"> If any, the error message that provides more detail for the reason that the name is not available. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal RegistryNameStatus(bool? nameAvailable, string reason, string message, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RegistryNameStatus(string availableLoginServerName, bool? nameAvailable, string reason, string message, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
+            AvailableLoginServerName = availableLoginServerName;
             NameAvailable = nameAvailable;
             Reason = reason;
             Message = message;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
+
+        /// <summary> The complete login server name with domain name label (DNL) hash, if available. </summary>
+        public string AvailableLoginServerName { get; }
 
         /// <summary> The value that indicates whether the name is available. </summary>
         public bool? NameAvailable { get; }

@@ -17,6 +17,53 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The result of a request to list cache rules for a container registry. </summary>
     internal partial class CacheRulesListResult : IJsonModel<CacheRulesListResult>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual CacheRulesListResult PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<CacheRulesListResult>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeCacheRulesListResult(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(CacheRulesListResult)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<CacheRulesListResult>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(CacheRulesListResult)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<CacheRulesListResult>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        CacheRulesListResult IPersistableModel<CacheRulesListResult>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<CacheRulesListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="CacheRulesListResult"/> from. </param>
+        internal static CacheRulesListResult FromResponse(Response response)
+        {
+            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
+            return DeserializeCacheRulesListResult(document.RootElement, ModelSerializationExtensions.WireOptions);
+        }
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<CacheRulesListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -122,53 +169,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
             }
             return new CacheRulesListResult(value ?? new ChangeTrackingList<CacheRuleData>(), nextLink, additionalBinaryDataProperties);
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<CacheRulesListResult>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<CacheRulesListResult>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(CacheRulesListResult)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        CacheRulesListResult IPersistableModel<CacheRulesListResult>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual CacheRulesListResult PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<CacheRulesListResult>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeCacheRulesListResult(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(CacheRulesListResult)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<CacheRulesListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="CacheRulesListResult"/> from. </param>
-        internal static CacheRulesListResult FromResponse(Response response)
-        {
-            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeCacheRulesListResult(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
     }
 }

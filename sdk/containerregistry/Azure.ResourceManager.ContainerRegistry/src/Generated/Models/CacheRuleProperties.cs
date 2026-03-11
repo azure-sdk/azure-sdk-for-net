@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="createdOn"> The creation date of the cache rule. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal CacheRuleProperties(string credentialSetResourceId, string sourceRepository, string targetRepository, DateTimeOffset? createdOn, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CacheRuleProperties(string credentialSetResourceId, string sourceRepository, string targetRepository, DateTimeOffset? createdOn, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             CredentialSetResourceId = credentialSetResourceId;
             SourceRepository = sourceRepository;
@@ -57,6 +57,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public DateTimeOffset? CreatedOn { get; }
 
         /// <summary> Provisioning state of the resource. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
     }
 }

@@ -16,6 +16,46 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The properties of a credential set resource. </summary>
     public partial class CredentialSetProperties : IJsonModel<CredentialSetProperties>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual CredentialSetProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<CredentialSetProperties>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeCredentialSetProperties(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(CredentialSetProperties)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<CredentialSetProperties>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(CredentialSetProperties)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<CredentialSetProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        CredentialSetProperties IPersistableModel<CredentialSetProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<CredentialSetProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<CredentialSetProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -104,7 +144,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             string loginServer = default;
             IList<AuthCredential> authCredentials = default;
             DateTimeOffset? createdOn = default;
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -142,7 +182,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -152,45 +192,5 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             }
             return new CredentialSetProperties(loginServer, authCredentials ?? new ChangeTrackingList<AuthCredential>(), createdOn, provisioningState, additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<CredentialSetProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<CredentialSetProperties>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(CredentialSetProperties)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        CredentialSetProperties IPersistableModel<CredentialSetProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual CredentialSetProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<CredentialSetProperties>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeCredentialSetProperties(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(CredentialSetProperties)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<CredentialSetProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

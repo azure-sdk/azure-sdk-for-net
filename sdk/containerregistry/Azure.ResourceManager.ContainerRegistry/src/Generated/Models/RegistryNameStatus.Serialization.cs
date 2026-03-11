@@ -17,6 +17,53 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The result of a request to check the availability of a container registry name. </summary>
     public partial class RegistryNameStatus : IJsonModel<RegistryNameStatus>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual RegistryNameStatus PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<RegistryNameStatus>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeRegistryNameStatus(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(RegistryNameStatus)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<RegistryNameStatus>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(RegistryNameStatus)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<RegistryNameStatus>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        RegistryNameStatus IPersistableModel<RegistryNameStatus>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<RegistryNameStatus>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="RegistryNameStatus"/> from. </param>
+        internal static RegistryNameStatus FromResponse(Response response)
+        {
+            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
+            return DeserializeRegistryNameStatus(document.RootElement, ModelSerializationExtensions.WireOptions);
+        }
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<RegistryNameStatus>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -34,6 +81,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(RegistryNameStatus)} does not support writing '{format}' format.");
+            }
+            if (Optional.IsDefined(AvailableLoginServerName))
+            {
+                writer.WritePropertyName("availableLoginServerName"u8);
+                writer.WriteStringValue(AvailableLoginServerName);
             }
             if (Optional.IsDefined(NameAvailable))
             {
@@ -92,12 +144,18 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
+            string availableLoginServerName = default;
             bool? nameAvailable = default;
             string reason = default;
             string message = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
+                if (prop.NameEquals("availableLoginServerName"u8))
+                {
+                    availableLoginServerName = prop.Value.GetString();
+                    continue;
+                }
                 if (prop.NameEquals("nameAvailable"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
@@ -122,54 +180,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new RegistryNameStatus(nameAvailable, reason, message, additionalBinaryDataProperties);
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<RegistryNameStatus>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<RegistryNameStatus>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(RegistryNameStatus)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        RegistryNameStatus IPersistableModel<RegistryNameStatus>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual RegistryNameStatus PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<RegistryNameStatus>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeRegistryNameStatus(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(RegistryNameStatus)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<RegistryNameStatus>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="RegistryNameStatus"/> from. </param>
-        internal static RegistryNameStatus FromResponse(Response response)
-        {
-            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeRegistryNameStatus(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return new RegistryNameStatus(availableLoginServerName, nameAvailable, reason, message, additionalBinaryDataProperties);
         }
     }
 }

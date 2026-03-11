@@ -53,7 +53,10 @@ namespace Azure.ResourceManager.ContainerRegistry
             uri.AppendPath(registryName, true);
             uri.AppendPath("/connectedRegistries/", false);
             uri.AppendPath(connectedRegistryName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -74,7 +77,10 @@ namespace Azure.ResourceManager.ContainerRegistry
             uri.AppendPath(registryName, true);
             uri.AppendPath("/connectedRegistries/", false);
             uri.AppendPath(connectedRegistryName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -97,7 +103,10 @@ namespace Azure.ResourceManager.ContainerRegistry
             uri.AppendPath(registryName, true);
             uri.AppendPath("/connectedRegistries/", false);
             uri.AppendPath(connectedRegistryName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -120,7 +129,10 @@ namespace Azure.ResourceManager.ContainerRegistry
             uri.AppendPath(registryName, true);
             uri.AppendPath("/connectedRegistries/", false);
             uri.AppendPath(connectedRegistryName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -139,7 +151,10 @@ namespace Azure.ResourceManager.ContainerRegistry
             uri.AppendPath("/providers/Microsoft.ContainerRegistry/registries/", false);
             uri.AppendPath(registryName, true);
             uri.AppendPath("/connectedRegistries", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             if (filter != null)
             {
                 uri.AppendQuery("$filter", filter, true);
@@ -155,7 +170,18 @@ namespace Azure.ResourceManager.ContainerRegistry
         internal HttpMessage CreateNextGetAllRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string registryName, string filter, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
+            if (_apiVersion != null)
+            {
+                uri.UpdateQuery("api-version", _apiVersion);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -177,11 +203,39 @@ namespace Azure.ResourceManager.ContainerRegistry
             uri.AppendPath("/connectedRegistries/", false);
             uri.AppendPath(connectedRegistryName, true);
             uri.AppendPath("/deactivate", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
             request.Method = RequestMethod.Post;
+            return message;
+        }
+
+        internal HttpMessage CreateResyncRequest(Guid subscriptionId, string resourceGroupName, string registryName, string connectedRegistryName, RequestContext context)
+        {
+            RawRequestUriBuilder uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId.ToString(), true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.ContainerRegistry/registries/", false);
+            uri.AppendPath(registryName, true);
+            uri.AppendPath("/connectedRegistries/", false);
+            uri.AppendPath(connectedRegistryName, true);
+            uri.AppendPath("/resync", false);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
+            HttpMessage message = Pipeline.CreateMessage();
+            Request request = message.Request;
+            request.Uri = uri;
+            request.Method = RequestMethod.Post;
+            request.Headers.SetValue("Accept", "application/json");
             return message;
         }
     }

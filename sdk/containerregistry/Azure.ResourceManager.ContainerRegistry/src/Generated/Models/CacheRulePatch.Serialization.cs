@@ -17,6 +17,58 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The parameters for updating a cache rule. </summary>
     public partial class CacheRulePatch : IJsonModel<CacheRulePatch>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual CacheRulePatch PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<CacheRulePatch>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeCacheRulePatch(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(CacheRulePatch)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<CacheRulePatch>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(CacheRulePatch)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<CacheRulePatch>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        CacheRulePatch IPersistableModel<CacheRulePatch>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<CacheRulePatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="cacheRulePatch"> The <see cref="CacheRulePatch"/> to serialize into <see cref="RequestContent"/>. </param>
+        internal static RequestContent ToRequestContent(CacheRulePatch cacheRulePatch)
+        {
+            if (cacheRulePatch == null)
+            {
+                return null;
+            }
+            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(cacheRulePatch, ModelSerializationExtensions.WireOptions);
+            return content;
+        }
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<CacheRulePatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -39,6 +91,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("properties"u8);
                 writer.WriteObjectValue(Properties, options);
+            }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                writer.WriteObjectValue(Identity, options);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -83,6 +140,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             CacheRuleUpdateProperties properties = default;
+            IdentityProperties identity = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -95,64 +153,21 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     properties = CacheRuleUpdateProperties.DeserializeCacheRuleUpdateProperties(prop.Value, options);
                     continue;
                 }
+                if (prop.NameEquals("identity"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = IdentityProperties.DeserializeIdentityProperties(prop.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new CacheRulePatch(properties, additionalBinaryDataProperties);
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<CacheRulePatch>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<CacheRulePatch>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(CacheRulePatch)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        CacheRulePatch IPersistableModel<CacheRulePatch>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual CacheRulePatch PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<CacheRulePatch>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeCacheRulePatch(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(CacheRulePatch)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<CacheRulePatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-
-        /// <param name="cacheRulePatch"> The <see cref="CacheRulePatch"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(CacheRulePatch cacheRulePatch)
-        {
-            if (cacheRulePatch == null)
-            {
-                return null;
-            }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(cacheRulePatch, ModelSerializationExtensions.WireOptions);
-            return content;
+            return new CacheRulePatch(properties, identity, additionalBinaryDataProperties);
         }
     }
 }

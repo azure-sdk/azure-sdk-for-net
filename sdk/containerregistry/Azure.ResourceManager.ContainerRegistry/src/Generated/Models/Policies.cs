@@ -27,14 +27,16 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="retentionPolicy"> The retention policy for a container registry. </param>
         /// <param name="exportPolicy"> The export policy for a container registry. </param>
         /// <param name="azureADAuthenticationAsArmPolicy"> The policy for using Azure Resource Manager audience token for a container registry. </param>
+        /// <param name="softDeletePolicy"> The soft delete policy for a container registry. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal Policies(QuarantinePolicy quarantinePolicy, TrustPolicy trustPolicy, RetentionPolicy retentionPolicy, ExportPolicy exportPolicy, AzureADAuthenticationAsArmPolicy azureADAuthenticationAsArmPolicy, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal Policies(QuarantinePolicy quarantinePolicy, TrustPolicy trustPolicy, RetentionPolicy retentionPolicy, ExportPolicy exportPolicy, AzureADAuthenticationAsArmPolicy azureADAuthenticationAsArmPolicy, SoftDeletePolicy softDeletePolicy, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             QuarantinePolicy = quarantinePolicy;
             TrustPolicy = trustPolicy;
             RetentionPolicy = retentionPolicy;
             ExportPolicy = exportPolicy;
             AzureADAuthenticationAsArmPolicy = azureADAuthenticationAsArmPolicy;
+            SoftDeletePolicy = softDeletePolicy;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -52,6 +54,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <summary> The policy for using Azure Resource Manager audience token for a container registry. </summary>
         internal AzureADAuthenticationAsArmPolicy AzureADAuthenticationAsArmPolicy { get; set; }
+
+        /// <summary> The soft delete policy for a container registry. </summary>
+        public SoftDeletePolicy SoftDeletePolicy { get; set; }
 
         /// <summary> The value that indicates whether the policy is enabled or not. </summary>
         public PolicyStatus? QuarantineStatus

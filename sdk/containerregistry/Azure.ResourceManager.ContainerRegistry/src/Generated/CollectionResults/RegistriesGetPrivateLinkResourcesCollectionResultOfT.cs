@@ -52,13 +52,13 @@ namespace Azure.ResourceManager.ContainerRegistry
                     yield break;
                 }
                 ContainerRegistryPrivateLinkResourceListResult result = ContainerRegistryPrivateLinkResourceListResult.FromResponse(response);
-                yield return Page<ContainerRegistryPrivateLinkResource>.FromValues((IReadOnlyList<ContainerRegistryPrivateLinkResource>)result.Value, nextPage?.AbsoluteUri, response);
+                yield return Page<ContainerRegistryPrivateLinkResource>.FromValues((IReadOnlyList<ContainerRegistryPrivateLinkResource>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 string nextPageString = result.NextLink;
                 if (string.IsNullOrEmpty(nextPageString))
                 {
                     yield break;
                 }
-                nextPage = new Uri(nextPageString);
+                nextPage = new Uri(nextPageString, UriKind.RelativeOrAbsolute);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetPrivateLinkResourcesRequest(nextLink, _subscriptionId, _resourceGroupName, _registryName, _context) : _client.CreateGetPrivateLinkResourcesRequest(_subscriptionId, _resourceGroupName, _registryName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableContainerRegistryResourceGroupResource.GetPrivateLinkResources");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("RegistryResource.GetPrivateLinkResources");
             scope.Start();
             try
             {

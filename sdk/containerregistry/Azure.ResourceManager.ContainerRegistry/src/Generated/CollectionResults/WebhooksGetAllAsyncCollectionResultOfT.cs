@@ -53,13 +53,13 @@ namespace Azure.ResourceManager.ContainerRegistry
                     yield break;
                 }
                 WebhookListResult result = WebhookListResult.FromResponse(response);
-                yield return Page<WebhookData>.FromValues((IReadOnlyList<WebhookData>)result.Value, nextPage?.AbsoluteUri, response);
+                yield return Page<WebhookData>.FromValues((IReadOnlyList<WebhookData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 string nextPageString = result.NextLink;
                 if (string.IsNullOrEmpty(nextPageString))
                 {
                     yield break;
                 }
-                nextPage = new Uri(nextPageString);
+                nextPage = new Uri(nextPageString, UriKind.RelativeOrAbsolute);
             }
         }
 

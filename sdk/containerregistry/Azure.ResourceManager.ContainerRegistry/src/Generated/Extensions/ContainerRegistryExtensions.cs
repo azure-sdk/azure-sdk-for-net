@@ -57,21 +57,39 @@ namespace Azure.ResourceManager.ContainerRegistry
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="PrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// Gets an object representing a <see cref="ArchiveResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryArmClient.GetPrivateEndpointConnectionResource(ResourceIdentifier)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryArmClient.GetArchiveResource(ResourceIdentifier)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="PrivateEndpointConnectionResource"/> object. </returns>
-        public static PrivateEndpointConnectionResource GetPrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="ArchiveResource"/> object. </returns>
+        public static ArchiveResource GetArchiveResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableContainerRegistryArmClient(client).GetPrivateEndpointConnectionResource(id);
+            return GetMockableContainerRegistryArmClient(client).GetArchiveResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ArchiveVersionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryArmClient.GetArchiveVersionResource(ResourceIdentifier)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ArchiveVersionResource"/> object. </returns>
+        public static ArchiveVersionResource GetArchiveVersionResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableContainerRegistryArmClient(client).GetArchiveVersionResource(id);
         }
 
         /// <summary>
@@ -129,6 +147,24 @@ namespace Azure.ResourceManager.ContainerRegistry
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="PrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryArmClient.GetPrivateEndpointConnectionResource(ResourceIdentifier)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="PrivateEndpointConnectionResource"/> object. </returns>
+        public static PrivateEndpointConnectionResource GetPrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableContainerRegistryArmClient(client).GetPrivateEndpointConnectionResource(id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="ReplicationResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
         /// <term> Mocking. </term>
@@ -180,6 +216,60 @@ namespace Azure.ResourceManager.ContainerRegistry
             Argument.AssertNotNull(client, nameof(client));
 
             return GetMockableContainerRegistryArmClient(client).GetTokenResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ExportPipelineResource"/> along with the instance operations that can be performed on it but with no data.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryArmClient.GetExportPipelineResource(ResourceIdentifier)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ExportPipelineResource"/> object. </returns>
+        public static ExportPipelineResource GetExportPipelineResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableContainerRegistryArmClient(client).GetExportPipelineResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ImportPipelineResource"/> along with the instance operations that can be performed on it but with no data.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryArmClient.GetImportPipelineResource(ResourceIdentifier)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ImportPipelineResource"/> object. </returns>
+        public static ImportPipelineResource GetImportPipelineResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableContainerRegistryArmClient(client).GetImportPipelineResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="PipelineRunResource"/> along with the instance operations that can be performed on it but with no data.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryArmClient.GetPipelineRunResource(ResourceIdentifier)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="PipelineRunResource"/> object. </returns>
+        public static PipelineRunResource GetPipelineRunResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableContainerRegistryArmClient(client).GetPipelineRunResource(id);
         }
 
         /// <summary>
@@ -253,82 +343,6 @@ namespace Azure.ResourceManager.ContainerRegistry
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
             return GetMockableContainerRegistryResourceGroupResource(resourceGroupResource).GetRegistry(registryName, cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a private link resource by a specified group name for a container registry.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryResourceGroupResource.GetPrivateLinkResourceAsync(string, string, CancellationToken)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="registryName"> The name of the container registry. </param>
-        /// <param name="groupName"> The name of the private link associated with the Azure resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        public static async Task<Response<ContainerRegistryPrivateLinkResource>> GetPrivateLinkResourceAsync(this ResourceGroupResource resourceGroupResource, string registryName, string groupName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return await GetMockableContainerRegistryResourceGroupResource(resourceGroupResource).GetPrivateLinkResourceAsync(registryName, groupName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a private link resource by a specified group name for a container registry.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryResourceGroupResource.GetPrivateLinkResource(string, string, CancellationToken)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="registryName"> The name of the container registry. </param>
-        /// <param name="groupName"> The name of the private link associated with the Azure resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        public static Response<ContainerRegistryPrivateLinkResource> GetPrivateLinkResource(this ResourceGroupResource resourceGroupResource, string registryName, string groupName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return GetMockableContainerRegistryResourceGroupResource(resourceGroupResource).GetPrivateLinkResource(registryName, groupName, cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists the private link resources for a container registry.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryResourceGroupResource.GetPrivateLinkResourcesAsync(string, CancellationToken)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="registryName"> The name of the container registry. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="ContainerRegistryPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<ContainerRegistryPrivateLinkResource> GetPrivateLinkResourcesAsync(this ResourceGroupResource resourceGroupResource, string registryName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return GetMockableContainerRegistryResourceGroupResource(resourceGroupResource).GetPrivateLinkResourcesAsync(registryName, cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists the private link resources for a container registry.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableContainerRegistryResourceGroupResource.GetPrivateLinkResources(string, CancellationToken)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="registryName"> The name of the container registry. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="ContainerRegistryPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<ContainerRegistryPrivateLinkResource> GetPrivateLinkResources(this ResourceGroupResource resourceGroupResource, string registryName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
-
-            return GetMockableContainerRegistryResourceGroupResource(resourceGroupResource).GetPrivateLinkResources(registryName, cancellationToken);
         }
 
         /// <summary>

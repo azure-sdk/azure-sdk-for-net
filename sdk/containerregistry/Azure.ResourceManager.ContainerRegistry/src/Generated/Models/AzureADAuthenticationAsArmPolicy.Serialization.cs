@@ -16,6 +16,46 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The policy for using Azure Resource Manager audience token for a container registry. </summary>
     internal partial class AzureADAuthenticationAsArmPolicy : IJsonModel<AzureADAuthenticationAsArmPolicy>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual AzureADAuthenticationAsArmPolicy PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<AzureADAuthenticationAsArmPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeAzureADAuthenticationAsArmPolicy(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(AzureADAuthenticationAsArmPolicy)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<AzureADAuthenticationAsArmPolicy>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(AzureADAuthenticationAsArmPolicy)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<AzureADAuthenticationAsArmPolicy>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        AzureADAuthenticationAsArmPolicy IPersistableModel<AzureADAuthenticationAsArmPolicy>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<AzureADAuthenticationAsArmPolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<AzureADAuthenticationAsArmPolicy>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -101,45 +141,5 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             }
             return new AzureADAuthenticationAsArmPolicy(status, additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<AzureADAuthenticationAsArmPolicy>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<AzureADAuthenticationAsArmPolicy>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(AzureADAuthenticationAsArmPolicy)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        AzureADAuthenticationAsArmPolicy IPersistableModel<AzureADAuthenticationAsArmPolicy>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual AzureADAuthenticationAsArmPolicy PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<AzureADAuthenticationAsArmPolicy>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeAzureADAuthenticationAsArmPolicy(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(AzureADAuthenticationAsArmPolicy)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<AzureADAuthenticationAsArmPolicy>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

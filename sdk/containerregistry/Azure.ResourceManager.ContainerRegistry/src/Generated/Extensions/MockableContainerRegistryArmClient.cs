@@ -35,13 +35,22 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
             return new RegistryResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="PrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="ArchiveResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="PrivateEndpointConnectionResource"/> object. </returns>
-        public virtual PrivateEndpointConnectionResource GetPrivateEndpointConnectionResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="ArchiveResource"/> object. </returns>
+        public virtual ArchiveResource GetArchiveResource(ResourceIdentifier id)
         {
-            PrivateEndpointConnectionResource.ValidateResourceId(id);
-            return new PrivateEndpointConnectionResource(Client, id);
+            ArchiveResource.ValidateResourceId(id);
+            return new ArchiveResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="ArchiveVersionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ArchiveVersionResource"/> object. </returns>
+        public virtual ArchiveVersionResource GetArchiveVersionResource(ResourceIdentifier id)
+        {
+            ArchiveVersionResource.ValidateResourceId(id);
+            return new ArchiveVersionResource(Client, id);
         }
 
         /// <summary> Gets an object representing a <see cref="CacheRuleResource"/> along with the instance operations that can be performed on it but with no data. </summary>
@@ -71,6 +80,15 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
             return new ConnectedRegistryResource(Client, id);
         }
 
+        /// <summary> Gets an object representing a <see cref="PrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="PrivateEndpointConnectionResource"/> object. </returns>
+        public virtual PrivateEndpointConnectionResource GetPrivateEndpointConnectionResource(ResourceIdentifier id)
+        {
+            PrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new PrivateEndpointConnectionResource(Client, id);
+        }
+
         /// <summary> Gets an object representing a <see cref="ReplicationResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <returns> Returns a <see cref="ReplicationResource"/> object. </returns>
@@ -96,6 +114,33 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
         {
             TokenResource.ValidateResourceId(id);
             return new TokenResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="ExportPipelineResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ExportPipelineResource"/> object. </returns>
+        public virtual ExportPipelineResource GetExportPipelineResource(ResourceIdentifier id)
+        {
+            ExportPipelineResource.ValidateResourceId(id);
+            return new ExportPipelineResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="ImportPipelineResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ImportPipelineResource"/> object. </returns>
+        public virtual ImportPipelineResource GetImportPipelineResource(ResourceIdentifier id)
+        {
+            ImportPipelineResource.ValidateResourceId(id);
+            return new ImportPipelineResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="PipelineRunResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="PipelineRunResource"/> object. </returns>
+        public virtual PipelineRunResource GetPipelineRunResource(ResourceIdentifier id)
+        {
+            PipelineRunResource.ValidateResourceId(id);
+            return new PipelineRunResource(Client, id);
         }
 
         /// <summary> Gets an object representing a <see cref="WebhookResource"/> along with the instance operations that can be performed on it but with no data. </summary>

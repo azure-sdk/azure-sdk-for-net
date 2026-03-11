@@ -16,6 +16,46 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The policies for a container registry. </summary>
     public partial class Policies : IJsonModel<Policies>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual Policies PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<Policies>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializePolicies(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(Policies)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<Policies>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(Policies)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<Policies>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        Policies IPersistableModel<Policies>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<Policies>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<Policies>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -58,6 +98,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("azureADAuthenticationAsArmPolicy"u8);
                 writer.WriteObjectValue(AzureADAuthenticationAsArmPolicy, options);
+            }
+            if (Optional.IsDefined(SoftDeletePolicy))
+            {
+                writer.WritePropertyName("softDeletePolicy"u8);
+                writer.WriteObjectValue(SoftDeletePolicy, options);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -106,6 +151,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             RetentionPolicy retentionPolicy = default;
             ExportPolicy exportPolicy = default;
             AzureADAuthenticationAsArmPolicy azureADAuthenticationAsArmPolicy = default;
+            SoftDeletePolicy softDeletePolicy = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -154,6 +200,15 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     azureADAuthenticationAsArmPolicy = AzureADAuthenticationAsArmPolicy.DeserializeAzureADAuthenticationAsArmPolicy(prop.Value, options);
                     continue;
                 }
+                if (prop.NameEquals("softDeletePolicy"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    softDeletePolicy = SoftDeletePolicy.DeserializeSoftDeletePolicy(prop.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
@@ -165,47 +220,8 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 retentionPolicy,
                 exportPolicy,
                 azureADAuthenticationAsArmPolicy,
+                softDeletePolicy,
                 additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<Policies>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<Policies>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(Policies)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        Policies IPersistableModel<Policies>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual Policies PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<Policies>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializePolicies(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(Policies)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<Policies>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

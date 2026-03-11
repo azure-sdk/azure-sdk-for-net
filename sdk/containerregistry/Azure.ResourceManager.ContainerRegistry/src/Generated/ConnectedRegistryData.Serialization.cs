@@ -20,6 +20,65 @@ namespace Azure.ResourceManager.ContainerRegistry
     /// <summary> An object that represents a connected registry for a container registry. </summary>
     public partial class ConnectedRegistryData : ResourceData, IJsonModel<ConnectedRegistryData>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryData>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeConnectedRegistryData(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(ConnectedRegistryData)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryData>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(ConnectedRegistryData)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<ConnectedRegistryData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        ConnectedRegistryData IPersistableModel<ConnectedRegistryData>.Create(BinaryData data, ModelReaderWriterOptions options) => (ConnectedRegistryData)PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<ConnectedRegistryData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="connectedRegistryData"> The <see cref="ConnectedRegistryData"/> to serialize into <see cref="RequestContent"/>. </param>
+        internal static RequestContent ToRequestContent(ConnectedRegistryData connectedRegistryData)
+        {
+            if (connectedRegistryData == null)
+            {
+                return null;
+            }
+            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(connectedRegistryData, ModelSerializationExtensions.WireOptions);
+            return content;
+        }
+
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="ConnectedRegistryData"/> from. </param>
+        internal static ConnectedRegistryData FromResponse(Response response)
+        {
+            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
+            return DeserializeConnectedRegistryData(document.RootElement, ModelSerializationExtensions.WireOptions);
+        }
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<ConnectedRegistryData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -132,65 +191,6 @@ namespace Azure.ResourceManager.ContainerRegistry
                 systemData,
                 additionalBinaryDataProperties,
                 properties);
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ConnectedRegistryData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryData>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(ConnectedRegistryData)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        ConnectedRegistryData IPersistableModel<ConnectedRegistryData>.Create(BinaryData data, ModelReaderWriterOptions options) => (ConnectedRegistryData)PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryData>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeConnectedRegistryData(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(ConnectedRegistryData)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ConnectedRegistryData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-
-        /// <param name="connectedRegistryData"> The <see cref="ConnectedRegistryData"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(ConnectedRegistryData connectedRegistryData)
-        {
-            if (connectedRegistryData == null)
-            {
-                return null;
-            }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(connectedRegistryData, ModelSerializationExtensions.WireOptions);
-            return content;
-        }
-
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="ConnectedRegistryData"/> from. </param>
-        internal static ConnectedRegistryData FromResponse(Response response)
-        {
-            using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeConnectedRegistryData(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
     }
 }

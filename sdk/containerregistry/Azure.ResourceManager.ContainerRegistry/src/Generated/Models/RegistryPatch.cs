@@ -135,6 +135,40 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             }
         }
 
+        /// <summary> Enable per-region endpoints for accessing registry. </summary>
+        public RegionalEndpoints? RegionalEndpoints
+        {
+            get
+            {
+                return Properties is null ? default : Properties.RegionalEndpoints;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new RegistryPropertiesUpdateParameters();
+                }
+                Properties.RegionalEndpoints = value.Value;
+            }
+        }
+
+        /// <summary> The connectivity protocol for the registry, such as IPv4 or dual stack (IPv4 and IPv6). </summary>
+        public EndpointProtocol? EndpointProtocol
+        {
+            get
+            {
+                return Properties is null ? default : Properties.EndpointProtocol;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new RegistryPropertiesUpdateParameters();
+                }
+                Properties.EndpointProtocol = value.Value;
+            }
+        }
+
         /// <summary> Whether or not public network access is allowed for the container registry. </summary>
         public PublicNetworkAccess? PublicNetworkAccess
         {
@@ -200,6 +234,23 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
                 Properties.AnonymousPullEnabled = value.Value;
+            }
+        }
+
+        /// <summary> Determines whether registry artifacts are indexed for metadata search. </summary>
+        public MetadataSearch? MetadataSearch
+        {
+            get
+            {
+                return Properties is null ? default : Properties.MetadataSearch;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new RegistryPropertiesUpdateParameters();
+                }
+                Properties.MetadataSearch = value.Value;
             }
         }
 

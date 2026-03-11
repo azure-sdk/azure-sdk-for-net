@@ -16,6 +16,46 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
     /// <summary> The properties of a replication. </summary>
     public partial class ReplicationProperties : IJsonModel<ReplicationProperties>
     {
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual ReplicationProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ReplicationProperties>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeReplicationProperties(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(ReplicationProperties)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ReplicationProperties>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(ReplicationProperties)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<ReplicationProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        ReplicationProperties IPersistableModel<ReplicationProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<ReplicationProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<ReplicationProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -96,7 +136,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryProvisioningState? provisioningState = default;
             Status status = default;
             bool? regionEndpointEnabled = default;
             ZoneRedundancy? zoneRedundancy = default;
@@ -109,7 +149,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("status"u8))
@@ -146,45 +186,5 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             }
             return new ReplicationProperties(provisioningState, status, regionEndpointEnabled, zoneRedundancy, additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ReplicationProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ReplicationProperties>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(ReplicationProperties)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        ReplicationProperties IPersistableModel<ReplicationProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ReplicationProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ReplicationProperties>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeReplicationProperties(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(ReplicationProperties)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ReplicationProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

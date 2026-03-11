@@ -27,23 +27,29 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="policies"> The policies for a container registry. </param>
         /// <param name="encryption"> The encryption settings of container registry. </param>
         /// <param name="dataEndpointEnabled"> Enable a single data endpoint per region for serving data. </param>
+        /// <param name="regionalEndpoints"> Enable per-region endpoints for accessing registry. </param>
+        /// <param name="endpointProtocol"> The connectivity protocol for the registry, such as IPv4 or dual stack (IPv4 and IPv6). </param>
         /// <param name="publicNetworkAccess"> Whether or not public network access is allowed for the container registry. </param>
         /// <param name="networkRuleBypassOptions"> Whether to allow trusted Azure services to access a network restricted registry. </param>
         /// <param name="networkRuleBypassAllowedForTasks"> Whether to allow ACR Tasks service to access a network restricted registry. </param>
         /// <param name="anonymousPullEnabled"> Enables registry-wide pull from unauthenticated clients. </param>
+        /// <param name="metadataSearch"> Determines whether registry artifacts are indexed for metadata search. </param>
         /// <param name="roleAssignmentMode"> Determines registry role assignment mode. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal RegistryPropertiesUpdateParameters(bool? adminUserEnabled, NetworkRuleSet networkRuleSet, Policies policies, EncryptionProperty encryption, bool? dataEndpointEnabled, PublicNetworkAccess? publicNetworkAccess, NetworkRuleBypassOptions? networkRuleBypassOptions, bool? networkRuleBypassAllowedForTasks, bool? anonymousPullEnabled, RoleAssignmentMode? roleAssignmentMode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RegistryPropertiesUpdateParameters(bool? adminUserEnabled, NetworkRuleSet networkRuleSet, Policies policies, EncryptionProperty encryption, bool? dataEndpointEnabled, RegionalEndpoints? regionalEndpoints, EndpointProtocol? endpointProtocol, PublicNetworkAccess? publicNetworkAccess, NetworkRuleBypassOptions? networkRuleBypassOptions, bool? networkRuleBypassAllowedForTasks, bool? anonymousPullEnabled, MetadataSearch? metadataSearch, RoleAssignmentMode? roleAssignmentMode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AdminUserEnabled = adminUserEnabled;
             NetworkRuleSet = networkRuleSet;
             Policies = policies;
             Encryption = encryption;
             DataEndpointEnabled = dataEndpointEnabled;
+            RegionalEndpoints = regionalEndpoints;
+            EndpointProtocol = endpointProtocol;
             PublicNetworkAccess = publicNetworkAccess;
             NetworkRuleBypassOptions = networkRuleBypassOptions;
             NetworkRuleBypassAllowedForTasks = networkRuleBypassAllowedForTasks;
             AnonymousPullEnabled = anonymousPullEnabled;
+            MetadataSearch = metadataSearch;
             RoleAssignmentMode = roleAssignmentMode;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
@@ -63,6 +69,12 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Enable a single data endpoint per region for serving data. </summary>
         public bool? DataEndpointEnabled { get; set; }
 
+        /// <summary> Enable per-region endpoints for accessing registry. </summary>
+        public RegionalEndpoints? RegionalEndpoints { get; set; }
+
+        /// <summary> The connectivity protocol for the registry, such as IPv4 or dual stack (IPv4 and IPv6). </summary>
+        public EndpointProtocol? EndpointProtocol { get; set; }
+
         /// <summary> Whether or not public network access is allowed for the container registry. </summary>
         public PublicNetworkAccess? PublicNetworkAccess { get; set; }
 
@@ -74,6 +86,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <summary> Enables registry-wide pull from unauthenticated clients. </summary>
         public bool? AnonymousPullEnabled { get; set; }
+
+        /// <summary> Determines whether registry artifacts are indexed for metadata search. </summary>
+        public MetadataSearch? MetadataSearch { get; set; }
 
         /// <summary> Determines registry role assignment mode. </summary>
         public RoleAssignmentMode? RoleAssignmentMode { get; set; }

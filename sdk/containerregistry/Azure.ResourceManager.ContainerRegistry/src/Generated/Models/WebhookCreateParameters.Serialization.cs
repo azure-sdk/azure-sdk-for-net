@@ -22,6 +22,58 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         {
         }
 
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual WebhookCreateParameters PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<WebhookCreateParameters>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeWebhookCreateParameters(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(WebhookCreateParameters)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<WebhookCreateParameters>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(WebhookCreateParameters)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<WebhookCreateParameters>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        WebhookCreateParameters IPersistableModel<WebhookCreateParameters>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<WebhookCreateParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="webhookCreateParameters"> The <see cref="WebhookCreateParameters"/> to serialize into <see cref="RequestContent"/>. </param>
+        internal static RequestContent ToRequestContent(WebhookCreateParameters webhookCreateParameters)
+        {
+            if (webhookCreateParameters == null)
+            {
+                return null;
+            }
+            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(webhookCreateParameters, ModelSerializationExtensions.WireOptions);
+            return content;
+        }
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<WebhookCreateParameters>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -152,58 +204,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
             }
             return new WebhookCreateParameters(tags ?? new ChangeTrackingDictionary<string, string>(), location, properties, additionalBinaryDataProperties);
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<WebhookCreateParameters>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<WebhookCreateParameters>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(WebhookCreateParameters)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        WebhookCreateParameters IPersistableModel<WebhookCreateParameters>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual WebhookCreateParameters PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<WebhookCreateParameters>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeWebhookCreateParameters(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(WebhookCreateParameters)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<WebhookCreateParameters>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-
-        /// <param name="webhookCreateParameters"> The <see cref="WebhookCreateParameters"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(WebhookCreateParameters webhookCreateParameters)
-        {
-            if (webhookCreateParameters == null)
-            {
-                return null;
-            }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(webhookCreateParameters, ModelSerializationExtensions.WireOptions);
-            return content;
         }
     }
 }

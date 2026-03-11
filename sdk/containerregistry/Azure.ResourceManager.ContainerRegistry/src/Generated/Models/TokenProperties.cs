@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="credentials"> The credentials that can be used for authenticating the token. </param>
         /// <param name="status"> The status of the token example enabled or disabled. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TokenProperties(DateTimeOffset? createdOn, ProvisioningState? provisioningState, string scopeMapId, TokenCredentialsProperties credentials, TokenStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TokenProperties(DateTimeOffset? createdOn, ContainerRegistryProvisioningState? provisioningState, string scopeMapId, TokenCredentialsProperties credentials, TokenStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             CreatedOn = createdOn;
             ProvisioningState = provisioningState;
@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public DateTimeOffset? CreatedOn { get; }
 
         /// <summary> Provisioning state of the resource. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> The resource ID of the scope map to which the token will be associated with. </summary>
         public string ScopeMapId { get; set; }

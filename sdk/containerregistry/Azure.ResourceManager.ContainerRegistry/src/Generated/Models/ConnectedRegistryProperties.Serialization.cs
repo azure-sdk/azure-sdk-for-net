@@ -21,6 +21,46 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         {
         }
 
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual ConnectedRegistryProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryProperties>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeConnectedRegistryProperties(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(ConnectedRegistryProperties)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryProperties>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(ConnectedRegistryProperties)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<ConnectedRegistryProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        ConnectedRegistryProperties IPersistableModel<ConnectedRegistryProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<ConnectedRegistryProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<ConnectedRegistryProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
@@ -97,7 +137,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("statusDetails"u8);
                 writer.WriteStartArray();
-                foreach (StatusDetailProperties item in StatusDetails)
+                foreach (ConnectedRegistryStatusDetail item in StatusDetails)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -122,6 +162,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("garbageCollection"u8);
                 writer.WriteObjectValue(GarbageCollection, options);
+            }
+            if (Optional.IsDefined(RegistrySyncResult))
+            {
+                writer.WritePropertyName("registrySyncResult"u8);
+                writer.WriteObjectValue(RegistrySyncResult, options);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -165,19 +210,20 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryProvisioningState? provisioningState = default;
             ConnectedRegistryMode mode = default;
             string version = default;
-            ConnectionState? connectionState = default;
+            ConnectedRegistryConnectionState? connectionState = default;
             DateTimeOffset? lastActivityOn = default;
             ActivationProperties activation = default;
-            ParentProperties parent = default;
+            ConnectedRegistryParent parent = default;
             IList<string> clientTokenIds = default;
-            LoginServerProperties loginServer = default;
-            LoggingProperties logging = default;
-            IReadOnlyList<StatusDetailProperties> statusDetails = default;
+            ConnectedRegistryLoginServer loginServer = default;
+            ConnectedRegistryLogging logging = default;
+            IReadOnlyList<ConnectedRegistryStatusDetail> statusDetails = default;
             IList<string> notificationsList = default;
             GarbageCollectionProperties garbageCollection = default;
+            RegistrySyncResult registrySyncResult = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -187,7 +233,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("mode"u8))
@@ -206,7 +252,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    connectionState = new ConnectionState(prop.Value.GetString());
+                    connectionState = new ConnectedRegistryConnectionState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("lastActivityTime"u8))
@@ -229,7 +275,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
                 if (prop.NameEquals("parent"u8))
                 {
-                    parent = ParentProperties.DeserializeParentProperties(prop.Value, options);
+                    parent = ConnectedRegistryParent.DeserializeConnectedRegistryParent(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("clientTokenIds"u8))
@@ -259,7 +305,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    loginServer = LoginServerProperties.DeserializeLoginServerProperties(prop.Value, options);
+                    loginServer = ConnectedRegistryLoginServer.DeserializeConnectedRegistryLoginServer(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("logging"u8))
@@ -268,7 +314,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    logging = LoggingProperties.DeserializeLoggingProperties(prop.Value, options);
+                    logging = ConnectedRegistryLogging.DeserializeConnectedRegistryLogging(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("statusDetails"u8))
@@ -277,10 +323,10 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    List<StatusDetailProperties> array = new List<StatusDetailProperties>();
+                    List<ConnectedRegistryStatusDetail> array = new List<ConnectedRegistryStatusDetail>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(StatusDetailProperties.DeserializeStatusDetailProperties(item, options));
+                        array.Add(ConnectedRegistryStatusDetail.DeserializeConnectedRegistryStatusDetail(item, options));
                     }
                     statusDetails = array;
                     continue;
@@ -315,6 +361,15 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     garbageCollection = GarbageCollectionProperties.DeserializeGarbageCollectionProperties(prop.Value, options);
                     continue;
                 }
+                if (prop.NameEquals("registrySyncResult"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    registrySyncResult = RegistrySyncResult.DeserializeRegistrySyncResult(prop.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
@@ -331,50 +386,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 clientTokenIds ?? new ChangeTrackingList<string>(),
                 loginServer,
                 logging,
-                statusDetails ?? new ChangeTrackingList<StatusDetailProperties>(),
+                statusDetails ?? new ChangeTrackingList<ConnectedRegistryStatusDetail>(),
                 notificationsList ?? new ChangeTrackingList<string>(),
                 garbageCollection,
+                registrySyncResult,
                 additionalBinaryDataProperties);
         }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ConnectedRegistryProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryProperties>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(ConnectedRegistryProperties)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        ConnectedRegistryProperties IPersistableModel<ConnectedRegistryProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
-        /// <param name="data"> The data to parse. </param>
-        /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ConnectedRegistryProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
-        {
-            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryProperties>)this).GetFormatFromOptions(options) : options.Format;
-            switch (format)
-            {
-                case "J":
-                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
-                    {
-                        return DeserializeConnectedRegistryProperties(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(ConnectedRegistryProperties)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ConnectedRegistryProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

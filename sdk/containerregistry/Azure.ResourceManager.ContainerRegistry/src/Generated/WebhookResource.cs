@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         {
             TryGetApiVersion(ResourceType, out string webhookApiVersion);
             _webhooksClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ContainerRegistry", ResourceType.Namespace, Diagnostics);
-            _webhooksRestClient = new Webhooks(_webhooksClientDiagnostics, Pipeline, Endpoint, webhookApiVersion ?? "2025-11-01");
+            _webhooksRestClient = new Webhooks(_webhooksClientDiagnostics, Pipeline, Endpoint, webhookApiVersion ?? "2026-01-01-preview");
             ValidateResourceId(id);
         }
 
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -262,7 +262,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -321,7 +321,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -370,7 +370,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -419,7 +419,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -467,7 +467,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -515,7 +515,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -553,7 +553,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -591,7 +591,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>
@@ -639,7 +639,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </item>
         /// <item>
         /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// <item>
         /// <term> Resource. </term>

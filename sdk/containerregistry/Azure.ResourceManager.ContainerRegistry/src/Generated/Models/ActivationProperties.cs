@@ -24,13 +24,13 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="ActivationProperties"/>. </summary>
         /// <param name="status"> The activation status of the connected registry. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ActivationProperties(ActivationStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ActivationProperties(ConnectedRegistryActivationStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The activation status of the connected registry. </summary>
-        public ActivationStatus? Status { get; }
+        public ConnectedRegistryActivationStatus? Status { get; }
     }
 }

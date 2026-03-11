@@ -23,15 +23,20 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <summary> Initializes a new instance of <see cref="CacheRulePatch"/>. </summary>
         /// <param name="properties"> The properties of the cache rule update parameters. </param>
+        /// <param name="identity"> The identity of the cache rule. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal CacheRulePatch(CacheRuleUpdateProperties properties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CacheRulePatch(CacheRuleUpdateProperties properties, IdentityProperties identity, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Properties = properties;
+            Identity = identity;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The properties of the cache rule update parameters. </summary>
         internal CacheRuleUpdateProperties Properties { get; set; }
+
+        /// <summary> The identity of the cache rule. </summary>
+        public IdentityProperties Identity { get; set; }
 
         /// <summary> The ARM resource ID of the credential store which is associated with the Cache rule. </summary>
         public string CredentialSetResourceId

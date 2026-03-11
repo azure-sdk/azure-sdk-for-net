@@ -31,13 +31,18 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="properties"> The properties of the cache rule. </param>
-        internal CacheRuleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, CacheRuleProperties properties) : base(id, name, resourceType, systemData)
+        /// <param name="identity"> The identity of the cache rule. </param>
+        internal CacheRuleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, CacheRuleProperties properties, IdentityProperties identity) : base(id, name, resourceType, systemData)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
+            Identity = identity;
         }
 
         /// <summary> The properties of the cache rule. </summary>
         public CacheRuleProperties Properties { get; set; }
+
+        /// <summary> The identity of the cache rule. </summary>
+        public IdentityProperties Identity { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="createdOn"> The creation date of credential store resource. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal CredentialSetProperties(string loginServer, IList<AuthCredential> authCredentials, DateTimeOffset? createdOn, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CredentialSetProperties(string loginServer, IList<AuthCredential> authCredentials, DateTimeOffset? createdOn, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             LoginServer = loginServer;
             AuthCredentials = authCredentials;
@@ -54,6 +54,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public DateTimeOffset? CreatedOn { get; }
 
         /// <summary> Provisioning state of the resource. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
     }
 }
