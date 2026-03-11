@@ -8,56 +8,50 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
+using Azure.ResourceManager;
+using Azure.ResourceManager.ContainerRegistry;
+using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.ContainerRegistry.Mocking
 {
-    /// <summary> A class to add extension methods to ResourceGroupResource. </summary>
+    /// <summary> A class to add extension methods to <see cref="ResourceGroupResource"/>. </summary>
     public partial class MockableContainerRegistryResourceGroupResource : ArmResource
     {
-        /// <summary> Initializes a new instance of the <see cref="MockableContainerRegistryResourceGroupResource"/> class for mocking. </summary>
+        /// <summary> Initializes a new instance of MockableContainerRegistryResourceGroupResource for mocking. </summary>
         protected MockableContainerRegistryResourceGroupResource()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="MockableContainerRegistryResourceGroupResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="MockableContainerRegistryResourceGroupResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal MockableContainerRegistryResourceGroupResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
         }
 
-        private string GetApiVersionOrNull(ResourceType resourceType)
+        /// <summary> Gets a collection of Registries in the <see cref="ResourceGroupResource"/>. </summary>
+        /// <returns> An object representing collection of Registries and their operations over a RegistryResource. </returns>
+        public virtual RegistryCollection GetRegistries()
         {
-            TryGetApiVersion(resourceType, out string apiVersion);
-            return apiVersion;
-        }
-
-        /// <summary> Gets a collection of ContainerRegistryResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ContainerRegistryResources and their operations over a ContainerRegistryResource. </returns>
-        public virtual ContainerRegistryCollection GetContainerRegistries()
-        {
-            return GetCachedClient(client => new ContainerRegistryCollection(client, Id));
+            return GetCachedClient(client => new RegistryCollection(client, Id));
         }
 
         /// <summary>
         /// Gets the properties of the specified container registry.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Registries_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> Registries_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-11-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ContainerRegistryResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -66,29 +60,27 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="registryName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="registryName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<ContainerRegistryResource>> GetContainerRegistryAsync(string registryName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<RegistryResource>> GetRegistryAsync(string registryName, CancellationToken cancellationToken = default)
         {
-            return await GetContainerRegistries().GetAsync(registryName, cancellationToken).ConfigureAwait(false);
+            Argument.AssertNotNullOrEmpty(registryName, nameof(registryName));
+
+            return await GetRegistries().GetAsync(registryName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets the properties of the specified container registry.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Registries_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> Registries_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-11-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ContainerRegistryResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-01-01-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -97,9 +89,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="registryName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="registryName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<ContainerRegistryResource> GetContainerRegistry(string registryName, CancellationToken cancellationToken = default)
+        public virtual Response<RegistryResource> GetRegistry(string registryName, CancellationToken cancellationToken = default)
         {
-            return GetContainerRegistries().Get(registryName, cancellationToken);
+            Argument.AssertNotNullOrEmpty(registryName, nameof(registryName));
+
+            return GetRegistries().Get(registryName, cancellationToken);
         }
     }
 }
