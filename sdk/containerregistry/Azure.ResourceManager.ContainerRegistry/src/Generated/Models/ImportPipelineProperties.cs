@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="options"> The list of all options configured for the pipeline. </param>
         /// <param name="provisioningState"> The provisioning state of the pipeline at the time the operation was called. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ImportPipelineProperties(ImportPipelineSourceProperties source, PipelineTriggerProperties trigger, IList<PipelineOptions> options, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ImportPipelineProperties(ImportPipelineSourceProperties source, PipelineTriggerProperties trigger, IList<PipelineOptions> options, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Source = source;
             Trigger = trigger;
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public IList<PipelineOptions> Options { get; }
 
         /// <summary> The provisioning state of the pipeline at the time the operation was called. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> The current status of the source trigger. </summary>
         public TriggerStatus? SourceTriggerStatus

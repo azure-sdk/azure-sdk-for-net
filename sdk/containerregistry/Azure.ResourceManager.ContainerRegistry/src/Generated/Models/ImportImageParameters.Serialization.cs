@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            ImportSource source = default;
+            ContainerRegistryImportSource source = default;
             IList<string> targetTags = default;
             IList<string> untaggedTargetRepositories = default;
             ImportMode? mode = default;
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 if (prop.NameEquals("source"u8))
                 {
-                    source = ImportSource.DeserializeImportSource(prop.Value, options);
+                    source = ContainerRegistryImportSource.DeserializeContainerRegistryImportSource(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("targetTags"u8))

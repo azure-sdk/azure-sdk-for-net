@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="options"> The list of all options configured for the pipeline. </param>
         /// <param name="provisioningState"> The provisioning state of the pipeline at the time the operation was called. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ExportPipelineProperties(ExportPipelineTargetProperties target, IList<PipelineOptions> options, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ExportPipelineProperties(ExportPipelineTargetProperties target, IList<PipelineOptions> options, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Target = target;
             Options = options;
@@ -48,6 +48,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public IList<PipelineOptions> Options { get; }
 
         /// <summary> The provisioning state of the pipeline at the time the operation was called. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
     }
 }

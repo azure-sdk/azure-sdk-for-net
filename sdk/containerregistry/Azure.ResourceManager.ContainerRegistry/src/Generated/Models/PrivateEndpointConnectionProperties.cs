@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="privateLinkServiceConnectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
         /// <param name="provisioningState"> The provisioning state of private endpoint connection resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PrivateEndpointConnectionProperties(PrivateEndpoint privateEndpoint, ContainerRegistryPrivateLinkServiceConnectionState privateLinkServiceConnectionState, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PrivateEndpointConnectionProperties(PrivateEndpoint privateEndpoint, ContainerRegistryPrivateLinkServiceConnectionState privateLinkServiceConnectionState, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpoint = privateEndpoint;
             PrivateLinkServiceConnectionState = privateLinkServiceConnectionState;
@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public ContainerRegistryPrivateLinkServiceConnectionState PrivateLinkServiceConnectionState { get; set; }
 
         /// <summary> The provisioning state of private endpoint connection resource. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> This is private endpoint resource created with Microsoft.Network resource provider. </summary>
         public string PrivateEndpointId

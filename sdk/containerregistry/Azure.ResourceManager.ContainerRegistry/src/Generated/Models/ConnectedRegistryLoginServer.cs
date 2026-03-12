@@ -11,21 +11,21 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.ContainerRegistry.Models
 {
     /// <summary> The login server properties of the connected registry. </summary>
-    public partial class LoginServerProperties
+    public partial class ConnectedRegistryLoginServer
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="LoginServerProperties"/>. </summary>
-        public LoginServerProperties()
+        /// <summary> Initializes a new instance of <see cref="ConnectedRegistryLoginServer"/>. </summary>
+        public ConnectedRegistryLoginServer()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="LoginServerProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ConnectedRegistryLoginServer"/>. </summary>
         /// <param name="host"> The host of the connected registry. Can be FQDN or IP. </param>
         /// <param name="tls"> The TLS properties of the connected registry login server. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal LoginServerProperties(string host, TlsProperties tls, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryLoginServer(string host, TlsProperties tls, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Host = host;
             Tls = tls;

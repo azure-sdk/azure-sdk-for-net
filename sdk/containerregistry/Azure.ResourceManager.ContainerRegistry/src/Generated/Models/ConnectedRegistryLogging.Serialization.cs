@@ -13,34 +13,29 @@ using Azure.ResourceManager.ContainerRegistry;
 
 namespace Azure.ResourceManager.ContainerRegistry.Models
 {
-    /// <summary> The ImportSource. </summary>
-    public partial class ImportSource : IJsonModel<ImportSource>
+    /// <summary> The logging properties of the connected registry. </summary>
+    public partial class ConnectedRegistryLogging : IJsonModel<ConnectedRegistryLogging>
     {
-        /// <summary> Initializes a new instance of <see cref="ImportSource"/> for deserialization. </summary>
-        internal ImportSource()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ImportSource PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ConnectedRegistryLogging PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ImportSource>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLogging>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeImportSource(document.RootElement, options);
+                        return DeserializeConnectedRegistryLogging(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ImportSource)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConnectedRegistryLogging)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<ImportSource>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ConnectedRegistryLogging>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -51,28 +46,21 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ImportSource>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLogging>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ImportSource)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ConnectedRegistryLogging)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(ResourceId))
+            if (Optional.IsDefined(LogLevel))
             {
-                writer.WritePropertyName("resourceId"u8);
-                writer.WriteStringValue(ResourceId);
+                writer.WritePropertyName("logLevel"u8);
+                writer.WriteStringValue(LogLevel.Value.ToString());
             }
-            if (Optional.IsDefined(RegistryUri))
+            if (Optional.IsDefined(AuditLogStatus))
             {
-                writer.WritePropertyName("registryUri"u8);
-                writer.WriteStringValue(RegistryUri);
+                writer.WritePropertyName("auditLogStatus"u8);
+                writer.WriteStringValue(AuditLogStatus.Value.ToString());
             }
-            if (Optional.IsDefined(Credentials))
-            {
-                writer.WritePropertyName("credentials"u8);
-                writer.WriteObjectValue(Credentials, options);
-            }
-            writer.WritePropertyName("sourceImage"u8);
-            writer.WriteStringValue(SourceImage);
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -92,58 +80,50 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ImportSource IJsonModel<ImportSource>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ConnectedRegistryLogging IJsonModel<ConnectedRegistryLogging>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ImportSource JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ConnectedRegistryLogging JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ImportSource>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLogging>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ImportSource)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ConnectedRegistryLogging)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeImportSource(document.RootElement, options);
+            return DeserializeConnectedRegistryLogging(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static ImportSource DeserializeImportSource(JsonElement element, ModelReaderWriterOptions options)
+        internal static ConnectedRegistryLogging DeserializeConnectedRegistryLogging(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            string resourceId = default;
-            string registryUri = default;
-            ImportSourceCredentials credentials = default;
-            string sourceImage = default;
+            LogLevel? logLevel = default;
+            AuditLogStatus? auditLogStatus = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
-                if (prop.NameEquals("resourceId"u8))
-                {
-                    resourceId = prop.Value.GetString();
-                    continue;
-                }
-                if (prop.NameEquals("registryUri"u8))
-                {
-                    registryUri = prop.Value.GetString();
-                    continue;
-                }
-                if (prop.NameEquals("credentials"u8))
+                if (prop.NameEquals("logLevel"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    credentials = ImportSourceCredentials.DeserializeImportSourceCredentials(prop.Value, options);
+                    logLevel = new LogLevel(prop.Value.GetString());
                     continue;
                 }
-                if (prop.NameEquals("sourceImage"u8))
+                if (prop.NameEquals("auditLogStatus"u8))
                 {
-                    sourceImage = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    auditLogStatus = new AuditLogStatus(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -151,30 +131,30 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ImportSource(resourceId, registryUri, credentials, sourceImage, additionalBinaryDataProperties);
+            return new ConnectedRegistryLogging(logLevel, auditLogStatus, additionalBinaryDataProperties);
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ImportSource>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ConnectedRegistryLogging>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ImportSource>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLogging>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(ImportSource)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConnectedRegistryLogging)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ImportSource IPersistableModel<ImportSource>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ConnectedRegistryLogging IPersistableModel<ConnectedRegistryLogging>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ImportSource>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ConnectedRegistryLogging>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

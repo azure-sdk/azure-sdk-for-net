@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// repositories/repository-name/metadata/write
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ScopeMapProperties(string description, string @type, DateTimeOffset? createdOn, ProvisioningState? provisioningState, IList<string> actions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ScopeMapProperties(string description, string @type, DateTimeOffset? createdOn, ContainerRegistryProvisioningState? provisioningState, IList<string> actions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Description = description;
             Type = @type;
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public DateTimeOffset? CreatedOn { get; }
 
         /// <summary> Provisioning state of the resource. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary>
         /// The list of scoped permissions for registry artifacts.

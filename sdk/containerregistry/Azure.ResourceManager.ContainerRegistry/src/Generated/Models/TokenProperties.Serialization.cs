@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             DateTimeOffset? createdOn = default;
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryProvisioningState? provisioningState = default;
             string scopeMapId = default;
             TokenCredentialsProperties credentials = default;
             TokenStatus? status = default;
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("scopeMapId"u8))

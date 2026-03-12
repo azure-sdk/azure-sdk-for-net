@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="response"> The response of a pipeline run. </param>
         /// <param name="forceUpdateTag"> How the pipeline run should be forced to recreate even if the pipeline run configuration has not changed. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PipelineRunProperties(ProvisioningState? provisioningState, PipelineRunRequest request, PipelineRunResponse response, string forceUpdateTag, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PipelineRunProperties(ContainerRegistryProvisioningState? provisioningState, PipelineRunRequest request, PipelineRunResponse response, string forceUpdateTag, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             Request = request;
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The provisioning state of a pipeline run. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> The request parameters for a pipeline run. </summary>
         public PipelineRunRequest Request { get; set; }

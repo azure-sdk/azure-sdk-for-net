@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             SyncUpdateProperties syncProperties = default;
-            LoggingProperties logging = default;
+            ConnectedRegistryLogging logging = default;
             IList<string> clientTokenIds = default;
             IList<string> notificationsList = default;
             GarbageCollectionProperties garbageCollection = default;
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    logging = LoggingProperties.DeserializeLoggingProperties(prop.Value, options);
+                    logging = ConnectedRegistryLogging.DeserializeConnectedRegistryLogging(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("clientTokenIds"u8))

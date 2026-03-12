@@ -13,26 +13,26 @@ using Azure.ResourceManager.ContainerRegistry;
 namespace Azure.ResourceManager.ContainerRegistry.Models
 {
     /// <summary> The properties of the connected registry parent. </summary>
-    public partial class ParentProperties
+    public partial class ConnectedRegistryParent
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="ParentProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ConnectedRegistryParent"/>. </summary>
         /// <param name="syncProperties"> The sync properties of the connected registry with its parent. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="syncProperties"/> is null. </exception>
-        public ParentProperties(SyncProperties syncProperties)
+        public ConnectedRegistryParent(SyncProperties syncProperties)
         {
             Argument.AssertNotNull(syncProperties, nameof(syncProperties));
 
             SyncProperties = syncProperties;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ParentProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ConnectedRegistryParent"/>. </summary>
         /// <param name="id"> The resource ID of the parent to which the connected registry will be associated. </param>
         /// <param name="syncProperties"> The sync properties of the connected registry with its parent. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ParentProperties(ResourceIdentifier id, SyncProperties syncProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryParent(ResourceIdentifier id, SyncProperties syncProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             SyncProperties = syncProperties;

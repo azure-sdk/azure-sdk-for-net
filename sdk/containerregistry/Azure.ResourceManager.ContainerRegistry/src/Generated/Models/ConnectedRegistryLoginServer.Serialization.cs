@@ -13,29 +13,29 @@ using Azure.ResourceManager.ContainerRegistry;
 
 namespace Azure.ResourceManager.ContainerRegistry.Models
 {
-    /// <summary> The logging properties of the connected registry. </summary>
-    public partial class LoggingProperties : IJsonModel<LoggingProperties>
+    /// <summary> The login server properties of the connected registry. </summary>
+    public partial class ConnectedRegistryLoginServer : IJsonModel<ConnectedRegistryLoginServer>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual LoggingProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ConnectedRegistryLoginServer PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<LoggingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLoginServer>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeLoggingProperties(document.RootElement, options);
+                        return DeserializeConnectedRegistryLoginServer(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(LoggingProperties)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConnectedRegistryLoginServer)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<LoggingProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ConnectedRegistryLoginServer>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -46,20 +46,20 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<LoggingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLoginServer>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LoggingProperties)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ConnectedRegistryLoginServer)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(LogLevel))
+            if (options.Format != "W" && Optional.IsDefined(Host))
             {
-                writer.WritePropertyName("logLevel"u8);
-                writer.WriteStringValue(LogLevel.Value.ToString());
+                writer.WritePropertyName("host"u8);
+                writer.WriteStringValue(Host);
             }
-            if (Optional.IsDefined(AuditLogStatus))
+            if (options.Format != "W" && Optional.IsDefined(Tls))
             {
-                writer.WritePropertyName("auditLogStatus"u8);
-                writer.WriteStringValue(AuditLogStatus.Value.ToString());
+                writer.WritePropertyName("tls"u8);
+                writer.WriteObjectValue(Tls, options);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -80,50 +80,46 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        LoggingProperties IJsonModel<LoggingProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ConnectedRegistryLoginServer IJsonModel<ConnectedRegistryLoginServer>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual LoggingProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ConnectedRegistryLoginServer JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<LoggingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLoginServer>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(LoggingProperties)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ConnectedRegistryLoginServer)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeLoggingProperties(document.RootElement, options);
+            return DeserializeConnectedRegistryLoginServer(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static LoggingProperties DeserializeLoggingProperties(JsonElement element, ModelReaderWriterOptions options)
+        internal static ConnectedRegistryLoginServer DeserializeConnectedRegistryLoginServer(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            LogLevel? logLevel = default;
-            AuditLogStatus? auditLogStatus = default;
+            string host = default;
+            TlsProperties tls = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
-                if (prop.NameEquals("logLevel"u8))
+                if (prop.NameEquals("host"u8))
                 {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    logLevel = new LogLevel(prop.Value.GetString());
+                    host = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("auditLogStatus"u8))
+                if (prop.NameEquals("tls"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    auditLogStatus = new AuditLogStatus(prop.Value.GetString());
+                    tls = TlsProperties.DeserializeTlsProperties(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -131,30 +127,30 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new LoggingProperties(logLevel, auditLogStatus, additionalBinaryDataProperties);
+            return new ConnectedRegistryLoginServer(host, tls, additionalBinaryDataProperties);
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<LoggingProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ConnectedRegistryLoginServer>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<LoggingProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryLoginServer>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(LoggingProperties)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConnectedRegistryLoginServer)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        LoggingProperties IPersistableModel<LoggingProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ConnectedRegistryLoginServer IPersistableModel<ConnectedRegistryLoginServer>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<LoggingProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ConnectedRegistryLoginServer>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

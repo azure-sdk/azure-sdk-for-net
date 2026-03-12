@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="repositoryEndpoint"></param>
         /// <param name="provisioningState"> The provisioning state of the archive at the time the operation was called. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ArchiveProperties(ArchivePackageSourceProperties packageSource, string publishedVersion, string repositoryEndpointPrefix, string repositoryEndpoint, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ArchiveProperties(ArchivePackageSourceProperties packageSource, string publishedVersion, string repositoryEndpointPrefix, string repositoryEndpoint, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PackageSource = packageSource;
             PublishedVersion = publishedVersion;
@@ -51,6 +51,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public string RepositoryEndpoint { get; }
 
         /// <summary> The provisioning state of the archive at the time the operation was called. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
     }
 }

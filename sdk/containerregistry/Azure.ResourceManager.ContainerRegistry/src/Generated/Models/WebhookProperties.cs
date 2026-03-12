@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="actions"> The list of actions that trigger the webhook to post notifications. </param>
         /// <param name="provisioningState"> The provisioning state of the webhook at the time the operation was called. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal WebhookProperties(WebhookStatus? status, string scope, IList<WebhookAction> actions, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal WebhookProperties(WebhookStatus? status, string scope, IList<WebhookAction> actions, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             Scope = scope;
@@ -49,6 +49,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public IList<WebhookAction> Actions { get; }
 
         /// <summary> The provisioning state of the webhook at the time the operation was called. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
     }
 }

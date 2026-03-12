@@ -11,13 +11,13 @@ using Azure.ResourceManager.ContainerRegistry;
 
 namespace Azure.ResourceManager.ContainerRegistry.Models
 {
-    /// <summary> The ImportSource. </summary>
-    public partial class ImportSource
+    /// <summary> The ContainerRegistryImportSource. </summary>
+    public partial class ContainerRegistryImportSource
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="ImportSource"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryImportSource"/>. </summary>
         /// <param name="sourceImage">
         /// Repository name of the source image.
         /// Specify an image by repository ('hello-world'). This will use the 'latest' tag.
@@ -25,14 +25,14 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// Specify an image by sha256-based manifest digest ('hello-world@sha256:abc123').
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="sourceImage"/> is null. </exception>
-        public ImportSource(string sourceImage)
+        public ContainerRegistryImportSource(string sourceImage)
         {
             Argument.AssertNotNull(sourceImage, nameof(sourceImage));
 
             SourceImage = sourceImage;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ImportSource"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryImportSource"/>. </summary>
         /// <param name="resourceId"> The resource identifier of the source Azure Container Registry. </param>
         /// <param name="registryUri"> The address of the source registry (e.g. 'mcr.microsoft.com'). </param>
         /// <param name="credentials"> Credentials used when importing from a registry uri. </param>
@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// Specify an image by sha256-based manifest digest ('hello-world@sha256:abc123').
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ImportSource(string resourceId, string registryUri, ImportSourceCredentials credentials, string sourceImage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerRegistryImportSource(string resourceId, Uri registryUri, ImportSourceCredentials credentials, string sourceImage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ResourceId = resourceId;
             RegistryUri = registryUri;
@@ -54,9 +54,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <summary> The resource identifier of the source Azure Container Registry. </summary>
         public string ResourceId { get; set; }
-
-        /// <summary> The address of the source registry (e.g. 'mcr.microsoft.com'). </summary>
-        public string RegistryUri { get; set; }
 
         /// <summary> Credentials used when importing from a registry uri. </summary>
         public ImportSourceCredentials Credentials { get; set; }

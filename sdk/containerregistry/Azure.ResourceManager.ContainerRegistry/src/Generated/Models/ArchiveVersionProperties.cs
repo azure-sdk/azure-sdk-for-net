@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="provisioningState"> The provisioning state of the archive at the time the operation was called. </param>
         /// <param name="archiveVersionErrorMessage"> The detailed error message for the archive version in the case of failure. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ArchiveVersionProperties(ProvisioningState? provisioningState, string archiveVersionErrorMessage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ArchiveVersionProperties(ContainerRegistryProvisioningState? provisioningState, string archiveVersionErrorMessage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             ArchiveVersionErrorMessage = archiveVersionErrorMessage;
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The provisioning state of the archive at the time the operation was called. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> The detailed error message for the archive version in the case of failure. </summary>
         public string ArchiveVersionErrorMessage { get; }

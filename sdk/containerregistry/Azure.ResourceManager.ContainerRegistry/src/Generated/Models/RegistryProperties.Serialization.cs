@@ -230,7 +230,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             }
             string loginServer = default;
             DateTimeOffset? createdOn = default;
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryProvisioningState? provisioningState = default;
             Status status = default;
             bool? adminUserEnabled = default;
             NetworkRuleSet networkRuleSet = default;
@@ -273,7 +273,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("status"u8))

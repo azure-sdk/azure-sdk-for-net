@@ -14,28 +14,28 @@ using Azure.ResourceManager.ContainerRegistry;
 namespace Azure.ResourceManager.ContainerRegistry.Models
 {
     /// <summary> The status detail properties of the connected registry. </summary>
-    public partial class StatusDetailProperties : IJsonModel<StatusDetailProperties>
+    public partial class ConnectedRegistryStatusDetail : IJsonModel<ConnectedRegistryStatusDetail>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual StatusDetailProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ConnectedRegistryStatusDetail PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<StatusDetailProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryStatusDetail>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeStatusDetailProperties(document.RootElement, options);
+                        return DeserializeConnectedRegistryStatusDetail(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(StatusDetailProperties)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConnectedRegistryStatusDetail)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<StatusDetailProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ConnectedRegistryStatusDetail>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -46,10 +46,10 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<StatusDetailProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryStatusDetail>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StatusDetailProperties)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ConnectedRegistryStatusDetail)} does not support writing '{format}' format.");
             }
             if (options.Format != "W" && Optional.IsDefined(Type))
             {
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             if (options.Format != "W" && Optional.IsDefined(CorrelationId))
             {
                 writer.WritePropertyName("correlationId"u8);
-                writer.WriteStringValue(CorrelationId);
+                writer.WriteStringValue(CorrelationId.Value);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -95,24 +95,24 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        StatusDetailProperties IJsonModel<StatusDetailProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ConnectedRegistryStatusDetail IJsonModel<ConnectedRegistryStatusDetail>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual StatusDetailProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ConnectedRegistryStatusDetail JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<StatusDetailProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryStatusDetail>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StatusDetailProperties)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ConnectedRegistryStatusDetail)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeStatusDetailProperties(document.RootElement, options);
+            return DeserializeConnectedRegistryStatusDetail(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static StatusDetailProperties DeserializeStatusDetailProperties(JsonElement element, ModelReaderWriterOptions options)
+        internal static ConnectedRegistryStatusDetail DeserializeConnectedRegistryStatusDetail(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             string code = default;
             string description = default;
             DateTimeOffset? timestamp = default;
-            string correlationId = default;
+            Guid? correlationId = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -152,7 +152,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
                 if (prop.NameEquals("correlationId"u8))
                 {
-                    correlationId = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    correlationId = new Guid(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -160,7 +164,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new StatusDetailProperties(
+            return new ConnectedRegistryStatusDetail(
                 @type,
                 code,
                 description,
@@ -170,26 +174,26 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<StatusDetailProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ConnectedRegistryStatusDetail>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<StatusDetailProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ConnectedRegistryStatusDetail>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(StatusDetailProperties)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ConnectedRegistryStatusDetail)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        StatusDetailProperties IPersistableModel<StatusDetailProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ConnectedRegistryStatusDetail IPersistableModel<ConnectedRegistryStatusDetail>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<StatusDetailProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ConnectedRegistryStatusDetail>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("statusDetails"u8);
                 writer.WriteStartArray();
-                foreach (StatusDetailProperties item in StatusDetails)
+                foreach (ConnectedRegistryStatusDetail item in StatusDetails)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -187,17 +187,17 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryProvisioningState? provisioningState = default;
             ConnectedRegistryMode mode = default;
             string version = default;
-            ConnectionState? connectionState = default;
+            ConnectedRegistryConnectionState? connectionState = default;
             DateTimeOffset? lastActivityOn = default;
             ActivationProperties activation = default;
-            ParentProperties parent = default;
+            ConnectedRegistryParent parent = default;
             IList<string> clientTokenIds = default;
-            LoginServerProperties loginServer = default;
-            LoggingProperties logging = default;
-            IReadOnlyList<StatusDetailProperties> statusDetails = default;
+            ConnectedRegistryLoginServer loginServer = default;
+            ConnectedRegistryLogging logging = default;
+            IReadOnlyList<ConnectedRegistryStatusDetail> statusDetails = default;
             IList<string> notificationsList = default;
             GarbageCollectionProperties garbageCollection = default;
             RegistrySyncResult registrySyncResult = default;
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("mode"u8))
@@ -229,7 +229,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    connectionState = new ConnectionState(prop.Value.GetString());
+                    connectionState = new ConnectedRegistryConnectionState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("lastActivityTime"u8))
@@ -252,7 +252,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
                 if (prop.NameEquals("parent"u8))
                 {
-                    parent = ParentProperties.DeserializeParentProperties(prop.Value, options);
+                    parent = ConnectedRegistryParent.DeserializeConnectedRegistryParent(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("clientTokenIds"u8))
@@ -282,7 +282,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    loginServer = LoginServerProperties.DeserializeLoginServerProperties(prop.Value, options);
+                    loginServer = ConnectedRegistryLoginServer.DeserializeConnectedRegistryLoginServer(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("logging"u8))
@@ -291,7 +291,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    logging = LoggingProperties.DeserializeLoggingProperties(prop.Value, options);
+                    logging = ConnectedRegistryLogging.DeserializeConnectedRegistryLogging(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("statusDetails"u8))
@@ -300,10 +300,10 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    List<StatusDetailProperties> array = new List<StatusDetailProperties>();
+                    List<ConnectedRegistryStatusDetail> array = new List<ConnectedRegistryStatusDetail>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(StatusDetailProperties.DeserializeStatusDetailProperties(item, options));
+                        array.Add(ConnectedRegistryStatusDetail.DeserializeConnectedRegistryStatusDetail(item, options));
                     }
                     statusDetails = array;
                     continue;
@@ -363,7 +363,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 clientTokenIds ?? new ChangeTrackingList<string>(),
                 loginServer,
                 logging,
-                statusDetails ?? new ChangeTrackingList<StatusDetailProperties>(),
+                statusDetails ?? new ChangeTrackingList<ConnectedRegistryStatusDetail>(),
                 notificationsList ?? new ChangeTrackingList<string>(),
                 garbageCollection,
                 registrySyncResult,

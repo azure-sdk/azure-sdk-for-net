@@ -11,21 +11,21 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.ContainerRegistry.Models
 {
     /// <summary> The logging properties of the connected registry. </summary>
-    public partial class LoggingProperties
+    public partial class ConnectedRegistryLogging
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="LoggingProperties"/>. </summary>
-        public LoggingProperties()
+        /// <summary> Initializes a new instance of <see cref="ConnectedRegistryLogging"/>. </summary>
+        public ConnectedRegistryLogging()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="LoggingProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ConnectedRegistryLogging"/>. </summary>
         /// <param name="logLevel"> The verbosity of logs persisted on the connected registry. </param>
         /// <param name="auditLogStatus"> Indicates whether audit logs are enabled on the connected registry. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal LoggingProperties(LogLevel? logLevel, AuditLogStatus? auditLogStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryLogging(LogLevel? logLevel, AuditLogStatus? auditLogStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             LogLevel = logLevel;
             AuditLogStatus = auditLogStatus;

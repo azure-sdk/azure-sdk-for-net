@@ -21,14 +21,14 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="mode"> The mode of the connected registry resource that indicates the permissions of the registry. </param>
         /// <param name="parent"> The parent of the connected registry. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parent"/> is null. </exception>
-        public ConnectedRegistryProperties(ConnectedRegistryMode mode, ParentProperties parent)
+        public ConnectedRegistryProperties(ConnectedRegistryMode mode, ConnectedRegistryParent parent)
         {
             Argument.AssertNotNull(parent, nameof(parent));
 
             Mode = mode;
             Parent = parent;
             ClientTokenIds = new ChangeTrackingList<string>();
-            StatusDetails = new ChangeTrackingList<StatusDetailProperties>();
+            StatusDetails = new ChangeTrackingList<ConnectedRegistryStatusDetail>();
             NotificationsList = new ChangeTrackingList<string>();
         }
 
@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="garbageCollection"> The garbage collection properties of the connected registry. </param>
         /// <param name="registrySyncResult"> The result of the connected registry's most recent sync with its parent. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConnectedRegistryProperties(ProvisioningState? provisioningState, ConnectedRegistryMode mode, string version, ConnectionState? connectionState, DateTimeOffset? lastActivityOn, ActivationProperties activation, ParentProperties parent, IList<string> clientTokenIds, LoginServerProperties loginServer, LoggingProperties logging, IReadOnlyList<StatusDetailProperties> statusDetails, IList<string> notificationsList, GarbageCollectionProperties garbageCollection, RegistrySyncResult registrySyncResult, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryProperties(ContainerRegistryProvisioningState? provisioningState, ConnectedRegistryMode mode, string version, ConnectedRegistryConnectionState? connectionState, DateTimeOffset? lastActivityOn, ActivationProperties activation, ConnectedRegistryParent parent, IList<string> clientTokenIds, ConnectedRegistryLoginServer loginServer, ConnectedRegistryLogging logging, IReadOnlyList<ConnectedRegistryStatusDetail> statusDetails, IList<string> notificationsList, GarbageCollectionProperties garbageCollection, RegistrySyncResult registrySyncResult, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             Mode = mode;
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> Provisioning state of the resource. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> The mode of the connected registry resource that indicates the permissions of the registry. </summary>
         public ConnectedRegistryMode Mode { get; set; }
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public string Version { get; }
 
         /// <summary> The current connection state of the connected registry. </summary>
-        public ConnectionState? ConnectionState { get; }
+        public ConnectedRegistryConnectionState? ConnectionState { get; }
 
         /// <summary> The last activity time of the connected registry. </summary>
         public DateTimeOffset? LastActivityOn { get; }
@@ -86,19 +86,19 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         internal ActivationProperties Activation { get; }
 
         /// <summary> The parent of the connected registry. </summary>
-        public ParentProperties Parent { get; set; }
+        public ConnectedRegistryParent Parent { get; set; }
 
         /// <summary> The list of the ACR token resource IDs used to authenticate clients to the connected registry. </summary>
         public IList<string> ClientTokenIds { get; }
 
         /// <summary> The login server properties of the connected registry. </summary>
-        public LoginServerProperties LoginServer { get; set; }
+        public ConnectedRegistryLoginServer LoginServer { get; set; }
 
         /// <summary> The logging properties of the connected registry. </summary>
-        public LoggingProperties Logging { get; set; }
+        public ConnectedRegistryLogging Logging { get; set; }
 
         /// <summary> The list of current statuses of the connected registry. </summary>
-        public IReadOnlyList<StatusDetailProperties> StatusDetails { get; }
+        public IReadOnlyList<ConnectedRegistryStatusDetail> StatusDetails { get; }
 
         /// <summary> The list of notifications subscription information for the connected registry. </summary>
         public IList<string> NotificationsList { get; }
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public RegistrySyncResult RegistrySyncResult { get; set; }
 
         /// <summary> The activation status of the connected registry. </summary>
-        public ActivationStatus? ActivationStatus
+        public ConnectedRegistryActivationStatus? ActivationStatus
         {
             get
             {

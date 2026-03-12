@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The logging properties of the connected registry. </summary>
-        public LoggingProperties Logging
+        public ConnectedRegistryLogging Logging
         {
             get
             {

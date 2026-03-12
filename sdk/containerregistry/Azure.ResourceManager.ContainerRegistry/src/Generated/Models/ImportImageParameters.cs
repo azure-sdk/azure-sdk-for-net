@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="ImportImageParameters"/>. </summary>
         /// <param name="source"> The source of the image. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="source"/> is null. </exception>
-        public ImportImageParameters(ImportSource source)
+        public ImportImageParameters(ContainerRegistryImportSource source)
         {
             Argument.AssertNotNull(source, nameof(source));
 
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="untaggedTargetRepositories"> List of strings of repository names to do a manifest only copy. No tag will be created. </param>
         /// <param name="mode"> When Force, any existing target tags will be overwritten. When NoForce, any existing target tags will fail the operation before any copying begins. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ImportImageParameters(ImportSource source, IList<string> targetTags, IList<string> untaggedTargetRepositories, ImportMode? mode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ImportImageParameters(ContainerRegistryImportSource source, IList<string> targetTags, IList<string> untaggedTargetRepositories, ImportMode? mode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Source = source;
             TargetTags = targetTags;
@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The source of the image. </summary>
-        public ImportSource Source { get; }
+        public ContainerRegistryImportSource Source { get; }
 
         /// <summary> List of strings of the form repo[:tag]. When tag is omitted the source will be used (or 'latest' if source tag is also omitted). </summary>
         public IList<string> TargetTags { get; }
