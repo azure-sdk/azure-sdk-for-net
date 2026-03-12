@@ -11,19 +11,29 @@ using System.Text.Json;
 
 namespace Azure.ResourceManager.Confluent
 {
+    /// <summary></summary>
     public partial class SCEnvironmentRecordResource : IJsonModel<SCEnvironmentRecordData>
     {
-        private static SCEnvironmentRecordData s_dataDeserializationInstance;
-        private static SCEnvironmentRecordData DataDeserializationInstance => s_dataDeserializationInstance ??= new();
+        private static IJsonModel<SCEnvironmentRecordData> s_dataDeserializationInstance;
 
+        private static IJsonModel<SCEnvironmentRecordData> DataDeserializationInstance => s_dataDeserializationInstance ??= new SCEnvironmentRecordData();
+
+        /// <param name="writer"> The writer to serialize the model to. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<SCEnvironmentRecordData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<SCEnvironmentRecordData>)Data).Write(writer, options);
 
-        SCEnvironmentRecordData IJsonModel<SCEnvironmentRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<SCEnvironmentRecordData>)DataDeserializationInstance).Create(ref reader, options);
+        /// <param name="reader"> The reader for deserializing the model. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        SCEnvironmentRecordData IJsonModel<SCEnvironmentRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => DataDeserializationInstance.Create(ref reader, options);
 
+        /// <param name="options"> The client options for reading and writing models. </param>
         BinaryData IPersistableModel<SCEnvironmentRecordData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<SCEnvironmentRecordData>(Data, options, AzureResourceManagerConfluentContext.Default);
 
+        /// <param name="data"> The binary data to be processed. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         SCEnvironmentRecordData IPersistableModel<SCEnvironmentRecordData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<SCEnvironmentRecordData>(data, options, AzureResourceManagerConfluentContext.Default);
 
-        string IPersistableModel<SCEnvironmentRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<SCEnvironmentRecordData>)DataDeserializationInstance).GetFormatFromOptions(options);
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<SCEnvironmentRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => DataDeserializationInstance.GetFormatFromOptions(options);
     }
 }

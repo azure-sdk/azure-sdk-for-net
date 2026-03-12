@@ -26,13 +26,13 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <summary> Initializes a new instance of <see cref="ConfluentOrganizationValidationResult"/>. </summary>
         /// <param name="info"> Info from the response. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConfluentOrganizationValidationResult(IReadOnlyDictionary<string, string> info, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConfluentOrganizationValidationResult(IDictionary<string, string> info, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Info = info;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Info from the response. </summary>
-        public IReadOnlyDictionary<string, string> Info { get; }
+        public IDictionary<string, string> Info { get; }
     }
 }

@@ -9,14 +9,55 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
+using Azure.ResourceManager.Confluent;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
-    public partial class AzureCosmosDBSourceConnectorServiceInfo : IUtf8JsonSerializable, IJsonModel<AzureCosmosDBSourceConnectorServiceInfo>
+    /// <summary> The authentication info when auth_type is AzureCosmosDBSourceConnector. </summary>
+    public partial class AzureCosmosDBSourceConnectorServiceInfo : ConnectorServiceTypeInfoBase, IJsonModel<AzureCosmosDBSourceConnectorServiceInfo>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AzureCosmosDBSourceConnectorServiceInfo>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected override ConnectorServiceTypeInfoBase PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeAzureCosmosDBSourceConnectorServiceInfo(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(AzureCosmosDBSourceConnectorServiceInfo)} does not support reading '{options.Format}' format.");
+            }
+        }
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerConfluentContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(AzureCosmosDBSourceConnectorServiceInfo)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        AzureCosmosDBSourceConnectorServiceInfo IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>.Create(BinaryData data, ModelReaderWriterOptions options) => (AzureCosmosDBSourceConnectorServiceInfo)PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<AzureCosmosDBSourceConnectorServiceInfo>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
@@ -28,12 +69,11 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(AzureCosmosDBSourceConnectorServiceInfo)} does not support writing '{format}' format.");
             }
-
             base.JsonModelWriteCore(writer, options);
             if (Optional.IsDefined(CosmosDatabaseName))
             {
@@ -72,26 +112,33 @@ namespace Azure.ResourceManager.Confluent.Models
             }
         }
 
-        AzureCosmosDBSourceConnectorServiceInfo IJsonModel<AzureCosmosDBSourceConnectorServiceInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        AzureCosmosDBSourceConnectorServiceInfo IJsonModel<AzureCosmosDBSourceConnectorServiceInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (AzureCosmosDBSourceConnectorServiceInfo)JsonModelCreateCore(ref reader, options);
+
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected override ConnectorServiceTypeInfoBase JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(AzureCosmosDBSourceConnectorServiceInfo)} does not support reading '{format}' format.");
             }
-
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
             return DeserializeAzureCosmosDBSourceConnectorServiceInfo(document.RootElement, options);
         }
 
-        internal static AzureCosmosDBSourceConnectorServiceInfo DeserializeAzureCosmosDBSourceConnectorServiceInfo(JsonElement element, ModelReaderWriterOptions options = null)
+        /// <param name="element"> The JSON element to deserialize. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        internal static AzureCosmosDBSourceConnectorServiceInfo DeserializeAzureCosmosDBSourceConnectorServiceInfo(JsonElement element, ModelReaderWriterOptions options)
         {
-            options ??= ModelSerializationExtensions.WireOptions;
-
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
+            ConnectorServiceType connectorServiceType = default;
+            IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string cosmosDatabaseName = default;
             string cosmosMasterKey = default;
             string cosmosConnectionEndpoint = default;
@@ -99,64 +146,60 @@ namespace Azure.ResourceManager.Confluent.Models
             bool? cosmosMessageKeyEnabled = default;
             string cosmosMessageKeyField = default;
             string cosmosIncludeAllContainers = default;
-            ConnectorServiceType connectorServiceType = default;
-            IDictionary<string, BinaryData> serializedAdditionalRawData = default;
-            Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
-            foreach (var property in element.EnumerateObject())
+            foreach (var prop in element.EnumerateObject())
             {
-                if (property.NameEquals("cosmosDatabaseName"u8))
+                if (prop.NameEquals("connectorServiceType"u8))
                 {
-                    cosmosDatabaseName = property.Value.GetString();
+                    connectorServiceType = new ConnectorServiceType(prop.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("cosmosMasterKey"u8))
+                if (prop.NameEquals("cosmosDatabaseName"u8))
                 {
-                    cosmosMasterKey = property.Value.GetString();
+                    cosmosDatabaseName = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("cosmosConnectionEndpoint"u8))
+                if (prop.NameEquals("cosmosMasterKey"u8))
                 {
-                    cosmosConnectionEndpoint = property.Value.GetString();
+                    cosmosMasterKey = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("cosmosContainersTopicMapping"u8))
+                if (prop.NameEquals("cosmosConnectionEndpoint"u8))
                 {
-                    cosmosContainersTopicMapping = property.Value.GetString();
+                    cosmosConnectionEndpoint = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("cosmosMessageKeyEnabled"u8))
+                if (prop.NameEquals("cosmosContainersTopicMapping"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    cosmosContainersTopicMapping = prop.Value.GetString();
+                    continue;
+                }
+                if (prop.NameEquals("cosmosMessageKeyEnabled"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    cosmosMessageKeyEnabled = property.Value.GetBoolean();
+                    cosmosMessageKeyEnabled = prop.Value.GetBoolean();
                     continue;
                 }
-                if (property.NameEquals("cosmosMessageKeyField"u8))
+                if (prop.NameEquals("cosmosMessageKeyField"u8))
                 {
-                    cosmosMessageKeyField = property.Value.GetString();
+                    cosmosMessageKeyField = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("cosmosIncludeAllContainers"u8))
+                if (prop.NameEquals("cosmosIncludeAllContainers"u8))
                 {
-                    cosmosIncludeAllContainers = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("connectorServiceType"u8))
-                {
-                    connectorServiceType = new ConnectorServiceType(property.Value.GetString());
+                    cosmosIncludeAllContainers = prop.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
                 {
-                    rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
+                    additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            serializedAdditionalRawData = rawDataDictionary;
             return new AzureCosmosDBSourceConnectorServiceInfo(
                 connectorServiceType,
-                serializedAdditionalRawData,
+                additionalBinaryDataProperties,
                 cosmosDatabaseName,
                 cosmosMasterKey,
                 cosmosConnectionEndpoint,
@@ -165,36 +208,5 @@ namespace Azure.ResourceManager.Confluent.Models
                 cosmosMessageKeyField,
                 cosmosIncludeAllContainers);
         }
-
-        BinaryData IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>.Write(ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
-
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerConfluentContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(AzureCosmosDBSourceConnectorServiceInfo)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        AzureCosmosDBSourceConnectorServiceInfo IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>.Create(BinaryData data, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>)this).GetFormatFromOptions(options) : options.Format;
-
-            switch (format)
-            {
-                case "J":
-                    {
-                        using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeAzureCosmosDBSourceConnectorServiceInfo(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(AzureCosmosDBSourceConnectorServiceInfo)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        string IPersistableModel<AzureCosmosDBSourceConnectorServiceInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

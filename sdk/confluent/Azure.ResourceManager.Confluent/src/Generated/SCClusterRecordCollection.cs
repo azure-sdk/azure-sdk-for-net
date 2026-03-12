@@ -8,12 +8,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Autorest.CSharp.Core;
+using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.Confluent
 {
@@ -24,51 +25,49 @@ namespace Azure.ResourceManager.Confluent
     /// </summary>
     public partial class SCClusterRecordCollection : ArmCollection, IEnumerable<SCClusterRecordResource>, IAsyncEnumerable<SCClusterRecordResource>
     {
-        private readonly ClientDiagnostics _scClusterRecordClientDiagnostics;
-        private readonly SCClusterRecordsRestOperations _scClusterRecordRestClient;
+        private readonly ClientDiagnostics _scClusterRecordsClientDiagnostics;
+        private readonly SCClusterRecords _scClusterRecordsRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="SCClusterRecordCollection"/> class for mocking. </summary>
+        /// <summary> Initializes a new instance of SCClusterRecordCollection for mocking. </summary>
         protected SCClusterRecordCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="SCClusterRecordCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="SCClusterRecordCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
-        /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
+        /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal SCClusterRecordCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _scClusterRecordClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Confluent", SCClusterRecordResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(SCClusterRecordResource.ResourceType, out string scClusterRecordApiVersion);
-            _scClusterRecordRestClient = new SCClusterRecordsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, scClusterRecordApiVersion);
-#if DEBUG
-			ValidateResourceId(Id);
-#endif
+            _scClusterRecordsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Confluent", SCClusterRecordResource.ResourceType.Namespace, Diagnostics);
+            _scClusterRecordsRestClient = new SCClusterRecords(_scClusterRecordsClientDiagnostics, Pipeline, Endpoint, scClusterRecordApiVersion ?? "2025-08-18-preview");
+            ValidateResourceId(id);
         }
 
+        /// <param name="id"></param>
+        [Conditional("DEBUG")]
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
             if (id.ResourceType != SCEnvironmentRecordResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SCEnvironmentRecordResource.ResourceType), nameof(id));
+            {
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, SCEnvironmentRecordResource.ResourceType), id);
+            }
         }
 
         /// <summary>
         /// Create confluent clusters
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_CreateOrUpdate</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_CreateOrUpdate. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -76,23 +75,30 @@ namespace Azure.ResourceManager.Confluent
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="data"> Confluent Cluster resource model. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<SCClusterRecordResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string clusterId, SCClusterRecordData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<SCClusterRecordResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string clusterId, SCClusterRecordData data = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
-            Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _scClusterRecordRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, data, cancellationToken).ConfigureAwait(false);
-                var uri = _scClusterRecordRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, data);
-                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
-                var operation = new ConfluentArmOperation<SCClusterRecordResource>(Response.FromValue(new SCClusterRecordResource(Client, response), response.GetRawResponse()), rehydrationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, SCClusterRecordData.ToRequestContent(data), context);
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<SCClusterRecordData> response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
+                RequestUriBuilder uri = message.Request.Uri;
+                RehydrationToken rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                ConfluentArmOperation<SCClusterRecordResource> operation = new ConfluentArmOperation<SCClusterRecordResource>(Response.FromValue(new SCClusterRecordResource(Client, response.Value), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
+                {
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                }
                 return operation;
             }
             catch (Exception e)
@@ -106,20 +112,16 @@ namespace Azure.ResourceManager.Confluent
         /// Create confluent clusters
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_CreateOrUpdate</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_CreateOrUpdate. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -127,23 +129,30 @@ namespace Azure.ResourceManager.Confluent
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="data"> Confluent Cluster resource model. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<SCClusterRecordResource> CreateOrUpdate(WaitUntil waitUntil, string clusterId, SCClusterRecordData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<SCClusterRecordResource> CreateOrUpdate(WaitUntil waitUntil, string clusterId, SCClusterRecordData data = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
-            Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _scClusterRecordRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, data, cancellationToken);
-                var uri = _scClusterRecordRestClient.CreateCreateOrUpdateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, data);
-                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
-                var operation = new ConfluentArmOperation<SCClusterRecordResource>(Response.FromValue(new SCClusterRecordResource(Client, response), response.GetRawResponse()), rehydrationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, SCClusterRecordData.ToRequestContent(data), context);
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<SCClusterRecordData> response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
+                RequestUriBuilder uri = message.Request.Uri;
+                RehydrationToken rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                ConfluentArmOperation<SCClusterRecordResource> operation = new ConfluentArmOperation<SCClusterRecordResource>(Response.FromValue(new SCClusterRecordResource(Client, response.Value), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
+                {
                     operation.WaitForCompletion(cancellationToken);
+                }
                 return operation;
             }
             catch (Exception e)
@@ -157,38 +166,42 @@ namespace Azure.ResourceManager.Confluent
         /// Get cluster by Id
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_GetCluster</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_GetClusterById. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<Response<SCClusterRecordResource>> GetAsync(string clusterId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.Get");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.Get");
             scope.Start();
             try
             {
-                var response = await _scClusterRecordRestClient.GetClusterAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateGetClusterRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, context);
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<SCClusterRecordData> response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
                 if (response.Value == null)
+                {
                     throw new RequestFailedException(response.GetRawResponse());
+                }
                 return Response.FromValue(new SCClusterRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -202,38 +215,42 @@ namespace Azure.ResourceManager.Confluent
         /// Get cluster by Id
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_GetCluster</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_GetClusterById. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual Response<SCClusterRecordResource> Get(string clusterId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.Get");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.Get");
             scope.Start();
             try
             {
-                var response = _scClusterRecordRestClient.GetCluster(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateGetClusterRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, context);
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<SCClusterRecordData> response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
                 if (response.Value == null)
+                {
                     throw new RequestFailedException(response.GetRawResponse());
+                }
                 return Response.FromValue(new SCClusterRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -247,52 +264,16 @@ namespace Azure.ResourceManager.Confluent
         /// Lists of all the clusters in a environment
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_ListClusters</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_ListClusters. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="pageSize"> Pagination size. </param>
-        /// <param name="pageToken"> An opaque pagination token to fetch the next set of records. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="SCClusterRecordResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SCClusterRecordResource> GetAllAsync(int? pageSize = null, string pageToken = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _scClusterRecordRestClient.CreateListClustersRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _scClusterRecordRestClient.CreateListClustersNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new SCClusterRecordResource(Client, SCClusterRecordData.DeserializeSCClusterRecordData(e)), _scClusterRecordClientDiagnostics, Pipeline, "SCClusterRecordCollection.GetAll", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists of all the clusters in a environment
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_ListClusters</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -300,47 +281,109 @@ namespace Azure.ResourceManager.Confluent
         /// <param name="pageToken"> An opaque pagination token to fetch the next set of records. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="SCClusterRecordResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SCClusterRecordResource> GetAll(int? pageSize = null, string pageToken = null, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SCClusterRecordResource> GetAllAsync(int? pageSize = default, string pageToken = default, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _scClusterRecordRestClient.CreateListClustersRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _scClusterRecordRestClient.CreateListClustersNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SCClusterRecordResource(Client, SCClusterRecordData.DeserializeSCClusterRecordData(e)), _scClusterRecordClientDiagnostics, Pipeline, "SCClusterRecordCollection.GetAll", "value", "nextLink", cancellationToken);
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new AsyncPageableWrapper<SCClusterRecordData, SCClusterRecordResource>(new SCClusterRecordsGetClustersAsyncCollectionResultOfT(
+                _scClusterRecordsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Parent.Name,
+                Id.Name,
+                pageSize,
+                pageToken,
+                context), data => new SCClusterRecordResource(Client, data));
+        }
+
+        /// <summary>
+        /// Lists of all the clusters in a environment
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_ListClusters. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="pageSize"> Pagination size. </param>
+        /// <param name="pageToken"> An opaque pagination token to fetch the next set of records. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SCClusterRecordResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SCClusterRecordResource> GetAll(int? pageSize = default, string pageToken = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PageableWrapper<SCClusterRecordData, SCClusterRecordResource>(new SCClusterRecordsGetClustersCollectionResultOfT(
+                _scClusterRecordsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Parent.Name,
+                Id.Name,
+                pageSize,
+                pageToken,
+                context), data => new SCClusterRecordResource(Client, data));
         }
 
         /// <summary>
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_GetCluster</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_GetClusterById. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<Response<bool>> ExistsAsync(string clusterId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.Exists");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _scClusterRecordRestClient.GetClusterAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateGetClusterRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, context);
+                await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
+                Response result = message.Response;
+                Response<SCClusterRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((SCClusterRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -354,36 +397,50 @@ namespace Azure.ResourceManager.Confluent
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_GetCluster</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_GetClusterById. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual Response<bool> Exists(string clusterId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.Exists");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.Exists");
             scope.Start();
             try
             {
-                var response = _scClusterRecordRestClient.GetCluster(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, cancellationToken: cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateGetClusterRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, context);
+                Pipeline.Send(message, context.CancellationToken);
+                Response result = message.Response;
+                Response<SCClusterRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((SCClusterRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -397,38 +454,54 @@ namespace Azure.ResourceManager.Confluent
         /// Tries to get details for this resource from the service.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_GetCluster</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_GetClusterById. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<NullableResponse<SCClusterRecordResource>> GetIfExistsAsync(string clusterId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.GetIfExists");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _scClusterRecordRestClient.GetClusterAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateGetClusterRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, context);
+                await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
+                Response result = message.Response;
+                Response<SCClusterRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((SCClusterRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 if (response.Value == null)
+                {
                     return new NoValueResponse<SCClusterRecordResource>(response.GetRawResponse());
+                }
                 return Response.FromValue(new SCClusterRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -442,38 +515,54 @@ namespace Azure.ResourceManager.Confluent
         /// Tries to get details for this resource from the service.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>SCClusterRecord_GetCluster</description>
+        /// <term> Operation Id. </term>
+        /// <description> SCClusterRecords_GetClusterById. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="SCClusterRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="clusterId"> Confluent kafka or schema registry cluster id. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="clusterId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="clusterId"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual NullableResponse<SCClusterRecordResource> GetIfExists(string clusterId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clusterId, nameof(clusterId));
 
-            using var scope = _scClusterRecordClientDiagnostics.CreateScope("SCClusterRecordCollection.GetIfExists");
+            using DiagnosticScope scope = _scClusterRecordsClientDiagnostics.CreateScope("SCClusterRecordCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _scClusterRecordRestClient.GetCluster(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, cancellationToken: cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _scClusterRecordsRestClient.CreateGetClusterRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, clusterId, context);
+                Pipeline.Send(message, context.CancellationToken);
+                Response result = message.Response;
+                Response<SCClusterRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(SCClusterRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((SCClusterRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 if (response.Value == null)
+                {
                     return new NoValueResponse<SCClusterRecordResource>(response.GetRawResponse());
+                }
                 return Response.FromValue(new SCClusterRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -493,6 +582,7 @@ namespace Azure.ResourceManager.Confluent
             return GetAll().GetEnumerator();
         }
 
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
         IAsyncEnumerator<SCClusterRecordResource> IAsyncEnumerable<SCClusterRecordResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);

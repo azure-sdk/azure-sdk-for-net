@@ -8,15 +8,64 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Text.Json;
-using Azure.Core;
+using Azure.ResourceManager.Confluent;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
+    /// <summary>
+    /// The partner info base
+    /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="KafkaAzureBlobStorageSinkConnectorInfo"/>, <see cref="KafkaAzureBlobStorageSourceConnectorInfo"/>, <see cref="KafkaAzureCosmosDBSinkConnectorInfo"/>, <see cref="KafkaAzureCosmosDBSourceConnectorInfo"/>, and <see cref="KafkaAzureSynapseAnalyticsSinkConnectorInfo"/>.
+    /// </summary>
     [PersistableModelProxy(typeof(UnknownPartnerInfoBase))]
-    public partial class PartnerInfoBase : IUtf8JsonSerializable, IJsonModel<PartnerInfoBase>
+    public abstract partial class PartnerInfoBase : IJsonModel<PartnerInfoBase>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PartnerInfoBase>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        /// <summary> Initializes a new instance of <see cref="PartnerInfoBase"/> for deserialization. </summary>
+        internal PartnerInfoBase()
+        {
+        }
 
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual PartnerInfoBase PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializePartnerInfoBase(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(PartnerInfoBase)} does not support reading '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerConfluentContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(PartnerInfoBase)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<PartnerInfoBase>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        PartnerInfoBase IPersistableModel<PartnerInfoBase>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<PartnerInfoBase>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<PartnerInfoBase>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
@@ -28,23 +77,22 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(PartnerInfoBase)} does not support writing '{format}' format.");
             }
-
             writer.WritePropertyName("partnerConnectorType"u8);
             writer.WriteStringValue(PartnerConnectorType.ToString());
-            if (options.Format != "W" && _serializedAdditionalRawData != null)
+            if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
-                foreach (var item in _serializedAdditionalRawData)
+                foreach (var item in _additionalBinaryDataProperties)
                 {
                     writer.WritePropertyName(item.Key);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
+                    writer.WriteRawValue(item.Value);
 #else
-                    using (JsonDocument document = JsonDocument.Parse(item.Value, ModelSerializationExtensions.JsonDocumentOptions))
+                    using (JsonDocument document = JsonDocument.Parse(item.Value))
                     {
                         JsonSerializer.Serialize(writer, document.RootElement);
                     }
@@ -53,69 +101,48 @@ namespace Azure.ResourceManager.Confluent.Models
             }
         }
 
-        PartnerInfoBase IJsonModel<PartnerInfoBase>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        PartnerInfoBase IJsonModel<PartnerInfoBase>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual PartnerInfoBase JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(PartnerInfoBase)} does not support reading '{format}' format.");
             }
-
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
             return DeserializePartnerInfoBase(document.RootElement, options);
         }
 
-        internal static PartnerInfoBase DeserializePartnerInfoBase(JsonElement element, ModelReaderWriterOptions options = null)
+        /// <param name="element"> The JSON element to deserialize. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        internal static PartnerInfoBase DeserializePartnerInfoBase(JsonElement element, ModelReaderWriterOptions options)
         {
-            options ??= ModelSerializationExtensions.WireOptions;
-
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            if (element.TryGetProperty("partnerConnectorType", out JsonElement discriminator))
+            if (element.TryGetProperty("partnerConnectorType"u8, out JsonElement discriminator))
             {
                 switch (discriminator.GetString())
                 {
-                    case "KafkaAzureBlobStorageSink": return KafkaAzureBlobStorageSinkConnectorInfo.DeserializeKafkaAzureBlobStorageSinkConnectorInfo(element, options);
-                    case "KafkaAzureBlobStorageSource": return KafkaAzureBlobStorageSourceConnectorInfo.DeserializeKafkaAzureBlobStorageSourceConnectorInfo(element, options);
-                    case "KafkaAzureCosmosDBSink": return KafkaAzureCosmosDBSinkConnectorInfo.DeserializeKafkaAzureCosmosDBSinkConnectorInfo(element, options);
-                    case "KafkaAzureCosmosDBSource": return KafkaAzureCosmosDBSourceConnectorInfo.DeserializeKafkaAzureCosmosDBSourceConnectorInfo(element, options);
-                    case "KafkaAzureSynapseAnalyticsSink": return KafkaAzureSynapseAnalyticsSinkConnectorInfo.DeserializeKafkaAzureSynapseAnalyticsSinkConnectorInfo(element, options);
+                    case "KafkaAzureBlobStorageSink":
+                        return KafkaAzureBlobStorageSinkConnectorInfo.DeserializeKafkaAzureBlobStorageSinkConnectorInfo(element, options);
+                    case "KafkaAzureBlobStorageSource":
+                        return KafkaAzureBlobStorageSourceConnectorInfo.DeserializeKafkaAzureBlobStorageSourceConnectorInfo(element, options);
+                    case "KafkaAzureCosmosDBSink":
+                        return KafkaAzureCosmosDBSinkConnectorInfo.DeserializeKafkaAzureCosmosDBSinkConnectorInfo(element, options);
+                    case "KafkaAzureCosmosDBSource":
+                        return KafkaAzureCosmosDBSourceConnectorInfo.DeserializeKafkaAzureCosmosDBSourceConnectorInfo(element, options);
+                    case "KafkaAzureSynapseAnalyticsSink":
+                        return KafkaAzureSynapseAnalyticsSinkConnectorInfo.DeserializeKafkaAzureSynapseAnalyticsSinkConnectorInfo(element, options);
                 }
             }
             return UnknownPartnerInfoBase.DeserializeUnknownPartnerInfoBase(element, options);
         }
-
-        BinaryData IPersistableModel<PartnerInfoBase>.Write(ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
-
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerConfluentContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(PartnerInfoBase)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        PartnerInfoBase IPersistableModel<PartnerInfoBase>.Create(BinaryData data, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<PartnerInfoBase>)this).GetFormatFromOptions(options) : options.Format;
-
-            switch (format)
-            {
-                case "J":
-                    {
-                        using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializePartnerInfoBase(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(PartnerInfoBase)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        string IPersistableModel<PartnerInfoBase>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

@@ -8,49 +8,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager.NetApp.Models
+namespace Azure.ResourceManager.Confluent.Models
 {
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/TopicsInputConfig.cs
     /// <summary> Topics input config. </summary>
     public partial class TopicsInputConfig
-========
-    /// <summary> * Result of ListQuotaReportResponse. </summary>
-    public partial class ListQuotaReportResult
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/Models/ListQuotaReportResult.cs
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/TopicsInputConfig.cs
         /// <summary> Initializes a new instance of <see cref="TopicsInputConfig"/>. </summary>
         public TopicsInputConfig()
         {
@@ -59,40 +24,18 @@ namespace Azure.ResourceManager.NetApp.Models
         /// <summary> Initializes a new instance of <see cref="TopicsInputConfig"/>. </summary>
         /// <param name="name"> Name of the topic input config. </param>
         /// <param name="value"> Value of the topic input config. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TopicsInputConfig(string name, string value, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal TopicsInputConfig(string name, string value, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Value = value;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Name of the topic input config. </summary>
         public string Name { get; set; }
+
         /// <summary> Value of the topic input config. </summary>
         public string Value { get; set; }
-========
-        /// <summary> Initializes a new instance of <see cref="ListQuotaReportResult"/>. </summary>
-        internal ListQuotaReportResult()
-        {
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ListQuotaReportResult"/>. </summary>
-        /// <param name="properties"> Represents the properties of the ListQuotaReport. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ListQuotaReportResult(NetAppVolumeQuotaReportListResult properties, IDictionary<string, BinaryData> serializedAdditionalRawData)
-        {
-            Properties = properties;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Represents the properties of the ListQuotaReport. </summary>
-        internal NetAppVolumeQuotaReportListResult Properties { get; }
-        /// <summary> List of quota reports. </summary>
-        public IReadOnlyList<NetAppVolumeQuotaReport> QuotaReportRecords
-        {
-            get => Properties?.QuotaReportRecords;
-        }
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/Models/ListQuotaReportResult.cs
     }
 }

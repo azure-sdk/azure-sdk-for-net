@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="metadata"> Metadata of the list. </param>
         /// <param name="data"> List of clusters. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AccessClusterListResult(string kind, ConfluentListMetadata metadata, IReadOnlyList<AccessClusterRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AccessClusterListResult(string kind, ConfluentListMetadata metadata, IList<AccessClusterRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             Metadata = metadata;
@@ -43,6 +43,6 @@ namespace Azure.ResourceManager.Confluent.Models
         public ConfluentListMetadata Metadata { get; }
 
         /// <summary> List of clusters. </summary>
-        public IReadOnlyList<AccessClusterRecord> Data { get; }
+        public IList<AccessClusterRecord> Data { get; }
     }
 }

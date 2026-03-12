@@ -10,19 +10,12 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
-    /// <summary> Unknown version of PartnerInfoBase. </summary>
     internal partial class UnknownPartnerInfoBase : PartnerInfoBase
     {
         /// <summary> Initializes a new instance of <see cref="UnknownPartnerInfoBase"/>. </summary>
         /// <param name="partnerConnectorType"> The partner connector type. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownPartnerInfoBase(PartnerConnectorType partnerConnectorType, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(partnerConnectorType, serializedAdditionalRawData)
-        {
-            PartnerConnectorType = partnerConnectorType;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="UnknownPartnerInfoBase"/> for deserialization. </summary>
-        internal UnknownPartnerInfoBase()
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal UnknownPartnerInfoBase(PartnerConnectorType partnerConnectorType, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(partnerConnectorType != default ? partnerConnectorType : "unknown", additionalBinaryDataProperties)
         {
         }
     }

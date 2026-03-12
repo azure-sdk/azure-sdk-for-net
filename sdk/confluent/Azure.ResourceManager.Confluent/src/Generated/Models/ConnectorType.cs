@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Confluent;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
@@ -14,38 +15,55 @@ namespace Azure.ResourceManager.Confluent.Models
     public readonly partial struct ConnectorType : IEquatable<ConnectorType>
     {
         private readonly string _value;
+        private const string SinkValue = "SINK";
+        private const string SourceValue = "SOURCE";
 
         /// <summary> Initializes a new instance of <see cref="ConnectorType"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public ConnectorType(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
+            Argument.AssertNotNull(value, nameof(value));
+
+            _value = value;
         }
 
-        private const string SINKValue = "SINK";
-        private const string SOURCEValue = "SOURCE";
+        /// <summary> Gets the Sink. </summary>
+        public static ConnectorType Sink { get; } = new ConnectorType(SinkValue);
 
-        /// <summary> SINK. </summary>
-        public static ConnectorType SINK { get; } = new ConnectorType(SINKValue);
-        /// <summary> SOURCE. </summary>
-        public static ConnectorType SOURCE { get; } = new ConnectorType(SOURCEValue);
+        /// <summary> Gets the Source. </summary>
+        public static ConnectorType Source { get; } = new ConnectorType(SourceValue);
+
         /// <summary> Determines if two <see cref="ConnectorType"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(ConnectorType left, ConnectorType right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="ConnectorType"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(ConnectorType left, ConnectorType right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="ConnectorType"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="ConnectorType"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator ConnectorType(string value) => new ConnectorType(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="ConnectorType"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator ConnectorType?(string value) => value == null ? null : new ConnectorType(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is ConnectorType other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(ConnectorType other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

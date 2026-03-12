@@ -1,6 +1,6 @@
 directory: specification/confluent/Confluent.Management
-commit: 37e381cdb441a1370593507d94157f3f6a57a154
+commit: 8b08a24f9e01e8be43696578d48ad4fd376fe2db
 repo: Azure/azure-rest-api-specs
-additionalDirectories: 
+additionalDirectories:
 
-emitterPackageJsonPath: eng/legacy-emitter-package.json
+emitterPackageJsonPath: eng/azure-typespec-http-client-csharp-mgmt-emitter-package.json

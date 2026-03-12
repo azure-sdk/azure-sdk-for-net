@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="metadata"> Metadata of the  environment list. </param>
         /// <param name="data"> Environment list data. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AccessEnvironmentListResult(string kind, ConfluentListMetadata metadata, IReadOnlyList<AccessEnvironmentRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AccessEnvironmentListResult(string kind, ConfluentListMetadata metadata, IList<AccessEnvironmentRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             Metadata = metadata;
@@ -43,6 +43,6 @@ namespace Azure.ResourceManager.Confluent.Models
         public ConfluentListMetadata Metadata { get; }
 
         /// <summary> Environment list data. </summary>
-        public IReadOnlyList<AccessEnvironmentRecord> Data { get; }
+        public IList<AccessEnvironmentRecord> Data { get; }
     }
 }

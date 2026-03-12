@@ -10,19 +10,12 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
-    /// <summary> Unknown version of ConnectorServiceTypeInfoBase. </summary>
     internal partial class UnknownConnectorServiceTypeInfoBase : ConnectorServiceTypeInfoBase
     {
         /// <summary> Initializes a new instance of <see cref="UnknownConnectorServiceTypeInfoBase"/>. </summary>
         /// <param name="connectorServiceType"> The connector service type. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownConnectorServiceTypeInfoBase(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(connectorServiceType, serializedAdditionalRawData)
-        {
-            ConnectorServiceType = connectorServiceType;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="UnknownConnectorServiceTypeInfoBase"/> for deserialization. </summary>
-        internal UnknownConnectorServiceTypeInfoBase()
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal UnknownConnectorServiceTypeInfoBase(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(connectorServiceType != default ? connectorServiceType : "unknown", additionalBinaryDataProperties)
         {
         }
     }

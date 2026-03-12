@@ -14,33 +14,34 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AzureSynapseAnalyticsSinkConnectorServiceInfo : ConnectorServiceTypeInfoBase
     {
         /// <summary> Initializes a new instance of <see cref="AzureSynapseAnalyticsSinkConnectorServiceInfo"/>. </summary>
-        public AzureSynapseAnalyticsSinkConnectorServiceInfo()
+        public AzureSynapseAnalyticsSinkConnectorServiceInfo() : base(ConnectorServiceType.AzureSynapseAnalyticsSinkConnector)
         {
-            ConnectorServiceType = ConnectorServiceType.AzureSynapseAnalyticsSinkConnector;
         }
 
         /// <summary> Initializes a new instance of <see cref="AzureSynapseAnalyticsSinkConnectorServiceInfo"/>. </summary>
         /// <param name="connectorServiceType"> The connector service type. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="synapseSqlServerName"> Azure Synapse Analytics SQL Server Name. </param>
         /// <param name="synapseSqlUser"> Azure Synapse SQL login details. </param>
         /// <param name="synapseSqlPassword"> Azure Synapse SQL login details. </param>
         /// <param name="synapseSqlDatabaseName"> Azure Synapse Dedicated SQL Pool Database Name. </param>
-        internal AzureSynapseAnalyticsSinkConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string synapseSqlServerName, string synapseSqlUser, string synapseSqlPassword, string synapseSqlDatabaseName) : base(connectorServiceType, serializedAdditionalRawData)
+        internal AzureSynapseAnalyticsSinkConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> additionalBinaryDataProperties, string synapseSqlServerName, string synapseSqlUser, string synapseSqlPassword, string synapseSqlDatabaseName) : base(connectorServiceType, additionalBinaryDataProperties)
         {
             SynapseSqlServerName = synapseSqlServerName;
             SynapseSqlUser = synapseSqlUser;
             SynapseSqlPassword = synapseSqlPassword;
             SynapseSqlDatabaseName = synapseSqlDatabaseName;
-            ConnectorServiceType = connectorServiceType;
         }
 
         /// <summary> Azure Synapse Analytics SQL Server Name. </summary>
         public string SynapseSqlServerName { get; set; }
+
         /// <summary> Azure Synapse SQL login details. </summary>
         public string SynapseSqlUser { get; set; }
+
         /// <summary> Azure Synapse SQL login details. </summary>
         public string SynapseSqlPassword { get; set; }
+
         /// <summary> Azure Synapse Dedicated SQL Pool Database Name. </summary>
         public string SynapseSqlDatabaseName { get; set; }
     }

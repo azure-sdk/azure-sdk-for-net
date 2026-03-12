@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="metadata"> Metadata of the list. </param>
         /// <param name="data"> Data of the invitations list. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AccessInvitationListResult(string kind, ConfluentListMetadata metadata, IReadOnlyList<AccessInvitationRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AccessInvitationListResult(string kind, ConfluentListMetadata metadata, IList<AccessInvitationRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             Metadata = metadata;
@@ -43,6 +43,6 @@ namespace Azure.ResourceManager.Confluent.Models
         public ConfluentListMetadata Metadata { get; }
 
         /// <summary> Data of the invitations list. </summary>
-        public IReadOnlyList<AccessInvitationRecord> Data { get; }
+        public IList<AccessInvitationRecord> Data { get; }
     }
 }

@@ -14,21 +14,20 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AzureCosmosDBSinkConnectorServiceInfo : ConnectorServiceTypeInfoBase
     {
         /// <summary> Initializes a new instance of <see cref="AzureCosmosDBSinkConnectorServiceInfo"/>. </summary>
-        public AzureCosmosDBSinkConnectorServiceInfo()
+        public AzureCosmosDBSinkConnectorServiceInfo() : base(ConnectorServiceType.AzureCosmosDBSinkConnector)
         {
-            ConnectorServiceType = ConnectorServiceType.AzureCosmosDBSinkConnector;
         }
 
         /// <summary> Initializes a new instance of <see cref="AzureCosmosDBSinkConnectorServiceInfo"/>. </summary>
         /// <param name="connectorServiceType"> The connector service type. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="cosmosDatabaseName"> Azure Cosmos Database Name. </param>
         /// <param name="cosmosMasterKey"> Azure Cosmos Database Master Key. </param>
         /// <param name="cosmosConnectionEndpoint"> Azure Cosmos Database Connection Endpoint. </param>
         /// <param name="cosmosContainersTopicMapping"> Azure Cosmos Database Containers Topic Mapping. </param>
         /// <param name="cosmosIdStrategy"> Azure Cosmos Database Id Strategy. </param>
         /// <param name="cosmosWriteDetails"> Azure Cosmos write config details. </param>
-        internal AzureCosmosDBSinkConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string cosmosDatabaseName, string cosmosMasterKey, string cosmosConnectionEndpoint, string cosmosContainersTopicMapping, string cosmosIdStrategy, string cosmosWriteDetails) : base(connectorServiceType, serializedAdditionalRawData)
+        internal AzureCosmosDBSinkConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> additionalBinaryDataProperties, string cosmosDatabaseName, string cosmosMasterKey, string cosmosConnectionEndpoint, string cosmosContainersTopicMapping, string cosmosIdStrategy, string cosmosWriteDetails) : base(connectorServiceType, additionalBinaryDataProperties)
         {
             CosmosDatabaseName = cosmosDatabaseName;
             CosmosMasterKey = cosmosMasterKey;
@@ -36,19 +35,23 @@ namespace Azure.ResourceManager.Confluent.Models
             CosmosContainersTopicMapping = cosmosContainersTopicMapping;
             CosmosIdStrategy = cosmosIdStrategy;
             CosmosWriteDetails = cosmosWriteDetails;
-            ConnectorServiceType = connectorServiceType;
         }
 
         /// <summary> Azure Cosmos Database Name. </summary>
         public string CosmosDatabaseName { get; set; }
+
         /// <summary> Azure Cosmos Database Master Key. </summary>
         public string CosmosMasterKey { get; set; }
+
         /// <summary> Azure Cosmos Database Connection Endpoint. </summary>
         public string CosmosConnectionEndpoint { get; set; }
+
         /// <summary> Azure Cosmos Database Containers Topic Mapping. </summary>
         public string CosmosContainersTopicMapping { get; set; }
+
         /// <summary> Azure Cosmos Database Id Strategy. </summary>
         public string CosmosIdStrategy { get; set; }
+
         /// <summary> Azure Cosmos write config details. </summary>
         public string CosmosWriteDetails { get; set; }
     }

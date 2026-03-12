@@ -26,13 +26,13 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <summary> Initializes a new instance of <see cref="ConfluentRegionListResult"/>. </summary>
         /// <param name="data"> List of regions supported by confluent. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConfluentRegionListResult(IReadOnlyList<ConfluentRegionRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConfluentRegionListResult(IList<ConfluentRegionRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Data = data;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> List of regions supported by confluent. </summary>
-        public IReadOnlyList<ConfluentRegionRecord> Data { get; }
+        public IList<ConfluentRegionRecord> Data { get; }
     }
 }

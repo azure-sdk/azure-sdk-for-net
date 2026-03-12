@@ -14,14 +14,13 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AzureCosmosDBSourceConnectorServiceInfo : ConnectorServiceTypeInfoBase
     {
         /// <summary> Initializes a new instance of <see cref="AzureCosmosDBSourceConnectorServiceInfo"/>. </summary>
-        public AzureCosmosDBSourceConnectorServiceInfo()
+        public AzureCosmosDBSourceConnectorServiceInfo() : base(ConnectorServiceType.AzureCosmosDBSourceConnector)
         {
-            ConnectorServiceType = ConnectorServiceType.AzureCosmosDBSourceConnector;
         }
 
         /// <summary> Initializes a new instance of <see cref="AzureCosmosDBSourceConnectorServiceInfo"/>. </summary>
         /// <param name="connectorServiceType"> The connector service type. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="cosmosDatabaseName"> Azure Cosmos Database Name. </param>
         /// <param name="cosmosMasterKey"> Azure Cosmos Database Master Key. </param>
         /// <param name="cosmosConnectionEndpoint"> Azure Cosmos Database Connection Endpoint. </param>
@@ -29,7 +28,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="cosmosMessageKeyEnabled"> Azure Cosmos Database Message Key Enabled. </param>
         /// <param name="cosmosMessageKeyField"> Azure Cosmos Database Message Key Field. </param>
         /// <param name="cosmosIncludeAllContainers"> Azure Cosmos Database Include all the containers in the database. </param>
-        internal AzureCosmosDBSourceConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string cosmosDatabaseName, string cosmosMasterKey, string cosmosConnectionEndpoint, string cosmosContainersTopicMapping, bool? cosmosMessageKeyEnabled, string cosmosMessageKeyField, string cosmosIncludeAllContainers) : base(connectorServiceType, serializedAdditionalRawData)
+        internal AzureCosmosDBSourceConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> additionalBinaryDataProperties, string cosmosDatabaseName, string cosmosMasterKey, string cosmosConnectionEndpoint, string cosmosContainersTopicMapping, bool? cosmosMessageKeyEnabled, string cosmosMessageKeyField, string cosmosIncludeAllContainers) : base(connectorServiceType, additionalBinaryDataProperties)
         {
             CosmosDatabaseName = cosmosDatabaseName;
             CosmosMasterKey = cosmosMasterKey;
@@ -38,21 +37,26 @@ namespace Azure.ResourceManager.Confluent.Models
             CosmosMessageKeyEnabled = cosmosMessageKeyEnabled;
             CosmosMessageKeyField = cosmosMessageKeyField;
             CosmosIncludeAllContainers = cosmosIncludeAllContainers;
-            ConnectorServiceType = connectorServiceType;
         }
 
         /// <summary> Azure Cosmos Database Name. </summary>
         public string CosmosDatabaseName { get; set; }
+
         /// <summary> Azure Cosmos Database Master Key. </summary>
         public string CosmosMasterKey { get; set; }
+
         /// <summary> Azure Cosmos Database Connection Endpoint. </summary>
         public string CosmosConnectionEndpoint { get; set; }
+
         /// <summary> Azure Cosmos Database Containers Topic Mapping. </summary>
         public string CosmosContainersTopicMapping { get; set; }
+
         /// <summary> Azure Cosmos Database Message Key Enabled. </summary>
         public bool? CosmosMessageKeyEnabled { get; set; }
+
         /// <summary> Azure Cosmos Database Message Key Field. </summary>
         public string CosmosMessageKeyField { get; set; }
+
         /// <summary> Azure Cosmos Database Include all the containers in the database. </summary>
         public string CosmosIncludeAllContainers { get; set; }
     }

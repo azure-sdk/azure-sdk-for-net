@@ -11,19 +11,29 @@ using System.Text.Json;
 
 namespace Azure.ResourceManager.Confluent
 {
+    /// <summary></summary>
     public partial class TopicRecordResource : IJsonModel<TopicRecordData>
     {
-        private static TopicRecordData s_dataDeserializationInstance;
-        private static TopicRecordData DataDeserializationInstance => s_dataDeserializationInstance ??= new();
+        private static IJsonModel<TopicRecordData> s_dataDeserializationInstance;
 
+        private static IJsonModel<TopicRecordData> DataDeserializationInstance => s_dataDeserializationInstance ??= new TopicRecordData();
+
+        /// <param name="writer"> The writer to serialize the model to. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<TopicRecordData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<TopicRecordData>)Data).Write(writer, options);
 
-        TopicRecordData IJsonModel<TopicRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<TopicRecordData>)DataDeserializationInstance).Create(ref reader, options);
+        /// <param name="reader"> The reader for deserializing the model. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        TopicRecordData IJsonModel<TopicRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => DataDeserializationInstance.Create(ref reader, options);
 
+        /// <param name="options"> The client options for reading and writing models. </param>
         BinaryData IPersistableModel<TopicRecordData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<TopicRecordData>(Data, options, AzureResourceManagerConfluentContext.Default);
 
+        /// <param name="data"> The binary data to be processed. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         TopicRecordData IPersistableModel<TopicRecordData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<TopicRecordData>(data, options, AzureResourceManagerConfluentContext.Default);
 
-        string IPersistableModel<TopicRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<TopicRecordData>)DataDeserializationInstance).GetFormatFromOptions(options);
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<TopicRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => DataDeserializationInstance.GetFormatFromOptions(options);
     }
 }

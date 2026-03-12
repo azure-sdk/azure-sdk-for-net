@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Confluent;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
@@ -14,44 +15,63 @@ namespace Azure.ResourceManager.Confluent.Models
     public readonly partial struct ConnectorClass : IEquatable<ConnectorClass>
     {
         private readonly string _value;
+        private const string AzureBlobSourceValue = "AZUREBLOBSOURCE";
+        private const string AzureBlobSinkValue = "AZUREBLOBSINK";
+        private const string AzureCosmosV2SinkValue = "AZURECOSMOSV2SINK";
+        private const string AzureCosmosV2SourceValue = "AZURECOSMOSV2SOURCE";
 
         /// <summary> Initializes a new instance of <see cref="ConnectorClass"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public ConnectorClass(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
+            Argument.AssertNotNull(value, nameof(value));
+
+            _value = value;
         }
 
-        private const string AZUREBLOBSOURCEValue = "AZUREBLOBSOURCE";
-        private const string AZUREBLOBSINKValue = "AZUREBLOBSINK";
-        private const string AZURECOSMOSV2SINKValue = "AZURECOSMOSV2SINK";
-        private const string AZURECOSMOSV2SOURCEValue = "AZURECOSMOSV2SOURCE";
+        /// <summary> Gets the AzureBlobSource. </summary>
+        public static ConnectorClass AzureBlobSource { get; } = new ConnectorClass(AzureBlobSourceValue);
 
-        /// <summary> AZUREBLOBSOURCE. </summary>
-        public static ConnectorClass AZUREBLOBSOURCE { get; } = new ConnectorClass(AZUREBLOBSOURCEValue);
-        /// <summary> AZUREBLOBSINK. </summary>
-        public static ConnectorClass AZUREBLOBSINK { get; } = new ConnectorClass(AZUREBLOBSINKValue);
-        /// <summary> AZURECOSMOSV2SINK. </summary>
-        public static ConnectorClass AZURECOSMOSV2SINK { get; } = new ConnectorClass(AZURECOSMOSV2SINKValue);
-        /// <summary> AZURECOSMOSV2SOURCE. </summary>
-        public static ConnectorClass AZURECOSMOSV2SOURCE { get; } = new ConnectorClass(AZURECOSMOSV2SOURCEValue);
+        /// <summary> Gets the AzureBlobSink. </summary>
+        public static ConnectorClass AzureBlobSink { get; } = new ConnectorClass(AzureBlobSinkValue);
+
+        /// <summary> Gets the AzureCosmosV2Sink. </summary>
+        public static ConnectorClass AzureCosmosV2Sink { get; } = new ConnectorClass(AzureCosmosV2SinkValue);
+
+        /// <summary> Gets the AzureCosmosV2Source. </summary>
+        public static ConnectorClass AzureCosmosV2Source { get; } = new ConnectorClass(AzureCosmosV2SourceValue);
+
         /// <summary> Determines if two <see cref="ConnectorClass"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(ConnectorClass left, ConnectorClass right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="ConnectorClass"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(ConnectorClass left, ConnectorClass right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="ConnectorClass"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="ConnectorClass"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator ConnectorClass(string value) => new ConnectorClass(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="ConnectorClass"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator ConnectorClass?(string value) => value == null ? null : new ConnectorClass(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is ConnectorClass other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(ConnectorClass other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.Confluent.Models
             {
                 return null;
             }
-            IReadOnlyDictionary<string, string> info = default;
+            IDictionary<string, string> info = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {

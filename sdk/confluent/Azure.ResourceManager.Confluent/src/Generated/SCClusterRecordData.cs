@@ -8,122 +8,92 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/SCClusterRecordData.cs
 using Azure.ResourceManager.Confluent.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Confluent
 {
-    /// <summary>
-    /// A class representing the SCClusterRecord data model.
-    /// Details of cluster record
-    /// </summary>
+    /// <summary> Details of cluster record. </summary>
     public partial class SCClusterRecordData : ResourceData
-========
-using Azure.ResourceManager.Models;
-
-namespace Azure.ResourceManager.NetApp
-{
-    /// <summary>
-    /// A class representing the NetAppSubscriptionQuotaItem data model.
-    /// Information regarding Quota Item.
-    /// </summary>
-    public partial class NetAppSubscriptionQuotaItemData : ResourceData
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/NetAppSubscriptionQuotaItemData.cs
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/SCClusterRecordData.cs
         /// <summary> Initializes a new instance of <see cref="SCClusterRecordData"/>. </summary>
         public SCClusterRecordData()
         {
         }
 
         /// <summary> Initializes a new instance of <see cref="SCClusterRecordData"/>. </summary>
-========
-        /// <summary> Initializes a new instance of <see cref="NetAppSubscriptionQuotaItemData"/>. </summary>
-        public NetAppSubscriptionQuotaItemData()
-        {
-        }
-
-        /// <summary> Initializes a new instance of <see cref="NetAppSubscriptionQuotaItemData"/>. </summary>
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/NetAppSubscriptionQuotaItemData.cs
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/SCClusterRecordData.cs
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="kind"> Type of cluster. </param>
-        /// <param name="metadata"> Metadata of the record. </param>
-        /// <param name="spec"> Specification of the cluster. </param>
-        /// <param name="status"> Specification of the cluster status. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SCClusterRecordData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string kind, SCMetadataEntity metadata, SCClusterSpecEntity spec, ClusterStatusEntity status, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        /// <param name="properties"> Cluster Properties. </param>
+        internal SCClusterRecordData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, string kind, ClusterProperties properties) : base(id, name, resourceType, systemData)
         {
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Kind = kind;
-            Metadata = metadata;
-            Spec = spec;
-            Status = status;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            Properties = properties;
         }
 
         /// <summary> Type of cluster. </summary>
         public string Kind { get; set; }
+
+        /// <summary> Cluster Properties. </summary>
+        internal ClusterProperties Properties { get; set; }
+
         /// <summary> Metadata of the record. </summary>
-        public SCMetadataEntity Metadata { get; set; }
-        /// <summary> Specification of the cluster. </summary>
-        public SCClusterSpecEntity Spec { get; set; }
-        /// <summary> Specification of the cluster status. </summary>
-        public ClusterStatusEntity Status { get; set; }
-========
-        /// <param name="current"> The current quota value. </param>
-        /// <param name="default"> The default quota value. </param>
-        /// <param name="usage"> The usage quota value. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NetAppSubscriptionQuotaItemData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, int? current, int? @default, int? usage, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        public SCMetadataEntity Metadata
         {
-            Current = current;
-            Default = @default;
-            Usage = usage;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            get
+            {
+                return Properties is null ? default : Properties.Metadata;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new ClusterProperties();
+                }
+                Properties.Metadata = value;
+            }
         }
 
-        /// <summary> The current quota value. </summary>
-        public int? Current { get; }
-        /// <summary> The default quota value. </summary>
-        public int? Default { get; }
-        /// <summary> The usage quota value. </summary>
-        public int? Usage { get; }
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/NetAppSubscriptionQuotaItemData.cs
+        /// <summary> Specification of the cluster. </summary>
+        public SCClusterSpecEntity Spec
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Spec;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new ClusterProperties();
+                }
+                Properties.Spec = value;
+            }
+        }
+
+        /// <summary> Specification of the cluster status. </summary>
+        public ClusterStatusEntity Status
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Status;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new ClusterProperties();
+                }
+                Properties.Status = value;
+            }
+        }
     }
 }

@@ -14,29 +14,29 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AzureBlobStorageSourceConnectorServiceInfo : ConnectorServiceTypeInfoBase
     {
         /// <summary> Initializes a new instance of <see cref="AzureBlobStorageSourceConnectorServiceInfo"/>. </summary>
-        public AzureBlobStorageSourceConnectorServiceInfo()
+        public AzureBlobStorageSourceConnectorServiceInfo() : base(ConnectorServiceType.AzureBlobStorageSourceConnector)
         {
-            ConnectorServiceType = ConnectorServiceType.AzureBlobStorageSourceConnector;
         }
 
         /// <summary> Initializes a new instance of <see cref="AzureBlobStorageSourceConnectorServiceInfo"/>. </summary>
         /// <param name="connectorServiceType"> The connector service type. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="storageAccountName"> Azure Blob Storage Account Name. </param>
         /// <param name="storageAccountKey"> Azure Blob Storage Account Key. </param>
         /// <param name="storageContainerName"> Azure Blob Storage Account Container Name. </param>
-        internal AzureBlobStorageSourceConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> serializedAdditionalRawData, string storageAccountName, string storageAccountKey, string storageContainerName) : base(connectorServiceType, serializedAdditionalRawData)
+        internal AzureBlobStorageSourceConnectorServiceInfo(ConnectorServiceType connectorServiceType, IDictionary<string, BinaryData> additionalBinaryDataProperties, string storageAccountName, string storageAccountKey, string storageContainerName) : base(connectorServiceType, additionalBinaryDataProperties)
         {
             StorageAccountName = storageAccountName;
             StorageAccountKey = storageAccountKey;
             StorageContainerName = storageContainerName;
-            ConnectorServiceType = connectorServiceType;
         }
 
         /// <summary> Azure Blob Storage Account Name. </summary>
         public string StorageAccountName { get; set; }
+
         /// <summary> Azure Blob Storage Account Key. </summary>
         public string StorageAccountKey { get; set; }
+
         /// <summary> Azure Blob Storage Account Container Name. </summary>
         public string StorageContainerName { get; set; }
     }

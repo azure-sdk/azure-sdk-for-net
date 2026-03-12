@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="metadata"> Metadata of the list. </param>
         /// <param name="data"> List of role binding. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AccessRoleBindingListResult(string kind, ConfluentListMetadata metadata, IReadOnlyList<AccessRoleBindingRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AccessRoleBindingListResult(string kind, ConfluentListMetadata metadata, IList<AccessRoleBindingRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             Metadata = metadata;
@@ -43,6 +43,6 @@ namespace Azure.ResourceManager.Confluent.Models
         public ConfluentListMetadata Metadata { get; }
 
         /// <summary> List of role binding. </summary>
-        public IReadOnlyList<AccessRoleBindingRecord> Data { get; }
+        public IList<AccessRoleBindingRecord> Data { get; }
     }
 }

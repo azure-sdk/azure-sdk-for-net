@@ -13,132 +13,180 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Confluent
 {
-    /// <summary>
-    /// A class representing the TopicRecord data model.
-    /// Details of topic record
-    /// </summary>
+    /// <summary> Details of topic record. </summary>
     public partial class TopicRecordData : ResourceData
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="TopicRecordData"/>. </summary>
         public TopicRecordData()
         {
-            InputConfigs = new ChangeTrackingList<TopicsInputConfig>();
         }
 
         /// <summary> Initializes a new instance of <see cref="TopicRecordData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="kind"> Type of topic. </param>
-        /// <param name="topicId"> Topic Id returned by Confluent. </param>
-        /// <param name="metadata"> Metadata of the record. </param>
-        /// <param name="partitions"> Partition Specification of the topic. </param>
-        /// <param name="configs"> Config Specification of the topic. </param>
-        /// <param name="inputConfigs"> Input Config Specification of the topic. </param>
-        /// <param name="partitionsReassignments"> Partition Reassignment Specification of the topic. </param>
-        /// <param name="partitionsCount"> Partition count of the topic. </param>
-        /// <param name="replicationFactor"> Replication factor of the topic. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TopicRecordData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string kind, string topicId, TopicMetadataEntity metadata, TopicsRelatedLink partitions, TopicsRelatedLink configs, IList<TopicsInputConfig> inputConfigs, TopicsRelatedLink partitionsReassignments, string partitionsCount, string replicationFactor, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        /// <param name="properties"> Topic Properties. </param>
+        internal TopicRecordData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, TopicProperties properties) : base(id, name, resourceType, systemData)
         {
-            Kind = kind;
-            TopicId = topicId;
-            Metadata = metadata;
-            Partitions = partitions;
-            Configs = configs;
-            InputConfigs = inputConfigs;
-            PartitionsReassignments = partitionsReassignments;
-            PartitionsCount = partitionsCount;
-            ReplicationFactor = replicationFactor;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
+            Properties = properties;
         }
 
+        /// <summary> Topic Properties. </summary>
+        internal TopicProperties Properties { get; set; }
+
         /// <summary> Type of topic. </summary>
-        public string Kind { get; set; }
-        /// <summary> Topic Id returned by Confluent. </summary>
-        public string TopicId { get; set; }
-        /// <summary> Metadata of the record. </summary>
-        public TopicMetadataEntity Metadata { get; set; }
-        /// <summary> Partition Specification of the topic. </summary>
-        internal TopicsRelatedLink Partitions { get; set; }
-        /// <summary> Relationship of the topic. </summary>
-        public string PartitionsRelated
+        public string Kind
         {
-            get => Partitions is null ? default : Partitions.Related;
+            get
+            {
+                return Properties is null ? default : Properties.Kind;
+            }
             set
             {
-                if (Partitions is null)
-                    Partitions = new TopicsRelatedLink();
-                Partitions.Related = value;
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.Kind = value;
             }
         }
 
-        /// <summary> Config Specification of the topic. </summary>
-        internal TopicsRelatedLink Configs { get; set; }
-        /// <summary> Relationship of the topic. </summary>
-        public string ConfigsRelated
+        /// <summary> Topic Id returned by Confluent. </summary>
+        public string TopicId
         {
-            get => Configs is null ? default : Configs.Related;
+            get
+            {
+                return Properties is null ? default : Properties.TopicId;
+            }
             set
             {
-                if (Configs is null)
-                    Configs = new TopicsRelatedLink();
-                Configs.Related = value;
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.TopicId = value;
+            }
+        }
+
+        /// <summary> Metadata of the record. </summary>
+        public TopicMetadataEntity Metadata
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Metadata;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.Metadata = value;
             }
         }
 
         /// <summary> Input Config Specification of the topic. </summary>
-        public IList<TopicsInputConfig> InputConfigs { get; }
-        /// <summary> Partition Reassignment Specification of the topic. </summary>
-        internal TopicsRelatedLink PartitionsReassignments { get; set; }
-        /// <summary> Relationship of the topic. </summary>
-        public string PartitionsReassignmentsRelated
+        public IList<TopicsInputConfig> InputConfigs
         {
-            get => PartitionsReassignments is null ? default : PartitionsReassignments.Related;
-            set
+            get
             {
-                if (PartitionsReassignments is null)
-                    PartitionsReassignments = new TopicsRelatedLink();
-                PartitionsReassignments.Related = value;
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                return Properties.InputConfigs;
             }
         }
 
         /// <summary> Partition count of the topic. </summary>
-        public string PartitionsCount { get; set; }
+        public string PartitionsCount
+        {
+            get
+            {
+                return Properties is null ? default : Properties.PartitionsCount;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.PartitionsCount = value;
+            }
+        }
+
         /// <summary> Replication factor of the topic. </summary>
-        public string ReplicationFactor { get; set; }
+        public string ReplicationFactor
+        {
+            get
+            {
+                return Properties is null ? default : Properties.ReplicationFactor;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.ReplicationFactor = value;
+            }
+        }
+
+        /// <summary> Relationship of the topic. </summary>
+        public string PartitionsRelated
+        {
+            get
+            {
+                return Properties is null ? default : Properties.PartitionsRelated;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.PartitionsRelated = value;
+            }
+        }
+
+        /// <summary> Relationship of the topic. </summary>
+        public string ConfigsRelated
+        {
+            get
+            {
+                return Properties is null ? default : Properties.ConfigsRelated;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.ConfigsRelated = value;
+            }
+        }
+
+        /// <summary> Relationship of the topic. </summary>
+        public string PartitionsReassignmentsRelated
+        {
+            get
+            {
+                return Properties is null ? default : Properties.PartitionsReassignmentsRelated;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicProperties();
+                }
+                Properties.PartitionsReassignmentsRelated = value;
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.ComponentModel;
+using Azure.ResourceManager.Confluent;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
@@ -14,44 +15,63 @@ namespace Azure.ResourceManager.Confluent.Models
     public readonly partial struct ConnectorStatus : IEquatable<ConnectorStatus>
     {
         private readonly string _value;
+        private const string ProvisioningValue = "PROVISIONING";
+        private const string RunningValue = "RUNNING";
+        private const string PausedValue = "PAUSED";
+        private const string FailedValue = "FAILED";
 
         /// <summary> Initializes a new instance of <see cref="ConnectorStatus"/>. </summary>
+        /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public ConnectorStatus(string value)
         {
-            _value = value ?? throw new ArgumentNullException(nameof(value));
+            Argument.AssertNotNull(value, nameof(value));
+
+            _value = value;
         }
 
-        private const string PROVISIONINGValue = "PROVISIONING";
-        private const string RUNNINGValue = "RUNNING";
-        private const string PAUSEDValue = "PAUSED";
-        private const string FAILEDValue = "FAILED";
+        /// <summary> Gets the Provisioning. </summary>
+        public static ConnectorStatus Provisioning { get; } = new ConnectorStatus(ProvisioningValue);
 
-        /// <summary> PROVISIONING. </summary>
-        public static ConnectorStatus PROVISIONING { get; } = new ConnectorStatus(PROVISIONINGValue);
-        /// <summary> RUNNING. </summary>
-        public static ConnectorStatus RUNNING { get; } = new ConnectorStatus(RUNNINGValue);
-        /// <summary> PAUSED. </summary>
-        public static ConnectorStatus PAUSED { get; } = new ConnectorStatus(PAUSEDValue);
-        /// <summary> FAILED. </summary>
-        public static ConnectorStatus FAILED { get; } = new ConnectorStatus(FAILEDValue);
+        /// <summary> Gets the Running. </summary>
+        public static ConnectorStatus Running { get; } = new ConnectorStatus(RunningValue);
+
+        /// <summary> Gets the Paused. </summary>
+        public static ConnectorStatus Paused { get; } = new ConnectorStatus(PausedValue);
+
+        /// <summary> Gets the Failed. </summary>
+        public static ConnectorStatus Failed { get; } = new ConnectorStatus(FailedValue);
+
         /// <summary> Determines if two <see cref="ConnectorStatus"/> values are the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator ==(ConnectorStatus left, ConnectorStatus right) => left.Equals(right);
+
         /// <summary> Determines if two <see cref="ConnectorStatus"/> values are not the same. </summary>
+        /// <param name="left"> The left value to compare. </param>
+        /// <param name="right"> The right value to compare. </param>
         public static bool operator !=(ConnectorStatus left, ConnectorStatus right) => !left.Equals(right);
-        /// <summary> Converts a <see cref="string"/> to a <see cref="ConnectorStatus"/>. </summary>
+
+        /// <summary> Converts a string to a <see cref="ConnectorStatus"/>. </summary>
+        /// <param name="value"> The value. </param>
         public static implicit operator ConnectorStatus(string value) => new ConnectorStatus(value);
 
-        /// <inheritdoc />
+        /// <summary> Converts a string to a <see cref="ConnectorStatus"/>. </summary>
+        /// <param name="value"> The value. </param>
+        public static implicit operator ConnectorStatus?(string value) => value == null ? null : new ConnectorStatus(value);
+
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => obj is ConnectorStatus other && Equals(other);
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public bool Equals(ConnectorStatus other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => _value != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(_value) : 0;
-        /// <inheritdoc />
+
+        /// <inheritdoc/>
         public override string ToString() => _value;
     }
 }

@@ -8,49 +8,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager.Batch.Models
+namespace Azure.ResourceManager.Confluent.Models
 {
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/StreamGovernanceConfig.cs
     /// <summary> Stream governance configuration. </summary>
     internal partial class StreamGovernanceConfig
-========
-    /// <summary> Specifies how tasks should be distributed across compute nodes. </summary>
-    public partial class BatchIPTag
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchIPTag.cs
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/StreamGovernanceConfig.cs
         /// <summary> Initializes a new instance of <see cref="StreamGovernanceConfig"/>. </summary>
         public StreamGovernanceConfig()
         {
@@ -58,36 +23,14 @@ namespace Azure.ResourceManager.Batch.Models
 
         /// <summary> Initializes a new instance of <see cref="StreamGovernanceConfig"/>. </summary>
         /// <param name="package"> Stream governance configuration. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StreamGovernanceConfig(Package? package, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal StreamGovernanceConfig(ConfluentPackage? package, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Package = package;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Stream governance configuration. </summary>
-        public Package? Package { get; set; }
-========
-        /// <summary> Initializes a new instance of <see cref="BatchIPTag"/>. </summary>
-        public BatchIPTag()
-        {
-        }
-
-        /// <summary> Initializes a new instance of <see cref="BatchIPTag"/>. </summary>
-        /// <param name="ipTagType"> Example: FirstPartyUsage. </param>
-        /// <param name="tag"> Example: SQL. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BatchIPTag(string ipTagType, string tag, IDictionary<string, BinaryData> serializedAdditionalRawData)
-        {
-            IPTagType = ipTagType;
-            Tag = tag;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Example: FirstPartyUsage. </summary>
-        public string IPTagType { get; set; }
-        /// <summary> Example: SQL. </summary>
-        public string Tag { get; set; }
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchIPTag.cs
+        public ConfluentPackage? Package { get; set; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.Confluent;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
@@ -14,15 +15,14 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class KafkaAzureBlobStorageSinkConnectorInfo : PartnerInfoBase
     {
         /// <summary> Initializes a new instance of <see cref="KafkaAzureBlobStorageSinkConnectorInfo"/>. </summary>
-        public KafkaAzureBlobStorageSinkConnectorInfo()
+        public KafkaAzureBlobStorageSinkConnectorInfo() : base(PartnerConnectorType.KafkaAzureBlobStorageSink)
         {
             Topics = new ChangeTrackingList<string>();
-            PartnerConnectorType = PartnerConnectorType.KafkaAzureBlobStorageSink;
         }
 
         /// <summary> Initializes a new instance of <see cref="KafkaAzureBlobStorageSinkConnectorInfo"/>. </summary>
         /// <param name="partnerConnectorType"> The partner connector type. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="authType"> Kafka Auth Type. </param>
         /// <param name="inputFormat"> Kafka Input Data Format Type. </param>
         /// <param name="outputFormat"> Kafka Output Data Format Type. </param>
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="flushSize"> Flush size. </param>
         /// <param name="maxTasks"> Maximum Tasks. </param>
         /// <param name="timeInterval"> Time Interval. </param>
-        internal KafkaAzureBlobStorageSinkConnectorInfo(PartnerConnectorType partnerConnectorType, IDictionary<string, BinaryData> serializedAdditionalRawData, AuthType? authType, DataFormatType? inputFormat, DataFormatType? outputFormat, string apiKey, string apiSecret, string serviceAccountId, string serviceAccountName, IList<string> topics, string topicsDir, string flushSize, string maxTasks, string timeInterval) : base(partnerConnectorType, serializedAdditionalRawData)
+        internal KafkaAzureBlobStorageSinkConnectorInfo(PartnerConnectorType partnerConnectorType, IDictionary<string, BinaryData> additionalBinaryDataProperties, ConfluentAuthType? authType, ConfluentDataFormatType? inputFormat, ConfluentDataFormatType? outputFormat, string apiKey, string apiSecret, string serviceAccountId, string serviceAccountName, IList<string> topics, string topicsDir, string flushSize, string maxTasks, string timeInterval) : base(partnerConnectorType, additionalBinaryDataProperties)
         {
             AuthType = authType;
             InputFormat = inputFormat;
@@ -49,31 +49,41 @@ namespace Azure.ResourceManager.Confluent.Models
             FlushSize = flushSize;
             MaxTasks = maxTasks;
             TimeInterval = timeInterval;
-            PartnerConnectorType = partnerConnectorType;
         }
 
         /// <summary> Kafka Auth Type. </summary>
-        public AuthType? AuthType { get; set; }
+        public ConfluentAuthType? AuthType { get; set; }
+
         /// <summary> Kafka Input Data Format Type. </summary>
-        public DataFormatType? InputFormat { get; set; }
+        public ConfluentDataFormatType? InputFormat { get; set; }
+
         /// <summary> Kafka Output Data Format Type. </summary>
-        public DataFormatType? OutputFormat { get; set; }
+        public ConfluentDataFormatType? OutputFormat { get; set; }
+
         /// <summary> Kafka API Key. </summary>
         public string ApiKey { get; set; }
+
         /// <summary> Kafka API Key Secret. </summary>
         public string ApiSecret { get; set; }
+
         /// <summary> Kafka Service Account Id. </summary>
         public string ServiceAccountId { get; set; }
+
         /// <summary> Kafka Service Account Name. </summary>
         public string ServiceAccountName { get; set; }
+
         /// <summary> Kafka topics list. </summary>
         public IList<string> Topics { get; }
+
         /// <summary> Kafka topics directory. </summary>
         public string TopicsDir { get; set; }
+
         /// <summary> Flush size. </summary>
         public string FlushSize { get; set; }
+
         /// <summary> Maximum Tasks. </summary>
         public string MaxTasks { get; set; }
+
         /// <summary> Time Interval. </summary>
         public string TimeInterval { get; set; }
     }

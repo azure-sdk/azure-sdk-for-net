@@ -8,12 +8,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Autorest.CSharp.Core;
+using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager;
 
 namespace Azure.ResourceManager.Confluent
 {
@@ -24,51 +25,49 @@ namespace Azure.ResourceManager.Confluent
     /// </summary>
     public partial class TopicRecordCollection : ArmCollection, IEnumerable<TopicRecordResource>, IAsyncEnumerable<TopicRecordResource>
     {
-        private readonly ClientDiagnostics _topicRecordClientDiagnostics;
-        private readonly TopicRecordsRestOperations _topicRecordRestClient;
+        private readonly ClientDiagnostics _topicRecordsClientDiagnostics;
+        private readonly TopicRecords _topicRecordsRestClient;
 
-        /// <summary> Initializes a new instance of the <see cref="TopicRecordCollection"/> class for mocking. </summary>
+        /// <summary> Initializes a new instance of TopicRecordCollection for mocking. </summary>
         protected TopicRecordCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref="TopicRecordCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="TopicRecordCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
-        /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
+        /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal TopicRecordCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _topicRecordClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Confluent", TopicRecordResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(TopicRecordResource.ResourceType, out string topicRecordApiVersion);
-            _topicRecordRestClient = new TopicRecordsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, topicRecordApiVersion);
-#if DEBUG
-			ValidateResourceId(Id);
-#endif
+            _topicRecordsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Confluent", TopicRecordResource.ResourceType.Namespace, Diagnostics);
+            _topicRecordsRestClient = new TopicRecords(_topicRecordsClientDiagnostics, Pipeline, Endpoint, topicRecordApiVersion ?? "2025-08-18-preview");
+            ValidateResourceId(id);
         }
 
+        /// <param name="id"></param>
+        [Conditional("DEBUG")]
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
             if (id.ResourceType != SCClusterRecordResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SCClusterRecordResource.ResourceType), nameof(id));
+            {
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, SCClusterRecordResource.ResourceType), id);
+            }
         }
 
         /// <summary>
         /// Create confluent topics by Name
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Create</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Create. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -76,23 +75,30 @@ namespace Azure.ResourceManager.Confluent
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="data"> Confluent Topics resource model. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<TopicRecordResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string topicName, TopicRecordData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<TopicRecordResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string topicName, TopicRecordData data = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
-            Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _topicRecordRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, data, cancellationToken).ConfigureAwait(false);
-                var uri = _topicRecordRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, data);
-                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
-                var operation = new ConfluentArmOperation<TopicRecordResource>(Response.FromValue(new TopicRecordResource(Client, response), response.GetRawResponse()), rehydrationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, TopicRecordData.ToRequestContent(data), context);
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<TopicRecordData> response = Response.FromValue(TopicRecordData.FromResponse(result), result);
+                RequestUriBuilder uri = message.Request.Uri;
+                RehydrationToken rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                ConfluentArmOperation<TopicRecordResource> operation = new ConfluentArmOperation<TopicRecordResource>(Response.FromValue(new TopicRecordResource(Client, response.Value), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
+                {
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                }
                 return operation;
             }
             catch (Exception e)
@@ -106,20 +112,16 @@ namespace Azure.ResourceManager.Confluent
         /// Create confluent topics by Name
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Create</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Create. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -127,23 +129,30 @@ namespace Azure.ResourceManager.Confluent
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="data"> Confluent Topics resource model. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<TopicRecordResource> CreateOrUpdate(WaitUntil waitUntil, string topicName, TopicRecordData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<TopicRecordResource> CreateOrUpdate(WaitUntil waitUntil, string topicName, TopicRecordData data = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
-            Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.CreateOrUpdate");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _topicRecordRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, data, cancellationToken);
-                var uri = _topicRecordRestClient.CreateCreateRequestUri(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, data);
-                var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
-                var operation = new ConfluentArmOperation<TopicRecordResource>(Response.FromValue(new TopicRecordResource(Client, response), response.GetRawResponse()), rehydrationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateCreateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, TopicRecordData.ToRequestContent(data), context);
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<TopicRecordData> response = Response.FromValue(TopicRecordData.FromResponse(result), result);
+                RequestUriBuilder uri = message.Request.Uri;
+                RehydrationToken rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Put, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
+                ConfluentArmOperation<TopicRecordResource> operation = new ConfluentArmOperation<TopicRecordResource>(Response.FromValue(new TopicRecordResource(Client, response.Value), response.GetRawResponse()), rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
+                {
                     operation.WaitForCompletion(cancellationToken);
+                }
                 return operation;
             }
             catch (Exception e)
@@ -157,38 +166,42 @@ namespace Azure.ResourceManager.Confluent
         /// Get confluent topic by Name
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<Response<TopicRecordResource>> GetAsync(string topicName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.Get");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.Get");
             scope.Start();
             try
             {
-                var response = await _topicRecordRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, context);
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<TopicRecordData> response = Response.FromValue(TopicRecordData.FromResponse(result), result);
                 if (response.Value == null)
+                {
                     throw new RequestFailedException(response.GetRawResponse());
+                }
                 return Response.FromValue(new TopicRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -202,38 +215,42 @@ namespace Azure.ResourceManager.Confluent
         /// Get confluent topic by Name
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual Response<TopicRecordResource> Get(string topicName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.Get");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.Get");
             scope.Start();
             try
             {
-                var response = _topicRecordRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, context);
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<TopicRecordData> response = Response.FromValue(TopicRecordData.FromResponse(result), result);
                 if (response.Value == null)
+                {
                     throw new RequestFailedException(response.GetRawResponse());
+                }
                 return Response.FromValue(new TopicRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -247,52 +264,16 @@ namespace Azure.ResourceManager.Confluent
         /// Lists of all the topics in a clusters
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_List</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_List. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="pageSize"> Pagination size. </param>
-        /// <param name="pageToken"> An opaque pagination token to fetch the next set of records. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="TopicRecordResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<TopicRecordResource> GetAllAsync(int? pageSize = null, string pageToken = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _topicRecordRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _topicRecordRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new TopicRecordResource(Client, TopicRecordData.DeserializeTopicRecordData(e)), _topicRecordClientDiagnostics, Pipeline, "TopicRecordCollection.GetAll", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists of all the topics in a clusters
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_List</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -300,47 +281,111 @@ namespace Azure.ResourceManager.Confluent
         /// <param name="pageToken"> An opaque pagination token to fetch the next set of records. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="TopicRecordResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<TopicRecordResource> GetAll(int? pageSize = null, string pageToken = null, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<TopicRecordResource> GetAllAsync(int? pageSize = default, string pageToken = default, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _topicRecordRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _topicRecordRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, pageSizeHint, pageToken);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new TopicRecordResource(Client, TopicRecordData.DeserializeTopicRecordData(e)), _topicRecordClientDiagnostics, Pipeline, "TopicRecordCollection.GetAll", "value", "nextLink", cancellationToken);
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new AsyncPageableWrapper<TopicRecordData, TopicRecordResource>(new TopicRecordsGetAllAsyncCollectionResultOfT(
+                _topicRecordsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Parent.Parent.Name,
+                Id.Parent.Name,
+                Id.Name,
+                pageSize,
+                pageToken,
+                context), data => new TopicRecordResource(Client, data));
+        }
+
+        /// <summary>
+        /// Lists of all the topics in a clusters
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_List. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="pageSize"> Pagination size. </param>
+        /// <param name="pageToken"> An opaque pagination token to fetch the next set of records. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="TopicRecordResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<TopicRecordResource> GetAll(int? pageSize = default, string pageToken = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PageableWrapper<TopicRecordData, TopicRecordResource>(new TopicRecordsGetAllCollectionResultOfT(
+                _topicRecordsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Parent.Parent.Name,
+                Id.Parent.Name,
+                Id.Name,
+                pageSize,
+                pageToken,
+                context), data => new TopicRecordResource(Client, data));
         }
 
         /// <summary>
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<Response<bool>> ExistsAsync(string topicName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.Exists");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _topicRecordRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, context);
+                await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
+                Response result = message.Response;
+                Response<TopicRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(TopicRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((TopicRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -354,36 +399,50 @@ namespace Azure.ResourceManager.Confluent
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual Response<bool> Exists(string topicName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.Exists");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.Exists");
             scope.Start();
             try
             {
-                var response = _topicRecordRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, cancellationToken: cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, context);
+                Pipeline.Send(message, context.CancellationToken);
+                Response result = message.Response;
+                Response<TopicRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(TopicRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((TopicRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -397,38 +456,54 @@ namespace Azure.ResourceManager.Confluent
         /// Tries to get details for this resource from the service.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual async Task<NullableResponse<TopicRecordResource>> GetIfExistsAsync(string topicName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.GetIfExists");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _topicRecordRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, context);
+                await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
+                Response result = message.Response;
+                Response<TopicRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(TopicRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((TopicRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 if (response.Value == null)
+                {
                     return new NoValueResponse<TopicRecordResource>(response.GetRawResponse());
+                }
                 return Response.FromValue(new TopicRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -442,38 +517,54 @@ namespace Azure.ResourceManager.Confluent
         /// Tries to get details for this resource from the service.
         /// <list type="bullet">
         /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}</description>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/environments/{environmentId}/clusters/{clusterId}/topics/{topicName}. </description>
         /// </item>
         /// <item>
-        /// <term>Operation Id</term>
-        /// <description>TopicRecord_Get</description>
+        /// <term> Operation Id. </term>
+        /// <description> TopicRecords_Get. </description>
         /// </item>
         /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2025-08-18-preview</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="TopicRecordResource"/></description>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-08-18-preview. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="topicName"> Confluent kafka or schema registry topic name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="topicName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="topicName"/> is an empty string, and was expected to be non-empty. </exception>
         public virtual NullableResponse<TopicRecordResource> GetIfExists(string topicName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicName, nameof(topicName));
 
-            using var scope = _topicRecordClientDiagnostics.CreateScope("TopicRecordCollection.GetIfExists");
+            using DiagnosticScope scope = _topicRecordsClientDiagnostics.CreateScope("TopicRecordCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _topicRecordRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, cancellationToken: cancellationToken);
+                RequestContext context = new RequestContext
+                {
+                    CancellationToken = cancellationToken
+                };
+                HttpMessage message = _topicRecordsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, topicName, context);
+                Pipeline.Send(message, context.CancellationToken);
+                Response result = message.Response;
+                Response<TopicRecordData> response = default;
+                switch (result.Status)
+                {
+                    case 200:
+                        response = Response.FromValue(TopicRecordData.FromResponse(result), result);
+                        break;
+                    case 404:
+                        response = Response.FromValue((TopicRecordData)null, result);
+                        break;
+                    default:
+                        throw new RequestFailedException(result);
+                }
                 if (response.Value == null)
+                {
                     return new NoValueResponse<TopicRecordResource>(response.GetRawResponse());
+                }
                 return Response.FromValue(new TopicRecordResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -493,6 +584,7 @@ namespace Azure.ResourceManager.Confluent
             return GetAll().GetEnumerator();
         }
 
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
         IAsyncEnumerator<TopicRecordResource> IAsyncEnumerable<TopicRecordResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);

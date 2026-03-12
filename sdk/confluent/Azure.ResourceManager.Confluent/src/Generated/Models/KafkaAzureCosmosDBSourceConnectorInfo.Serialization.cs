@@ -9,14 +9,55 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.Core;
+using Azure.ResourceManager.Confluent;
 
 namespace Azure.ResourceManager.Confluent.Models
 {
-    public partial class KafkaAzureCosmosDBSourceConnectorInfo : IUtf8JsonSerializable, IJsonModel<KafkaAzureCosmosDBSourceConnectorInfo>
+    /// <summary> The partner connector type is KafkaAzureCosmosDBSource. </summary>
+    public partial class KafkaAzureCosmosDBSourceConnectorInfo : PartnerInfoBase, IJsonModel<KafkaAzureCosmosDBSourceConnectorInfo>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected override PartnerInfoBase PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
+                    {
+                        return DeserializeKafkaAzureCosmosDBSourceConnectorInfo(document.RootElement, options);
+                    }
+                default:
+                    throw new FormatException($"The model {nameof(KafkaAzureCosmosDBSourceConnectorInfo)} does not support reading '{options.Format}' format.");
+            }
+        }
 
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
+        {
+            string format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
+            switch (format)
+            {
+                case "J":
+                    return ModelReaderWriter.Write(this, options, AzureResourceManagerConfluentContext.Default);
+                default:
+                    throw new FormatException($"The model {nameof(KafkaAzureCosmosDBSourceConnectorInfo)} does not support writing '{options.Format}' format.");
+            }
+        }
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        BinaryData IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+
+        /// <param name="data"> The data to parse. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        KafkaAzureCosmosDBSourceConnectorInfo IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>.Create(BinaryData data, ModelReaderWriterOptions options) => (KafkaAzureCosmosDBSourceConnectorInfo)PersistableModelCreateCore(data, options);
+
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<KafkaAzureCosmosDBSourceConnectorInfo>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
@@ -28,12 +69,11 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(KafkaAzureCosmosDBSourceConnectorInfo)} does not support writing '{format}' format.");
             }
-
             base.JsonModelWriteCore(writer, options);
             if (Optional.IsDefined(AuthType))
             {
@@ -87,29 +127,36 @@ namespace Azure.ResourceManager.Confluent.Models
             }
         }
 
-        KafkaAzureCosmosDBSourceConnectorInfo IJsonModel<KafkaAzureCosmosDBSourceConnectorInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        KafkaAzureCosmosDBSourceConnectorInfo IJsonModel<KafkaAzureCosmosDBSourceConnectorInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (KafkaAzureCosmosDBSourceConnectorInfo)JsonModelCreateCore(ref reader, options);
+
+        /// <param name="reader"> The JSON reader. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected override PartnerInfoBase JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(KafkaAzureCosmosDBSourceConnectorInfo)} does not support reading '{format}' format.");
             }
-
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
             return DeserializeKafkaAzureCosmosDBSourceConnectorInfo(document.RootElement, options);
         }
 
-        internal static KafkaAzureCosmosDBSourceConnectorInfo DeserializeKafkaAzureCosmosDBSourceConnectorInfo(JsonElement element, ModelReaderWriterOptions options = null)
+        /// <param name="element"> The JSON element to deserialize. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        internal static KafkaAzureCosmosDBSourceConnectorInfo DeserializeKafkaAzureCosmosDBSourceConnectorInfo(JsonElement element, ModelReaderWriterOptions options)
         {
-            options ??= ModelSerializationExtensions.WireOptions;
-
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            AuthType? authType = default;
-            DataFormatType? inputFormat = default;
-            DataFormatType? outputFormat = default;
+            PartnerConnectorType partnerConnectorType = default;
+            IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
+            ConfluentAuthType? authType = default;
+            ConfluentDataFormatType? inputFormat = default;
+            ConfluentDataFormatType? outputFormat = default;
             string apiKey = default;
             string apiSecret = default;
             string serviceAccountId = default;
@@ -117,87 +164,83 @@ namespace Azure.ResourceManager.Confluent.Models
             string topicRegex = default;
             string topicsDir = default;
             string maxTasks = default;
-            PartnerConnectorType partnerConnectorType = default;
-            IDictionary<string, BinaryData> serializedAdditionalRawData = default;
-            Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
-            foreach (var property in element.EnumerateObject())
+            foreach (var prop in element.EnumerateObject())
             {
-                if (property.NameEquals("authType"u8))
+                if (prop.NameEquals("partnerConnectorType"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    partnerConnectorType = new PartnerConnectorType(prop.Value.GetString());
+                    continue;
+                }
+                if (prop.NameEquals("authType"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    authType = new AuthType(property.Value.GetString());
+                    authType = new ConfluentAuthType(prop.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("inputFormat"u8))
+                if (prop.NameEquals("inputFormat"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    inputFormat = new DataFormatType(property.Value.GetString());
+                    inputFormat = new ConfluentDataFormatType(prop.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("outputFormat"u8))
+                if (prop.NameEquals("outputFormat"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    outputFormat = new DataFormatType(property.Value.GetString());
+                    outputFormat = new ConfluentDataFormatType(prop.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("apiKey"u8))
+                if (prop.NameEquals("apiKey"u8))
                 {
-                    apiKey = property.Value.GetString();
+                    apiKey = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("apiSecret"u8))
+                if (prop.NameEquals("apiSecret"u8))
                 {
-                    apiSecret = property.Value.GetString();
+                    apiSecret = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("serviceAccountId"u8))
+                if (prop.NameEquals("serviceAccountId"u8))
                 {
-                    serviceAccountId = property.Value.GetString();
+                    serviceAccountId = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("serviceAccountName"u8))
+                if (prop.NameEquals("serviceAccountName"u8))
                 {
-                    serviceAccountName = property.Value.GetString();
+                    serviceAccountName = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("topicRegex"u8))
+                if (prop.NameEquals("topicRegex"u8))
                 {
-                    topicRegex = property.Value.GetString();
+                    topicRegex = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("topicsDir"u8))
+                if (prop.NameEquals("topicsDir"u8))
                 {
-                    topicsDir = property.Value.GetString();
+                    topicsDir = prop.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("maxTasks"u8))
+                if (prop.NameEquals("maxTasks"u8))
                 {
-                    maxTasks = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("partnerConnectorType"u8))
-                {
-                    partnerConnectorType = new PartnerConnectorType(property.Value.GetString());
+                    maxTasks = prop.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
                 {
-                    rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
+                    additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            serializedAdditionalRawData = rawDataDictionary;
             return new KafkaAzureCosmosDBSourceConnectorInfo(
                 partnerConnectorType,
-                serializedAdditionalRawData,
+                additionalBinaryDataProperties,
                 authType,
                 inputFormat,
                 outputFormat,
@@ -209,36 +252,5 @@ namespace Azure.ResourceManager.Confluent.Models
                 topicsDir,
                 maxTasks);
         }
-
-        BinaryData IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>.Write(ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
-
-            switch (format)
-            {
-                case "J":
-                    return ModelReaderWriter.Write(this, options, AzureResourceManagerConfluentContext.Default);
-                default:
-                    throw new FormatException($"The model {nameof(KafkaAzureCosmosDBSourceConnectorInfo)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        KafkaAzureCosmosDBSourceConnectorInfo IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>.Create(BinaryData data, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>)this).GetFormatFromOptions(options) : options.Format;
-
-            switch (format)
-            {
-                case "J":
-                    {
-                        using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-                        return DeserializeKafkaAzureCosmosDBSourceConnectorInfo(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(KafkaAzureCosmosDBSourceConnectorInfo)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        string IPersistableModel<KafkaAzureCosmosDBSourceConnectorInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

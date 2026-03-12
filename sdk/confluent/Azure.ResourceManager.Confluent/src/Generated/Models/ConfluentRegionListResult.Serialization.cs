@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.Confluent.Models
             {
                 return null;
             }
-            IReadOnlyList<ConfluentRegionRecord> data = default;
+            IList<ConfluentRegionRecord> data = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {

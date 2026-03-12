@@ -11,19 +11,29 @@ using System.Text.Json;
 
 namespace Azure.ResourceManager.Confluent
 {
+    /// <summary></summary>
     public partial class SCClusterRecordResource : IJsonModel<SCClusterRecordData>
     {
-        private static SCClusterRecordData s_dataDeserializationInstance;
-        private static SCClusterRecordData DataDeserializationInstance => s_dataDeserializationInstance ??= new();
+        private static IJsonModel<SCClusterRecordData> s_dataDeserializationInstance;
 
+        private static IJsonModel<SCClusterRecordData> DataDeserializationInstance => s_dataDeserializationInstance ??= new SCClusterRecordData();
+
+        /// <param name="writer"> The writer to serialize the model to. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         void IJsonModel<SCClusterRecordData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options) => ((IJsonModel<SCClusterRecordData>)Data).Write(writer, options);
 
-        SCClusterRecordData IJsonModel<SCClusterRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => ((IJsonModel<SCClusterRecordData>)DataDeserializationInstance).Create(ref reader, options);
+        /// <param name="reader"> The reader for deserializing the model. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        SCClusterRecordData IJsonModel<SCClusterRecordData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => DataDeserializationInstance.Create(ref reader, options);
 
+        /// <param name="options"> The client options for reading and writing models. </param>
         BinaryData IPersistableModel<SCClusterRecordData>.Write(ModelReaderWriterOptions options) => ModelReaderWriter.Write<SCClusterRecordData>(Data, options, AzureResourceManagerConfluentContext.Default);
 
+        /// <param name="data"> The binary data to be processed. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
         SCClusterRecordData IPersistableModel<SCClusterRecordData>.Create(BinaryData data, ModelReaderWriterOptions options) => ModelReaderWriter.Read<SCClusterRecordData>(data, options, AzureResourceManagerConfluentContext.Default);
 
-        string IPersistableModel<SCClusterRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => ((IPersistableModel<SCClusterRecordData>)DataDeserializationInstance).GetFormatFromOptions(options);
+        /// <param name="options"> The client options for reading and writing models. </param>
+        string IPersistableModel<SCClusterRecordData>.GetFormatFromOptions(ModelReaderWriterOptions options) => DataDeserializationInstance.GetFormatFromOptions(options);
     }
 }
