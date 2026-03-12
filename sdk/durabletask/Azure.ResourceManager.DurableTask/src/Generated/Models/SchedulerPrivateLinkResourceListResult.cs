@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.DurableTask.Models
 
         /// <summary> Initializes a new instance of <see cref="SchedulerPrivateLinkResourceListResult"/>. </summary>
         /// <param name="value"> The SchedulerPrivateLinkResource items on this page. </param>
-        internal SchedulerPrivateLinkResourceListResult(IEnumerable<SchedulerPrivateLinkResourceData> value)
+        internal SchedulerPrivateLinkResourceListResult(IEnumerable<DurableTaskSchedulerPrivateLinkResourceData> value)
         {
             Value = value.ToList();
         }
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="value"> The SchedulerPrivateLinkResource items on this page. </param>
         /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SchedulerPrivateLinkResourceListResult(IList<SchedulerPrivateLinkResourceData> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SchedulerPrivateLinkResourceListResult(IList<DurableTaskSchedulerPrivateLinkResourceData> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             NextLink = nextLink;
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         }
 
         /// <summary> The SchedulerPrivateLinkResource items on this page. </summary>
-        public IList<SchedulerPrivateLinkResourceData> Value { get; }
+        public IList<DurableTaskSchedulerPrivateLinkResourceData> Value { get; }
 
         /// <summary> The link to the next page of items. </summary>
         public Uri NextLink { get; }

@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.DurableTask.Models
             }
             writer.WritePropertyName("value"u8);
             writer.WriteStartArray();
-            foreach (SchedulerPrivateLinkResourceData item in Value)
+            foreach (DurableTaskSchedulerPrivateLinkResourceData item in Value)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -141,17 +141,17 @@ namespace Azure.ResourceManager.DurableTask.Models
             {
                 return null;
             }
-            IList<SchedulerPrivateLinkResourceData> value = default;
+            IList<DurableTaskSchedulerPrivateLinkResourceData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("value"u8))
                 {
-                    List<SchedulerPrivateLinkResourceData> array = new List<SchedulerPrivateLinkResourceData>();
+                    List<DurableTaskSchedulerPrivateLinkResourceData> array = new List<DurableTaskSchedulerPrivateLinkResourceData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(SchedulerPrivateLinkResourceData.DeserializeSchedulerPrivateLinkResourceData(item, options));
+                        array.Add(DurableTaskSchedulerPrivateLinkResourceData.DeserializeDurableTaskSchedulerPrivateLinkResourceData(item, options));
                     }
                     value = array;
                     continue;

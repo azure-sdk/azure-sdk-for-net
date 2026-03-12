@@ -18,35 +18,35 @@ namespace Azure.ResourceManager.DurableTask
 {
     /// <summary>
     /// A class representing a SchedulerPrivateLinkResource along with the instance operations that can be performed on it.
-    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="SchedulerPrivateLinkResource"/> from an instance of <see cref="ArmClient"/> using the GetResource method.
+    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="DurableTaskSchedulerPrivateLinkResource"/> from an instance of <see cref="ArmClient"/> using the GetResource method.
     /// Otherwise you can get one from its parent resource <see cref="DurableTaskSchedulerResource"/> using the GetSchedulerPrivateLinkResources method.
     /// </summary>
-    public partial class SchedulerPrivateLinkResource : ArmResource
+    public partial class DurableTaskSchedulerPrivateLinkResource : ArmResource
     {
         private readonly ClientDiagnostics _schedulersClientDiagnostics;
         private readonly Schedulers _schedulersRestClient;
-        private readonly SchedulerPrivateLinkResourceData _data;
+        private readonly DurableTaskSchedulerPrivateLinkResourceData _data;
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.DurableTask/schedulers/privateLinkResources";
 
-        /// <summary> Initializes a new instance of SchedulerPrivateLinkResource for mocking. </summary>
-        protected SchedulerPrivateLinkResource()
+        /// <summary> Initializes a new instance of DurableTaskSchedulerPrivateLinkResource for mocking. </summary>
+        protected DurableTaskSchedulerPrivateLinkResource()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SchedulerPrivateLinkResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskSchedulerPrivateLinkResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal SchedulerPrivateLinkResource(ArmClient client, SchedulerPrivateLinkResourceData data) : this(client, data.Id)
+        internal DurableTaskSchedulerPrivateLinkResource(ArmClient client, DurableTaskSchedulerPrivateLinkResourceData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SchedulerPrivateLinkResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskSchedulerPrivateLinkResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal SchedulerPrivateLinkResource(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal DurableTaskSchedulerPrivateLinkResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
             TryGetApiVersion(ResourceType, out string schedulerPrivateLinkResourceApiVersion);
             _schedulersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DurableTask", ResourceType.Namespace, Diagnostics);
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.DurableTask
         public virtual bool HasData { get; }
 
         /// <summary> Gets the data representing this Feature. </summary>
-        public virtual SchedulerPrivateLinkResourceData Data
+        public virtual DurableTaskSchedulerPrivateLinkResourceData Data
         {
             get
             {
@@ -108,14 +108,14 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="SchedulerPrivateLinkResource"/>. </description>
+        /// <description> <see cref="DurableTaskSchedulerPrivateLinkResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<SchedulerPrivateLinkResource>> GetAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DurableTaskSchedulerPrivateLinkResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResource.Get");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResource.Get");
             scope.Start();
             try
             {
@@ -125,12 +125,12 @@ namespace Azure.ResourceManager.DurableTask
                 };
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<SchedulerPrivateLinkResourceData> response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new SchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskSchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -156,14 +156,14 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="SchedulerPrivateLinkResource"/>. </description>
+        /// <description> <see cref="DurableTaskSchedulerPrivateLinkResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<SchedulerPrivateLinkResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<DurableTaskSchedulerPrivateLinkResource> Get(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResource.Get");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResource.Get");
             scope.Start();
             try
             {
@@ -173,12 +173,12 @@ namespace Azure.ResourceManager.DurableTask
                 };
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<SchedulerPrivateLinkResourceData> response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new SchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskSchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {

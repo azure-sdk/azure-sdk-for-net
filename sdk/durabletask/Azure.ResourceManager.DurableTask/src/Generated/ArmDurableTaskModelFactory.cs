@@ -154,10 +154,10 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="properties"> Resource properties. </param>
-        /// <returns> A new <see cref="DurableTask.SchedulerPrivateLinkResourceData"/> instance for mocking. </returns>
-        public static SchedulerPrivateLinkResourceData SchedulerPrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, DurableTaskPrivateLinkResourceProperties properties = default)
+        /// <returns> A new <see cref="DurableTask.DurableTaskSchedulerPrivateLinkResourceData"/> instance for mocking. </returns>
+        public static DurableTaskSchedulerPrivateLinkResourceData DurableTaskSchedulerPrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, DurableTaskPrivateLinkResourceProperties properties = default)
         {
-            return new SchedulerPrivateLinkResourceData(
+            return new DurableTaskSchedulerPrivateLinkResourceData(
                 id,
                 name,
                 resourceType,

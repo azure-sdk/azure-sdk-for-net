@@ -13,7 +13,7 @@ using NUnit.Framework;
 
 namespace Azure.ResourceManager.DurableTask.Samples
 {
-    public partial class Sample_SchedulerPrivateLinkResource
+    public partial class Sample_DurableTaskSchedulerPrivateLinkResource
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
@@ -27,21 +27,21 @@ namespace Azure.ResourceManager.DurableTask.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this SchedulerPrivateLinkResource created on azure
-            // for more information of creating SchedulerPrivateLinkResource, please refer to the document of SchedulerPrivateLinkResource
+            // this example assumes you already have this DurableTaskSchedulerPrivateLinkResource created on azure
+            // for more information of creating DurableTaskSchedulerPrivateLinkResource, please refer to the document of DurableTaskSchedulerPrivateLinkResource
             string subscriptionId = "851A7597-D699-45CC-899B-7487A5B3B775";
             string resourceGroupName = "rgdurabletask";
             string schedulerName = "testscheduler";
             string privateLinkResourceName = "ulbdiqhrmwnkejje";
-            ResourceIdentifier schedulerPrivateLinkResourceId = SchedulerPrivateLinkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateLinkResourceName);
-            SchedulerPrivateLinkResource schedulerPrivateLink = client.GetSchedulerPrivateLinkResource(schedulerPrivateLinkResourceId);
+            ResourceIdentifier schedulerPrivateLinkResourceId = DurableTaskSchedulerPrivateLinkResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateLinkResourceName);
+            DurableTaskSchedulerPrivateLinkResource schedulerPrivateLink = client.GetDurableTaskSchedulerPrivateLinkResource(schedulerPrivateLinkResourceId);
 
             // invoke the operation
-            SchedulerPrivateLinkResource result = await schedulerPrivateLink.GetAsync();
+            DurableTaskSchedulerPrivateLinkResource result = await schedulerPrivateLink.GetAsync();
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            SchedulerPrivateLinkResourceData resourceData = result.Data;
+            DurableTaskSchedulerPrivateLinkResourceData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }

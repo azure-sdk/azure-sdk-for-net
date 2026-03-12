@@ -19,27 +19,27 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.DurableTask
 {
     /// <summary>
-    /// A class representing a collection of <see cref="SchedulerPrivateLinkResource"/> and their operations.
-    /// Each <see cref="SchedulerPrivateLinkResource"/> in the collection will belong to the same instance of <see cref="DurableTaskSchedulerResource"/>.
-    /// To get a <see cref="SchedulerPrivateLinkResourceCollection"/> instance call the GetSchedulerPrivateLinkResources method from an instance of <see cref="DurableTaskSchedulerResource"/>.
+    /// A class representing a collection of <see cref="DurableTaskSchedulerPrivateLinkResource"/> and their operations.
+    /// Each <see cref="DurableTaskSchedulerPrivateLinkResource"/> in the collection will belong to the same instance of <see cref="DurableTaskSchedulerResource"/>.
+    /// To get a <see cref="DurableTaskSchedulerPrivateLinkResourceCollection"/> instance call the GetSchedulerPrivateLinkResources method from an instance of <see cref="DurableTaskSchedulerResource"/>.
     /// </summary>
-    public partial class SchedulerPrivateLinkResourceCollection : ArmCollection, IEnumerable<SchedulerPrivateLinkResource>, IAsyncEnumerable<SchedulerPrivateLinkResource>
+    public partial class DurableTaskSchedulerPrivateLinkResourceCollection : ArmCollection, IEnumerable<DurableTaskSchedulerPrivateLinkResource>, IAsyncEnumerable<DurableTaskSchedulerPrivateLinkResource>
     {
         private readonly ClientDiagnostics _schedulersClientDiagnostics;
         private readonly Schedulers _schedulersRestClient;
 
-        /// <summary> Initializes a new instance of SchedulerPrivateLinkResourceCollection for mocking. </summary>
-        protected SchedulerPrivateLinkResourceCollection()
+        /// <summary> Initializes a new instance of DurableTaskSchedulerPrivateLinkResourceCollection for mocking. </summary>
+        protected DurableTaskSchedulerPrivateLinkResourceCollection()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SchedulerPrivateLinkResourceCollection"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskSchedulerPrivateLinkResourceCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal SchedulerPrivateLinkResourceCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal DurableTaskSchedulerPrivateLinkResourceCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            TryGetApiVersion(SchedulerPrivateLinkResource.ResourceType, out string schedulerPrivateLinkResourceApiVersion);
-            _schedulersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DurableTask", SchedulerPrivateLinkResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(DurableTaskSchedulerPrivateLinkResource.ResourceType, out string schedulerPrivateLinkResourceApiVersion);
+            _schedulersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DurableTask", DurableTaskSchedulerPrivateLinkResource.ResourceType.Namespace, Diagnostics);
             _schedulersRestClient = new Schedulers(_schedulersClientDiagnostics, Pipeline, Endpoint, schedulerPrivateLinkResourceApiVersion ?? "2026-02-01");
             ValidateResourceId(id);
         }
@@ -75,11 +75,11 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<SchedulerPrivateLinkResource>> GetAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DurableTaskSchedulerPrivateLinkResource>> GetAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResourceCollection.Get");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResourceCollection.Get");
             scope.Start();
             try
             {
@@ -89,12 +89,12 @@ namespace Azure.ResourceManager.DurableTask
                 };
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, privateLinkResourceName, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<SchedulerPrivateLinkResourceData> response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new SchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskSchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -124,11 +124,11 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<SchedulerPrivateLinkResource> Get(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual Response<DurableTaskSchedulerPrivateLinkResource> Get(string privateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResourceCollection.Get");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResourceCollection.Get");
             scope.Start();
             try
             {
@@ -138,12 +138,12 @@ namespace Azure.ResourceManager.DurableTask
                 };
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, privateLinkResourceName, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<SchedulerPrivateLinkResourceData> response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new SchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskSchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -170,14 +170,14 @@ namespace Azure.ResourceManager.DurableTask
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SchedulerPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SchedulerPrivateLinkResource> GetAllAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="DurableTaskSchedulerPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<DurableTaskSchedulerPrivateLinkResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<SchedulerPrivateLinkResourceData, SchedulerPrivateLinkResource>(new SchedulersGetPrivateLinksAsyncCollectionResultOfT(_schedulersRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new SchedulerPrivateLinkResource(Client, data));
+            return new AsyncPageableWrapper<DurableTaskSchedulerPrivateLinkResourceData, DurableTaskSchedulerPrivateLinkResource>(new SchedulersGetPrivateLinksAsyncCollectionResultOfT(_schedulersRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new DurableTaskSchedulerPrivateLinkResource(Client, data));
         }
 
         /// <summary>
@@ -198,14 +198,14 @@ namespace Azure.ResourceManager.DurableTask
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SchedulerPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SchedulerPrivateLinkResource> GetAll(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="DurableTaskSchedulerPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<DurableTaskSchedulerPrivateLinkResource> GetAll(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<SchedulerPrivateLinkResourceData, SchedulerPrivateLinkResource>(new SchedulersGetPrivateLinksCollectionResultOfT(_schedulersRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new SchedulerPrivateLinkResource(Client, data));
+            return new PageableWrapper<DurableTaskSchedulerPrivateLinkResourceData, DurableTaskSchedulerPrivateLinkResource>(new SchedulersGetPrivateLinksCollectionResultOfT(_schedulersRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new DurableTaskSchedulerPrivateLinkResource(Client, data));
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace Azure.ResourceManager.DurableTask
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResourceCollection.Exists");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResourceCollection.Exists");
             scope.Start();
             try
             {
@@ -244,14 +244,14 @@ namespace Azure.ResourceManager.DurableTask
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, privateLinkResourceName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
-                Response<SchedulerPrivateLinkResourceData> response = default;
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                        response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((SchedulerPrivateLinkResourceData)null, result);
+                        response = Response.FromValue((DurableTaskSchedulerPrivateLinkResourceData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
@@ -290,7 +290,7 @@ namespace Azure.ResourceManager.DurableTask
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResourceCollection.Exists");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResourceCollection.Exists");
             scope.Start();
             try
             {
@@ -301,14 +301,14 @@ namespace Azure.ResourceManager.DurableTask
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, privateLinkResourceName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
-                Response<SchedulerPrivateLinkResourceData> response = default;
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                        response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((SchedulerPrivateLinkResourceData)null, result);
+                        response = Response.FromValue((DurableTaskSchedulerPrivateLinkResourceData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
@@ -343,11 +343,11 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<NullableResponse<SchedulerPrivateLinkResource>> GetIfExistsAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<NullableResponse<DurableTaskSchedulerPrivateLinkResource>> GetIfExistsAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResourceCollection.GetIfExists");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResourceCollection.GetIfExists");
             scope.Start();
             try
             {
@@ -358,23 +358,23 @@ namespace Azure.ResourceManager.DurableTask
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, privateLinkResourceName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
-                Response<SchedulerPrivateLinkResourceData> response = default;
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                        response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((SchedulerPrivateLinkResourceData)null, result);
+                        response = Response.FromValue((DurableTaskSchedulerPrivateLinkResourceData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
                 }
                 if (response.Value == null)
                 {
-                    return new NoValueResponse<SchedulerPrivateLinkResource>(response.GetRawResponse());
+                    return new NoValueResponse<DurableTaskSchedulerPrivateLinkResource>(response.GetRawResponse());
                 }
-                return Response.FromValue(new SchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskSchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -404,11 +404,11 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual NullableResponse<SchedulerPrivateLinkResource> GetIfExists(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual NullableResponse<DurableTaskSchedulerPrivateLinkResource> GetIfExists(string privateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("SchedulerPrivateLinkResourceCollection.GetIfExists");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResourceCollection.GetIfExists");
             scope.Start();
             try
             {
@@ -419,23 +419,23 @@ namespace Azure.ResourceManager.DurableTask
                 HttpMessage message = _schedulersRestClient.CreateGetPrivateLinkRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, privateLinkResourceName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
-                Response<SchedulerPrivateLinkResourceData> response = default;
+                Response<DurableTaskSchedulerPrivateLinkResourceData> response = default;
                 switch (result.Status)
                 {
                     case 200:
-                        response = Response.FromValue(SchedulerPrivateLinkResourceData.FromResponse(result), result);
+                        response = Response.FromValue(DurableTaskSchedulerPrivateLinkResourceData.FromResponse(result), result);
                         break;
                     case 404:
-                        response = Response.FromValue((SchedulerPrivateLinkResourceData)null, result);
+                        response = Response.FromValue((DurableTaskSchedulerPrivateLinkResourceData)null, result);
                         break;
                     default:
                         throw new RequestFailedException(result);
                 }
                 if (response.Value == null)
                 {
-                    return new NoValueResponse<SchedulerPrivateLinkResource>(response.GetRawResponse());
+                    return new NoValueResponse<DurableTaskSchedulerPrivateLinkResource>(response.GetRawResponse());
                 }
-                return Response.FromValue(new SchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskSchedulerPrivateLinkResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -444,7 +444,7 @@ namespace Azure.ResourceManager.DurableTask
             }
         }
 
-        IEnumerator<SchedulerPrivateLinkResource> IEnumerable<SchedulerPrivateLinkResource>.GetEnumerator()
+        IEnumerator<DurableTaskSchedulerPrivateLinkResource> IEnumerable<DurableTaskSchedulerPrivateLinkResource>.GetEnumerator()
         {
             return GetAll().GetEnumerator();
         }
@@ -455,7 +455,7 @@ namespace Azure.ResourceManager.DurableTask
         }
 
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        IAsyncEnumerator<SchedulerPrivateLinkResource> IAsyncEnumerable<SchedulerPrivateLinkResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
+        IAsyncEnumerator<DurableTaskSchedulerPrivateLinkResource> IAsyncEnumerable<DurableTaskSchedulerPrivateLinkResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
         {
             return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }

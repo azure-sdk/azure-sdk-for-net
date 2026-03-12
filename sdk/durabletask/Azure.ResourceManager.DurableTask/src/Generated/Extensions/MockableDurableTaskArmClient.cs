@@ -35,13 +35,13 @@ namespace Azure.ResourceManager.DurableTask.Mocking
             return new DurableTaskSchedulerResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="SchedulerPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="DurableTaskSchedulerPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SchedulerPrivateLinkResource"/> object. </returns>
-        public virtual SchedulerPrivateLinkResource GetSchedulerPrivateLinkResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="DurableTaskSchedulerPrivateLinkResource"/> object. </returns>
+        public virtual DurableTaskSchedulerPrivateLinkResource GetDurableTaskSchedulerPrivateLinkResource(ResourceIdentifier id)
         {
-            SchedulerPrivateLinkResource.ValidateResourceId(id);
-            return new SchedulerPrivateLinkResource(Client, id);
+            DurableTaskSchedulerPrivateLinkResource.ValidateResourceId(id);
+            return new DurableTaskSchedulerPrivateLinkResource(Client, id);
         }
 
         /// <summary> Gets an object representing a <see cref="DurableTaskPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>

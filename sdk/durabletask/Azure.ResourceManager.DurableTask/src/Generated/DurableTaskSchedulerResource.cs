@@ -680,10 +680,10 @@ namespace Azure.ResourceManager.DurableTask
         }
 
         /// <summary> Gets a collection of SchedulerPrivateLinkResources in the <see cref="DurableTaskSchedulerResource"/>. </summary>
-        /// <returns> An object representing collection of SchedulerPrivateLinkResources and their operations over a SchedulerPrivateLinkResource. </returns>
-        public virtual SchedulerPrivateLinkResourceCollection GetSchedulerPrivateLinkResources()
+        /// <returns> An object representing collection of SchedulerPrivateLinkResources and their operations over a DurableTaskSchedulerPrivateLinkResource. </returns>
+        public virtual DurableTaskSchedulerPrivateLinkResourceCollection GetSchedulerPrivateLinkResources()
         {
-            return GetCachedClient(client => new SchedulerPrivateLinkResourceCollection(client, Id));
+            return GetCachedClient(client => new DurableTaskSchedulerPrivateLinkResourceCollection(client, Id));
         }
 
         /// <summary> Get a private link resource for the durable task scheduler. </summary>
@@ -692,7 +692,7 @@ namespace Azure.ResourceManager.DurableTask
         /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<SchedulerPrivateLinkResource>> GetSchedulerPrivateLinkResourceAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DurableTaskSchedulerPrivateLinkResource>> GetSchedulerPrivateLinkResourceAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 
@@ -705,7 +705,7 @@ namespace Azure.ResourceManager.DurableTask
         /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<SchedulerPrivateLinkResource> GetSchedulerPrivateLinkResource(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual Response<DurableTaskSchedulerPrivateLinkResource> GetSchedulerPrivateLinkResource(string privateLinkResourceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
 

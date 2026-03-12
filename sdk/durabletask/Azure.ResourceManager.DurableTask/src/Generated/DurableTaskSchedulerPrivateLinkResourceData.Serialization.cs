@@ -18,58 +18,58 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.DurableTask
 {
     /// <summary> A private link resource. </summary>
-    public partial class SchedulerPrivateLinkResourceData : ResourceData, IJsonModel<SchedulerPrivateLinkResourceData>
+    public partial class DurableTaskSchedulerPrivateLinkResourceData : ResourceData, IJsonModel<DurableTaskSchedulerPrivateLinkResourceData>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<SchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeSchedulerPrivateLinkResourceData(document.RootElement, options);
+                        return DeserializeDurableTaskSchedulerPrivateLinkResourceData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SchedulerPrivateLinkResourceData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DurableTaskSchedulerPrivateLinkResourceData)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<SchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerDurableTaskContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(SchedulerPrivateLinkResourceData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DurableTaskSchedulerPrivateLinkResourceData)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<SchedulerPrivateLinkResourceData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DurableTaskSchedulerPrivateLinkResourceData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        SchedulerPrivateLinkResourceData IPersistableModel<SchedulerPrivateLinkResourceData>.Create(BinaryData data, ModelReaderWriterOptions options) => (SchedulerPrivateLinkResourceData)PersistableModelCreateCore(data, options);
+        DurableTaskSchedulerPrivateLinkResourceData IPersistableModel<DurableTaskSchedulerPrivateLinkResourceData>.Create(BinaryData data, ModelReaderWriterOptions options) => (DurableTaskSchedulerPrivateLinkResourceData)PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<SchedulerPrivateLinkResourceData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DurableTaskSchedulerPrivateLinkResourceData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="SchedulerPrivateLinkResourceData"/> from. </param>
-        internal static SchedulerPrivateLinkResourceData FromResponse(Response response)
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="DurableTaskSchedulerPrivateLinkResourceData"/> from. </param>
+        internal static DurableTaskSchedulerPrivateLinkResourceData FromResponse(Response response)
         {
             using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeSchedulerPrivateLinkResourceData(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return DeserializeDurableTaskSchedulerPrivateLinkResourceData(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<SchedulerPrivateLinkResourceData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DurableTaskSchedulerPrivateLinkResourceData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -80,10 +80,10 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<SchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SchedulerPrivateLinkResourceData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DurableTaskSchedulerPrivateLinkResourceData)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
             if (Optional.IsDefined(Properties))
@@ -95,24 +95,24 @@ namespace Azure.ResourceManager.DurableTask
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        SchedulerPrivateLinkResourceData IJsonModel<SchedulerPrivateLinkResourceData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (SchedulerPrivateLinkResourceData)JsonModelCreateCore(ref reader, options);
+        DurableTaskSchedulerPrivateLinkResourceData IJsonModel<DurableTaskSchedulerPrivateLinkResourceData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (DurableTaskSchedulerPrivateLinkResourceData)JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<SchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskSchedulerPrivateLinkResourceData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SchedulerPrivateLinkResourceData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DurableTaskSchedulerPrivateLinkResourceData)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSchedulerPrivateLinkResourceData(document.RootElement, options);
+            return DeserializeDurableTaskSchedulerPrivateLinkResourceData(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static SchedulerPrivateLinkResourceData DeserializeSchedulerPrivateLinkResourceData(JsonElement element, ModelReaderWriterOptions options)
+        internal static DurableTaskSchedulerPrivateLinkResourceData DeserializeDurableTaskSchedulerPrivateLinkResourceData(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.DurableTask
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new SchedulerPrivateLinkResourceData(
+            return new DurableTaskSchedulerPrivateLinkResourceData(
                 id,
                 name,
                 resourceType,

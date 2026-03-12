@@ -35,16 +35,16 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this SchedulerPrivateLinkResource
-            SchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
+            // get the collection of this DurableTaskSchedulerPrivateLinkResource
+            DurableTaskSchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
 
             // invoke the operation
             string privateLinkResourceName = "ulbdiqhrmwnkejje";
-            SchedulerPrivateLinkResource result = await collection.GetAsync(privateLinkResourceName);
+            DurableTaskSchedulerPrivateLinkResource result = await collection.GetAsync(privateLinkResourceName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            SchedulerPrivateLinkResourceData resourceData = result.Data;
+            DurableTaskSchedulerPrivateLinkResourceData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
@@ -69,15 +69,15 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this SchedulerPrivateLinkResource
-            SchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
+            // get the collection of this DurableTaskSchedulerPrivateLinkResource
+            DurableTaskSchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
 
             // invoke the operation and iterate over the result
-            await foreach (SchedulerPrivateLinkResource item in collection.GetAllAsync())
+            await foreach (DurableTaskSchedulerPrivateLinkResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                SchedulerPrivateLinkResourceData resourceData = item.Data;
+                DurableTaskSchedulerPrivateLinkResourceData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -105,8 +105,8 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this SchedulerPrivateLinkResource
-            SchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
+            // get the collection of this DurableTaskSchedulerPrivateLinkResource
+            DurableTaskSchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
 
             // invoke the operation
             string privateLinkResourceName = "ulbdiqhrmwnkejje";
@@ -135,13 +135,13 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this SchedulerPrivateLinkResource
-            SchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
+            // get the collection of this DurableTaskSchedulerPrivateLinkResource
+            DurableTaskSchedulerPrivateLinkResourceCollection collection = durableTaskScheduler.GetSchedulerPrivateLinkResources();
 
             // invoke the operation
             string privateLinkResourceName = "ulbdiqhrmwnkejje";
-            NullableResponse<SchedulerPrivateLinkResource> response = await collection.GetIfExistsAsync(privateLinkResourceName);
-            SchedulerPrivateLinkResource result = response.HasValue ? response.Value : null;
+            NullableResponse<DurableTaskSchedulerPrivateLinkResource> response = await collection.GetIfExistsAsync(privateLinkResourceName);
+            DurableTaskSchedulerPrivateLinkResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.DurableTask.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                SchedulerPrivateLinkResourceData resourceData = result.Data;
+                DurableTaskSchedulerPrivateLinkResourceData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }

@@ -14,7 +14,7 @@ using Azure.ResourceManager.DurableTask.Models;
 
 namespace Azure.ResourceManager.DurableTask
 {
-    internal partial class SchedulersGetPrivateLinksCollectionResultOfT : Pageable<SchedulerPrivateLinkResourceData>
+    internal partial class SchedulersGetPrivateLinksCollectionResultOfT : Pageable<DurableTaskSchedulerPrivateLinkResourceData>
     {
         private readonly Schedulers _client;
         private readonly Guid _subscriptionId;
@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="continuationToken"> A continuation token indicating where to resume paging. </param>
         /// <param name="pageSizeHint"> The number of items per page. </param>
         /// <returns> The pages of SchedulersGetPrivateLinksCollectionResultOfT as an enumerable collection. </returns>
-        public override IEnumerable<Page<SchedulerPrivateLinkResourceData>> AsPages(string continuationToken, int? pageSizeHint)
+        public override IEnumerable<Page<DurableTaskSchedulerPrivateLinkResourceData>> AsPages(string continuationToken, int? pageSizeHint)
         {
             Uri nextPage = continuationToken != null ? new Uri(continuationToken) : null;
             while (true)
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.DurableTask
                     yield break;
                 }
                 SchedulerPrivateLinkResourceListResult result = SchedulerPrivateLinkResourceListResult.FromResponse(response);
-                yield return Page<SchedulerPrivateLinkResourceData>.FromValues((IReadOnlyList<SchedulerPrivateLinkResourceData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
+                yield return Page<DurableTaskSchedulerPrivateLinkResourceData>.FromValues((IReadOnlyList<DurableTaskSchedulerPrivateLinkResourceData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 nextPage = result.NextLink;
                 if (nextPage == null)
                 {
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.DurableTask
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetPrivateLinksRequest(nextLink, _subscriptionId, _resourceGroupName, _schedulerName, _context) : _client.CreateGetPrivateLinksRequest(_subscriptionId, _resourceGroupName, _schedulerName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("SchedulerPrivateLinkResourceCollection.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("DurableTaskSchedulerPrivateLinkResourceCollection.GetAll");
             scope.Start();
             try
             {
