@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="os"> The operating system type required for the run. </param>
         public PlatformProperties(ContainerRegistryTaskOS os)
         {
-            Os = os;
+            OS = os;
         }
 
         /// <summary> Initializes a new instance of <see cref="PlatformProperties"/>. </summary>
@@ -30,14 +30,14 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         internal PlatformProperties(ContainerRegistryTaskOS os, ContainerRegistryTaskArchitecture? architecture, ContainerRegistryTaskVariant? variant, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            Os = os;
+            OS = os;
             Architecture = architecture;
             Variant = variant;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The operating system type required for the run. </summary>
-        public ContainerRegistryTaskOS Os { get; set; }
+        public ContainerRegistryTaskOS OS { get; set; }
 
         /// <summary> The OS architecture. </summary>
         public ContainerRegistryTaskArchitecture? Architecture { get; set; }

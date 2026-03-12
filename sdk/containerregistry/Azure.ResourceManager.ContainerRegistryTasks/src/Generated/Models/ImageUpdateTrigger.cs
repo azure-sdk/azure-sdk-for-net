@@ -25,13 +25,13 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 
         /// <summary> Initializes a new instance of <see cref="ImageUpdateTrigger"/>. </summary>
         /// <param name="id"> The unique ID of the trigger. </param>
-        /// <param name="timestamp"> The timestamp when the image update happened. </param>
+        /// <param name="occurredOn"> The timestamp when the image update happened. </param>
         /// <param name="images"> The list of image updates that caused the build. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ImageUpdateTrigger(string id, DateTimeOffset? timestamp, IList<ImageDescriptor> images, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ImageUpdateTrigger(string id, DateTimeOffset? occurredOn, IList<ImageDescriptor> images, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
-            Timestamp = timestamp;
+            OccurredOn = occurredOn;
             Images = images;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string Id { get; }
 
         /// <summary> The timestamp when the image update happened. </summary>
-        public DateTimeOffset? Timestamp { get; }
+        public DateTimeOffset? OccurredOn { get; }
 
         /// <summary> The list of image updates that caused the build. </summary>
         public IList<ImageDescriptor> Images { get; }

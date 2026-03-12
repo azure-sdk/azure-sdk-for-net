@@ -122,10 +122,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(Timeout))
+            if (Optional.IsDefined(TimeoutInSeconds))
             {
                 writer.WritePropertyName("timeout"u8);
-                writer.WriteNumberValue(Timeout.Value);
+                writer.WriteNumberValue(TimeoutInSeconds.Value);
             }
             writer.WritePropertyName("platform"u8);
             writer.WriteObjectValue(Platform, options);
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             string dockerFilePath = default;
             string target = default;
             IList<ContainerRegistryTaskArgument> arguments = default;
-            int? timeout = default;
+            int? timeoutInSeconds = default;
             PlatformProperties platform = default;
             AgentProperties agentConfiguration = default;
             string sourceLocation = default;
@@ -282,7 +282,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    timeout = prop.Value.GetInt32();
+                    timeoutInSeconds = prop.Value.GetInt32();
                     continue;
                 }
                 if (prop.NameEquals("platform"u8))
@@ -330,7 +330,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 dockerFilePath,
                 target,
                 arguments ?? new ChangeTrackingList<ContainerRegistryTaskArgument>(),
-                timeout,
+                timeoutInSeconds,
                 platform,
                 agentConfiguration,
                 sourceLocation,

@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         {
             Count = count;
             Tier = tier;
-            Os = os;
+            OS = os;
             VirtualNetworkSubnetResourceId = virtualNetworkSubnetResourceId;
             ProvisioningState = provisioningState;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string Tier { get; set; }
 
         /// <summary> The OS of agent machine. </summary>
-        public ContainerRegistryTaskOS? Os { get; set; }
+        public ContainerRegistryTaskOS? OS { get; set; }
 
         /// <summary> The Virtual Network Subnet Resource Id of the agent machine. </summary>
         public ResourceIdentifier VirtualNetworkSubnetResourceId { get; set; }

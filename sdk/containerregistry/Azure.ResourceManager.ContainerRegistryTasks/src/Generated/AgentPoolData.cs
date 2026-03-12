@@ -81,11 +81,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks
         }
 
         /// <summary> The OS of agent machine. </summary>
-        public ContainerRegistryTaskOS? Os
+        public ContainerRegistryTaskOS? OS
         {
             get
             {
-                return Properties is null ? default : Properties.Os;
+                return Properties is null ? default : Properties.OS;
             }
             set
             {
@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks
                 {
                     Properties = new AgentPoolProperties();
                 }
-                Properties.Os = value.Value;
+                Properties.OS = value.Value;
             }
         }
 

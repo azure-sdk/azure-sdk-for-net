@@ -97,10 +97,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(Timeout))
+            if (Optional.IsDefined(TimeoutInSeconds))
             {
                 writer.WritePropertyName("timeout"u8);
-                writer.WriteNumberValue(Timeout.Value);
+                writer.WriteNumberValue(TimeoutInSeconds.Value);
             }
             writer.WritePropertyName("platform"u8);
             writer.WriteObjectValue(Platform, options);
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             string encodedTaskContent = default;
             string encodedValuesContent = default;
             IList<ContainerRegistryTaskSetValue> values = default;
-            int? timeout = default;
+            int? timeoutInSeconds = default;
             PlatformProperties platform = default;
             AgentProperties agentConfiguration = default;
             string sourceLocation = default;
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    timeout = prop.Value.GetInt32();
+                    timeoutInSeconds = prop.Value.GetInt32();
                     continue;
                 }
                 if (prop.NameEquals("platform"u8))
@@ -260,7 +260,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 encodedTaskContent,
                 encodedValuesContent,
                 values ?? new ChangeTrackingList<ContainerRegistryTaskSetValue>(),
-                timeout,
+                timeoutInSeconds,
                 platform,
                 agentConfiguration,
                 sourceLocation,

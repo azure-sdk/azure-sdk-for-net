@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 throw new FormatException($"The model {nameof(PlatformProperties)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("os"u8);
-            writer.WriteStringValue(Os.ToString());
+            writer.WriteStringValue(OS.ToString());
             if (Optional.IsDefined(Architecture))
             {
                 writer.WritePropertyName("architecture"u8);

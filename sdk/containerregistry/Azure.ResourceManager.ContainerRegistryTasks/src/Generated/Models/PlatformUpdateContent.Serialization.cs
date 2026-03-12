@@ -74,10 +74,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 throw new FormatException($"The model {nameof(PlatformUpdateContent)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(Os))
+            if (Optional.IsDefined(OS))
             {
                 writer.WritePropertyName("os"u8);
-                writer.WriteStringValue(Os.Value.ToString());
+                writer.WriteStringValue(OS.Value.ToString());
             }
             if (Optional.IsDefined(Architecture))
             {

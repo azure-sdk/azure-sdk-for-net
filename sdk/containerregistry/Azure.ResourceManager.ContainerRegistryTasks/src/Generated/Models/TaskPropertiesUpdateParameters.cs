@@ -26,19 +26,19 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="platform"> The platform properties against which the run has to happen. </param>
         /// <param name="agentConfiguration"> The machine configuration of the run agent. </param>
         /// <param name="agentPoolName"> The dedicated agent pool for the task. </param>
-        /// <param name="timeout"> Run timeout in seconds. </param>
+        /// <param name="timeoutInSeconds"> Run timeout in seconds. </param>
         /// <param name="step"> The properties for updating a task step. </param>
         /// <param name="trigger"> The properties for updating trigger properties. </param>
         /// <param name="credentials"> The parameters that describes a set of credentials that will be used when this run is invoked. </param>
         /// <param name="logTemplate"> The template that describes the repository and tag information for run log artifact. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TaskPropertiesUpdateParameters(ContainerRegistryTaskStatus? status, PlatformUpdateContent platform, AgentProperties agentConfiguration, string agentPoolName, int? timeout, TaskStepUpdateContent step, TriggerUpdateContent trigger, ContainerRegistryTaskCredentials credentials, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TaskPropertiesUpdateParameters(ContainerRegistryTaskStatus? status, PlatformUpdateContent platform, AgentProperties agentConfiguration, string agentPoolName, int? timeoutInSeconds, TaskStepUpdateContent step, TriggerUpdateContent trigger, ContainerRegistryTaskCredentials credentials, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             Platform = platform;
             AgentConfiguration = agentConfiguration;
             AgentPoolName = agentPoolName;
-            Timeout = timeout;
+            TimeoutInSeconds = timeoutInSeconds;
             Step = step;
             Trigger = trigger;
             Credentials = credentials;
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string AgentPoolName { get; set; }
 
         /// <summary> Run timeout in seconds. </summary>
-        public int? Timeout { get; set; }
+        public int? TimeoutInSeconds { get; set; }
 
         /// <summary> The properties for updating a task step. </summary>
         public TaskStepUpdateContent Step { get; set; }

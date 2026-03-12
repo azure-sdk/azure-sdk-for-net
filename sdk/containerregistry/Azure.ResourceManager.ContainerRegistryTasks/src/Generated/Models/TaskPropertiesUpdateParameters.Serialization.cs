@@ -94,10 +94,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 writer.WritePropertyName("agentPoolName"u8);
                 writer.WriteStringValue(AgentPoolName);
             }
-            if (Optional.IsDefined(Timeout))
+            if (Optional.IsDefined(TimeoutInSeconds))
             {
                 writer.WritePropertyName("timeout"u8);
-                writer.WriteNumberValue(Timeout.Value);
+                writer.WriteNumberValue(TimeoutInSeconds.Value);
             }
             if (Optional.IsDefined(Step))
             {
@@ -165,7 +165,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             PlatformUpdateContent platform = default;
             AgentProperties agentConfiguration = default;
             string agentPoolName = default;
-            int? timeout = default;
+            int? timeoutInSeconds = default;
             TaskStepUpdateContent step = default;
             TriggerUpdateContent trigger = default;
             ContainerRegistryTaskCredentials credentials = default;
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    timeout = prop.Value.GetInt32();
+                    timeoutInSeconds = prop.Value.GetInt32();
                     continue;
                 }
                 if (prop.NameEquals("step"u8))
@@ -256,7 +256,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 platform,
                 agentConfiguration,
                 agentPoolName,
-                timeout,
+                timeoutInSeconds,
                 step,
                 trigger,
                 credentials,

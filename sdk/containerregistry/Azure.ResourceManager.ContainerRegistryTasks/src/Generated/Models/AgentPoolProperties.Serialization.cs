@@ -85,10 +85,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 writer.WritePropertyName("tier"u8);
                 writer.WriteStringValue(Tier);
             }
-            if (Optional.IsDefined(Os))
+            if (Optional.IsDefined(OS))
             {
                 writer.WritePropertyName("os"u8);
-                writer.WriteStringValue(Os.Value.ToString());
+                writer.WriteStringValue(OS.Value.ToString());
             }
             if (Optional.IsDefined(VirtualNetworkSubnetResourceId))
             {

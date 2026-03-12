@@ -97,11 +97,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         }
 
         /// <summary> Run timeout in seconds. </summary>
-        public int? Timeout
+        public int? TimeoutInSeconds
         {
             get
             {
-                return Properties is null ? default : Properties.Timeout;
+                return Properties is null ? default : Properties.TimeoutInSeconds;
             }
             set
             {
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 {
                     Properties = new TaskPropertiesUpdateParameters();
                 }
-                Properties.Timeout = value.Value;
+                Properties.TimeoutInSeconds = value.Value;
             }
         }
 

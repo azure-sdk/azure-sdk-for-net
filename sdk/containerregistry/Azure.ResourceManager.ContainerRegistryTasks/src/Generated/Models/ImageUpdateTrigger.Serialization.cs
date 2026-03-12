@@ -79,10 +79,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 writer.WritePropertyName("id"u8);
                 writer.WriteStringValue(Id);
             }
-            if (Optional.IsDefined(Timestamp))
+            if (Optional.IsDefined(OccurredOn))
             {
                 writer.WritePropertyName("timestamp"u8);
-                writer.WriteStringValue(Timestamp.Value, "O");
+                writer.WriteStringValue(OccurredOn.Value, "O");
             }
             if (Optional.IsCollectionDefined(Images))
             {
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 return null;
             }
             string id = default;
-            DateTimeOffset? timestamp = default;
+            DateTimeOffset? occurredOn = default;
             IList<ImageDescriptor> images = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    timestamp = prop.Value.GetDateTimeOffset("O");
+                    occurredOn = prop.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (prop.NameEquals("images"u8))
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ImageUpdateTrigger(id, timestamp, images ?? new ChangeTrackingList<ImageDescriptor>(), additionalBinaryDataProperties);
+            return new ImageUpdateTrigger(id, occurredOn, images ?? new ChangeTrackingList<ImageDescriptor>(), additionalBinaryDataProperties);
         }
     }
 }

@@ -143,14 +143,14 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 
         /// <summary> The image update trigger that caused a build. </summary>
         /// <param name="id"> The unique ID of the trigger. </param>
-        /// <param name="timestamp"> The timestamp when the image update happened. </param>
+        /// <param name="occurredOn"> The timestamp when the image update happened. </param>
         /// <param name="images"> The list of image updates that caused the build. </param>
         /// <returns> A new <see cref="Models.ImageUpdateTrigger"/> instance for mocking. </returns>
-        public static ImageUpdateTrigger ImageUpdateTrigger(string id = default, DateTimeOffset? timestamp = default, IEnumerable<ImageDescriptor> images = default)
+        public static ImageUpdateTrigger ImageUpdateTrigger(string id = default, DateTimeOffset? occurredOn = default, IEnumerable<ImageDescriptor> images = default)
         {
             images ??= new ChangeTrackingList<ImageDescriptor>();
 
-            return new ImageUpdateTrigger(id, timestamp, images.ToList(), additionalBinaryDataProperties: null);
+            return new ImageUpdateTrigger(id, occurredOn, images.ToList(), additionalBinaryDataProperties: null);
         }
 
         /// <summary> The source trigger that caused a run. </summary>
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="dockerFilePath"> The Docker file path relative to the source location. </param>
         /// <param name="target"> The name of the target build stage for the docker build. </param>
         /// <param name="arguments"> The collection of override arguments to be used when executing the run. </param>
-        /// <param name="timeout"> Run timeout in seconds. </param>
+        /// <param name="timeoutInSeconds"> Run timeout in seconds. </param>
         /// <param name="platform"> The platform properties against which the run has to happen. </param>
         /// <param name="agentCpu"> The CPU configuration in terms of number of cores required for the run. </param>
         /// <param name="sourceLocation">
@@ -235,7 +235,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
         /// <returns> A new <see cref="Models.DockerBuildContent"/> instance for mocking. </returns>
-        public static DockerBuildContent DockerBuildContent(bool? isArchiveEnabled = default, string agentPoolName = default, string logTemplate = default, IEnumerable<string> imageNames = default, bool? isPushEnabled = default, bool? isCacheDisabled = default, string dockerFilePath = default, string target = default, IEnumerable<ContainerRegistryTaskArgument> arguments = default, int? timeout = default, PlatformProperties platform = default, int? agentCpu = default, string sourceLocation = default, ContainerRegistryTaskCredentials credentials = default)
+        public static DockerBuildContent DockerBuildContent(bool? isArchiveEnabled = default, string agentPoolName = default, string logTemplate = default, IEnumerable<string> imageNames = default, bool? isPushEnabled = default, bool? isCacheDisabled = default, string dockerFilePath = default, string target = default, IEnumerable<ContainerRegistryTaskArgument> arguments = default, int? timeoutInSeconds = default, PlatformProperties platform = default, int? agentCpu = default, string sourceLocation = default, ContainerRegistryTaskCredentials credentials = default)
         {
             imageNames ??= new ChangeTrackingList<string>();
             arguments ??= new ChangeTrackingList<ContainerRegistryTaskArgument>();
@@ -252,7 +252,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 dockerFilePath,
                 target,
                 arguments.ToList(),
-                timeout,
+                timeoutInSeconds,
                 platform,
                 agentCpu is null ? default : new AgentProperties(agentCpu, null),
                 sourceLocation,
@@ -280,7 +280,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="taskFilePath"> The template/definition file path relative to the source. </param>
         /// <param name="valuesFilePath"> The values/parameters file path relative to the source. </param>
         /// <param name="values"> The collection of overridable values that can be passed when running a task. </param>
-        /// <param name="timeout"> Run timeout in seconds. </param>
+        /// <param name="timeoutInSeconds"> Run timeout in seconds. </param>
         /// <param name="platform"> The platform properties against which the run has to happen. </param>
         /// <param name="agentCpu"> The CPU configuration in terms of number of cores required for the run. </param>
         /// <param name="sourceLocation">
@@ -289,7 +289,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
         /// <returns> A new <see cref="Models.FileTaskRunContent"/> instance for mocking. </returns>
-        public static FileTaskRunContent FileTaskRunContent(bool? isArchiveEnabled = default, string agentPoolName = default, string logTemplate = default, string taskFilePath = default, string valuesFilePath = default, IEnumerable<ContainerRegistryTaskSetValue> values = default, int? timeout = default, PlatformProperties platform = default, int? agentCpu = default, string sourceLocation = default, ContainerRegistryTaskCredentials credentials = default)
+        public static FileTaskRunContent FileTaskRunContent(bool? isArchiveEnabled = default, string agentPoolName = default, string logTemplate = default, string taskFilePath = default, string valuesFilePath = default, IEnumerable<ContainerRegistryTaskSetValue> values = default, int? timeoutInSeconds = default, PlatformProperties platform = default, int? agentCpu = default, string sourceLocation = default, ContainerRegistryTaskCredentials credentials = default)
         {
             values ??= new ChangeTrackingList<ContainerRegistryTaskSetValue>();
 
@@ -302,7 +302,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 taskFilePath,
                 valuesFilePath,
                 values.ToList(),
-                timeout,
+                timeoutInSeconds,
                 platform,
                 agentCpu is null ? default : new AgentProperties(agentCpu, null),
                 sourceLocation,
@@ -341,7 +341,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="encodedTaskContent"> Base64 encoded value of the template/definition file content. </param>
         /// <param name="encodedValuesContent"> Base64 encoded value of the parameters/values file content. </param>
         /// <param name="values"> The collection of overridable values that can be passed when running a task. </param>
-        /// <param name="timeout"> Run timeout in seconds. </param>
+        /// <param name="timeoutInSeconds"> Run timeout in seconds. </param>
         /// <param name="platform"> The platform properties against which the run has to happen. </param>
         /// <param name="agentCpu"> The CPU configuration in terms of number of cores required for the run. </param>
         /// <param name="sourceLocation">
@@ -350,7 +350,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
         /// <returns> A new <see cref="Models.EncodedTaskRunContent"/> instance for mocking. </returns>
-        public static EncodedTaskRunContent EncodedTaskRunContent(bool? isArchiveEnabled = default, string agentPoolName = default, string logTemplate = default, string encodedTaskContent = default, string encodedValuesContent = default, IEnumerable<ContainerRegistryTaskSetValue> values = default, int? timeout = default, PlatformProperties platform = default, int? agentCpu = default, string sourceLocation = default, ContainerRegistryTaskCredentials credentials = default)
+        public static EncodedTaskRunContent EncodedTaskRunContent(bool? isArchiveEnabled = default, string agentPoolName = default, string logTemplate = default, string encodedTaskContent = default, string encodedValuesContent = default, IEnumerable<ContainerRegistryTaskSetValue> values = default, int? timeoutInSeconds = default, PlatformProperties platform = default, int? agentCpu = default, string sourceLocation = default, ContainerRegistryTaskCredentials credentials = default)
         {
             values ??= new ChangeTrackingList<ContainerRegistryTaskSetValue>();
 
@@ -363,7 +363,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 encodedTaskContent,
                 encodedValuesContent,
                 values.ToList(),
-                timeout,
+                timeoutInSeconds,
                 platform,
                 agentCpu is null ? default : new AgentProperties(agentCpu, null),
                 sourceLocation,
@@ -421,7 +421,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="status"> The current status of task. </param>
         /// <param name="platform"> The platform properties against which the run has to happen. </param>
         /// <param name="agentPoolName"> The dedicated agent pool for the task. </param>
-        /// <param name="timeout"> Run timeout in seconds. </param>
+        /// <param name="timeoutInSeconds"> Run timeout in seconds. </param>
         /// <param name="step"> The properties of a task step. </param>
         /// <param name="trigger"> The properties that describe all triggers for the task. </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
@@ -430,7 +430,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="agentCpu"> The CPU configuration in terms of number of cores required for the run. </param>
         /// <param name="identity"> Identity for the resource. </param>
         /// <returns> A new <see cref="ContainerRegistryTasks.TaskData"/> instance for mocking. </returns>
-        public static TaskData TaskData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, ContainerRegistryTaskProvisioningState? provisioningState = default, DateTimeOffset? createdOn = default, ContainerRegistryTaskStatus? status = default, PlatformProperties platform = default, string agentPoolName = default, int? timeout = default, TaskStepProperties step = default, TriggerProperties trigger = default, ContainerRegistryTaskCredentials credentials = default, string logTemplate = default, bool? isSystemTask = default, int? agentCpu = default, IdentityProperties identity = default)
+        public static TaskData TaskData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, ContainerRegistryTaskProvisioningState? provisioningState = default, DateTimeOffset? createdOn = default, ContainerRegistryTaskStatus? status = default, PlatformProperties platform = default, string agentPoolName = default, int? timeoutInSeconds = default, TaskStepProperties step = default, TriggerProperties trigger = default, ContainerRegistryTaskCredentials credentials = default, string logTemplate = default, bool? isSystemTask = default, int? agentCpu = default, IdentityProperties identity = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -442,14 +442,14 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && createdOn is null && status is null && platform is null && agentPoolName is null && timeout is null && step is null && trigger is null && credentials is null && logTemplate is null && isSystemTask is null && agentCpu is null ? default : new TaskProperties(
+                provisioningState is null && createdOn is null && status is null && platform is null && agentPoolName is null && timeoutInSeconds is null && step is null && trigger is null && credentials is null && logTemplate is null && isSystemTask is null && agentCpu is null ? default : new TaskProperties(
                     provisioningState,
                     createdOn,
                     status,
                     platform,
                     new AgentProperties(agentCpu, null),
                     agentPoolName,
-                    timeout,
+                    timeoutInSeconds,
                     step,
                     trigger,
                     credentials,
@@ -602,7 +602,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="status"> The current status of task. </param>
         /// <param name="platform"> The platform properties against which the run has to happen. </param>
         /// <param name="agentPoolName"> The dedicated agent pool for the task. </param>
-        /// <param name="timeout"> Run timeout in seconds. </param>
+        /// <param name="timeoutInSeconds"> Run timeout in seconds. </param>
         /// <param name="step"> The properties for updating a task step. </param>
         /// <param name="trigger"> The properties for updating trigger properties. </param>
         /// <param name="credentials"> The parameters that describes a set of credentials that will be used when this run is invoked. </param>
@@ -610,16 +610,16 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="agentCpu"> The CPU configuration in terms of number of cores required for the run. </param>
         /// <param name="tags"> The ARM resource tags. </param>
         /// <returns> A new <see cref="Models.TaskPatch"/> instance for mocking. </returns>
-        public static TaskPatch TaskPatch(IdentityProperties identity = default, ContainerRegistryTaskStatus? status = default, PlatformUpdateContent platform = default, string agentPoolName = default, int? timeout = default, TaskStepUpdateContent step = default, TriggerUpdateContent trigger = default, ContainerRegistryTaskCredentials credentials = default, string logTemplate = default, int? agentCpu = default, IDictionary<string, string> tags = default)
+        public static TaskPatch TaskPatch(IdentityProperties identity = default, ContainerRegistryTaskStatus? status = default, PlatformUpdateContent platform = default, string agentPoolName = default, int? timeoutInSeconds = default, TaskStepUpdateContent step = default, TriggerUpdateContent trigger = default, ContainerRegistryTaskCredentials credentials = default, string logTemplate = default, int? agentCpu = default, IDictionary<string, string> tags = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new TaskPatch(identity, status is null && platform is null && agentPoolName is null && timeout is null && step is null && trigger is null && credentials is null && logTemplate is null && agentCpu is null ? default : new TaskPropertiesUpdateParameters(
+            return new TaskPatch(identity, status is null && platform is null && agentPoolName is null && timeoutInSeconds is null && step is null && trigger is null && credentials is null && logTemplate is null && agentCpu is null ? default : new TaskPropertiesUpdateParameters(
                 status,
                 platform,
                 new AgentProperties(agentCpu, null),
                 agentPoolName,
-                timeout,
+                timeoutInSeconds,
                 step,
                 trigger,
                 credentials,

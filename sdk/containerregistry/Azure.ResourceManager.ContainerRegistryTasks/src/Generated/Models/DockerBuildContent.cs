@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="dockerFilePath"> The Docker file path relative to the source location. </param>
         /// <param name="target"> The name of the target build stage for the docker build. </param>
         /// <param name="arguments"> The collection of override arguments to be used when executing the run. </param>
-        /// <param name="timeout"> Run timeout in seconds. </param>
+        /// <param name="timeoutInSeconds"> Run timeout in seconds. </param>
         /// <param name="platform"> The platform properties against which the run has to happen. </param>
         /// <param name="agentConfiguration"> The machine configuration of the run agent. </param>
         /// <param name="sourceLocation">
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// If it is relative URL, the relative path should be obtained from calling listBuildSourceUploadUrl API.
         /// </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
-        internal DockerBuildContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> imageNames, bool? isPushEnabled, bool? isCacheDisabled, string dockerFilePath, string target, IList<ContainerRegistryTaskArgument> arguments, int? timeout, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, ContainerRegistryTaskCredentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
+        internal DockerBuildContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> imageNames, bool? isPushEnabled, bool? isCacheDisabled, string dockerFilePath, string target, IList<ContainerRegistryTaskArgument> arguments, int? timeoutInSeconds, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, ContainerRegistryTaskCredentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
         {
             ImageNames = imageNames;
             IsPushEnabled = isPushEnabled;
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             DockerFilePath = dockerFilePath;
             Target = target;
             Arguments = arguments;
-            Timeout = timeout;
+            TimeoutInSeconds = timeoutInSeconds;
             Platform = platform;
             AgentConfiguration = agentConfiguration;
             SourceLocation = sourceLocation;
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public IList<ContainerRegistryTaskArgument> Arguments { get; }
 
         /// <summary> Run timeout in seconds. </summary>
-        public int? Timeout { get; set; }
+        public int? TimeoutInSeconds { get; set; }
 
         /// <summary> The platform properties against which the run has to happen. </summary>
         public PlatformProperties Platform { get; set; }
