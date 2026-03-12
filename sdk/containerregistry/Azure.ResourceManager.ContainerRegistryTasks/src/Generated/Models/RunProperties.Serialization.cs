@@ -14,7 +14,7 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The properties for a run. </summary>
-    public partial class RunProperties : IJsonModel<RunProperties>
+    internal partial class RunProperties : IJsonModel<RunProperties>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>

@@ -45,12 +45,64 @@ namespace Azure.ResourceManager.ContainerRegistryTasks
         }
 
         /// <summary> The properties associated with the task run, i.e., request and result of the run. </summary>
-        public TaskRunProperties Properties { get; set; }
+        internal TaskRunProperties Properties { get; set; }
 
         /// <summary> Identity for the resource. </summary>
         public IdentityProperties Identity { get; set; }
 
         /// <summary> The location of the resource. </summary>
         public AzureLocation? Location { get; set; }
+
+        /// <summary> The provisioning state of this task run. </summary>
+        public ContainerRegistryTaskProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties is null ? default : Properties.ProvisioningState;
+            }
+        }
+
+        /// <summary> The request (parameters) for the run. </summary>
+        public RunContent RunRequest
+        {
+            get
+            {
+                return Properties is null ? default : Properties.RunRequest;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskRunProperties();
+                }
+                Properties.RunRequest = value;
+            }
+        }
+
+        /// <summary> The result of this task run. </summary>
+        public RunData RunResult
+        {
+            get
+            {
+                return Properties is null ? default : Properties.RunResult;
+            }
+        }
+
+        /// <summary> How the run should be forced to rerun even if the run request configuration has not changed. </summary>
+        public string ForceUpdateTag
+        {
+            get
+            {
+                return Properties is null ? default : Properties.ForceUpdateTag;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskRunProperties();
+                }
+                Properties.ForceUpdateTag = value;
+            }
+        }
     }
 }

@@ -44,6 +44,83 @@ namespace Azure.ResourceManager.ContainerRegistryTasks
         }
 
         /// <summary> The properties associated with the agent pool. </summary>
-        public AgentPoolProperties Properties { get; set; }
+        internal AgentPoolProperties Properties { get; set; }
+
+        /// <summary> The count of agent machine. </summary>
+        public int? Count
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Count;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new AgentPoolProperties();
+                }
+                Properties.Count = value.Value;
+            }
+        }
+
+        /// <summary> The Tier of agent machine. </summary>
+        public string Tier
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Tier;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new AgentPoolProperties();
+                }
+                Properties.Tier = value;
+            }
+        }
+
+        /// <summary> The OS of agent machine. </summary>
+        public ContainerRegistryTaskOS? Os
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Os;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new AgentPoolProperties();
+                }
+                Properties.Os = value.Value;
+            }
+        }
+
+        /// <summary> The Virtual Network Subnet Resource Id of the agent machine. </summary>
+        public ResourceIdentifier VirtualNetworkSubnetResourceId
+        {
+            get
+            {
+                return Properties is null ? default : Properties.VirtualNetworkSubnetResourceId;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new AgentPoolProperties();
+                }
+                Properties.VirtualNetworkSubnetResourceId = value;
+            }
+        }
+
+        /// <summary> The provisioning state of this agent pool. </summary>
+        public ContainerRegistryTaskProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties is null ? default : Properties.ProvisioningState;
+            }
+        }
     }
 }

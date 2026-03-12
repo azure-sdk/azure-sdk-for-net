@@ -12,7 +12,7 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The properties for a run. </summary>
-    public partial class RunProperties
+    internal partial class RunProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
@@ -100,7 +100,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public DateTimeOffset? FinishOn { get; }
 
         /// <summary> The list of all images that were generated from the run. This is applicable if the run generates base image dependencies. </summary>
-        public IList<ImageDescriptor> OutputImages { get; }
+        public IList<ImageDescriptor> OutputImages { get; } = new ChangeTrackingList<ImageDescriptor>();
 
         /// <summary> The task against which run was scheduled. </summary>
         public string Task { get; }
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string SourceRegistryAuth { get; }
 
         /// <summary> The list of custom registries that were logged in during this run. </summary>
-        public IList<string> CustomRegistries { get; }
+        public IList<string> CustomRegistries { get; } = new ChangeTrackingList<string>();
 
         /// <summary> The error message received from backend systems after the run is scheduled. </summary>
         public string RunErrorMessage { get; }

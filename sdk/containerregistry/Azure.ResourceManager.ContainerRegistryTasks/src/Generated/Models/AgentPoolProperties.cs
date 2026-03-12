@@ -12,7 +12,7 @@ using Azure.Core;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The properties of agent pool. </summary>
-    public partial class AgentPoolProperties
+    internal partial class AgentPoolProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;

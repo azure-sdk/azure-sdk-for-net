@@ -14,7 +14,7 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The properties of a task. </summary>
-    public partial class TaskProperties : IJsonModel<TaskProperties>
+    internal partial class TaskProperties : IJsonModel<TaskProperties>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>

@@ -15,7 +15,7 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The properties of agent pool. </summary>
-    public partial class AgentPoolProperties : IJsonModel<AgentPoolProperties>
+    internal partial class AgentPoolProperties : IJsonModel<AgentPoolProperties>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>

@@ -46,9 +46,197 @@ namespace Azure.ResourceManager.ContainerRegistryTasks
         }
 
         /// <summary> The properties of a task. </summary>
-        public TaskProperties Properties { get; set; }
+        internal TaskProperties Properties { get; set; }
 
         /// <summary> Identity for the resource. </summary>
         public IdentityProperties Identity { get; set; }
+
+        /// <summary> The provisioning state of the task. </summary>
+        public ContainerRegistryTaskProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties is null ? default : Properties.ProvisioningState;
+            }
+        }
+
+        /// <summary> The creation date of task. </summary>
+        public DateTimeOffset? CreatedOn
+        {
+            get
+            {
+                return Properties is null ? default : Properties.CreatedOn;
+            }
+        }
+
+        /// <summary> The current status of task. </summary>
+        public ContainerRegistryTaskStatus? Status
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Status;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.Status = value.Value;
+            }
+        }
+
+        /// <summary> The platform properties against which the run has to happen. </summary>
+        public PlatformProperties Platform
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Platform;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.Platform = value;
+            }
+        }
+
+        /// <summary> The dedicated agent pool for the task. </summary>
+        public string AgentPoolName
+        {
+            get
+            {
+                return Properties is null ? default : Properties.AgentPoolName;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.AgentPoolName = value;
+            }
+        }
+
+        /// <summary> Run timeout in seconds. </summary>
+        public int? Timeout
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Timeout;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.Timeout = value.Value;
+            }
+        }
+
+        /// <summary> The properties of a task step. </summary>
+        public TaskStepProperties Step
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Step;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.Step = value;
+            }
+        }
+
+        /// <summary> The properties that describe all triggers for the task. </summary>
+        public TriggerProperties Trigger
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Trigger;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.Trigger = value;
+            }
+        }
+
+        /// <summary> The properties that describes a set of credentials that will be used when this run is invoked. </summary>
+        public ContainerRegistryTaskCredentials Credentials
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Credentials;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.Credentials = value;
+            }
+        }
+
+        /// <summary> The template that describes the repository and tag information for run log artifact. </summary>
+        public string LogTemplate
+        {
+            get
+            {
+                return Properties is null ? default : Properties.LogTemplate;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.LogTemplate = value;
+            }
+        }
+
+        /// <summary> The value of this property indicates whether the task resource is system task or not. </summary>
+        public bool? IsSystemTask
+        {
+            get
+            {
+                return Properties is null ? default : Properties.IsSystemTask;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.IsSystemTask = value.Value;
+            }
+        }
+
+        /// <summary> The CPU configuration in terms of number of cores required for the run. </summary>
+        public int? AgentCpu
+        {
+            get
+            {
+                return Properties is null ? default : Properties.AgentCpu;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TaskProperties();
+                }
+                Properties.AgentCpu = value.Value;
+            }
+        }
     }
 }
