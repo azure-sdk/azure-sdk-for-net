@@ -64,7 +64,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         {
             get
             {
-                return Properties is null ? default : Properties.CustomHeaders;
+                if (Properties is null)
+                {
+                    Properties = new WebhookPropertiesCreateParameters();
+                }
+                return Properties.CustomHeaders;
             }
         }
 
@@ -107,7 +111,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         {
             get
             {
-                return Properties is null ? default : Properties.Actions;
+                if (Properties is null)
+                {
+                    Properties = new WebhookPropertiesCreateParameters();
+                }
+                return Properties.Actions;
             }
         }
     }

@@ -53,13 +53,13 @@ namespace Azure.ResourceManager.ContainerRegistry
                     yield break;
                 }
                 ExportPipelineListResult result = ExportPipelineListResult.FromResponse(response);
-                yield return Page<ExportPipelineData>.FromValues((IReadOnlyList<ExportPipelineData>)result.Value, nextPage?.AbsoluteUri, response);
+                yield return Page<ExportPipelineData>.FromValues((IReadOnlyList<ExportPipelineData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 string nextPageString = result.NextLink;
                 if (string.IsNullOrEmpty(nextPageString))
                 {
                     yield break;
                 }
-                nextPage = new Uri(nextPageString);
+                nextPage = new Uri(nextPageString, UriKind.RelativeOrAbsolute);
             }
         }
 
