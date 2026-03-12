@@ -21,7 +21,6 @@ namespace Azure.Identity.Tests
             yield return null;
         }
 
-        [Test]
         [TestCaseSource(nameof(IdTestValues))]
         public void ValidateAzureTenantIdEnvVarDefaultHonored(string envVarValue)
         {
@@ -39,7 +38,6 @@ namespace Azure.Identity.Tests
             }
         }
 
-        [Test]
         [TestCaseSource(nameof(IdTestValues))]
         public void ValidateAzureUsernameEnvVarDefaultHonored(string envVarValue)
         {
@@ -53,7 +51,6 @@ namespace Azure.Identity.Tests
             }
         }
 
-        [Test]
         [TestCaseSource(nameof(IdTestValues))]
         public void ValidateAzureClientIdEnvVarDefaultHonored(string envVarValue)
         {
@@ -75,7 +72,6 @@ namespace Azure.Identity.Tests
             yield return String.Empty;
             yield return null;
         }
-        [Test]
         [TestCaseSource(nameof(IdListTestValues))]
         public void ValidateAzureAdditionallyAllowedTenantsEnvVarDefaultHonored(string envVarValue)
         {
@@ -245,16 +241,23 @@ namespace Azure.Identity.Tests
         }
 
         [Test]
-        public void ConstructorWithCredentialSettings_NullCredentialSourceThrows()
+        public void ConstructorWithCredentialSettings_NullCredentialSourceUsesDefaultChain()
         {
+            var credSourceSection = new Moq.Mock<IConfigurationSection>();
+            credSourceSection.Setup(s => s.GetChildren()).Returns(Array.Empty<IConfigurationSection>());
+
             var mockSection = new Moq.Mock<IConfigurationSection>();
             mockSection.Setup(s => s["CredentialSource"]).Returns((string)null);
             mockSection.Setup(s => s["Key"]).Returns((string)null);
+            mockSection.Setup(s => s.GetSection("CredentialSource")).Returns(credSourceSection.Object);
             mockSection.Setup(s => s.GetSection("AdditionalProperties")).Returns(Moq.Mock.Of<IConfigurationSection>());
+            mockSection.Setup(s => s.GetSection("AdditionallyAllowedTenants")).Returns(Moq.Mock.Of<IConfigurationSection>());
 
             var credentialSettings = new CredentialSettings(mockSection.Object);
-            var ex = Assert.Throws<InvalidOperationException>(() => new DefaultAzureCredentialOptions(credentialSettings, mockSection.Object));
-            Assert.That(ex.Message, Does.Contain("CredentialSource is required"));
+            var options = new DefaultAzureCredentialOptions(credentialSettings, mockSection.Object);
+            // Null CredentialSource means use the default DAC chain
+            Assert.IsNull(options.CredentialSource);
+            Assert.IsNull(options.Sources);
         }
 
         [Test]
@@ -272,7 +275,21 @@ namespace Azure.Identity.Tests
             Assert.That(ex.Message, Does.Contain(credentialSource));
         }
 
-        [Test]
+        [TestCase("AzureCliCredential", "azureclicredential")]
+        [TestCase("VisualStudioCredential", "visualstudiocredential")]
+        [TestCase("VisualStudioCodeCredential", "visualstudiocodecredential")]
+        [TestCase("AzurePowerShellCredential", "azurepowershellcredential")]
+        [TestCase("AzureDeveloperCliCredential", "azuredeveloperclicredential")]
+        [TestCase("EnvironmentCredential", "environmentcredential")]
+        [TestCase("WorkloadIdentityCredential", "workloadidentitycredential")]
+        [TestCase("ManagedIdentityCredential", "managedidentitycredential")]
+        [TestCase("InteractiveBrowserCredential", "interactivebrowsercredential")]
+        [TestCase("BrokerCredential", "brokercredential")]
+        [TestCase("AzurePipelinesCredential", "azurepipelinescredential")]
+        [TestCase("ManagedIdentityAsFederatedIdentityCredential", "managedidentityasfederatedidentitycredential")]
+        [TestCase("ApiKeyCredential", "apikeycredential")]
+        [TestCase("ChainedTokenCredential", "chainedtokencredential")]
+        // Back-compat short names
         [TestCase("AzureCli", "azureclicredential")]
         [TestCase("VisualStudio", "visualstudiocredential")]
         [TestCase("VisualStudioCode", "visualstudiocodecredential")]
@@ -283,7 +300,10 @@ namespace Azure.Identity.Tests
         [TestCase("ManagedIdentity", "managedidentitycredential")]
         [TestCase("InteractiveBrowser", "interactivebrowsercredential")]
         [TestCase("Broker", "brokercredential")]
-        [TestCase("ApiKey", "ApiKey")]
+        [TestCase("AzurePipelines", "azurepipelinescredential")]
+        [TestCase("ManagedIdentityAsFederatedIdentity", "managedidentityasfederatedidentitycredential")]
+        [TestCase("ApiKey", "apikeycredential")]
+        [TestCase("ChainedToken", "chainedtokencredential")]
         public void CredentialSourceMapping_CorrectlyMapsKnownValues(string input, string expected)
         {
             var mockSection = new Moq.Mock<IConfigurationSection>();
@@ -365,6 +385,30 @@ namespace Azure.Identity.Tests
             Assert.AreEqual(original.ApiKey, clone.ApiKey);
             Assert.AreEqual("azureclicredential", clone.CredentialSource);
             Assert.AreEqual(apiKey, clone.ApiKey);
+        }
+
+        [TestCase(nameof(VisualStudioCredential))]
+        [TestCase(nameof(VisualStudioCodeCredential))]
+        [TestCase(nameof(AzureCliCredential))]
+        [TestCase(nameof(AzurePowerShellCredential))]
+        [TestCase(nameof(AzureDeveloperCliCredential))]
+        [TestCase(nameof(EnvironmentCredential))]
+        [TestCase(nameof(WorkloadIdentityCredential))]
+        [TestCase(nameof(ManagedIdentityCredential))]
+        [TestCase(nameof(InteractiveBrowserCredential))]
+        [TestCase(nameof(BrokerCredential))]
+        [TestCase(nameof(AzurePipelinesCredential))]
+        [TestCase(nameof(Constants.ManagedIdentityAsFederatedIdentityCredential))]
+        [TestCase(nameof(Constants.ApiKeyCredential))]
+        public void CredentialConstant_MatchesNameOfToLowerInvariant(string credentialTypeName)
+        {
+            string expected = credentialTypeName.ToLowerInvariant();
+            string actual = typeof(Constants)
+                .GetField(credentialTypeName, BindingFlags.Public | BindingFlags.Static)
+                ?.GetValue(null) as string;
+
+            Assert.IsNotNull(actual, $"Constants.{credentialTypeName} field not found.");
+            Assert.AreEqual(expected, actual, $"Constants.{credentialTypeName} should equal \"{expected}\" but was \"{actual}\".");
         }
     }
 }

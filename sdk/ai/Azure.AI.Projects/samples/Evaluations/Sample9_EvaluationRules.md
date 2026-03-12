@@ -74,7 +74,7 @@ private BinaryData evaluationConfig = BinaryData.FromObjectAsJson(
 
 4. The `EvaluationClient` uses protocol methods i.e. they take in JSON in the form of `BinaryData` and return `ClientResult`, containing binary encoded JSON response, which can be retrieved using `GetRawResponse()` method. To simplify parsing JSON we will create helper methods. One of the methods is named `ParseClientResult`. It gets string values of the top-level JSON properties. In the next section we will use it to get evaluation name and ID.
 
-```C# Snippet:Sampple_GetStringValues_EvaluationRules
+```C# Snippet:Sample_GetStringValues_EvaluationRules
 private static Dictionary<string, string> ParseClientResult(ClientResult result, string[] expectedProperties)
 {
     Dictionary<string, string> results = [];
@@ -170,13 +170,13 @@ Console.WriteLine($"Continuous Evaluation Rule created (id: {continuousEvalRule.
 Synchronous sample:
 ```C# Snippet:Sample_CreateConversation_EvaluationRules_Sync
 ProjectConversation conversation = projectClient.OpenAI.Conversations.CreateProjectConversation();
-ProjectResponsesClient responseClient = projectClient.OpenAI.GetProjectResponsesClientForAgent(agentVersion, conversation.Id);
+ProjectResponsesClient responseClient = projectClient.OpenAI.GetProjectResponsesClientForAgent(new(name: agentVersion.Name, version: agentVersion.Version), conversation.Id);
 ```
 
 Asynchronous sample:
 ```C# Snippet:Sample_CreateConversation_EvaluationRules_Async
 ProjectConversation conversation = await projectClient.OpenAI.Conversations.CreateProjectConversationAsync();
-ProjectResponsesClient responseClient = projectClient.OpenAI.GetProjectResponsesClientForAgent(agentVersion, conversation.Id);
+ProjectResponsesClient responseClient = projectClient.OpenAI.GetProjectResponsesClientForAgent(new(name: agentVersion.Name, version: agentVersion.Version), conversation.Id);
 ```
 
 9. To monitor the evaluation runs we will implement two methods `GetRunIDs` and `GetRunIDsAsync` for synchronous and asynchronous runs respectively.
@@ -401,7 +401,7 @@ while (!allDone);
 
 12. Define the method to get the error message and code from the response if any.
 
-```C# Snippet:Sampple_GetError_EvaluationRules
+```C# Snippet:Sample_GetError_EvaluationRules
 private static string GetErrorMessageOrEmpty(ClientResult result)
 {
     string error = "";

@@ -35,7 +35,11 @@ namespace Azure.Generator.Management
         /// </summary>
         public string ResourceProviderName => _resourceProviderName ??= BuildResourceProviderName();
 
-        private string BuildResourceProviderName()
+        /// <summary>
+        /// Builds the resource provider name from the primary namespace.
+        /// Override this method to customize the prefix used for known type renaming.
+        /// </summary>
+        protected virtual string BuildResourceProviderName()
         {
             const string armNamespacePrefix = "Azure.ResourceManager.";
             if (PrimaryNamespace.StartsWith(armNamespacePrefix))
@@ -81,6 +85,7 @@ namespace Azure.Generator.Management
         /// <inheritdoc/>
         protected override ModelProvider? CreateModelCore(InputModelType model)
         {
+            // First check for standard ARM types that map to system types
             if (KnownManagementTypes.TryGetInheritableSystemType(model.CrossLanguageDefinitionId, out var replacedType))
             {
                 return new InheritableSystemObjectModelProvider(replacedType.FrameworkType, model);
@@ -89,6 +94,11 @@ namespace Azure.Generator.Management
             {
                 return null;
             }
+
+            // For custom Azure resource models (root, intermediate, and resource data models),
+            // let the base implementation create regular ModelProviders.
+            // This preserves the full custom resource hierarchy without replacing intermediate
+            // models with system types (e.g., TrafficResource → TrafficProxyResource → TrafficEndpointData).
             return base.CreateModelCore(model);
         }
 

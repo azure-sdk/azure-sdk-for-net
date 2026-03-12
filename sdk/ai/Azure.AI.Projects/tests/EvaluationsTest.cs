@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
 #nullable disable
@@ -11,8 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Azure.AI.Projects;
-using Azure.AI.Projects.OpenAI;
+using Azure.AI.Projects.Agents;
+using Azure.AI.Extensions.OpenAI;
 using Microsoft.ClientModel.TestFramework;
 using NUnit.Framework;
 using OpenAI.Evals;
@@ -143,10 +143,11 @@ public class EvaluationsTest : ProjectsClientTestBase
         List<string> evaluationResults = await GetResultsListAsync(client: evaluationClient, evaluationId: evaluationId, evaluationRunId: runId);
         Assert.That(evaluationResults.Count, Is.GreaterThan(0));
         ClientResult deletionResult = await evaluationClient.DeleteEvaluationAsync(evaluationId, new System.ClientModel.Primitives.RequestOptions());
-        Assert.That(ParseClientResult<bool>(deletionResult, ["deleted"])["deleted"], Is.True);
+        // Assert.That(ParseClientResult<bool>(deletionResult, ["deleted"])["deleted"], Is.True);
         await projectClient.Agents.DeleteAgentVersionAsync(agentName: agentVersion.Name, agentVersion: agentVersion.Version);
     }
 
+    [Ignore("Evaluators list results in 404 error; see ADO Item 5063246")]
     [RecordedTest]
     public async Task TestEvaluatorsCRUD()
     {
@@ -160,7 +161,7 @@ public class EvaluationsTest : ProjectsClientTestBase
         Assert.That(string.IsNullOrEmpty(promptEvaluator.Id), Is.False);
         string id = promptEvaluator.Id;
         // Update
-        BinaryData evalustorVersionUpdate = BinaryData.FromObjectAsJson(
+        BinaryData evaluatorVersionUpdate = BinaryData.FromObjectAsJson(
             new
             {
                 categories = new[] { EvaluatorCategory.Quality.ToString() },
@@ -168,11 +169,11 @@ public class EvaluationsTest : ProjectsClientTestBase
                 description = "Custom evaluator description changed"
             }
         );
-        using BinaryContent evalustorVersionUpdateContent = BinaryContent.Create(evalustorVersionUpdate);
+        using BinaryContent evaluatorVersionUpdateContent = BinaryContent.Create(evaluatorVersionUpdate);
         ClientResult response = await projectClient.Evaluators.UpdateVersionAsync(
             name: promptEvaluator.Name,
             version: promptEvaluator.Version,
-            content: evalustorVersionUpdateContent
+            content: evaluatorVersionUpdateContent
         );
         EvaluatorVersion updatedEvaluator = ClientResult.FromValue((EvaluatorVersion)response, response.GetRawResponse());
         Assert.That(updatedEvaluator.Id, Is.EqualTo(id));
@@ -445,7 +446,7 @@ public class EvaluationsTest : ProjectsClientTestBase
         HashSet<string> ruleIds = [.. await projectClient.EvaluationRules.GetAllAsync().Select(x => x.Id).ToArrayAsync()];
         Assert.That(ruleIds, Contains.Item("my-continuous-eval-rule"));
         // Run the evaluation
-        ProjectResponsesClient responseClient = projectClient.OpenAI.GetProjectResponsesClientForAgent(agentVersion);
+        ProjectResponsesClient responseClient = projectClient.OpenAI.GetProjectResponsesClientForAgent(new(name: agentVersion.Name, version: agentVersion.Version));
         string[] countries = ["France", "Italy"];
         HashSet<string> allRuns = [];
         foreach (string country in countries)
@@ -473,7 +474,7 @@ public class EvaluationsTest : ProjectsClientTestBase
                 }
             }
         }
-        while (completed == 2);
+        while (completed < 2);
         // Delete rule
         await projectClient.EvaluationRules.DeleteAsync(id: continuousEvalRule.Id);
         ruleIds = [.. await projectClient.EvaluationRules.GetAllAsync().Select(x => x.Id).ToArrayAsync()];

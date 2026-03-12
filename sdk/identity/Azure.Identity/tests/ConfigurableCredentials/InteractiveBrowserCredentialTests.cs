@@ -47,7 +47,7 @@ namespace Azure.Identity.Tests.ConfigurableCredentials.InteractiveBrowser
             AuthenticationRecord authenticationRecord = null)
         {
             IConfiguration config = _helper.GetConfiguration();
-            config["MyClient:Credential:InteractiveBrowserCredentialClientId"] = ClientId;
+            config["MyClient:Credential:ClientId"] = ClientId;
             if (tenantId != null)
             {
                 config["MyClient:Credential:TenantId"] = tenantId;
@@ -93,7 +93,7 @@ namespace Azure.Identity.Tests.ConfigurableCredentials.InteractiveBrowser
         public override TokenCredential GetTokenCredential(CommonCredentialTestConfig config)
         {
             IConfiguration configuration = _helper.GetConfigurationFromCommonCredentialTestConfig<InteractiveBrowserCredentialOptions>(config);
-            configuration["MyClient:Credential:InteractiveBrowserCredentialClientId"] = ClientId;
+            configuration["MyClient:Credential:ClientId"] = ClientId;
 
             string resolvedTenantId = config.RequestContext.TenantId ?? config.TenantId ?? TenantId;
             var authRecord = config.AuthenticationRecord ?? new AuthenticationRecord(ExpectedUsername, "login.windows.net", $"{ObjectId}.{resolvedTenantId}", resolvedTenantId, ClientId);
@@ -199,14 +199,5 @@ namespace Azure.Identity.Tests.ConfigurableCredentials.InteractiveBrowser
             var ex = Assert.ThrowsAsync<CredentialUnavailableException>(async () => await cred.GetTokenAsync(expTokenRequestContext, default).ConfigureAwait(false));
             Assert.IsNotNull(ex);
         }
-
-        public override async Task InteractiveBrowserAcquireTokenInteractiveException()
-            => Assert.Ignore("MSAL-specific test does not apply to configurable credential");
-        public override async Task InteractiveBrowserAcquireTokenSilentException()
-            => Assert.Ignore("MSAL-specific test does not apply to configurable credential");
-        public override async Task InteractiveBrowserRefreshException()
-            => Assert.Ignore("MSAL-specific test does not apply to configurable credential");
-        public override async Task InteractiveBrowserValidateSyncWorkaroundCompatSwitch()
-            => Assert.Ignore("Compat switch test does not apply to configurable credential");
     }
 }

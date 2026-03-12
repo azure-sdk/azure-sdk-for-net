@@ -32,20 +32,21 @@ public static class GeneratorAgentProgram
                 appCts.Cancel();
             };
 
-            var projectPath = PreParseProjectPath(args);
+            var (projectPath, localSpecsPath) = PreParsePaths(args);
 
             var builder = Host.CreateApplicationBuilder(args);
 
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
+            builder.Logging.AddFilter("System.Net.Http", LogLevel.Debug);
 
-            builder.Services.AddApplicationServices(builder.Configuration, projectPath);
+            builder.Services.AddApplicationServices(builder.Configuration, projectPath, localSpecsPath);
 
             using var host = builder.Build();
             var loggerFactory = host.Services.GetRequiredService<ILoggerFactory>();
             logger = loggerFactory.CreateLogger(typeof(GeneratorAgentProgram).FullName!);
 
-            logger.LogInformation("Starting Azure SDK Code Generation CLI");
+            logger.LogInformation("Starting Azure Generator Agent...");
 
             var commandFactory = host.Services.GetRequiredService<RootCommandFactory>();
             var rootCommand = commandFactory.CreateRootCommand(appCts.Token);
@@ -59,7 +60,15 @@ public static class GeneratorAgentProgram
                 await copilotTask.Result.DisposeAsync().ConfigureAwait(false);
             }
 
-            logger.LogInformation("Azure SDK Code Generation CLI completed with exit code: {ExitCode}", exitCode);
+            if (exitCode == 0)
+            {
+                logger.LogInformation("Completed successfully");
+            }
+            else
+            {
+                logger.LogWarning("Completed with exit code: {ExitCode}", exitCode);
+            }
+
             return exitCode;
         }
         catch (OperationCanceledException) when (args.Contains("--help") || args.Contains("-h"))
@@ -78,7 +87,8 @@ public static class GeneratorAgentProgram
             }
             else
             {
-                Console.Error.WriteLine($"Fatal error during startup: {ex.Message}");
+                Console.Error.WriteLine("Fatal error during application startup:");
+                Console.Error.WriteLine(ex.ToString());
             }
         }
 
@@ -86,27 +96,32 @@ public static class GeneratorAgentProgram
     }
 
     /// <summary>
-    /// Extracts the sdk-path argument from <paramref name="args"/> before the host is built.
-    /// Returns null when no path is supplied (e.g. --help).
+    /// Extracts the sdk-path and local-specs-path arguments from <paramref name="args"/> before the host is built.
+    /// Returns nulls when no paths are supplied (e.g. --help).
     /// </summary>
-    private static string? PreParseProjectPath(string[] args)
+    private static (string? ProjectPath, string? LocalSpecsPath) PreParsePaths(string[] args)
     {
         var sdkPathArgument = new Argument<string>("sdk-path") { Arity = ArgumentArity.ZeroOrOne };
+        var localSpecsPathArgument = new Argument<string>("local-specs-path") { Arity = ArgumentArity.ZeroOrOne };
 
-        var migrateCommand = new Command("migrate") { sdkPathArgument };
-        var generateCommand = new Command("generate") { sdkPathArgument };
+        var migrateCommand = new Command("migrate") { sdkPathArgument, localSpecsPathArgument };
+        var generateCommand = new Command("generate") { sdkPathArgument, localSpecsPathArgument };
 
         var rootCommand = new RootCommand { migrateCommand, generateCommand };
 
         string? projectPath = null;
+        string? localSpecsPath = null;
         var parseResult = rootCommand.Parse(args);
 
         if (parseResult.CommandResult.Command == migrateCommand ||
             parseResult.CommandResult.Command == generateCommand)
         {
             projectPath = parseResult.GetValue(sdkPathArgument);
+            localSpecsPath = parseResult.GetValue(localSpecsPathArgument);
         }
 
-        return string.IsNullOrWhiteSpace(projectPath) ? null : projectPath;
+        return (
+            string.IsNullOrWhiteSpace(projectPath) ? null : projectPath,
+            string.IsNullOrWhiteSpace(localSpecsPath) ? null : localSpecsPath);
     }
 }

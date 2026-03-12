@@ -67,9 +67,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             {
                 return null;
             }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(bestPracticeData, ModelSerializationExtensions.WireOptions);
-            return content;
+            return RequestContent.Create(bestPracticeData, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="BestPracticeData"/> from. </param>
@@ -141,7 +139,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             SystemData systemData = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             BestPracticeProperties properties = default;
-            ExtendedLocation1 extendedLocation = default;
+            ExtendedLocationOptionalModel extendedLocation = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("id"u8))
@@ -191,7 +189,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
                     {
                         continue;
                     }
-                    extendedLocation = ExtendedLocation1.DeserializeExtendedLocation1(prop.Value, options);
+                    extendedLocation = ExtendedLocationOptionalModel.DeserializeExtendedLocationOptionalModel(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

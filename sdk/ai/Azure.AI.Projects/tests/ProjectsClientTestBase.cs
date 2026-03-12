@@ -12,7 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using Azure.AI.Projects.OpenAI;
+using Azure.AI.Extensions.OpenAI;
 using Azure.AI.Projects.Tests.Utils;
 using Azure.Identity;
 using Microsoft.ClientModel.TestFramework;
@@ -106,7 +106,7 @@ namespace Azure.AI.Projects.Tests
         {
             // Apply sanitizers to protect sensitive information in recordings
             ProjectsTestSanitizers.ApplySanitizers(this);
-            // Icrease Test timeout because ComputerUse tool test can take a little
+            // Increase Test timeout because ComputerUse tool test can take a little
             // more then 10 sec (default).
             TestTimeoutInSeconds = 20;
         }

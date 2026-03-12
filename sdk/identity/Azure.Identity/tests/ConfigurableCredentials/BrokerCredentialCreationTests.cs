@@ -30,7 +30,7 @@ namespace Azure.Identity.Broker.Tests.ConfigurableCredentials.Broker
     /// </summary>
     internal class BrokerCredentialCreationTests : CredentialCreationTestBase<BrokerCredential>
     {
-        protected override string CredentialSource => "Broker";
+        protected override string CredentialSource => nameof(BrokerCredential);
 
         private static Dictionary<string, string> AllNulledEnvVars() => new()
         {
@@ -220,7 +220,7 @@ namespace Azure.Identity.Broker.Tests.ConfigurableCredentials.Broker
             using (new TestEnvVar(AllNulledEnvVars()))
             {
                 IConfiguration config = Helper.GetConfiguration();
-                config["MyClient:Credential:InteractiveBrowserCredentialClientId"] = "my-client-id";
+                config["MyClient:Credential:ClientId"] = "my-client-id";
 
                 var broker = GetUnderlying(CreateFromConfig(config));
                 Assert.AreEqual("my-client-id", ReadProperty<string>(broker, "ClientId"));
@@ -680,7 +680,6 @@ namespace Azure.Identity.Broker.Tests.ConfigurableCredentials.Broker
         // is published with the internal virtual method.
         [Test]
         [NonParallelizable]
-        [Ignore("Requires Broker DBO override of CopyMsalSettableProperties — see https://github.com/Azure/azure-sdk-for-net/issues/56384")]
         public void IsLegacyMsaPassthroughEnabled_ConfigSetsFalse()
         {
             using (new TestEnvVar(AllNulledEnvVars()))
@@ -696,7 +695,6 @@ namespace Azure.Identity.Broker.Tests.ConfigurableCredentials.Broker
 
         [Test]
         [NonParallelizable]
-        [Ignore("Requires Broker DBO override of CopyMsalSettableProperties — see https://github.com/Azure/azure-sdk-for-net/issues/56384")]
         public void IsLegacyMsaPassthroughEnabled_ConfigSetsTrue()
         {
             using (new TestEnvVar(AllNulledEnvVars()))
@@ -726,7 +724,7 @@ namespace Azure.Identity.Broker.Tests.ConfigurableCredentials.Broker
             {
                 IConfiguration config = Helper.GetConfiguration();
                 config["MyClient:Credential:TenantId"] = configTenant;
-                config["MyClient:Credential:InteractiveBrowserCredentialClientId"] = "my-client-id";
+                config["MyClient:Credential:ClientId"] = "my-client-id";
                 config["MyClient:Credential:AdditionallyAllowedTenants:0"] = "*";
                 config["MyClient:Credential:DisableAutomaticAuthentication"] = "true";
 #if !IDENTITY_TESTS

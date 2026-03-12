@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
 using System;
@@ -9,7 +9,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.AI.Projects.OpenAI;
+using Azure.AI.Projects.Agents;
+using Azure.AI.Extensions.OpenAI;
 using Azure.Identity;
 using Microsoft.ClientModel.TestFramework;
 using NUnit.Framework;
@@ -19,7 +20,7 @@ namespace Azure.AI.Projects.Tests.Samples.Evaluation;
 
 public class Sample_EvaluationsCatalogPromptBased : SamplesBase
 {
-    #region Snippet:Sampple_GetError_EvaluationsCatalogPromptBased
+    #region Snippet:Sample_GetError_EvaluationsCatalogPromptBased
     private static string GetErrorMessageOrEmpty(ClientResult result)
     {
         string error = "";
@@ -54,7 +55,7 @@ public class Sample_EvaluationsCatalogPromptBased : SamplesBase
         return error;
     }
     #endregion
-    #region Snippet:Sampple_GetResultCounts_EvaluationsCatalogPromptBased
+    #region Snippet:Sample_GetResultCounts_EvaluationsCatalogPromptBased
     private static string GetResultsCounts(ClientResult result)
     {
         Utf8JsonReader reader = new(result.GetRawResponse().Content.ToMemory().ToArray());
@@ -81,7 +82,7 @@ public class Sample_EvaluationsCatalogPromptBased : SamplesBase
         return sbFormattedCounts.ToString();
     }
     #endregion
-    #region Snippet:Sampple_GetStringValues_EvaluationsCatalogPromptBased
+    #region Snippet:Sample_GetStringValues_EvaluationsCatalogPromptBased
     private static Dictionary<string, string> ParseClientResult(ClientResult result, string[] expectedProperties)
     {
         Dictionary<string, string> results = [];
@@ -114,7 +115,7 @@ public class Sample_EvaluationsCatalogPromptBased : SamplesBase
         return results;
     }
     #endregion
-    #region Snippet:Sampple_GetResultsList_EvaluationsCatalogPromptBased_Async
+    #region Snippet:Sample_GetResultsList_EvaluationsCatalogPromptBased_Async
     private static async Task<List<string>> GetResultsListAsync(EvaluationClient client, string evaluationId, string evaluationRunId)
     {
         List<string> resultJsons = [];
@@ -146,7 +147,7 @@ public class Sample_EvaluationsCatalogPromptBased : SamplesBase
         return resultJsons;
     }
     #endregion
-    #region Snippet:Sampple_GetResultsList_EvaluationsCatalogPromptBased_Sync
+    #region Snippet:Sample_GetResultsList_EvaluationsCatalogPromptBased_Sync
     private static List<string> GetResultsList(EvaluationClient client, string evaluationId, string evaluationRunId)
     {
         List<string> resultJsons = [];
@@ -180,7 +181,7 @@ public class Sample_EvaluationsCatalogPromptBased : SamplesBase
     }
     #endregion
 
-    #region Snippet:Sampple_PromptEvaluator_EvaluationsCatalogPromptBased
+    #region Snippet:Sample_PromptEvaluator_EvaluationsCatalogPromptBased
     private EvaluatorVersion promptVersion = new(
         categories: [EvaluatorCategory.Quality],
         definition: new PromptBasedEvaluatorDefinition(
@@ -233,7 +234,7 @@ public class Sample_EvaluationsCatalogPromptBased : SamplesBase
     [AsyncOnly]
     public async Task EvaluationsCatalogPromptBasedExampleAsync()
     {
-        #region Snippet:Sampple_CreateClients_EvaluationsCatalogPromptBased
+        #region Snippet:Sample_CreateClients_EvaluationsCatalogPromptBased
 #if SNIPPET
         var endpoint = System.Environment.GetEnvironmentVariable("PROJECT_ENDPOINT");
         var modelDeploymentName = System.Environment.GetEnvironmentVariable("MODEL_DEPLOYMENT_NAME");
