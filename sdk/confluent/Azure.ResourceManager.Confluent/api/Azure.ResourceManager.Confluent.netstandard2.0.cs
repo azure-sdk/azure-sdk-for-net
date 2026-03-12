@@ -415,7 +415,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AccessClusterListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AccessClusterListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AccessClusterListResult>
     {
         internal AccessClusterListResult() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Confluent.Models.AccessClusterRecord> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Confluent.Models.AccessClusterRecord> Data { get { throw null; } }
         public string Kind { get { throw null; } }
         public Azure.ResourceManager.Confluent.Models.ConfluentListMetadata Metadata { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.AccessClusterListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -450,7 +450,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AccessEnvironmentListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AccessEnvironmentListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AccessEnvironmentListResult>
     {
         internal AccessEnvironmentListResult() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Confluent.Models.AccessEnvironmentRecord> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Confluent.Models.AccessEnvironmentRecord> Data { get { throw null; } }
         public string Kind { get { throw null; } }
         public Azure.ResourceManager.Confluent.Models.ConfluentListMetadata Metadata { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.AccessEnvironmentListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -500,7 +500,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AccessInvitationListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AccessInvitationListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AccessInvitationListResult>
     {
         internal AccessInvitationListResult() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Confluent.Models.AccessInvitationRecord> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Confluent.Models.AccessInvitationRecord> Data { get { throw null; } }
         public string Kind { get { throw null; } }
         public Azure.ResourceManager.Confluent.Models.ConfluentListMetadata Metadata { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.AccessInvitationListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -582,7 +582,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AccessRoleBindingListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AccessRoleBindingListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AccessRoleBindingListResult>
     {
         internal AccessRoleBindingListResult() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Confluent.Models.AccessRoleBindingRecord> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Confluent.Models.AccessRoleBindingRecord> Data { get { throw null; } }
         public string Kind { get { throw null; } }
         public Azure.ResourceManager.Confluent.Models.ConfluentListMetadata Metadata { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.AccessRoleBindingListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -598,7 +598,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AccessRoleBindingNameListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AccessRoleBindingNameListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AccessRoleBindingNameListResult>
     {
         internal AccessRoleBindingNameListResult() { }
-        public System.Collections.Generic.IList<string> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> Data { get { throw null; } }
         public string Kind { get { throw null; } }
         public Azure.ResourceManager.Confluent.Models.ConfluentListMetadata Metadata { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.AccessRoleBindingNameListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -633,7 +633,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AccessServiceAccountListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AccessServiceAccountListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AccessServiceAccountListResult>
     {
         internal AccessServiceAccountListResult() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Confluent.Models.AccessServiceAccountRecord> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Confluent.Models.AccessServiceAccountRecord> Data { get { throw null; } }
         public string Kind { get { throw null; } }
         public Azure.ResourceManager.Confluent.Models.ConfluentListMetadata Metadata { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.AccessServiceAccountListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -667,7 +667,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class AccessUserListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AccessUserListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AccessUserListResult>
     {
         internal AccessUserListResult() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Confluent.Models.AccessUserRecord> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Confluent.Models.AccessUserRecord> Data { get { throw null; } }
         public string Kind { get { throw null; } }
         public Azure.ResourceManager.Confluent.Models.ConfluentListMetadata Metadata { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.AccessUserListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -775,15 +775,17 @@ namespace Azure.ResourceManager.Confluent.Models
         public static Azure.ResourceManager.Confluent.Models.ClusterEnvironmentEntity ClusterEnvironmentEntity(string id = null, string environment = null, string related = null, string resourceName = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ClusterNetworkEntity ClusterNetworkEntity(string id = null, string environment = null, string related = null, string resourceName = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ClusterSpecEntity ClusterSpecEntity(string displayName = null, string availability = null, string cloud = null, string zone = null, string region = null, string kafkaBootstrapEndpoint = null, string httpEndpoint = null, string apiEndpoint = null, string configKind = null, Azure.ResourceManager.Confluent.Models.ClusterEnvironmentEntity environment = null, Azure.ResourceManager.Confluent.Models.ClusterNetworkEntity network = null, Azure.ResourceManager.Confluent.Models.ClusterByokEntity byok = null) { throw null; }
-        public static Azure.ResourceManager.Confluent.Models.ConfluentAgreement ConfluentAgreement(Azure.Core.ResourceIdentifier id = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), string name = null, Azure.ResourceManager.Models.SystemData systemData = null, string publisher = null, string product = null, string plan = null, string licenseTextLink = null, string privacyPolicyLink = null, System.DateTimeOffset? retrieveOn = default(System.DateTimeOffset?), string signature = null, bool? isAccepted = default(bool?)) { throw null; }
+        public static Azure.ResourceManager.Confluent.Models.ClusterStatusEntity ClusterStatusEntity(string phase, int? cku) { throw null; }
+        public static Azure.ResourceManager.Confluent.Models.ConfluentAgreement ConfluentAgreement(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string publisher = null, string product = null, string plan = null, string licenseTextLink = null, string privacyPolicyLink = null, System.DateTimeOffset? retrieveOn = default(System.DateTimeOffset?), string signature = null, bool? isAccepted = default(bool?)) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ConfluentApiKeyRecord ConfluentApiKeyRecord(string kind = null, string id = null, Azure.ResourceManager.Confluent.Models.SCMetadataEntity metadata = null, Azure.ResourceManager.Confluent.Models.ApiKeySpecEntity spec = null) { throw null; }
         public static Azure.ResourceManager.Confluent.ConfluentConnectorData ConfluentConnectorData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Confluent.Models.ConnectorInfoBase connectorBasicInfo = null, Azure.ResourceManager.Confluent.Models.ConnectorServiceTypeInfoBase connectorServiceTypeInfo = null, Azure.ResourceManager.Confluent.Models.PartnerInfoBase partnerConnectorInfo = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ConfluentListMetadata ConfluentListMetadata(string first = null, string last = null, string prev = null, string next = null, int? totalSize = default(int?)) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ConfluentOfferDetail ConfluentOfferDetail(string publisherId, string id, string planId, string planName, string termUnit, Azure.ResourceManager.Confluent.Models.ConfluentSaaSOfferStatus? status) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ConfluentOfferDetail ConfluentOfferDetail(string publisherId = null, string id = null, string planId = null, string planName = null, string termUnit = null, string termId = null, string privateOfferId = null, System.Collections.Generic.IEnumerable<string> privateOfferIds = null, Azure.ResourceManager.Confluent.Models.ConfluentSaaSOfferStatus? status = default(Azure.ResourceManager.Confluent.Models.ConfluentSaaSOfferStatus?)) { throw null; }
+        public static Azure.ResourceManager.Confluent.ConfluentOrganizationData ConfluentOrganizationData(Azure.Core.ResourceIdentifier id, string name, Azure.Core.ResourceType resourceType, Azure.ResourceManager.Models.SystemData systemData, System.Collections.Generic.IDictionary<string, string> tags, Azure.Core.AzureLocation location, System.DateTimeOffset? createdOn, Azure.ResourceManager.Confluent.Models.ConfluentProvisionState? provisioningState, System.Guid? organizationId, System.Uri ssoUri, Azure.ResourceManager.Confluent.Models.ConfluentOfferDetail offerDetail, Azure.ResourceManager.Confluent.Models.ConfluentUserDetail userDetail) { throw null; }
         public static Azure.ResourceManager.Confluent.ConfluentOrganizationData ConfluentOrganizationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.Confluent.Models.ConfluentProvisionState? provisioningState = default(Azure.ResourceManager.Confluent.Models.ConfluentProvisionState?), System.Guid? organizationId = default(System.Guid?), System.Uri ssoUri = null, Azure.ResourceManager.Confluent.Models.ConfluentOfferDetail offerDetail = null, Azure.ResourceManager.Confluent.Models.ConfluentUserDetail userDetail = null, string linkOrganizationToken = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ConfluentOrganizationPatch ConfluentOrganizationPatch(System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
-        public static Azure.ResourceManager.Confluent.Models.ConfluentOrganizationValidationResult ConfluentOrganizationValidationResult(System.Collections.Generic.IDictionary<string, string> info = null) { throw null; }
+        public static Azure.ResourceManager.Confluent.Models.ConfluentOrganizationValidationResult ConfluentOrganizationValidationResult(System.Collections.Generic.IReadOnlyDictionary<string, string> info = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ConfluentRegionListResult ConfluentRegionListResult(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Confluent.Models.ConfluentRegionRecord> data = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.ConfluentRegionRecord ConfluentRegionRecord(string kind = null, string id = null, Azure.ResourceManager.Confluent.Models.SCMetadataEntity metadata = null, Azure.ResourceManager.Confluent.Models.RegionSpecEntity spec = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.KafkaAzureBlobStorageSinkConnectorInfo KafkaAzureBlobStorageSinkConnectorInfo(Azure.ResourceManager.Confluent.Models.ConfluentAuthType? authType = default(Azure.ResourceManager.Confluent.Models.ConfluentAuthType?), Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType? inputFormat = default(Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType?), Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType? outputFormat = default(Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType?), string apiKey = null, string apiSecret = null, string serviceAccountId = null, string serviceAccountName = null, System.Collections.Generic.IEnumerable<string> topics = null, string topicsDir = null, string flushSize = null, string maxTasks = null, string timeInterval = null) { throw null; }
@@ -791,13 +793,17 @@ namespace Azure.ResourceManager.Confluent.Models
         public static Azure.ResourceManager.Confluent.Models.KafkaAzureSynapseAnalyticsSinkConnectorInfo KafkaAzureSynapseAnalyticsSinkConnectorInfo(Azure.ResourceManager.Confluent.Models.ConfluentAuthType? authType = default(Azure.ResourceManager.Confluent.Models.ConfluentAuthType?), Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType? inputFormat = default(Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType?), Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType? outputFormat = default(Azure.ResourceManager.Confluent.Models.ConfluentDataFormatType?), string apiKey = null, string apiSecret = null, string serviceAccountId = null, string serviceAccountName = null, System.Collections.Generic.IEnumerable<string> topics = null, string topicsDir = null, string flushSize = null, string maxTasks = null, string timeInterval = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.MetadataEntity MetadataEntity(string self = null, string resourceName = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? updatedOn = default(System.DateTimeOffset?), System.DateTimeOffset? deletedOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.RegionSpecEntity RegionSpecEntity(string name = null, string cloud = null, string regionName = null, System.Collections.Generic.IEnumerable<string> packages = null) { throw null; }
+        public static Azure.ResourceManager.Confluent.Models.SCClusterByokEntity SCClusterByokEntity(string id, string related, string resourceName) { throw null; }
+        public static Azure.ResourceManager.Confluent.Models.SCClusterNetworkEnvironmentEntity SCClusterNetworkEnvironmentEntity(string id, string environment, string related, string resourceName) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.SCClusterRecord SCClusterRecord(string kind = null, string id = null, string name = null, Azure.ResourceManager.Confluent.Models.SCMetadataEntity metadata = null, Azure.ResourceManager.Confluent.Models.SCClusterSpecEntity spec = null, Azure.ResourceManager.Confluent.Models.ClusterStatusEntity status = null) { throw null; }
         public static Azure.ResourceManager.Confluent.SCClusterRecordData SCClusterRecordData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string kind = null, Azure.ResourceManager.Confluent.Models.SCMetadataEntity metadata = null, Azure.ResourceManager.Confluent.Models.SCClusterSpecEntity spec = null, Azure.ResourceManager.Confluent.Models.ClusterStatusEntity status = null) { throw null; }
+        public static Azure.ResourceManager.Confluent.Models.SCClusterSpecEntity SCClusterSpecEntity(string name, string availability, string cloud, string zone, string region, string kafkaBootstrapEndpoint, string httpEndpoint, string apiEndpoint, string configKind, Azure.ResourceManager.Confluent.Models.SCClusterNetworkEnvironmentEntity environment, Azure.ResourceManager.Confluent.Models.SCClusterNetworkEnvironmentEntity network, Azure.ResourceManager.Confluent.Models.SCClusterByokEntity byok) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.SCEnvironmentRecord SCEnvironmentRecord(string kind = null, string id = null, string name = null, Azure.ResourceManager.Confluent.Models.SCMetadataEntity metadata = null) { throw null; }
         public static Azure.ResourceManager.Confluent.SCEnvironmentRecordData SCEnvironmentRecordData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string kind = null, Azure.ResourceManager.Confluent.Models.SCMetadataEntity metadata = null, Azure.ResourceManager.Confluent.Models.ConfluentPackage? streamGovernanceConfigPackage = default(Azure.ResourceManager.Confluent.Models.ConfluentPackage?)) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.SchemaRegistryClusterEnvironmentRegionEntity SchemaRegistryClusterEnvironmentRegionEntity(string id = null, string related = null, string resourceName = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.SchemaRegistryClusterRecord SchemaRegistryClusterRecord(string kind = null, string id = null, Azure.ResourceManager.Confluent.Models.SCMetadataEntity metadata = null, Azure.ResourceManager.Confluent.Models.SchemaRegistryClusterSpecEntity spec = null, string statusPhase = null) { throw null; }
         public static Azure.ResourceManager.Confluent.Models.SchemaRegistryClusterSpecEntity SchemaRegistryClusterSpecEntity(string name = null, string httpEndpoint = null, string package = null, Azure.ResourceManager.Confluent.Models.SchemaRegistryClusterEnvironmentRegionEntity region = null, Azure.ResourceManager.Confluent.Models.SchemaRegistryClusterEnvironmentRegionEntity environment = null, string cloud = null) { throw null; }
+        public static Azure.ResourceManager.Confluent.Models.SCMetadataEntity SCMetadataEntity(string self, string resourceName, System.DateTimeOffset? createdOn, System.DateTimeOffset? updatedOn, System.DateTimeOffset? deletedOn) { throw null; }
         public static Azure.ResourceManager.Confluent.TopicRecordData TopicRecordData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string kind = null, string topicId = null, Azure.ResourceManager.Confluent.Models.TopicMetadataEntity metadata = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Confluent.Models.TopicsInputConfig> inputConfigs = null, string partitionsCount = null, string replicationFactor = null, string partitionsRelated = null, string configsRelated = null, string partitionsReassignmentsRelated = null) { throw null; }
     }
     public partial class AzureBlobStorageSinkConnectorServiceInfo : Azure.ResourceManager.Confluent.Models.ConnectorServiceTypeInfoBase, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.AzureBlobStorageSinkConnectorServiceInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.AzureBlobStorageSinkConnectorServiceInfo>
@@ -1126,7 +1132,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class ConfluentOrganizationValidationResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.ConfluentOrganizationValidationResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.ConfluentOrganizationValidationResult>
     {
         internal ConfluentOrganizationValidationResult() { }
-        public System.Collections.Generic.IDictionary<string, string> Info { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Info { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.ConfluentOrganizationValidationResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.Confluent.Models.ConfluentOrganizationValidationResult PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1181,7 +1187,7 @@ namespace Azure.ResourceManager.Confluent.Models
     public partial class ConfluentRegionListResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Confluent.Models.ConfluentRegionListResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Confluent.Models.ConfluentRegionListResult>
     {
         internal ConfluentRegionListResult() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Confluent.Models.ConfluentRegionRecord> Data { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Confluent.Models.ConfluentRegionRecord> Data { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.ConfluentRegionListResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.Confluent.Models.ConfluentRegionListResult PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1495,7 +1501,7 @@ namespace Azure.ResourceManager.Confluent.Models
         internal RegionSpecEntity() { }
         public string Cloud { get { throw null; } }
         public string Name { get { throw null; } }
-        public System.Collections.Generic.IList<string> Packages { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> Packages { get { throw null; } }
         public string RegionName { get { throw null; } }
         protected virtual Azure.ResourceManager.Confluent.Models.RegionSpecEntity JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }

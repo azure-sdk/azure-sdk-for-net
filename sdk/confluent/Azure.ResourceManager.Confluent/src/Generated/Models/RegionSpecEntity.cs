@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="regionName"> Region name. </param>
         /// <param name="packages"></param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal RegionSpecEntity(string name, string cloud, string regionName, IList<string> packages, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RegionSpecEntity(string name, string cloud, string regionName, IReadOnlyList<string> packages, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Cloud = cloud;
@@ -48,6 +48,6 @@ namespace Azure.ResourceManager.Confluent.Models
         public string RegionName { get; }
 
         /// <summary> Gets the Packages. </summary>
-        public IList<string> Packages { get; }
+        public IReadOnlyList<string> Packages { get; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure;
 using Azure.Core;
@@ -730,10 +731,21 @@ namespace Azure.ResourceManager.Confluent.Models
                     null));
         }
 
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="name"> The name of the agreement. </param>
-        /// <param name="systemData"> Metadata pertaining to creation and last modification of the resource. </param>
+        /// <summary> Validation response from the provider. </summary>
+        /// <param name="info"> Info from the response. </param>
+        /// <returns> A new <see cref="Models.ConfluentOrganizationValidationResult"/> instance for mocking. </returns>
+        public static ConfluentOrganizationValidationResult ConfluentOrganizationValidationResult(IReadOnlyDictionary<string, string> info = default)
+        {
+            info ??= new ChangeTrackingDictionary<string, string>();
+
+            return new ConfluentOrganizationValidationResult(info, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ConfluentAgreement"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
         /// <param name="publisher"> Publisher identifier string. </param>
         /// <param name="product"> Product identifier string. </param>
         /// <param name="plan"> Plan identifier string. </param>
@@ -743,7 +755,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="signature"> Terms signature. </param>
         /// <param name="isAccepted"> If any version of the terms have been accepted, otherwise false. </param>
         /// <returns> A new <see cref="Models.ConfluentAgreement"/> instance for mocking. </returns>
-        public static ConfluentAgreement ConfluentAgreement(ResourceIdentifier id = default, ResourceType resourceType = default, string name = default, SystemData systemData = default, string publisher = default, string product = default, string plan = default, string licenseTextLink = default, string privacyPolicyLink = default, DateTimeOffset? retrieveOn = default, string signature = default, bool? isAccepted = default)
+        public static ConfluentAgreement ConfluentAgreement(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string publisher = default, string product = default, string plan = default, string licenseTextLink = default, string privacyPolicyLink = default, DateTimeOffset? retrieveOn = default, string signature = default, bool? isAccepted = default)
         {
             return new ConfluentAgreement(
                 id,
@@ -751,26 +763,113 @@ namespace Azure.ResourceManager.Confluent.Models
                 additionalBinaryDataProperties: null,
                 name,
                 systemData,
-                publisher is null && product is null && plan is null && licenseTextLink is null && privacyPolicyLink is null && retrieveOn is null && signature is null && isAccepted is null ? default : new ConfluentAgreementProperties(
-                    publisher,
-                    product,
-                    plan,
-                    licenseTextLink,
-                    privacyPolicyLink,
-                    retrieveOn,
-                    signature,
-                    isAccepted,
-                    null));
+                default);
         }
 
-        /// <summary> Validation response from the provider. </summary>
-        /// <param name="info"> Info from the response. </param>
-        /// <returns> A new <see cref="Models.ConfluentOrganizationValidationResult"/> instance for mocking. </returns>
-        public static ConfluentOrganizationValidationResult ConfluentOrganizationValidationResult(IDictionary<string, string> info = default)
+        /// <summary> Initializes a new instance of <see cref="Models.ClusterStatusEntity"/>. </summary>
+        /// <param name="phase"> The lifecycle phase of the cluster. </param>
+        /// <param name="cku"> The number of Confluent Kafka Units. </param>
+        /// <returns> A new <see cref="Models.ClusterStatusEntity"/> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ClusterStatusEntity ClusterStatusEntity(string phase, int? cku)
         {
-            info ??= new ChangeTrackingDictionary<string, string>();
+            return new ClusterStatusEntity(phase, cku, additionalBinaryDataProperties: null);
+        }
 
-            return new ConfluentOrganizationValidationResult(info, additionalBinaryDataProperties: null);
+        /// <summary> Initializes a new instance of <see cref="Models.SCMetadataEntity"/>. </summary>
+        /// <param name="self"> Self lookup url. </param>
+        /// <param name="resourceName"> Resource name of the record. </param>
+        /// <param name="createdOn"> Created Date Time. </param>
+        /// <param name="updatedOn"> Updated Date time. </param>
+        /// <param name="deletedOn"> Deleted Date time. </param>
+        /// <returns> A new <see cref="Models.SCMetadataEntity"/> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static SCMetadataEntity SCMetadataEntity(string self, string resourceName, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, DateTimeOffset? deletedOn)
+        {
+            return new SCMetadataEntity(
+                self,
+                resourceName,
+                createdOn,
+                updatedOn,
+                deletedOn,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SCClusterSpecEntity"/>. </summary>
+        /// <param name="name"> The name of the cluster. </param>
+        /// <param name="availability"> The availability zone configuration of the cluster. </param>
+        /// <param name="cloud"> The cloud service provider. </param>
+        /// <param name="zone"> type of zone availability. </param>
+        /// <param name="region"> The cloud service provider region. </param>
+        /// <param name="kafkaBootstrapEndpoint"> The bootstrap endpoint used by Kafka clients to connect to the cluster. </param>
+        /// <param name="httpEndpoint"> The cluster HTTP request URL. </param>
+        /// <param name="apiEndpoint"> The Kafka API cluster endpoint. </param>
+        /// <param name="configKind"> Specification of the cluster configuration. </param>
+        /// <param name="environment"> Specification of the cluster environment. </param>
+        /// <param name="network"> Specification of the cluster network. </param>
+        /// <param name="byok"> Specification of the cluster byok. </param>
+        /// <returns> A new <see cref="Models.SCClusterSpecEntity"/> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static SCClusterSpecEntity SCClusterSpecEntity(string name, string availability, string cloud, string zone, string region, string kafkaBootstrapEndpoint, string httpEndpoint, string apiEndpoint, string configKind, SCClusterNetworkEnvironmentEntity environment, SCClusterNetworkEnvironmentEntity network, SCClusterByokEntity byok)
+        {
+            return new SCClusterSpecEntity(
+                name,
+                availability,
+                cloud,
+                zone,
+                default,
+                region,
+                kafkaBootstrapEndpoint,
+                httpEndpoint,
+                apiEndpoint,
+                default,
+                environment,
+                network,
+                byok,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SCClusterNetworkEnvironmentEntity"/>. </summary>
+        /// <param name="id"> ID of the referred resource. </param>
+        /// <param name="environment"> Environment of the referred resource. </param>
+        /// <param name="related"> API URL for accessing or modifying the referred object. </param>
+        /// <param name="resourceName"> CRN reference to the referred resource. </param>
+        /// <returns> A new <see cref="Models.SCClusterNetworkEnvironmentEntity"/> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static SCClusterNetworkEnvironmentEntity SCClusterNetworkEnvironmentEntity(string id, string environment, string related, string resourceName)
+        {
+            return new SCClusterNetworkEnvironmentEntity(id, environment, related, resourceName, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SCClusterByokEntity"/>. </summary>
+        /// <param name="id"> ID of the referred resource. </param>
+        /// <param name="related"> API URL for accessing or modifying the referred object. </param>
+        /// <param name="resourceName"> CRN reference to the referred resource. </param>
+        /// <returns> A new <see cref="Models.SCClusterByokEntity"/> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static SCClusterByokEntity SCClusterByokEntity(string id, string related, string resourceName)
+        {
+            return new SCClusterByokEntity(id, related, resourceName, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Initializes a new instance of ConfluentOrganizationData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="createdOn"> The creation time of the resource. </param>
+        /// <param name="provisioningState"> Provision states for confluent RP. </param>
+        /// <param name="organizationId"> Id of the Confluent organization. </param>
+        /// <param name="ssoUri"> SSO url for the Confluent organization. </param>
+        /// <param name="offerDetail"> Confluent offer detail. </param>
+        /// <param name="userDetail"> Subscriber detail. </param>
+        /// <returns> A new <see cref="Confluent.ConfluentOrganizationData"/> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ConfluentOrganizationData ConfluentOrganizationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, ConfluentProvisionState? provisioningState, Guid? organizationId, Uri ssoUri, ConfluentOfferDetail offerDetail, ConfluentUserDetail userDetail)
+        {
+            return ConfluentOrganizationData(id, name, resourceType, systemData, tags, location, createdOn, provisioningState, organizationId, ssoUri, offerDetail, userDetail, linkOrganizationToken: default);
         }
     }
 }

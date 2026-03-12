@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.Confluent.Models
             string name = default;
             string cloud = default;
             string regionName = default;
-            IList<string> packages = default;
+            IReadOnlyList<string> packages = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {

@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="metadata"> Metadata of the list. </param>
         /// <param name="data"> Data of the users list. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AccessUserListResult(string kind, ConfluentListMetadata metadata, IList<AccessUserRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AccessUserListResult(string kind, ConfluentListMetadata metadata, IReadOnlyList<AccessUserRecord> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             Metadata = metadata;
@@ -43,6 +43,6 @@ namespace Azure.ResourceManager.Confluent.Models
         public ConfluentListMetadata Metadata { get; }
 
         /// <summary> Data of the users list. </summary>
-        public IList<AccessUserRecord> Data { get; }
+        public IReadOnlyList<AccessUserRecord> Data { get; }
     }
 }

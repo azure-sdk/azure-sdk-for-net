@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.Confluent.Models
             }
             string kind = default;
             ConfluentListMetadata metadata = default;
-            IList<string> data = default;
+            IReadOnlyList<string> data = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
