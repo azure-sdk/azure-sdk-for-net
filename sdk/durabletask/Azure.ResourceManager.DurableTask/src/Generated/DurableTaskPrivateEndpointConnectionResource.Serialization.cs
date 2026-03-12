@@ -12,7 +12,7 @@ using System.Text.Json;
 namespace Azure.ResourceManager.DurableTask
 {
     /// <summary></summary>
-    public partial class PrivateEndpointConnectionResource : IJsonModel<DurableTaskPrivateEndpointConnectionData>
+    public partial class DurableTaskPrivateEndpointConnectionResource : IJsonModel<DurableTaskPrivateEndpointConnectionData>
     {
         private static IJsonModel<DurableTaskPrivateEndpointConnectionData> s_dataDeserializationInstance;
 

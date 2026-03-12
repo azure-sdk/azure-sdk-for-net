@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.DurableTask.Models
             string endpoint = default;
             IList<string> ipAllowlist = default;
             DurableTaskSchedulerSku sku = default;
-            PublicNetworkAccess? publicNetworkAccess = default;
+            DurableTaskPublicNetworkAccess? publicNetworkAccess = default;
             IReadOnlyList<DurableTaskPrivateEndpointConnectionData> privateEndpointConnections = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.DurableTask.Models
                     {
                         continue;
                     }
-                    publicNetworkAccess = new PublicNetworkAccess(prop.Value.GetString());
+                    publicNetworkAccess = new DurableTaskPublicNetworkAccess(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("privateEndpointConnections"u8))

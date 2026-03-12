@@ -14,56 +14,56 @@ using Azure.ResourceManager.DurableTask;
 namespace Azure.ResourceManager.DurableTask.Models
 {
     /// <summary> Properties of the private endpoint connection. </summary>
-    public partial class PrivateEndpointConnectionProperties : IJsonModel<PrivateEndpointConnectionProperties>
+    public partial class DurableTaskPrivateEndpointConnectionProperties : IJsonModel<DurableTaskPrivateEndpointConnectionProperties>
     {
-        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionProperties"/> for deserialization. </summary>
-        internal PrivateEndpointConnectionProperties()
+        /// <summary> Initializes a new instance of <see cref="DurableTaskPrivateEndpointConnectionProperties"/> for deserialization. </summary>
+        internal DurableTaskPrivateEndpointConnectionProperties()
         {
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual PrivateEndpointConnectionProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual DurableTaskPrivateEndpointConnectionProperties PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskPrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializePrivateEndpointConnectionProperties(document.RootElement, options);
+                        return DeserializeDurableTaskPrivateEndpointConnectionProperties(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DurableTaskPrivateEndpointConnectionProperties)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskPrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerDurableTaskContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DurableTaskPrivateEndpointConnectionProperties)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<PrivateEndpointConnectionProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DurableTaskPrivateEndpointConnectionProperties>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        PrivateEndpointConnectionProperties IPersistableModel<PrivateEndpointConnectionProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        DurableTaskPrivateEndpointConnectionProperties IPersistableModel<DurableTaskPrivateEndpointConnectionProperties>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<PrivateEndpointConnectionProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DurableTaskPrivateEndpointConnectionProperties>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<PrivateEndpointConnectionProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DurableTaskPrivateEndpointConnectionProperties>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -74,10 +74,10 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskPrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DurableTaskPrivateEndpointConnectionProperties)} does not support writing '{format}' format.");
             }
             if (options.Format != "W" && Optional.IsCollectionDefined(GroupIds))
             {
@@ -125,24 +125,24 @@ namespace Azure.ResourceManager.DurableTask.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        PrivateEndpointConnectionProperties IJsonModel<PrivateEndpointConnectionProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        DurableTaskPrivateEndpointConnectionProperties IJsonModel<DurableTaskPrivateEndpointConnectionProperties>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual PrivateEndpointConnectionProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual DurableTaskPrivateEndpointConnectionProperties JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DurableTaskPrivateEndpointConnectionProperties>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PrivateEndpointConnectionProperties)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DurableTaskPrivateEndpointConnectionProperties)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializePrivateEndpointConnectionProperties(document.RootElement, options);
+            return DeserializeDurableTaskPrivateEndpointConnectionProperties(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static PrivateEndpointConnectionProperties DeserializePrivateEndpointConnectionProperties(JsonElement element, ModelReaderWriterOptions options)
+        internal static DurableTaskPrivateEndpointConnectionProperties DeserializeDurableTaskPrivateEndpointConnectionProperties(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.DurableTask.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new PrivateEndpointConnectionProperties(groupIds ?? new ChangeTrackingList<string>(), privateEndpoint, privateLinkServiceConnectionState, provisioningState, additionalBinaryDataProperties);
+            return new DurableTaskPrivateEndpointConnectionProperties(groupIds ?? new ChangeTrackingList<string>(), privateEndpoint, privateLinkServiceConnectionState, provisioningState, additionalBinaryDataProperties);
         }
     }
 }

@@ -19,10 +19,10 @@ namespace Azure.ResourceManager.DurableTask
 {
     /// <summary>
     /// A class representing a PrivateEndpointConnection along with the instance operations that can be performed on it.
-    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="PrivateEndpointConnectionResource"/> from an instance of <see cref="ArmClient"/> using the GetResource method.
+    /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="DurableTaskPrivateEndpointConnectionResource"/> from an instance of <see cref="ArmClient"/> using the GetResource method.
     /// Otherwise you can get one from its parent resource <see cref="DurableTaskSchedulerResource"/> using the GetPrivateEndpointConnections method.
     /// </summary>
-    public partial class PrivateEndpointConnectionResource : ArmResource
+    public partial class DurableTaskPrivateEndpointConnectionResource : ArmResource
     {
         private readonly ClientDiagnostics _schedulersClientDiagnostics;
         private readonly Schedulers _schedulersRestClient;
@@ -30,24 +30,24 @@ namespace Azure.ResourceManager.DurableTask
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.DurableTask/schedulers/privateEndpointConnections";
 
-        /// <summary> Initializes a new instance of PrivateEndpointConnectionResource for mocking. </summary>
-        protected PrivateEndpointConnectionResource()
+        /// <summary> Initializes a new instance of DurableTaskPrivateEndpointConnectionResource for mocking. </summary>
+        protected DurableTaskPrivateEndpointConnectionResource()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskPrivateEndpointConnectionResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal PrivateEndpointConnectionResource(ArmClient client, DurableTaskPrivateEndpointConnectionData data) : this(client, data.Id)
+        internal DurableTaskPrivateEndpointConnectionResource(ArmClient client, DurableTaskPrivateEndpointConnectionData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
         }
 
-        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionResource"/> class. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskPrivateEndpointConnectionResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal PrivateEndpointConnectionResource(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal DurableTaskPrivateEndpointConnectionResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
             TryGetApiVersion(ResourceType, out string privateEndpointConnectionApiVersion);
             _schedulersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DurableTask", ResourceType.Namespace, Diagnostics);
@@ -109,14 +109,14 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="PrivateEndpointConnectionResource"/>. </description>
+        /// <description> <see cref="DurableTaskPrivateEndpointConnectionResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<PrivateEndpointConnectionResource>> GetAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DurableTaskPrivateEndpointConnectionResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("PrivateEndpointConnectionResource.Get");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskPrivateEndpointConnectionResource.Get");
             scope.Start();
             try
             {
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.DurableTask
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new PrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -157,14 +157,14 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="PrivateEndpointConnectionResource"/>. </description>
+        /// <description> <see cref="DurableTaskPrivateEndpointConnectionResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<PrivateEndpointConnectionResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<DurableTaskPrivateEndpointConnectionResource> Get(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("PrivateEndpointConnectionResource.Get");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskPrivateEndpointConnectionResource.Get");
             scope.Start();
             try
             {
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.DurableTask
                 {
                     throw new RequestFailedException(response.GetRawResponse());
                 }
-                return Response.FromValue(new PrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new DurableTaskPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="PrivateEndpointConnectionResource"/>. </description>
+        /// <description> <see cref="DurableTaskPrivateEndpointConnectionResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -213,11 +213,11 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<ArmOperation<PrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, PrivateEndpointConnectionPatch patch, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<DurableTaskPrivateEndpointConnectionResource>> UpdateAsync(WaitUntil waitUntil, DurableTaskPrivateEndpointConnectionPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("PrivateEndpointConnectionResource.Update");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskPrivateEndpointConnectionResource.Update");
             scope.Start();
             try
             {
@@ -225,9 +225,9 @@ namespace Azure.ResourceManager.DurableTask
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _schedulersRestClient.CreateUpdatePrivateEndpointConnectionRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, PrivateEndpointConnectionPatch.ToRequestContent(patch), context);
+                HttpMessage message = _schedulersRestClient.CreateUpdatePrivateEndpointConnectionRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, DurableTaskPrivateEndpointConnectionPatch.ToRequestContent(patch), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                DurableTaskArmOperation<PrivateEndpointConnectionResource> operation = new DurableTaskArmOperation<PrivateEndpointConnectionResource>(
+                DurableTaskArmOperation<DurableTaskPrivateEndpointConnectionResource> operation = new DurableTaskArmOperation<DurableTaskPrivateEndpointConnectionResource>(
                     new PrivateEndpointConnectionOperationSource(Client),
                     _schedulersClientDiagnostics,
                     Pipeline,
@@ -264,7 +264,7 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="PrivateEndpointConnectionResource"/>. </description>
+        /// <description> <see cref="DurableTaskPrivateEndpointConnectionResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -272,11 +272,11 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual ArmOperation<PrivateEndpointConnectionResource> Update(WaitUntil waitUntil, PrivateEndpointConnectionPatch patch, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<DurableTaskPrivateEndpointConnectionResource> Update(WaitUntil waitUntil, DurableTaskPrivateEndpointConnectionPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("PrivateEndpointConnectionResource.Update");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskPrivateEndpointConnectionResource.Update");
             scope.Start();
             try
             {
@@ -284,9 +284,9 @@ namespace Azure.ResourceManager.DurableTask
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _schedulersRestClient.CreateUpdatePrivateEndpointConnectionRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, PrivateEndpointConnectionPatch.ToRequestContent(patch), context);
+                HttpMessage message = _schedulersRestClient.CreateUpdatePrivateEndpointConnectionRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, DurableTaskPrivateEndpointConnectionPatch.ToRequestContent(patch), context);
                 Response response = Pipeline.ProcessMessage(message, context);
-                DurableTaskArmOperation<PrivateEndpointConnectionResource> operation = new DurableTaskArmOperation<PrivateEndpointConnectionResource>(
+                DurableTaskArmOperation<DurableTaskPrivateEndpointConnectionResource> operation = new DurableTaskArmOperation<DurableTaskPrivateEndpointConnectionResource>(
                     new PrivateEndpointConnectionOperationSource(Client),
                     _schedulersClientDiagnostics,
                     Pipeline,
@@ -323,7 +323,7 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="PrivateEndpointConnectionResource"/>. </description>
+        /// <description> <see cref="DurableTaskPrivateEndpointConnectionResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -331,7 +331,7 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("PrivateEndpointConnectionResource.Delete");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskPrivateEndpointConnectionResource.Delete");
             scope.Start();
             try
             {
@@ -372,7 +372,7 @@ namespace Azure.ResourceManager.DurableTask
         /// </item>
         /// <item>
         /// <term> Resource. </term>
-        /// <description> <see cref="PrivateEndpointConnectionResource"/>. </description>
+        /// <description> <see cref="DurableTaskPrivateEndpointConnectionResource"/>. </description>
         /// </item>
         /// </list>
         /// </summary>
@@ -380,7 +380,7 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("PrivateEndpointConnectionResource.Delete");
+            using DiagnosticScope scope = _schedulersClientDiagnostics.CreateScope("DurableTaskPrivateEndpointConnectionResource.Delete");
             scope.Start();
             try
             {

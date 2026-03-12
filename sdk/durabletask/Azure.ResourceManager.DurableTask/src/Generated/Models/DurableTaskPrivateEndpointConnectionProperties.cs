@@ -13,15 +13,15 @@ using Azure.ResourceManager.DurableTask;
 namespace Azure.ResourceManager.DurableTask.Models
 {
     /// <summary> Properties of the private endpoint connection. </summary>
-    public partial class PrivateEndpointConnectionProperties
+    public partial class DurableTaskPrivateEndpointConnectionProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskPrivateEndpointConnectionProperties"/>. </summary>
         /// <param name="privateLinkServiceConnectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="privateLinkServiceConnectionState"/> is null. </exception>
-        public PrivateEndpointConnectionProperties(DurableTaskPrivateLinkServiceConnectionState privateLinkServiceConnectionState)
+        public DurableTaskPrivateEndpointConnectionProperties(DurableTaskPrivateLinkServiceConnectionState privateLinkServiceConnectionState)
         {
             Argument.AssertNotNull(privateLinkServiceConnectionState, nameof(privateLinkServiceConnectionState));
 
@@ -29,13 +29,13 @@ namespace Azure.ResourceManager.DurableTask.Models
             PrivateLinkServiceConnectionState = privateLinkServiceConnectionState;
         }
 
-        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionProperties"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskPrivateEndpointConnectionProperties"/>. </summary>
         /// <param name="groupIds"> The group ids for the private endpoint resource. </param>
         /// <param name="privateEndpoint"> The private endpoint resource. </param>
         /// <param name="privateLinkServiceConnectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
         /// <param name="provisioningState"> The provisioning state of the private endpoint connection resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PrivateEndpointConnectionProperties(IReadOnlyList<string> groupIds, PrivateEndpoint privateEndpoint, DurableTaskPrivateLinkServiceConnectionState privateLinkServiceConnectionState, DurableTaskPrivateEndpointConnectionProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DurableTaskPrivateEndpointConnectionProperties(IReadOnlyList<string> groupIds, PrivateEndpoint privateEndpoint, DurableTaskPrivateLinkServiceConnectionState privateLinkServiceConnectionState, DurableTaskPrivateEndpointConnectionProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             GroupIds = groupIds;
             PrivateEndpoint = privateEndpoint;

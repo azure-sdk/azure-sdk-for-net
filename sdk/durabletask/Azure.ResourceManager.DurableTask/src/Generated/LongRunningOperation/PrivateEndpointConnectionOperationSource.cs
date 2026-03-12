@@ -15,7 +15,7 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.DurableTask
 {
     /// <summary></summary>
-    internal partial class PrivateEndpointConnectionOperationSource : IOperationSource<PrivateEndpointConnectionResource>
+    internal partial class PrivateEndpointConnectionOperationSource : IOperationSource<DurableTaskPrivateEndpointConnectionResource>
     {
         private readonly ArmClient _client;
 
@@ -29,21 +29,21 @@ namespace Azure.ResourceManager.DurableTask
         /// <param name="response"> The response from the service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns></returns>
-        PrivateEndpointConnectionResource IOperationSource<PrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        DurableTaskPrivateEndpointConnectionResource IOperationSource<DurableTaskPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = JsonDocument.Parse(response.ContentStream);
             DurableTaskPrivateEndpointConnectionData data = DurableTaskPrivateEndpointConnectionData.DeserializeDurableTaskPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
-            return new PrivateEndpointConnectionResource(_client, data);
+            return new DurableTaskPrivateEndpointConnectionResource(_client, data);
         }
 
         /// <param name="response"> The response from the service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns></returns>
-        async ValueTask<PrivateEndpointConnectionResource> IOperationSource<PrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<DurableTaskPrivateEndpointConnectionResource> IOperationSource<DurableTaskPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
             DurableTaskPrivateEndpointConnectionData data = DurableTaskPrivateEndpointConnectionData.DeserializeDurableTaskPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
-            return new PrivateEndpointConnectionResource(_client, data);
+            return new DurableTaskPrivateEndpointConnectionResource(_client, data);
         }
     }
 }

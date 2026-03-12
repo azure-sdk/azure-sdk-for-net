@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="sku"> SKU of the durable task scheduler. </param>
         /// <param name="publicNetworkAccess"> Allow or disallow public network access to durable task scheduler. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DurableTaskSchedulerPatchProperties(DurableTaskProvisioningState? provisioningState, string endpoint, IList<string> ipAllowlist, DurableTaskSchedulerSkuUpdate sku, PublicNetworkAccess? publicNetworkAccess, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DurableTaskSchedulerPatchProperties(DurableTaskProvisioningState? provisioningState, string endpoint, IList<string> ipAllowlist, DurableTaskSchedulerSkuUpdate sku, DurableTaskPublicNetworkAccess? publicNetworkAccess, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             Endpoint = endpoint;
@@ -53,6 +53,6 @@ namespace Azure.ResourceManager.DurableTask.Models
         public DurableTaskSchedulerSkuUpdate Sku { get; set; }
 
         /// <summary> Allow or disallow public network access to durable task scheduler. </summary>
-        public PublicNetworkAccess? PublicNetworkAccess { get; set; }
+        public DurableTaskPublicNetworkAccess? PublicNetworkAccess { get; set; }
     }
 }

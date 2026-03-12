@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.DurableTask.Models
             string endpoint = default;
             IList<string> ipAllowlist = default;
             DurableTaskSchedulerSkuUpdate sku = default;
-            PublicNetworkAccess? publicNetworkAccess = default;
+            DurableTaskPublicNetworkAccess? publicNetworkAccess = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.DurableTask.Models
                     {
                         continue;
                     }
-                    publicNetworkAccess = new PublicNetworkAccess(prop.Value.GetString());
+                    publicNetworkAccess = new DurableTaskPublicNetworkAccess(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.DurableTask
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetPrivateEndpointConnectionsRequest(nextLink, _subscriptionId, _resourceGroupName, _schedulerName, _context) : _client.CreateGetPrivateEndpointConnectionsRequest(_subscriptionId, _resourceGroupName, _schedulerName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("PrivateEndpointConnectionCollection.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("DurableTaskPrivateEndpointConnectionCollection.GetAll");
             scope.Start();
             try
             {

@@ -1,14 +1,14 @@
 # Release History
 
-## 1.1.0 (2026-03-09)
+## 1.1.0 (2026-03-12)
 
 ### Features Added
 
 This release contains required changes for durable task scheduler private endpoint support. As part of this schedulers can be configured to disable public network access. Additionally, private endpoint connections can be managed and viewed.
 
 - `DurableTaskSchedulerProperties` now includes `PublicNetworkAccess` to enable or disable public network access.
-- `DurableTaskSchedulerProperties` now also contain a readonly `PrivateEndpointConnections` array for any private endpoint connections connected to this scheduler.
-- The `PrivateEndpointConnectionCollection` client allows managing of private endpoint connections, including approving / rejecting connections.
+- `DurableTaskSchedulerProperties` now also contain a readonly `PrivateEndpointConnections` collection for any private endpoint connections of this scheduler.
+- The `DurableTaskPrivateEndpointConnectionCollection` client allows managing of private endpoint connections, including approving / rejecting connections.
 
 ### Other Changes
 

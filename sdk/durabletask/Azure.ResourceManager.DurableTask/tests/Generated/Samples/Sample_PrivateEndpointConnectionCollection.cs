@@ -14,7 +14,7 @@ using NUnit.Framework;
 
 namespace Azure.ResourceManager.DurableTask.Samples
 {
-    public partial class Sample_PrivateEndpointConnectionCollection
+    public partial class Sample_DurableTaskPrivateEndpointConnectionCollection
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
@@ -36,21 +36,21 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this PrivateEndpointConnectionResource
-            PrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
+            // get the collection of this DurableTaskPrivateEndpointConnectionResource
+            DurableTaskPrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "testprivateendpointconnection";
             DurableTaskPrivateEndpointConnectionData data = new DurableTaskPrivateEndpointConnectionData
             {
-                Properties = new PrivateEndpointConnectionProperties(new DurableTaskPrivateLinkServiceConnectionState
+                Properties = new DurableTaskPrivateEndpointConnectionProperties(new DurableTaskPrivateLinkServiceConnectionState
                 {
                     Status = DurableTaskPrivateEndpointServiceConnectionStatus.Approved,
                     Description = "Auto-Approved",
                 }),
             };
-            ArmOperation<PrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
-            PrivateEndpointConnectionResource result = lro.Value;
+            ArmOperation<DurableTaskPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
+            DurableTaskPrivateEndpointConnectionResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
@@ -79,12 +79,12 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this PrivateEndpointConnectionResource
-            PrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
+            // get the collection of this DurableTaskPrivateEndpointConnectionResource
+            DurableTaskPrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "spzckqrbhfnabu";
-            PrivateEndpointConnectionResource result = await collection.GetAsync(privateEndpointConnectionName);
+            DurableTaskPrivateEndpointConnectionResource result = await collection.GetAsync(privateEndpointConnectionName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
@@ -113,11 +113,11 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this PrivateEndpointConnectionResource
-            PrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
+            // get the collection of this DurableTaskPrivateEndpointConnectionResource
+            DurableTaskPrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
 
             // invoke the operation and iterate over the result
-            await foreach (PrivateEndpointConnectionResource item in collection.GetAllAsync())
+            await foreach (DurableTaskPrivateEndpointConnectionResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
@@ -149,8 +149,8 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this PrivateEndpointConnectionResource
-            PrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
+            // get the collection of this DurableTaskPrivateEndpointConnectionResource
+            DurableTaskPrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "spzckqrbhfnabu";
@@ -179,13 +179,13 @@ namespace Azure.ResourceManager.DurableTask.Samples
             ResourceIdentifier durableTaskSchedulerResourceId = DurableTaskSchedulerResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName);
             DurableTaskSchedulerResource durableTaskScheduler = client.GetDurableTaskSchedulerResource(durableTaskSchedulerResourceId);
 
-            // get the collection of this PrivateEndpointConnectionResource
-            PrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
+            // get the collection of this DurableTaskPrivateEndpointConnectionResource
+            DurableTaskPrivateEndpointConnectionCollection collection = durableTaskScheduler.GetPrivateEndpointConnections();
 
             // invoke the operation
             string privateEndpointConnectionName = "spzckqrbhfnabu";
-            NullableResponse<PrivateEndpointConnectionResource> response = await collection.GetIfExistsAsync(privateEndpointConnectionName);
-            PrivateEndpointConnectionResource result = response.HasValue ? response.Value : null;
+            NullableResponse<DurableTaskPrivateEndpointConnectionResource> response = await collection.GetIfExistsAsync(privateEndpointConnectionName);
+            DurableTaskPrivateEndpointConnectionResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {

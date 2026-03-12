@@ -14,7 +14,7 @@ using NUnit.Framework;
 
 namespace Azure.ResourceManager.DurableTask.Samples
 {
-    public partial class Sample_PrivateEndpointConnectionResource
+    public partial class Sample_DurableTaskPrivateEndpointConnectionResource
     {
         [Test]
         [Ignore("Only validating compilation of examples")]
@@ -28,17 +28,17 @@ namespace Azure.ResourceManager.DurableTask.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this PrivateEndpointConnectionResource created on azure
-            // for more information of creating PrivateEndpointConnectionResource, please refer to the document of PrivateEndpointConnectionResource
+            // this example assumes you already have this DurableTaskPrivateEndpointConnectionResource created on azure
+            // for more information of creating DurableTaskPrivateEndpointConnectionResource, please refer to the document of DurableTaskPrivateEndpointConnectionResource
             string subscriptionId = "851A7597-D699-45CC-899B-7487A5B3B775";
             string resourceGroupName = "rgdurabletask";
             string schedulerName = "testscheduler";
             string privateEndpointConnectionName = "spzckqrbhfnabu";
-            ResourceIdentifier privateEndpointConnectionResourceId = PrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateEndpointConnectionName);
-            PrivateEndpointConnectionResource privateEndpointConnection = client.GetPrivateEndpointConnectionResource(privateEndpointConnectionResourceId);
+            ResourceIdentifier DurableTaskPrivateEndpointConnectionResourceId = DurableTaskPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateEndpointConnectionName);
+            DurableTaskPrivateEndpointConnectionResource privateEndpointConnection = client.GetDurableTaskPrivateEndpointConnectionResource(DurableTaskPrivateEndpointConnectionResourceId);
 
             // invoke the operation
-            PrivateEndpointConnectionResource result = await privateEndpointConnection.GetAsync();
+            DurableTaskPrivateEndpointConnectionResource result = await privateEndpointConnection.GetAsync();
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
@@ -59,14 +59,14 @@ namespace Azure.ResourceManager.DurableTask.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this PrivateEndpointConnectionResource created on azure
-            // for more information of creating PrivateEndpointConnectionResource, please refer to the document of PrivateEndpointConnectionResource
+            // this example assumes you already have this DurableTaskPrivateEndpointConnectionResource created on azure
+            // for more information of creating DurableTaskPrivateEndpointConnectionResource, please refer to the document of DurableTaskPrivateEndpointConnectionResource
             string subscriptionId = "851A7597-D699-45CC-899B-7487A5B3B775";
             string resourceGroupName = "rgdurabletask";
             string schedulerName = "testscheduler";
             string privateEndpointConnectionName = "spzckqrbhfnabu";
-            ResourceIdentifier privateEndpointConnectionResourceId = PrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateEndpointConnectionName);
-            PrivateEndpointConnectionResource privateEndpointConnection = client.GetPrivateEndpointConnectionResource(privateEndpointConnectionResourceId);
+            ResourceIdentifier DurableTaskPrivateEndpointConnectionResourceId = DurableTaskPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateEndpointConnectionName);
+            DurableTaskPrivateEndpointConnectionResource privateEndpointConnection = client.GetDurableTaskPrivateEndpointConnectionResource(DurableTaskPrivateEndpointConnectionResourceId);
 
             // invoke the operation
             await privateEndpointConnection.DeleteAsync(WaitUntil.Completed);
@@ -86,19 +86,19 @@ namespace Azure.ResourceManager.DurableTask.Samples
             // authenticate your client
             ArmClient client = new ArmClient(cred);
 
-            // this example assumes you already have this PrivateEndpointConnectionResource created on azure
-            // for more information of creating PrivateEndpointConnectionResource, please refer to the document of PrivateEndpointConnectionResource
+            // this example assumes you already have this DurableTaskPrivateEndpointConnectionResource created on azure
+            // for more information of creating DurableTaskPrivateEndpointConnectionResource, please refer to the document of DurableTaskPrivateEndpointConnectionResource
             string subscriptionId = "851A7597-D699-45CC-899B-7487A5B3B775";
             string resourceGroupName = "rgdurabletask";
             string schedulerName = "testscheduler";
             string privateEndpointConnectionName = "spzckqrbhfnabu";
-            ResourceIdentifier privateEndpointConnectionResourceId = PrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateEndpointConnectionName);
-            PrivateEndpointConnectionResource privateEndpointConnection = client.GetPrivateEndpointConnectionResource(privateEndpointConnectionResourceId);
+            ResourceIdentifier DurableTaskPrivateEndpointConnectionResourceId = DurableTaskPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, schedulerName, privateEndpointConnectionName);
+            DurableTaskPrivateEndpointConnectionResource privateEndpointConnection = client.GetDurableTaskPrivateEndpointConnectionResource(DurableTaskPrivateEndpointConnectionResourceId);
 
             // invoke the operation
-            PrivateEndpointConnectionPatch patch = new PrivateEndpointConnectionPatch
+            DurableTaskPrivateEndpointConnectionPatch patch = new DurableTaskPrivateEndpointConnectionPatch
             {
-                Properties = new OptionalPropertiesUpdateableProperties
+                Properties = new DurableTaskPrivateEndpointConnectionPatchProperties
                 {
                     PrivateLinkServiceConnectionState = new DurableTaskPrivateLinkServiceConnectionState
                     {
@@ -107,8 +107,8 @@ namespace Azure.ResourceManager.DurableTask.Samples
                     },
                 },
             };
-            ArmOperation<PrivateEndpointConnectionResource> lro = await privateEndpointConnection.UpdateAsync(WaitUntil.Completed, patch);
-            PrivateEndpointConnectionResource result = lro.Value;
+            ArmOperation<DurableTaskPrivateEndpointConnectionResource> lro = await privateEndpointConnection.UpdateAsync(WaitUntil.Completed, patch);
+            DurableTaskPrivateEndpointConnectionResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance

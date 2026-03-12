@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="publicNetworkAccess"> Allow or disallow public network access to durable task scheduler. </param>
         /// <param name="privateEndpointConnections"> The private endpoints exposed by this resource. </param>
         /// <returns> A new <see cref="Models.DurableTaskSchedulerProperties"/> instance for mocking. </returns>
-        public static DurableTaskSchedulerProperties DurableTaskSchedulerProperties(DurableTaskProvisioningState? provisioningState = default, string endpoint = default, IEnumerable<string> ipAllowlist = default, DurableTaskSchedulerSku sku = default, PublicNetworkAccess? publicNetworkAccess = default, IEnumerable<DurableTaskPrivateEndpointConnectionData> privateEndpointConnections = default)
+        public static DurableTaskSchedulerProperties DurableTaskSchedulerProperties(DurableTaskProvisioningState? provisioningState = default, string endpoint = default, IEnumerable<string> ipAllowlist = default, DurableTaskSchedulerSku sku = default, DurableTaskPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<DurableTaskPrivateEndpointConnectionData> privateEndpointConnections = default)
         {
             ipAllowlist ??= new ChangeTrackingList<string>();
             privateEndpointConnections ??= new ChangeTrackingList<DurableTaskPrivateEndpointConnectionData>();
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="properties"> The private endpoint connection properties. </param>
         /// <returns> A new <see cref="DurableTask.DurableTaskPrivateEndpointConnectionData"/> instance for mocking. </returns>
-        public static DurableTaskPrivateEndpointConnectionData DurableTaskPrivateEndpointConnectionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, PrivateEndpointConnectionProperties properties = default)
+        public static DurableTaskPrivateEndpointConnectionData DurableTaskPrivateEndpointConnectionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, DurableTaskPrivateEndpointConnectionProperties properties = default)
         {
             return new DurableTaskPrivateEndpointConnectionData(
                 id,
@@ -99,12 +99,12 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="privateEndpointId"> The resource identifier of the private endpoint. </param>
         /// <param name="privateLinkServiceConnectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
         /// <param name="provisioningState"> The provisioning state of the private endpoint connection resource. </param>
-        /// <returns> A new <see cref="Models.PrivateEndpointConnectionProperties"/> instance for mocking. </returns>
-        public static PrivateEndpointConnectionProperties PrivateEndpointConnectionProperties(IEnumerable<string> groupIds = default, ResourceIdentifier privateEndpointId = default, DurableTaskPrivateLinkServiceConnectionState privateLinkServiceConnectionState = default, DurableTaskPrivateEndpointConnectionProvisioningState? provisioningState = default)
+        /// <returns> A new <see cref="Models.DurableTaskPrivateEndpointConnectionProperties"/> instance for mocking. </returns>
+        public static DurableTaskPrivateEndpointConnectionProperties DurableTaskPrivateEndpointConnectionProperties(IEnumerable<string> groupIds = default, ResourceIdentifier privateEndpointId = default, DurableTaskPrivateLinkServiceConnectionState privateLinkServiceConnectionState = default, DurableTaskPrivateEndpointConnectionProvisioningState? provisioningState = default)
         {
             groupIds ??= new ChangeTrackingList<string>();
 
-            return new PrivateEndpointConnectionProperties(groupIds.ToList(), privateEndpointId is null ? default : new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, additionalBinaryDataProperties: null);
+            return new DurableTaskPrivateEndpointConnectionProperties(groupIds.ToList(), privateEndpointId is null ? default : new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, additionalBinaryDataProperties: null);
         }
 
         /// <summary> The update request model for the Scheduler resource. </summary>
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="sku"> SKU of the durable task scheduler. </param>
         /// <param name="publicNetworkAccess"> Allow or disallow public network access to durable task scheduler. </param>
         /// <returns> A new <see cref="Models.DurableTaskSchedulerPatchProperties"/> instance for mocking. </returns>
-        public static DurableTaskSchedulerPatchProperties DurableTaskSchedulerPatchProperties(DurableTaskProvisioningState? provisioningState = default, string endpoint = default, IEnumerable<string> ipAllowlist = default, DurableTaskSchedulerSkuUpdate sku = default, PublicNetworkAccess? publicNetworkAccess = default)
+        public static DurableTaskSchedulerPatchProperties DurableTaskSchedulerPatchProperties(DurableTaskProvisioningState? provisioningState = default, string endpoint = default, IEnumerable<string> ipAllowlist = default, DurableTaskSchedulerSkuUpdate sku = default, DurableTaskPublicNetworkAccess? publicNetworkAccess = default)
         {
             ipAllowlist ??= new ChangeTrackingList<string>();
 

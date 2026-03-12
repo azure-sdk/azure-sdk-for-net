@@ -11,26 +11,26 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.DurableTask.Models
 {
     /// <summary> PATCH model for private endpoint connections. </summary>
-    public partial class PrivateEndpointConnectionPatch
+    public partial class DurableTaskPrivateEndpointConnectionPatch
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionPatch"/>. </summary>
-        public PrivateEndpointConnectionPatch()
+        /// <summary> Initializes a new instance of <see cref="DurableTaskPrivateEndpointConnectionPatch"/>. </summary>
+        public DurableTaskPrivateEndpointConnectionPatch()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="PrivateEndpointConnectionPatch"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="DurableTaskPrivateEndpointConnectionPatch"/>. </summary>
         /// <param name="properties"> The private endpoint connection properties. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PrivateEndpointConnectionPatch(OptionalPropertiesUpdateableProperties properties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DurableTaskPrivateEndpointConnectionPatch(DurableTaskPrivateEndpointConnectionPatchProperties properties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Properties = properties;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The private endpoint connection properties. </summary>
-        public OptionalPropertiesUpdateableProperties Properties { get; set; }
+        public DurableTaskPrivateEndpointConnectionPatchProperties Properties { get; set; }
     }
 }

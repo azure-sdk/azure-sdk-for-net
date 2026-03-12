@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         /// <param name="publicNetworkAccess"> Allow or disallow public network access to durable task scheduler. </param>
         /// <param name="privateEndpointConnections"> The private endpoints exposed by this resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DurableTaskSchedulerProperties(DurableTaskProvisioningState? provisioningState, string endpoint, IList<string> ipAllowlist, DurableTaskSchedulerSku sku, PublicNetworkAccess? publicNetworkAccess, IReadOnlyList<DurableTaskPrivateEndpointConnectionData> privateEndpointConnections, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DurableTaskSchedulerProperties(DurableTaskProvisioningState? provisioningState, string endpoint, IList<string> ipAllowlist, DurableTaskSchedulerSku sku, DurableTaskPublicNetworkAccess? publicNetworkAccess, IReadOnlyList<DurableTaskPrivateEndpointConnectionData> privateEndpointConnections, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             Endpoint = endpoint;
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.DurableTask.Models
         public DurableTaskSchedulerSku Sku { get; set; }
 
         /// <summary> Allow or disallow public network access to durable task scheduler. </summary>
-        public PublicNetworkAccess? PublicNetworkAccess { get; set; }
+        public DurableTaskPublicNetworkAccess? PublicNetworkAccess { get; set; }
 
         /// <summary> The private endpoints exposed by this resource. </summary>
         public IReadOnlyList<DurableTaskPrivateEndpointConnectionData> PrivateEndpointConnections { get; }
