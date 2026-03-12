@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <summary> Initializes a new instance of <see cref="EncodedTaskStepUpdateContent"/>. </summary>
         public EncodedTaskStepUpdateContent() : base(StepType.EncodedTask)
         {
-            Values = new ChangeTrackingList<SetValue>();
+            Values = new ChangeTrackingList<ContainerRegistryTaskSetValue>();
         }
 
         /// <summary> Initializes a new instance of <see cref="EncodedTaskStepUpdateContent"/>. </summary>
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="encodedTaskContent"> Base64 encoded value of the template/definition file content. </param>
         /// <param name="encodedValuesContent"> Base64 encoded value of the parameters/values file content. </param>
         /// <param name="values"> The collection of overridable values that can be passed when running a task. </param>
-        internal EncodedTaskStepUpdateContent(StepType @type, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, string encodedTaskContent, string encodedValuesContent, IList<SetValue> values) : base(@type, contextPath, contextAccessToken, additionalBinaryDataProperties)
+        internal EncodedTaskStepUpdateContent(StepType @type, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, string encodedTaskContent, string encodedValuesContent, IList<ContainerRegistryTaskSetValue> values) : base(@type, contextPath, contextAccessToken, additionalBinaryDataProperties)
         {
             EncodedTaskContent = encodedTaskContent;
             EncodedValuesContent = encodedValuesContent;
@@ -42,6 +42,6 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string EncodedValuesContent { get; set; }
 
         /// <summary> The collection of overridable values that can be passed when running a task. </summary>
-        public IList<SetValue> Values { get; }
+        public IList<ContainerRegistryTaskSetValue> Values { get; }
     }
 }

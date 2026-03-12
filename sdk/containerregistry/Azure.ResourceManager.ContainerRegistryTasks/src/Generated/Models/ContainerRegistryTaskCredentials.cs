@@ -12,18 +12,18 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The parameters that describes a set of credentials that will be used when a run is invoked. </summary>
-    public partial class Credentials
+    public partial class ContainerRegistryTaskCredentials
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="Credentials"/>. </summary>
-        public Credentials()
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskCredentials"/>. </summary>
+        public ContainerRegistryTaskCredentials()
         {
             CustomRegistries = new ChangeTrackingDictionary<string, CustomRegistryCredentials>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="Credentials"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskCredentials"/>. </summary>
         /// <param name="sourceRegistry"> Describes the credential parameters for accessing the source registry. </param>
         /// <param name="customRegistries">
         /// Describes the credential parameters for accessing other custom registries. The key
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// the value of the item will be the registry credentials for accessing the registry.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal Credentials(SourceRegistryCredentials sourceRegistry, IDictionary<string, CustomRegistryCredentials> customRegistries, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerRegistryTaskCredentials(SourceRegistryCredentials sourceRegistry, IDictionary<string, CustomRegistryCredentials> customRegistries, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             SourceRegistry = sourceRegistry;
             CustomRegistries = customRegistries;

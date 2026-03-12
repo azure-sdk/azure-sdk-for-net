@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             if (Optional.IsDefined(RepositoryUri))
             {
                 writer.WritePropertyName("repositoryUrl"u8);
-                writer.WriteStringValue(RepositoryUri);
+                writer.WriteStringValue(RepositoryUri.AbsoluteUri);
             }
             if (Optional.IsDefined(BranchName))
             {
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             string eventType = default;
             string commitId = default;
             string pullRequestId = default;
-            string repositoryUri = default;
+            Uri repositoryUri = default;
             string branchName = default;
             string providerType = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -183,7 +183,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 }
                 if (prop.NameEquals("repositoryUrl"u8))
                 {
-                    repositoryUri = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    repositoryUri = string.IsNullOrEmpty(prop.Value.GetString()) ? null : new Uri(prop.Value.GetString(), UriKind.RelativeOrAbsolute);
                     continue;
                 }
                 if (prop.NameEquals("branchName"u8))

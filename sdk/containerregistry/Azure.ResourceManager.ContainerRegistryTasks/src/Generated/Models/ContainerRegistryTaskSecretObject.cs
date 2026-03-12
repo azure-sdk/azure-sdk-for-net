@@ -11,17 +11,17 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> Describes the properties of a secret object value. </summary>
-    public partial class SecretObject
+    public partial class ContainerRegistryTaskSecretObject
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="SecretObject"/>. </summary>
-        public SecretObject()
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskSecretObject"/>. </summary>
+        public ContainerRegistryTaskSecretObject()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="SecretObject"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskSecretObject"/>. </summary>
         /// <param name="value">
         /// The value of the secret. The format of this value will be determined
         /// based on the type of the secret object. If the type is Opaque, the value will be
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// interpreted.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SecretObject(string value, SecretObjectType? @type, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerRegistryTaskSecretObject(string value, ContainerRegistryTaskSecretObjectType? @type, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             Type = @type;
@@ -50,6 +50,6 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// The type of the secret object which determines how the value of the secret object has to be
         /// interpreted.
         /// </summary>
-        public SecretObjectType? Type { get; set; }
+        public ContainerRegistryTaskSecretObjectType? Type { get; set; }
     }
 }

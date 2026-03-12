@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="logTemplate"> The template that describes the repository and tag information for run log artifact. </param>
         /// <param name="isSystemTask"> The value of this property indicates whether the task resource is system task or not. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TaskProperties(ProvisioningState? provisioningState, DateTimeOffset? createdOn, TaskStatus? status, PlatformProperties platform, AgentProperties agentConfiguration, string agentPoolName, int? timeout, TaskStepProperties step, TriggerProperties trigger, Credentials credentials, string logTemplate, bool? isSystemTask, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TaskProperties(ContainerRegistryTaskProvisioningState? provisioningState, DateTimeOffset? createdOn, ContainerRegistryTaskStatus? status, PlatformProperties platform, AgentProperties agentConfiguration, string agentPoolName, int? timeout, TaskStepProperties step, TriggerProperties trigger, ContainerRegistryTaskCredentials credentials, string logTemplate, bool? isSystemTask, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             CreatedOn = createdOn;
@@ -53,13 +53,13 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         }
 
         /// <summary> The provisioning state of the task. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryTaskProvisioningState? ProvisioningState { get; }
 
         /// <summary> The creation date of task. </summary>
         public DateTimeOffset? CreatedOn { get; }
 
         /// <summary> The current status of task. </summary>
-        public TaskStatus? Status { get; set; }
+        public ContainerRegistryTaskStatus? Status { get; set; }
 
         /// <summary> The platform properties against which the run has to happen. </summary>
         public PlatformProperties Platform { get; set; }
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public TriggerProperties Trigger { get; set; }
 
         /// <summary> The properties that describes a set of credentials that will be used when this run is invoked. </summary>
-        public Credentials Credentials { get; set; }
+        public ContainerRegistryTaskCredentials Credentials { get; set; }
 
         /// <summary> The template that describes the repository and tag information for run log artifact. </summary>
         public string LogTemplate { get; set; }

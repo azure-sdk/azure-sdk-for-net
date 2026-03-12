@@ -131,8 +131,8 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 return null;
             }
-            SecretObject userName = default;
-            SecretObject password = default;
+            ContainerRegistryTaskSecretObject userName = default;
+            ContainerRegistryTaskSecretObject password = default;
             string identity = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    userName = SecretObject.DeserializeSecretObject(prop.Value, options);
+                    userName = ContainerRegistryTaskSecretObject.DeserializeContainerRegistryTaskSecretObject(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("password"u8))
@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    password = SecretObject.DeserializeSecretObject(prop.Value, options);
+                    password = ContainerRegistryTaskSecretObject.DeserializeContainerRegistryTaskSecretObject(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("identity"u8))

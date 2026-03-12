@@ -12,30 +12,30 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The properties of a overridable value that can be passed to a task template. </summary>
-    public partial class SetValue
+    public partial class ContainerRegistryTaskSetValue
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="SetValue"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskSetValue"/>. </summary>
         /// <param name="name"> The name of the overridable value. </param>
         /// <param name="value"> The overridable value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="value"/> is null. </exception>
-        public SetValue(string name, string value)
+        public ContainerRegistryTaskSetValue(string name, string value)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(name, nameof(name));
-            ContainerRegistryTasks.Argument.AssertNotNull(value, nameof(value));
+            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(value, nameof(value));
 
             Name = name;
             Value = value;
         }
 
-        /// <summary> Initializes a new instance of <see cref="SetValue"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskSetValue"/>. </summary>
         /// <param name="name"> The name of the overridable value. </param>
         /// <param name="value"> The overridable value. </param>
         /// <param name="isSecret"> Flag to indicate whether the value represents a secret or not. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SetValue(string name, string value, bool? isSecret, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerRegistryTaskSetValue(string name, string value, bool? isSecret, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Value = value;

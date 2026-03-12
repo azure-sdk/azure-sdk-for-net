@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
         public BaseImageTriggerUpdateContent(string name)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(name, nameof(name));
 
             Name = name;
         }
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="status"> The current status of trigger. </param>
         /// <param name="name"> The name of the trigger. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal BaseImageTriggerUpdateContent(BaseImageTriggerType? baseImageTriggerType, string updateTriggerEndpoint, UpdateTriggerPayloadType? updateTriggerPayloadType, TriggerStatus? status, string name, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal BaseImageTriggerUpdateContent(BaseImageTriggerType? baseImageTriggerType, string updateTriggerEndpoint, UpdateTriggerPayloadType? updateTriggerPayloadType, ContainerRegistryTaskTriggerStatus? status, string name, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             BaseImageTriggerType = baseImageTriggerType;
             UpdateTriggerEndpoint = updateTriggerEndpoint;
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public UpdateTriggerPayloadType? UpdateTriggerPayloadType { get; set; }
 
         /// <summary> The current status of trigger. </summary>
-        public TriggerStatus? Status { get; set; }
+        public ContainerRegistryTaskTriggerStatus? Status { get; set; }
 
         /// <summary> The name of the trigger. </summary>
         public string Name { get; }

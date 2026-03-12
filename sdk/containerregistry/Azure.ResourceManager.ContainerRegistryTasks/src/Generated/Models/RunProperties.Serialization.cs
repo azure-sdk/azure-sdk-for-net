@@ -99,10 +99,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 writer.WritePropertyName("agentPoolName"u8);
                 writer.WriteStringValue(AgentPoolName);
             }
-            if (Optional.IsDefined(CreateOn))
+            if (Optional.IsDefined(CreatedOn))
             {
                 writer.WritePropertyName("createTime"u8);
-                writer.WriteStringValue(CreateOn.Value, "O");
+                writer.WriteStringValue(CreatedOn.Value, "O");
             }
             if (Optional.IsDefined(StartOn))
             {
@@ -242,11 +242,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 return null;
             }
             string runId = default;
-            RunStatus? status = default;
+            ContainerRegistryTaskRunStatus? status = default;
             DateTimeOffset? lastUpdatedOn = default;
-            RunType? runType = default;
+            ContainerRegistryTaskRunType? runType = default;
             string agentPoolName = default;
-            DateTimeOffset? createOn = default;
+            DateTimeOffset? createdOn = default;
             DateTimeOffset? startOn = default;
             DateTimeOffset? finishOn = default;
             IList<ImageDescriptor> outputImages = default;
@@ -261,7 +261,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             string runErrorMessage = default;
             string updateTriggerToken = default;
             ImageDescriptor logArtifact = default;
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryTaskProvisioningState? provisioningState = default;
             bool? isArchiveEnabled = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -277,7 +277,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    status = new RunStatus(prop.Value.GetString());
+                    status = new ContainerRegistryTaskRunStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("lastUpdatedTime"u8))
@@ -295,7 +295,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    runType = new RunType(prop.Value.GetString());
+                    runType = new ContainerRegistryTaskRunType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("agentPoolName"u8))
@@ -309,7 +309,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    createOn = prop.Value.GetDateTimeOffset("O");
+                    createdOn = prop.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (prop.NameEquals("startTime"u8))
@@ -445,7 +445,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryTaskProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("isArchiveEnabled"u8))
@@ -468,7 +468,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 lastUpdatedOn,
                 runType,
                 agentPoolName,
-                createOn,
+                createdOn,
                 startOn,
                 finishOn,
                 outputImages ?? new ChangeTrackingList<ImageDescriptor>(),

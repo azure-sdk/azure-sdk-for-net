@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 writer.WritePropertyName("values"u8);
                 writer.WriteStartArray();
-                foreach (SetValue item in Values)
+                foreach (ContainerRegistryTaskSetValue item in Values)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -153,12 +153,12 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string encodedTaskContent = default;
             string encodedValuesContent = default;
-            IList<SetValue> values = default;
+            IList<ContainerRegistryTaskSetValue> values = default;
             int? timeout = default;
             PlatformProperties platform = default;
             AgentProperties agentConfiguration = default;
             string sourceLocation = default;
-            Credentials credentials = default;
+            ContainerRegistryTaskCredentials credentials = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -201,10 +201,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    List<SetValue> array = new List<SetValue>();
+                    List<ContainerRegistryTaskSetValue> array = new List<ContainerRegistryTaskSetValue>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(SetValue.DeserializeSetValue(item, options));
+                        array.Add(ContainerRegistryTaskSetValue.DeserializeContainerRegistryTaskSetValue(item, options));
                     }
                     values = array;
                     continue;
@@ -243,7 +243,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    credentials = Credentials.DeserializeCredentials(prop.Value, options);
+                    credentials = ContainerRegistryTaskCredentials.DeserializeContainerRegistryTaskCredentials(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -259,7 +259,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 additionalBinaryDataProperties,
                 encodedTaskContent,
                 encodedValuesContent,
-                values ?? new ChangeTrackingList<SetValue>(),
+                values ?? new ChangeTrackingList<ContainerRegistryTaskSetValue>(),
                 timeout,
                 platform,
                 agentConfiguration,

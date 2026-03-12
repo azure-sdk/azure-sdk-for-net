@@ -133,15 +133,15 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 return null;
             }
-            OS os = default;
-            Architecture? architecture = default;
-            Variant? variant = default;
+            ContainerRegistryTaskOS os = default;
+            ContainerRegistryTaskArchitecture? architecture = default;
+            ContainerRegistryTaskVariant? variant = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("os"u8))
                 {
-                    os = new OS(prop.Value.GetString());
+                    os = new ContainerRegistryTaskOS(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("architecture"u8))
@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    architecture = new Architecture(prop.Value.GetString());
+                    architecture = new ContainerRegistryTaskArchitecture(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("variant"u8))
@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    variant = new Variant(prop.Value.GetString());
+                    variant = new ContainerRegistryTaskVariant(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

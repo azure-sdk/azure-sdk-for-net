@@ -95,10 +95,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 writer.WritePropertyName("isPushEnabled"u8);
                 writer.WriteBooleanValue(IsPushEnabled.Value);
             }
-            if (Optional.IsDefined(NoCache))
+            if (Optional.IsDefined(IsCacheDisabled))
             {
                 writer.WritePropertyName("noCache"u8);
-                writer.WriteBooleanValue(NoCache.Value);
+                writer.WriteBooleanValue(IsCacheDisabled.Value);
             }
             if (Optional.IsDefined(DockerFilePath))
             {
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 writer.WritePropertyName("arguments"u8);
                 writer.WriteStartArray();
-                foreach (Argument item in Arguments)
+                foreach (ContainerRegistryTaskArgument item in Arguments)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -153,9 +153,9 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             IList<string> imageNames = default;
             bool? isPushEnabled = default;
-            bool? noCache = default;
+            bool? isCacheDisabled = default;
             string dockerFilePath = default;
-            IList<Argument> arguments = default;
+            IList<ContainerRegistryTaskArgument> arguments = default;
             string target = default;
             foreach (var prop in element.EnumerateObject())
             {
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    noCache = prop.Value.GetBoolean();
+                    isCacheDisabled = prop.Value.GetBoolean();
                     continue;
                 }
                 if (prop.NameEquals("dockerFilePath"u8))
@@ -224,10 +224,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    List<Argument> array = new List<Argument>();
+                    List<ContainerRegistryTaskArgument> array = new List<ContainerRegistryTaskArgument>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(Argument.DeserializeArgument(item, options));
+                        array.Add(ContainerRegistryTaskArgument.DeserializeContainerRegistryTaskArgument(item, options));
                     }
                     arguments = array;
                     continue;
@@ -249,9 +249,9 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 additionalBinaryDataProperties,
                 imageNames ?? new ChangeTrackingList<string>(),
                 isPushEnabled,
-                noCache,
+                isCacheDisabled,
                 dockerFilePath,
-                arguments ?? new ChangeTrackingList<Argument>(),
+                arguments ?? new ChangeTrackingList<ContainerRegistryTaskArgument>(),
                 target);
         }
     }

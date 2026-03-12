@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             writer.WritePropertyName("sourceControlType"u8);
             writer.WriteStringValue(SourceControlType.ToString());
             writer.WritePropertyName("repositoryUrl"u8);
-            writer.WriteStringValue(RepositoryUri);
+            writer.WriteStringValue(RepositoryUri.AbsoluteUri);
             if (Optional.IsDefined(Branch))
             {
                 writer.WritePropertyName("branch"u8);
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 return null;
             }
             SourceControlType sourceControlType = default;
-            string repositoryUri = default;
+            Uri repositoryUri = default;
             string branch = default;
             AuthInfo sourceControlAuthProperties = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 }
                 if (prop.NameEquals("repositoryUrl"u8))
                 {
-                    repositoryUri = prop.Value.GetString();
+                    repositoryUri = string.IsNullOrEmpty(prop.Value.GetString()) ? null : new Uri(prop.Value.GetString(), UriKind.RelativeOrAbsolute);
                     continue;
                 }
                 if (prop.NameEquals("branch"u8))

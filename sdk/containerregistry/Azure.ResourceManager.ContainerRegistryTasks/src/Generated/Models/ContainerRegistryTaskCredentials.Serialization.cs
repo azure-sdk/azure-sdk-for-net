@@ -13,52 +13,52 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
-    /// <summary> The properties for updating the platform configuration. </summary>
-    public partial class PlatformUpdateContent : IJsonModel<PlatformUpdateContent>
+    /// <summary> The parameters that describes a set of credentials that will be used when a run is invoked. </summary>
+    public partial class ContainerRegistryTaskCredentials : IJsonModel<ContainerRegistryTaskCredentials>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual PlatformUpdateContent PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ContainerRegistryTaskCredentials PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PlatformUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskCredentials>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializePlatformUpdateContent(document.RootElement, options);
+                        return DeserializeContainerRegistryTaskCredentials(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(PlatformUpdateContent)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ContainerRegistryTaskCredentials)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PlatformUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskCredentials>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryTasksContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(PlatformUpdateContent)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ContainerRegistryTaskCredentials)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<PlatformUpdateContent>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ContainerRegistryTaskCredentials>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        PlatformUpdateContent IPersistableModel<PlatformUpdateContent>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ContainerRegistryTaskCredentials IPersistableModel<ContainerRegistryTaskCredentials>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<PlatformUpdateContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ContainerRegistryTaskCredentials>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<PlatformUpdateContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ContainerRegistryTaskCredentials>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -69,25 +69,26 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PlatformUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskCredentials>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PlatformUpdateContent)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ContainerRegistryTaskCredentials)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(Os))
+            if (Optional.IsDefined(SourceRegistry))
             {
-                writer.WritePropertyName("os"u8);
-                writer.WriteStringValue(Os.Value.ToString());
+                writer.WritePropertyName("sourceRegistry"u8);
+                writer.WriteObjectValue(SourceRegistry, options);
             }
-            if (Optional.IsDefined(Architecture))
+            if (Optional.IsCollectionDefined(CustomRegistries))
             {
-                writer.WritePropertyName("architecture"u8);
-                writer.WriteStringValue(Architecture.Value.ToString());
-            }
-            if (Optional.IsDefined(Variant))
-            {
-                writer.WritePropertyName("variant"u8);
-                writer.WriteStringValue(Variant.Value.ToString());
+                writer.WritePropertyName("customRegistries"u8);
+                writer.WriteStartObject();
+                foreach (var item in CustomRegistries)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteObjectValue(item.Value, options);
+                }
+                writer.WriteEndObject();
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -108,60 +109,55 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        PlatformUpdateContent IJsonModel<PlatformUpdateContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ContainerRegistryTaskCredentials IJsonModel<ContainerRegistryTaskCredentials>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual PlatformUpdateContent JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ContainerRegistryTaskCredentials JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<PlatformUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskCredentials>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PlatformUpdateContent)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ContainerRegistryTaskCredentials)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializePlatformUpdateContent(document.RootElement, options);
+            return DeserializeContainerRegistryTaskCredentials(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static PlatformUpdateContent DeserializePlatformUpdateContent(JsonElement element, ModelReaderWriterOptions options)
+        internal static ContainerRegistryTaskCredentials DeserializeContainerRegistryTaskCredentials(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            ContainerRegistryTaskOS? os = default;
-            ContainerRegistryTaskArchitecture? architecture = default;
-            ContainerRegistryTaskVariant? variant = default;
+            SourceRegistryCredentials sourceRegistry = default;
+            IDictionary<string, CustomRegistryCredentials> customRegistries = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
-                if (prop.NameEquals("os"u8))
+                if (prop.NameEquals("sourceRegistry"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    os = new ContainerRegistryTaskOS(prop.Value.GetString());
+                    sourceRegistry = SourceRegistryCredentials.DeserializeSourceRegistryCredentials(prop.Value, options);
                     continue;
                 }
-                if (prop.NameEquals("architecture"u8))
+                if (prop.NameEquals("customRegistries"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    architecture = new ContainerRegistryTaskArchitecture(prop.Value.GetString());
-                    continue;
-                }
-                if (prop.NameEquals("variant"u8))
-                {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    Dictionary<string, CustomRegistryCredentials> dictionary = new Dictionary<string, CustomRegistryCredentials>();
+                    foreach (var prop0 in prop.Value.EnumerateObject())
                     {
-                        continue;
+                        dictionary.Add(prop0.Name, CustomRegistryCredentials.DeserializeCustomRegistryCredentials(prop0.Value, options));
                     }
-                    variant = new ContainerRegistryTaskVariant(prop.Value.GetString());
+                    customRegistries = dictionary;
                     continue;
                 }
                 if (options.Format != "W")
@@ -169,7 +165,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new PlatformUpdateContent(os, architecture, variant, additionalBinaryDataProperties);
+            return new ContainerRegistryTaskCredentials(sourceRegistry, customRegistries ?? new ChangeTrackingDictionary<string, CustomRegistryCredentials>(), additionalBinaryDataProperties);
         }
     }
 }

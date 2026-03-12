@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 return null;
             }
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryTaskProvisioningState? provisioningState = default;
             RunContent runRequest = default;
             RunData runResult = default;
             string forceUpdateTag = default;
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryTaskProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("runRequest"u8))

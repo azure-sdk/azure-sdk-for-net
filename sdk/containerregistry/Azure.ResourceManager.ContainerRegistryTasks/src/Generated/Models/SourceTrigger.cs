@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="sourceRepository"/>, <paramref name="sourceTriggerEvents"/> or <paramref name="name"/> is null. </exception>
         public SourceTrigger(SourceProperties sourceRepository, IEnumerable<SourceTriggerEvent> sourceTriggerEvents, string name)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(sourceRepository, nameof(sourceRepository));
-            ContainerRegistryTasks.Argument.AssertNotNull(sourceTriggerEvents, nameof(sourceTriggerEvents));
-            ContainerRegistryTasks.Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(sourceRepository, nameof(sourceRepository));
+            Argument.AssertNotNull(sourceTriggerEvents, nameof(sourceTriggerEvents));
+            Argument.AssertNotNull(name, nameof(name));
 
             SourceRepository = sourceRepository;
             SourceTriggerEvents = sourceTriggerEvents.ToList();
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="status"> The current status of trigger. </param>
         /// <param name="name"> The name of the trigger. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SourceTrigger(SourceProperties sourceRepository, IList<SourceTriggerEvent> sourceTriggerEvents, TriggerStatus? status, string name, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SourceTrigger(SourceProperties sourceRepository, IList<SourceTriggerEvent> sourceTriggerEvents, ContainerRegistryTaskTriggerStatus? status, string name, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             SourceRepository = sourceRepository;
             SourceTriggerEvents = sourceTriggerEvents;
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public IList<SourceTriggerEvent> SourceTriggerEvents { get; }
 
         /// <summary> The current status of trigger. </summary>
-        public TriggerStatus? Status { get; set; }
+        public ContainerRegistryTaskTriggerStatus? Status { get; set; }
 
         /// <summary> The name of the trigger. </summary>
         public string Name { get; set; }

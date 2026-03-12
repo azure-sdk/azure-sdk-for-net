@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <summary> Initializes a new instance of <see cref="OverrideTaskStepProperties"/>. </summary>
         public OverrideTaskStepProperties()
         {
-            Arguments = new ChangeTrackingList<Argument>();
-            Values = new ChangeTrackingList<SetValue>();
+            Arguments = new ChangeTrackingList<ContainerRegistryTaskArgument>();
+            Values = new ChangeTrackingList<ContainerRegistryTaskSetValue>();
         }
 
         /// <summary> Initializes a new instance of <see cref="OverrideTaskStepProperties"/>. </summary>
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="values"> The collection of overridable values that can be passed when running a Task. </param>
         /// <param name="updateTriggerToken"> Base64 encoded update trigger token that will be attached with the base image trigger webhook. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal OverrideTaskStepProperties(string contextPath, string @file, IList<Argument> arguments, string target, IList<SetValue> values, string updateTriggerToken, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal OverrideTaskStepProperties(string contextPath, string @file, IList<ContainerRegistryTaskArgument> arguments, string target, IList<ContainerRegistryTaskSetValue> values, string updateTriggerToken, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ContextPath = contextPath;
             File = @file;
@@ -56,13 +56,13 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// Gets or sets the collection of override arguments to be used when
         /// executing a build step.
         /// </summary>
-        public IList<Argument> Arguments { get; }
+        public IList<ContainerRegistryTaskArgument> Arguments { get; }
 
         /// <summary> The name of the target build stage for the docker build. </summary>
         public string Target { get; set; }
 
         /// <summary> The collection of overridable values that can be passed when running a Task. </summary>
-        public IList<SetValue> Values { get; }
+        public IList<ContainerRegistryTaskSetValue> Values { get; }
 
         /// <summary> Base64 encoded update trigger token that will be attached with the base image trigger webhook. </summary>
         public string UpdateTriggerToken { get; set; }

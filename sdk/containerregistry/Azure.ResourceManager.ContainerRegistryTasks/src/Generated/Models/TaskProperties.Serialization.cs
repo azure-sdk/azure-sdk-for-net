@@ -176,16 +176,16 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 return null;
             }
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryTaskProvisioningState? provisioningState = default;
             DateTimeOffset? createdOn = default;
-            TaskStatus? status = default;
+            ContainerRegistryTaskStatus? status = default;
             PlatformProperties platform = default;
             AgentProperties agentConfiguration = default;
             string agentPoolName = default;
             int? timeout = default;
             TaskStepProperties step = default;
             TriggerProperties trigger = default;
-            Credentials credentials = default;
+            ContainerRegistryTaskCredentials credentials = default;
             string logTemplate = default;
             bool? isSystemTask = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -197,7 +197,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryTaskProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("creationDate"u8))
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    status = new TaskStatus(prop.Value.GetString());
+                    status = new ContainerRegistryTaskStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("platform"u8))
@@ -274,7 +274,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    credentials = Credentials.DeserializeCredentials(prop.Value, options);
+                    credentials = ContainerRegistryTaskCredentials.DeserializeContainerRegistryTaskCredentials(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("logTemplate"u8))

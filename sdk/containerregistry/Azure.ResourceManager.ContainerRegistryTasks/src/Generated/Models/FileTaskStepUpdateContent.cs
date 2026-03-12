@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <summary> Initializes a new instance of <see cref="FileTaskStepUpdateContent"/>. </summary>
         public FileTaskStepUpdateContent() : base(StepType.FileTask)
         {
-            Values = new ChangeTrackingList<SetValue>();
+            Values = new ChangeTrackingList<ContainerRegistryTaskSetValue>();
         }
 
         /// <summary> Initializes a new instance of <see cref="FileTaskStepUpdateContent"/>. </summary>
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="taskFilePath"> The task template/definition file path relative to the source context. </param>
         /// <param name="valuesFilePath"> The values/parameters file path relative to the source context. </param>
         /// <param name="values"> The collection of overridable values that can be passed when running a task. </param>
-        internal FileTaskStepUpdateContent(StepType @type, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, string taskFilePath, string valuesFilePath, IList<SetValue> values) : base(@type, contextPath, contextAccessToken, additionalBinaryDataProperties)
+        internal FileTaskStepUpdateContent(StepType @type, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, string taskFilePath, string valuesFilePath, IList<ContainerRegistryTaskSetValue> values) : base(@type, contextPath, contextAccessToken, additionalBinaryDataProperties)
         {
             TaskFilePath = taskFilePath;
             ValuesFilePath = valuesFilePath;
@@ -42,6 +42,6 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string ValuesFilePath { get; set; }
 
         /// <summary> The collection of overridable values that can be passed when running a task. </summary>
-        public IList<SetValue> Values { get; }
+        public IList<ContainerRegistryTaskSetValue> Values { get; }
     }
 }

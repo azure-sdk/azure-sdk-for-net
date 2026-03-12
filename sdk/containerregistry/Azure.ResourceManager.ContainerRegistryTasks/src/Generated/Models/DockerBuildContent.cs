@@ -20,12 +20,12 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="dockerFilePath"/> or <paramref name="platform"/> is null. </exception>
         public DockerBuildContent(string dockerFilePath, PlatformProperties platform) : base("DockerBuildRequest")
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(dockerFilePath, nameof(dockerFilePath));
-            ContainerRegistryTasks.Argument.AssertNotNull(platform, nameof(platform));
+            Argument.AssertNotNull(dockerFilePath, nameof(dockerFilePath));
+            Argument.AssertNotNull(platform, nameof(platform));
 
             ImageNames = new ChangeTrackingList<string>();
             DockerFilePath = dockerFilePath;
-            Arguments = new ChangeTrackingList<Argument>();
+            Arguments = new ChangeTrackingList<ContainerRegistryTaskArgument>();
             Platform = platform;
         }
 
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="imageNames"> The fully qualified image names including the repository and tag. </param>
         /// <param name="isPushEnabled"> The value of this property indicates whether the image built should be pushed to the registry or not. </param>
-        /// <param name="noCache"> The value of this property indicates whether the image cache is enabled or not. </param>
+        /// <param name="isCacheDisabled"> The value of this property indicates whether the image cache is enabled or not. </param>
         /// <param name="dockerFilePath"> The Docker file path relative to the source location. </param>
         /// <param name="target"> The name of the target build stage for the docker build. </param>
         /// <param name="arguments"> The collection of override arguments to be used when executing the run. </param>
@@ -49,11 +49,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// If it is relative URL, the relative path should be obtained from calling listBuildSourceUploadUrl API.
         /// </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
-        internal DockerBuildContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> imageNames, bool? isPushEnabled, bool? noCache, string dockerFilePath, string target, IList<Argument> arguments, int? timeout, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, Credentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
+        internal DockerBuildContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> imageNames, bool? isPushEnabled, bool? isCacheDisabled, string dockerFilePath, string target, IList<ContainerRegistryTaskArgument> arguments, int? timeout, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, ContainerRegistryTaskCredentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
         {
             ImageNames = imageNames;
             IsPushEnabled = isPushEnabled;
-            NoCache = noCache;
+            IsCacheDisabled = isCacheDisabled;
             DockerFilePath = dockerFilePath;
             Target = target;
             Arguments = arguments;
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public bool? IsPushEnabled { get; set; }
 
         /// <summary> The value of this property indicates whether the image cache is enabled or not. </summary>
-        public bool? NoCache { get; set; }
+        public bool? IsCacheDisabled { get; set; }
 
         /// <summary> The Docker file path relative to the source location. </summary>
         public string DockerFilePath { get; set; }
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string Target { get; set; }
 
         /// <summary> The collection of override arguments to be used when executing the run. </summary>
-        public IList<Argument> Arguments { get; }
+        public IList<ContainerRegistryTaskArgument> Arguments { get; }
 
         /// <summary> Run timeout in seconds. </summary>
         public int? Timeout { get; set; }
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string SourceLocation { get; set; }
 
         /// <summary> The properties that describes a set of credentials that will be used when this run is invoked. </summary>
-        public Credentials Credentials { get; set; }
+        public ContainerRegistryTaskCredentials Credentials { get; set; }
 
         /// <summary> The CPU configuration in terms of number of cores required for the run. </summary>
         public int? AgentCpu

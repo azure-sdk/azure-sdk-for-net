@@ -94,10 +94,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 writer.WritePropertyName("scope"u8);
                 writer.WriteStringValue(Scope);
             }
-            if (Optional.IsDefined(ExpiresIn))
+            if (Optional.IsDefined(ExpiresInSeconds))
             {
                 writer.WritePropertyName("expiresIn"u8);
-                writer.WriteNumberValue(ExpiresIn.Value);
+                writer.WriteNumberValue(ExpiresInSeconds.Value);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -141,11 +141,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 return null;
             }
-            TokenType? tokenType = default;
+            ContainerRegistryTaskTokenType? tokenType = default;
             string token = default;
             string refreshToken = default;
             string scope = default;
-            int? expiresIn = default;
+            int? expiresInSeconds = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    tokenType = new TokenType(prop.Value.GetString());
+                    tokenType = new ContainerRegistryTaskTokenType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("token"u8))
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    expiresIn = prop.Value.GetInt32();
+                    expiresInSeconds = prop.Value.GetInt32();
                     continue;
                 }
                 if (options.Format != "W")
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                 token,
                 refreshToken,
                 scope,
-                expiresIn,
+                expiresInSeconds,
                 additionalBinaryDataProperties);
         }
     }

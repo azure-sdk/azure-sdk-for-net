@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// source of authentication used for accessing the registry.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal CustomRegistryCredentials(SecretObject userName, SecretObject password, string identity, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CustomRegistryCredentials(ContainerRegistryTaskSecretObject userName, ContainerRegistryTaskSecretObject password, string identity, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             UserName = userName;
             Password = password;
@@ -44,13 +44,13 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         }
 
         /// <summary> The username for logging into the custom registry. </summary>
-        public SecretObject UserName { get; set; }
+        public ContainerRegistryTaskSecretObject UserName { get; set; }
 
         /// <summary>
         /// The password for logging into the custom registry. The password is a secret
         /// object that allows multiple ways of providing the value for it.
         /// </summary>
-        public SecretObject Password { get; set; }
+        public ContainerRegistryTaskSecretObject Password { get; set; }
 
         /// <summary>
         /// Indicates the managed identity assigned to the custom credential. If a user-assigned identity

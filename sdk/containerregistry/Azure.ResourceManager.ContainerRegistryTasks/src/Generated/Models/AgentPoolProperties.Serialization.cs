@@ -9,6 +9,7 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
+using Azure.Core;
 using Azure.ResourceManager.ContainerRegistryTasks;
 
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
@@ -143,9 +144,9 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             }
             int? count = default;
             string tier = default;
-            OS? os = default;
-            string virtualNetworkSubnetResourceId = default;
-            ProvisioningState? provisioningState = default;
+            ContainerRegistryTaskOS? os = default;
+            ResourceIdentifier virtualNetworkSubnetResourceId = default;
+            ContainerRegistryTaskProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -169,12 +170,16 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    os = new OS(prop.Value.GetString());
+                    os = new ContainerRegistryTaskOS(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("virtualNetworkSubnetResourceId"u8))
                 {
-                    virtualNetworkSubnetResourceId = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    virtualNetworkSubnetResourceId = new ResourceIdentifier(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("provisioningState"u8))
@@ -183,7 +188,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    provisioningState = new ProvisioningState(prop.Value.GetString());
+                    provisioningState = new ContainerRegistryTaskProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

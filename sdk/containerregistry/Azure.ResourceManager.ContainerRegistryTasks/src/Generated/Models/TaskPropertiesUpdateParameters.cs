@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="credentials"> The parameters that describes a set of credentials that will be used when this run is invoked. </param>
         /// <param name="logTemplate"> The template that describes the repository and tag information for run log artifact. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TaskPropertiesUpdateParameters(TaskStatus? status, PlatformUpdateContent platform, AgentProperties agentConfiguration, string agentPoolName, int? timeout, TaskStepUpdateContent step, TriggerUpdateContent trigger, Credentials credentials, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TaskPropertiesUpdateParameters(ContainerRegistryTaskStatus? status, PlatformUpdateContent platform, AgentProperties agentConfiguration, string agentPoolName, int? timeout, TaskStepUpdateContent step, TriggerUpdateContent trigger, ContainerRegistryTaskCredentials credentials, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             Platform = platform;
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         }
 
         /// <summary> The current status of task. </summary>
-        public TaskStatus? Status { get; set; }
+        public ContainerRegistryTaskStatus? Status { get; set; }
 
         /// <summary> The platform properties against which the run has to happen. </summary>
         public PlatformUpdateContent Platform { get; set; }
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public TriggerUpdateContent Trigger { get; set; }
 
         /// <summary> The parameters that describes a set of credentials that will be used when this run is invoked. </summary>
-        public Credentials Credentials { get; set; }
+        public ContainerRegistryTaskCredentials Credentials { get; set; }
 
         /// <summary> The template that describes the repository and tag information for run log artifact. </summary>
         public string LogTemplate { get; set; }

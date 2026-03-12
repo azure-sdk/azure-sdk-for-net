@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="branchName"> The branch name in the repository. </param>
         /// <param name="providerType"> The source control provider type. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SourceTriggerDescriptor(string id, string eventType, string commitId, string pullRequestId, string repositoryUri, string branchName, string providerType, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SourceTriggerDescriptor(string id, string eventType, string commitId, string pullRequestId, Uri repositoryUri, string branchName, string providerType, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             EventType = eventType;
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string PullRequestId { get; }
 
         /// <summary> The repository URL. </summary>
-        public string RepositoryUri { get; }
+        public Uri RepositoryUri { get; }
 
         /// <summary> The branch name in the repository. </summary>
         public string BranchName { get; }

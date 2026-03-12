@@ -21,9 +21,9 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="sourceControlType"> The type of source control service. </param>
         /// <param name="repositoryUri"> The full URL to the source code repository. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="repositoryUri"/> is null. </exception>
-        public SourceProperties(SourceControlType sourceControlType, string repositoryUri)
+        public SourceProperties(SourceControlType sourceControlType, Uri repositoryUri)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(repositoryUri, nameof(repositoryUri));
+            Argument.AssertNotNull(repositoryUri, nameof(repositoryUri));
 
             SourceControlType = sourceControlType;
             RepositoryUri = repositoryUri;
@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// webhooks for notifications.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SourceProperties(SourceControlType sourceControlType, string repositoryUri, string branch, AuthInfo sourceControlAuthProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SourceProperties(SourceControlType sourceControlType, Uri repositoryUri, string branch, AuthInfo sourceControlAuthProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             SourceControlType = sourceControlType;
             RepositoryUri = repositoryUri;
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public SourceControlType SourceControlType { get; set; }
 
         /// <summary> The full URL to the source code repository. </summary>
-        public string RepositoryUri { get; set; }
+        public Uri RepositoryUri { get; set; }
 
         /// <summary> The branch name of the source code. </summary>
         public string Branch { get; set; }

@@ -12,30 +12,30 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
     /// <summary> The properties of a run argument. </summary>
-    public partial class Argument
+    public partial class ContainerRegistryTaskArgument
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="Argument"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskArgument"/>. </summary>
         /// <param name="name"> The name of the argument. </param>
         /// <param name="value"> The value of the argument. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="value"/> is null. </exception>
-        public Argument(string name, string value)
+        public ContainerRegistryTaskArgument(string name, string value)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(name, nameof(name));
-            ContainerRegistryTasks.Argument.AssertNotNull(value, nameof(value));
+            Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(value, nameof(value));
 
             Name = name;
             Value = value;
         }
 
-        /// <summary> Initializes a new instance of <see cref="Argument"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskArgument"/>. </summary>
         /// <param name="name"> The name of the argument. </param>
         /// <param name="value"> The value of the argument. </param>
         /// <param name="isSecret"> Flag to indicate whether the argument represents a secret and want to be removed from build logs. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal Argument(string name, string value, bool? isSecret, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerRegistryTaskArgument(string name, string value, bool? isSecret, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Value = value;

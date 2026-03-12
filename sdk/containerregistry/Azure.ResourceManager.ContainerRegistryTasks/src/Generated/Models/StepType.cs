@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public StepType(string value)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(value, nameof(value));
+            Argument.AssertNotNull(value, nameof(value));
 
             _value = value;
         }

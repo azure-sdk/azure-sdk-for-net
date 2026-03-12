@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public IDictionary<string, string> Tags { get; }
 
         /// <summary> The current status of task. </summary>
-        public TaskStatus? Status
+        public ContainerRegistryTaskStatus? Status
         {
             get
             {
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         }
 
         /// <summary> The parameters that describes a set of credentials that will be used when this run is invoked. </summary>
-        public Credentials Credentials
+        public ContainerRegistryTaskCredentials Credentials
         {
             get
             {

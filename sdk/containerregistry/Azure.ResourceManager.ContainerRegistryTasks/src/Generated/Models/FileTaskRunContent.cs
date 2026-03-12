@@ -20,11 +20,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="taskFilePath"/> or <paramref name="platform"/> is null. </exception>
         public FileTaskRunContent(string taskFilePath, PlatformProperties platform) : base("FileTaskRunRequest")
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(taskFilePath, nameof(taskFilePath));
-            ContainerRegistryTasks.Argument.AssertNotNull(platform, nameof(platform));
+            Argument.AssertNotNull(taskFilePath, nameof(taskFilePath));
+            Argument.AssertNotNull(platform, nameof(platform));
 
             TaskFilePath = taskFilePath;
-            Values = new ChangeTrackingList<SetValue>();
+            Values = new ChangeTrackingList<ContainerRegistryTaskSetValue>();
             Platform = platform;
         }
 
@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// If it is relative URL, the relative path should be obtained from calling listBuildSourceUploadUrl API.
         /// </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
-        internal FileTaskRunContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, string taskFilePath, string valuesFilePath, IList<SetValue> values, int? timeout, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, Credentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
+        internal FileTaskRunContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, string taskFilePath, string valuesFilePath, IList<ContainerRegistryTaskSetValue> values, int? timeout, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, ContainerRegistryTaskCredentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
         {
             TaskFilePath = taskFilePath;
             ValuesFilePath = valuesFilePath;
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string ValuesFilePath { get; set; }
 
         /// <summary> The collection of overridable values that can be passed when running a task. </summary>
-        public IList<SetValue> Values { get; }
+        public IList<ContainerRegistryTaskSetValue> Values { get; }
 
         /// <summary> Run timeout in seconds. </summary>
         public int? Timeout { get; set; }
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string SourceLocation { get; set; }
 
         /// <summary> The properties that describes a set of credentials that will be used when this run is invoked. </summary>
-        public Credentials Credentials { get; set; }
+        public ContainerRegistryTaskCredentials Credentials { get; set; }
 
         /// <summary> The CPU configuration in terms of number of cores required for the run. </summary>
         public int? AgentCpu

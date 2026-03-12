@@ -23,8 +23,8 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="schedule"/> or <paramref name="name"/> is null. </exception>
         public TimerTrigger(string schedule, string name)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(schedule, nameof(schedule));
-            ContainerRegistryTasks.Argument.AssertNotNull(name, nameof(name));
+            Argument.AssertNotNull(schedule, nameof(schedule));
+            Argument.AssertNotNull(name, nameof(name));
 
             Schedule = schedule;
             Name = name;
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="status"> The current status of trigger. </param>
         /// <param name="name"> The name of the trigger. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TimerTrigger(string schedule, TriggerStatus? status, string name, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TimerTrigger(string schedule, ContainerRegistryTaskTriggerStatus? status, string name, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Schedule = schedule;
             Status = status;
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string Schedule { get; set; }
 
         /// <summary> The current status of trigger. </summary>
-        public TriggerStatus? Status { get; set; }
+        public ContainerRegistryTaskTriggerStatus? Status { get; set; }
 
         /// <summary> The name of the trigger. </summary>
         public string Name { get; set; }

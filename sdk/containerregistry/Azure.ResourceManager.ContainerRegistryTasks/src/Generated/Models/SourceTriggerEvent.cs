@@ -16,14 +16,14 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
     {
         private readonly string _value;
         private const string CommitValue = "commit";
-        private const string PullrequestValue = "pullrequest";
+        private const string PullRequestValue = "pullrequest";
 
         /// <summary> Initializes a new instance of <see cref="SourceTriggerEvent"/>. </summary>
         /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public SourceTriggerEvent(string value)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(value, nameof(value));
+            Argument.AssertNotNull(value, nameof(value));
 
             _value = value;
         }
@@ -31,8 +31,8 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <summary> Gets the Commit. </summary>
         public static SourceTriggerEvent Commit { get; } = new SourceTriggerEvent(CommitValue);
 
-        /// <summary> Gets the Pullrequest. </summary>
-        public static SourceTriggerEvent Pullrequest { get; } = new SourceTriggerEvent(PullrequestValue);
+        /// <summary> Gets the PullRequest. </summary>
+        public static SourceTriggerEvent PullRequest { get; } = new SourceTriggerEvent(PullRequestValue);
 
         /// <summary> Determines if two <see cref="SourceTriggerEvent"/> values are the same. </summary>
         /// <param name="left"> The left value to compare. </param>

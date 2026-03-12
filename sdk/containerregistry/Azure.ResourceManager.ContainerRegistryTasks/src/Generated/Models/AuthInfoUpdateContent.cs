@@ -26,20 +26,20 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="token"> The access token used to access the source control provider. </param>
         /// <param name="refreshToken"> The refresh token used to refresh the access token. </param>
         /// <param name="scope"> The scope of the access token. </param>
-        /// <param name="expiresIn"> Time in seconds that the token remains valid. </param>
+        /// <param name="expiresInSeconds"> Time in seconds that the token remains valid. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AuthInfoUpdateContent(TokenType? tokenType, string token, string refreshToken, string scope, int? expiresIn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AuthInfoUpdateContent(ContainerRegistryTaskTokenType? tokenType, string token, string refreshToken, string scope, int? expiresInSeconds, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             TokenType = tokenType;
             Token = token;
             RefreshToken = refreshToken;
             Scope = scope;
-            ExpiresIn = expiresIn;
+            ExpiresInSeconds = expiresInSeconds;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The type of Auth token. </summary>
-        public TokenType? TokenType { get; set; }
+        public ContainerRegistryTaskTokenType? TokenType { get; set; }
 
         /// <summary> The access token used to access the source control provider. </summary>
         public string Token { get; set; }
@@ -51,6 +51,6 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string Scope { get; set; }
 
         /// <summary> Time in seconds that the token remains valid. </summary>
-        public int? ExpiresIn { get; set; }
+        public int? ExpiresInSeconds { get; set; }
     }
 }

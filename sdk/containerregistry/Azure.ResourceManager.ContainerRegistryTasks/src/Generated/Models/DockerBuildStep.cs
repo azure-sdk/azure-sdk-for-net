@@ -19,11 +19,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="dockerFilePath"/> is null. </exception>
         public DockerBuildStep(string dockerFilePath) : base(StepType.Docker)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(dockerFilePath, nameof(dockerFilePath));
+            Argument.AssertNotNull(dockerFilePath, nameof(dockerFilePath));
 
             ImageNames = new ChangeTrackingList<string>();
             DockerFilePath = dockerFilePath;
-            Arguments = new ChangeTrackingList<Argument>();
+            Arguments = new ChangeTrackingList<ContainerRegistryTaskArgument>();
         }
 
         /// <summary> Initializes a new instance of <see cref="DockerBuildStep"/>. </summary>
@@ -34,15 +34,15 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="imageNames"> The fully qualified image names including the repository and tag. </param>
         /// <param name="isPushEnabled"> The value of this property indicates whether the image built should be pushed to the registry or not. </param>
-        /// <param name="noCache"> The value of this property indicates whether the image cache is enabled or not. </param>
+        /// <param name="isCacheDisabled"> The value of this property indicates whether the image cache is enabled or not. </param>
         /// <param name="dockerFilePath"> The Docker file path relative to the source context. </param>
         /// <param name="target"> The name of the target build stage for the docker build. </param>
         /// <param name="arguments"> The collection of override arguments to be used when executing this build step. </param>
-        internal DockerBuildStep(StepType @type, IReadOnlyList<BaseImageDependency> baseImageDependencies, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> imageNames, bool? isPushEnabled, bool? noCache, string dockerFilePath, string target, IList<Argument> arguments) : base(@type, baseImageDependencies, contextPath, contextAccessToken, additionalBinaryDataProperties)
+        internal DockerBuildStep(StepType @type, IReadOnlyList<BaseImageDependency> baseImageDependencies, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> imageNames, bool? isPushEnabled, bool? isCacheDisabled, string dockerFilePath, string target, IList<ContainerRegistryTaskArgument> arguments) : base(@type, baseImageDependencies, contextPath, contextAccessToken, additionalBinaryDataProperties)
         {
             ImageNames = imageNames;
             IsPushEnabled = isPushEnabled;
-            NoCache = noCache;
+            IsCacheDisabled = isCacheDisabled;
             DockerFilePath = dockerFilePath;
             Target = target;
             Arguments = arguments;
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public bool? IsPushEnabled { get; set; }
 
         /// <summary> The value of this property indicates whether the image cache is enabled or not. </summary>
-        public bool? NoCache { get; set; }
+        public bool? IsCacheDisabled { get; set; }
 
         /// <summary> The Docker file path relative to the source context. </summary>
         public string DockerFilePath { get; set; }
@@ -64,6 +64,6 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string Target { get; set; }
 
         /// <summary> The collection of override arguments to be used when executing this build step. </summary>
-        public IList<Argument> Arguments { get; }
+        public IList<ContainerRegistryTaskArgument> Arguments { get; }
     }
 }

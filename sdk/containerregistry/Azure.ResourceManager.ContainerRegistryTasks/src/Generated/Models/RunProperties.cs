@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="lastUpdatedOn"> The last updated time for the run. </param>
         /// <param name="runType"> The type of run. </param>
         /// <param name="agentPoolName"> The dedicated agent pool for the run. </param>
-        /// <param name="createOn"> The time the run was scheduled. </param>
+        /// <param name="createdOn"> The time the run was scheduled. </param>
         /// <param name="startOn"> The time the run started. </param>
         /// <param name="finishOn"> The time the run finished. </param>
         /// <param name="outputImages"> The list of all images that were generated from the run. This is applicable if the run generates base image dependencies. </param>
@@ -48,14 +48,14 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="provisioningState"> The provisioning state of a run. </param>
         /// <param name="isArchiveEnabled"> The value that indicates whether archiving is enabled or not. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal RunProperties(string runId, RunStatus? status, DateTimeOffset? lastUpdatedOn, RunType? runType, string agentPoolName, DateTimeOffset? createOn, DateTimeOffset? startOn, DateTimeOffset? finishOn, IList<ImageDescriptor> outputImages, string task, ImageUpdateTrigger imageUpdateTrigger, SourceTriggerDescriptor sourceTrigger, TimerTriggerDescriptor timerTrigger, PlatformProperties platform, AgentProperties agentConfiguration, string sourceRegistryAuth, IList<string> customRegistries, string runErrorMessage, string updateTriggerToken, ImageDescriptor logArtifact, ProvisioningState? provisioningState, bool? isArchiveEnabled, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RunProperties(string runId, ContainerRegistryTaskRunStatus? status, DateTimeOffset? lastUpdatedOn, ContainerRegistryTaskRunType? runType, string agentPoolName, DateTimeOffset? createdOn, DateTimeOffset? startOn, DateTimeOffset? finishOn, IList<ImageDescriptor> outputImages, string task, ImageUpdateTrigger imageUpdateTrigger, SourceTriggerDescriptor sourceTrigger, TimerTriggerDescriptor timerTrigger, PlatformProperties platform, AgentProperties agentConfiguration, string sourceRegistryAuth, IList<string> customRegistries, string runErrorMessage, string updateTriggerToken, ImageDescriptor logArtifact, ContainerRegistryTaskProvisioningState? provisioningState, bool? isArchiveEnabled, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             RunId = runId;
             Status = status;
             LastUpdatedOn = lastUpdatedOn;
             RunType = runType;
             AgentPoolName = agentPoolName;
-            CreateOn = createOn;
+            CreatedOn = createdOn;
             StartOn = startOn;
             FinishOn = finishOn;
             OutputImages = outputImages;
@@ -79,19 +79,19 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string RunId { get; }
 
         /// <summary> The current status of the run. </summary>
-        public RunStatus? Status { get; }
+        public ContainerRegistryTaskRunStatus? Status { get; }
 
         /// <summary> The last updated time for the run. </summary>
         public DateTimeOffset? LastUpdatedOn { get; }
 
         /// <summary> The type of run. </summary>
-        public RunType? RunType { get; }
+        public ContainerRegistryTaskRunType? RunType { get; }
 
         /// <summary> The dedicated agent pool for the run. </summary>
         public string AgentPoolName { get; }
 
         /// <summary> The time the run was scheduled. </summary>
-        public DateTimeOffset? CreateOn { get; }
+        public DateTimeOffset? CreatedOn { get; }
 
         /// <summary> The time the run started. </summary>
         public DateTimeOffset? StartOn { get; }
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public ImageDescriptor LogArtifact { get; }
 
         /// <summary> The provisioning state of a run. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryTaskProvisioningState? ProvisioningState { get; }
 
         /// <summary> The value that indicates whether archiving is enabled or not. </summary>
         public bool? IsArchiveEnabled { get; }

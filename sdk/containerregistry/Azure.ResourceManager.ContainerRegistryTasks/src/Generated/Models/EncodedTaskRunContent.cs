@@ -20,11 +20,11 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="encodedTaskContent"/> or <paramref name="platform"/> is null. </exception>
         public EncodedTaskRunContent(string encodedTaskContent, PlatformProperties platform) : base("EncodedTaskRunRequest")
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(encodedTaskContent, nameof(encodedTaskContent));
-            ContainerRegistryTasks.Argument.AssertNotNull(platform, nameof(platform));
+            Argument.AssertNotNull(encodedTaskContent, nameof(encodedTaskContent));
+            Argument.AssertNotNull(platform, nameof(platform));
 
             EncodedTaskContent = encodedTaskContent;
-            Values = new ChangeTrackingList<SetValue>();
+            Values = new ChangeTrackingList<ContainerRegistryTaskSetValue>();
             Platform = platform;
         }
 
@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// If it is relative URL, the relative path should be obtained from calling listBuildSourceUploadUrl API.
         /// </param>
         /// <param name="credentials"> The properties that describes a set of credentials that will be used when this run is invoked. </param>
-        internal EncodedTaskRunContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, string encodedTaskContent, string encodedValuesContent, IList<SetValue> values, int? timeout, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, Credentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
+        internal EncodedTaskRunContent(string @type, bool? isArchiveEnabled, string agentPoolName, string logTemplate, IDictionary<string, BinaryData> additionalBinaryDataProperties, string encodedTaskContent, string encodedValuesContent, IList<ContainerRegistryTaskSetValue> values, int? timeout, PlatformProperties platform, AgentProperties agentConfiguration, string sourceLocation, ContainerRegistryTaskCredentials credentials) : base(@type, isArchiveEnabled, agentPoolName, logTemplate, additionalBinaryDataProperties)
         {
             EncodedTaskContent = encodedTaskContent;
             EncodedValuesContent = encodedValuesContent;
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string EncodedValuesContent { get; set; }
 
         /// <summary> The collection of overridable values that can be passed when running a task. </summary>
-        public IList<SetValue> Values { get; }
+        public IList<ContainerRegistryTaskSetValue> Values { get; }
 
         /// <summary> Run timeout in seconds. </summary>
         public int? Timeout { get; set; }
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string SourceLocation { get; set; }
 
         /// <summary> The properties that describes a set of credentials that will be used when this run is invoked. </summary>
-        public Credentials Credentials { get; set; }
+        public ContainerRegistryTaskCredentials Credentials { get; set; }
 
         /// <summary> The CPU configuration in terms of number of cores required for the run. </summary>
         public int? AgentCpu

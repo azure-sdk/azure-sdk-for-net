@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 writer.WritePropertyName("arguments"u8);
                 writer.WriteStartArray();
-                foreach (Argument item in Arguments)
+                foreach (ContainerRegistryTaskArgument item in Arguments)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 writer.WritePropertyName("values"u8);
                 writer.WriteStartArray();
-                foreach (SetValue item in Values)
+                foreach (ContainerRegistryTaskSetValue item in Values)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -158,9 +158,9 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             }
             string contextPath = default;
             string @file = default;
-            IList<Argument> arguments = default;
+            IList<ContainerRegistryTaskArgument> arguments = default;
             string target = default;
-            IList<SetValue> values = default;
+            IList<ContainerRegistryTaskSetValue> values = default;
             string updateTriggerToken = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -181,10 +181,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    List<Argument> array = new List<Argument>();
+                    List<ContainerRegistryTaskArgument> array = new List<ContainerRegistryTaskArgument>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(Argument.DeserializeArgument(item, options));
+                        array.Add(ContainerRegistryTaskArgument.DeserializeContainerRegistryTaskArgument(item, options));
                     }
                     arguments = array;
                     continue;
@@ -200,10 +200,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    List<SetValue> array = new List<SetValue>();
+                    List<ContainerRegistryTaskSetValue> array = new List<ContainerRegistryTaskSetValue>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(SetValue.DeserializeSetValue(item, options));
+                        array.Add(ContainerRegistryTaskSetValue.DeserializeContainerRegistryTaskSetValue(item, options));
                     }
                     values = array;
                     continue;
@@ -221,9 +221,9 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             return new OverrideTaskStepProperties(
                 contextPath,
                 @file,
-                arguments ?? new ChangeTrackingList<Argument>(),
+                arguments ?? new ChangeTrackingList<ContainerRegistryTaskArgument>(),
                 target,
-                values ?? new ChangeTrackingList<SetValue>(),
+                values ?? new ChangeTrackingList<ContainerRegistryTaskSetValue>(),
                 updateTriggerToken,
                 additionalBinaryDataProperties);
         }

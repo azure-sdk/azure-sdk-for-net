@@ -161,14 +161,14 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 return null;
             }
-            TaskStatus? status = default;
+            ContainerRegistryTaskStatus? status = default;
             PlatformUpdateContent platform = default;
             AgentProperties agentConfiguration = default;
             string agentPoolName = default;
             int? timeout = default;
             TaskStepUpdateContent step = default;
             TriggerUpdateContent trigger = default;
-            Credentials credentials = default;
+            ContainerRegistryTaskCredentials credentials = default;
             string logTemplate = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    status = new TaskStatus(prop.Value.GetString());
+                    status = new ContainerRegistryTaskStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("platform"u8))
@@ -238,7 +238,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    credentials = Credentials.DeserializeCredentials(prop.Value, options);
+                    credentials = ContainerRegistryTaskCredentials.DeserializeContainerRegistryTaskCredentials(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("logTemplate"u8))

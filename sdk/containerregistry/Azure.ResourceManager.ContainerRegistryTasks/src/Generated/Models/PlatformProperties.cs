@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 
         /// <summary> Initializes a new instance of <see cref="PlatformProperties"/>. </summary>
         /// <param name="os"> The operating system type required for the run. </param>
-        public PlatformProperties(OS os)
+        public PlatformProperties(ContainerRegistryTaskOS os)
         {
             Os = os;
         }
@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="architecture"> The OS architecture. </param>
         /// <param name="variant"> Variant of the CPU. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PlatformProperties(OS os, Architecture? architecture, Variant? variant, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PlatformProperties(ContainerRegistryTaskOS os, ContainerRegistryTaskArchitecture? architecture, ContainerRegistryTaskVariant? variant, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Os = os;
             Architecture = architecture;
@@ -37,12 +37,12 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         }
 
         /// <summary> The operating system type required for the run. </summary>
-        public OS Os { get; set; }
+        public ContainerRegistryTaskOS Os { get; set; }
 
         /// <summary> The OS architecture. </summary>
-        public Architecture? Architecture { get; set; }
+        public ContainerRegistryTaskArchitecture? Architecture { get; set; }
 
         /// <summary> Variant of the CPU. </summary>
-        public Variant? Variant { get; set; }
+        public ContainerRegistryTaskVariant? Variant { get; set; }
     }
 }

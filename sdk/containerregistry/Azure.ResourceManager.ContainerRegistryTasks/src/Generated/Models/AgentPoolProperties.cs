@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
@@ -28,7 +29,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="virtualNetworkSubnetResourceId"> The Virtual Network Subnet Resource Id of the agent machine. </param>
         /// <param name="provisioningState"> The provisioning state of this agent pool. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AgentPoolProperties(int? count, string tier, OS? os, string virtualNetworkSubnetResourceId, ProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AgentPoolProperties(int? count, string tier, ContainerRegistryTaskOS? os, ResourceIdentifier virtualNetworkSubnetResourceId, ContainerRegistryTaskProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Count = count;
             Tier = tier;
@@ -45,12 +46,12 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string Tier { get; set; }
 
         /// <summary> The OS of agent machine. </summary>
-        public OS? Os { get; set; }
+        public ContainerRegistryTaskOS? Os { get; set; }
 
         /// <summary> The Virtual Network Subnet Resource Id of the agent machine. </summary>
-        public string VirtualNetworkSubnetResourceId { get; set; }
+        public ResourceIdentifier VirtualNetworkSubnetResourceId { get; set; }
 
         /// <summary> The provisioning state of this agent pool. </summary>
-        public ProvisioningState? ProvisioningState { get; }
+        public ContainerRegistryTaskProvisioningState? ProvisioningState { get; }
     }
 }

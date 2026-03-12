@@ -19,10 +19,10 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <exception cref="ArgumentNullException"> <paramref name="encodedTaskContent"/> is null. </exception>
         public EncodedTaskStep(string encodedTaskContent) : base(StepType.EncodedTask)
         {
-            ContainerRegistryTasks.Argument.AssertNotNull(encodedTaskContent, nameof(encodedTaskContent));
+            Argument.AssertNotNull(encodedTaskContent, nameof(encodedTaskContent));
 
             EncodedTaskContent = encodedTaskContent;
-            Values = new ChangeTrackingList<SetValue>();
+            Values = new ChangeTrackingList<ContainerRegistryTaskSetValue>();
         }
 
         /// <summary> Initializes a new instance of <see cref="EncodedTaskStep"/>. </summary>
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="encodedTaskContent"> Base64 encoded value of the template/definition file content. </param>
         /// <param name="encodedValuesContent"> Base64 encoded value of the parameters/values file content. </param>
         /// <param name="values"> The collection of overridable values that can be passed when running a task. </param>
-        internal EncodedTaskStep(StepType @type, IReadOnlyList<BaseImageDependency> baseImageDependencies, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, string encodedTaskContent, string encodedValuesContent, IList<SetValue> values) : base(@type, baseImageDependencies, contextPath, contextAccessToken, additionalBinaryDataProperties)
+        internal EncodedTaskStep(StepType @type, IReadOnlyList<BaseImageDependency> baseImageDependencies, string contextPath, string contextAccessToken, IDictionary<string, BinaryData> additionalBinaryDataProperties, string encodedTaskContent, string encodedValuesContent, IList<ContainerRegistryTaskSetValue> values) : base(@type, baseImageDependencies, contextPath, contextAccessToken, additionalBinaryDataProperties)
         {
             EncodedTaskContent = encodedTaskContent;
             EncodedValuesContent = encodedValuesContent;
@@ -48,6 +48,6 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         public string EncodedValuesContent { get; set; }
 
         /// <summary> The collection of overridable values that can be passed when running a task. </summary>
-        public IList<SetValue> Values { get; }
+        public IList<ContainerRegistryTaskSetValue> Values { get; }
     }
 }

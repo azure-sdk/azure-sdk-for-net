@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             }
             SourceUpdateContent sourceRepository = default;
             IList<SourceTriggerEvent> sourceTriggerEvents = default;
-            TriggerStatus? status = default;
+            ContainerRegistryTaskTriggerStatus? status = default;
             string name = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     {
                         continue;
                     }
-                    status = new TriggerStatus(prop.Value.GetString());
+                    status = new ContainerRegistryTaskTriggerStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("name"u8))

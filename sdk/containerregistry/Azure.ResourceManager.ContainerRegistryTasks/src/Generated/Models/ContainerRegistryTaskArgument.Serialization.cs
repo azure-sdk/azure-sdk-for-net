@@ -13,52 +13,57 @@ using Azure.ResourceManager.ContainerRegistryTasks;
 
 namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 {
-    /// <summary> The parameters that describes a set of credentials that will be used when a run is invoked. </summary>
-    public partial class Credentials : IJsonModel<Credentials>
+    /// <summary> The properties of a run argument. </summary>
+    public partial class ContainerRegistryTaskArgument : IJsonModel<ContainerRegistryTaskArgument>
     {
+        /// <summary> Initializes a new instance of <see cref="ContainerRegistryTaskArgument"/> for deserialization. </summary>
+        internal ContainerRegistryTaskArgument()
+        {
+        }
+
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual Credentials PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ContainerRegistryTaskArgument PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<Credentials>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskArgument>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeCredentials(document.RootElement, options);
+                        return DeserializeContainerRegistryTaskArgument(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(Credentials)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ContainerRegistryTaskArgument)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<Credentials>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskArgument>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerContainerRegistryTasksContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(Credentials)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ContainerRegistryTaskArgument)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<Credentials>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ContainerRegistryTaskArgument>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        Credentials IPersistableModel<Credentials>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ContainerRegistryTaskArgument IPersistableModel<ContainerRegistryTaskArgument>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<Credentials>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ContainerRegistryTaskArgument>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<Credentials>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ContainerRegistryTaskArgument>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -69,26 +74,19 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<Credentials>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskArgument>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(Credentials)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ContainerRegistryTaskArgument)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(SourceRegistry))
+            writer.WritePropertyName("name"u8);
+            writer.WriteStringValue(Name);
+            writer.WritePropertyName("value"u8);
+            writer.WriteStringValue(Value);
+            if (Optional.IsDefined(IsSecret))
             {
-                writer.WritePropertyName("sourceRegistry"u8);
-                writer.WriteObjectValue(SourceRegistry, options);
-            }
-            if (Optional.IsCollectionDefined(CustomRegistries))
-            {
-                writer.WritePropertyName("customRegistries"u8);
-                writer.WriteStartObject();
-                foreach (var item in CustomRegistries)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteObjectValue(item.Value, options);
-                }
-                writer.WriteEndObject();
+                writer.WritePropertyName("isSecret"u8);
+                writer.WriteBooleanValue(IsSecret.Value);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -109,55 +107,52 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        Credentials IJsonModel<Credentials>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ContainerRegistryTaskArgument IJsonModel<ContainerRegistryTaskArgument>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual Credentials JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ContainerRegistryTaskArgument JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<Credentials>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ContainerRegistryTaskArgument>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(Credentials)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ContainerRegistryTaskArgument)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeCredentials(document.RootElement, options);
+            return DeserializeContainerRegistryTaskArgument(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static Credentials DeserializeCredentials(JsonElement element, ModelReaderWriterOptions options)
+        internal static ContainerRegistryTaskArgument DeserializeContainerRegistryTaskArgument(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            SourceRegistryCredentials sourceRegistry = default;
-            IDictionary<string, CustomRegistryCredentials> customRegistries = default;
+            string name = default;
+            string value = default;
+            bool? isSecret = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
-                if (prop.NameEquals("sourceRegistry"u8))
+                if (prop.NameEquals("name"u8))
                 {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    sourceRegistry = SourceRegistryCredentials.DeserializeSourceRegistryCredentials(prop.Value, options);
+                    name = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("customRegistries"u8))
+                if (prop.NameEquals("value"u8))
+                {
+                    value = prop.Value.GetString();
+                    continue;
+                }
+                if (prop.NameEquals("isSecret"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    Dictionary<string, CustomRegistryCredentials> dictionary = new Dictionary<string, CustomRegistryCredentials>();
-                    foreach (var prop0 in prop.Value.EnumerateObject())
-                    {
-                        dictionary.Add(prop0.Name, CustomRegistryCredentials.DeserializeCustomRegistryCredentials(prop0.Value, options));
-                    }
-                    customRegistries = dictionary;
+                    isSecret = prop.Value.GetBoolean();
                     continue;
                 }
                 if (options.Format != "W")
@@ -165,7 +160,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new Credentials(sourceRegistry, customRegistries ?? new ChangeTrackingDictionary<string, CustomRegistryCredentials>(), additionalBinaryDataProperties);
+            return new ContainerRegistryTaskArgument(name, value, isSecret, additionalBinaryDataProperties);
         }
     }
 }
