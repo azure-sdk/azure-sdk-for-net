@@ -13,19 +13,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Batch.Models
 {
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-    internal partial class OrganizationResourceListResult : IUtf8JsonSerializable, IJsonModel<OrganizationResourceListResult>
-    {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<OrganizationResourceListResult>)this).Write(writer, ModelSerializationExtensions.WireOptions);
-
-        void IJsonModel<OrganizationResourceListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
-========
     public partial class BatchDiskEncryptionConfiguration : IUtf8JsonSerializable, IJsonModel<BatchDiskEncryptionConfiguration>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<BatchDiskEncryptionConfiguration>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
         void IJsonModel<BatchDiskEncryptionConfiguration>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -36,25 +28,6 @@ namespace Azure.ResourceManager.Batch.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-            var format = options.Format == "W" ? ((IPersistableModel<OrganizationResourceListResult>)this).GetFormatFromOptions(options) : options.Format;
-            if (format != "J")
-            {
-                throw new FormatException($"The model {nameof(OrganizationResourceListResult)} does not support writing '{format}' format.");
-            }
-
-            writer.WritePropertyName("value"u8);
-            writer.WriteStartArray();
-            foreach (var item in Value)
-            {
-                writer.WriteObjectValue(item, options);
-            }
-            writer.WriteEndArray();
-            if (Optional.IsDefined(NextLink))
-            {
-                writer.WritePropertyName("nextLink"u8);
-                writer.WriteStringValue(NextLink.AbsoluteUri);
-========
             var format = options.Format == "W" ? ((IPersistableModel<BatchDiskEncryptionConfiguration>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
@@ -75,7 +48,6 @@ namespace Azure.ResourceManager.Batch.Models
             {
                 writer.WritePropertyName("customerManagedKey"u8);
                 writer.WriteObjectValue(CustomerManagedKey, options);
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -94,21 +66,6 @@ namespace Azure.ResourceManager.Batch.Models
             }
         }
 
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-        OrganizationResourceListResult IJsonModel<OrganizationResourceListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<OrganizationResourceListResult>)this).GetFormatFromOptions(options) : options.Format;
-            if (format != "J")
-            {
-                throw new FormatException($"The model {nameof(OrganizationResourceListResult)} does not support reading '{format}' format.");
-            }
-
-            using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeOrganizationResourceListResult(document.RootElement, options);
-        }
-
-        internal static OrganizationResourceListResult DeserializeOrganizationResourceListResult(JsonElement element, ModelReaderWriterOptions options = null)
-========
         BatchDiskEncryptionConfiguration IJsonModel<BatchDiskEncryptionConfiguration>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
             var format = options.Format == "W" ? ((IPersistableModel<BatchDiskEncryptionConfiguration>)this).GetFormatFromOptions(options) : options.Format;
@@ -122,7 +79,6 @@ namespace Azure.ResourceManager.Batch.Models
         }
 
         internal static BatchDiskEncryptionConfiguration DeserializeBatchDiskEncryptionConfiguration(JsonElement element, ModelReaderWriterOptions options = null)
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -130,28 +86,19 @@ namespace Azure.ResourceManager.Batch.Models
             {
                 return null;
             }
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-            IReadOnlyList<ConfluentOrganizationData> value = default;
-            Uri nextLink = default;
-========
             IList<BatchDiskEncryptionTarget> targets = default;
             BatchDiskCustomerManagedKey customerManagedKey = default;
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("targets"u8))
                 {
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-                    List<ConfluentOrganizationData> array = new List<ConfluentOrganizationData>();
-========
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
                     List<BatchDiskEncryptionTarget> array = new List<BatchDiskEncryptionTarget>();
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
                     foreach (var item in property.Value.EnumerateArray())
                     {
                         array.Add(item.GetString().ToBatchDiskEncryptionTarget());
@@ -165,11 +112,7 @@ namespace Azure.ResourceManager.Batch.Models
                     {
                         continue;
                     }
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-                    nextLink = new Uri(property.Value.GetString());
-========
                     customerManagedKey = BatchDiskCustomerManagedKey.DeserializeBatchDiskCustomerManagedKey(property.Value, options);
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
                     continue;
                 }
                 if (options.Format != "W")
@@ -178,36 +121,18 @@ namespace Azure.ResourceManager.Batch.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-            return new OrganizationResourceListResult(value, nextLink, serializedAdditionalRawData);
-        }
-
-        BinaryData IPersistableModel<OrganizationResourceListResult>.Write(ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<OrganizationResourceListResult>)this).GetFormatFromOptions(options) : options.Format;
-========
             return new BatchDiskEncryptionConfiguration(targets ?? new ChangeTrackingList<BatchDiskEncryptionTarget>(), customerManagedKey, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<BatchDiskEncryptionConfiguration>.Write(ModelReaderWriterOptions options)
         {
             var format = options.Format == "W" ? ((IPersistableModel<BatchDiskEncryptionConfiguration>)this).GetFormatFromOptions(options) : options.Format;
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerBatchContext.Default);
                 default:
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-                    throw new FormatException($"The model {nameof(OrganizationResourceListResult)} does not support writing '{options.Format}' format.");
-            }
-        }
-
-        OrganizationResourceListResult IPersistableModel<OrganizationResourceListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
-        {
-            var format = options.Format == "W" ? ((IPersistableModel<OrganizationResourceListResult>)this).GetFormatFromOptions(options) : options.Format;
-========
                     throw new FormatException($"The model {nameof(BatchDiskEncryptionConfiguration)} does not support writing '{options.Format}' format.");
             }
         }
@@ -215,23 +140,12 @@ namespace Azure.ResourceManager.Batch.Models
         BatchDiskEncryptionConfiguration IPersistableModel<BatchDiskEncryptionConfiguration>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
             var format = options.Format == "W" ? ((IPersistableModel<BatchDiskEncryptionConfiguration>)this).GetFormatFromOptions(options) : options.Format;
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions);
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/OrganizationResourceListResult.Serialization.cs
-                        return DeserializeOrganizationResourceListResult(document.RootElement, options);
-                    }
-                default:
-                    throw new FormatException($"The model {nameof(OrganizationResourceListResult)} does not support reading '{options.Format}' format.");
-            }
-        }
-
-        string IPersistableModel<OrganizationResourceListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
-========
                         return DeserializeBatchDiskEncryptionConfiguration(document.RootElement, options);
                     }
                 default:
@@ -240,6 +154,5 @@ namespace Azure.ResourceManager.Batch.Models
         }
 
         string IPersistableModel<BatchDiskEncryptionConfiguration>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchDiskEncryptionConfiguration.Serialization.cs
     }
 }

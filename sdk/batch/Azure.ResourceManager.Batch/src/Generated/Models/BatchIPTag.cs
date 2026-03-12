@@ -10,13 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Batch.Models
 {
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/StreamGovernanceConfig.cs
-    /// <summary> Stream governance configuration. </summary>
-    internal partial class StreamGovernanceConfig
-========
     /// <summary> Specifies how tasks should be distributed across compute nodes. </summary>
     public partial class BatchIPTag
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchIPTag.cs
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -50,24 +45,6 @@ namespace Azure.ResourceManager.Batch.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/StreamGovernanceConfig.cs
-        /// <summary> Initializes a new instance of <see cref="StreamGovernanceConfig"/>. </summary>
-        public StreamGovernanceConfig()
-        {
-        }
-
-        /// <summary> Initializes a new instance of <see cref="StreamGovernanceConfig"/>. </summary>
-        /// <param name="package"> Stream governance configuration. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StreamGovernanceConfig(Package? package, IDictionary<string, BinaryData> serializedAdditionalRawData)
-        {
-            Package = package;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Stream governance configuration. </summary>
-        public Package? Package { get; set; }
-========
         /// <summary> Initializes a new instance of <see cref="BatchIPTag"/>. </summary>
         public BatchIPTag()
         {
@@ -88,6 +65,5 @@ namespace Azure.ResourceManager.Batch.Models
         public string IPTagType { get; set; }
         /// <summary> Example: SQL. </summary>
         public string Tag { get; set; }
->>>>>>>> origin/main:sdk/batch/Azure.ResourceManager.Batch/src/Generated/Models/BatchIPTag.cs
     }
 }

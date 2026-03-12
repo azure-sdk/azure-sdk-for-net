@@ -8,18 +8,6 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/SCClusterRecordData.cs
-using Azure.ResourceManager.Confluent.Models;
-using Azure.ResourceManager.Models;
-
-namespace Azure.ResourceManager.Confluent
-{
-    /// <summary>
-    /// A class representing the SCClusterRecord data model.
-    /// Details of cluster record
-    /// </summary>
-    public partial class SCClusterRecordData : ResourceData
-========
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.NetApp
@@ -29,7 +17,6 @@ namespace Azure.ResourceManager.NetApp
     /// Information regarding Quota Item.
     /// </summary>
     public partial class NetAppSubscriptionQuotaItemData : ResourceData
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/NetAppSubscriptionQuotaItemData.cs
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -63,49 +50,16 @@ namespace Azure.ResourceManager.NetApp
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/SCClusterRecordData.cs
-        /// <summary> Initializes a new instance of <see cref="SCClusterRecordData"/>. </summary>
-        public SCClusterRecordData()
-        {
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SCClusterRecordData"/>. </summary>
-========
         /// <summary> Initializes a new instance of <see cref="NetAppSubscriptionQuotaItemData"/>. </summary>
         public NetAppSubscriptionQuotaItemData()
         {
         }
 
         /// <summary> Initializes a new instance of <see cref="NetAppSubscriptionQuotaItemData"/>. </summary>
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/NetAppSubscriptionQuotaItemData.cs
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/SCClusterRecordData.cs
-        /// <param name="kind"> Type of cluster. </param>
-        /// <param name="metadata"> Metadata of the record. </param>
-        /// <param name="spec"> Specification of the cluster. </param>
-        /// <param name="status"> Specification of the cluster status. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SCClusterRecordData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string kind, SCMetadataEntity metadata, SCClusterSpecEntity spec, ClusterStatusEntity status, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
-        {
-            Kind = kind;
-            Metadata = metadata;
-            Spec = spec;
-            Status = status;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Type of cluster. </summary>
-        public string Kind { get; set; }
-        /// <summary> Metadata of the record. </summary>
-        public SCMetadataEntity Metadata { get; set; }
-        /// <summary> Specification of the cluster. </summary>
-        public SCClusterSpecEntity Spec { get; set; }
-        /// <summary> Specification of the cluster status. </summary>
-        public ClusterStatusEntity Status { get; set; }
-========
         /// <param name="current"> The current quota value. </param>
         /// <param name="default"> The default quota value. </param>
         /// <param name="usage"> The usage quota value. </param>
@@ -124,6 +78,5 @@ namespace Azure.ResourceManager.NetApp
         public int? Default { get; }
         /// <summary> The usage quota value. </summary>
         public int? Usage { get; }
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/NetAppSubscriptionQuotaItemData.cs
     }
 }

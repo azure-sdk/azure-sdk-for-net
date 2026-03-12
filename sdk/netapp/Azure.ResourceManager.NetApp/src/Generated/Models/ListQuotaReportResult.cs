@@ -10,13 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.NetApp.Models
 {
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/TopicsInputConfig.cs
-    /// <summary> Topics input config. </summary>
-    public partial class TopicsInputConfig
-========
     /// <summary> * Result of ListQuotaReportResponse. </summary>
     public partial class ListQuotaReportResult
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/Models/ListQuotaReportResult.cs
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -50,28 +45,6 @@ namespace Azure.ResourceManager.NetApp.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-<<<<<<<< HEAD:sdk/confluent/Azure.ResourceManager.Confluent/src/Generated/Models/TopicsInputConfig.cs
-        /// <summary> Initializes a new instance of <see cref="TopicsInputConfig"/>. </summary>
-        public TopicsInputConfig()
-        {
-        }
-
-        /// <summary> Initializes a new instance of <see cref="TopicsInputConfig"/>. </summary>
-        /// <param name="name"> Name of the topic input config. </param>
-        /// <param name="value"> Value of the topic input config. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TopicsInputConfig(string name, string value, IDictionary<string, BinaryData> serializedAdditionalRawData)
-        {
-            Name = name;
-            Value = value;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
-        }
-
-        /// <summary> Name of the topic input config. </summary>
-        public string Name { get; set; }
-        /// <summary> Value of the topic input config. </summary>
-        public string Value { get; set; }
-========
         /// <summary> Initializes a new instance of <see cref="ListQuotaReportResult"/>. </summary>
         internal ListQuotaReportResult()
         {
@@ -93,6 +66,5 @@ namespace Azure.ResourceManager.NetApp.Models
         {
             get => Properties?.QuotaReportRecords;
         }
->>>>>>>> origin/main:sdk/netapp/Azure.ResourceManager.NetApp/src/Generated/Models/ListQuotaReportResult.cs
     }
 }
