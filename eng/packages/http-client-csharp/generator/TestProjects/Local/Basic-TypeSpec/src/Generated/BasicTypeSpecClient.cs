@@ -1618,7 +1618,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithNextLink(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithNextLinkCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithNextLinkCollectionResult(this, context, "BasicTypeSpecClient.GetWithNextLink");
         }
 
         /// <summary>
@@ -1634,7 +1634,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithNextLinkAsync(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithNextLinkAsyncCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithNextLinkAsyncCollectionResult(this, context, "BasicTypeSpecClient.GetWithNextLink");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1642,7 +1642,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithNextLink(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithNextLinkCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithNextLinkCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithNextLink");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1650,7 +1650,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithNextLinkAsync(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithNextLinkAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithNextLinkAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithNextLink");
         }
 
         /// <summary>
@@ -1666,7 +1666,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithStringNextLink(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithStringNextLinkCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithStringNextLinkCollectionResult(this, context, "BasicTypeSpecClient.GetWithStringNextLink");
         }
 
         /// <summary>
@@ -1682,7 +1682,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithStringNextLinkAsync(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithStringNextLinkAsyncCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithStringNextLinkAsyncCollectionResult(this, context, "BasicTypeSpecClient.GetWithStringNextLink");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1690,7 +1690,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithStringNextLink(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithStringNextLinkCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithStringNextLinkCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithStringNextLink");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1698,7 +1698,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithStringNextLinkAsync(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithStringNextLinkAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithStringNextLinkAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithStringNextLink");
         }
 
         /// <summary>
@@ -1714,7 +1714,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithHeaderNextLink(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithHeaderNextLinkCollectionResult(this, context, "BasicTypeSpecClient.GetWithHeaderNextLink");
         }
 
         /// <summary>
@@ -1730,7 +1730,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithHeaderNextLinkAsync(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkAsyncCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithHeaderNextLinkAsyncCollectionResult(this, context, "BasicTypeSpecClient.GetWithHeaderNextLink");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1738,7 +1738,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithHeaderNextLink(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithHeaderNextLinkCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithHeaderNextLink");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1746,7 +1746,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithHeaderNextLinkAsync(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithHeaderNextLinkAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithHeaderNextLink");
         }
 
         /// <summary>
@@ -1763,7 +1763,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithHeaderNextLinkWithMaxPage(int numElements, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageCollectionResult(this, numElements, context);
+            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageCollectionResult(this, numElements, context, "BasicTypeSpecClient.GetWithHeaderNextLinkWithMaxPage");
         }
 
         /// <summary>
@@ -1780,7 +1780,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithHeaderNextLinkWithMaxPageAsync(int numElements, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageAsyncCollectionResult(this, numElements, context);
+            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageAsyncCollectionResult(this, numElements, context, "BasicTypeSpecClient.GetWithHeaderNextLinkWithMaxPage");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1789,7 +1789,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithHeaderNextLinkWithMaxPage(int numElements, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageCollectionResultOfT(this, numElements, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageCollectionResultOfT(this, numElements, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithHeaderNextLinkWithMaxPage");
         }
 
         /// <summary> List things with nextlink. </summary>
@@ -1798,7 +1798,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithHeaderNextLinkWithMaxPageAsync(int numElements, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageAsyncCollectionResultOfT(this, numElements, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithHeaderNextLinkWithMaxPageAsyncCollectionResultOfT(this, numElements, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithHeaderNextLinkWithMaxPage");
         }
 
         /// <summary>
@@ -1815,7 +1815,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithContinuationToken(string token, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenCollectionResult(this, token, context);
+            return new BasicTypeSpecClientGetWithContinuationTokenCollectionResult(this, token, context, "BasicTypeSpecClient.GetWithContinuationToken");
         }
 
         /// <summary>
@@ -1832,7 +1832,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithContinuationTokenAsync(string token, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenAsyncCollectionResult(this, token, context);
+            return new BasicTypeSpecClientGetWithContinuationTokenAsyncCollectionResult(this, token, context, "BasicTypeSpecClient.GetWithContinuationToken");
         }
 
         /// <summary> List things with continuation token. </summary>
@@ -1841,7 +1841,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithContinuationToken(string token = default, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenCollectionResultOfT(this, token, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithContinuationTokenCollectionResultOfT(this, token, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithContinuationToken");
         }
 
         /// <summary> List things with continuation token. </summary>
@@ -1850,7 +1850,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithContinuationTokenAsync(string token = default, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenAsyncCollectionResultOfT(this, token, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithContinuationTokenAsyncCollectionResultOfT(this, token, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithContinuationToken");
         }
 
         /// <summary>
@@ -1868,7 +1868,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithContinuationTokenWithMaxPage(int numElements, string token, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageCollectionResult(this, numElements, token, context);
+            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageCollectionResult(this, numElements, token, context, "BasicTypeSpecClient.GetWithContinuationTokenWithMaxPage");
         }
 
         /// <summary>
@@ -1886,7 +1886,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithContinuationTokenWithMaxPageAsync(int numElements, string token, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageAsyncCollectionResult(this, numElements, token, context);
+            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageAsyncCollectionResult(this, numElements, token, context, "BasicTypeSpecClient.GetWithContinuationTokenWithMaxPage");
         }
 
         /// <summary> List things with continuation token. </summary>
@@ -1896,7 +1896,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithContinuationTokenWithMaxPage(int numElements, string token = default, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageCollectionResultOfT(this, numElements, token, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageCollectionResultOfT(this, numElements, token, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithContinuationTokenWithMaxPage");
         }
 
         /// <summary> List things with continuation token. </summary>
@@ -1906,7 +1906,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithContinuationTokenWithMaxPageAsync(int numElements, string token = default, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageAsyncCollectionResultOfT(this, numElements, token, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithContinuationTokenWithMaxPageAsyncCollectionResultOfT(this, numElements, token, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithContinuationTokenWithMaxPage");
         }
 
         /// <summary>
@@ -1923,7 +1923,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithContinuationTokenHeaderResponse(string token, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseCollectionResult(this, token, context);
+            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseCollectionResult(this, token, context, "BasicTypeSpecClient.GetWithContinuationTokenHeaderResponse");
         }
 
         /// <summary>
@@ -1940,7 +1940,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithContinuationTokenHeaderResponseAsync(string token, RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseAsyncCollectionResult(this, token, context);
+            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseAsyncCollectionResult(this, token, context, "BasicTypeSpecClient.GetWithContinuationTokenHeaderResponse");
         }
 
         /// <summary> List things with continuation token header response. </summary>
@@ -1949,7 +1949,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithContinuationTokenHeaderResponse(string token = default, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseCollectionResultOfT(this, token, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseCollectionResultOfT(this, token, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithContinuationTokenHeaderResponse");
         }
 
         /// <summary> List things with continuation token header response. </summary>
@@ -1958,7 +1958,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithContinuationTokenHeaderResponseAsync(string token = default, CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseAsyncCollectionResultOfT(this, token, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithContinuationTokenHeaderResponseAsyncCollectionResultOfT(this, token, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithContinuationTokenHeaderResponse");
         }
 
         /// <summary>
@@ -1974,7 +1974,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual Pageable<BinaryData> GetWithPaging(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithPagingCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithPagingCollectionResult(this, context, "BasicTypeSpecClient.GetWithPaging");
         }
 
         /// <summary>
@@ -1990,7 +1990,7 @@ namespace BasicTypeSpec
         /// <returns> The response returned from the service. </returns>
         public virtual AsyncPageable<BinaryData> GetWithPagingAsync(RequestContext context)
         {
-            return new BasicTypeSpecClientGetWithPagingAsyncCollectionResult(this, context);
+            return new BasicTypeSpecClientGetWithPagingAsyncCollectionResult(this, context, "BasicTypeSpecClient.GetWithPaging");
         }
 
         /// <summary> List things with paging. </summary>
@@ -1998,7 +1998,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual Pageable<ThingModel> GetWithPaging(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithPagingCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithPagingCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithPaging");
         }
 
         /// <summary> List things with paging. </summary>
@@ -2006,7 +2006,7 @@ namespace BasicTypeSpec
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         public virtual AsyncPageable<ThingModel> GetWithPagingAsync(CancellationToken cancellationToken = default)
         {
-            return new BasicTypeSpecClientGetWithPagingAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext());
+            return new BasicTypeSpecClientGetWithPagingAsyncCollectionResultOfT(this, cancellationToken.ToRequestContext(), "BasicTypeSpecClient.GetWithPaging");
         }
 
         /// <summary>
