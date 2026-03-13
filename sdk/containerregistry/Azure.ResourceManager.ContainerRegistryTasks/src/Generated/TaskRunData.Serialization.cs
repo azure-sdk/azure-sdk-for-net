@@ -70,9 +70,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks
             {
                 return null;
             }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(taskRunData, ModelSerializationExtensions.WireOptions);
-            return content;
+            return RequestContent.Create(taskRunData, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="TaskRunData"/> from. </param>

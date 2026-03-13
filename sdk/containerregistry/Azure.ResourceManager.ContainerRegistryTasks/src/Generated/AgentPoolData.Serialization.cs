@@ -75,9 +75,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks
             {
                 return null;
             }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(agentPoolData, ModelSerializationExtensions.WireOptions);
-            return content;
+            return RequestContent.Create(agentPoolData, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="AgentPoolData"/> from. </param>

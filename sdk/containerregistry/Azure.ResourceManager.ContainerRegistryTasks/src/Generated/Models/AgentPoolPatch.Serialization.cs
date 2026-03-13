@@ -64,9 +64,7 @@ namespace Azure.ResourceManager.ContainerRegistryTasks.Models
             {
                 return null;
             }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(agentPoolPatch, ModelSerializationExtensions.WireOptions);
-            return content;
+            return RequestContent.Create(agentPoolPatch, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="writer"> The JSON writer. </param>
