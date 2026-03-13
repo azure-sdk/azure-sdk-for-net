@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <summary> Initializes a new instance of <see cref="WebhookProperties"/>. </summary>
         /// <param name="actions"> The list of actions that trigger the webhook to post notifications. </param>
-        internal WebhookProperties(IEnumerable<WebhookAction> actions)
+        internal WebhookProperties(IEnumerable<ContainerRegistryWebhookAction> actions)
         {
             Actions = actions.ToList();
         }
@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="actions"> The list of actions that trigger the webhook to post notifications. </param>
         /// <param name="provisioningState"> The provisioning state of the webhook at the time the operation was called. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal WebhookProperties(WebhookStatus? status, string scope, IList<WebhookAction> actions, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal WebhookProperties(ContainerRegistryWebhookStatus? status, string scope, IList<ContainerRegistryWebhookAction> actions, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             Scope = scope;
@@ -40,13 +40,13 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The status of the webhook at the time the operation was called. </summary>
-        public WebhookStatus? Status { get; }
+        public ContainerRegistryWebhookStatus? Status { get; }
 
         /// <summary> The scope of repositories where the event can be triggered. For example, 'foo:*' means events for all tags under repository 'foo'. 'foo:bar' means events for 'foo:bar' only. 'foo' is equivalent to 'foo:latest'. Empty means all events. </summary>
         public string Scope { get; }
 
         /// <summary> The list of actions that trigger the webhook to post notifications. </summary>
-        public IList<WebhookAction> Actions { get; }
+        public IList<ContainerRegistryWebhookAction> Actions { get; }
 
         /// <summary> The provisioning state of the webhook at the time the operation was called. </summary>
         public ContainerRegistryProvisioningState? ProvisioningState { get; }

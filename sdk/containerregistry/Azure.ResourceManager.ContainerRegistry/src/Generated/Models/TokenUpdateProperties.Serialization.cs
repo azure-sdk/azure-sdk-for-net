@@ -132,8 +132,8 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             string scopeMapId = default;
-            TokenStatus? status = default;
-            TokenCredentialsProperties credentials = default;
+            ContainerRegistryTokenStatus? status = default;
+            ContainerRegistryTokenCredentials credentials = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    status = new TokenStatus(prop.Value.GetString());
+                    status = new ContainerRegistryTokenStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("credentials"u8))
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    credentials = TokenCredentialsProperties.DeserializeTokenCredentialsProperties(prop.Value, options);
+                    credentials = ContainerRegistryTokenCredentials.DeserializeContainerRegistryTokenCredentials(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

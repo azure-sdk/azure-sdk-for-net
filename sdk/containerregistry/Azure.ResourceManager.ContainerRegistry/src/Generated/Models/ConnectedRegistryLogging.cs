@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="logLevel"> The verbosity of logs persisted on the connected registry. </param>
         /// <param name="auditLogStatus"> Indicates whether audit logs are enabled on the connected registry. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConnectedRegistryLogging(LogLevel? logLevel, AuditLogStatus? auditLogStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryLogging(ConnectedRegistryLogLevel? logLevel, ConnectedRegistryAuditLogStatus? auditLogStatus, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             LogLevel = logLevel;
             AuditLogStatus = auditLogStatus;
@@ -33,9 +33,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The verbosity of logs persisted on the connected registry. </summary>
-        public LogLevel? LogLevel { get; set; }
+        public ConnectedRegistryLogLevel? LogLevel { get; set; }
 
         /// <summary> Indicates whether audit logs are enabled on the connected registry. </summary>
-        public AuditLogStatus? AuditLogStatus { get; set; }
+        public ConnectedRegistryAuditLogStatus? AuditLogStatus { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The status of the webhook at the time the operation was called. </summary>
-        public WebhookStatus? Status
+        public ContainerRegistryWebhookStatus? Status
         {
             get
             {
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The list of actions that trigger the webhook to post notifications. </summary>
-        public IList<WebhookAction> Actions
+        public IList<ContainerRegistryWebhookAction> Actions
         {
             get
             {

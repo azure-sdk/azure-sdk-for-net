@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
 
         /// <summary> Initializes a new instance of <see cref="PipelineSourceTriggerProperties"/>. </summary>
         /// <param name="status"> The current status of the source trigger. </param>
-        public PipelineSourceTriggerProperties(TriggerStatus status)
+        public PipelineSourceTriggerProperties(ContainerRegistryTriggerStatus status)
         {
             Status = status;
         }
@@ -26,13 +26,13 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="PipelineSourceTriggerProperties"/>. </summary>
         /// <param name="status"> The current status of the source trigger. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PipelineSourceTriggerProperties(TriggerStatus status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PipelineSourceTriggerProperties(ContainerRegistryTriggerStatus status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The current status of the source trigger. </summary>
-        public TriggerStatus Status { get; set; }
+        public ContainerRegistryTriggerStatus Status { get; set; }
     }
 }

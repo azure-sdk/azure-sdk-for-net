@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         internal PipelineSourceTriggerProperties SourceTrigger { get; set; }
 
         /// <summary> The current status of the source trigger. </summary>
-        public TriggerStatus? SourceTriggerStatus
+        public ContainerRegistryTriggerStatus? SourceTriggerStatus
         {
             get
             {

@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             }
             writer.WritePropertyName("actions"u8);
             writer.WriteStartArray();
-            foreach (WebhookAction item in Actions)
+            foreach (ContainerRegistryWebhookAction item in Actions)
             {
                 writer.WriteStringValue(item.ToString());
             }
@@ -143,9 +143,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            WebhookStatus? status = default;
+            ContainerRegistryWebhookStatus? status = default;
             string scope = default;
-            IList<WebhookAction> actions = default;
+            IList<ContainerRegistryWebhookAction> actions = default;
             ContainerRegistryProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -156,7 +156,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    status = new WebhookStatus(prop.Value.GetString());
+                    status = new ContainerRegistryWebhookStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("scope"u8))
@@ -166,10 +166,10 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
                 if (prop.NameEquals("actions"u8))
                 {
-                    List<WebhookAction> array = new List<WebhookAction>();
+                    List<ContainerRegistryWebhookAction> array = new List<ContainerRegistryWebhookAction>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(new WebhookAction(item.GetString()));
+                        array.Add(new ContainerRegistryWebhookAction(item.GetString()));
                     }
                     actions = array;
                     continue;

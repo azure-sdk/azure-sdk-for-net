@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("authCredentials"u8);
                 writer.WriteStartArray();
-                foreach (AuthCredential item in AuthCredentials)
+                foreach (ContainerRegistryAuthCredential item in AuthCredentials)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            IList<AuthCredential> authCredentials = default;
+            IList<ContainerRegistryAuthCredential> authCredentials = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -136,10 +136,10 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    List<AuthCredential> array = new List<AuthCredential>();
+                    List<ContainerRegistryAuthCredential> array = new List<ContainerRegistryAuthCredential>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(AuthCredential.DeserializeAuthCredential(item, options));
+                        array.Add(ContainerRegistryAuthCredential.DeserializeContainerRegistryAuthCredential(item, options));
                     }
                     authCredentials = array;
                     continue;
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new CredentialSetUpdateProperties(authCredentials ?? new ChangeTrackingList<AuthCredential>(), additionalBinaryDataProperties);
+            return new CredentialSetUpdateProperties(authCredentials ?? new ChangeTrackingList<ContainerRegistryAuthCredential>(), additionalBinaryDataProperties);
         }
     }
 }

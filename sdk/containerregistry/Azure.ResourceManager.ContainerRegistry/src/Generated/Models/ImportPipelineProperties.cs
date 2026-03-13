@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> The current status of the source trigger. </summary>
-        public TriggerStatus? SourceTriggerStatus
+        public ContainerRegistryTriggerStatus? SourceTriggerStatus
         {
             get
             {

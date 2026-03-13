@@ -24,13 +24,13 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="AzureADAuthenticationAsArmPolicy"/>. </summary>
         /// <param name="status"> The value that indicates whether the policy is enabled or not. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal AzureADAuthenticationAsArmPolicy(AzureADAuthenticationAsArmPolicyStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AzureADAuthenticationAsArmPolicy(AadAuthenticationAsArmPolicyStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The value that indicates whether the policy is enabled or not. </summary>
-        public AzureADAuthenticationAsArmPolicyStatus? Status { get; set; }
+        public AadAuthenticationAsArmPolicyStatus? Status { get; set; }
     }
 }

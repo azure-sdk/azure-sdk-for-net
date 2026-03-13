@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            SyncUpdateProperties syncProperties = default;
+            ConnectedRegistrySyncUpdateProperties syncProperties = default;
             ConnectedRegistryLogging logging = default;
             IList<string> clientTokenIds = default;
             IList<string> notificationsList = default;
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    syncProperties = SyncUpdateProperties.DeserializeSyncUpdateProperties(prop.Value, options);
+                    syncProperties = ConnectedRegistrySyncUpdateProperties.DeserializeConnectedRegistrySyncUpdateProperties(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("logging"u8))

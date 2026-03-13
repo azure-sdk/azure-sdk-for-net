@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="status"> The status of the token example enabled or disabled. </param>
         /// <param name="credentials"> The credentials that can be used for authenticating the token. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TokenUpdateProperties(string scopeMapId, TokenStatus? status, TokenCredentialsProperties credentials, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TokenUpdateProperties(string scopeMapId, ContainerRegistryTokenStatus? status, ContainerRegistryTokenCredentials credentials, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ScopeMapId = scopeMapId;
             Status = status;
@@ -38,9 +38,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public string ScopeMapId { get; set; }
 
         /// <summary> The status of the token example enabled or disabled. </summary>
-        public TokenStatus? Status { get; set; }
+        public ContainerRegistryTokenStatus? Status { get; set; }
 
         /// <summary> The credentials that can be used for authenticating the token. </summary>
-        public TokenCredentialsProperties Credentials { get; set; }
+        public ContainerRegistryTokenCredentials Credentials { get; set; }
     }
 }

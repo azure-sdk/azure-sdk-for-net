@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// List of authentication credentials stored for an upstream.
         /// Usually consists of a primary and an optional secondary credential.
         /// </summary>
-        public IList<AuthCredential> AuthCredentials
+        public IList<ContainerRegistryAuthCredential> AuthCredentials
         {
             get
             {

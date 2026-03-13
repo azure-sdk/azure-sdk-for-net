@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="timestamp"> The timestamp of the status. </param>
         /// <param name="correlationId"> The correlation ID of the status. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConnectedRegistryStatusDetail(string @type, string code, string description, DateTimeOffset? timestamp, string correlationId, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryStatusDetail(string @type, string code, string description, DateTimeOffset? timestamp, Guid? correlationId, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Type = @type;
             Code = code;
@@ -51,6 +51,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public DateTimeOffset? Timestamp { get; }
 
         /// <summary> The correlation ID of the status. </summary>
-        public string CorrelationId { get; }
+        public Guid? CorrelationId { get; }
     }
 }

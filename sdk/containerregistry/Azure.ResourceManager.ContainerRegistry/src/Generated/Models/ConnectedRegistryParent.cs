@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="ConnectedRegistryParent"/>. </summary>
         /// <param name="syncProperties"> The sync properties of the connected registry with its parent. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="syncProperties"/> is null. </exception>
-        public ConnectedRegistryParent(SyncProperties syncProperties)
+        public ConnectedRegistryParent(ConnectedRegistrySyncProperties syncProperties)
         {
             Argument.AssertNotNull(syncProperties, nameof(syncProperties));
 
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="id"> The resource ID of the parent to which the connected registry will be associated. </param>
         /// <param name="syncProperties"> The sync properties of the connected registry with its parent. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConnectedRegistryParent(ResourceIdentifier id, SyncProperties syncProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryParent(ResourceIdentifier id, ConnectedRegistrySyncProperties syncProperties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             SyncProperties = syncProperties;
@@ -43,6 +43,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public ResourceIdentifier Id { get; set; }
 
         /// <summary> The sync properties of the connected registry with its parent. </summary>
-        public SyncProperties SyncProperties { get; set; }
+        public ConnectedRegistrySyncProperties SyncProperties { get; set; }
     }
 }

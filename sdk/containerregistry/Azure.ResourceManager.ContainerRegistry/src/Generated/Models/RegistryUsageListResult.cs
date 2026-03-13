@@ -20,19 +20,19 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="RegistryUsageListResult"/>. </summary>
         internal RegistryUsageListResult()
         {
-            Value = new ChangeTrackingList<RegistryUsage>();
+            Value = new ChangeTrackingList<ContainerRegistryUsage>();
         }
 
         /// <summary> Initializes a new instance of <see cref="RegistryUsageListResult"/>. </summary>
         /// <param name="value"> The list of container registry quota usages. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal RegistryUsageListResult(IList<RegistryUsage> value, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RegistryUsageListResult(IList<ContainerRegistryUsage> value, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The list of container registry quota usages. </summary>
-        public IList<RegistryUsage> Value { get; }
+        public IList<ContainerRegistryUsage> Value { get; }
     }
 }

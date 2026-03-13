@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="notificationsList"> The list of notifications subscription information for the connected registry. </param>
         /// <param name="garbageCollection"> The garbage collection properties of the connected registry. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConnectedRegistryUpdateProperties(SyncUpdateProperties syncProperties, ConnectedRegistryLogging logging, IList<string> clientTokenIds, IList<string> notificationsList, GarbageCollectionProperties garbageCollection, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryUpdateProperties(ConnectedRegistrySyncUpdateProperties syncProperties, ConnectedRegistryLogging logging, IList<string> clientTokenIds, IList<string> notificationsList, GarbageCollectionProperties garbageCollection, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             SyncProperties = syncProperties;
             Logging = logging;
@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The sync properties of the connected registry with its parent. </summary>
-        public SyncUpdateProperties SyncProperties { get; set; }
+        public ConnectedRegistrySyncUpdateProperties SyncProperties { get; set; }
 
         /// <summary> The logging properties of the connected registry. </summary>
         public ConnectedRegistryLogging Logging { get; set; }

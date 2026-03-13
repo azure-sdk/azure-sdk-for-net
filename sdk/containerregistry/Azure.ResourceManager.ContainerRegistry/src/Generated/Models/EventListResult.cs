@@ -20,14 +20,14 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="EventListResult"/>. </summary>
         internal EventListResult()
         {
-            Value = new ChangeTrackingList<Event>();
+            Value = new ChangeTrackingList<ContainerRegistryWebhookEvent>();
         }
 
         /// <summary> Initializes a new instance of <see cref="EventListResult"/>. </summary>
         /// <param name="value"> The list of events. Since this list may be incomplete, the nextLink field should be used to request the next list of events. </param>
         /// <param name="nextLink"> The URI that can be used to request the next list of events. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventListResult(IList<Event> value, string nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventListResult(IList<ContainerRegistryWebhookEvent> value, string nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             NextLink = nextLink;
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The list of events. Since this list may be incomplete, the nextLink field should be used to request the next list of events. </summary>
-        public IList<Event> Value { get; }
+        public IList<ContainerRegistryWebhookEvent> Value { get; }
 
         /// <summary> The URI that can be used to request the next list of events. </summary>
         public string NextLink { get; }

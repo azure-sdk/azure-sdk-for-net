@@ -130,7 +130,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             ResourceIdentifier id = default;
-            SyncProperties syncProperties = default;
+            ConnectedRegistrySyncProperties syncProperties = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
                 if (prop.NameEquals("syncProperties"u8))
                 {
-                    syncProperties = SyncProperties.DeserializeSyncProperties(prop.Value, options);
+                    syncProperties = ConnectedRegistrySyncProperties.DeserializeConnectedRegistrySyncProperties(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

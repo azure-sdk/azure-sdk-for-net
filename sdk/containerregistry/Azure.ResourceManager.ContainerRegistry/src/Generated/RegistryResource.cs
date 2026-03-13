@@ -600,7 +600,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="content"> The parameters for generating credentials. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation<GenerateCredentialsResult>> GenerateCredentialsAsync(WaitUntil waitUntil, GenerateCredentialsParameters content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ContainerRegistryGenerateCredentialsResult>> GenerateCredentialsAsync(WaitUntil waitUntil, ContainerRegistryGenerateCredentialsContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -612,10 +612,10 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _registriesRestClient.CreateGenerateCredentialsRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, GenerateCredentialsParameters.ToRequestContent(content), context);
+                HttpMessage message = _registriesRestClient.CreateGenerateCredentialsRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ContainerRegistryGenerateCredentialsContent.ToRequestContent(content), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                ContainerRegistryArmOperation<GenerateCredentialsResult> operation = new ContainerRegistryArmOperation<GenerateCredentialsResult>(
-                    new GenerateCredentialsResultOperationSource(),
+                ContainerRegistryArmOperation<ContainerRegistryGenerateCredentialsResult> operation = new ContainerRegistryArmOperation<ContainerRegistryGenerateCredentialsResult>(
+                    new ContainerRegistryGenerateCredentialsResultOperationSource(),
                     _registriesClientDiagnostics,
                     Pipeline,
                     message.Request,
@@ -659,7 +659,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="content"> The parameters for generating credentials. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation<GenerateCredentialsResult> GenerateCredentials(WaitUntil waitUntil, GenerateCredentialsParameters content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ContainerRegistryGenerateCredentialsResult> GenerateCredentials(WaitUntil waitUntil, ContainerRegistryGenerateCredentialsContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -671,10 +671,10 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _registriesRestClient.CreateGenerateCredentialsRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, GenerateCredentialsParameters.ToRequestContent(content), context);
+                HttpMessage message = _registriesRestClient.CreateGenerateCredentialsRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ContainerRegistryGenerateCredentialsContent.ToRequestContent(content), context);
                 Response response = Pipeline.ProcessMessage(message, context);
-                ContainerRegistryArmOperation<GenerateCredentialsResult> operation = new ContainerRegistryArmOperation<GenerateCredentialsResult>(
-                    new GenerateCredentialsResultOperationSource(),
+                ContainerRegistryArmOperation<ContainerRegistryGenerateCredentialsResult> operation = new ContainerRegistryArmOperation<ContainerRegistryGenerateCredentialsResult>(
+                    new ContainerRegistryGenerateCredentialsResultOperationSource(),
                     _registriesClientDiagnostics,
                     Pipeline,
                     message.Request,
@@ -718,7 +718,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="content"> The parameters specifying the image to copy and the source container registry. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation> ImportImageAsync(WaitUntil waitUntil, ImportImageParameters content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> ImportImageAsync(WaitUntil waitUntil, ContainerRegistryImportImageContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -730,7 +730,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _registriesRestClient.CreateImportImageRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ImportImageParameters.ToRequestContent(content), context);
+                HttpMessage message = _registriesRestClient.CreateImportImageRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ContainerRegistryImportImageContent.ToRequestContent(content), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 ContainerRegistryArmOperation operation = new ContainerRegistryArmOperation(_registriesClientDiagnostics, Pipeline, message.Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
@@ -771,7 +771,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="content"> The parameters specifying the image to copy and the source container registry. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation ImportImage(WaitUntil waitUntil, ImportImageParameters content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation ImportImage(WaitUntil waitUntil, ContainerRegistryImportImageContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -783,7 +783,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _registriesRestClient.CreateImportImageRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ImportImageParameters.ToRequestContent(content), context);
+                HttpMessage message = _registriesRestClient.CreateImportImageRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ContainerRegistryImportImageContent.ToRequestContent(content), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 ContainerRegistryArmOperation operation = new ContainerRegistryArmOperation(_registriesClientDiagnostics, Pipeline, message.Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
@@ -821,7 +821,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<RegistryListCredentialsResult>> GetCredentialsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ContainerRegistryListCredentialsResult>> GetCredentialsAsync(CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _registriesClientDiagnostics.CreateScope("RegistryResource.GetCredentials");
             scope.Start();
@@ -833,7 +833,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 };
                 HttpMessage message = _registriesRestClient.CreateGetCredentialsRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<RegistryListCredentialsResult> response = Response.FromValue(RegistryListCredentialsResult.FromResponse(result), result);
+                Response<ContainerRegistryListCredentialsResult> response = Response.FromValue(ContainerRegistryListCredentialsResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -869,7 +869,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<RegistryListCredentialsResult> GetCredentials(CancellationToken cancellationToken = default)
+        public virtual Response<ContainerRegistryListCredentialsResult> GetCredentials(CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _registriesClientDiagnostics.CreateScope("RegistryResource.GetCredentials");
             scope.Start();
@@ -881,7 +881,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 };
                 HttpMessage message = _registriesRestClient.CreateGetCredentialsRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<RegistryListCredentialsResult> response = Response.FromValue(RegistryListCredentialsResult.FromResponse(result), result);
+                Response<ContainerRegistryListCredentialsResult> response = Response.FromValue(ContainerRegistryListCredentialsResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -1015,7 +1015,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="content"> Specifies name of the password which should be regenerated -- password or password2. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<Response<RegistryListCredentialsResult>> RegenerateCredentialAsync(RegenerateCredentialParameters content, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ContainerRegistryListCredentialsResult>> RegenerateCredentialAsync(ContainerRegistryCredentialRegenerateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -1027,9 +1027,9 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _registriesRestClient.CreateRegenerateCredentialRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, RegenerateCredentialParameters.ToRequestContent(content), context);
+                HttpMessage message = _registriesRestClient.CreateRegenerateCredentialRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ContainerRegistryCredentialRegenerateContent.ToRequestContent(content), context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<RegistryListCredentialsResult> response = Response.FromValue(RegistryListCredentialsResult.FromResponse(result), result);
+                Response<ContainerRegistryListCredentialsResult> response = Response.FromValue(ContainerRegistryListCredentialsResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -1067,7 +1067,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="content"> Specifies name of the password which should be regenerated -- password or password2. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual Response<RegistryListCredentialsResult> RegenerateCredential(RegenerateCredentialParameters content, CancellationToken cancellationToken = default)
+        public virtual Response<ContainerRegistryListCredentialsResult> RegenerateCredential(ContainerRegistryCredentialRegenerateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -1079,9 +1079,9 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _registriesRestClient.CreateRegenerateCredentialRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, RegenerateCredentialParameters.ToRequestContent(content), context);
+                HttpMessage message = _registriesRestClient.CreateRegenerateCredentialRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, ContainerRegistryCredentialRegenerateContent.ToRequestContent(content), context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<RegistryListCredentialsResult> response = Response.FromValue(RegistryListCredentialsResult.FromResponse(result), result);
+                Response<ContainerRegistryListCredentialsResult> response = Response.FromValue(ContainerRegistryListCredentialsResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());

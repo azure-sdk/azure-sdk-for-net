@@ -126,8 +126,8 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            LogLevel? logLevel = default;
-            AuditLogStatus? auditLogStatus = default;
+            ConnectedRegistryLogLevel? logLevel = default;
+            ConnectedRegistryAuditLogStatus? auditLogStatus = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    logLevel = new LogLevel(prop.Value.GetString());
+                    logLevel = new ConnectedRegistryLogLevel(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("auditLogStatus"u8))
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    auditLogStatus = new AuditLogStatus(prop.Value.GetString());
+                    auditLogStatus = new ConnectedRegistryAuditLogStatus(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

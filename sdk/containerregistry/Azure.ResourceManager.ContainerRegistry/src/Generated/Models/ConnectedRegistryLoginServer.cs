@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="host"> The host of the connected registry. Can be FQDN or IP. </param>
         /// <param name="tls"> The TLS properties of the connected registry login server. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ConnectedRegistryLoginServer(string host, TlsProperties tls, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ConnectedRegistryLoginServer(string host, ContainerRegistryTlsProperties tls, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Host = host;
             Tls = tls;
@@ -36,6 +36,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public string Host { get; }
 
         /// <summary> The TLS properties of the connected registry login server. </summary>
-        public TlsProperties Tls { get; }
+        public ContainerRegistryTlsProperties Tls { get; }
     }
 }

@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             }
             int? retentionDays = default;
             DateTimeOffset? lastUpdatedOn = default;
-            PolicyStatus? status = default;
+            ContainerRegistryPolicyStatus? status = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    status = new PolicyStatus(prop.Value.GetString());
+                    status = new ContainerRegistryPolicyStatus(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

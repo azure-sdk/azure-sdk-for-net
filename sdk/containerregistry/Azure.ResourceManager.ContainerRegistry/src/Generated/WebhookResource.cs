@@ -428,7 +428,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<CallbackConfig>> GetCallbackConfigAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ContainerRegistryWebhookCallbackConfig>> GetCallbackConfigAsync(CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _webhooksClientDiagnostics.CreateScope("WebhookResource.GetCallbackConfig");
             scope.Start();
@@ -440,7 +440,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 };
                 HttpMessage message = _webhooksRestClient.CreateGetCallbackConfigRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<CallbackConfig> response = Response.FromValue(CallbackConfig.FromResponse(result), result);
+                Response<ContainerRegistryWebhookCallbackConfig> response = Response.FromValue(ContainerRegistryWebhookCallbackConfig.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -476,7 +476,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<CallbackConfig> GetCallbackConfig(CancellationToken cancellationToken = default)
+        public virtual Response<ContainerRegistryWebhookCallbackConfig> GetCallbackConfig(CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _webhooksClientDiagnostics.CreateScope("WebhookResource.GetCallbackConfig");
             scope.Start();
@@ -488,7 +488,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 };
                 HttpMessage message = _webhooksRestClient.CreateGetCallbackConfigRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<CallbackConfig> response = Response.FromValue(CallbackConfig.FromResponse(result), result);
+                Response<ContainerRegistryWebhookCallbackConfig> response = Response.FromValue(ContainerRegistryWebhookCallbackConfig.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -524,8 +524,8 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="Event"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<Event> GetEventsAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ContainerRegistryWebhookEvent"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ContainerRegistryWebhookEvent> GetEventsAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
@@ -562,8 +562,8 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="Event"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<Event> GetEvents(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ContainerRegistryWebhookEvent"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ContainerRegistryWebhookEvent> GetEvents(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
@@ -600,7 +600,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<EventInfo>> PingAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ContainerRegistryWebhookEventInfo>> PingAsync(CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _webhooksClientDiagnostics.CreateScope("WebhookResource.Ping");
             scope.Start();
@@ -612,7 +612,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 };
                 HttpMessage message = _webhooksRestClient.CreatePingRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<EventInfo> response = Response.FromValue(EventInfo.FromResponse(result), result);
+                Response<ContainerRegistryWebhookEventInfo> response = Response.FromValue(ContainerRegistryWebhookEventInfo.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -648,7 +648,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<EventInfo> Ping(CancellationToken cancellationToken = default)
+        public virtual Response<ContainerRegistryWebhookEventInfo> Ping(CancellationToken cancellationToken = default)
         {
             using DiagnosticScope scope = _webhooksClientDiagnostics.CreateScope("WebhookResource.Ping");
             scope.Start();
@@ -660,7 +660,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 };
                 HttpMessage message = _webhooksRestClient.CreatePingRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<EventInfo> response = Response.FromValue(EventInfo.FromResponse(result), result);
+                Response<ContainerRegistryWebhookEventInfo> response = Response.FromValue(ContainerRegistryWebhookEventInfo.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());

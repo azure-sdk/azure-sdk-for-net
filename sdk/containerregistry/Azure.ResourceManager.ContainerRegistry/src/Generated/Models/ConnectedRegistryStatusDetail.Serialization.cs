@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             if (options.Format != "W" && Optional.IsDefined(CorrelationId))
             {
                 writer.WritePropertyName("correlationId"u8);
-                writer.WriteStringValue(CorrelationId);
+                writer.WriteStringValue(CorrelationId.Value);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             string code = default;
             string description = default;
             DateTimeOffset? timestamp = default;
-            string correlationId = default;
+            Guid? correlationId = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -175,7 +175,11 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 }
                 if (prop.NameEquals("correlationId"u8))
                 {
-                    correlationId = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    correlationId = new Guid(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

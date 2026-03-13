@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="regionEndpointEnabled"> Specifies whether the replication's regional endpoint is enabled. Requests will not be routed to a replication whose regional endpoint is disabled, however its data will continue to be synced with other replications. </param>
         /// <param name="zoneRedundancy"> Whether or not zone redundancy is enabled for this container registry replication. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ReplicationProperties(ContainerRegistryProvisioningState? provisioningState, Status status, bool? regionEndpointEnabled, ZoneRedundancy? zoneRedundancy, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ReplicationProperties(ContainerRegistryProvisioningState? provisioningState, ContainerRegistryResourceStatus status, bool? regionEndpointEnabled, ContainerRegistryZoneRedundancy? zoneRedundancy, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             Status = status;
@@ -40,12 +40,12 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public ContainerRegistryProvisioningState? ProvisioningState { get; }
 
         /// <summary> The status of the replication at the time the operation was called. </summary>
-        public Status Status { get; }
+        public ContainerRegistryResourceStatus Status { get; }
 
         /// <summary> Specifies whether the replication's regional endpoint is enabled. Requests will not be routed to a replication whose regional endpoint is disabled, however its data will continue to be synced with other replications. </summary>
         public bool? RegionEndpointEnabled { get; set; }
 
         /// <summary> Whether or not zone redundancy is enabled for this container registry replication. </summary>
-        public ZoneRedundancy? ZoneRedundancy { get; set; }
+        public ContainerRegistryZoneRedundancy? ZoneRedundancy { get; set; }
     }
 }

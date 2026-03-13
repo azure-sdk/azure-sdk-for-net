@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            AzureADAuthenticationAsArmPolicyStatus? status = default;
+            AadAuthenticationAsArmPolicyStatus? status = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    status = new AzureADAuthenticationAsArmPolicyStatus(prop.Value.GetString());
+                    status = new AadAuthenticationAsArmPolicyStatus(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

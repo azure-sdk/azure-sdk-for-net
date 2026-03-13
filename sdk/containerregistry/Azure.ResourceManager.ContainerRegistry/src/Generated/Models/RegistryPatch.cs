@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The network rule set for a container registry. </summary>
-        public NetworkRuleSet NetworkRuleSet
+        public ContainerRegistryNetworkRuleSet NetworkRuleSet
         {
             get
             {
@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The policies for a container registry. </summary>
-        public Policies Policies
+        public ContainerRegistryPolicies Policies
         {
             get
             {
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The encryption settings of container registry. </summary>
-        public EncryptionProperty Encryption
+        public ContainerRegistryEncryption Encryption
         {
             get
             {
@@ -170,7 +170,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> Whether or not public network access is allowed for the container registry. </summary>
-        public PublicNetworkAccess? PublicNetworkAccess
+        public ContainerRegistryPublicNetworkAccess? PublicNetworkAccess
         {
             get
             {
@@ -187,7 +187,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> Whether to allow trusted Azure services to access a network restricted registry. </summary>
-        public NetworkRuleBypassOptions? NetworkRuleBypassOptions
+        public ContainerRegistryNetworkRuleBypassOption? NetworkRuleBypassOptions
         {
             get
             {
@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> Determines registry role assignment mode. </summary>
-        public RoleAssignmentMode? RoleAssignmentMode
+        public ContainerRegistryRoleAssignmentMode? RoleAssignmentMode
         {
             get
             {

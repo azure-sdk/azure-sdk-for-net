@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         internal ConnectedRegistryUpdateProperties Properties { get; set; }
 
         /// <summary> The sync properties of the connected registry with its parent. </summary>
-        public SyncUpdateProperties SyncProperties
+        public ConnectedRegistrySyncUpdateProperties SyncProperties
         {
             get
             {

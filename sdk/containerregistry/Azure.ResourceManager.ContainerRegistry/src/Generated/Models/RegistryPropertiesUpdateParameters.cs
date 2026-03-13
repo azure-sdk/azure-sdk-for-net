@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="metadataSearch"> Determines whether registry artifacts are indexed for metadata search. </param>
         /// <param name="roleAssignmentMode"> Determines registry role assignment mode. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal RegistryPropertiesUpdateParameters(bool? adminUserEnabled, NetworkRuleSet networkRuleSet, Policies policies, EncryptionProperty encryption, bool? dataEndpointEnabled, RegionalEndpoints? regionalEndpoints, EndpointProtocol? endpointProtocol, PublicNetworkAccess? publicNetworkAccess, NetworkRuleBypassOptions? networkRuleBypassOptions, bool? networkRuleBypassAllowedForTasks, bool? anonymousPullEnabled, MetadataSearch? metadataSearch, RoleAssignmentMode? roleAssignmentMode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RegistryPropertiesUpdateParameters(bool? adminUserEnabled, ContainerRegistryNetworkRuleSet networkRuleSet, ContainerRegistryPolicies policies, ContainerRegistryEncryption encryption, bool? dataEndpointEnabled, RegionalEndpoints? regionalEndpoints, EndpointProtocol? endpointProtocol, ContainerRegistryPublicNetworkAccess? publicNetworkAccess, ContainerRegistryNetworkRuleBypassOption? networkRuleBypassOptions, bool? networkRuleBypassAllowedForTasks, bool? anonymousPullEnabled, MetadataSearch? metadataSearch, ContainerRegistryRoleAssignmentMode? roleAssignmentMode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AdminUserEnabled = adminUserEnabled;
             NetworkRuleSet = networkRuleSet;
@@ -58,13 +58,13 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public bool? AdminUserEnabled { get; set; }
 
         /// <summary> The network rule set for a container registry. </summary>
-        public NetworkRuleSet NetworkRuleSet { get; set; }
+        public ContainerRegistryNetworkRuleSet NetworkRuleSet { get; set; }
 
         /// <summary> The policies for a container registry. </summary>
-        public Policies Policies { get; set; }
+        public ContainerRegistryPolicies Policies { get; set; }
 
         /// <summary> The encryption settings of container registry. </summary>
-        public EncryptionProperty Encryption { get; set; }
+        public ContainerRegistryEncryption Encryption { get; set; }
 
         /// <summary> Enable a single data endpoint per region for serving data. </summary>
         public bool? DataEndpointEnabled { get; set; }
@@ -76,10 +76,10 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public EndpointProtocol? EndpointProtocol { get; set; }
 
         /// <summary> Whether or not public network access is allowed for the container registry. </summary>
-        public PublicNetworkAccess? PublicNetworkAccess { get; set; }
+        public ContainerRegistryPublicNetworkAccess? PublicNetworkAccess { get; set; }
 
         /// <summary> Whether to allow trusted Azure services to access a network restricted registry. </summary>
-        public NetworkRuleBypassOptions? NetworkRuleBypassOptions { get; set; }
+        public ContainerRegistryNetworkRuleBypassOption? NetworkRuleBypassOptions { get; set; }
 
         /// <summary> Whether to allow ACR Tasks service to access a network restricted registry. </summary>
         public bool? NetworkRuleBypassAllowedForTasks { get; set; }
@@ -91,6 +91,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public MetadataSearch? MetadataSearch { get; set; }
 
         /// <summary> Determines registry role assignment mode. </summary>
-        public RoleAssignmentMode? RoleAssignmentMode { get; set; }
+        public ContainerRegistryRoleAssignmentMode? RoleAssignmentMode { get; set; }
     }
 }

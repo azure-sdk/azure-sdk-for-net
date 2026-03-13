@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="CredentialSetUpdateProperties"/>. </summary>
         public CredentialSetUpdateProperties()
         {
-            AuthCredentials = new ChangeTrackingList<AuthCredential>();
+            AuthCredentials = new ChangeTrackingList<ContainerRegistryAuthCredential>();
         }
 
         /// <summary> Initializes a new instance of <see cref="CredentialSetUpdateProperties"/>. </summary>
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// Usually consists of a primary and an optional secondary credential.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal CredentialSetUpdateProperties(IList<AuthCredential> authCredentials, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CredentialSetUpdateProperties(IList<ContainerRegistryAuthCredential> authCredentials, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AuthCredentials = authCredentials;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
@@ -39,6 +39,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// List of authentication credentials stored for an upstream.
         /// Usually consists of a primary and an optional secondary credential.
         /// </summary>
-        public IList<AuthCredential> AuthCredentials { get; } = new ChangeTrackingList<AuthCredential>();
+        public IList<ContainerRegistryAuthCredential> AuthCredentials { get; } = new ChangeTrackingList<ContainerRegistryAuthCredential>();
     }
 }

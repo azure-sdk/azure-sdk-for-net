@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             string host = default;
-            TlsProperties tls = default;
+            ContainerRegistryTlsProperties tls = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    tls = TlsProperties.DeserializeTlsProperties(prop.Value, options);
+                    tls = ContainerRegistryTlsProperties.DeserializeContainerRegistryTlsProperties(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

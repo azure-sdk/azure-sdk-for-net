@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 writer.WritePropertyName("value"u8);
                 writer.WriteStartArray();
-                foreach (RegistryUsage item in Value)
+                foreach (ContainerRegistryUsage item in Value)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            IList<RegistryUsage> value = default;
+            IList<ContainerRegistryUsage> value = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -144,10 +144,10 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    List<RegistryUsage> array = new List<RegistryUsage>();
+                    List<ContainerRegistryUsage> array = new List<ContainerRegistryUsage>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(RegistryUsage.DeserializeRegistryUsage(item, options));
+                        array.Add(ContainerRegistryUsage.DeserializeContainerRegistryUsage(item, options));
                     }
                     value = array;
                     continue;
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new RegistryUsageListResult(value ?? new ChangeTrackingList<RegistryUsage>(), additionalBinaryDataProperties);
+            return new RegistryUsageListResult(value ?? new ChangeTrackingList<ContainerRegistryUsage>(), additionalBinaryDataProperties);
         }
     }
 }

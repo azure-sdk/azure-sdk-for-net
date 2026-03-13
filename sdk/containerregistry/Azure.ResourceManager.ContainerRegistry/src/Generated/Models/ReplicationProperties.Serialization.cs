@@ -137,9 +137,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             ContainerRegistryProvisioningState? provisioningState = default;
-            Status status = default;
+            ContainerRegistryResourceStatus status = default;
             bool? regionEndpointEnabled = default;
-            ZoneRedundancy? zoneRedundancy = default;
+            ContainerRegistryZoneRedundancy? zoneRedundancy = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -158,7 +158,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    status = Status.DeserializeStatus(prop.Value, options);
+                    status = ContainerRegistryResourceStatus.DeserializeContainerRegistryResourceStatus(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("regionEndpointEnabled"u8))
@@ -176,7 +176,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    zoneRedundancy = new ZoneRedundancy(prop.Value.GetString());
+                    zoneRedundancy = new ContainerRegistryZoneRedundancy(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

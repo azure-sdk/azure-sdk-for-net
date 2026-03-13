@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public WebhookPropertiesUpdateParameters()
         {
             CustomHeaders = new ChangeTrackingDictionary<string, string>();
-            Actions = new ChangeTrackingList<WebhookAction>();
+            Actions = new ChangeTrackingList<ContainerRegistryWebhookAction>();
         }
 
         /// <summary> Initializes a new instance of <see cref="WebhookPropertiesUpdateParameters"/>. </summary>
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="scope"> The scope of repositories where the event can be triggered. For example, 'foo:*' means events for all tags under repository 'foo'. 'foo:bar' means events for 'foo:bar' only. 'foo' is equivalent to 'foo:latest'. Empty means all events. </param>
         /// <param name="actions"> The list of actions that trigger the webhook to post notifications. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal WebhookPropertiesUpdateParameters(string serviceUri, IDictionary<string, string> customHeaders, WebhookStatus? status, string scope, IList<WebhookAction> actions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal WebhookPropertiesUpdateParameters(string serviceUri, IDictionary<string, string> customHeaders, ContainerRegistryWebhookStatus? status, string scope, IList<ContainerRegistryWebhookAction> actions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ServiceUri = serviceUri;
             CustomHeaders = customHeaders;
@@ -48,12 +48,12 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public IDictionary<string, string> CustomHeaders { get; } = new ChangeTrackingDictionary<string, string>();
 
         /// <summary> The status of the webhook at the time the operation was called. </summary>
-        public WebhookStatus? Status { get; set; }
+        public ContainerRegistryWebhookStatus? Status { get; set; }
 
         /// <summary> The scope of repositories where the event can be triggered. For example, 'foo:*' means events for all tags under repository 'foo'. 'foo:bar' means events for 'foo:bar' only. 'foo' is equivalent to 'foo:latest'. Empty means all events. </summary>
         public string Scope { get; set; }
 
         /// <summary> The list of actions that trigger the webhook to post notifications. </summary>
-        public IList<WebhookAction> Actions { get; } = new ChangeTrackingList<WebhookAction>();
+        public IList<ContainerRegistryWebhookAction> Actions { get; } = new ChangeTrackingList<ContainerRegistryWebhookAction>();
     }
 }

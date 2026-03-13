@@ -131,9 +131,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
             {
                 return null;
             }
-            ConnectionStatus? status = default;
+            ContainerRegistryPrivateLinkServiceConnectionStatus? status = default;
             string description = default;
-            ActionsRequired? actionsRequired = default;
+            ActionsRequiredForPrivateLinkServiceConsumer? actionsRequired = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    status = new ConnectionStatus(prop.Value.GetString());
+                    status = new ContainerRegistryPrivateLinkServiceConnectionStatus(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("description"u8))
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    actionsRequired = new ActionsRequired(prop.Value.GetString());
+                    actionsRequired = new ActionsRequiredForPrivateLinkServiceConsumer(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

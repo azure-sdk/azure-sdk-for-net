@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The status of the token example enabled or disabled. </summary>
-        public TokenStatus? Status
+        public ContainerRegistryTokenStatus? Status
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         }
 
         /// <summary> The credentials that can be used for authenticating the token. </summary>
-        public TokenCredentialsProperties Credentials
+        public ContainerRegistryTokenCredentials Credentials
         {
             get
             {

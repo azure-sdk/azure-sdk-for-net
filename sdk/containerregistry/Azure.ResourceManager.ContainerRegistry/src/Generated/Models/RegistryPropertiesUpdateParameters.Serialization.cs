@@ -182,18 +182,18 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 return null;
             }
             bool? adminUserEnabled = default;
-            NetworkRuleSet networkRuleSet = default;
-            Policies policies = default;
-            EncryptionProperty encryption = default;
+            ContainerRegistryNetworkRuleSet networkRuleSet = default;
+            ContainerRegistryPolicies policies = default;
+            ContainerRegistryEncryption encryption = default;
             bool? dataEndpointEnabled = default;
             RegionalEndpoints? regionalEndpoints = default;
             EndpointProtocol? endpointProtocol = default;
-            PublicNetworkAccess? publicNetworkAccess = default;
-            NetworkRuleBypassOptions? networkRuleBypassOptions = default;
+            ContainerRegistryPublicNetworkAccess? publicNetworkAccess = default;
+            ContainerRegistryNetworkRuleBypassOption? networkRuleBypassOptions = default;
             bool? networkRuleBypassAllowedForTasks = default;
             bool? anonymousPullEnabled = default;
             MetadataSearch? metadataSearch = default;
-            RoleAssignmentMode? roleAssignmentMode = default;
+            ContainerRegistryRoleAssignmentMode? roleAssignmentMode = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -212,7 +212,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    networkRuleSet = NetworkRuleSet.DeserializeNetworkRuleSet(prop.Value, options);
+                    networkRuleSet = ContainerRegistryNetworkRuleSet.DeserializeContainerRegistryNetworkRuleSet(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("policies"u8))
@@ -221,7 +221,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    policies = Policies.DeserializePolicies(prop.Value, options);
+                    policies = ContainerRegistryPolicies.DeserializeContainerRegistryPolicies(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("encryption"u8))
@@ -230,7 +230,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    encryption = EncryptionProperty.DeserializeEncryptionProperty(prop.Value, options);
+                    encryption = ContainerRegistryEncryption.DeserializeContainerRegistryEncryption(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("dataEndpointEnabled"u8))
@@ -266,7 +266,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    publicNetworkAccess = new PublicNetworkAccess(prop.Value.GetString());
+                    publicNetworkAccess = new ContainerRegistryPublicNetworkAccess(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("networkRuleBypassOptions"u8))
@@ -275,7 +275,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    networkRuleBypassOptions = new NetworkRuleBypassOptions(prop.Value.GetString());
+                    networkRuleBypassOptions = new ContainerRegistryNetworkRuleBypassOption(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("networkRuleBypassAllowedForTasks"u8))
@@ -311,7 +311,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                     {
                         continue;
                     }
-                    roleAssignmentMode = new RoleAssignmentMode(prop.Value.GetString());
+                    roleAssignmentMode = new ContainerRegistryRoleAssignmentMode(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

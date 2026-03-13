@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <summary> Initializes a new instance of <see cref="CredentialSetProperties"/>. </summary>
         public CredentialSetProperties()
         {
-            AuthCredentials = new ChangeTrackingList<AuthCredential>();
+            AuthCredentials = new ChangeTrackingList<ContainerRegistryAuthCredential>();
         }
 
         /// <summary> Initializes a new instance of <see cref="CredentialSetProperties"/>. </summary>
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="createdOn"> The creation date of credential store resource. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal CredentialSetProperties(string loginServer, IList<AuthCredential> authCredentials, DateTimeOffset? createdOn, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CredentialSetProperties(string loginServer, IList<ContainerRegistryAuthCredential> authCredentials, DateTimeOffset? createdOn, ContainerRegistryProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             LoginServer = loginServer;
             AuthCredentials = authCredentials;
@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// List of authentication credentials stored for an upstream.
         /// Usually consists of a primary and an optional secondary credential.
         /// </summary>
-        public IList<AuthCredential> AuthCredentials { get; }
+        public IList<ContainerRegistryAuthCredential> AuthCredentials { get; }
 
         /// <summary> The creation date of credential store resource. </summary>
         public DateTimeOffset? CreatedOn { get; }

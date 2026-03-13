@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
         /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<Response<RegistryNameStatus>> CheckNameAvailabilityAsync(RegistryNameCheckRequest content, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ContainerRegistryNameAvailableResult>> CheckNameAvailabilityAsync(ContainerRegistryNameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -128,9 +128,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = RegistriesRestClient.CreateCheckNameAvailabilityRequest(Guid.Parse(Id.SubscriptionId), RegistryNameCheckRequest.ToRequestContent(content), context);
+                HttpMessage message = RegistriesRestClient.CreateCheckNameAvailabilityRequest(Guid.Parse(Id.SubscriptionId), ContainerRegistryNameAvailabilityContent.ToRequestContent(content), context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<RegistryNameStatus> response = Response.FromValue(RegistryNameStatus.FromResponse(result), result);
+                Response<ContainerRegistryNameAvailableResult> response = Response.FromValue(ContainerRegistryNameAvailableResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
         /// <param name="content"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual Response<RegistryNameStatus> CheckNameAvailability(RegistryNameCheckRequest content, CancellationToken cancellationToken = default)
+        public virtual Response<ContainerRegistryNameAvailableResult> CheckNameAvailability(ContainerRegistryNameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -176,9 +176,9 @@ namespace Azure.ResourceManager.ContainerRegistry.Mocking
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = RegistriesRestClient.CreateCheckNameAvailabilityRequest(Guid.Parse(Id.SubscriptionId), RegistryNameCheckRequest.ToRequestContent(content), context);
+                HttpMessage message = RegistriesRestClient.CreateCheckNameAvailabilityRequest(Guid.Parse(Id.SubscriptionId), ContainerRegistryNameAvailabilityContent.ToRequestContent(content), context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<RegistryNameStatus> response = Response.FromValue(RegistryNameStatus.FromResponse(result), result);
+                Response<ContainerRegistryNameAvailableResult> response = Response.FromValue(ContainerRegistryNameAvailableResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());

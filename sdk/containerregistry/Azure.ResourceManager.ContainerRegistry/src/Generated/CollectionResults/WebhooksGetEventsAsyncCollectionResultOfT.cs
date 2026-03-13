@@ -15,7 +15,7 @@ using Azure.ResourceManager.ContainerRegistry.Models;
 
 namespace Azure.ResourceManager.ContainerRegistry
 {
-    internal partial class WebhooksGetEventsAsyncCollectionResultOfT : AsyncPageable<Event>
+    internal partial class WebhooksGetEventsAsyncCollectionResultOfT : AsyncPageable<ContainerRegistryWebhookEvent>
     {
         private readonly Webhooks _client;
         private readonly Guid _subscriptionId;
@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <param name="continuationToken"> A continuation token indicating where to resume paging. </param>
         /// <param name="pageSizeHint"> The number of items per page. </param>
         /// <returns> The pages of WebhooksGetEventsAsyncCollectionResultOfT as an enumerable collection. </returns>
-        public override async IAsyncEnumerable<Page<Event>> AsPages(string continuationToken, int? pageSizeHint)
+        public override async IAsyncEnumerable<Page<ContainerRegistryWebhookEvent>> AsPages(string continuationToken, int? pageSizeHint)
         {
             Uri nextPage = continuationToken != null ? new Uri(continuationToken) : null;
             while (true)
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                     yield break;
                 }
                 EventListResult result = EventListResult.FromResponse(response);
-                yield return Page<Event>.FromValues((IReadOnlyList<Event>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
+                yield return Page<ContainerRegistryWebhookEvent>.FromValues((IReadOnlyList<ContainerRegistryWebhookEvent>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 string nextPageString = result.NextLink;
                 if (string.IsNullOrEmpty(nextPageString))
                 {

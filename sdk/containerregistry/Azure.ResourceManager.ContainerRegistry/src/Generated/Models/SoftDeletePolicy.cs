@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         /// <param name="lastUpdatedOn"> The timestamp when the policy was last updated. </param>
         /// <param name="status"> The value that indicates whether the policy is enabled or not. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SoftDeletePolicy(int? retentionDays, DateTimeOffset? lastUpdatedOn, PolicyStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SoftDeletePolicy(int? retentionDays, DateTimeOffset? lastUpdatedOn, ContainerRegistryPolicyStatus? status, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             RetentionDays = retentionDays;
             LastUpdatedOn = lastUpdatedOn;
@@ -41,6 +41,6 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
         public DateTimeOffset? LastUpdatedOn { get; }
 
         /// <summary> The value that indicates whether the policy is enabled or not. </summary>
-        public PolicyStatus? Status { get; set; }
+        public ContainerRegistryPolicyStatus? Status { get; set; }
     }
 }
