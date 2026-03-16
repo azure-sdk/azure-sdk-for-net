@@ -425,8 +425,8 @@ namespace Azure.ResourceManager.Quota
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> or <paramref name="filter"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> or <paramref name="filter"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="GroupQuotaRequestStatusResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<GroupQuotaRequestStatusResource> GetGroupQuotaLimitsRequestsAsync(string resourceProviderName, string filter, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="GroupQuotaRequestStatusData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<GroupQuotaRequestStatusData> GetGroupQuotaLimitsRequestsAsync(string resourceProviderName, string filter, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
             Argument.AssertNotNullOrEmpty(filter, nameof(filter));
@@ -435,13 +435,13 @@ namespace Azure.ResourceManager.Quota
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<GroupQuotaRequestStatusData, GroupQuotaRequestStatusResource>(new GroupQuotasEntitiesGetGroupQuotaLimitsRequestsAsyncCollectionResultOfT(
+            return new GroupQuotasEntitiesGetGroupQuotaLimitsRequestsAsyncCollectionResultOfT(
                 _groupQuotasEntitiesRestClient,
                 Id.Parent.Name,
                 Id.Name,
                 resourceProviderName,
                 filter,
-                context), data => new GroupQuotaRequestStatusResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -470,8 +470,8 @@ namespace Azure.ResourceManager.Quota
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderName"/> or <paramref name="filter"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="resourceProviderName"/> or <paramref name="filter"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="GroupQuotaRequestStatusResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<GroupQuotaRequestStatusResource> GetGroupQuotaLimitsRequests(string resourceProviderName, string filter, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="GroupQuotaRequestStatusData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<GroupQuotaRequestStatusData> GetGroupQuotaLimitsRequests(string resourceProviderName, string filter, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(resourceProviderName, nameof(resourceProviderName));
             Argument.AssertNotNullOrEmpty(filter, nameof(filter));
@@ -480,13 +480,13 @@ namespace Azure.ResourceManager.Quota
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<GroupQuotaRequestStatusData, GroupQuotaRequestStatusResource>(new GroupQuotasEntitiesGetGroupQuotaLimitsRequestsCollectionResultOfT(
+            return new GroupQuotasEntitiesGetGroupQuotaLimitsRequestsCollectionResultOfT(
                 _groupQuotasEntitiesRestClient,
                 Id.Parent.Name,
                 Id.Name,
                 resourceProviderName,
                 filter,
-                context), data => new GroupQuotaRequestStatusResource(Client, data));
+                context);
         }
 
         /// <summary>
