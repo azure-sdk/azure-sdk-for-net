@@ -437,14 +437,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ActiveSessionHostConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ActiveSessionHostConfigurationResource> GetByHostPoolAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ActiveSessionHostConfigurationData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ActiveSessionHostConfigurationData> GetByHostPoolAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<ActiveSessionHostConfigurationData, ActiveSessionHostConfigurationResource>(new ActiveSessionHostConfigurationsGetByHostPoolAsyncCollectionResultOfT(_activeSessionHostConfigurationsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new ActiveSessionHostConfigurationResource(Client, data));
+            return new ActiveSessionHostConfigurationsGetByHostPoolAsyncCollectionResultOfT(_activeSessionHostConfigurationsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary>
@@ -469,14 +469,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ActiveSessionHostConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ActiveSessionHostConfigurationResource> GetByHostPool(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ActiveSessionHostConfigurationData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ActiveSessionHostConfigurationData> GetByHostPool(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<ActiveSessionHostConfigurationData, ActiveSessionHostConfigurationResource>(new ActiveSessionHostConfigurationsGetByHostPoolCollectionResultOfT(_activeSessionHostConfigurationsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new ActiveSessionHostConfigurationResource(Client, data));
+            return new ActiveSessionHostConfigurationsGetByHostPoolCollectionResultOfT(_activeSessionHostConfigurationsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary>
@@ -503,8 +503,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="content"> Information to import app attach package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        /// <returns> A collection of <see cref="AppAttachPackageResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<AppAttachPackageResource> ImportAppAttachPackageInfosAsync(ImportPackageInfoContent content, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="AppAttachPackageData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AppAttachPackageData> ImportAppAttachPackageInfosAsync(ImportPackageInfoContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -512,13 +512,13 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<AppAttachPackageData, AppAttachPackageResource>(new AppAttachPackageInfoImportAppAttachPackageInfosAsyncCollectionResultOfT(
+            return new AppAttachPackageInfoImportAppAttachPackageInfosAsyncCollectionResultOfT(
                 _appAttachPackageInfoRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 Id.Name,
                 ImportPackageInfoContent.ToRequestContent(content),
-                context), data => new AppAttachPackageResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -545,8 +545,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="content"> Information to import app attach package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        /// <returns> A collection of <see cref="AppAttachPackageResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<AppAttachPackageResource> ImportAppAttachPackageInfos(ImportPackageInfoContent content, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="AppAttachPackageData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AppAttachPackageData> ImportAppAttachPackageInfos(ImportPackageInfoContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -554,13 +554,13 @@ namespace Azure.ResourceManager.DesktopVirtualization
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<AppAttachPackageData, AppAttachPackageResource>(new AppAttachPackageInfoImportAppAttachPackageInfosCollectionResultOfT(
+            return new AppAttachPackageInfoImportAppAttachPackageInfosCollectionResultOfT(
                 _appAttachPackageInfoRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 Id.Name,
                 ImportPackageInfoContent.ToRequestContent(content),
-                context), data => new AppAttachPackageResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -920,14 +920,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="isDescending"> Indicates whether the collection is descending. </param>
         /// <param name="initialSkip"> Initial number of items to skip. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ScalingPlanResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ScalingPlanResource> GetScalingPlansAsync(int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ScalingPlanData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ScalingPlanData> GetScalingPlansAsync(int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<ScalingPlanData, ScalingPlanResource>(new ScalingPlansGetScalingPlansAsyncCollectionResultOfT(
+            return new ScalingPlansGetScalingPlansAsyncCollectionResultOfT(
                 _scalingPlansRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -935,7 +935,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 pageSize,
                 isDescending,
                 initialSkip,
-                context), data => new ScalingPlanResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -963,14 +963,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="isDescending"> Indicates whether the collection is descending. </param>
         /// <param name="initialSkip"> Initial number of items to skip. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ScalingPlanResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ScalingPlanResource> GetScalingPlans(int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ScalingPlanData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ScalingPlanData> GetScalingPlans(int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<ScalingPlanData, ScalingPlanResource>(new ScalingPlansGetScalingPlansCollectionResultOfT(
+            return new ScalingPlansGetScalingPlansCollectionResultOfT(
                 _scalingPlansRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -978,7 +978,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 pageSize,
                 isDescending,
                 initialSkip,
-                context), data => new ScalingPlanResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -1007,14 +1007,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="isDescending"> Indicates whether the collection is descending. </param>
         /// <param name="initialSkip"> Initial number of items to skip. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="UserSessionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<UserSessionResource> GetUserSessionsAsync(string filter = default, int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="UserSessionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<UserSessionData> GetUserSessionsAsync(string filter = default, int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<UserSessionData, UserSessionResource>(new UserSessionsGetUserSessionsAsyncCollectionResultOfT(
+            return new UserSessionsGetUserSessionsAsyncCollectionResultOfT(
                 _userSessionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -1023,7 +1023,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 pageSize,
                 isDescending,
                 initialSkip,
-                context), data => new UserSessionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -1052,14 +1052,14 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="isDescending"> Indicates whether the collection is descending. </param>
         /// <param name="initialSkip"> Initial number of items to skip. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="UserSessionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<UserSessionResource> GetUserSessions(string filter = default, int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="UserSessionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<UserSessionData> GetUserSessions(string filter = default, int? pageSize = default, bool? isDescending = default, int? initialSkip = default, CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<UserSessionData, UserSessionResource>(new UserSessionsGetUserSessionsCollectionResultOfT(
+            return new UserSessionsGetUserSessionsCollectionResultOfT(
                 _userSessionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -1068,7 +1068,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 pageSize,
                 isDescending,
                 initialSkip,
-                context), data => new UserSessionResource(Client, data));
+                context);
         }
 
         /// <summary> Add a tag to the current resource. </summary>
