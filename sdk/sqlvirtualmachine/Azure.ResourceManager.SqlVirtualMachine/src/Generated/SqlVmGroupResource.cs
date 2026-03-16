@@ -431,14 +431,14 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SqlVmResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SqlVmResource> GetSqlVmsBySqlVmGroupAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SqlVmData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SqlVmData> GetSqlVmsBySqlVmGroupAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<SqlVmData, SqlVmResource>(new SqlVirtualMachinesGetSqlVmsBySqlVmGroupAsyncCollectionResultOfT(_sqlVirtualMachinesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context), data => new SqlVmResource(Client, data));
+            return new SqlVirtualMachinesGetSqlVmsBySqlVmGroupAsyncCollectionResultOfT(_sqlVirtualMachinesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary>
@@ -463,14 +463,14 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SqlVmResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SqlVmResource> GetSqlVmsBySqlVmGroup(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SqlVmData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SqlVmData> GetSqlVmsBySqlVmGroup(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<SqlVmData, SqlVmResource>(new SqlVirtualMachinesGetSqlVmsBySqlVmGroupCollectionResultOfT(_sqlVirtualMachinesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context), data => new SqlVmResource(Client, data));
+            return new SqlVirtualMachinesGetSqlVmsBySqlVmGroupCollectionResultOfT(_sqlVirtualMachinesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary> Add a tag to the current resource. </summary>

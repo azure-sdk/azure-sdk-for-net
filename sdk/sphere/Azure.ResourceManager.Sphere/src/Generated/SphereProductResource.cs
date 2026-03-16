@@ -522,20 +522,20 @@ namespace Azure.ResourceManager.Sphere
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SphereDeviceGroupResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SphereDeviceGroupResource> GenerateDefaultDeviceGroupsAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SphereDeviceGroupData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SphereDeviceGroupData> GenerateDefaultDeviceGroupsAsync(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<SphereDeviceGroupData, SphereDeviceGroupResource>(new ProductsGenerateDefaultDeviceGroupsAsyncCollectionResultOfT(
+            return new ProductsGenerateDefaultDeviceGroupsAsyncCollectionResultOfT(
                 _productsRestClient,
                 Id.SubscriptionId,
                 Id.ResourceGroupName,
                 Id.Parent.Name,
                 Id.Name,
-                context), data => new SphereDeviceGroupResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -560,20 +560,20 @@ namespace Azure.ResourceManager.Sphere
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SphereDeviceGroupResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SphereDeviceGroupResource> GenerateDefaultDeviceGroups(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SphereDeviceGroupData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SphereDeviceGroupData> GenerateDefaultDeviceGroups(CancellationToken cancellationToken = default)
         {
             RequestContext context = new RequestContext
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<SphereDeviceGroupData, SphereDeviceGroupResource>(new ProductsGenerateDefaultDeviceGroupsCollectionResultOfT(
+            return new ProductsGenerateDefaultDeviceGroupsCollectionResultOfT(
                 _productsRestClient,
                 Id.SubscriptionId,
                 Id.ResourceGroupName,
                 Id.Parent.Name,
                 Id.Name,
-                context), data => new SphereDeviceGroupResource(Client, data));
+                context);
         }
 
         /// <summary> Gets a collection of SphereDeviceGroups in the <see cref="SphereProductResource"/>. </summary>
