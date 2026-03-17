@@ -105,6 +105,11 @@ namespace Azure.ResourceManager.StorageMover.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(DataIntegrityValidation))
+            {
+                writer.WritePropertyName("dataIntegrityValidation"u8);
+                writer.WriteStringValue(DataIntegrityValidation.Value.ToString());
+            }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -151,6 +156,7 @@ namespace Azure.ResourceManager.StorageMover.Models
             StorageMoverCopyMode? copyMode = default;
             string agentName = default;
             IList<ResourceIdentifier> connections = default;
+            DataIntegrityValidation? dataIntegrityValidation = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -194,12 +200,27 @@ namespace Azure.ResourceManager.StorageMover.Models
                     connections = array;
                     continue;
                 }
+                if (prop.NameEquals("dataIntegrityValidation"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dataIntegrityValidation = new DataIntegrityValidation(prop.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new JobDefinitionUpdateProperties(description, copyMode, agentName, connections ?? new ChangeTrackingList<ResourceIdentifier>(), additionalBinaryDataProperties);
+            return new JobDefinitionUpdateProperties(
+                description,
+                copyMode,
+                agentName,
+                connections ?? new ChangeTrackingList<ResourceIdentifier>(),
+                dataIntegrityValidation,
+                additionalBinaryDataProperties);
         }
     }
 }
