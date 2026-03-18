@@ -10,25 +10,25 @@ using System.Collections.Generic;
 
 namespace Azure.Developer.LoadTesting
 {
-    /// <summary> The CloneTestRequest1. </summary>
-    internal partial class CloneTestRequest1
+    /// <summary> The CloneTestRequest. </summary>
+    internal partial class CloneTestRequest
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="CloneTestRequest1"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CloneTestRequest"/>. </summary>
         /// <param name="newTestId"> Unique identifier for the new test that will be created. </param>
-        internal CloneTestRequest1(string newTestId)
+        internal CloneTestRequest(string newTestId)
         {
             NewTestId = newTestId;
         }
 
-        /// <summary> Initializes a new instance of <see cref="CloneTestRequest1"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="CloneTestRequest"/>. </summary>
         /// <param name="newTestId"> Unique identifier for the new test that will be created. </param>
         /// <param name="displayName"> Display Name override for the newly created test. </param>
         /// <param name="description"> Description override for the newly created test. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal CloneTestRequest1(string newTestId, string displayName, string description, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CloneTestRequest(string newTestId, string displayName, string description, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             NewTestId = newTestId;
             DisplayName = displayName;

@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -18,13 +19,34 @@ namespace Azure.Security.KeyVault.Administration
     internal partial class KeyVaultRestClient
     {
         private readonly Uri _endpoint;
-        /// <summary> A credential used to authenticate to the service. </summary>
-        private readonly TokenCredential _tokenCredential;
         private static readonly string[] AuthorizationScopes = new string[] { "https://vault.azure.net/.default" };
         private readonly string _apiVersion;
 
         /// <summary> Initializes a new instance of KeyVaultRestClient for mocking. </summary>
         protected KeyVaultRestClient()
+        {
+        }
+
+        /// <summary> Initializes a new instance of KeyVaultRestClient. </summary>
+        /// <param name="authenticationPolicy"> The authentication policy to use for pipeline creation. </param>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        internal KeyVaultRestClient(HttpPipelinePolicy authenticationPolicy, Uri endpoint, KeyVaultAdministrationClientOptions options)
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+
+            options ??= new KeyVaultAdministrationClientOptions();
+
+            _endpoint = endpoint;
+            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
+            _apiVersion = options.Version;
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+        }
+
+        /// <summary> Initializes a new instance of KeyVaultRestClient from a <see cref="KeyVaultRestClientSettings"/>. </summary>
+        /// <param name="settings"> The settings for KeyVaultRestClient. </param>
+        [Experimental("SCME0002")]
+        public KeyVaultRestClient(KeyVaultRestClientSettings settings) : this(null, settings?.VaultBaseUrl, settings?.Options)
         {
         }
 
