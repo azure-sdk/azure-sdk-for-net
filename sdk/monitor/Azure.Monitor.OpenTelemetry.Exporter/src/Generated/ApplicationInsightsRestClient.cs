@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -19,8 +20,6 @@ namespace Azure.Monitor.OpenTelemetry.Exporter
     internal partial class ApplicationInsightsRestClient
     {
         private readonly Uri _endpoint;
-        /// <summary> A credential used to authenticate to the service. </summary>
-        private readonly TokenCredential _tokenCredential;
         private static readonly string[] AuthorizationScopes = new string[] { "https://monitor.azure.com/.default" };
         private readonly string _apiVersion;
 
@@ -43,18 +42,34 @@ namespace Azure.Monitor.OpenTelemetry.Exporter
         }
 
         /// <summary> Initializes a new instance of ApplicationInsightsRestClient. </summary>
+        /// <param name="authenticationPolicy"> The authentication policy to use for pipeline creation. </param>
         /// <param name="endpoint"> Service endpoint. </param>
-        /// <param name="credential"> A credential used to authenticate to the service. </param>
         /// <param name="options"> The options for configuring the client. </param>
-        public ApplicationInsightsRestClient(Uri endpoint, TokenCredential credential, ApplicationInsightsRestClientOptions options)
+        internal ApplicationInsightsRestClient(HttpPipelinePolicy authenticationPolicy, Uri endpoint, ApplicationInsightsRestClientOptions options)
         {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+
             options ??= new ApplicationInsightsRestClientOptions();
 
             _endpoint = endpoint;
-            _tokenCredential = credential;
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) });
+            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
             _apiVersion = options.Version;
             ClientDiagnostics = new ClientDiagnostics(options, true);
+        }
+
+        /// <summary> Initializes a new instance of ApplicationInsightsRestClient. </summary>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <param name="credential"> A credential used to authenticate to the service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        public ApplicationInsightsRestClient(Uri endpoint, TokenCredential credential, ApplicationInsightsRestClientOptions options) : this(new BearerTokenAuthenticationPolicy(credential, AuthorizationScopes), endpoint, options)
+        {
+        }
+
+        /// <summary> Initializes a new instance of ApplicationInsightsRestClient from a <see cref="ApplicationInsightsRestClientSettings"/>. </summary>
+        /// <param name="settings"> The settings for ApplicationInsightsRestClient. </param>
+        [Experimental("SCME0002")]
+        public ApplicationInsightsRestClient(ApplicationInsightsRestClientSettings settings) : this(settings?.Host, settings?.CredentialProvider as TokenCredential, settings?.Options)
+        {
         }
 
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
