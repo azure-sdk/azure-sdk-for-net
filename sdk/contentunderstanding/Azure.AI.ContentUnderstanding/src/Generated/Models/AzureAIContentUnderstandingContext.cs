@@ -17,6 +17,7 @@ namespace Azure.AI.ContentUnderstanding
     [ModelReaderWriterBuildable(typeof(AnalysisContent))]
     [ModelReaderWriterBuildable(typeof(AnalysisInput))]
     [ModelReaderWriterBuildable(typeof(AnalysisResult))]
+    [ModelReaderWriterBuildable(typeof(AnalyzeRequest1))]
     [ModelReaderWriterBuildable(typeof(AudioVisualContent))]
     [ModelReaderWriterBuildable(typeof(AudioVisualContentSegment))]
     [ModelReaderWriterBuildable(typeof(ContentAnalyzer))]
