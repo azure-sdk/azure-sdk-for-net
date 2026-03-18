@@ -13,67 +13,67 @@ using Azure.Core;
 
 namespace Azure.AI.ContentUnderstanding
 {
-    /// <summary> The GrantCopyAuthorizationRequest1. </summary>
-    internal partial class GrantCopyAuthorizationRequest1 : IJsonModel<GrantCopyAuthorizationRequest1>
+    /// <summary> The GrantCopyAuthorizationRequest. </summary>
+    internal partial class GrantCopyAuthorizationRequest : IJsonModel<GrantCopyAuthorizationRequest>
     {
-        /// <summary> Initializes a new instance of <see cref="GrantCopyAuthorizationRequest1"/> for deserialization. </summary>
-        internal GrantCopyAuthorizationRequest1()
+        /// <summary> Initializes a new instance of <see cref="GrantCopyAuthorizationRequest"/> for deserialization. </summary>
+        internal GrantCopyAuthorizationRequest()
         {
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual GrantCopyAuthorizationRequest1 PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual GrantCopyAuthorizationRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest1>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeGrantCopyAuthorizationRequest1(document.RootElement, options);
+                        return DeserializeGrantCopyAuthorizationRequest(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest1)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest1>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureAIContentUnderstandingContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest1)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<GrantCopyAuthorizationRequest1>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<GrantCopyAuthorizationRequest>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        GrantCopyAuthorizationRequest1 IPersistableModel<GrantCopyAuthorizationRequest1>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        GrantCopyAuthorizationRequest IPersistableModel<GrantCopyAuthorizationRequest>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<GrantCopyAuthorizationRequest1>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<GrantCopyAuthorizationRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        /// <param name="grantCopyAuthorizationRequest1"> The <see cref="GrantCopyAuthorizationRequest1"/> to serialize into <see cref="RequestContent"/>. </param>
-        public static implicit operator RequestContent(GrantCopyAuthorizationRequest1 grantCopyAuthorizationRequest1)
+        /// <param name="grantCopyAuthorizationRequest"> The <see cref="GrantCopyAuthorizationRequest"/> to serialize into <see cref="RequestContent"/>. </param>
+        public static implicit operator RequestContent(GrantCopyAuthorizationRequest grantCopyAuthorizationRequest)
         {
-            if (grantCopyAuthorizationRequest1 == null)
+            if (grantCopyAuthorizationRequest == null)
             {
                 return null;
             }
-            return RequestContent.Create(grantCopyAuthorizationRequest1, ModelSerializationExtensions.WireOptions);
+            return RequestContent.Create(grantCopyAuthorizationRequest, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<GrantCopyAuthorizationRequest1>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<GrantCopyAuthorizationRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -84,10 +84,10 @@ namespace Azure.AI.ContentUnderstanding
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest1>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest1)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("targetAzureResourceId"u8);
             writer.WriteStringValue(TargetAzureResourceId);
@@ -115,24 +115,24 @@ namespace Azure.AI.ContentUnderstanding
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        GrantCopyAuthorizationRequest1 IJsonModel<GrantCopyAuthorizationRequest1>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        GrantCopyAuthorizationRequest IJsonModel<GrantCopyAuthorizationRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual GrantCopyAuthorizationRequest1 JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual GrantCopyAuthorizationRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest1>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<GrantCopyAuthorizationRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest1)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(GrantCopyAuthorizationRequest)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeGrantCopyAuthorizationRequest1(document.RootElement, options);
+            return DeserializeGrantCopyAuthorizationRequest(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static GrantCopyAuthorizationRequest1 DeserializeGrantCopyAuthorizationRequest1(JsonElement element, ModelReaderWriterOptions options)
+        internal static GrantCopyAuthorizationRequest DeserializeGrantCopyAuthorizationRequest(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -158,7 +158,7 @@ namespace Azure.AI.ContentUnderstanding
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new GrantCopyAuthorizationRequest1(targetAzureResourceId, targetRegion, additionalBinaryDataProperties);
+            return new GrantCopyAuthorizationRequest(targetAzureResourceId, targetRegion, additionalBinaryDataProperties);
         }
     }
 }
