@@ -27,22 +27,6 @@ namespace Azure.Security.KeyVault.Administration
         {
         }
 
-        /// <summary> Initializes a new instance of KeyVaultRestClient. </summary>
-        /// <param name="authenticationPolicy"> The authentication policy to use for pipeline creation. </param>
-        /// <param name="endpoint"> Service endpoint. </param>
-        /// <param name="options"> The options for configuring the client. </param>
-        internal KeyVaultRestClient(HttpPipelinePolicy authenticationPolicy, Uri endpoint, KeyVaultAdministrationClientOptions options)
-        {
-            Argument.AssertNotNull(endpoint, nameof(endpoint));
-
-            options ??= new KeyVaultAdministrationClientOptions();
-
-            _endpoint = endpoint;
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
-            _apiVersion = options.Version;
-            ClientDiagnostics = new ClientDiagnostics(options, true);
-        }
-
         /// <summary> Initializes a new instance of KeyVaultRestClient from a <see cref="KeyVaultRestClientSettings"/>. </summary>
         /// <param name="settings"> The settings for KeyVaultRestClient. </param>
         [Experimental("SCME0002")]

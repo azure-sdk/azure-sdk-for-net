@@ -23,22 +23,6 @@ namespace Azure.Security.KeyVault.Administration
         private static readonly string[] AuthorizationScopes = new string[] { "https://vault.azure.net/.default" };
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of KeyVaultAccessControlClient. </summary>
-        /// <param name="authenticationPolicy"> The authentication policy to use for pipeline creation. </param>
-        /// <param name="endpoint"> Service endpoint. </param>
-        /// <param name="options"> The options for configuring the client. </param>
-        internal KeyVaultAccessControlClient(HttpPipelinePolicy authenticationPolicy, Uri endpoint, KeyVaultAdministrationClientOptions options)
-        {
-            Argument.AssertNotNull(endpoint, nameof(endpoint));
-
-            options ??= new KeyVaultAdministrationClientOptions();
-
-            _endpoint = endpoint;
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
-            _apiVersion = options.Version;
-            ClientDiagnostics = new ClientDiagnostics(options, true);
-        }
-
         /// <summary> Initializes a new instance of KeyVaultAccessControlClient from a <see cref="KeyVaultAccessControlClientSettings"/>. </summary>
         /// <param name="settings"> The settings for KeyVaultAccessControlClient. </param>
         [Experimental("SCME0002")]
