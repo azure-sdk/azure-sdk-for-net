@@ -67,7 +67,6 @@ namespace Azure.Security.KeyVault.Administration
             _diagnostics = new ClientDiagnostics(options, true);
             ClientDiagnostics = _diagnostics;
             Pipeline = pipeline;
-            _tokenCredential = credential;
             _endpoint = vaultUri;
             _apiVersion = apiVersion;
         }
