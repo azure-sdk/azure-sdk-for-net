@@ -27,22 +27,6 @@ namespace Azure.Search.Documents.Indexes
         private static readonly string[] AuthorizationScopes = new string[] { "https://search.azure.com/.default" };
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of SearchIndexClient. </summary>
-        /// <param name="authenticationPolicy"> The authentication policy to use for pipeline creation. </param>
-        /// <param name="endpoint"> Service endpoint. </param>
-        /// <param name="options"> The options for configuring the client. </param>
-        internal SearchIndexClient(HttpPipelinePolicy authenticationPolicy, Uri endpoint, SearchClientOptions options)
-        {
-            Argument.AssertNotNull(endpoint, nameof(endpoint));
-
-            options ??= new SearchClientOptions();
-
-            _endpoint = endpoint;
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
-            _apiVersion = options.Version;
-            ClientDiagnostics = new ClientDiagnostics(options, true);
-        }
-
         /// <summary> Initializes a new instance of SearchIndexClient from a <see cref="SearchIndexClientSettings"/>. </summary>
         /// <param name="settings"> The settings for SearchIndexClient. </param>
         [Experimental("SCME0002")]

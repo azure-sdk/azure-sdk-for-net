@@ -5,32 +5,13 @@
 
 #nullable disable
 
-using System.Diagnostics.CodeAnalysis;
 using Azure.Core;
-using Microsoft.Extensions.Configuration;
 
 namespace Azure.Search.Documents
 {
     /// <summary> Client options for clients in this library. </summary>
     public partial class SearchClientOptions : ClientOptions
     {
-        /// <summary> Initializes a new instance of SearchIndexClientOptions from configuration. </summary>
-        /// <param name="section"> The configuration section. </param>
-        [Experimental("SCME0002")]
-        internal SearchClientOptions(IConfigurationSection section) : base(section, null)
-        {
-            Version = "2025-11-01-preview";
-            if (section is null || !section.Exists())
-            {
-                return;
-            }
-            if (section["Version"] is string version)
-            {
-                Version = version;
-            }
-            this.ConfigureLogging();
-        }
-
         /// <summary> Configures logging for the client options. </summary>
         partial void ConfigureLogging();
     }
