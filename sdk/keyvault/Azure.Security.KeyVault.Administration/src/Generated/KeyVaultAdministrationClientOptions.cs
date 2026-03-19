@@ -5,9 +5,7 @@
 
 #nullable disable
 
-using System.Diagnostics.CodeAnalysis;
 using Azure.Core;
-using Microsoft.Extensions.Configuration;
 
 namespace Azure.Security.KeyVault.Administration
 {
@@ -15,23 +13,6 @@ namespace Azure.Security.KeyVault.Administration
     public partial class KeyVaultAdministrationClientOptions : ClientOptions
     {
         private const ServiceVersion LatestVersion = ServiceVersion.V2025_07_01;
-
-        /// <summary> Initializes a new instance of KeyVaultAccessControlClientOptions from configuration. </summary>
-        /// <param name="section"> The configuration section. </param>
-        [Experimental("SCME0002")]
-        internal KeyVaultAdministrationClientOptions(IConfigurationSection section) : base(section, null)
-        {
-            Version = "2025-07-01";
-            if (section is null || !section.Exists())
-            {
-                return;
-            }
-            if (section["Version"] is string version)
-            {
-                Version = version;
-            }
-            ConfigureLogging();
-        }
 
         /// <summary> Configures logging for the client options. </summary>
         partial void ConfigureLogging();
