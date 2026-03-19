@@ -5,8 +5,10 @@
 
 #nullable disable
 
+using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
 
 namespace Azure.Data.AppConfiguration
 {
@@ -14,5 +16,19 @@ namespace Azure.Data.AppConfiguration
     [Experimental("SCME0002")]
     public partial class ConfigurationClientSettings : ClientSettings
     {
+        /// <summary> Binds configuration values from the given section. </summary>
+        /// <param name="section"> The configuration section. </param>
+        protected override void BindCore(IConfigurationSection section)
+        {
+            if (Uri.TryCreate(section["Endpoint"], UriKind.Absolute, out Uri endpoint))
+            {
+                Endpoint = endpoint;
+            }
+            IConfigurationSection optionsSection = section.GetSection("Options");
+            if (optionsSection.Exists())
+            {
+                Options = new ConfigurationClientOptions(optionsSection);
+            }
+        }
     }
 }
