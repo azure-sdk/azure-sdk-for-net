@@ -99,7 +99,6 @@ namespace Azure.Search.Documents.Indexes
 
             options ??= new SearchClientOptions();
             _endpoint = endpoint;
-            _keyCredential = credential;
             _serializer = options.Serializer;
             ClientDiagnostics = new ClientDiagnostics(options);
             Pipeline = options.Build(credential);
@@ -128,7 +127,6 @@ namespace Azure.Search.Documents.Indexes
 
             options ??= new SearchClientOptions();
             _endpoint = endpoint;
-            _tokenCredential = tokenCredential;
             _serializer = options.Serializer;
             ClientDiagnostics = new ClientDiagnostics(options);
             Pipeline = options.Build(tokenCredential);

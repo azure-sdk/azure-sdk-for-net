@@ -177,7 +177,6 @@ namespace Azure.Search.Documents
 
             options ??= new SearchClientOptions();
             _endpoint = endpoint;
-            _keyCredential = credential;
             _indexName = indexName;
             Serializer = options.Serializer;
             _apiVersion = options.Version.ToVersionString();
@@ -229,7 +228,6 @@ namespace Azure.Search.Documents
             options ??= new SearchClientOptions();
             _endpoint = endpoint;
             _indexName = indexName;
-            _tokenCredential = tokenCredential;
             Pipeline = options.Build(tokenCredential);
             Serializer = options.Serializer;
             _apiVersion = options.Version.ToVersionString();

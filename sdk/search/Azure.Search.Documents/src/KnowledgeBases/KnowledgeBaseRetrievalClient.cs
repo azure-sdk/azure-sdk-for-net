@@ -133,8 +133,7 @@ namespace Azure.Search.Documents.KnowledgeBases
             options ??= new SearchClientOptions();
 
             _endpoint = endpoint;
-            _keyCredential = credential;
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { new AzureKeyCredentialPolicy(_keyCredential, AuthorizationHeader) });
+            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { new AzureKeyCredentialPolicy(credential, AuthorizationHeader) });
             _apiVersion = options.Version.ToVersionString();
             ClientDiagnostics = new ClientDiagnostics(options, true);
         }
@@ -152,8 +151,7 @@ namespace Azure.Search.Documents.KnowledgeBases
             options ??= new SearchClientOptions();
 
             _endpoint = endpoint;
-            _tokenCredential = credential;
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) });
+            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(credential, AuthorizationScopes) });
             _apiVersion = options.Version.ToVersionString();
             ClientDiagnostics = new ClientDiagnostics(options, true);
         }

@@ -85,7 +85,6 @@ namespace Azure.Search.Documents.Indexes
             options ??= new SearchClientOptions();
 
             _endpoint = endpoint;
-            _keyCredential = credential;
             Pipeline = options.Build(credential);
             _apiVersion = options.Version.ToVersionString();
             ClientDiagnostics = new ClientDiagnostics(options);
@@ -111,7 +110,6 @@ namespace Azure.Search.Documents.Indexes
             options ??= new SearchClientOptions();
 
             _endpoint = endpoint;
-            _tokenCredential = tokenCredential;
             Pipeline = options.Build(tokenCredential);
             _apiVersion = options.Version.ToVersionString();
             ClientDiagnostics = new ClientDiagnostics(options);
