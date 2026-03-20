@@ -151,6 +151,17 @@ namespace Azure.ResourceManager.StorageMover.Models
         public static StorageMoverAgentData StorageMoverAgentData(ResourceIdentifier id, string name, ResourceType resourceType, Azure.ResourceManager.Models.SystemData systemData, string description, string agentVersion, string arcResourceId, string arcVmUuid, StorageMoverAgentStatus? agentStatus, DateTimeOffset? lastStatusUpdate, string localIPAddress, long? memoryInMB, long? numberOfCores, long? uptimeInSeconds, string timeZone, IEnumerable<UploadLimitWeeklyRecurrence> uploadLimitScheduleWeeklyRecurrences, StorageMoverAgentPropertiesErrorDetails errorDetails = null, StorageMoverProvisioningState? provisioningState = null)
             => StorageMoverAgentData(id, name, resourceType, systemData, description, agentVersion, arcResourceId, arcVmUuid, agentStatus, lastStatusUpdate, localIPAddress, memoryInMB, numberOfCores, uptimeInSeconds, timeZone, errorDetails, provisioningState, uploadLimitScheduleWeeklyRecurrences);
 
+        /// <summary>
+        /// The resource specific properties for the Storage Mover resource.
+        /// </summary>
+        /// <param name="endpointType"> The Endpoint resource type. </param>
+        /// <param name="description"> A description for the Endpoint. </param>
+        /// <param name="provisioningState"> The provisioning state of this resource. </param>
+        /// <returns> A new <see cref="Models.EndpointBaseProperties"/> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static EndpointBaseProperties EndpointBaseProperties(string endpointType, string description, StorageMoverProvisioningState? provisioningState)
+            => EndpointBaseProperties(endpointType, description, null, provisioningState);
+
         /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.StorageMover.StorageMoverEndpointData" />. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>

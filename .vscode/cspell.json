@@ -1392,6 +1392,7 @@
     {
       "filename": "**/sdk/storagemover/**/*.cs",
       "words": [
+        "hmac",
         "mbps",
         "unregistering"
       ]
