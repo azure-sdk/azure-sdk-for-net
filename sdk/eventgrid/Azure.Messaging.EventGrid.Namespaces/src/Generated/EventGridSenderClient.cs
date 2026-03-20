@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -27,36 +26,6 @@ namespace Azure.Messaging.EventGrid.Namespaces
 
         /// <summary> Initializes a new instance of EventGridSenderClient for mocking. </summary>
         protected EventGridSenderClient()
-        {
-        }
-
-        /// <summary> Initializes a new instance of EventGridSenderClient. </summary>
-        /// <param name="authenticationPolicy"> The authentication policy to use for pipeline creation. </param>
-        /// <param name="endpoint"> Service endpoint. </param>
-        /// <param name="options"> The options for configuring the client. </param>
-        internal EventGridSenderClient(HttpPipelinePolicy authenticationPolicy, Uri endpoint, EventGridNamespacesClientOptions options)
-        {
-            Argument.AssertNotNull(endpoint, nameof(endpoint));
-
-            options ??= new EventGridNamespacesClientOptions();
-
-            _endpoint = endpoint;
-            if (authenticationPolicy != null)
-            {
-                Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
-            }
-            else
-            {
-                Pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>());
-            }
-            _apiVersion = options.Version;
-            ClientDiagnostics = new ClientDiagnostics(options, true);
-        }
-
-        /// <summary> Initializes a new instance of EventGridSenderClient from a <see cref="EventGridSenderClientSettings"/>. </summary>
-        /// <param name="settings"> The settings for EventGridSenderClient. </param>
-        [Experimental("SCME0002")]
-        public EventGridSenderClient(EventGridSenderClientSettings settings) : this(null, settings?.Endpoint, settings?.Options)
         {
         }
 

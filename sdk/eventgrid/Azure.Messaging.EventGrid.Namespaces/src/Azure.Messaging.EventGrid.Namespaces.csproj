@@ -11,6 +11,7 @@
     <DisableEnhancedAnalysis>true</DisableEnhancedAnalysis>
     <IncludeAutorestDependency>false</IncludeAutorestDependency>
     <AotCompatOptOut>true</AotCompatOptOut>
+    <NoWarn>$(NoWarn);CS1574</NoWarn>
   </PropertyGroup>
 
     <ItemGroup>

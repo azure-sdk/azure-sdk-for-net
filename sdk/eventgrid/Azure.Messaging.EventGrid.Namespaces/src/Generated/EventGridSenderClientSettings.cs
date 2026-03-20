@@ -8,7 +8,6 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Configuration;
 
 namespace Azure.Messaging.EventGrid.Namespaces
 {
@@ -18,23 +17,5 @@ namespace Azure.Messaging.EventGrid.Namespaces
     {
         /// <summary> Gets or sets the Endpoint. </summary>
         public Uri Endpoint { get; set; }
-
-        /// <summary> Gets or sets the Options. </summary>
-        public EventGridNamespacesClientOptions Options { get; set; }
-
-        /// <summary> Binds configuration values from the given section. </summary>
-        /// <param name="section"> The configuration section. </param>
-        protected override void BindCore(IConfigurationSection section)
-        {
-            if (Uri.TryCreate(section["Endpoint"], UriKind.Absolute, out Uri endpoint))
-            {
-                Endpoint = endpoint;
-            }
-            IConfigurationSection optionsSection = section.GetSection("Options");
-            if (optionsSection.Exists())
-            {
-                Options = new EventGridNamespacesClientOptions(optionsSection);
-            }
-        }
     }
 }
