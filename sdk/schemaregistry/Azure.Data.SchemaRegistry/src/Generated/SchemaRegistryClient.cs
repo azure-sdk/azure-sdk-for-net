@@ -34,7 +34,14 @@ namespace Azure.Data.SchemaRegistry
             options ??= new SchemaRegistryClientOptions();
 
             _endpoint = new Uri($"https://{fullyQualifiedNamespace}");
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
+            if (authenticationPolicy != null)
+            {
+                Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
+            }
+            else
+            {
+                Pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>());
+            }
             _apiVersion = options.Version;
             ClientDiagnostics = new ClientDiagnostics(options, true);
         }
@@ -42,7 +49,7 @@ namespace Azure.Data.SchemaRegistry
         /// <summary> Initializes a new instance of SchemaRegistryClient from a <see cref="SchemaRegistryClientSettings"/>. </summary>
         /// <param name="settings"> The settings for SchemaRegistryClient. </param>
         [Experimental("SCME0002")]
-        public SchemaRegistryClient(SchemaRegistryClientSettings settings) : this((HttpPipelinePolicy)null, settings?.FullyQualifiedNamespace, settings?.Options)
+        public SchemaRegistryClient(SchemaRegistryClientSettings settings) : this(null, settings?.FullyQualifiedNamespace, settings?.Options)
         {
         }
 

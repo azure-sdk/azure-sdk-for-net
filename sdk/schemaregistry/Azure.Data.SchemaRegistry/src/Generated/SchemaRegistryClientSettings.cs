@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +16,7 @@ namespace Azure.Data.SchemaRegistry
     public partial class SchemaRegistryClientSettings : ClientSettings
     {
         /// <summary> Gets or sets the FullyQualifiedNamespace. </summary>
-        public Uri FullyQualifiedNamespace { get; set; }
+        public string FullyQualifiedNamespace { get; set; }
 
         /// <summary> Gets or sets the Options. </summary>
         public SchemaRegistryClientOptions Options { get; set; }
@@ -26,7 +25,8 @@ namespace Azure.Data.SchemaRegistry
         /// <param name="section"> The configuration section. </param>
         protected override void BindCore(IConfigurationSection section)
         {
-            if (Uri.TryCreate(section["FullyQualifiedNamespace"], UriKind.Absolute, out Uri fullyQualifiedNamespace))
+            string fullyQualifiedNamespace = section["FullyQualifiedNamespace"];
+            if (!string.IsNullOrEmpty(fullyQualifiedNamespace))
             {
                 FullyQualifiedNamespace = fullyQualifiedNamespace;
             }

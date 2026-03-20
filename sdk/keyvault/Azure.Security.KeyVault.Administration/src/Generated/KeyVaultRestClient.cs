@@ -6,7 +6,6 @@
 #nullable disable
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -24,13 +23,6 @@ namespace Azure.Security.KeyVault.Administration
 
         /// <summary> Initializes a new instance of KeyVaultRestClient for mocking. </summary>
         protected KeyVaultRestClient()
-        {
-        }
-
-        /// <summary> Initializes a new instance of KeyVaultRestClient from a <see cref="KeyVaultRestClientSettings"/>. </summary>
-        /// <param name="settings"> The settings for KeyVaultRestClient. </param>
-        [Experimental("SCME0002")]
-        public KeyVaultRestClient(KeyVaultRestClientSettings settings) : this(null, settings?.VaultBaseUrl, settings?.Options)
         {
         }
 

@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -52,7 +51,14 @@ namespace Azure.Monitor.OpenTelemetry.Exporter
             options ??= new ApplicationInsightsRestClientOptions();
 
             _endpoint = endpoint;
-            Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
+            if (authenticationPolicy != null)
+            {
+                Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
+            }
+            else
+            {
+                Pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>());
+            }
             _apiVersion = options.Version;
             ClientDiagnostics = new ClientDiagnostics(options, true);
         }
@@ -62,13 +68,6 @@ namespace Azure.Monitor.OpenTelemetry.Exporter
         /// <param name="credential"> A credential used to authenticate to the service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         public ApplicationInsightsRestClient(Uri endpoint, TokenCredential credential, ApplicationInsightsRestClientOptions options) : this(new BearerTokenAuthenticationPolicy(credential, AuthorizationScopes), endpoint, options)
-        {
-        }
-
-        /// <summary> Initializes a new instance of ApplicationInsightsRestClient from a <see cref="ApplicationInsightsRestClientSettings"/>. </summary>
-        /// <param name="settings"> The settings for ApplicationInsightsRestClient. </param>
-        [Experimental("SCME0002")]
-        public ApplicationInsightsRestClient(ApplicationInsightsRestClientSettings settings) : this(settings?.Host, settings?.CredentialProvider as TokenCredential, settings?.Options)
         {
         }
 
