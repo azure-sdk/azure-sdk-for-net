@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,14 +22,43 @@ namespace Azure.Search.Documents
     public partial class SearchClient
     {
         private readonly Uri _endpoint;
-        /// <summary> A credential used to authenticate to the service. </summary>
-        private readonly AzureKeyCredential _keyCredential;
         private const string AuthorizationHeader = "api-key";
-        /// <summary> A credential used to authenticate to the service. </summary>
-        private readonly TokenCredential _tokenCredential;
         private static readonly string[] AuthorizationScopes = new string[] { "https://search.azure.com/.default" };
         private readonly string _apiVersion;
         private readonly string _indexName;
+
+        /// <summary> Initializes a new instance of SearchClient. </summary>
+        /// <param name="authenticationPolicy"> The authentication policy to use for pipeline creation. </param>
+        /// <param name="endpoint"> Service endpoint. </param>
+        /// <param name="indexName"> The name of the index. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        internal SearchClient(HttpPipelinePolicy authenticationPolicy, Uri endpoint, string indexName, SearchClientOptions options)
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNullOrEmpty(indexName, nameof(indexName));
+
+            options ??= new SearchClientOptions();
+
+            _endpoint = endpoint;
+            _indexName = indexName;
+            if (authenticationPolicy != null)
+            {
+                Pipeline = HttpPipelineBuilder.Build(options, new HttpPipelinePolicy[] { authenticationPolicy });
+            }
+            else
+            {
+                Pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>());
+            }
+            _apiVersion = options.Version;
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+        }
+
+        /// <summary> Initializes a new instance of SearchClient from a <see cref="SearchClientSettings"/>. </summary>
+        /// <param name="settings"> The settings for SearchClient. </param>
+        [Experimental("SCME0002")]
+        public SearchClient(SearchClientSettings settings) : this(null, settings?.Endpoint, settings?.IndexName, settings?.Options)
+        {
+        }
 
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline { get; }
