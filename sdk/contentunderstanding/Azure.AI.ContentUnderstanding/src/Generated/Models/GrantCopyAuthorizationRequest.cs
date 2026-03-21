@@ -10,24 +10,24 @@ using System.Collections.Generic;
 
 namespace Azure.AI.ContentUnderstanding
 {
-    /// <summary> The GrantCopyAuthorizationRequest1. </summary>
-    internal partial class GrantCopyAuthorizationRequest1
+    /// <summary> The GrantCopyAuthorizationRequest. </summary>
+    internal partial class GrantCopyAuthorizationRequest
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="GrantCopyAuthorizationRequest1"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="GrantCopyAuthorizationRequest"/>. </summary>
         /// <param name="targetAzureResourceId"> Azure resource ID of the target analyzer location. </param>
-        internal GrantCopyAuthorizationRequest1(string targetAzureResourceId)
+        internal GrantCopyAuthorizationRequest(string targetAzureResourceId)
         {
             TargetAzureResourceId = targetAzureResourceId;
         }
 
-        /// <summary> Initializes a new instance of <see cref="GrantCopyAuthorizationRequest1"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="GrantCopyAuthorizationRequest"/>. </summary>
         /// <param name="targetAzureResourceId"> Azure resource ID of the target analyzer location. </param>
         /// <param name="targetRegion"> Azure region of the target analyzer location.  Defaults to current region. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal GrantCopyAuthorizationRequest1(string targetAzureResourceId, string targetRegion, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal GrantCopyAuthorizationRequest(string targetAzureResourceId, string targetRegion, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             TargetAzureResourceId = targetAzureResourceId;
             TargetRegion = targetRegion;
