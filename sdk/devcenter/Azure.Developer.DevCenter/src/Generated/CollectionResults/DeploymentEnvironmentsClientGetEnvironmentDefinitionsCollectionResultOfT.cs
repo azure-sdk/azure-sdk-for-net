@@ -19,16 +19,19 @@ namespace Azure.Developer.DevCenter
         private readonly DeploymentEnvironmentsClient _client;
         private readonly string _projectName;
         private readonly RequestContext _context;
+        private readonly string _scope;
 
         /// <summary> Initializes a new instance of DeploymentEnvironmentsClientGetEnvironmentDefinitionsCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The DeploymentEnvironmentsClient client used to send requests. </param>
         /// <param name="projectName"> The DevCenter Project upon which to execute operations. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public DeploymentEnvironmentsClientGetEnvironmentDefinitionsCollectionResultOfT(DeploymentEnvironmentsClient client, string projectName, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="scope"> The diagnostic scope name. </param>
+        public DeploymentEnvironmentsClientGetEnvironmentDefinitionsCollectionResultOfT(DeploymentEnvironmentsClient client, string projectName, RequestContext context, string scope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _projectName = projectName;
             _context = context;
+            _scope = scope;
         }
 
         /// <summary> Gets the pages of DeploymentEnvironmentsClientGetEnvironmentDefinitionsCollectionResultOfT as an enumerable collection. </summary>
@@ -61,7 +64,7 @@ namespace Azure.Developer.DevCenter
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetEnvironmentDefinitionsRequest(nextLink, _projectName, _context) : _client.CreateGetEnvironmentDefinitionsRequest(_projectName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("DeploymentEnvironmentsClient.GetEnvironmentDefinitions");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_scope);
             scope.Start();
             try
             {
