@@ -828,12 +828,12 @@ namespace Azure.Search.Documents
                 highlightPostTag,
                 highlightPreTag,
                 minimumCoverage,
-                default,
+                orderBy?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
                 searchText,
-                default,
-                default,
+                searchFields?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
+                @select?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
                 suggesterName,
-                default,
+                top,
                 default);
             Response result = SuggestPost(spreadModel, cancellationToken.ToRequestContext());
             return Response.FromValue((SuggestDocumentsResult)result, result);
@@ -861,12 +861,12 @@ namespace Azure.Search.Documents
                 highlightPostTag,
                 highlightPreTag,
                 minimumCoverage,
-                default,
+                orderBy?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
                 searchText,
-                default,
-                default,
+                searchFields?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
+                @select?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
                 suggesterName,
-                default,
+                top,
                 default);
             Response result = await SuggestPostAsync(spreadModel, cancellationToken.ToRequestContext()).ConfigureAwait(false);
             return Response.FromValue((SuggestDocumentsResult)result, result);
@@ -1133,15 +1133,15 @@ namespace Azure.Search.Documents
         {
             AutocompleteOptions spreadModel = new AutocompleteOptions(
                 searchText,
-                default,
+                autocompleteMode,
                 filter,
                 useFuzzyMatching,
                 highlightPostTag,
                 highlightPreTag,
                 minimumCoverage,
-                default,
+                searchFields?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
                 suggesterName,
-                default,
+                top,
                 default);
             Response result = AutocompletePost(spreadModel, cancellationToken.ToRequestContext());
             return Response.FromValue((AutocompleteResults)result, result);
@@ -1164,15 +1164,15 @@ namespace Azure.Search.Documents
         {
             AutocompleteOptions spreadModel = new AutocompleteOptions(
                 searchText,
-                default,
+                autocompleteMode,
                 filter,
                 useFuzzyMatching,
                 highlightPostTag,
                 highlightPreTag,
                 minimumCoverage,
-                default,
+                searchFields?.ToList() as IList<string> ?? new ChangeTrackingList<string>(),
                 suggesterName,
-                default,
+                top,
                 default);
             Response result = await AutocompletePostAsync(spreadModel, cancellationToken.ToRequestContext()).ConfigureAwait(false);
             return Response.FromValue((AutocompleteResults)result, result);
