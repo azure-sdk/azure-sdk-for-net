@@ -19,16 +19,19 @@ namespace Azure.Communication.JobRouter
         private readonly JobRouterAdministrationClient _client;
         private readonly int? _maxpagesize;
         private readonly RequestContext _context;
+        private readonly string _scope;
 
         /// <summary> Initializes a new instance of JobRouterAdministrationClientGetExceptionPoliciesAsyncCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The JobRouterAdministrationClient client used to send requests. </param>
         /// <param name="maxpagesize"> Number of objects to return per page. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public JobRouterAdministrationClientGetExceptionPoliciesAsyncCollectionResultOfT(JobRouterAdministrationClient client, int? maxpagesize, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="scope"> The diagnostic scope name. </param>
+        public JobRouterAdministrationClientGetExceptionPoliciesAsyncCollectionResultOfT(JobRouterAdministrationClient client, int? maxpagesize, RequestContext context, string scope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _maxpagesize = maxpagesize;
             _context = context;
+            _scope = scope;
         }
 
         /// <summary> Gets the pages of JobRouterAdministrationClientGetExceptionPoliciesAsyncCollectionResultOfT as an enumerable collection. </summary>
@@ -62,7 +65,7 @@ namespace Azure.Communication.JobRouter
         {
             int? pageSize = pageSizeHint.HasValue ? pageSizeHint.Value : _maxpagesize;
             HttpMessage message = nextLink != null ? _client.CreateNextGetExceptionPoliciesRequest(nextLink, pageSize, _context) : _client.CreateGetExceptionPoliciesRequest(pageSize, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("JobRouterAdministrationClient.GetExceptionPolicies");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_scope);
             scope.Start();
             try
             {

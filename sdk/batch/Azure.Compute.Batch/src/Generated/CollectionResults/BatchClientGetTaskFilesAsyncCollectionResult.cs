@@ -26,6 +26,7 @@ namespace Azure.Compute.Batch
         private readonly string _filter;
         private readonly bool? _recursive;
         private readonly RequestContext _context;
+        private readonly string _scope;
 
         /// <summary> Initializes a new instance of BatchClientGetTaskFilesAsyncCollectionResult, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The BatchClient client used to send requests. </param>
@@ -50,7 +51,8 @@ namespace Azure.Compute.Batch
         /// combination with the filter parameter to list specific type of files.
         /// </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public BatchClientGetTaskFilesAsyncCollectionResult(BatchClient client, string jobId, string taskId, TimeSpan? timeOutInSeconds, DateTimeOffset? ocpDate, int? maxresults, string filter, bool? recursive, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="scope"> The diagnostic scope name. </param>
+        public BatchClientGetTaskFilesAsyncCollectionResult(BatchClient client, string jobId, string taskId, TimeSpan? timeOutInSeconds, DateTimeOffset? ocpDate, int? maxresults, string filter, bool? recursive, RequestContext context, string scope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _jobId = jobId;
@@ -61,6 +63,7 @@ namespace Azure.Compute.Batch
             _filter = filter;
             _recursive = recursive;
             _context = context;
+            _scope = scope;
         }
 
         /// <summary> Gets the pages of BatchClientGetTaskFilesAsyncCollectionResult as an enumerable collection. </summary>
@@ -98,7 +101,7 @@ namespace Azure.Compute.Batch
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetTaskFilesRequest(nextLink, _jobId, _taskId, _timeOutInSeconds, _ocpDate, _maxresults, _filter, _recursive, _context) : _client.CreateGetTaskFilesRequest(_jobId, _taskId, _timeOutInSeconds, _ocpDate, _maxresults, _filter, _recursive, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("BatchClient.GetTaskFiles");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_scope);
             scope.Start();
             try
             {
