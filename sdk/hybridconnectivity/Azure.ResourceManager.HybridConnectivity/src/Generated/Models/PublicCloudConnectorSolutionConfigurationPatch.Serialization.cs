@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 }
                 if (options.Format != "W")
                 {
-                    additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
+                    additionalBinaryDataProperties0.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
             return new PublicCloudConnectorSolutionConfigurationPatch(
