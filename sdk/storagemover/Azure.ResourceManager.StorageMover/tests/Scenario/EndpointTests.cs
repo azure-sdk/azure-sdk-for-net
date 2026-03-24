@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Core.TestFramework;
 using Azure.ResourceManager.Resources;
 using Azure.ResourceManager.StorageMover.Models;
@@ -138,6 +139,144 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             Assert.IsTrue(await endpoints.ExistsAsync(cEndpointName));
             Assert.IsFalse(await endpoints.ExistsAsync(cEndpointName + "111"));
             Assert.IsFalse(await endpoints.ExistsAsync(smbEndpointName));
+        }
+
+        [Test]
+        [RecordedTest]
+        [Ignore("S3WithHmac endpoint type not yet available in centraluseuap test region")]
+        public async Task S3WithHmacEndpointCreateUpdateGetDeleteTest()
+        {
+            ResourceGroupResource resourceGroup = await GetResourceGroupAsync(ResourceGroupName);
+            StorageMoverCollection storageMovers = resourceGroup.GetStorageMovers();
+            StorageMoverEndpointCollection endpoints = (await storageMovers.GetAsync(StorageMoverName)).Value.GetStorageMoverEndpoints();
+
+            string endpointName = Recording.GenerateAssetName("s3hmac-");
+
+            // Create S3 with HMAC endpoint
+            S3WithHmacEndpointProperties s3Properties = new S3WithHmacEndpointProperties();
+            s3Properties.SourceUri = "https://s3.amazonaws.com/my-bucket";
+            s3Properties.SourceType = S3WithHmacSourceType.MINIO;
+            s3Properties.Description = "Test S3 HMAC endpoint";
+            s3Properties.Credentials = new AzureKeyVaultS3WithHmacCredentials
+            {
+                AccessKeyUri = "https://examples-azureKeyVault.vault.azure.net/secrets/s3-access-key",
+                SecretKeyUri = "https://examples-azureKeyVault.vault.azure.net/secrets/s3-secret-key",
+            };
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(s3Properties);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            Assert.AreEqual("S3WithHmac", endpoint.Data.Properties.EndpointType.ToString());
+
+            // Get and verify properties
+            endpoint = (await endpoints.GetAsync(endpointName)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            S3WithHmacEndpointProperties retrievedProps = (S3WithHmacEndpointProperties)endpoint.Data.Properties;
+            Assert.AreEqual("https://s3.amazonaws.com/my-bucket", retrievedProps.SourceUri);
+            Assert.AreEqual(S3WithHmacSourceType.MINIO, retrievedProps.SourceType);
+            Assert.AreEqual("Test S3 HMAC endpoint", retrievedProps.Description);
+            Assert.IsNotNull(retrievedProps.Credentials);
+            Assert.AreEqual("https://examples-azureKeyVault.vault.azure.net/secrets/s3-access-key", retrievedProps.Credentials.AccessKeyUri);
+            Assert.AreEqual("https://examples-azureKeyVault.vault.azure.net/secrets/s3-secret-key", retrievedProps.Credentials.SecretKeyUri);
+
+            // Update endpoint credentials
+            S3WithHmacEndpointUpdateProperties updateProperties = new S3WithHmacEndpointUpdateProperties
+            {
+                Description = "Updated S3 HMAC endpoint",
+                Credentials = new AzureKeyVaultS3WithHmacCredentials
+                {
+                    AccessKeyUri = "https://examples-azureKeyVault.vault.azure.net/secrets/s3-access-key-v2",
+                    SecretKeyUri = "https://examples-azureKeyVault.vault.azure.net/secrets/s3-secret-key-v2",
+                },
+            };
+            StorageMoverEndpointPatch patch = new StorageMoverEndpointPatch
+            {
+                Properties = updateProperties,
+            };
+            endpoint = (await endpoint.UpdateAsync(patch)).Value;
+            retrievedProps = (S3WithHmacEndpointProperties)endpoint.Data.Properties;
+            Assert.AreEqual("Updated S3 HMAC endpoint", retrievedProps.Description);
+            Assert.AreEqual("https://examples-azureKeyVault.vault.azure.net/secrets/s3-access-key-v2", retrievedProps.Credentials.AccessKeyUri);
+            Assert.AreEqual("https://examples-azureKeyVault.vault.azure.net/secrets/s3-secret-key-v2", retrievedProps.Credentials.SecretKeyUri);
+
+            // Verify update persisted
+            endpoint = (await endpoints.GetAsync(endpointName)).Value;
+            retrievedProps = (S3WithHmacEndpointProperties)endpoint.Data.Properties;
+            Assert.AreEqual("Updated S3 HMAC endpoint", retrievedProps.Description);
+
+            // Delete endpoint
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+            Assert.IsFalse(await endpoints.ExistsAsync(endpointName));
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task MultiCloudConnectorEndpointCreateGetDeleteTest()
+        {
+            ResourceGroupResource resourceGroup = await GetResourceGroupAsync(ResourceGroupName);
+            StorageMoverCollection storageMovers = resourceGroup.GetStorageMovers();
+            StorageMoverEndpointCollection endpoints = (await storageMovers.GetAsync(StorageMoverName)).Value.GetStorageMoverEndpoints();
+
+            string endpointName = Recording.GenerateAssetName("mcc-");
+            string multiCloudConnectorId = "/subscriptions/b6b34ad8-ca89-4f85-beb7-c2ec13702dac/resourceGroups/E2E-Management-RGsyn/providers/Microsoft.HybridConnectivity/publicCloudConnectors/e2e-sm-rp-connector";
+            string awsS3BucketId = "/subscriptions/b6b34ad8-ca89-4f85-beb7-c2ec13702dac/resourceGroups/aws_640698235822/providers/Microsoft.AWSConnector/s3Buckets/e2e-sm-rp-bucket";
+
+            // Create Azure Multi-Cloud Connector endpoint
+            AzureMultiCloudConnectorEndpointProperties mccProperties =
+                new AzureMultiCloudConnectorEndpointProperties(new ResourceIdentifier(multiCloudConnectorId), new ResourceIdentifier(awsS3BucketId));
+            mccProperties.Description = "Test multi-cloud connector endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(mccProperties);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            Assert.AreEqual("AzureMultiCloudConnector", endpoint.Data.Properties.EndpointType.ToString());
+
+            // Get and verify properties
+            endpoint = (await endpoints.GetAsync(endpointName)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            AzureMultiCloudConnectorEndpointProperties retrievedProps = (AzureMultiCloudConnectorEndpointProperties)endpoint.Data.Properties;
+            Assert.AreEqual("Test multi-cloud connector endpoint", retrievedProps.Description);
+            Assert.IsNotNull(retrievedProps.MultiCloudConnectorId);
+            Assert.IsNotNull(retrievedProps.AwsS3BucketId);
+
+            // Delete endpoint
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+            Assert.IsFalse(await endpoints.ExistsAsync(endpointName));
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task NfsFileShareEndpointCreateGetDeleteTest()
+        {
+            ResourceGroupResource resourceGroup = await GetResourceGroupAsync(ResourceGroupName);
+            StorageMoverCollection storageMovers = resourceGroup.GetStorageMovers();
+            StorageMoverEndpointCollection endpoints = (await storageMovers.GetAsync(StorageMoverName)).Value.GetStorageMoverEndpoints();
+
+            string endpointName = Recording.GenerateAssetName("nfsfs-");
+            string accountResourceId = DefaultSubscription.Id.ToString() + "/resourceGroups/" + ResourceGroupName +
+                "/providers/Microsoft.Storage/storageAccounts/" + StorageAccountName;
+
+            // Create NFS file share endpoint
+            AzureStorageNfsFileShareEndpointProperties nfsFileShareProps =
+                new AzureStorageNfsFileShareEndpointProperties(new ResourceIdentifier(accountResourceId), "testnfsfileshare");
+            nfsFileShareProps.Description = "Test NFS file share endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(nfsFileShareProps);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            Assert.AreEqual("AzureStorageNfsFileShare", endpoint.Data.Properties.EndpointType.ToString());
+
+            // Get and verify properties
+            endpoint = (await endpoints.GetAsync(endpointName)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            AzureStorageNfsFileShareEndpointProperties retrievedProps = (AzureStorageNfsFileShareEndpointProperties)endpoint.Data.Properties;
+            Assert.AreEqual("testnfsfileshare", retrievedProps.FileShareName);
+            Assert.AreEqual("Test NFS file share endpoint", retrievedProps.Description);
+            Assert.IsNotNull(retrievedProps.StorageAccountResourceId);
+
+            // Delete endpoint
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+            Assert.IsFalse(await endpoints.ExistsAsync(endpointName));
         }
     }
 }

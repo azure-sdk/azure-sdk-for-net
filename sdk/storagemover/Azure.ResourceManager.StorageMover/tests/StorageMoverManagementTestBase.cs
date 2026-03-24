@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.StorageMover.Tests
         protected readonly string StorageMoverName = "testsm1";
         protected readonly string ProjectName = "testp1";
         protected readonly string AgentName = "testagent1";
-        protected readonly string StorageAccountName = "testsomoveraccount";
+        protected readonly string StorageAccountName = "testsmstore24";
         protected readonly string ContainerName = "testsmcontainer";
         protected readonly string NfsEndpointName = "testnfsendpoint";
         protected readonly string ContainerEndpointName = "testsmcontainerendpoint";
