@@ -1,6 +1,6 @@
 # Release History
 
-## 1.4.0 (Unreleased)
+## 1.4.0 (2026-03-17)
 
 ### Features Added
 
@@ -15,11 +15,11 @@
   - Added `EndpointKind` property on endpoints.
   - Added `Connections` property on job definitions.
 
-### Breaking Changes
+## 1.4.0-beta.1 (2025-12-01)
 
-### Bugs Fixed
+### Features Added
 
-### Other Changes
+- Upgraded to API version 2025-08-01.
 
 ## 1.3.0 (2025-10-09)
 
