@@ -150,12 +150,10 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             StorageMoverEndpointCollection endpoints = (await storageMovers.GetAsync(StorageMoverName)).Value.GetStorageMoverEndpoints();
 
             string endpointName = Recording.GenerateAssetName("mcc-");
-            string multiCloudConnectorId = "/subscriptions/b6b34ad8-ca89-4f85-beb7-c2ec13702dac/resourceGroups/E2E-Management-RGsyn/providers/Microsoft.HybridConnectivity/publicCloudConnectors/e2e-sm-rp-connector";
-            string awsS3BucketId = "/subscriptions/b6b34ad8-ca89-4f85-beb7-c2ec13702dac/resourceGroups/aws_640698235822/providers/Microsoft.AWSConnector/s3Buckets/e2e-sm-rp-bucket";
 
             // Create Azure Multi-Cloud Connector endpoint
             AzureMultiCloudConnectorEndpointProperties mccProperties =
-                new AzureMultiCloudConnectorEndpointProperties(new ResourceIdentifier(multiCloudConnectorId), new ResourceIdentifier(awsS3BucketId));
+                new AzureMultiCloudConnectorEndpointProperties(new ResourceIdentifier(MultiCloudConnectorId), new ResourceIdentifier(AwsS3BucketId));
             mccProperties.Description = "Test multi-cloud connector endpoint";
 
             StorageMoverEndpointData data = new StorageMoverEndpointData(mccProperties);
