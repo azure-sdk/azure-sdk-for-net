@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.Nginx
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetWafPoliciesRequest(nextLink, _subscriptionId, _resourceGroupName, _deploymentName, _context) : _client.CreateGetWafPoliciesRequest(_subscriptionId, _resourceGroupName, _deploymentName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("NginxDeploymentResource.GetWafPolicies");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("NginxDeploymentWafPolicyCollection.GetAll");
             scope.Start();
             try
             {

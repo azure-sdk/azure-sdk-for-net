@@ -28,12 +28,12 @@ namespace Azure.ResourceManager.Search
     {
         private readonly ClientDiagnostics _servicesClientDiagnostics;
         private readonly Services _servicesRestClient;
-        private readonly ClientDiagnostics _adminKeysClientDiagnostics;
-        private readonly AdminKeys _adminKeysRestClient;
         private readonly ClientDiagnostics _queryKeysClientDiagnostics;
         private readonly QueryKeys _queryKeysRestClient;
         private readonly ClientDiagnostics _privateLinkResourcesClientDiagnostics;
         private readonly PrivateLinkResources _privateLinkResourcesRestClient;
+        private readonly ClientDiagnostics _adminKeysClientDiagnostics;
+        private readonly AdminKeys _adminKeysRestClient;
         private readonly SearchServiceData _data;
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.Search/searchServices";
@@ -60,12 +60,12 @@ namespace Azure.ResourceManager.Search
             TryGetApiVersion(ResourceType, out string searchServiceApiVersion);
             _servicesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Search", ResourceType.Namespace, Diagnostics);
             _servicesRestClient = new Services(_servicesClientDiagnostics, Pipeline, Endpoint, searchServiceApiVersion ?? "2026-03-01-preview");
-            _adminKeysClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Search", ResourceType.Namespace, Diagnostics);
-            _adminKeysRestClient = new AdminKeys(_adminKeysClientDiagnostics, Pipeline, Endpoint, searchServiceApiVersion ?? "2026-03-01-preview");
             _queryKeysClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Search", ResourceType.Namespace, Diagnostics);
             _queryKeysRestClient = new QueryKeys(_queryKeysClientDiagnostics, Pipeline, Endpoint, searchServiceApiVersion ?? "2026-03-01-preview");
             _privateLinkResourcesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Search", ResourceType.Namespace, Diagnostics);
             _privateLinkResourcesRestClient = new PrivateLinkResources(_privateLinkResourcesClientDiagnostics, Pipeline, Endpoint, searchServiceApiVersion ?? "2026-03-01-preview");
+            _adminKeysClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Search", ResourceType.Namespace, Diagnostics);
+            _adminKeysRestClient = new AdminKeys(_adminKeysClientDiagnostics, Pipeline, Endpoint, searchServiceApiVersion ?? "2026-03-01-preview");
             ValidateResourceId(id);
         }
 
@@ -416,6 +416,162 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
+        /// Returns the list of query API keys for the given Azure AI Search service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/listQueryKeys. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> SearchServices_ListBySearchService. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-03-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="SearchServiceResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="searchManagementRequestOptions"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SearchServiceQueryKey"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SearchServiceQueryKey> GetQueryKeysBySearchServiceAsync(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new QueryKeysGetQueryKeysBySearchServiceAsyncCollectionResultOfT(
+                _queryKeysRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                default,
+                context);
+        }
+
+        /// <summary>
+        /// Returns the list of query API keys for the given Azure AI Search service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/listQueryKeys. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> SearchServices_ListBySearchService. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-03-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="SearchServiceResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="searchManagementRequestOptions"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SearchServiceQueryKey"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SearchServiceQueryKey> GetQueryKeysBySearchService(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new QueryKeysGetQueryKeysBySearchServiceCollectionResultOfT(
+                _queryKeysRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                default,
+                context);
+        }
+
+        /// <summary>
+        /// Gets a list of all supported private link resource types for the given service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/privateLinkResources. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> SearchServices_ListSupported. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-03-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="SearchServiceResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="searchManagementRequestOptions"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SearchPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SearchPrivateLinkResource> GetSupportedPrivateLinkResourcesAsync(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PrivateLinkResourcesGetSupportedPrivateLinkResourcesAsyncCollectionResultOfT(
+                _privateLinkResourcesRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                default,
+                context);
+        }
+
+        /// <summary>
+        /// Gets a list of all supported private link resource types for the given service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/privateLinkResources. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> SearchServices_ListSupported. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-03-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="SearchServiceResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="searchManagementRequestOptions"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SearchPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SearchPrivateLinkResource> GetSupportedPrivateLinkResources(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PrivateLinkResourcesGetSupportedPrivateLinkResourcesCollectionResultOfT(
+                _privateLinkResourcesRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                default,
+                context);
+        }
+
+        /// <summary>
         /// Gets the primary and secondary admin API keys for the specified Azure AI Search service.
         /// <list type="bullet">
         /// <item>
@@ -619,162 +775,6 @@ namespace Azure.ResourceManager.Search
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Returns the list of query API keys for the given Azure AI Search service.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/listQueryKeys. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> SearchServices_ListBySearchService. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-03-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="SearchServiceResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="searchManagementRequestOptions"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SearchServiceQueryKey"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SearchServiceQueryKey> GetQueryKeysBySearchServiceAsync(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new QueryKeysGetQueryKeysBySearchServiceAsyncCollectionResultOfT(
-                _queryKeysRestClient,
-                Guid.Parse(Id.SubscriptionId),
-                Id.ResourceGroupName,
-                Id.Name,
-                default,
-                context);
-        }
-
-        /// <summary>
-        /// Returns the list of query API keys for the given Azure AI Search service.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/listQueryKeys. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> SearchServices_ListBySearchService. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-03-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="SearchServiceResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="searchManagementRequestOptions"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SearchServiceQueryKey"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SearchServiceQueryKey> GetQueryKeysBySearchService(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new QueryKeysGetQueryKeysBySearchServiceCollectionResultOfT(
-                _queryKeysRestClient,
-                Guid.Parse(Id.SubscriptionId),
-                Id.ResourceGroupName,
-                Id.Name,
-                default,
-                context);
-        }
-
-        /// <summary>
-        /// Gets a list of all supported private link resource types for the given service.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/privateLinkResources. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> SearchServices_ListSupported. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-03-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="SearchServiceResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="searchManagementRequestOptions"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SearchPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SearchPrivateLinkResource> GetSupportedPrivateLinkResourcesAsync(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new PrivateLinkResourcesGetSupportedPrivateLinkResourcesAsyncCollectionResultOfT(
-                _privateLinkResourcesRestClient,
-                Guid.Parse(Id.SubscriptionId),
-                Id.ResourceGroupName,
-                Id.Name,
-                default,
-                context);
-        }
-
-        /// <summary>
-        /// Gets a list of all supported private link resource types for the given service.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Search/searchServices/{searchServiceName}/privateLinkResources. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> SearchServices_ListSupported. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-03-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="SearchServiceResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="searchManagementRequestOptions"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SearchPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SearchPrivateLinkResource> GetSupportedPrivateLinkResources(SearchManagementRequestOptions searchManagementRequestOptions = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new PrivateLinkResourcesGetSupportedPrivateLinkResourcesCollectionResultOfT(
-                _privateLinkResourcesRestClient,
-                Guid.Parse(Id.SubscriptionId),
-                Id.ResourceGroupName,
-                Id.Name,
-                default,
-                context);
         }
 
         /// <summary>
