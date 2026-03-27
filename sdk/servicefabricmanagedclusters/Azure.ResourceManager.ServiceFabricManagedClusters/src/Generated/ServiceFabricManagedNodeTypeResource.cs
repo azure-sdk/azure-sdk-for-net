@@ -411,6 +411,82 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary>
+        /// Get a Service Fabric node type supported SKUs.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/nodeTypes/{nodeTypeName}/skus. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> NodeTypeSkus_List. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-02-01. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="ServiceFabricManagedNodeTypeResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="NodeTypeAvailableSku"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<NodeTypeAvailableSku> GetAvailableSkusAsync(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new NodeTypeSkusGetAvailableSkusAsyncCollectionResultOfT(
+                _nodeTypeSkusRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Parent.Name,
+                Id.Name,
+                context);
+        }
+
+        /// <summary>
+        /// Get a Service Fabric node type supported SKUs.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/nodeTypes/{nodeTypeName}/skus. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> NodeTypeSkus_List. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2026-02-01. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="ServiceFabricManagedNodeTypeResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="NodeTypeAvailableSku"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<NodeTypeAvailableSku> GetAvailableSkus(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new NodeTypeSkusGetAvailableSkusCollectionResultOfT(
+                _nodeTypeSkusRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Parent.Name,
+                Id.Name,
+                context);
+        }
+
+        /// <summary>
         /// Deallocates one or more nodes on the node type. It will disable the fabric nodes, trigger a shutdown on the VMs and release them from the cluster.
         /// <list type="bullet">
         /// <item>
@@ -1044,82 +1120,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Get a Service Fabric node type supported SKUs.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/nodeTypes/{nodeTypeName}/skus. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> NodeTypeSkus_List. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-02-01. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="ServiceFabricManagedNodeTypeResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="NodeTypeAvailableSku"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<NodeTypeAvailableSku> GetAvailableSkusAsync(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new NodeTypeSkusGetAvailableSkusAsyncCollectionResultOfT(
-                _nodeTypeSkusRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Parent.Name,
-                Id.Name,
-                context);
-        }
-
-        /// <summary>
-        /// Get a Service Fabric node type supported SKUs.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/nodeTypes/{nodeTypeName}/skus. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> NodeTypeSkus_List. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2026-02-01. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="ServiceFabricManagedNodeTypeResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="NodeTypeAvailableSku"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<NodeTypeAvailableSku> GetAvailableSkus(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new NodeTypeSkusGetAvailableSkusCollectionResultOfT(
-                _nodeTypeSkusRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Parent.Name,
-                Id.Name,
-                context);
         }
 
         /// <summary> Add a tag to the current resource. </summary>
