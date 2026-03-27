@@ -392,6 +392,260 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
         }
 
         /// <summary>
+        /// List of AppIds for LocalRulestack ApiVersion
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listAppIds. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> LocalRulestackResources_ListAppIds. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-10-08. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="LocalRulestackResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="appIdVersion"></param>
+        /// <param name="appPrefix"></param>
+        /// <param name="skip"></param>
+        /// <param name="maxCount"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="string"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<string> GetAppIdsAsync(string appIdVersion = default, string appPrefix = default, string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new LocalRulestacksGetAppIdsAsyncCollectionResultOfT(
+                _localRulestacksRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Name,
+                appIdVersion,
+                appPrefix,
+                skip,
+                maxCount,
+                context);
+        }
+
+        /// <summary>
+        /// List of AppIds for LocalRulestack ApiVersion
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listAppIds. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> LocalRulestackResources_ListAppIds. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-10-08. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="LocalRulestackResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="appIdVersion"></param>
+        /// <param name="appPrefix"></param>
+        /// <param name="skip"></param>
+        /// <param name="maxCount"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="string"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<string> GetAppIds(string appIdVersion = default, string appPrefix = default, string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new LocalRulestacksGetAppIdsCollectionResultOfT(
+                _localRulestacksRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Name,
+                appIdVersion,
+                appPrefix,
+                skip,
+                maxCount,
+                context);
+        }
+
+        /// <summary>
+        /// List of countries for Rulestack
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listCountries. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> LocalRulestackResources_ListCountries. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-10-08. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="LocalRulestackResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="skip"></param>
+        /// <param name="maxCount"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="RulestackCountry"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<RulestackCountry> GetCountriesAsync(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new LocalRulestacksGetCountriesAsyncCollectionResultOfT(
+                _localRulestacksRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Name,
+                skip,
+                maxCount,
+                context);
+        }
+
+        /// <summary>
+        /// List of countries for Rulestack
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listCountries. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> LocalRulestackResources_ListCountries. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-10-08. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="LocalRulestackResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="skip"></param>
+        /// <param name="maxCount"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="RulestackCountry"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<RulestackCountry> GetCountries(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new LocalRulestacksGetCountriesCollectionResultOfT(
+                _localRulestacksRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Name,
+                skip,
+                maxCount,
+                context);
+        }
+
+        /// <summary>
+        /// List predefined URL categories for rulestack
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listPredefinedUrlCategories. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> LocalRulestackResources_ListPredefinedUrlCategories. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-10-08. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="LocalRulestackResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="skip"></param>
+        /// <param name="maxCount"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="PredefinedUrlCategory"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<PredefinedUrlCategory> GetPredefinedUrlCategoriesAsync(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new LocalRulestacksGetPredefinedUrlCategoriesAsyncCollectionResultOfT(
+                _localRulestacksRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Name,
+                skip,
+                maxCount,
+                context);
+        }
+
+        /// <summary>
+        /// List predefined URL categories for rulestack
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listPredefinedUrlCategories. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> LocalRulestackResources_ListPredefinedUrlCategories. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-10-08. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="LocalRulestackResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="skip"></param>
+        /// <param name="maxCount"></param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="PredefinedUrlCategory"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<PredefinedUrlCategory> GetPredefinedUrlCategories(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new LocalRulestacksGetPredefinedUrlCategoriesCollectionResultOfT(
+                _localRulestacksRestClient,
+                Id.SubscriptionId,
+                Id.ResourceGroupName,
+                Id.Name,
+                skip,
+                maxCount,
+                context);
+        }
+
+        /// <summary>
         /// Commit rulestack configuration
         /// <list type="bullet">
         /// <item>
@@ -783,260 +1037,6 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// List of AppIds for LocalRulestack ApiVersion
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listAppIds. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> LocalRulestackResources_ListAppIds. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-10-08. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="LocalRulestackResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="appIdVersion"></param>
-        /// <param name="appPrefix"></param>
-        /// <param name="skip"></param>
-        /// <param name="maxCount"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="string"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<string> GetAppIdsAsync(string appIdVersion = default, string appPrefix = default, string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new LocalRulestacksGetAppIdsAsyncCollectionResultOfT(
-                _localRulestacksRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Name,
-                appIdVersion,
-                appPrefix,
-                skip,
-                maxCount,
-                context);
-        }
-
-        /// <summary>
-        /// List of AppIds for LocalRulestack ApiVersion
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listAppIds. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> LocalRulestackResources_ListAppIds. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-10-08. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="LocalRulestackResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="appIdVersion"></param>
-        /// <param name="appPrefix"></param>
-        /// <param name="skip"></param>
-        /// <param name="maxCount"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="string"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<string> GetAppIds(string appIdVersion = default, string appPrefix = default, string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new LocalRulestacksGetAppIdsCollectionResultOfT(
-                _localRulestacksRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Name,
-                appIdVersion,
-                appPrefix,
-                skip,
-                maxCount,
-                context);
-        }
-
-        /// <summary>
-        /// List of countries for Rulestack
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listCountries. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> LocalRulestackResources_ListCountries. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-10-08. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="LocalRulestackResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="skip"></param>
-        /// <param name="maxCount"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="RulestackCountry"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<RulestackCountry> GetCountriesAsync(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new LocalRulestacksGetCountriesAsyncCollectionResultOfT(
-                _localRulestacksRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Name,
-                skip,
-                maxCount,
-                context);
-        }
-
-        /// <summary>
-        /// List of countries for Rulestack
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listCountries. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> LocalRulestackResources_ListCountries. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-10-08. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="LocalRulestackResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="skip"></param>
-        /// <param name="maxCount"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="RulestackCountry"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<RulestackCountry> GetCountries(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new LocalRulestacksGetCountriesCollectionResultOfT(
-                _localRulestacksRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Name,
-                skip,
-                maxCount,
-                context);
-        }
-
-        /// <summary>
-        /// List predefined URL categories for rulestack
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listPredefinedUrlCategories. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> LocalRulestackResources_ListPredefinedUrlCategories. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-10-08. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="LocalRulestackResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="skip"></param>
-        /// <param name="maxCount"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="PredefinedUrlCategory"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<PredefinedUrlCategory> GetPredefinedUrlCategoriesAsync(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new LocalRulestacksGetPredefinedUrlCategoriesAsyncCollectionResultOfT(
-                _localRulestacksRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Name,
-                skip,
-                maxCount,
-                context);
-        }
-
-        /// <summary>
-        /// List predefined URL categories for rulestack
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/PaloAltoNetworks.Cloudngfw/localRulestacks/{localRulestackName}/listPredefinedUrlCategories. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> LocalRulestackResources_ListPredefinedUrlCategories. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-10-08. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="LocalRulestackResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="skip"></param>
-        /// <param name="maxCount"></param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="PredefinedUrlCategory"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<PredefinedUrlCategory> GetPredefinedUrlCategories(string skip = default, int? maxCount = default, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new LocalRulestacksGetPredefinedUrlCategoriesCollectionResultOfT(
-                _localRulestacksRestClient,
-                Id.SubscriptionId,
-                Id.ResourceGroupName,
-                Id.Name,
-                skip,
-                maxCount,
-                context);
         }
 
         /// <summary>

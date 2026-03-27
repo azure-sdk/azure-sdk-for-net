@@ -26,6 +26,8 @@ namespace Azure.ResourceManager.Nginx
     {
         private readonly ClientDiagnostics _nginxDeploymentWafPoliciesClientDiagnostics;
         private readonly NginxDeploymentWafPolicies _nginxDeploymentWafPoliciesRestClient;
+        private readonly ClientDiagnostics _nginxDeploymentsClientDiagnostics;
+        private readonly NginxDeployments _nginxDeploymentsRestClient;
         private readonly NginxDeploymentWafPolicyData _data;
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Nginx.NginxPlus/nginxDeployments/wafPolicies";
@@ -52,6 +54,8 @@ namespace Azure.ResourceManager.Nginx
             TryGetApiVersion(ResourceType, out string nginxDeploymentWafPolicyApiVersion);
             _nginxDeploymentWafPoliciesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Nginx", ResourceType.Namespace, Diagnostics);
             _nginxDeploymentWafPoliciesRestClient = new NginxDeploymentWafPolicies(_nginxDeploymentWafPoliciesClientDiagnostics, Pipeline, Endpoint, nginxDeploymentWafPolicyApiVersion ?? "2025-11-01");
+            _nginxDeploymentsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Nginx", ResourceType.Namespace, Diagnostics);
+            _nginxDeploymentsRestClient = new NginxDeployments(_nginxDeploymentsClientDiagnostics, Pipeline, Endpoint, nginxDeploymentWafPolicyApiVersion ?? "2025-11-01");
             ValidateResourceId(id);
         }
 

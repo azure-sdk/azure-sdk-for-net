@@ -6,6 +6,8 @@
 #nullable disable
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Nginx.Models;
 
 namespace Azure.ResourceManager.Nginx
 {
@@ -21,10 +24,12 @@ namespace Azure.ResourceManager.Nginx
     /// Each <see cref="NginxDeploymentWafPolicyResource"/> in the collection will belong to the same instance of <see cref="NginxDeploymentResource"/>.
     /// To get a <see cref="NginxDeploymentWafPolicyCollection"/> instance call the GetNginxDeploymentWafPolicies method from an instance of <see cref="NginxDeploymentResource"/>.
     /// </summary>
-    public partial class NginxDeploymentWafPolicyCollection : ArmCollection
+    public partial class NginxDeploymentWafPolicyCollection : ArmCollection, IEnumerable<NginxDeploymentWafPolicyResource>, IAsyncEnumerable<NginxDeploymentWafPolicyResource>
     {
         private readonly ClientDiagnostics _nginxDeploymentWafPoliciesClientDiagnostics;
         private readonly NginxDeploymentWafPolicies _nginxDeploymentWafPoliciesRestClient;
+        private readonly ClientDiagnostics _nginxDeploymentsClientDiagnostics;
+        private readonly NginxDeployments _nginxDeploymentsRestClient;
 
         /// <summary> Initializes a new instance of NginxDeploymentWafPolicyCollection for mocking. </summary>
         protected NginxDeploymentWafPolicyCollection()
@@ -39,6 +44,8 @@ namespace Azure.ResourceManager.Nginx
             TryGetApiVersion(NginxDeploymentWafPolicyResource.ResourceType, out string nginxDeploymentWafPolicyApiVersion);
             _nginxDeploymentWafPoliciesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Nginx", NginxDeploymentWafPolicyResource.ResourceType.Namespace, Diagnostics);
             _nginxDeploymentWafPoliciesRestClient = new NginxDeploymentWafPolicies(_nginxDeploymentWafPoliciesClientDiagnostics, Pipeline, Endpoint, nginxDeploymentWafPolicyApiVersion ?? "2025-11-01");
+            _nginxDeploymentsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Nginx", NginxDeploymentWafPolicyResource.ResourceType.Namespace, Diagnostics);
+            _nginxDeploymentsRestClient = new NginxDeployments(_nginxDeploymentsClientDiagnostics, Pipeline, Endpoint, nginxDeploymentWafPolicyApiVersion ?? "2025-11-01");
             ValidateResourceId(id);
         }
 
@@ -262,6 +269,62 @@ namespace Azure.ResourceManager.Nginx
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// List Waf Policies of given Nginx deployment
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/wafPolicies. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> NginxDeployments_WafPolicyList. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-11-01. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="NginxDeploymentWafPolicyMetadata"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<NginxDeploymentWafPolicyMetadata> GetAllAsync(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new NginxDeploymentsGetWafPoliciesAsyncCollectionResultOfT(_nginxDeploymentsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
+        }
+
+        /// <summary>
+        /// List Waf Policies of given Nginx deployment
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Nginx.NginxPlus/nginxDeployments/{deploymentName}/wafPolicies. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> NginxDeployments_WafPolicyList. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-11-01. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="NginxDeploymentWafPolicyMetadata"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<NginxDeploymentWafPolicyMetadata> GetAll(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new NginxDeploymentsGetWafPoliciesCollectionResultOfT(_nginxDeploymentsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary>
@@ -498,6 +561,22 @@ namespace Azure.ResourceManager.Nginx
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        IEnumerator<NginxDeploymentWafPolicyResource> IEnumerable<NginxDeploymentWafPolicyResource>.GetEnumerator()
+        {
+            return GetAll().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetAll().GetEnumerator();
+        }
+
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        IAsyncEnumerator<NginxDeploymentWafPolicyResource> IAsyncEnumerable<NginxDeploymentWafPolicyResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
+        {
+            return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }
     }
 }
