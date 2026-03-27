@@ -28,12 +28,12 @@ namespace Azure.ResourceManager.HardwareSecurityModules
     {
         private readonly ClientDiagnostics _cloudHsmClustersClientDiagnostics;
         private readonly CloudHsmClusters _cloudHsmClustersRestClient;
+        private readonly ClientDiagnostics _cloudHsmClusterPrivateLinkResourcesClientDiagnostics;
+        private readonly CloudHsmClusterPrivateLinkResources _cloudHsmClusterPrivateLinkResourcesRestClient;
         private readonly ClientDiagnostics _cloudHsmClusterBackupStatusClientDiagnostics;
         private readonly CloudHsmClusterBackupStatus _cloudHsmClusterBackupStatusRestClient;
         private readonly ClientDiagnostics _cloudHsmClusterRestoreStatusClientDiagnostics;
         private readonly CloudHsmClusterRestoreStatus _cloudHsmClusterRestoreStatusRestClient;
-        private readonly ClientDiagnostics _cloudHsmClusterPrivateLinkResourcesClientDiagnostics;
-        private readonly CloudHsmClusterPrivateLinkResources _cloudHsmClusterPrivateLinkResourcesRestClient;
         private readonly CloudHsmClusterData _data;
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.HardwareSecurityModules/cloudHsmClusters";
@@ -60,12 +60,12 @@ namespace Azure.ResourceManager.HardwareSecurityModules
             TryGetApiVersion(ResourceType, out string cloudHsmClusterApiVersion);
             _cloudHsmClustersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.HardwareSecurityModules", ResourceType.Namespace, Diagnostics);
             _cloudHsmClustersRestClient = new CloudHsmClusters(_cloudHsmClustersClientDiagnostics, Pipeline, Endpoint, cloudHsmClusterApiVersion ?? "2025-03-31");
+            _cloudHsmClusterPrivateLinkResourcesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.HardwareSecurityModules", ResourceType.Namespace, Diagnostics);
+            _cloudHsmClusterPrivateLinkResourcesRestClient = new CloudHsmClusterPrivateLinkResources(_cloudHsmClusterPrivateLinkResourcesClientDiagnostics, Pipeline, Endpoint, cloudHsmClusterApiVersion ?? "2025-03-31");
             _cloudHsmClusterBackupStatusClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.HardwareSecurityModules", ResourceType.Namespace, Diagnostics);
             _cloudHsmClusterBackupStatusRestClient = new CloudHsmClusterBackupStatus(_cloudHsmClusterBackupStatusClientDiagnostics, Pipeline, Endpoint, cloudHsmClusterApiVersion ?? "2025-03-31");
             _cloudHsmClusterRestoreStatusClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.HardwareSecurityModules", ResourceType.Namespace, Diagnostics);
             _cloudHsmClusterRestoreStatusRestClient = new CloudHsmClusterRestoreStatus(_cloudHsmClusterRestoreStatusClientDiagnostics, Pipeline, Endpoint, cloudHsmClusterApiVersion ?? "2025-03-31");
-            _cloudHsmClusterPrivateLinkResourcesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.HardwareSecurityModules", ResourceType.Namespace, Diagnostics);
-            _cloudHsmClusterPrivateLinkResourcesRestClient = new CloudHsmClusterPrivateLinkResources(_cloudHsmClusterPrivateLinkResourcesClientDiagnostics, Pipeline, Endpoint, cloudHsmClusterApiVersion ?? "2025-03-31");
             ValidateResourceId(id);
         }
 
@@ -418,6 +418,70 @@ namespace Azure.ResourceManager.HardwareSecurityModules
         }
 
         /// <summary>
+        /// Gets the private link resources supported for the Cloud Hsm Cluster.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HardwareSecurityModules/cloudHsmClusters/{cloudHsmClusterName}/privateLinkResources. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> CloudHsmClusters_ListByCloudHsmCluster. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-03-31. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="CloudHsmClusterResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="CloudHsmClusterPrivateLinkData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<CloudHsmClusterPrivateLinkData> GetCloudHsmClusterPrivateLinkResourcesAsync(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new CloudHsmClusterPrivateLinkResourcesGetCloudHsmClusterPrivateLinkResourcesAsyncCollectionResultOfT(_cloudHsmClusterPrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
+        }
+
+        /// <summary>
+        /// Gets the private link resources supported for the Cloud Hsm Cluster.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HardwareSecurityModules/cloudHsmClusters/{cloudHsmClusterName}/privateLinkResources. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> CloudHsmClusters_ListByCloudHsmCluster. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-03-31. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="CloudHsmClusterResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="CloudHsmClusterPrivateLinkData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<CloudHsmClusterPrivateLinkData> GetCloudHsmClusterPrivateLinkResources(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new CloudHsmClusterPrivateLinkResourcesGetCloudHsmClusterPrivateLinkResourcesCollectionResultOfT(_cloudHsmClusterPrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
+        }
+
+        /// <summary>
         /// Create a backup of the Cloud HSM Cluster in the specified subscription
         /// <list type="bullet">
         /// <item>
@@ -739,70 +803,6 @@ namespace Azure.ResourceManager.HardwareSecurityModules
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Gets the private link resources supported for the Cloud Hsm Cluster.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HardwareSecurityModules/cloudHsmClusters/{cloudHsmClusterName}/privateLinkResources. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> CloudHsmClusters_ListByCloudHsmCluster. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-03-31. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="CloudHsmClusterResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="CloudHsmClusterPrivateLinkData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<CloudHsmClusterPrivateLinkData> GetCloudHsmClusterPrivateLinkResourcesAsync(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new CloudHsmClusterPrivateLinkResourcesGetCloudHsmClusterPrivateLinkResourcesAsyncCollectionResultOfT(_cloudHsmClusterPrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
-        }
-
-        /// <summary>
-        /// Gets the private link resources supported for the Cloud Hsm Cluster.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HardwareSecurityModules/cloudHsmClusters/{cloudHsmClusterName}/privateLinkResources. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> CloudHsmClusters_ListByCloudHsmCluster. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-03-31. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="CloudHsmClusterResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="CloudHsmClusterPrivateLinkData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<CloudHsmClusterPrivateLinkData> GetCloudHsmClusterPrivateLinkResources(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new CloudHsmClusterPrivateLinkResourcesGetCloudHsmClusterPrivateLinkResourcesCollectionResultOfT(_cloudHsmClusterPrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary>

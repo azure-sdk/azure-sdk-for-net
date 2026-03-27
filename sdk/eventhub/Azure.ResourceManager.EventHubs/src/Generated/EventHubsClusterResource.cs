@@ -411,6 +411,70 @@ namespace Azure.ResourceManager.EventHubs
         }
 
         /// <summary>
+        /// List all Event Hubs Namespace IDs in an Event Hubs Dedicated Cluster.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/namespaces. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> Clusters_ListNamespaces. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-05-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="EventHubsClusterResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SubResource> GetNamespacesAsync(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new ClustersGetNamespacesAsyncCollectionResultOfT(_clustersRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
+        }
+
+        /// <summary>
+        /// List all Event Hubs Namespace IDs in an Event Hubs Dedicated Cluster.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/namespaces. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> Clusters_ListNamespaces. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-05-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="EventHubsClusterResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SubResource> GetNamespaces(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new ClustersGetNamespacesCollectionResultOfT(_clustersRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
+        }
+
+        /// <summary>
         /// Get all Event Hubs Cluster settings - a collection of key/value pairs which represent the quotas and settings imposed on the cluster.
         /// <list type="bullet">
         /// <item>
@@ -504,70 +568,6 @@ namespace Azure.ResourceManager.EventHubs
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// List all Event Hubs Namespace IDs in an Event Hubs Dedicated Cluster.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/namespaces. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> Clusters_ListNamespaces. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-05-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="EventHubsClusterResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<SubResource> GetNamespacesAsync(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new ClustersGetNamespacesAsyncCollectionResultOfT(_clustersRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
-        }
-
-        /// <summary>
-        /// List all Event Hubs Namespace IDs in an Event Hubs Dedicated Cluster.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/clusters/{clusterName}/namespaces. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> Clusters_ListNamespaces. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-05-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="EventHubsClusterResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="SubResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<SubResource> GetNamespaces(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new ClustersGetNamespacesCollectionResultOfT(_clustersRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary>

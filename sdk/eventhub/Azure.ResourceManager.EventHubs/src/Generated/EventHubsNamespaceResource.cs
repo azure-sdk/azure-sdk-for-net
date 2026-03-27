@@ -28,10 +28,10 @@ namespace Azure.ResourceManager.EventHubs
     {
         private readonly ClientDiagnostics _namespacesClientDiagnostics;
         private readonly Namespaces _namespacesRestClient;
-        private readonly ClientDiagnostics _eventHubsDisasterRecoveryAuthorizationRuleClientDiagnostics;
-        private readonly EventHubsDisasterRecoveryAuthorizationRule _eventHubsDisasterRecoveryAuthorizationRuleRestClient;
         private readonly ClientDiagnostics _privateLinkResourcesClientDiagnostics;
         private readonly PrivateLinkResources _privateLinkResourcesRestClient;
+        private readonly ClientDiagnostics _eventHubsDisasterRecoveryAuthorizationRuleClientDiagnostics;
+        private readonly EventHubsDisasterRecoveryAuthorizationRule _eventHubsDisasterRecoveryAuthorizationRuleRestClient;
         private readonly EventHubsNamespaceData _data;
         /// <summary> Gets the resource type for the operations. </summary>
         public static readonly ResourceType ResourceType = "Microsoft.EventHub/namespaces";
@@ -58,10 +58,10 @@ namespace Azure.ResourceManager.EventHubs
             TryGetApiVersion(ResourceType, out string eventHubsNamespaceApiVersion);
             _namespacesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EventHubs", ResourceType.Namespace, Diagnostics);
             _namespacesRestClient = new Namespaces(_namespacesClientDiagnostics, Pipeline, Endpoint, eventHubsNamespaceApiVersion ?? "2025-05-01-preview");
-            _eventHubsDisasterRecoveryAuthorizationRuleClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EventHubs", ResourceType.Namespace, Diagnostics);
-            _eventHubsDisasterRecoveryAuthorizationRuleRestClient = new EventHubsDisasterRecoveryAuthorizationRule(_eventHubsDisasterRecoveryAuthorizationRuleClientDiagnostics, Pipeline, Endpoint, eventHubsNamespaceApiVersion ?? "2025-05-01-preview");
             _privateLinkResourcesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EventHubs", ResourceType.Namespace, Diagnostics);
             _privateLinkResourcesRestClient = new PrivateLinkResources(_privateLinkResourcesClientDiagnostics, Pipeline, Endpoint, eventHubsNamespaceApiVersion ?? "2025-05-01-preview");
+            _eventHubsDisasterRecoveryAuthorizationRuleClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EventHubs", ResourceType.Namespace, Diagnostics);
+            _eventHubsDisasterRecoveryAuthorizationRuleRestClient = new EventHubsDisasterRecoveryAuthorizationRule(_eventHubsDisasterRecoveryAuthorizationRuleClientDiagnostics, Pipeline, Endpoint, eventHubsNamespaceApiVersion ?? "2025-05-01-preview");
             ValidateResourceId(id);
         }
 
@@ -414,6 +414,70 @@ namespace Azure.ResourceManager.EventHubs
         }
 
         /// <summary>
+        /// Gets lists of resources that supports Privatelinks.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/privateLinkResources. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EHNamespaces_PrivateLinkResourcesGet. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-05-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="EventHubsNamespaceResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="EventHubsPrivateLinkResourceData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventHubsPrivateLinkResourceData> GetPrivateLinkResourcesAsync(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PrivateLinkResourcesGetPrivateLinkResourcesAsyncCollectionResultOfT(_privateLinkResourcesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
+        }
+
+        /// <summary>
+        /// Gets lists of resources that supports Privatelinks.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/privateLinkResources. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EHNamespaces_PrivateLinkResourcesGet. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-05-01-preview. </description>
+        /// </item>
+        /// <item>
+        /// <term> Resource. </term>
+        /// <description> <see cref="EventHubsNamespaceResource"/>. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="EventHubsPrivateLinkResourceData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventHubsPrivateLinkResourceData> GetPrivateLinkResources(CancellationToken cancellationToken = default)
+        {
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PrivateLinkResourcesGetPrivateLinkResourcesCollectionResultOfT(_privateLinkResourcesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
+        }
+
+        /// <summary>
         /// Check the give Namespace name availability.
         /// <list type="bullet">
         /// <item>
@@ -633,70 +697,6 @@ namespace Azure.ResourceManager.EventHubs
                 scope.Failed(e);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Gets lists of resources that supports Privatelinks.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/privateLinkResources. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> EHNamespaces_PrivateLinkResourcesGet. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-05-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="EventHubsNamespaceResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="EventHubsPrivateLinkResourceData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventHubsPrivateLinkResourceData> GetPrivateLinkResourcesAsync(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new PrivateLinkResourcesGetPrivateLinkResourcesAsyncCollectionResultOfT(_privateLinkResourcesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
-        }
-
-        /// <summary>
-        /// Gets lists of resources that supports Privatelinks.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventHub/namespaces/{namespaceName}/privateLinkResources. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> EHNamespaces_PrivateLinkResourcesGet. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-05-01-preview. </description>
-        /// </item>
-        /// <item>
-        /// <term> Resource. </term>
-        /// <description> <see cref="EventHubsNamespaceResource"/>. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="EventHubsPrivateLinkResourceData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventHubsPrivateLinkResourceData> GetPrivateLinkResources(CancellationToken cancellationToken = default)
-        {
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new PrivateLinkResourcesGetPrivateLinkResourcesCollectionResultOfT(_privateLinkResourcesRestClient, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, context);
         }
 
         /// <summary> Add a tag to the current resource. </summary>
