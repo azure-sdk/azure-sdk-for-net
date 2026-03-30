@@ -176,6 +176,287 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
 
         [Test]
         [RecordedTest]
+        public async Task S3WithHmacEndpointCreateGetDeleteTest()
+        {
+            ResourceGroupResource resourceGroup = await GetResourceGroupAsync(ResourceGroupName);
+            StorageMoverCollection storageMovers = resourceGroup.GetStorageMovers();
+            StorageMoverEndpointCollection endpoints = (await storageMovers.GetAsync(StorageMoverName)).Value.GetStorageMoverEndpoints();
+
+            string endpointName = Recording.GenerateAssetName("s3hmac-");
+
+            // Create S3WithHmac endpoint
+            S3WithHmacEndpointProperties s3Properties = new S3WithHmacEndpointProperties();
+            s3Properties.SourceUri = "https://s3.example.com/bucket";
+            s3Properties.SourceType = S3WithHmacSourceType.MINIO;
+            s3Properties.Description = "Test S3 with HMAC endpoint";
+            s3Properties.Credentials = new AzureKeyVaultS3WithHmacCredentials
+            {
+                AccessKeyUri = "https://examples-azureKeyVault.vault.azure.net/secrets/examples-accesskey",
+                SecretKeyUri = "https://examples-azureKeyVault.vault.azure.net/secrets/examples-secretkey",
+            };
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(s3Properties);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            Assert.AreEqual("S3WithHmac", endpoint.Data.Properties.EndpointType.ToString());
+
+            // Get and verify properties
+            endpoint = (await endpoints.GetAsync(endpointName)).Value;
+            Assert.AreEqual(endpointName, endpoint.Data.Name);
+            S3WithHmacEndpointProperties retrievedProps = (S3WithHmacEndpointProperties)endpoint.Data.Properties;
+            Assert.AreEqual("https://s3.example.com/bucket", retrievedProps.SourceUri);
+            Assert.AreEqual(S3WithHmacSourceType.MINIO, retrievedProps.SourceType);
+            Assert.AreEqual("Test S3 with HMAC endpoint", retrievedProps.Description);
+            Assert.IsNotNull(retrievedProps.Credentials);
+            Assert.AreEqual("https://examples-azureKeyVault.vault.azure.net/secrets/examples-accesskey", retrievedProps.Credentials.AccessKeyUri);
+            Assert.AreEqual("https://examples-azureKeyVault.vault.azure.net/secrets/examples-secretkey", retrievedProps.Credentials.SecretKeyUri);
+
+            // Delete endpoint
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+            Assert.IsFalse(await endpoints.ExistsAsync(endpointName));
+        }
+
+        #region EndpointKind validation tests - valid kinds
+
+        [Test]
+        [RecordedTest]
+        public async Task NfsMountEndpointKindSource_Succeeds()
+        {
+            StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+            string endpointName = Recording.GenerateAssetName("nfs-src-");
+
+            NfsMountEndpointProperties props = new NfsMountEndpointProperties("10.0.0.1", "/");
+            props.EndpointKind = EndpointKind.Source;
+            props.Description = "NFS source endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(EndpointKind.Source, endpoint.Data.Properties.EndpointKind);
+
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task SmbMountEndpointKindSource_Succeeds()
+        {
+            StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+            string endpointName = Recording.GenerateAssetName("smb-src-");
+
+            SmbMountEndpointProperties props = new SmbMountEndpointProperties("10.0.0.1", "testshare");
+            props.EndpointKind = EndpointKind.Source;
+            props.Description = "SMB source endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(EndpointKind.Source, endpoint.Data.Properties.EndpointKind);
+
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task MultiCloudConnectorEndpointKindSource_Succeeds()
+        {
+            StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+            string endpointName = Recording.GenerateAssetName("mcc-src-");
+
+            AzureMultiCloudConnectorEndpointProperties props =
+                new AzureMultiCloudConnectorEndpointProperties(new ResourceIdentifier(MultiCloudConnectorId), new ResourceIdentifier(AwsS3BucketId));
+            props.EndpointKind = EndpointKind.Source;
+            props.Description = "Multi-cloud connector source endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(EndpointKind.Source, endpoint.Data.Properties.EndpointKind);
+
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task BlobContainerEndpointKindSource_Succeeds()
+        {
+            StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+            string endpointName = Recording.GenerateAssetName("blob-src-");
+            string accountResourceId = DefaultSubscription.Id.ToString() + "/resourceGroups/" + ResourceGroupName +
+                "/providers/Microsoft.Storage/storageAccounts/" + StorageAccountName;
+
+            AzureStorageBlobContainerEndpointProperties props =
+                new AzureStorageBlobContainerEndpointProperties(accountResourceId, ContainerName);
+            props.EndpointKind = EndpointKind.Source;
+            props.Description = "Blob container source endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(EndpointKind.Source, endpoint.Data.Properties.EndpointKind);
+
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task BlobContainerEndpointKindTarget_Succeeds()
+        {
+            StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+            string endpointName = Recording.GenerateAssetName("blob-tgt-");
+            string accountResourceId = DefaultSubscription.Id.ToString() + "/resourceGroups/" + ResourceGroupName +
+                "/providers/Microsoft.Storage/storageAccounts/" + StorageAccountName;
+
+            AzureStorageBlobContainerEndpointProperties props =
+                new AzureStorageBlobContainerEndpointProperties(accountResourceId, ContainerName);
+            props.EndpointKind = EndpointKind.Target;
+            props.Description = "Blob container target endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(EndpointKind.Target, endpoint.Data.Properties.EndpointKind);
+
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task SmbFileShareEndpointKindTarget_Succeeds()
+        {
+            StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+            string endpointName = Recording.GenerateAssetName("smbfs-tgt-");
+            string accountResourceId = DefaultSubscription.Id.ToString() + "/resourceGroups/" + ResourceGroupName +
+                "/providers/Microsoft.Storage/storageAccounts/" + StorageAccountName;
+
+            AzureStorageSmbFileShareEndpointProperties props =
+                new AzureStorageSmbFileShareEndpointProperties(new ResourceIdentifier(accountResourceId), "testfileshare");
+            props.EndpointKind = EndpointKind.Target;
+            props.Description = "SMB file share target endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(EndpointKind.Target, endpoint.Data.Properties.EndpointKind);
+
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+        }
+
+        [Test]
+        [RecordedTest]
+        public async Task NfsFileShareEndpointKindTarget_Succeeds()
+        {
+            StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+            string endpointName = Recording.GenerateAssetName("nfsfs-tgt-");
+            string accountResourceId = DefaultSubscription.Id.ToString() + "/resourceGroups/" + ResourceGroupName +
+                "/providers/Microsoft.Storage/storageAccounts/" + StorageAccountName;
+
+            AzureStorageNfsFileShareEndpointProperties props =
+                new AzureStorageNfsFileShareEndpointProperties(new ResourceIdentifier(accountResourceId), "testnfsfileshare");
+            props.EndpointKind = EndpointKind.Target;
+            props.Description = "NFS file share target endpoint";
+
+            StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+            StorageMoverEndpointResource endpoint = (await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data)).Value;
+            Assert.AreEqual(EndpointKind.Target, endpoint.Data.Properties.EndpointKind);
+
+            await endpoint.DeleteAsync(WaitUntil.Completed);
+        }
+
+        #endregion
+
+        #region EndpointKind validation tests - invalid kinds
+
+        [Test]
+        [RecordedTest]
+        public void NfsMountEndpointKindTarget_Fails()
+        {
+            Assert.ThrowsAsync<RequestFailedException>(async () =>
+            {
+                StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+                string endpointName = Recording.GenerateAssetName("nfs-tgt-");
+
+                NfsMountEndpointProperties props = new NfsMountEndpointProperties("10.0.0.1", "/");
+                props.EndpointKind = EndpointKind.Target;
+
+                StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+                await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data);
+            });
+        }
+
+        [Test]
+        [RecordedTest]
+        public void SmbMountEndpointKindTarget_Fails()
+        {
+            Assert.ThrowsAsync<RequestFailedException>(async () =>
+            {
+                StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+                string endpointName = Recording.GenerateAssetName("smb-tgt-");
+
+                SmbMountEndpointProperties props = new SmbMountEndpointProperties("10.0.0.1", "testshare");
+                props.EndpointKind = EndpointKind.Target;
+
+                StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+                await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data);
+            });
+        }
+
+        [Test]
+        [RecordedTest]
+        public void MultiCloudConnectorEndpointKindTarget_Fails()
+        {
+            Assert.ThrowsAsync<RequestFailedException>(async () =>
+            {
+                StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+                string endpointName = Recording.GenerateAssetName("mcc-tgt-");
+
+                AzureMultiCloudConnectorEndpointProperties props =
+                    new AzureMultiCloudConnectorEndpointProperties(new ResourceIdentifier(MultiCloudConnectorId), new ResourceIdentifier(AwsS3BucketId));
+                props.EndpointKind = EndpointKind.Target;
+
+                StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+                await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data);
+            });
+        }
+
+        [Test]
+        [RecordedTest]
+        public void SmbFileShareEndpointKindSource_Fails()
+        {
+            Assert.ThrowsAsync<RequestFailedException>(async () =>
+            {
+                StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+                string endpointName = Recording.GenerateAssetName("smbfs-src-");
+                string accountResourceId = DefaultSubscription.Id.ToString() + "/resourceGroups/" + ResourceGroupName +
+                    "/providers/Microsoft.Storage/storageAccounts/" + StorageAccountName;
+
+                AzureStorageSmbFileShareEndpointProperties props =
+                    new AzureStorageSmbFileShareEndpointProperties(new ResourceIdentifier(accountResourceId), "testfileshare");
+                props.EndpointKind = EndpointKind.Source;
+
+                StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+                await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data);
+            });
+        }
+
+        [Test]
+        [RecordedTest]
+        public void NfsFileShareEndpointKindSource_Fails()
+        {
+            Assert.ThrowsAsync<RequestFailedException>(async () =>
+            {
+                StorageMoverEndpointCollection endpoints = await GetEndpointCollectionAsync();
+                string endpointName = Recording.GenerateAssetName("nfsfs-src-");
+                string accountResourceId = DefaultSubscription.Id.ToString() + "/resourceGroups/" + ResourceGroupName +
+                    "/providers/Microsoft.Storage/storageAccounts/" + StorageAccountName;
+
+                AzureStorageNfsFileShareEndpointProperties props =
+                    new AzureStorageNfsFileShareEndpointProperties(new ResourceIdentifier(accountResourceId), "testnfsfileshare");
+                props.EndpointKind = EndpointKind.Source;
+
+                StorageMoverEndpointData data = new StorageMoverEndpointData(props);
+                await endpoints.CreateOrUpdateAsync(WaitUntil.Completed, endpointName, data);
+            });
+        }
+
+        #endregion
+
+        [Test]
+        [RecordedTest]
         public async Task NfsFileShareEndpointCreateGetDeleteTest()
         {
             ResourceGroupResource resourceGroup = await GetResourceGroupAsync(ResourceGroupName);
@@ -207,6 +488,13 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             // Delete endpoint
             await endpoint.DeleteAsync(WaitUntil.Completed);
             Assert.IsFalse(await endpoints.ExistsAsync(endpointName));
+        }
+
+        private async Task<StorageMoverEndpointCollection> GetEndpointCollectionAsync()
+        {
+            ResourceGroupResource resourceGroup = await GetResourceGroupAsync(ResourceGroupName);
+            StorageMoverCollection storageMovers = resourceGroup.GetStorageMovers();
+            return (await storageMovers.GetAsync(StorageMoverName)).Value.GetStorageMoverEndpoints();
         }
     }
 }
