@@ -176,6 +176,7 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
 
         [Test]
         [RecordedTest]
+        [Ignore("S3WithHmac endpoint requires live S3 resources that are not yet available for recording")]
         public async Task S3WithHmacEndpointCreateGetDeleteTest()
         {
             ResourceGroupResource resourceGroup = await GetResourceGroupAsync(ResourceGroupName);
