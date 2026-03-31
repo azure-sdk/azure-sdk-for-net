@@ -1390,14 +1390,6 @@
       ]
     },
     {
-      "filename": "**/sdk/storagemover/**/*.cs",
-      "words": [
-        "hmac",
-        "mbps",
-        "unregistering"
-      ]
-    },
-    {
       "filename": "**/sdk/storagepool/**/*.cs",
       "words": [
         "iscsi"
