@@ -4,9 +4,9 @@
     "AzureClients": {
       "type": "object",
       "properties": {
-        "ConfigurationClient": {
+        "TextAnalysisClient": {
           "type": "object",
-          "description": "Configuration for ConfigurationClient.",
+          "description": "Configuration for TextAnalysisClient.",
           "properties": {
             "Endpoint": {
               "type": "string",
@@ -17,7 +17,7 @@
               "$ref": "#/definitions/credential"
             },
             "Options": {
-              "$ref": "#/definitions/configurationClientOptions"
+              "$ref": "#/definitions/textAnalysisClientOptions"
             }
           }
         }
@@ -29,7 +29,7 @@
     }
   },
   "definitions": {
-    "configurationClientOptions": {
+    "textAnalysisClientOptions": {
       "allOf": [
         {
           "$ref": "#/definitions/azureOptions"

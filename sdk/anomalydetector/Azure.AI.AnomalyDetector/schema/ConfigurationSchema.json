@@ -4,9 +4,9 @@
     "AzureClients": {
       "type": "object",
       "properties": {
-        "ConfigurationClient": {
+        "AnomalyDetectorClient": {
           "type": "object",
-          "description": "Configuration for ConfigurationClient.",
+          "description": "Configuration for AnomalyDetectorClient.",
           "properties": {
             "Endpoint": {
               "type": "string",
@@ -17,7 +17,7 @@
               "$ref": "#/definitions/credential"
             },
             "Options": {
-              "$ref": "#/definitions/configurationClientOptions"
+              "$ref": "#/definitions/anomalyDetectorClientOptions"
             }
           }
         }
@@ -29,7 +29,7 @@
     }
   },
   "definitions": {
-    "configurationClientOptions": {
+    "anomalyDetectorClientOptions": {
       "allOf": [
         {
           "$ref": "#/definitions/azureOptions"
