@@ -43,6 +43,11 @@ namespace Azure.Monitor.Query.Metrics
             {
                 Version = version;
             }
+            IConfigurationSection audienceSection = section.GetSection("Audience");
+            if (audienceSection.Exists())
+            {
+                Audience = new MetricsClientAudience(audienceSection);
+            }
             ConfigureLogging();
         }
 
