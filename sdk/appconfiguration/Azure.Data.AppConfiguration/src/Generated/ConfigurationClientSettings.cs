@@ -16,6 +16,12 @@ namespace Azure.Data.AppConfiguration
     [Experimental("SCME0002")]
     public partial class ConfigurationClientSettings : ClientSettings
     {
+        /// <summary> Gets or sets the ConnectionString. </summary>
+        public string ConnectionString { get; set; }
+
+        /// <summary> Gets or sets the Settings. </summary>
+        public ConfigurationClientSettings Settings { get; set; }
+
         /// <summary> Binds configuration values from the given section. </summary>
         /// <param name="section"> The configuration section. </param>
         protected override void BindCore(IConfigurationSection section)
@@ -23,6 +29,16 @@ namespace Azure.Data.AppConfiguration
             if (Uri.TryCreate(section["Endpoint"], UriKind.Absolute, out Uri endpoint))
             {
                 Endpoint = endpoint;
+            }
+            string connectionString = section["ConnectionString"];
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                ConnectionString = connectionString;
+            }
+            IConfigurationSection settingsSection = section.GetSection("Settings");
+            if (settingsSection.Exists())
+            {
+                Settings = new ConfigurationClientSettings(settingsSection);
             }
             IConfigurationSection optionsSection = section.GetSection("Options");
             if (optionsSection.Exists())

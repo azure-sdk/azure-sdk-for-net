@@ -44,6 +44,11 @@ namespace Azure.AI.Language.QuestionAnswering.Authoring
             {
                 Version = version;
             }
+            IConfigurationSection audienceSection = section.GetSection("Audience");
+            if (audienceSection.Exists())
+            {
+                Audience = new QuestionAnsweringAuthoringAudience(audienceSection);
+            }
             ConfigureLogging();
         }
 
