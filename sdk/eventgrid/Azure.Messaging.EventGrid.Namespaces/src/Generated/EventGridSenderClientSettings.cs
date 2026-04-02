@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using Azure.Core.Pipeline;
 
 namespace Azure.Messaging.EventGrid.Namespaces
 {
@@ -17,5 +18,14 @@ namespace Azure.Messaging.EventGrid.Namespaces
     {
         /// <summary> Gets or sets the Endpoint. </summary>
         public Uri Endpoint { get; set; }
+
+        /// <summary> Gets or sets the AuthenticationPolicy. </summary>
+        public HttpPipelinePolicy AuthenticationPolicy { get; set; }
+
+        /// <summary> Gets or sets the Settings. </summary>
+        public EventGridSenderClientSettings Settings { get; set; }
+
+        /// <summary> Gets or sets the TopicName. </summary>
+        public string TopicName { get; set; }
     }
 }

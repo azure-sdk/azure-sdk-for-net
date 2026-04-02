@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using Azure.Core.Pipeline;
 using Microsoft.Extensions.Configuration;
 
 namespace Azure.Security.KeyVault.Administration
@@ -19,6 +20,9 @@ namespace Azure.Security.KeyVault.Administration
         /// <summary> Gets or sets the VaultBaseUrl. </summary>
         public Uri VaultBaseUrl { get; set; }
 
+        /// <summary> Gets or sets the AuthenticationPolicy. </summary>
+        public HttpPipelinePolicy AuthenticationPolicy { get; set; }
+
         /// <summary> Gets or sets the Options. </summary>
         public KeyVaultAdministrationClientOptions Options { get; set; }
 
@@ -29,6 +33,11 @@ namespace Azure.Security.KeyVault.Administration
             if (Uri.TryCreate(section["VaultBaseUrl"], UriKind.Absolute, out Uri vaultBaseUrl))
             {
                 VaultBaseUrl = vaultBaseUrl;
+            }
+            IConfigurationSection authenticationPolicySection = section.GetSection("AuthenticationPolicy");
+            if (authenticationPolicySection.Exists())
+            {
+                AuthenticationPolicy = new Core.Pipeline.HttpPipelinePolicy(authenticationPolicySection);
             }
             IConfigurationSection optionsSection = section.GetSection("Options");
             if (optionsSection.Exists())
