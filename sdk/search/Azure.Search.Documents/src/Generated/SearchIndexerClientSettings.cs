@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using Azure.Core.Pipeline;
 using Azure.Search.Documents;
 using Microsoft.Extensions.Configuration;
 
@@ -20,6 +21,9 @@ namespace Azure.Search.Documents.Indexes
         /// <summary> Gets or sets the Endpoint. </summary>
         public Uri Endpoint { get; set; }
 
+        /// <summary> Gets or sets the AuthenticationPolicy. </summary>
+        public HttpPipelinePolicy AuthenticationPolicy { get; set; }
+
         /// <summary> Gets or sets the Options. </summary>
         public SearchClientOptions Options { get; set; }
 
@@ -30,6 +34,11 @@ namespace Azure.Search.Documents.Indexes
             if (Uri.TryCreate(section["Endpoint"], UriKind.Absolute, out Uri endpoint))
             {
                 Endpoint = endpoint;
+            }
+            IConfigurationSection authenticationPolicySection = section.GetSection("AuthenticationPolicy");
+            if (authenticationPolicySection.Exists())
+            {
+                AuthenticationPolicy = new Core.Pipeline.HttpPipelinePolicy(authenticationPolicySection);
             }
             IConfigurationSection optionsSection = section.GetSection("Options");
             if (optionsSection.Exists())

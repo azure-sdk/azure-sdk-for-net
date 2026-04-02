@@ -8,6 +8,8 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using Azure.Core.Pipeline;
+using Azure.Core.Serialization;
 using Microsoft.Extensions.Configuration;
 
 namespace Azure.Search.Documents
@@ -21,6 +23,21 @@ namespace Azure.Search.Documents
 
         /// <summary> Gets or sets the IndexName. </summary>
         public string IndexName { get; set; }
+
+        /// <summary> Gets or sets the AuthenticationPolicy. </summary>
+        public HttpPipelinePolicy AuthenticationPolicy { get; set; }
+
+        /// <summary> Gets or sets the Serializer. </summary>
+        public ObjectSerializer Serializer { get; set; }
+
+        /// <summary> Gets or sets the Pipeline. </summary>
+        public virtual HttpPipeline Pipeline { get; set; }
+
+        /// <summary> Gets or sets the Diagnostics. </summary>
+        public ClientDiagnostics Diagnostics { get; set; }
+
+        /// <summary> Gets or sets the Version. </summary>
+        public SearchClientOptions.ServiceVersion? Version { get; set; }
 
         /// <summary> Gets or sets the Options. </summary>
         public SearchClientOptions Options { get; set; }
@@ -37,6 +54,30 @@ namespace Azure.Search.Documents
             if (!string.IsNullOrEmpty(indexName))
             {
                 IndexName = indexName;
+            }
+            IConfigurationSection authenticationPolicySection = section.GetSection("AuthenticationPolicy");
+            if (authenticationPolicySection.Exists())
+            {
+                AuthenticationPolicy = new Core.Pipeline.HttpPipelinePolicy(authenticationPolicySection);
+            }
+            IConfigurationSection serializerSection = section.GetSection("Serializer");
+            if (serializerSection.Exists())
+            {
+                Serializer = new Core.Serialization.ObjectSerializer(serializerSection);
+            }
+            IConfigurationSection pipelineSection = section.GetSection("Pipeline");
+            if (pipelineSection.Exists())
+            {
+                Pipeline = new HttpPipeline(pipelineSection);
+            }
+            IConfigurationSection diagnosticsSection = section.GetSection("Diagnostics");
+            if (diagnosticsSection.Exists())
+            {
+                Diagnostics = new ClientDiagnostics(diagnosticsSection);
+            }
+            if (Enum.TryParse(section["Version"], out SearchClientOptions.ServiceVersion version))
+            {
+                Version = version;
             }
             IConfigurationSection optionsSection = section.GetSection("Options");
             if (optionsSection.Exists())
