@@ -4,29 +4,20 @@
     "AzureClients": {
       "type": "object",
       "properties": {
-        "ConfigurationClient": {
+        "ConversationAnalysisClient": {
           "type": "object",
-          "description": "Configuration for ConfigurationClient.",
+          "description": "Configuration for ConversationAnalysisClient.",
           "properties": {
             "Endpoint": {
               "type": "string",
               "format": "uri",
               "description": "Gets or sets the Endpoint."
             },
-            "ConnectionString": {
-              "type": "string"
-            },
-            "Settings": {
-              "type": "object"
-            },
-            "SyncToken": {
-              "type": "string"
-            },
             "Credential": {
               "$ref": "#/definitions/credential"
             },
             "Options": {
-              "$ref": "#/definitions/configurationClientOptions"
+              "$ref": "#/definitions/conversationsClientOptions"
             }
           }
         }
@@ -38,18 +29,10 @@
     }
   },
   "definitions": {
-    "configurationClientOptions": {
+    "conversationsClientOptions": {
       "allOf": [
         {
           "$ref": "#/definitions/azureOptions"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "Audience": {
-              "type": "object"
-            }
-          }
         }
       ]
     }

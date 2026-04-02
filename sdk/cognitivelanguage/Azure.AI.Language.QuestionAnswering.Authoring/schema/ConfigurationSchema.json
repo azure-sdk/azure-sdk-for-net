@@ -4,29 +4,20 @@
     "AzureClients": {
       "type": "object",
       "properties": {
-        "ConfigurationClient": {
+        "QuestionAnsweringAuthoringClient": {
           "type": "object",
-          "description": "Configuration for ConfigurationClient.",
+          "description": "Configuration for QuestionAnsweringAuthoringClient.",
           "properties": {
             "Endpoint": {
               "type": "string",
               "format": "uri",
               "description": "Gets or sets the Endpoint."
             },
-            "ConnectionString": {
-              "type": "string"
-            },
-            "Settings": {
-              "type": "object"
-            },
-            "SyncToken": {
-              "type": "string"
-            },
             "Credential": {
               "$ref": "#/definitions/credential"
             },
             "Options": {
-              "$ref": "#/definitions/configurationClientOptions"
+              "$ref": "#/definitions/questionAnsweringAuthoringClientOptions"
             }
           }
         }
@@ -38,7 +29,7 @@
     }
   },
   "definitions": {
-    "configurationClientOptions": {
+    "questionAnsweringAuthoringClientOptions": {
       "allOf": [
         {
           "$ref": "#/definitions/azureOptions"

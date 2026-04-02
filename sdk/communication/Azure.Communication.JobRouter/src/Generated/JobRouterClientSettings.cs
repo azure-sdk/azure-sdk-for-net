@@ -8,6 +8,8 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using Azure;
+using Azure.Core.Pipeline;
 using Microsoft.Extensions.Configuration;
 
 namespace Azure.Communication.JobRouter
@@ -19,6 +21,15 @@ namespace Azure.Communication.JobRouter
         /// <summary> Gets or sets the Endpoint. </summary>
         public Uri Endpoint { get; set; }
 
+        /// <summary> Gets or sets the ConnectionString. </summary>
+        public string ConnectionString { get; set; }
+
+        /// <summary> Gets or sets the KeyCredential. </summary>
+        public AzureKeyCredential KeyCredential { get; set; }
+
+        /// <summary> Gets or sets the Pipeline. </summary>
+        public virtual HttpPipeline Pipeline { get; set; }
+
         /// <summary> Gets or sets the Options. </summary>
         public JobRouterClientOptions Options { get; set; }
 
@@ -29,6 +40,21 @@ namespace Azure.Communication.JobRouter
             if (Uri.TryCreate(section["Endpoint"], UriKind.Absolute, out Uri endpoint))
             {
                 Endpoint = endpoint;
+            }
+            string connectionString = section["ConnectionString"];
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                ConnectionString = connectionString;
+            }
+            IConfigurationSection keyCredentialSection = section.GetSection("KeyCredential");
+            if (keyCredentialSection.Exists())
+            {
+                KeyCredential = new AzureKeyCredential(keyCredentialSection);
+            }
+            IConfigurationSection pipelineSection = section.GetSection("Pipeline");
+            if (pipelineSection.Exists())
+            {
+                Pipeline = new HttpPipeline(pipelineSection);
             }
             IConfigurationSection optionsSection = section.GetSection("Options");
             if (optionsSection.Exists())
