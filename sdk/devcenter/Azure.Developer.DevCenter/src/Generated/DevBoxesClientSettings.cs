@@ -8,6 +8,7 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using Azure.Core.Pipeline;
 using Microsoft.Extensions.Configuration;
 
 namespace Azure.Developer.DevCenter
@@ -19,6 +20,9 @@ namespace Azure.Developer.DevCenter
         /// <summary> Gets or sets the Endpoint. </summary>
         public Uri Endpoint { get; set; }
 
+        /// <summary> Gets or sets the Pipeline. </summary>
+        public virtual HttpPipeline Pipeline { get; set; }
+
         /// <summary> Gets or sets the Options. </summary>
         public DevCenterClientOptions Options { get; set; }
 
@@ -29,6 +33,11 @@ namespace Azure.Developer.DevCenter
             if (Uri.TryCreate(section["Endpoint"], UriKind.Absolute, out Uri endpoint))
             {
                 Endpoint = endpoint;
+            }
+            IConfigurationSection pipelineSection = section.GetSection("Pipeline");
+            if (pipelineSection.Exists())
+            {
+                Pipeline = new HttpPipeline(pipelineSection);
             }
             IConfigurationSection optionsSection = section.GetSection("Options");
             if (optionsSection.Exists())
