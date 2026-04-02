@@ -1,0 +1,147 @@
+{
+  "type": "object",
+  "properties": {
+    "AzureClients": {
+      "type": "object",
+      "properties": {
+        "SearchClient": {
+          "type": "object",
+          "description": "Configuration for SearchClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "IndexName": {
+              "type": "string"
+            },
+            "AuthenticationPolicy": {
+              "type": "object"
+            },
+            "Serializer": {
+              "type": "object"
+            },
+            "Pipeline": {
+              "type": "object"
+            },
+            "Diagnostics": {
+              "type": "object"
+            },
+            "Version": {
+              "type": "string"
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/searchClientOptions"
+            }
+          }
+        },
+        "SearchIndexClient": {
+          "type": "object",
+          "description": "Configuration for SearchIndexClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "Serializer": {
+              "type": "object"
+            },
+            "Pipeline": {
+              "type": "object"
+            },
+            "Diagnostics": {
+              "type": "object"
+            },
+            "Version": {
+              "type": "string"
+            },
+            "AuthenticationPolicy": {
+              "type": "object"
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/searchClientOptions"
+            }
+          }
+        },
+        "SearchIndexerClient": {
+          "type": "object",
+          "description": "Configuration for SearchIndexerClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "AuthenticationPolicy": {
+              "type": "object"
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/searchClientOptions"
+            }
+          }
+        },
+        "KnowledgeBaseRetrievalClient": {
+          "type": "object",
+          "description": "Configuration for KnowledgeBaseRetrievalClient.",
+          "properties": {
+            "Endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Gets or sets the Endpoint."
+            },
+            "KnowledgeBaseName": {
+              "type": "string"
+            },
+            "AuthenticationPolicy": {
+              "type": "object"
+            },
+            "Credential": {
+              "$ref": "#/definitions/credential"
+            },
+            "Options": {
+              "$ref": "#/definitions/searchClientOptions"
+            }
+          }
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Configuration for a named client instance."
+      }
+    }
+  },
+  "definitions": {
+    "searchClientOptions": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/azureOptions"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Version": {
+              "type": "string"
+            },
+            "Serializer": {
+              "type": "object"
+            },
+            "Audience": {
+              "type": "object"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
