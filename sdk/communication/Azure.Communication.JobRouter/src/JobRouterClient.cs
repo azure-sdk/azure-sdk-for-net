@@ -1227,7 +1227,7 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual AsyncPageable<BinaryData> GetJobsAsync(string status, string queueId, string channelId, string classificationPolicyId, DateTimeOffset? scheduledBefore, DateTimeOffset? scheduledAfter, RequestContext context)
         {
-            return new JobRouterClientGetJobsAsyncCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context);
+            return new JobRouterClientGetJobsAsyncCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context, "JobRouterClient.GetJobs");
         }
 
         /// <summary>
@@ -1256,7 +1256,7 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual Pageable<BinaryData> GetJobs(string status, string queueId, string channelId, string classificationPolicyId, DateTimeOffset? scheduledBefore, DateTimeOffset? scheduledAfter, RequestContext context)
         {
-            return new JobRouterClientGetJobsCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context);
+            return new JobRouterClientGetJobsCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context, "JobRouterClient.GetJobs");
         }
 
         #endregion Job
@@ -1541,7 +1541,7 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual AsyncPageable<BinaryData> GetWorkersAsync(string state, string channelId, string queueId, bool? hasCapacity, RequestContext context)
         {
-            return new JobRouterClientGetWorkersAsyncCollectionResult(this, null, state, channelId, queueId, hasCapacity, context);
+            return new JobRouterClientGetWorkersAsyncCollectionResult(this, null, state, channelId, queueId, hasCapacity, context, "JobRouterClient.GetWorkers");
         }
 
         /// <summary>
@@ -1568,7 +1568,7 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual Pageable<BinaryData> GetWorkers(string state, string channelId, string queueId, bool? hasCapacity, RequestContext context)
         {
-            return new JobRouterClientGetWorkersCollectionResult(this, null, state, channelId, queueId, hasCapacity, context);
+            return new JobRouterClientGetWorkersCollectionResult(this, null, state, channelId, queueId, hasCapacity, context, "JobRouterClient.GetWorkers");
         }
 
         #endregion Worker
