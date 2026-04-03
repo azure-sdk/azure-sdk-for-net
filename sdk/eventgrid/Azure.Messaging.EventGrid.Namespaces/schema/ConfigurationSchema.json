@@ -13,9 +13,6 @@
               "format": "uri",
               "description": "Gets or sets the Endpoint."
             },
-            "Settings": {
-              "type": "object"
-            },
             "TopicName": {
               "type": "string"
             },
@@ -35,9 +32,6 @@
               "type": "string",
               "format": "uri",
               "description": "Gets or sets the Endpoint."
-            },
-            "Settings": {
-              "type": "object"
             },
             "TopicName": {
               "type": "string"

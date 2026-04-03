@@ -16,9 +16,6 @@
             "ConnectionString": {
               "type": "string"
             },
-            "Settings": {
-              "type": "object"
-            },
             "Credential": {
               "$ref": "#/definitions/credential"
             },

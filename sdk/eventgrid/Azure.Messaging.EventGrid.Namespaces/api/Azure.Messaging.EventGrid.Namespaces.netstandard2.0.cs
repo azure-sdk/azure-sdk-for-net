@@ -95,7 +95,6 @@ namespace Azure.Messaging.EventGrid.Namespaces
         public EventGridReceiverClientSettings() { }
         public System.Uri Endpoint { get { throw null; } set { } }
         public Azure.Messaging.EventGrid.Namespaces.EventGridReceiverClientOptions Options { get { throw null; } set { } }
-        public Azure.Messaging.EventGrid.Namespaces.EventGridReceiverClientSettings Settings { get { throw null; } set { } }
         public string SubscriptionName { get { throw null; } set { } }
         public string TopicName { get { throw null; } set { } }
         protected override void BindCore(Microsoft.Extensions.Configuration.IConfigurationSection section) { }
@@ -132,7 +131,6 @@ namespace Azure.Messaging.EventGrid.Namespaces
         public EventGridSenderClientSettings() { }
         public System.Uri Endpoint { get { throw null; } set { } }
         public Azure.Messaging.EventGrid.Namespaces.EventGridSenderClientOptions Options { get { throw null; } set { } }
-        public Azure.Messaging.EventGrid.Namespaces.EventGridSenderClientSettings Settings { get { throw null; } set { } }
         public string TopicName { get { throw null; } set { } }
         protected override void BindCore(Microsoft.Extensions.Configuration.IConfigurationSection section) { }
     }
