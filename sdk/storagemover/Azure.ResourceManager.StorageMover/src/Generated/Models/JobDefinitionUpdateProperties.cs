@@ -30,14 +30,16 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="agentName"> Name of the Agent to assign for new Job Runs of this Job Definition. </param>
         /// <param name="connections"> List of connections associated to this job. </param>
         /// <param name="dataIntegrityValidation"> Data Integrity Validation mode. </param>
+        /// <param name="schedule"> Schedule information for the Job Definition. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal JobDefinitionUpdateProperties(string description, StorageMoverCopyMode? copyMode, string agentName, IList<ResourceIdentifier> connections, DataIntegrityValidation? dataIntegrityValidation, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal JobDefinitionUpdateProperties(string description, StorageMoverCopyMode? copyMode, string agentName, IList<ResourceIdentifier> connections, StorageMoverDataIntegrityValidation? dataIntegrityValidation, StorageMoverScheduleInfo schedule, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Description = description;
             CopyMode = copyMode;
             AgentName = agentName;
             Connections = connections;
             DataIntegrityValidation = dataIntegrityValidation;
+            Schedule = schedule;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -54,6 +56,9 @@ namespace Azure.ResourceManager.StorageMover.Models
         public IList<ResourceIdentifier> Connections { get; } = new ChangeTrackingList<ResourceIdentifier>();
 
         /// <summary> Data Integrity Validation mode. </summary>
-        public DataIntegrityValidation? DataIntegrityValidation { get; set; }
+        public StorageMoverDataIntegrityValidation? DataIntegrityValidation { get; set; }
+
+        /// <summary> Schedule information for the Job Definition. </summary>
+        public StorageMoverScheduleInfo Schedule { get; set; }
     }
 }

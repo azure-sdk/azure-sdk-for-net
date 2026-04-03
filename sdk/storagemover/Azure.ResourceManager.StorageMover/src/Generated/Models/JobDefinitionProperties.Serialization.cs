@@ -176,10 +176,10 @@ namespace Azure.ResourceManager.StorageMover.Models
                 writer.WritePropertyName("dataIntegrityValidation"u8);
                 writer.WriteStringValue(DataIntegrityValidation.Value.ToString());
             }
-            if (Optional.IsDefined(PreservePermissions))
+            if (Optional.IsDefined(IsPermissionsPreserved))
             {
                 writer.WritePropertyName("preservePermissions"u8);
-                writer.WriteBooleanValue(PreservePermissions.Value);
+                writer.WriteBooleanValue(IsPermissionsPreserved.Value);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -240,9 +240,9 @@ namespace Azure.ResourceManager.StorageMover.Models
             JobDefinitionPropertiesSourceTargetMap sourceTargetMap = default;
             StorageMoverProvisioningState? provisioningState = default;
             IList<ResourceIdentifier> connections = default;
-            ScheduleInfo schedule = default;
-            DataIntegrityValidation? dataIntegrityValidation = default;
-            bool? preservePermissions = default;
+            StorageMoverScheduleInfo schedule = default;
+            StorageMoverDataIntegrityValidation? dataIntegrityValidation = default;
+            bool? isPermissionsPreserved = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -385,7 +385,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    schedule = ScheduleInfo.DeserializeScheduleInfo(prop.Value, options);
+                    schedule = StorageMoverScheduleInfo.DeserializeStorageMoverScheduleInfo(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("dataIntegrityValidation"u8))
@@ -394,7 +394,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    dataIntegrityValidation = new DataIntegrityValidation(prop.Value.GetString());
+                    dataIntegrityValidation = new StorageMoverDataIntegrityValidation(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("preservePermissions"u8))
@@ -403,7 +403,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    preservePermissions = prop.Value.GetBoolean();
+                    isPermissionsPreserved = prop.Value.GetBoolean();
                     continue;
                 }
                 if (options.Format != "W")
@@ -431,7 +431,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                 connections ?? new ChangeTrackingList<ResourceIdentifier>(),
                 schedule,
                 dataIntegrityValidation,
-                preservePermissions,
+                isPermissionsPreserved,
                 additionalBinaryDataProperties);
         }
     }

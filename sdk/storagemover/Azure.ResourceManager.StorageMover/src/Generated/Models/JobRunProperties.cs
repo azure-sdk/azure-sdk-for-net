@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="warnings"> Warning details. </param>
         /// <param name="provisioningState"> The provisioning state of this resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal JobRunProperties(JobRunStatus? status, JobRunScanStatus? scanStatus, string agentName, ResourceIdentifier agentResourceId, DateTimeOffset? executionStartOn, DateTimeOffset? executionEndOn, TriggerType? triggerType, DateTimeOffset? scheduledExecutionOn, DateTimeOffset? lastStatusUpdate, long? itemsScanned, long? itemsExcluded, long? itemsUnsupported, long? itemsNoTransferNeeded, long? itemsFailed, long? itemsTransferred, long? bytesScanned, long? bytesExcluded, long? bytesUnsupported, long? bytesNoTransferNeeded, long? bytesFailed, long? bytesTransferred, string sourceName, ResourceIdentifier sourceResourceId, BinaryData sourceProperties, string targetName, ResourceIdentifier targetResourceId, BinaryData targetProperties, BinaryData jobDefinitionProperties, JobRunError error, IReadOnlyList<JobRunWarning> warnings, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal JobRunProperties(JobRunStatus? status, JobRunScanStatus? scanStatus, string agentName, ResourceIdentifier agentResourceId, DateTimeOffset? executionStartOn, DateTimeOffset? executionEndOn, StorageMoverJobTriggerType? triggerType, DateTimeOffset? scheduledExecutionOn, DateTimeOffset? lastStatusUpdate, long? itemsScanned, long? itemsExcluded, long? itemsUnsupported, long? itemsNoTransferNeeded, long? itemsFailed, long? itemsTransferred, long? bytesScanned, long? bytesExcluded, long? bytesUnsupported, long? bytesNoTransferNeeded, long? bytesFailed, long? bytesTransferred, string sourceName, ResourceIdentifier sourceResourceId, BinaryData sourceProperties, string targetName, ResourceIdentifier targetResourceId, BinaryData targetProperties, BinaryData jobDefinitionProperties, JobRunError error, IReadOnlyList<JobRunWarning> warnings, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Status = status;
             ScanStatus = scanStatus;
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         public DateTimeOffset? ExecutionEndOn { get; }
 
         /// <summary> Trigger type for the job run. Default is manual. </summary>
-        public TriggerType? TriggerType { get; }
+        public StorageMoverJobTriggerType? TriggerType { get; }
 
         /// <summary> Scheduled execution time. Null if Trigger type is manual. </summary>
         public DateTimeOffset? ScheduledExecutionOn { get; }

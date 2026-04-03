@@ -162,7 +162,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="endpointKind"> The Endpoint resource kind source or target. </param>
         /// <param name="provisioningState"> The provisioning state of this resource. </param>
         /// <returns> A new <see cref="Models.EndpointBaseProperties"/> instance for mocking. </returns>
-        public static EndpointBaseProperties EndpointBaseProperties(string endpointType = default, string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default)
+        public static EndpointBaseProperties EndpointBaseProperties(string endpointType = default, string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default)
         {
             return new UnknownEndpointBaseProperties(new EndpointType(endpointType), description, endpointKind, provisioningState, additionalBinaryDataProperties: null);
         }
@@ -174,7 +174,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="storageAccountResourceId"> The Azure Resource ID of the storage account that is the target destination. </param>
         /// <param name="blobContainerName"> The name of the Storage blob container that is the target destination. </param>
         /// <returns> A new <see cref="Models.AzureStorageBlobContainerEndpointProperties"/> instance for mocking. </returns>
-        public static AzureStorageBlobContainerEndpointProperties AzureStorageBlobContainerEndpointProperties(string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, string storageAccountResourceId = default, string blobContainerName = default)
+        public static AzureStorageBlobContainerEndpointProperties AzureStorageBlobContainerEndpointProperties(string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, string storageAccountResourceId = default, string blobContainerName = default)
         {
             return new AzureStorageBlobContainerEndpointProperties(
                 EndpointType.AzureStorageBlobContainer,
@@ -194,7 +194,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="nfsVersion"> The NFS protocol version. </param>
         /// <param name="export"> The directory being exported from the server. </param>
         /// <returns> A new <see cref="Models.NfsMountEndpointProperties"/> instance for mocking. </returns>
-        public static NfsMountEndpointProperties NfsMountEndpointProperties(string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, string host = default, NfsVersion? nfsVersion = default, string export = default)
+        public static NfsMountEndpointProperties NfsMountEndpointProperties(string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, string host = default, NfsVersion? nfsVersion = default, string export = default)
         {
             return new NfsMountEndpointProperties(
                 EndpointType.NfsMount,
@@ -216,7 +216,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="sourceType"> The source type of S3WithHmac endpoint. </param>
         /// <param name="otherSourceTypeDescription"> The description for other source type of S3WithHmac endpoint. </param>
         /// <returns> A new <see cref="Models.S3WithHmacEndpointProperties"/> instance for mocking. </returns>
-        public static S3WithHmacEndpointProperties S3WithHmacEndpointProperties(string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, AzureKeyVaultS3WithHmacCredentials credentials = default, string sourceUri = default, S3WithHmacSourceType? sourceType = default, string otherSourceTypeDescription = default)
+        public static S3WithHmacEndpointProperties S3WithHmacEndpointProperties(string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, AzureKeyVaultS3WithHmacCredentials credentials = default, string sourceUri = default, S3WithHmacSourceType? sourceType = default, string otherSourceTypeDescription = default)
         {
             return new S3WithHmacEndpointProperties(
                 EndpointType.S3WithHmac,
@@ -237,7 +237,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="storageAccountResourceId"> The Azure Resource ID of the storage account. </param>
         /// <param name="fileShareName"> The name of the Azure Storage file share. </param>
         /// <returns> A new <see cref="Models.AzureStorageSmbFileShareEndpointProperties"/> instance for mocking. </returns>
-        public static AzureStorageSmbFileShareEndpointProperties AzureStorageSmbFileShareEndpointProperties(string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, ResourceIdentifier storageAccountResourceId = default, string fileShareName = default)
+        public static AzureStorageSmbFileShareEndpointProperties AzureStorageSmbFileShareEndpointProperties(string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, ResourceIdentifier storageAccountResourceId = default, string fileShareName = default)
         {
             return new AzureStorageSmbFileShareEndpointProperties(
                 EndpointType.AzureStorageSmbFileShare,
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="shareName"> The name of the SMB share being exported from the server. </param>
         /// <param name="credentials"> The Azure Key Vault secret URIs which store the required credentials to access the SMB share. </param>
         /// <returns> A new <see cref="Models.SmbMountEndpointProperties"/> instance for mocking. </returns>
-        public static SmbMountEndpointProperties SmbMountEndpointProperties(string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, string host = default, string shareName = default, AzureKeyVaultSmbCredentials credentials = default)
+        public static SmbMountEndpointProperties SmbMountEndpointProperties(string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, string host = default, string shareName = default, AzureKeyVaultSmbCredentials credentials = default)
         {
             return new SmbMountEndpointProperties(
                 EndpointType.SmbMount,
@@ -277,7 +277,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="storageAccountResourceId"> The Azure Resource ID of the storage account. </param>
         /// <param name="fileShareName"> The name of the Azure Storage NFS file share. </param>
         /// <returns> A new <see cref="Models.AzureStorageNfsFileShareEndpointProperties"/> instance for mocking. </returns>
-        public static AzureStorageNfsFileShareEndpointProperties AzureStorageNfsFileShareEndpointProperties(string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, ResourceIdentifier storageAccountResourceId = default, string fileShareName = default)
+        public static AzureStorageNfsFileShareEndpointProperties AzureStorageNfsFileShareEndpointProperties(string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, ResourceIdentifier storageAccountResourceId = default, string fileShareName = default)
         {
             return new AzureStorageNfsFileShareEndpointProperties(
                 EndpointType.AzureStorageNfsFileShare,
@@ -296,7 +296,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="multiCloudConnectorId"> The Azure Resource ID of the MultiCloud Connector resource. </param>
         /// <param name="awsS3BucketId"> The AWS S3 bucket ARM resource Id. </param>
         /// <returns> A new <see cref="Models.AzureMultiCloudConnectorEndpointProperties"/> instance for mocking. </returns>
-        public static AzureMultiCloudConnectorEndpointProperties AzureMultiCloudConnectorEndpointProperties(string description = default, EndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, ResourceIdentifier multiCloudConnectorId = default, ResourceIdentifier awsS3BucketId = default)
+        public static AzureMultiCloudConnectorEndpointProperties AzureMultiCloudConnectorEndpointProperties(string description = default, StorageMoverEndpointKind? endpointKind = default, StorageMoverProvisioningState? provisioningState = default, ResourceIdentifier multiCloudConnectorId = default, ResourceIdentifier awsS3BucketId = default)
         {
             return new AzureMultiCloudConnectorEndpointProperties(
                 EndpointType.AzureMultiCloudConnector,
@@ -348,10 +348,10 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="connections"> List of connections associated to this job. </param>
         /// <param name="schedule"> Schedule information for the Job Definition. </param>
         /// <param name="dataIntegrityValidation"> The checksum validation mode for the job definition. </param>
-        /// <param name="preservePermissions"> Boolean to preserve permissions or not. </param>
+        /// <param name="isPermissionsPreserved"> Boolean to preserve permissions or not. </param>
         /// <param name="sourceTargetMapValue"> Gets the Value. </param>
         /// <returns> A new <see cref="StorageMover.JobDefinitionData"/> instance for mocking. </returns>
-        public static JobDefinitionData JobDefinitionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string description = default, JobType? jobType = default, StorageMoverCopyMode? copyMode = default, string sourceName = default, ResourceIdentifier sourceResourceId = default, string sourceSubpath = default, string targetName = default, ResourceIdentifier targetResourceId = default, string targetSubpath = default, string latestJobRunName = default, ResourceIdentifier latestJobRunResourceId = default, JobRunStatus? latestJobRunStatus = default, string agentName = default, ResourceIdentifier agentResourceId = default, StorageMoverProvisioningState? provisioningState = default, IEnumerable<ResourceIdentifier> connections = default, ScheduleInfo schedule = default, DataIntegrityValidation? dataIntegrityValidation = default, bool? preservePermissions = default, IEnumerable<SourceTargetMap> sourceTargetMapValue = default)
+        public static JobDefinitionData JobDefinitionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string description = default, JobType? jobType = default, StorageMoverCopyMode? copyMode = default, string sourceName = default, ResourceIdentifier sourceResourceId = default, string sourceSubpath = default, string targetName = default, ResourceIdentifier targetResourceId = default, string targetSubpath = default, string latestJobRunName = default, ResourceIdentifier latestJobRunResourceId = default, JobRunStatus? latestJobRunStatus = default, string agentName = default, ResourceIdentifier agentResourceId = default, StorageMoverProvisioningState? provisioningState = default, IEnumerable<ResourceIdentifier> connections = default, StorageMoverScheduleInfo schedule = default, StorageMoverDataIntegrityValidation? dataIntegrityValidation = default, bool? isPermissionsPreserved = default, IEnumerable<SourceTargetMap> sourceTargetMapValue = default)
         {
             return new JobDefinitionData(
                 id,
@@ -359,7 +359,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                description is null && jobType is null && copyMode is null && sourceName is null && sourceResourceId is null && sourceSubpath is null && targetName is null && targetResourceId is null && targetSubpath is null && latestJobRunName is null && latestJobRunResourceId is null && latestJobRunStatus is null && agentName is null && agentResourceId is null && provisioningState is null && connections is null && schedule is null && dataIntegrityValidation is null && preservePermissions is null && sourceTargetMapValue is null ? default : new JobDefinitionProperties(
+                description is null && jobType is null && copyMode is null && sourceName is null && sourceResourceId is null && sourceSubpath is null && targetName is null && targetResourceId is null && targetSubpath is null && latestJobRunName is null && latestJobRunResourceId is null && latestJobRunStatus is null && agentName is null && agentResourceId is null && provisioningState is null && connections is null && schedule is null && dataIntegrityValidation is null && isPermissionsPreserved is null && sourceTargetMapValue is null ? default : new JobDefinitionProperties(
                     description,
                     jobType,
                     copyMode.Value,
@@ -379,7 +379,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     (connections ?? new ChangeTrackingList<ResourceIdentifier>()).ToList(),
                     schedule,
                     dataIntegrityValidation,
-                    preservePermissions,
+                    isPermissionsPreserved,
                     null));
         }
 
@@ -421,13 +421,13 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="daysOfMonth"> Days of the month for monthly schedules. </param>
         /// <param name="cronExpression"> Optional CRON expression for advanced scheduling. </param>
         /// <param name="endOn"> End time of the schedule (in UTC). </param>
-        /// <returns> A new <see cref="Models.ScheduleInfo"/> instance for mocking. </returns>
-        public static ScheduleInfo ScheduleInfo(Frequency frequency = default, bool isActive = default, ScheduleTime executionTime = default, DateTimeOffset? startOn = default, IEnumerable<string> daysOfWeek = default, IEnumerable<int> daysOfMonth = default, string cronExpression = default, DateTimeOffset? endOn = default)
+        /// <returns> A new <see cref="Models.StorageMoverScheduleInfo"/> instance for mocking. </returns>
+        public static StorageMoverScheduleInfo StorageMoverScheduleInfo(StorageMoverScheduleFrequency? frequency = default, bool? isActive = default, SchedulerTime executionTime = default, DateTimeOffset? startOn = default, IEnumerable<string> daysOfWeek = default, IEnumerable<int> daysOfMonth = default, string cronExpression = default, DateTimeOffset? endOn = default)
         {
             daysOfWeek ??= new ChangeTrackingList<string>();
             daysOfMonth ??= new ChangeTrackingList<int>();
 
-            return new ScheduleInfo(
+            return new StorageMoverScheduleInfo(
                 frequency,
                 isActive,
                 executionTime,
@@ -525,7 +525,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="warnings"> Warning details. </param>
         /// <param name="provisioningState"> The provisioning state of this resource. </param>
         /// <returns> A new <see cref="StorageMover.JobRunData"/> instance for mocking. </returns>
-        public static JobRunData JobRunData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, JobRunStatus? status = default, JobRunScanStatus? scanStatus = default, string agentName = default, ResourceIdentifier agentResourceId = default, DateTimeOffset? executionStartOn = default, DateTimeOffset? executionEndOn = default, TriggerType? triggerType = default, DateTimeOffset? scheduledExecutionOn = default, DateTimeOffset? lastStatusUpdate = default, long? itemsScanned = default, long? itemsExcluded = default, long? itemsUnsupported = default, long? itemsNoTransferNeeded = default, long? itemsFailed = default, long? itemsTransferred = default, long? bytesScanned = default, long? bytesExcluded = default, long? bytesUnsupported = default, long? bytesNoTransferNeeded = default, long? bytesFailed = default, long? bytesTransferred = default, string sourceName = default, ResourceIdentifier sourceResourceId = default, BinaryData sourceProperties = default, string targetName = default, ResourceIdentifier targetResourceId = default, BinaryData targetProperties = default, BinaryData jobDefinitionProperties = default, JobRunError error = default, IEnumerable<JobRunWarning> warnings = default, StorageMoverProvisioningState? provisioningState = default)
+        public static JobRunData JobRunData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, JobRunStatus? status = default, JobRunScanStatus? scanStatus = default, string agentName = default, ResourceIdentifier agentResourceId = default, DateTimeOffset? executionStartOn = default, DateTimeOffset? executionEndOn = default, StorageMoverJobTriggerType? triggerType = default, DateTimeOffset? scheduledExecutionOn = default, DateTimeOffset? lastStatusUpdate = default, long? itemsScanned = default, long? itemsExcluded = default, long? itemsUnsupported = default, long? itemsNoTransferNeeded = default, long? itemsFailed = default, long? itemsTransferred = default, long? bytesScanned = default, long? bytesExcluded = default, long? bytesUnsupported = default, long? bytesNoTransferNeeded = default, long? bytesFailed = default, long? bytesTransferred = default, string sourceName = default, ResourceIdentifier sourceResourceId = default, BinaryData sourceProperties = default, string targetName = default, ResourceIdentifier targetResourceId = default, BinaryData targetProperties = default, BinaryData jobDefinitionProperties = default, JobRunError error = default, IEnumerable<JobRunWarning> warnings = default, StorageMoverProvisioningState? provisioningState = default)
         {
             return new JobRunData(
                 id,

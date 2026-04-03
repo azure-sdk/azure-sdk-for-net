@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.StorageMover.Models
             }
             EndpointType endpointType = default;
             string description = default;
-            EndpointKind? endpointKind = default;
+            StorageMoverEndpointKind? endpointKind = default;
             StorageMoverProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             ResourceIdentifier multiCloudConnectorId = default;
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    endpointKind = new EndpointKind(prop.Value.GetString());
+                    endpointKind = new StorageMoverEndpointKind(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("provisioningState"u8))

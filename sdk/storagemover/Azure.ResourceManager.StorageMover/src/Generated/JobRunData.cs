@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.StorageMover
         }
 
         /// <summary> Trigger type for the job run. Default is manual. </summary>
-        public TriggerType? TriggerType
+        public StorageMoverJobTriggerType? TriggerType
         {
             get
             {

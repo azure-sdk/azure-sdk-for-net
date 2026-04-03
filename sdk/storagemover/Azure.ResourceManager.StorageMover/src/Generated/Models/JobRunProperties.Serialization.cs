@@ -304,7 +304,7 @@ namespace Azure.ResourceManager.StorageMover.Models
             ResourceIdentifier agentResourceId = default;
             DateTimeOffset? executionStartOn = default;
             DateTimeOffset? executionEndOn = default;
-            TriggerType? triggerType = default;
+            StorageMoverJobTriggerType? triggerType = default;
             DateTimeOffset? scheduledExecutionOn = default;
             DateTimeOffset? lastStatusUpdate = default;
             long? itemsScanned = default;
@@ -388,7 +388,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    triggerType = new TriggerType(prop.Value.GetString());
+                    triggerType = new StorageMoverJobTriggerType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("scheduledExecutionTime"u8))

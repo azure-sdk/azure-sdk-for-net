@@ -12,23 +12,19 @@ using Azure.ResourceManager.StorageMover;
 namespace Azure.ResourceManager.StorageMover.Models
 {
     /// <summary> Schedule information for the Job Definition. </summary>
-    public partial class ScheduleInfo
+    public partial class StorageMoverScheduleInfo
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="ScheduleInfo"/>. </summary>
-        /// <param name="frequency"> Type of schedule — Monthly, Weekly, or Daily. </param>
-        /// <param name="isActive"> Whether the schedule is currently active. </param>
-        public ScheduleInfo(Frequency frequency, bool isActive)
+        /// <summary> Initializes a new instance of <see cref="StorageMoverScheduleInfo"/>. </summary>
+        public StorageMoverScheduleInfo()
         {
-            Frequency = frequency;
-            IsActive = isActive;
             DaysOfWeek = new ChangeTrackingList<string>();
             DaysOfMonth = new ChangeTrackingList<int>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ScheduleInfo"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="StorageMoverScheduleInfo"/>. </summary>
         /// <param name="frequency"> Type of schedule — Monthly, Weekly, or Daily. </param>
         /// <param name="isActive"> Whether the schedule is currently active. </param>
         /// <param name="executionTime"> Time of day to execute (hours and minutes). </param>
@@ -38,7 +34,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="cronExpression"> Optional CRON expression for advanced scheduling. </param>
         /// <param name="endOn"> End time of the schedule (in UTC). </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ScheduleInfo(Frequency frequency, bool isActive, ScheduleTime executionTime, DateTimeOffset? startOn, IList<string> daysOfWeek, IList<int> daysOfMonth, string cronExpression, DateTimeOffset? endOn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal StorageMoverScheduleInfo(StorageMoverScheduleFrequency? frequency, bool? isActive, SchedulerTime executionTime, DateTimeOffset? startOn, IList<string> daysOfWeek, IList<int> daysOfMonth, string cronExpression, DateTimeOffset? endOn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Frequency = frequency;
             IsActive = isActive;
@@ -52,13 +48,13 @@ namespace Azure.ResourceManager.StorageMover.Models
         }
 
         /// <summary> Type of schedule — Monthly, Weekly, or Daily. </summary>
-        public Frequency Frequency { get; set; }
+        public StorageMoverScheduleFrequency? Frequency { get; set; }
 
         /// <summary> Whether the schedule is currently active. </summary>
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         /// <summary> Time of day to execute (hours and minutes). </summary>
-        public ScheduleTime ExecutionTime { get; set; }
+        public SchedulerTime ExecutionTime { get; set; }
 
         /// <summary> Specific one-time execution date and time. </summary>
         public DateTimeOffset? StartOn { get; set; }

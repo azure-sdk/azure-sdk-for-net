@@ -12,16 +12,16 @@ using Azure.ResourceManager.StorageMover;
 namespace Azure.ResourceManager.StorageMover.Models
 {
     /// <summary> The type of the endpoint source/target. </summary>
-    public readonly partial struct EndpointKind : IEquatable<EndpointKind>
+    public readonly partial struct StorageMoverEndpointKind : IEquatable<StorageMoverEndpointKind>
     {
         private readonly string _value;
         private const string SourceValue = "Source";
         private const string TargetValue = "Target";
 
-        /// <summary> Initializes a new instance of <see cref="EndpointKind"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="StorageMoverEndpointKind"/>. </summary>
         /// <param name="value"> The value. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        public EndpointKind(string value)
+        public StorageMoverEndpointKind(string value)
         {
             Argument.AssertNotNull(value, nameof(value));
 
@@ -29,35 +29,35 @@ namespace Azure.ResourceManager.StorageMover.Models
         }
 
         /// <summary> Gets the Source. </summary>
-        public static EndpointKind Source { get; } = new EndpointKind(SourceValue);
+        public static StorageMoverEndpointKind Source { get; } = new StorageMoverEndpointKind(SourceValue);
 
         /// <summary> Gets the Target. </summary>
-        public static EndpointKind Target { get; } = new EndpointKind(TargetValue);
+        public static StorageMoverEndpointKind Target { get; } = new StorageMoverEndpointKind(TargetValue);
 
-        /// <summary> Determines if two <see cref="EndpointKind"/> values are the same. </summary>
+        /// <summary> Determines if two <see cref="StorageMoverEndpointKind"/> values are the same. </summary>
         /// <param name="left"> The left value to compare. </param>
         /// <param name="right"> The right value to compare. </param>
-        public static bool operator ==(EndpointKind left, EndpointKind right) => left.Equals(right);
+        public static bool operator ==(StorageMoverEndpointKind left, StorageMoverEndpointKind right) => left.Equals(right);
 
-        /// <summary> Determines if two <see cref="EndpointKind"/> values are not the same. </summary>
+        /// <summary> Determines if two <see cref="StorageMoverEndpointKind"/> values are not the same. </summary>
         /// <param name="left"> The left value to compare. </param>
         /// <param name="right"> The right value to compare. </param>
-        public static bool operator !=(EndpointKind left, EndpointKind right) => !left.Equals(right);
+        public static bool operator !=(StorageMoverEndpointKind left, StorageMoverEndpointKind right) => !left.Equals(right);
 
-        /// <summary> Converts a string to a <see cref="EndpointKind"/>. </summary>
+        /// <summary> Converts a string to a <see cref="StorageMoverEndpointKind"/>. </summary>
         /// <param name="value"> The value. </param>
-        public static implicit operator EndpointKind(string value) => new EndpointKind(value);
+        public static implicit operator StorageMoverEndpointKind(string value) => new StorageMoverEndpointKind(value);
 
-        /// <summary> Converts a string to a <see cref="EndpointKind"/>. </summary>
+        /// <summary> Converts a string to a <see cref="StorageMoverEndpointKind"/>. </summary>
         /// <param name="value"> The value. </param>
-        public static implicit operator EndpointKind?(string value) => value == null ? null : new EndpointKind(value);
+        public static implicit operator StorageMoverEndpointKind?(string value) => value == null ? null : new StorageMoverEndpointKind(value);
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj) => obj is EndpointKind other && Equals(other);
+        public override bool Equals(object obj) => obj is StorageMoverEndpointKind other && Equals(other);
 
         /// <inheritdoc/>
-        public bool Equals(EndpointKind other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
+        public bool Equals(StorageMoverEndpointKind other) => string.Equals(_value, other._value, StringComparison.InvariantCultureIgnoreCase);
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]

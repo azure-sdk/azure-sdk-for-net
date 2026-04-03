@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="sourceUri"> The  URI which points to the source. </param>
         /// <param name="sourceType"> The source type of S3WithHmac endpoint. </param>
         /// <param name="otherSourceTypeDescription"> The description for other source type of S3WithHmac endpoint. </param>
-        internal S3WithHmacEndpointProperties(EndpointType endpointType, string description, EndpointKind? endpointKind, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties, AzureKeyVaultS3WithHmacCredentials credentials, string sourceUri, S3WithHmacSourceType? sourceType, string otherSourceTypeDescription) : base(endpointType, description, endpointKind, provisioningState, additionalBinaryDataProperties)
+        internal S3WithHmacEndpointProperties(EndpointType endpointType, string description, StorageMoverEndpointKind? endpointKind, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties, AzureKeyVaultS3WithHmacCredentials credentials, string sourceUri, S3WithHmacSourceType? sourceType, string otherSourceTypeDescription) : base(endpointType, description, endpointKind, provisioningState, additionalBinaryDataProperties)
         {
             Credentials = credentials;
             SourceUri = sourceUri;

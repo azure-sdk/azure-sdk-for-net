@@ -14,56 +14,51 @@ using Azure.ResourceManager.StorageMover;
 namespace Azure.ResourceManager.StorageMover.Models
 {
     /// <summary> Schedule information for the Job Definition. </summary>
-    public partial class ScheduleInfo : IJsonModel<ScheduleInfo>
+    public partial class StorageMoverScheduleInfo : IJsonModel<StorageMoverScheduleInfo>
     {
-        /// <summary> Initializes a new instance of <see cref="ScheduleInfo"/> for deserialization. </summary>
-        internal ScheduleInfo()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ScheduleInfo PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual StorageMoverScheduleInfo PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<StorageMoverScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeScheduleInfo(document.RootElement, options);
+                        return DeserializeStorageMoverScheduleInfo(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ScheduleInfo)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(StorageMoverScheduleInfo)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<StorageMoverScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerStorageMoverContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(ScheduleInfo)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(StorageMoverScheduleInfo)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ScheduleInfo>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<StorageMoverScheduleInfo>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ScheduleInfo IPersistableModel<ScheduleInfo>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        StorageMoverScheduleInfo IPersistableModel<StorageMoverScheduleInfo>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ScheduleInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<StorageMoverScheduleInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<ScheduleInfo>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<StorageMoverScheduleInfo>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -74,15 +69,21 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<StorageMoverScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ScheduleInfo)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(StorageMoverScheduleInfo)} does not support writing '{format}' format.");
             }
-            writer.WritePropertyName("frequency"u8);
-            writer.WriteStringValue(Frequency.ToString());
-            writer.WritePropertyName("isActive"u8);
-            writer.WriteBooleanValue(IsActive);
+            if (Optional.IsDefined(Frequency))
+            {
+                writer.WritePropertyName("frequency"u8);
+                writer.WriteStringValue(Frequency.Value.ToString());
+            }
+            if (Optional.IsDefined(IsActive))
+            {
+                writer.WritePropertyName("isActive"u8);
+                writer.WriteBooleanValue(IsActive.Value);
+            }
             if (Optional.IsDefined(ExecutionTime))
             {
                 writer.WritePropertyName("executionTime"u8);
@@ -147,32 +148,32 @@ namespace Azure.ResourceManager.StorageMover.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ScheduleInfo IJsonModel<ScheduleInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        StorageMoverScheduleInfo IJsonModel<StorageMoverScheduleInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual ScheduleInfo JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual StorageMoverScheduleInfo JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<StorageMoverScheduleInfo>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ScheduleInfo)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(StorageMoverScheduleInfo)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeScheduleInfo(document.RootElement, options);
+            return DeserializeStorageMoverScheduleInfo(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static ScheduleInfo DeserializeScheduleInfo(JsonElement element, ModelReaderWriterOptions options)
+        internal static StorageMoverScheduleInfo DeserializeStorageMoverScheduleInfo(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Frequency frequency = default;
-            bool isActive = default;
-            ScheduleTime executionTime = default;
+            StorageMoverScheduleFrequency? frequency = default;
+            bool? isActive = default;
+            SchedulerTime executionTime = default;
             DateTimeOffset? startOn = default;
             IList<string> daysOfWeek = default;
             IList<int> daysOfMonth = default;
@@ -183,11 +184,19 @@ namespace Azure.ResourceManager.StorageMover.Models
             {
                 if (prop.NameEquals("frequency"u8))
                 {
-                    frequency = new Frequency(prop.Value.GetString());
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    frequency = new StorageMoverScheduleFrequency(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("isActive"u8))
                 {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     isActive = prop.Value.GetBoolean();
                     continue;
                 }
@@ -197,7 +206,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    executionTime = ScheduleTime.DeserializeScheduleTime(prop.Value, options);
+                    executionTime = SchedulerTime.DeserializeSchedulerTime(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("startDate"u8))
@@ -263,7 +272,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ScheduleInfo(
+            return new StorageMoverScheduleInfo(
                 frequency,
                 isActive,
                 executionTime,

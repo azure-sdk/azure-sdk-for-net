@@ -110,6 +110,11 @@ namespace Azure.ResourceManager.StorageMover.Models
                 writer.WritePropertyName("dataIntegrityValidation"u8);
                 writer.WriteStringValue(DataIntegrityValidation.Value.ToString());
             }
+            if (Optional.IsDefined(Schedule))
+            {
+                writer.WritePropertyName("schedule"u8);
+                writer.WriteObjectValue(Schedule, options);
+            }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -156,7 +161,8 @@ namespace Azure.ResourceManager.StorageMover.Models
             StorageMoverCopyMode? copyMode = default;
             string agentName = default;
             IList<ResourceIdentifier> connections = default;
-            DataIntegrityValidation? dataIntegrityValidation = default;
+            StorageMoverDataIntegrityValidation? dataIntegrityValidation = default;
+            StorageMoverScheduleInfo schedule = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -206,7 +212,16 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    dataIntegrityValidation = new DataIntegrityValidation(prop.Value.GetString());
+                    dataIntegrityValidation = new StorageMoverDataIntegrityValidation(prop.Value.GetString());
+                    continue;
+                }
+                if (prop.NameEquals("schedule"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    schedule = StorageMoverScheduleInfo.DeserializeStorageMoverScheduleInfo(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -220,6 +235,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                 agentName,
                 connections ?? new ChangeTrackingList<ResourceIdentifier>(),
                 dataIntegrityValidation,
+                schedule,
                 additionalBinaryDataProperties);
         }
     }

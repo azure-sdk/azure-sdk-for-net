@@ -15,11 +15,12 @@ namespace Azure.ResourceManager.StorageMover.Models
     public readonly partial struct S3WithHmacSourceType : IEquatable<S3WithHmacSourceType>
     {
         private readonly string _value;
-        private const string MINIOValue = "MINIO";
-        private const string BACKBLAZEValue = "BACKBLAZE";
-        private const string IBMValue = "IBM";
-        private const string CLOUDFLAREValue = "CLOUDFLARE";
-        private const string GCSValue = "GCS";
+        private const string MinioValue = "MINIO";
+        private const string IbmValue = "IBM";
+        private const string GcsValue = "GCS";
+        private const string AlibabaValue = "ALIBABA";
+        private const string DellEmcValue = "DELL_EMC";
+        private const string OtherValue = "OTHER";
 
         /// <summary> Initializes a new instance of <see cref="S3WithHmacSourceType"/>. </summary>
         /// <param name="value"> The value. </param>
@@ -31,20 +32,23 @@ namespace Azure.ResourceManager.StorageMover.Models
             _value = value;
         }
 
-        /// <summary> Gets the MINIO. </summary>
-        public static S3WithHmacSourceType MINIO { get; } = new S3WithHmacSourceType(MINIOValue);
+        /// <summary> Gets the Minio. </summary>
+        public static S3WithHmacSourceType Minio { get; } = new S3WithHmacSourceType(MinioValue);
 
-        /// <summary> Gets the BACKBLAZE. </summary>
-        public static S3WithHmacSourceType BACKBLAZE { get; } = new S3WithHmacSourceType(BACKBLAZEValue);
+        /// <summary> Gets the Ibm. </summary>
+        public static S3WithHmacSourceType Ibm { get; } = new S3WithHmacSourceType(IbmValue);
 
-        /// <summary> Gets the IBM. </summary>
-        public static S3WithHmacSourceType IBM { get; } = new S3WithHmacSourceType(IBMValue);
+        /// <summary> Gets the Gcs. </summary>
+        public static S3WithHmacSourceType Gcs { get; } = new S3WithHmacSourceType(GcsValue);
 
-        /// <summary> Gets the CLOUDFLARE. </summary>
-        public static S3WithHmacSourceType CLOUDFLARE { get; } = new S3WithHmacSourceType(CLOUDFLAREValue);
+        /// <summary> Gets the Alibaba. </summary>
+        public static S3WithHmacSourceType Alibaba { get; } = new S3WithHmacSourceType(AlibabaValue);
 
-        /// <summary> Gets the GCS. </summary>
-        public static S3WithHmacSourceType GCS { get; } = new S3WithHmacSourceType(GCSValue);
+        /// <summary> Gets the DellEmc. </summary>
+        public static S3WithHmacSourceType DellEmc { get; } = new S3WithHmacSourceType(DellEmcValue);
+
+        /// <summary> Gets the Other. </summary>
+        public static S3WithHmacSourceType Other { get; } = new S3WithHmacSourceType(OtherValue);
 
         /// <summary> Determines if two <see cref="S3WithHmacSourceType"/> values are the same. </summary>
         /// <param name="left"> The left value to compare. </param>

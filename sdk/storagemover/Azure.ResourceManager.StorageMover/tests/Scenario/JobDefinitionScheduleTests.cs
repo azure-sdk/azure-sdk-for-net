@@ -30,10 +30,10 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             // Create job definition with weekly schedule and data integrity validation
             JobDefinitionData jobDefinitionData = new JobDefinitionData(StorageMoverCopyMode.Additive, NfsEndpointName, ContainerEndpointName);
             jobDefinitionData.Description = "Job definition with weekly schedule";
-            jobDefinitionData.DataIntegrityValidation = DataIntegrityValidation.SaveVerifyFileMD5;
+            jobDefinitionData.DataIntegrityValidation = StorageMoverDataIntegrityValidation.SaveVerifyFileMD5;
 
-            ScheduleInfo schedule = new ScheduleInfo(Frequency.Weekly, true);
-            schedule.ExecutionTime = new ScheduleTime(2);
+            StorageMoverScheduleInfo schedule = new StorageMoverScheduleInfo { Frequency = StorageMoverScheduleFrequency.Weekly, IsActive = true };
+            schedule.ExecutionTime = new SchedulerTime { Hour = 2 };
             schedule.StartOn = Recording.Now.AddDays(1);
             schedule.EndOn = Recording.Now.AddDays(30);
             schedule.DaysOfWeek.Add("Monday");
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
 
             // Verify schedule
             Assert.IsNotNull(jobDefinition.Data.Schedule);
-            Assert.AreEqual(Frequency.Weekly, jobDefinition.Data.Schedule.Frequency);
+            Assert.AreEqual(StorageMoverScheduleFrequency.Weekly, jobDefinition.Data.Schedule.Frequency);
             Assert.IsTrue(jobDefinition.Data.Schedule.IsActive);
             Assert.AreEqual(2, jobDefinition.Data.Schedule.ExecutionTime.Hour);
             Assert.AreEqual(3, jobDefinition.Data.Schedule.DaysOfWeek.Count);
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             jobDefinition = (await jobDefinitions.GetAsync(jobDefinitionName)).Value;
             Assert.AreEqual(jobDefinitionName, jobDefinition.Data.Name);
             Assert.IsNotNull(jobDefinition.Data.Schedule);
-            Assert.AreEqual(Frequency.Weekly, jobDefinition.Data.Schedule.Frequency);
+            Assert.AreEqual(StorageMoverScheduleFrequency.Weekly, jobDefinition.Data.Schedule.Frequency);
 
             // Clean up
             await jobDefinition.DeleteAsync(WaitUntil.Completed);
@@ -80,11 +80,10 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             // Create job definition with daily schedule and preserve permissions
             JobDefinitionData jobDefinitionData = new JobDefinitionData(StorageMoverCopyMode.Mirror, NfsEndpointName, ContainerEndpointName);
             jobDefinitionData.Description = "Job definition with daily schedule";
-            jobDefinitionData.DataIntegrityValidation = DataIntegrityValidation.None;
-            jobDefinitionData.PreservePermissions = true;
-            jobDefinitionData.Schedule = new ScheduleInfo(Frequency.Daily, true)
-            {
-                ExecutionTime = new ScheduleTime(0),
+            jobDefinitionData.DataIntegrityValidation = StorageMoverDataIntegrityValidation.None;
+            jobDefinitionData.IsPermissionsPreserved = true;
+            jobDefinitionData.Schedule = new StorageMoverScheduleInfo { Frequency = StorageMoverScheduleFrequency.Daily, IsActive = true,
+                ExecutionTime = new SchedulerTime { Hour = 0 },
                 StartOn = Recording.Now.AddDays(1),
                 EndOn = Recording.Now.AddDays(30),
             };
@@ -93,7 +92,7 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             Assert.AreEqual(jobDefinitionName, jobDefinition.Data.Name);
             Assert.AreEqual("Mirror", jobDefinition.Data.CopyMode.ToString());
             Assert.IsNotNull(jobDefinition.Data.Schedule);
-            Assert.AreEqual(Frequency.Daily, jobDefinition.Data.Schedule.Frequency);
+            Assert.AreEqual(StorageMoverScheduleFrequency.Daily, jobDefinition.Data.Schedule.Frequency);
             Assert.IsTrue(jobDefinition.Data.Schedule.IsActive);
 
             // Clean up
@@ -114,16 +113,15 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             // Create job definition with one-time schedule
             JobDefinitionData jobDefinitionData = new JobDefinitionData(StorageMoverCopyMode.Additive, NfsEndpointName, ContainerEndpointName);
             jobDefinitionData.Description = "Job definition with one-time schedule";
-            jobDefinitionData.Schedule = new ScheduleInfo(Frequency.Onetime, true)
-            {
-                ExecutionTime = new ScheduleTime(10),
+            jobDefinitionData.Schedule = new StorageMoverScheduleInfo { Frequency = StorageMoverScheduleFrequency.Onetime, IsActive = true,
+                ExecutionTime = new SchedulerTime { Hour = 10 },
                 StartOn = Recording.Now.AddDays(1),
             };
 
             JobDefinitionResource jobDefinition = (await jobDefinitions.CreateOrUpdateAsync(WaitUntil.Completed, jobDefinitionName, jobDefinitionData)).Value;
             Assert.AreEqual(jobDefinitionName, jobDefinition.Data.Name);
             Assert.IsNotNull(jobDefinition.Data.Schedule);
-            Assert.AreEqual(Frequency.Onetime, jobDefinition.Data.Schedule.Frequency);
+            Assert.AreEqual(StorageMoverScheduleFrequency.Onetime, jobDefinition.Data.Schedule.Frequency);
             Assert.IsTrue(jobDefinition.Data.Schedule.IsActive);
 
             // Clean up

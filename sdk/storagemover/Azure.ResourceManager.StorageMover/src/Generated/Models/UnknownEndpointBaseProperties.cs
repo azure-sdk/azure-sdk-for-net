@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="endpointKind"> The Endpoint resource kind source or target. </param>
         /// <param name="provisioningState"> The provisioning state of this resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownEndpointBaseProperties(EndpointType endpointType, string description, EndpointKind? endpointKind, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(endpointType != default ? endpointType : "unknown", description, endpointKind, provisioningState, additionalBinaryDataProperties)
+        internal UnknownEndpointBaseProperties(EndpointType endpointType, string description, StorageMoverEndpointKind? endpointKind, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(endpointType != default ? endpointType : "unknown", description, endpointKind, provisioningState, additionalBinaryDataProperties)
         {
         }
     }

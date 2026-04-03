@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="storageAccountResourceId"> The Azure Resource ID of the storage account. </param>
         /// <param name="fileShareName"> The name of the Azure Storage NFS file share. </param>
-        internal AzureStorageNfsFileShareEndpointProperties(EndpointType endpointType, string description, EndpointKind? endpointKind, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties, ResourceIdentifier storageAccountResourceId, string fileShareName) : base(endpointType, description, endpointKind, provisioningState, additionalBinaryDataProperties)
+        internal AzureStorageNfsFileShareEndpointProperties(EndpointType endpointType, string description, StorageMoverEndpointKind? endpointKind, StorageMoverProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties, ResourceIdentifier storageAccountResourceId, string fileShareName) : base(endpointType, description, endpointKind, provisioningState, additionalBinaryDataProperties)
         {
             StorageAccountResourceId = storageAccountResourceId;
             FileShareName = fileShareName;

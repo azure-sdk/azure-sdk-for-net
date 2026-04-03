@@ -261,7 +261,7 @@ namespace Azure.ResourceManager.StorageMover
         }
 
         /// <summary> Schedule information for the Job Definition. </summary>
-        public ScheduleInfo Schedule
+        public StorageMoverScheduleInfo Schedule
         {
             get
             {
@@ -278,7 +278,7 @@ namespace Azure.ResourceManager.StorageMover
         }
 
         /// <summary> The checksum validation mode for the job definition. </summary>
-        public DataIntegrityValidation? DataIntegrityValidation
+        public StorageMoverDataIntegrityValidation? DataIntegrityValidation
         {
             get
             {
@@ -295,11 +295,11 @@ namespace Azure.ResourceManager.StorageMover
         }
 
         /// <summary> Boolean to preserve permissions or not. </summary>
-        public bool? PreservePermissions
+        public bool? IsPermissionsPreserved
         {
             get
             {
-                return Properties is null ? default : Properties.PreservePermissions;
+                return Properties is null ? default : Properties.IsPermissionsPreserved;
             }
             set
             {
@@ -307,7 +307,7 @@ namespace Azure.ResourceManager.StorageMover
                 {
                     Properties = new JobDefinitionProperties();
                 }
-                Properties.PreservePermissions = value.Value;
+                Properties.IsPermissionsPreserved = value.Value;
             }
         }
 
