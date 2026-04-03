@@ -43,10 +43,9 @@ namespace Azure.Monitor.Query.Logs
             {
                 Version = version;
             }
-            IConfigurationSection audienceSection = section.GetSection("Audience");
-            if (audienceSection.Exists())
+            if (section["Audience"] is string audience)
             {
-                Audience = new LogsQueryAudience(audienceSection);
+                Audience = new LogsQueryAudience(audience);
             }
             ConfigureLogging();
         }

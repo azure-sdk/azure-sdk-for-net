@@ -49,10 +49,9 @@ namespace Azure.AI.Language.QuestionAnswering.Inference
             {
                 DefaultLanguage = defaultLanguage;
             }
-            IConfigurationSection audienceSection = section.GetSection("Audience");
-            if (audienceSection.Exists())
+            if (section["Audience"] is string audience)
             {
-                Audience = new QuestionAnsweringAudience(audienceSection);
+                Audience = new QuestionAnsweringAudience(audience);
             }
             ConfigureLogging();
         }
