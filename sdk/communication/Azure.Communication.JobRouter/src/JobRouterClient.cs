@@ -1183,7 +1183,7 @@ namespace Azure.Communication.JobRouter
             DateTimeOffset? scheduledBefore = null, DateTimeOffset? scheduledAfter = null,
             CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetJobsAsyncCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext());
+            return new JobRouterClientGetJobsAsyncCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext(), "JobRouterClient.GetJobs");
         }
 
         /// <summary> Retrieves list of jobs based on filter parameters. </summary>
@@ -1198,7 +1198,7 @@ namespace Azure.Communication.JobRouter
             string channelId = null, string classificationPolicyId = null, DateTimeOffset? scheduledBefore = null,
             DateTimeOffset? scheduledAfter = null, CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetJobsCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext());
+            return new JobRouterClientGetJobsCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext(), "JobRouterClient.GetJobs");
         }
 
         /// <summary>
@@ -1503,7 +1503,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual AsyncPageable<RouterWorker> GetWorkersAsync(RouterWorkerStateSelector? state = null, string channelId = null, string queueId = null, bool? hasCapacity = null, CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetWorkersAsyncCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext());
+            return new JobRouterClientGetWorkersAsyncCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext(), "JobRouterClient.GetWorkers");
         }
 
         /// <summary> Retrieves existing workers. </summary>
@@ -1514,7 +1514,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Pageable<RouterWorker> GetWorkers(RouterWorkerStateSelector? state = null, string channelId = null, string queueId = null, bool? hasCapacity = null, CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetWorkersCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext());
+            return new JobRouterClientGetWorkersCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext(), "JobRouterClient.GetWorkers");
         }
 
         /// <summary>
