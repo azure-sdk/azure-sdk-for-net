@@ -21,7 +21,4 @@ extends:
     Artifacts:
     - name: Azure.Search.Documents
       safeName: AzureSearchDocuments
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.Search.Documents
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

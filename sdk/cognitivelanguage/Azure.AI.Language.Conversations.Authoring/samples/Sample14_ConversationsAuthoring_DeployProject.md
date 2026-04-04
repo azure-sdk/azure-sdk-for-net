@@ -10,11 +10,7 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
-<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
-=======
-ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 Or you can also create a `ConversationAnalysisAuthoringClient` using Azure Active Directory (AAD) authentication. Your user or service principal must be assigned the "Cognitive Services Language Reader" role.
@@ -27,22 +23,12 @@ To deploy a project, call `DeployProject` on the `ConversationAuthoringDeploymen
 ```C# Snippet:Sample14_ConversationsAuthoring_DeployProject
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
-<<<<<<< HEAD
 ConversationAuthoringCreateDeploymentDetails trainedModeDetails = new ConversationAuthoringCreateDeploymentDetails("m1");
 
 Operation operation = client.DeployProject(
     WaitUntil.Completed,
     projectName,
     deploymentName,
-=======
-
-ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
-
-ConversationAuthoringCreateDeploymentDetails trainedModeDetails = new ConversationAuthoringCreateDeploymentDetails("m1");
-
-Operation operation = deploymentClient.DeployProject(
-    waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     trainedModeDetails
 );
 
@@ -72,13 +58,8 @@ AnalyzeConversationAuthoringDataGenerationConnectionInfo assignedAoaiResource =
     };
 
 // Create Cognitive Services resource with AOAI linkage
-<<<<<<< HEAD
 ConversationAuthoringDeploymentResource assignedResource =
     new ConversationAuthoringDeploymentResource(
-=======
-ConversationAuthoringAssignedProjectResource assignedResource =
-    new ConversationAuthoringAssignedProjectResource(
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         resourceId: "/subscriptions/{subscription}/resourceGroups/{resourcegroup}/providers/Microsoft.CognitiveServices/accounts/{sampleAccount}",
         region: "{region}")
     {
@@ -88,19 +69,9 @@ ConversationAuthoringAssignedProjectResource assignedResource =
 // Set up deployment details with assigned resources
 ConversationAuthoringCreateDeploymentDetails deploymentDetails =
     new ConversationAuthoringCreateDeploymentDetails("ModelWithDG");
-<<<<<<< HEAD
 deploymentDetails.AssignedResources.Add(assignedResource);
 // Start deployment
 Operation operation = client.DeployProject(WaitUntil.Started, projectName, deploymentName, deploymentDetails);
-=======
-deploymentDetails.AzureResourceIds.Add(assignedResource);
-
-// Get deployment client
-ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
-
-// Start deployment
-Operation operation = deploymentClient.DeployProject(WaitUntil.Started, deploymentDetails);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 // Output result
 Console.WriteLine($"Deployment started with status: {operation.GetRawResponse().Status}");
@@ -113,7 +84,6 @@ Console.WriteLine($"Operation-Location header: {operationLocation}");
 If you are using `2025-11-01` (GA), the service expects `azureResourceIds` as a list of strings. Use the overload of `ConversationAuthoringCreateDeploymentDetails` that accepts `IList<string>`:
 
 ```C# Snippet:Sample14_ConversationsAuthoring_DeployProjectWithAssignedResources_20251101
-<<<<<<< HEAD
 Uri endpoint = TestEnvironment.Endpoint;
 AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
 
@@ -131,35 +101,6 @@ ConversationAuthoringCreateDeploymentDetails deploymentDetails =
     new ConversationAuthoringCreateDeploymentDetails("ModelWithDG");
 // Start deployment
 Operation operation = client.DeployProject(WaitUntil.Started, projectName, deploymentName, deploymentDetails);
-=======
-        Uri endpoint = TestEnvironment.Endpoint;
-        AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
-
-        // Use the 2025-11-01 GA version of the service
-        ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_01);
-
-        ConversationAnalysisAuthoringClient client =
-            new ConversationAnalysisAuthoringClient(endpoint, credential, options);
-
-        string projectName = "{projectName}";
-        string deploymentName = "{deploymentName}";
-
-        // For 2025-11-01, the service expects azureResourceIds as an array of strings.
-        List<string> azureResourceIds = new List<string>
-{
-    "/subscriptions/{subscription}/resourceGroups/{resourcegroup}/providers/Microsoft.CognitiveServices/accounts/{sampleAccount}"
-};
-
-        // Set up deployment details with resource ID strings
-        ConversationAuthoringCreateDeploymentDetails deploymentDetails =
-            new ConversationAuthoringCreateDeploymentDetails("ModelWithDG", azureResourceIds);
-
-        // Get deployment client
-        ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
-
-        // Start deployment
-        Operation operation = deploymentClient.DeployProject(WaitUntil.Started, deploymentDetails);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 ## Deploy a Project Async
@@ -169,22 +110,12 @@ To deploy a project asynchronously, call `DeployProjectAsync` on the `Conversati
 ```C# Snippet:Sample14_ConversationsAuthoring_DeployProjectAsync
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
-<<<<<<< HEAD
 ConversationAuthoringCreateDeploymentDetails trainedModeDetails = new ConversationAuthoringCreateDeploymentDetails("m1");
 
 Operation operation = await client.DeployProjectAsync(
     WaitUntil.Completed,
     projectName,
     deploymentName,
-=======
-
-ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
-
-ConversationAuthoringCreateDeploymentDetails trainedModeDetails = new ConversationAuthoringCreateDeploymentDetails("m1");
-
-Operation operation = await deploymentClient.DeployProjectAsync(
-    waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     trainedModeDetails
 );
 
@@ -214,13 +145,8 @@ AnalyzeConversationAuthoringDataGenerationConnectionInfo assignedAoaiResource =
     };
 
 // Create Cognitive Services resource with AOAI linkage
-<<<<<<< HEAD
 ConversationAuthoringDeploymentResource assignedResource =
     new ConversationAuthoringDeploymentResource(
-=======
-ConversationAuthoringAssignedProjectResource assignedResource =
-    new ConversationAuthoringAssignedProjectResource(
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         resourceId: "/subscriptions/{subscription}/resourceGroups/{resourcegroup}/providers/Microsoft.CognitiveServices/accounts/{sampleAccount}",
         region: "{region}")
     {
@@ -230,19 +156,9 @@ ConversationAuthoringAssignedProjectResource assignedResource =
 // Set up deployment details with assigned resources
 ConversationAuthoringCreateDeploymentDetails deploymentDetails =
     new ConversationAuthoringCreateDeploymentDetails("ModelWithDG");
-<<<<<<< HEAD
 deploymentDetails.AssignedResources.Add(assignedResource);
 // Start deployment
 Operation operation = await client.DeployProjectAsync(WaitUntil.Started, projectName, deploymentName, deploymentDetails);
-=======
-deploymentDetails.AzureResourceIds.Add(assignedResource);
-
-// Get deployment client
-ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
-
-// Start deployment
-Operation operation = await deploymentClient.DeployProjectAsync(WaitUntil.Started, deploymentDetails);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 // Output result
 Console.WriteLine($"Deployment started with status: {operation.GetRawResponse().Status}");
@@ -255,7 +171,6 @@ Console.WriteLine($"Operation-Location header: {operationLocation}");
 If you are using `2025-11-01` (GA), the service expects `azureResourceIds` as a list of strings. Use the overload of `ConversationAuthoringCreateDeploymentDetails` that accepts `IList<string>`:
 
 ```C# Snippet:Sample14_ConversationsAuthoring_DeployProjectAsyncWithAssignedResources_20251101
-<<<<<<< HEAD
 Uri endpoint = TestEnvironment.Endpoint;
 AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
 
@@ -273,33 +188,4 @@ ConversationAuthoringCreateDeploymentDetails deploymentDetails =
     new ConversationAuthoringCreateDeploymentDetails("ModelWithDG");
 // Start deployment asynchronously
 Operation operation = await client.DeployProjectAsync(WaitUntil.Started, projectName, deploymentName, deploymentDetails);
-=======
-        Uri endpoint = TestEnvironment.Endpoint;
-        AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
-
-        // Use the 2025-11-01 GA version of the service
-        ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_01);
-
-        ConversationAnalysisAuthoringClient client =
-            new ConversationAnalysisAuthoringClient(endpoint, credential, options);
-
-        string projectName = "{projectName}";
-        string deploymentName = "{deploymentName}";
-
-        // For 2025-11-01, the service expects azureResourceIds as an array of strings.
-        List<string> azureResourceIds = new List<string>
-{
-    "/subscriptions/{subscription}/resourceGroups/{resourcegroup}/providers/Microsoft.CognitiveServices/accounts/{sampleAccount}"
-};
-
-        // Set up deployment details with resource ID strings
-        ConversationAuthoringCreateDeploymentDetails deploymentDetails =
-            new ConversationAuthoringCreateDeploymentDetails("ModelWithDG", azureResourceIds);
-
-        // Get deployment client
-        ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
-
-        // Start deployment asynchronously
-        Operation operation = await deploymentClient.DeployProjectAsync(WaitUntil.Started, deploymentDetails);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```

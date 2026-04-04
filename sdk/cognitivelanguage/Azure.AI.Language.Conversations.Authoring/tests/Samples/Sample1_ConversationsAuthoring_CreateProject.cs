@@ -20,18 +20,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample1_ConversationsAuthoring_CreateProject
             string projectName = "{projectName}";
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
-
-            #region Snippet:Sample1_ConversationsAuthoring_CreateProject
-            string projectName = "{projectName}";
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringCreateProjectDetails projectData = new ConversationAuthoringCreateProjectDetails(
                   projectKind: "Conversation",
                   projectName: projectName,
@@ -42,12 +34,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
                 Description = "Project description"
             };
 
-<<<<<<< HEAD
             using RequestContent content = RequestContent.Create(projectData);
             Response response = client.CreateProject(projectName, content);
-=======
-            Response response = projectClient.CreateProject(projectData);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             Console.WriteLine($"Project created with status: {response.Status}");
             #endregion
@@ -59,19 +47,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample1_ConversationsAuthoring_CreateProjectAsync
             string projectName = "{projectName}";
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
-
-            #region Snippet:Sample1_ConversationsAuthoring_CreateProjectAsync
-            string projectName = "{projectName}";
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
-
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringCreateProjectDetails projectData = new ConversationAuthoringCreateProjectDetails(
                   projectKind: "Conversation",
                   projectName: projectName,
@@ -82,12 +61,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
                 Description = "Project description"
             };
 
-<<<<<<< HEAD
             using RequestContent content = RequestContent.Create(projectData);
             Response response = await client.CreateProjectAsync(projectName, content);
-=======
-            Response response = await projectClient.CreateProjectAsync(projectData);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             Console.WriteLine($"Project created with status: {response.Status}");
             #endregion

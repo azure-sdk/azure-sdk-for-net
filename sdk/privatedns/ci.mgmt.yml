@@ -12,7 +12,4 @@ extends:
       safeName: AzureResourceManagerPrivateDns
     - name: Azure.Provisioning.PrivateDns
       safeName: AzureProvisioningPrivateDns
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.PrivateDns
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

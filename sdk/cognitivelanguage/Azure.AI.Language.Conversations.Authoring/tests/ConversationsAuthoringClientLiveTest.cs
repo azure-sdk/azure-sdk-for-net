@@ -29,12 +29,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
         {
             // Arrange
             string projectName = "NewProject1201";
-<<<<<<< HEAD
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             var projectData = new ConversationAuthoringCreateProjectDetails(
                   projectKind: "Conversation",
                   projectName: projectName,
@@ -46,11 +40,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             };
 
             // Act
-<<<<<<< HEAD
             Response response = await client.CreateProjectAsync(projectName, RequestContent.Create(BinaryData.FromObjectAsJson(projectData)));
-=======
-            Response response = await projectAuthoringClient.CreateProjectAsync(projectData);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             // Assert
             Assert.IsNotNull(response);
@@ -139,11 +129,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             {
                 Assets = projectAssets
             };
-<<<<<<< HEAD
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             var jsonOptions = new JsonSerializerOptions
             {
                 WriteIndented = true,
@@ -156,18 +141,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             Console.WriteLine(json);
 
             // Call the ImportAsync function
-<<<<<<< HEAD
             Operation operation = await client.ImportAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
                 exportedProject: exportedProject,
                 exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
-=======
-            Operation operation = await projectAuthoringClient.ImportAsync(
-                waitUntil: WaitUntil.Completed,
-                exportedProject: exportedProject,
-                projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Assert the operation and response
@@ -244,23 +222,12 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
               }
             }
             """;
-<<<<<<< HEAD
             // Call the ImportRawJsonAsync method (assumes SDK method exists for raw string input)
             Operation operation = await client.ImportAsync(
                 WaitUntil.Completed,
                 projectName,
                 RequestContent.Create(BinaryData.FromString(rawJson)),
                 exportedProjectFormat: "Conversation"
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-
-            // Call the ImportRawJsonAsync method (assumes SDK method exists for raw string input)
-            Operation operation = await projectAuthoringClient.ImportAsync(
-                waitUntil: WaitUntil.Completed,
-                rawJson,
-                projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Assert the operation and response
@@ -351,24 +318,12 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             {
                 Assets = projectAssets
             };
-<<<<<<< HEAD
             // Act
             Operation operation = await client.ImportAsync(
                 waitUntil: WaitUntil.Started,
                 projectName: projectName,
                 exportedProject: exportedProject,
                 exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
-=======
-
-            // Get project client
-            var projectAuthoringClient = client.GetProject(projectName);
-
-            // Act
-            Operation operation = await projectAuthoringClient.ImportAsync(
-                waitUntil: WaitUntil.Started,
-                exportedProject: exportedProject,
-                projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Assert
@@ -386,18 +341,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
         {
             // Arrange
             string projectName = "NewProject1201";
-<<<<<<< HEAD
             // Act
             Operation operation = await client.ExportAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-            // Act
-            Operation operation = await projectAuthoringClient.ExportAsync(
-                waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 stringIndexType: StringIndexType.Utf16CodeUnit,
                 exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
             );
@@ -419,15 +366,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
         {
             // Arrange
             string projectName = "NewProject1201";
-<<<<<<< HEAD
             // Act
             Response<ConversationAuthoringProjectMetadata> response = await client.GetProjectAsync(projectName);
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-            // Act
-            Response<ConversationAuthoringProjectMetadata> response = await projectAuthoringClient.GetProjectAsync();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringProjectMetadata projectMetadata = response.Value;
 
             // Assert
@@ -443,17 +383,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
         {
             // Arrange
             string projectName = "NewProject1201";
-<<<<<<< HEAD
             // Act
             Operation operation = await client.DeleteProjectAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName
-=======
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-            // Act
-            Operation operation = await projectAuthoringClient.DeleteProjectAsync(
-                waitUntil: WaitUntil.Completed
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Assert
@@ -484,18 +417,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
                     TrainingSplitPercentage = 80
                 }
             };
-<<<<<<< HEAD
             // Act
             Operation<ConversationAuthoringTrainingJobResult> operation = await client.TrainAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-            // Act
-            Operation<ConversationAuthoringTrainingJobResult> operation = await projectAuthoringClient.TrainAsync(
-                waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 details: trainingJobDetails
             );
 
@@ -537,19 +462,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
                     dataGenerationConnectionInfo: connectionInfo
                 )
             };
-<<<<<<< HEAD
             // Act
             Operation<ConversationAuthoringTrainingJobResult> operation = await client.TrainAsync(
                 waitUntil: WaitUntil.Started,
                 projectName: projectName,
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-
-            // Act
-            Operation<ConversationAuthoringTrainingJobResult> operation = await projectAuthoringClient.TrainAsync(
-                waitUntil: WaitUntil.Started,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 details: trainingJobDetails
             );
 
@@ -569,15 +485,9 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             string jobId = "a12078ff-ead0-41fb-951c-8a60b9a6a529_638763840000000000";
 
             // Act
-<<<<<<< HEAD
             Operation<ConversationAuthoringTrainingJobResult> cancelOperation = await client.CancelTrainingJobAsync(
                 waitUntil: WaitUntil.Started,
                 projectName: projectName,
-=======
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-            Operation<ConversationAuthoringTrainingJobResult> cancelOperation = await projectAuthoringClient.CancelTrainingJobAsync(
-                waitUntil: WaitUntil.Started,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 jobId: jobId
             );
 
@@ -596,15 +506,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Arrange
             string projectName = "EmailApp";
             string trainedModelLabel = "Model1";
-<<<<<<< HEAD
             // Act
             Response<ConversationAuthoringEvalSummary> evaluationSummaryResponse = await client.GetModelEvaluationSummaryAsync(projectName, trainedModelLabel);
-=======
-
-            ConversationAuthoringTrainedModel trainedModelAuthoringClient = client.GetTrainedModel(projectName, trainedModelLabel);
-            // Act
-            Response<ConversationAuthoringEvalSummary> evaluationSummaryResponse = await trainedModelAuthoringClient.GetModelEvaluationSummaryAsync();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             // Assert
             Assert.IsNotNull(evaluationSummaryResponse, "The evaluation summary response should not be null.");
@@ -665,28 +568,17 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             string projectName = "Aurora-CLU-Prod";
             string trainedModelLabel = "m1";
             StringIndexType stringIndexType = StringIndexType.Utf16CodeUnit;
-<<<<<<< HEAD
             // Act
             AsyncPageable<AnalyzeConversationAuthoringUtteranceEvaluationResult> results = client.GetModelEvaluationResultsAsync(
                 projectName: projectName,
                 trainedModelLabel: trainedModelLabel,
-=======
-
-            ConversationAuthoringTrainedModel trainedModelAuthoringClient = client.GetTrainedModel(projectName, trainedModelLabel);
-            // Act
-            AsyncPageable<UtteranceEvaluationResult> results = trainedModelAuthoringClient.GetModelEvaluationResultsAsync(
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 stringIndexType: stringIndexType
             );
 
             // Assert
             Assert.IsNotNull(results, "The evaluation results should not be null.");
 
-<<<<<<< HEAD
             await foreach (AnalyzeConversationAuthoringUtteranceEvaluationResult result in results)
-=======
-            await foreach (UtteranceEvaluationResult result in results)
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             {
                 // Validate text and language
                 Assert.IsNotNull(result.Text, "The result text should not be null.");
@@ -724,19 +616,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Arrange
             string projectName = "EmailApp";
             string trainedModelLabel = "Model1";
-<<<<<<< HEAD
             // Act
             Operation operation = await client.LoadSnapshotAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
                 trainedModelLabel: trainedModelLabel
-=======
-
-            ConversationAuthoringTrainedModel trainedodelAuthoringClient = client.GetTrainedModel(projectName, trainedModelLabel);
-            // Act
-            Operation operation = await trainedodelAuthoringClient.LoadSnapshotAsync(
-                waitUntil: WaitUntil.Completed
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 );
             // Assert
             Assert.IsNotNull(operation, "The operation result should not be null.");
@@ -752,15 +636,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Arrange
             string projectName = "Test-data-labels";
             string trainedModelLabel = "MyModel";
-<<<<<<< HEAD
             // Act
             Response response = await client.DeleteTrainedModelAsync(projectName, trainedModelLabel);
-=======
-
-            ConversationAuthoringTrainedModel modelAuthoringClient = client.GetTrainedModel(projectName, trainedModelLabel);
-            // Act
-            Response response = await modelAuthoringClient.DeleteTrainedModelAsync();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             // Assert
             Assert.IsNotNull(response, "The response should not be null.");
@@ -776,18 +653,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             var deploymentName2 = "production";
 
             var swapDetails = new ConversationAuthoringSwapDeploymentsDetails(deploymentName1, deploymentName2);
-<<<<<<< HEAD
             // Act
             Operation operation = await client.SwapDeploymentsAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
-=======
-
-            ConversationAuthoringProject projectAuthoringClient = client.GetProject(projectName);
-            // Act
-            Operation operation = await projectAuthoringClient.SwapDeploymentsAsync(
-                waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 details: swapDetails
             );
 
@@ -805,19 +674,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Arrange
             string projectName = "Test-data-labels";
             string deploymentName = "deployment1";
-<<<<<<< HEAD
             // Act
             Operation operation = await client.DeleteDeploymentAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
                 deploymentName: deploymentName
-=======
-
-            ConversationAuthoringDeployment deploymentAuthoringClient = client.GetDeployment(projectName, deploymentName);
-            // Act
-            Operation operation = await deploymentAuthoringClient.DeleteDeploymentAsync(
-                waitUntil: WaitUntil.Completed
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Assert
@@ -834,7 +695,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Arrange
             string projectName = "EmailApp";
             var deploymentName = "staging";
-<<<<<<< HEAD
             ConversationAuthoringCreateDeploymentDetails trainedModeDetails = new ConversationAuthoringCreateDeploymentDetails("Model1");
             // Act
             Operation operation = await client.DeployProjectAsync(
@@ -842,16 +702,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
                 projectName: projectName,
                 deploymentName: deploymentName,
                 details: trainedModeDetails
-=======
-
-            ConversationAuthoringDeployment deploymentAuthoringClient = client.GetDeployment(projectName, deploymentName);
-
-            ConversationAuthoringCreateDeploymentDetails trainedModeDetails = new ConversationAuthoringCreateDeploymentDetails("Model1");
-            // Act
-            Operation operation = await deploymentAuthoringClient.DeployProjectAsync(
-                waitUntil: WaitUntil.Completed,
-                trainedModeDetails
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Assert
@@ -877,11 +727,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             };
 
             // Create the assignedResource
-<<<<<<< HEAD
             var assignedResource = new ConversationAuthoringDeploymentResource(
-=======
-            var assignedResource = new ConversationAuthoringAssignedProjectResource(
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 resourceId: "/subscriptions/b72743ec-8bb3-453f-83ad-a53e8a50712e/resourceGroups/language-sdk-rg/providers/Microsoft.CognitiveServices/accounts/sdk-test-01",
                 region: "East US"
             )
@@ -892,7 +738,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Create deployment details with assigned resources
             var deploymentDetails = new ConversationAuthoringCreateDeploymentDetails("ModelWithDG");
 
-<<<<<<< HEAD
             deploymentDetails.AssignedResources.Add(assignedResource);
 
             // Create the deployment client
@@ -902,17 +747,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
                 projectName: projectName,
                 deploymentName: deploymentName,
                 details: deploymentDetails
-=======
-            deploymentDetails.AzureResourceIds.Add(assignedResource);
-
-            // Create the deployment client
-            ConversationAuthoringDeployment deploymentAuthoringClient = client.GetDeployment(projectName, deploymentName);
-
-            // Act
-            Operation operation = await deploymentAuthoringClient.DeployProjectAsync(
-                waitUntil: WaitUntil.Started,
-                deploymentDetails
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Assert
@@ -931,16 +765,8 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Arrange
             string projectName = "EmailAppEnglish";
             string deploymentName = "assignedDeployment";
-<<<<<<< HEAD
             // Act
             Response<ConversationAuthoringProjectDeployment> response = await client.GetDeploymentAsync(projectName, deploymentName);
-=======
-
-            ConversationAuthoringDeployment deploymentAuthoringClient = client.GetDeployment(projectName, deploymentName);
-
-            // Act
-            Response<ConversationAuthoringProjectDeployment> response = await deploymentAuthoringClient.GetDeploymentAsync();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             // Assert
             Assert.IsNotNull(response, "The response should not be null.");
@@ -998,19 +824,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
 
             // Act
             // Method returns an AsyncPageable; no await on the call itself.
-<<<<<<< HEAD
             AsyncPageable<ConversationAuthoringAssignedDeploymentResource> pageable =
                 client.GetDeploymentResourcesAsync(projectName);
 
             // Assert each resource item as we stream results
             await foreach (ConversationAuthoringAssignedDeploymentResource resource in pageable)
-=======
-            AsyncPageable<ConversationAuthoringAssignedProjectResource> pageable =
-                client.GetProjectResourcesAsync(projectName);
-
-            // Assert each resource item as we stream results
-            await foreach (ConversationAuthoringAssignedProjectResource resource in pageable)
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             {
                 Assert.IsNotNull(resource, "Resource item should not be null.");
 
@@ -1028,18 +846,9 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
             // Arrange
             string projectName = "EmailApp";
             string deploymentName = "deploysdk2";
-<<<<<<< HEAD
             var deleteBody = new ConversationAuthoringDeleteDeploymentDetails
             {
                 AssignedResourceIds =
-=======
-
-            ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
-
-            var deleteBody = new ConversationAuthoringProjectResourceIds
-            {
-                AzureResourceIds =
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         {
             "/subscriptions/b72743ec-8bb3-453f-83ad-a53e8a50712e/resourceGroups/language-sdk-rg/providers/Microsoft.CognitiveServices/accounts/sdk-test-02"
         }
@@ -1050,15 +859,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests
 
             try
             {
-<<<<<<< HEAD
                 operation = await client.DeleteDeploymentFromResourcesAsync(
                     WaitUntil.Started,
                     projectName,
                     deploymentName,
-=======
-                operation = await deploymentClient.DeleteDeploymentFromResourcesAsync(
-                    WaitUntil.Started,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                     deleteBody);
             }
             catch (RequestFailedException e)

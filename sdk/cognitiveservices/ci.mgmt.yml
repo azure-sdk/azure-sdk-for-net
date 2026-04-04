@@ -11,9 +11,5 @@ extends:
       safeName: AzureResourceManagerCognitiveServices
       directoryName: Azure.ResourceManager.CognitiveServices
     - name: Azure.Provisioning.CognitiveServices
-<<<<<<< HEAD
       safeName: AzureProvisioningCognitiveServices
     TestDependsOnDependency: Azure.Provisioning.CognitiveServices Azure.ResourceManager.CognitiveServices
-=======
-      safeName: AzureProvisioningCognitiveServices
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

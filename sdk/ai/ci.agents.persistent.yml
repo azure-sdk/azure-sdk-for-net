@@ -19,7 +19,4 @@ extends:
     Artifacts:
     - name: Azure.AI.Agents.Persistent
       safeName: AzureAIAgentsPersistent
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.AI.Agents.Persistent
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

@@ -10,11 +10,7 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
-<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
-=======
-ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 The values of the `endpoint` and apiKey variables can be retrieved from: Environment variables, configuration settings, or any other secure approach that works for your application.
@@ -28,10 +24,6 @@ To create a new project synchronously, call CreateProject on the `ConversationAu
 
 ```C# Snippet:Sample1_ConversationsAuthoring_CreateProject
 string projectName = "{projectName}";
-<<<<<<< HEAD
-=======
-ConversationAuthoringProject projectClient = client.GetProject(projectName);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ConversationAuthoringCreateProjectDetails projectData = new ConversationAuthoringCreateProjectDetails(
       projectKind: "Conversation",
       projectName: projectName,
@@ -42,12 +34,8 @@ ConversationAuthoringCreateProjectDetails projectData = new ConversationAuthorin
     Description = "Project description"
 };
 
-<<<<<<< HEAD
 using RequestContent content = RequestContent.Create(projectData);
 Response response = client.CreateProject(projectName, content);
-=======
-Response response = projectClient.CreateProject(projectData);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 Console.WriteLine($"Project created with status: {response.Status}");
 ```
@@ -58,11 +46,6 @@ To create a new project, call `CreateProjectAsync` on the `ConversationAuthoring
 
 ```C# Snippet:Sample1_ConversationsAuthoring_CreateProjectAsync
 string projectName = "{projectName}";
-<<<<<<< HEAD
-=======
-ConversationAuthoringProject projectClient = client.GetProject(projectName);
-
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ConversationAuthoringCreateProjectDetails projectData = new ConversationAuthoringCreateProjectDetails(
       projectKind: "Conversation",
       projectName: projectName,
@@ -73,12 +56,8 @@ ConversationAuthoringCreateProjectDetails projectData = new ConversationAuthorin
     Description = "Project description"
 };
 
-<<<<<<< HEAD
 using RequestContent content = RequestContent.Create(projectData);
 Response response = await client.CreateProjectAsync(projectName, content);
-=======
-Response response = await projectClient.CreateProjectAsync(projectData);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 Console.WriteLine($"Project created with status: {response.Status}");
 ```

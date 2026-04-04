@@ -6,10 +6,6 @@
     <PackageTags>Azure Authoring</PackageTags>
     <TargetFrameworks>$(RequiredTargetFrameworks)</TargetFrameworks>
     <IncludeOperationsSharedSource>true</IncludeOperationsSharedSource>
-<<<<<<< HEAD
-=======
-    <IncludeAutorestDependency>true</IncludeAutorestDependency>
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
   </PropertyGroup>
 
   <!-- Shared source from Azure.Core -->
@@ -17,10 +13,7 @@
     <Compile Include="$(AzureCoreSharedSources)ArrayBufferWriter.cs" LinkBase="Shared" />
     <Compile Include="$(AzureCoreSharedSources)AzureResourceProviderNamespaceAttribute.cs" LinkBase="Shared" />
     <Compile Include="$(AzureCoreSharedSources)AzureKeyCredentialPolicy.cs" LinkBase="Shared" />
-<<<<<<< HEAD
     <Compile Include="$(AzureCoreSharedSources)ExperimentalAttribute.cs" LinkBase="Shared" />
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Azure.Core" />

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // Copyright (c) Microsoft Corporation. All rights reserved.
-=======
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 // Licensed under the MIT License.
 
 using System;
@@ -23,11 +19,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample20_ConversationsAuthoring_ListAssignedResourceDeployments
             // List all deployments assigned to resources across projects
@@ -58,11 +50,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample20_ConversationsAuthoring_ListAssignedResourceDeploymentsAsync
             // List all deployments assigned to resources across projects (async)

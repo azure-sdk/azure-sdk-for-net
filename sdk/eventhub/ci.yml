@@ -30,9 +30,5 @@ extends:
       safeName: AzureMessagingEventHubsProcessor
       directoryName: Azure.Messaging.EventHubs.Processor
       triggeringPaths:
-<<<<<<< HEAD
       - Azure.Messaging.EventHubs.Shared
     TestDependsOnDependency: Azure.Messaging.EventHubs
-=======
-      - Azure.Messaging.EventHubs.Shared
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

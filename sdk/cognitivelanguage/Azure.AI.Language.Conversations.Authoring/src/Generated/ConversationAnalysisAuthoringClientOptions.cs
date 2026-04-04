@@ -6,7 +6,6 @@
 #nullable disable
 
 using System;
-<<<<<<< HEAD
 using System.Diagnostics.CodeAnalysis;
 using Azure.Core;
 using Microsoft.Extensions.Configuration;
@@ -14,38 +13,12 @@ using Microsoft.Extensions.Configuration;
 namespace Azure.AI.Language.Conversations.Authoring
 {
     /// <summary> Client options for <see cref="ConversationAnalysisAuthoring"/>. </summary>
-=======
-using Azure.Core;
-
-namespace Azure.AI.Language.Conversations.Authoring
-{
-    /// <summary> Client options for ConversationAnalysisAuthoringClient. </summary>
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     public partial class ConversationAnalysisAuthoringClientOptions : ClientOptions
     {
         private const ServiceVersion LatestVersion = ServiceVersion.V2025_11_15_Preview;
 
-<<<<<<< HEAD
         /// <summary> Initializes a new instance of ConversationAnalysisAuthoringOptions. </summary>
         /// <param name="version"> The service version. </param>
-=======
-        /// <summary> The version of the service to use. </summary>
-        public enum ServiceVersion
-        {
-            /// <summary> Service version "2023-04-01". </summary>
-            V2023_04_01 = 1,
-            /// <summary> Service version "2025-11-01". </summary>
-            V2025_11_01 = 2,
-            /// <summary> Service version "2025-05-15-preview". </summary>
-            V2025_05_15_Preview = 3,
-            /// <summary> Service version "2025-11-15-preview". </summary>
-            V2025_11_15_Preview = 4,
-        }
-
-        internal string Version { get; }
-
-        /// <summary> Initializes new instance of ConversationAnalysisAuthoringClientOptions. </summary>
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public ConversationAnalysisAuthoringClientOptions(ServiceVersion version = LatestVersion)
         {
             Version = version switch
@@ -56,7 +29,6 @@ namespace Azure.AI.Language.Conversations.Authoring
                 ServiceVersion.V2025_11_15_Preview => "2025-11-15-preview",
                 _ => throw new NotSupportedException()
             };
-<<<<<<< HEAD
             ConfigureLogging();
         }
 
@@ -94,8 +66,6 @@ namespace Azure.AI.Language.Conversations.Authoring
             V2025_05_15_Preview = 3,
             /// <summary> The 2025-11-15-preview API version. </summary>
             V2025_11_15_Preview = 4
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
     }
 }

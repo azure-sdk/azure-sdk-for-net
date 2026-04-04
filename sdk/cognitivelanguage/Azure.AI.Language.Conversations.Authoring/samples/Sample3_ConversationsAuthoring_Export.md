@@ -10,11 +10,7 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
-<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
-=======
-ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 The values of the endpoint and apiKey variables can be retrieved from environment variables, configuration settings, or any other secure approach that works for your application.
@@ -28,16 +24,9 @@ To export a project, call Export on the ConversationAuthoringProject client, whi
 
 ```C# Snippet:Sample3_ConversationsAuthoring_Export
 string projectName = "{projectName}";
-<<<<<<< HEAD
 Operation operation = client.Export(
     waitUntil: WaitUntil.Completed,
     projectName: projectName,
-=======
-ConversationAuthoringProject projectClient = client.GetProject(projectName);
-
-Operation operation = projectClient.Export(
-    waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     stringIndexType: StringIndexType.Utf16CodeUnit,
     exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
 );
@@ -55,16 +44,9 @@ To export a project asynchronously, call ExportAsync on the ConversationAuthorin
 
 ```C# Snippet:Sample3_ConversationsAuthoring_ExportAsync
 string projectName = "{projectName}";
-<<<<<<< HEAD
 Operation operation = await client.ExportAsync(
     waitUntil: WaitUntil.Completed,
     projectName: projectName,
-=======
-ConversationAuthoringProject projectClient = client.GetProject(projectName);
-
-Operation operation = await projectClient.ExportAsync(
-    waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     stringIndexType: StringIndexType.Utf16CodeUnit,
     exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
 );

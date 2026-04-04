@@ -63,11 +63,7 @@ jobs:
           - "!SessionRecords"
         EnablePRGeneration: true
         PRMatrixSetting: ProjectNames
-<<<<<<< HEAD
         PRJobBatchSize: 5
-=======
-        PRJobBatchSize: 10
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         AdditionalParameters:
           Artifacts: ${{ parameters.Artifacts }}
           TestPipeline: ${{ parameters.TestPipeline }}
@@ -194,11 +190,7 @@ jobs:
             - "!SessionRecords"
           EnablePRGeneration: true
           PRMatrixSetting: ProjectNames
-<<<<<<< HEAD
           PRJobBatchSize: 10
-=======
-          PRJobBatchSize: 20
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
           PRMatrixIndirectFilters:
             - 'AdditionalTestArguments=.*true'
             - 'Pool=.*LinuxPool$'

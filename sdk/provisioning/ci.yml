@@ -25,7 +25,4 @@ extends:
       safeName: AzureProvisioning
     - name: Azure.Provisioning.Deployment
       safeName: AzureProvisioningDeployment
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.Provisioning Azure.Provisioning.Deployment
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

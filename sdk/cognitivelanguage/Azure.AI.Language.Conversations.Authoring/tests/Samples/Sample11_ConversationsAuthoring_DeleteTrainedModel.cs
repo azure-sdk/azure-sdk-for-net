@@ -19,22 +19,12 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample11_ConversationsAuthoring_DeleteTrainedModel
             string projectName = "{projectName}";
             string trainedModelLabel = "{trainedModelLabel}";
-<<<<<<< HEAD
             Response response = client.DeleteTrainedModel(projectName, trainedModelLabel);
-=======
-            ConversationAuthoringTrainedModel trainedModelClient = client.GetTrainedModel(projectName, trainedModelLabel);
-
-            Response response = trainedModelClient.DeleteTrainedModel();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             Console.WriteLine($"Delete Trained Model Response Status: {response.Status}");
             #endregion
@@ -48,22 +38,12 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample11_ConversationsAuthoring_DeleteTrainedModelAsync
             string projectName = "{projectName}";
             string trainedModelLabel = "{trainedModelLabel}";
-<<<<<<< HEAD
             Response response = await client.DeleteTrainedModelAsync(projectName, trainedModelLabel);
-=======
-            ConversationAuthoringTrainedModel trainedModelClient = client.GetTrainedModel(projectName, trainedModelLabel);
-
-            Response response = await trainedModelClient.DeleteTrainedModelAsync();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             Console.WriteLine($"Delete Trained Model Async Response Status: {response.Status}");
             #endregion

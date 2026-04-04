@@ -55,8 +55,4 @@ extends:
     TestSetupSteps:
     - template: /sdk/storage/tests-install-azurite.yml
     TestTimeoutInMinutes: 100
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.Core Azure.Core.Amqp Microsoft.Azure.Core.NewtonsoftJson
-=======
-    TestDependsOnDependency: Azure.Core
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

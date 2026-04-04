@@ -20,7 +20,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample5_ConversationsAuthoring_DeleteProject
@@ -28,15 +27,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             Operation operation = client.DeleteProject(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
-
-            #region Snippet:Sample5_ConversationsAuthoring_DeleteProject
-            string projectName = "{projectName}";
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
-            Operation operation = projectClient.DeleteProject(
-                waitUntil: WaitUntil.Completed
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Extract the operation-location header
@@ -53,7 +43,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample5_ConversationsAuthoring_DeleteProjectAsync
@@ -61,15 +50,6 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             Operation operation = await client.DeleteProjectAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
-
-            #region Snippet:Sample5_ConversationsAuthoring_DeleteProjectAsync
-            string projectName = "{projectName}";
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
-            Operation operation = await projectClient.DeleteProjectAsync(
-                waitUntil: WaitUntil.Completed
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Extract the operation-location header

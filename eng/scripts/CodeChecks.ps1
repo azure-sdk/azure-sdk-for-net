@@ -84,7 +84,6 @@ try {
     }
     if (-not $ProjectDirectory)
     {
-<<<<<<< HEAD
         # In PR builds, check if only CI config files changed for this service directory.
         # If so, skip expensive codegen/snippet/API operations since ci*.yml changes
         # don't affect generated code. Only apply this optimization in PR builds —
@@ -97,8 +96,6 @@ try {
             }
         }
 
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         Write-Host "Force .NET Welcome experience"
         Invoke-Block {
             & dotnet msbuild -version
@@ -125,11 +122,7 @@ try {
                         }
             }
 
-<<<<<<< HEAD
         if ($SkipDiffValidation -and -not $onlyCiConfigChanged) {
-=======
-        if ($SkipDiffValidation) {
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             Write-Host "`nRunning dotnet format"
             Join-Path "$PSScriptRoot/../../sdk" $ServiceDirectory `
                 | Resolve-Path `
@@ -142,7 +135,6 @@ try {
                 }
         }
 
-<<<<<<< HEAD
         if (-not $onlyCiConfigChanged) {
             $debugLogging = $env:SYSTEM_DEBUG -eq "true"
             $logsFolder = $env:BUILD_ARTIFACTSTAGINGDIRECTORY
@@ -156,19 +148,6 @@ try {
     }
 
     if ($ServiceDirectory -ne "tools" -and -not $onlyCiConfigChanged) {
-=======
-        $debugLogging = $env:SYSTEM_DEBUG -eq "true"
-        $logsFolder = $env:BUILD_ARTIFACTSTAGINGDIRECTORY
-        $diagnosticArguments = ($debugLogging -and $logsFolder) ? "/binarylogger:$logsFolder/generatecode.binlog" : ""
-
-        Write-Host "Re-generating clients"
-        Invoke-Block {
-            & dotnet msbuild $PSScriptRoot\..\service.proj /restore /t:GenerateCode /p:SDKType=$SDKType /p:ServiceDirectory=$ServiceDirectory $diagnosticArguments /p:ProjectListOverrideFile=""
-        }
-    }
-
-    if ($ServiceDirectory -ne "tools") {
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         Write-Host "Re-generating snippets"
         Invoke-Block {
             & $PSScriptRoot\Update-Snippets.ps1 -ServiceDirectory $ServiceDirectory
@@ -179,11 +158,7 @@ try {
             & $PSScriptRoot\Export-API.ps1 -ServiceDirectory $ServiceDirectory -SDKType $SDKType -SpellCheckPublicApiSurface:$SpellCheckPublicApiSurface
         }
     }
-<<<<<<< HEAD
     elseif ($ServiceDirectory -eq "tools") {
-=======
-    else {
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         Write-Host "Skipping snippet and API listing generation for tools directory"
     }
 
@@ -255,7 +230,6 @@ try {
             }
         }
 
-<<<<<<< HEAD
     Write-Host "`nValidating TestDependsOnDependency coverage"
     $missingDeps = Get-MissingTestDependsOnDependency -ServiceDirectory $ServiceDirectory -RepoRoot $RepoRoot
     if ($missingDeps) {
@@ -284,8 +258,6 @@ To fix this locally, run 'eng\scripts\CodeChecks.ps1 -ServiceDirectory $ServiceD
         }
     }
 
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     if (-not $ProjectDirectory)
     {
         Write-Host "git diff"

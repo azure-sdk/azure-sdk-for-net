@@ -11,9 +11,5 @@ extends:
     - name: Azure.ResourceManager.EventHubs
       safeName: AzureResourceManagerEventHubs
     - name: Azure.Provisioning.EventHubs
-<<<<<<< HEAD
       safeName: AzureProvisioningEventHubs
     TestDependsOnDependency: Azure.Provisioning.EventHubs Azure.ResourceManager.EventHubs
-=======
-      safeName: AzureProvisioningEventHubs
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

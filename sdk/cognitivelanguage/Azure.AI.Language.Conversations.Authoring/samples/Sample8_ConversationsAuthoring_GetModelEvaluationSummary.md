@@ -10,11 +10,7 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
-<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
-=======
-ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 The values of the endpoint and apiKey variables can be retrieved from environment variables, configuration settings, or any other secure approach that works for your application.
@@ -29,13 +25,7 @@ To retrieve a model evaluation summary, call GetModelEvaluationSummary on the `C
 ```C# Snippet:Sample8_ConversationsAuthoring_GetModelEvaluationSummary
 string projectName = "{projectName}";
 string trainedModelLabel = "{trainedModelLabel}";
-<<<<<<< HEAD
 Response<ConversationAuthoringEvalSummary> evaluationSummaryResponse = client.GetModelEvaluationSummary(projectName, trainedModelLabel);
-=======
-ConversationAuthoringTrainedModel trainedModelClient = client.GetTrainedModel(projectName, trainedModelLabel);
-
-Response<ConversationAuthoringEvalSummary> evaluationSummaryResponse = trainedModelClient.GetModelEvaluationSummary();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 // Print entities evaluation summary
 EntitiesEvaluationSummary entitiesEval = evaluationSummaryResponse.Value.EntitiesEvaluation;
@@ -43,11 +33,7 @@ Console.WriteLine($"Entities - Micro F1: {entitiesEval.MicroF1}, Micro Precision
 Console.WriteLine($"Entities - Macro F1: {entitiesEval.MacroF1}, Macro Precision: {entitiesEval.MacroPrecision}, Macro Recall: {entitiesEval.MacroRecall}");
 
 // Print detailed metrics per entity
-<<<<<<< HEAD
 foreach (KeyValuePair<string, AnalyzeConversationAuthoringEntityEvaluationSummary> entity in entitiesEval.Entities)
-=======
-foreach (KeyValuePair<string, ConversationAuthoringEntityEvalSummary> entity in entitiesEval.Entities)
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 {
     Console.WriteLine($"Entity '{entity.Key}': F1 = {entity.Value.F1}, Precision = {entity.Value.Precision}, Recall = {entity.Value.Recall}");
     Console.WriteLine($"  True Positives: {entity.Value.TruePositiveCount}, True Negatives: {entity.Value.TrueNegativeCount}");
@@ -75,13 +61,7 @@ To asynchronously retrieve a model evaluation summary, call GetModelEvaluationSu
 ```C# Snippet:Sample8_ConversationsAuthoring_GetModelEvaluationSummaryAsync
 string projectName = "{projectName}";
 string trainedModelLabel = "{trainedModelLabel}";
-<<<<<<< HEAD
 Response<ConversationAuthoringEvalSummary> evaluationSummaryResponse = await client.GetModelEvaluationSummaryAsync(projectName, trainedModelLabel);
-=======
-ConversationAuthoringTrainedModel trainedModelClient = client.GetTrainedModel(projectName, trainedModelLabel);
-
-Response<ConversationAuthoringEvalSummary> evaluationSummaryResponse = await trainedModelClient.GetModelEvaluationSummaryAsync();
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 // Print entities evaluation summary
 EntitiesEvaluationSummary entitiesEval = evaluationSummaryResponse.Value.EntitiesEvaluation;
@@ -89,11 +69,7 @@ Console.WriteLine($"Entities - Micro F1: {entitiesEval.MicroF1}, Micro Precision
 Console.WriteLine($"Entities - Macro F1: {entitiesEval.MacroF1}, Macro Precision: {entitiesEval.MacroPrecision}, Macro Recall: {entitiesEval.MacroRecall}");
 
 // Print detailed metrics per entity
-<<<<<<< HEAD
 foreach (KeyValuePair<string, AnalyzeConversationAuthoringEntityEvaluationSummary> entity in entitiesEval.Entities)
-=======
-foreach (KeyValuePair<string, ConversationAuthoringEntityEvalSummary> entity in entitiesEval.Entities)
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 {
     Console.WriteLine($"Entity '{entity.Key}': F1 = {entity.Value.F1}, Precision = {entity.Value.Precision}, Recall = {entity.Value.Recall}");
     Console.WriteLine($"  True Positives: {entity.Value.TruePositiveCount}, True Negatives: {entity.Value.TrueNegativeCount}");

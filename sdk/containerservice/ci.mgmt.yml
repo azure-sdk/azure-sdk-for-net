@@ -11,7 +11,4 @@ extends:
       safeName: AzureResourceManagerContainerService
     - name: Azure.Provisioning.ContainerService
       safeName: AzureProvisioningContainerService
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.ContainerService
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

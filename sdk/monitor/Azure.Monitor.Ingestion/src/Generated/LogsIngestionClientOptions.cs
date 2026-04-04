@@ -43,16 +43,9 @@ namespace Azure.Monitor.Ingestion
             {
                 Version = version;
             }
-<<<<<<< HEAD
             if (section["Audience"] is string audience)
             {
                 Audience = new LogsIngestionAudience(audience);
-=======
-            IConfigurationSection audienceSection = section.GetSection("Audience");
-            if (audienceSection.Exists())
-            {
-                Audience = new LogsIngestionAudience(audienceSection);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             }
             ConfigureLogging();
         }

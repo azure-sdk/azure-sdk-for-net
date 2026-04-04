@@ -9,7 +9,4 @@ extends:
     Artifacts:
     - name: Azure.ResourceManager.ManagedServiceIdentities
       safeName: AzureResourceManagerManagedServiceIdentities
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.ManagedServiceIdentities
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

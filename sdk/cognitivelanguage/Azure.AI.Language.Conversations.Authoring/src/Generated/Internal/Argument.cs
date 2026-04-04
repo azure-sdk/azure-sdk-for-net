@@ -11,15 +11,10 @@ using System.Collections.Generic;
 
 namespace Azure.AI.Language.Conversations.Authoring
 {
-<<<<<<< HEAD
     internal static partial class Argument
     {
         /// <param name="value"> The value. </param>
         /// <param name="name"> The name. </param>
-=======
-    internal static class Argument
-    {
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public static void AssertNotNull<T>(T value, string name)
         {
             if (value is null)
@@ -28,15 +23,10 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <param name="value"> The value. </param>
         /// <param name="name"> The name. </param>
         public static void AssertNotNull<T>(T? value, string name)
             where T : struct
-=======
-        public static void AssertNotNull<T>(T? value, string name)
-        where T : struct
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         {
             if (!value.HasValue)
             {
@@ -44,11 +34,8 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <param name="value"> The value. </param>
         /// <param name="name"> The name. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public static void AssertNotNullOrEmpty<T>(IEnumerable<T> value, string name)
         {
             if (value is null)
@@ -70,11 +57,8 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <param name="value"> The value. </param>
         /// <param name="name"> The name. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public static void AssertNotNullOrEmpty(string value, string name)
         {
             if (value is null)
@@ -87,11 +71,8 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <param name="value"> The value. </param>
         /// <param name="name"> The name. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public static void AssertNotNullOrWhiteSpace(string value, string name)
         {
             if (value is null)
@@ -104,26 +85,12 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <param name="value"> The value. </param>
         /// <param name="minimum"> The minimum value. </param>
         /// <param name="maximum"> The maximum value. </param>
         /// <param name="name"> The name. </param>
         public static void AssertInRange<T>(T value, T minimum, T maximum, string name)
             where T : notnull, IComparable<T>
-=======
-        public static void AssertNotDefault<T>(ref T value, string name)
-        where T : struct, IEquatable<T>
-        {
-            if (value.Equals(default))
-            {
-                throw new ArgumentException("Value cannot be empty.", name);
-            }
-        }
-
-        public static void AssertInRange<T>(T value, T minimum, T maximum, string name)
-        where T : notnull, IComparable<T>
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         {
             if (minimum.CompareTo(value) > 0)
             {
@@ -135,41 +102,12 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <param name="value"> The value. </param>
         /// <param name="name"> The name. </param>
-=======
-        public static void AssertEnumDefined(Type enumType, object value, string name)
-        {
-            if (!Enum.IsDefined(enumType, value))
-            {
-                throw new ArgumentException($"Value not defined for {enumType.FullName}.", name);
-            }
-        }
-
-        public static T CheckNotNull<T>(T value, string name)
-        where T : class
-        {
-            AssertNotNull(value, name);
-            return value;
-        }
-
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public static string CheckNotNullOrEmpty(string value, string name)
         {
             AssertNotNullOrEmpty(value, name);
             return value;
         }
-<<<<<<< HEAD
-=======
-
-        public static void AssertNull<T>(T value, string name, string message = null)
-        {
-            if (value != null)
-            {
-                throw new ArgumentException(message ?? "Value must be null.", name);
-            }
-        }
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     }
 }

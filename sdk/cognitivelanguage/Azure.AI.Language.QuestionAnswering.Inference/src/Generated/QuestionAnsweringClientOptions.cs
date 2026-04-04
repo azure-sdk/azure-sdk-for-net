@@ -49,16 +49,9 @@ namespace Azure.AI.Language.QuestionAnswering.Inference
             {
                 DefaultLanguage = defaultLanguage;
             }
-<<<<<<< HEAD
             if (section["Audience"] is string audience)
             {
                 Audience = new QuestionAnsweringAudience(audience);
-=======
-            IConfigurationSection audienceSection = section.GetSection("Audience");
-            if (audienceSection.Exists())
-            {
-                Audience = new QuestionAnsweringAudience(audienceSection);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             }
             ConfigureLogging();
         }

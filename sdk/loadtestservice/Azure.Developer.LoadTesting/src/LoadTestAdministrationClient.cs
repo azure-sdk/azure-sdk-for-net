@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-=======
-// Copyright (c) Microsoft Corporation. All rights reserved.
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 // Licensed under the MIT License.
 
 using System;
@@ -147,11 +143,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedStartTime,
                 lastModifiedEndTime,
                 null,
-<<<<<<< HEAD
-                context, "LoadTestAdministrationClient.GetTests");
-=======
-                context, "LoadTestAdministrationClient.GetTests");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
 
         /// <summary> Get all load tests by the fully qualified resource Id e.g subscriptions/{subId}/resourceGroups/{rg}/providers/Microsoft.LoadTestService/loadtests/{resName}. </summary>
@@ -171,11 +163,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedStartTime,
                 lastModifiedEndTime,
                 null,
-<<<<<<< HEAD
-                context, "LoadTestAdministrationClient.GetTests");
-=======
-                context, "LoadTestAdministrationClient.GetTests");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
 
         /// <summary>
@@ -203,11 +191,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedStartTime,
                 lastModifiedEndTime,
                 null,
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTests");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTests");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary>
@@ -235,11 +219,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedStartTime,
                 lastModifiedEndTime,
                 null,
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTests");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTests");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary> List test profiles. </summary>
@@ -258,11 +238,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedEndTime,
                 testProfileIds,
                 testIds,
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTestProfiles");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTestProfiles");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary> List test profiles. </summary>
@@ -281,11 +257,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedEndTime,
                 testProfileIds,
                 testIds,
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTestProfiles");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestAdministrationClient.GetTestProfiles");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary>
@@ -319,11 +291,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedEndTime,
                 testProfileIds,
                 testIds,
-<<<<<<< HEAD
-                context, "LoadTestAdministrationClient.GetTestProfiles");
-=======
-                context, "LoadTestAdministrationClient.GetTestProfiles");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
 
         /// <summary>
@@ -357,11 +325,7 @@ namespace Azure.Developer.LoadTesting
                 lastModifiedEndTime,
                 testProfileIds,
                 testIds,
-<<<<<<< HEAD
-                context, "LoadTestAdministrationClient.GetTestProfiles");
-=======
-                context, "LoadTestAdministrationClient.GetTestProfiles");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
     }
 }

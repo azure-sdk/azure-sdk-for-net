@@ -14,14 +14,10 @@ on:
 
 permissions: read-all
 
-<<<<<<< HEAD
 network:
   allowed:
     - defaults
     - "api.nuget.org"
-=======
-network: defaults
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 safe-outputs:
   add-labels:
@@ -32,11 +28,8 @@ safe-outputs:
     max: 1
   assign-to-user:
     max: 1
-<<<<<<< HEAD
   close-issue:
     max: 1
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
   noop:
     report-as-issue: false
   jobs:
@@ -316,7 +309,6 @@ IF you can confidently predict exactly one category label AND exactly one servic
 
 ELSE:
     - Remove any labels applied in earlier steps, leaving ONLY "needs-triage"
-<<<<<<< HEAD
     - Skip to Step 7
 ```
 
@@ -365,12 +357,6 @@ The replacement is `<alternatePackage.id>`. Please consider re-filing your issue
 3. Exit — skip all remaining steps
 
 ## Step 5: Owner Lookup and Routing
-=======
-    - Skip to Step 6
-```
-
-## Step 4: Owner Lookup and Routing
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 All issues reaching this step are customer-reported with predicted labels
 
@@ -437,11 +423,7 @@ Scan starts from end of file (line 1230) upward:
 2. `%Mgmt` catch-all (line 912) — requires "Mgmt"; issue has "Client" → no match, continue
 3. `%Event Hubs` (line 329) — requires only "Event Hubs"; issue has "Event Hubs" → ALL labels match ✅ STOP
 
-<<<<<<< HEAD
 **Outcome:** Matches `%Event Hubs` (line 329). AzureSdkOwners: @jsquire, ServiceOwners: @axisc @hmlam. Assign @jsquire, add "needs-team-attention", @mention @jsquire in Step 6 comment
-=======
-**Outcome:** Matches `%Event Hubs` (line 329). AzureSdkOwners: @jsquire, ServiceOwners: @axisc @hmlam. Assign @jsquire, add "needs-team-attention", @mention @jsquire in Step 5 comment
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 Note: There is no `%Client` catch-all entry in CODEOWNERS, so "Client" as a category label does not contribute to CODEOWNERS matching. The service label drives the match
 
@@ -457,21 +439,13 @@ IF a matching ServiceLabel entry is found in CODEOWNERS:
             - Pick one AzureSdkOwner at random and assign them using the `assign_to_user` tool
 
         - Add the "needs-team-attention" label
-<<<<<<< HEAD
         - Record all AzureSdkOwners for Step 6
-=======
-        - Record all AzureSdkOwners for Step 5
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
     ELSE IF only ServiceOwners are listed (no AzureSdkOwners):
         - Add the "Service Attention" label
         - Add the "needs-team-attention" label
         - Leave the issue unassigned
-<<<<<<< HEAD
         - Record all ServiceOwners for Step 6
-=======
-        - Record all ServiceOwners for Step 5
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
     ELSE (matched entry has neither AzureSdkOwners nor ServiceOwners):
         - Add the "needs-team-triage" label
@@ -480,15 +454,9 @@ ELSE (no ServiceLabel entry matches any of the issue's predicted labels):
     - Add the "needs-team-triage" label
 ```
 
-<<<<<<< HEAD
 ## Step 6: Owner Mention Comment
 
 If AzureSdkOwners or ServiceOwners were identified in Step 5, use the `mention_owners` tool to post a routing comment @mentioning them before the analysis comment
-=======
-## Step 5: Owner Mention Comment
-
-If AzureSdkOwners or ServiceOwners were identified in Step 4, use the `mention_owners` tool to post a routing comment @mentioning them before the analysis comment
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 **Important:** Use the `mention_owners` tool (NOT `add_comment`) for this step; `mention_owners` preserves @mentions as real pings while `add_comment` neutralizes them
 
@@ -497,20 +465,12 @@ If AzureSdkOwners or ServiceOwners were identified in Step 4, use the `mention_o
 This comment should be concise: a brief routing message and the @mentions only; no analysis or debugging detail
 
 ```
-<<<<<<< HEAD
 IF AzureSdkOwners were identified in Step 5:
-=======
-IF AzureSdkOwners were identified in Step 4:
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     - Use `mention_owners` with:
         message: "Thank you for your feedback. Tagging and routing to the team member best able to assist"
         owners: "owner1, owner2"
 
-<<<<<<< HEAD
 ELSE IF ServiceOwners were identified in Step 5 (Service Attention path):
-=======
-ELSE IF ServiceOwners were identified in Step 4 (Service Attention path):
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     - Use `mention_owners` with:
         message: "Thank you for your feedback. Tagging and routing to the team member best able to assist"
         owners: "owner1, owner2"
@@ -519,19 +479,11 @@ ELSE:
     - Skip this step
 ```
 
-<<<<<<< HEAD
 ## Step 7: Analysis Comment
 
 Add a single analysis comment to the issue using `add_comment`:
 
 - Keep @mentions exclusively in Step 6; this comment contains analysis only
-=======
-## Step 6: Analysis Comment
-
-Add a single analysis comment to the issue using `add_comment`:
-
-- Keep @mentions exclusively in Step 5; this comment contains analysis only
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 - Leave issue closure decisions to human reviewers; the "issue-addressed" label is not used during initial triage
 
 Use the following format exactly:

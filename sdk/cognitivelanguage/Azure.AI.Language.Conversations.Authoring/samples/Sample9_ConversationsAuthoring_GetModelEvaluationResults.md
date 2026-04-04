@@ -10,11 +10,7 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
-<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
-=======
-ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 The values of the endpoint and apiKey variables can be retrieved from environment variables, configuration settings, or any other secure approach that works for your application.
@@ -29,21 +25,10 @@ To retrieve model evaluation results, call GetModelEvaluationResults on the `Con
 ```C# Snippet:Sample9_ConversationsAuthoring_GetModelEvaluationResults
 string projectName = "{projectName}";
 string trainedModelLabel = "{trainedModelLabel}";
-<<<<<<< HEAD
 StringIndexType stringIndexType = StringIndexType.Utf16CodeUnit;
 Pageable<AnalyzeConversationAuthoringUtteranceEvaluationResult> results = client.GetModelEvaluationResults(projectName, trainedModelLabel, stringIndexType);
 
 foreach (AnalyzeConversationAuthoringUtteranceEvaluationResult result in results)
-=======
-
-ConversationAuthoringTrainedModel trainedModelClient = client.GetTrainedModel(projectName, trainedModelLabel);
-StringIndexType stringIndexType = StringIndexType.Utf16CodeUnit;
-Pageable<UtteranceEvaluationResult> results = trainedModelClient.GetModelEvaluationResults(
-    stringIndexType: stringIndexType
-);
-
-foreach (UtteranceEvaluationResult result in results)
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 {
     Console.WriteLine($"Text: {result.Text}");
     Console.WriteLine($"Language: {result.Language}");
@@ -76,22 +61,11 @@ To retrieve model evaluation results for a project asynchronously, call GetModel
 ```C# Snippet:Sample9_ConversationsAuthoring_GetModelEvaluationResultsAsync
 string projectName = "{projectName}";
 string trainedModelLabel = "{trainedModelLabel}";
-<<<<<<< HEAD
 StringIndexType stringIndexType = StringIndexType.Utf16CodeUnit;
 
 AsyncPageable<AnalyzeConversationAuthoringUtteranceEvaluationResult> results = client.GetModelEvaluationResultsAsync(projectName, trainedModelLabel, stringIndexType);
 
 await foreach (AnalyzeConversationAuthoringUtteranceEvaluationResult result in results)
-=======
-ConversationAuthoringTrainedModel trainedModelClient = client.GetTrainedModel(projectName, trainedModelLabel);
-StringIndexType stringIndexType = StringIndexType.Utf16CodeUnit;
-
-AsyncPageable<UtteranceEvaluationResult> results = trainedModelClient.GetModelEvaluationResultsAsync(
-    stringIndexType: stringIndexType
-);
-
-await foreach (UtteranceEvaluationResult result in results)
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 {
     Console.WriteLine($"Text: {result.Text}");
     Console.WriteLine($"Language: {result.Language}");

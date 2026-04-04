@@ -43,16 +43,9 @@ namespace Azure.Monitor.Query.Logs
             {
                 Version = version;
             }
-<<<<<<< HEAD
             if (section["Audience"] is string audience)
             {
                 Audience = new LogsQueryAudience(audience);
-=======
-            IConfigurationSection audienceSection = section.GetSection("Audience");
-            if (audienceSection.Exists())
-            {
-                Audience = new LogsQueryAudience(audienceSection);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             }
             ConfigureLogging();
         }

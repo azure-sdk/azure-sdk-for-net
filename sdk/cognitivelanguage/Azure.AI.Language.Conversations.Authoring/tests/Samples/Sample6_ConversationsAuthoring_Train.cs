@@ -20,18 +20,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample6_ConversationsAuthoring_Train
             string projectName = "{projectName}";
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
-
-            #region Snippet:Sample6_ConversationsAuthoring_Train
-            string projectName = "{projectName}";
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringTrainingJobDetails trainingJobDetails = new ConversationAuthoringTrainingJobDetails(
                 modelLabel: "{modelLabel}",
                 trainingMode: ConversationAuthoringTrainingMode.Standard
@@ -46,14 +38,9 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
                 }
             };
 
-<<<<<<< HEAD
             Operation<ConversationAuthoringTrainingJobResult> operation = client.Train(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
-=======
-            Operation<ConversationAuthoringTrainingJobResult> operation = projectClient.Train(
-                waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 details: trainingJobDetails
             );
 
@@ -71,11 +58,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample6_ConversationsAuthoring_Train_WithDataGeneration
             string projectName = "{projectName}";
@@ -106,15 +89,9 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             };
 
             // Start the training operation
-<<<<<<< HEAD
             Operation<ConversationAuthoringTrainingJobResult> operation = client.Train(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
-=======
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
-            Operation<ConversationAuthoringTrainingJobResult> operation = projectClient.Train(
-                waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 details: trainingJobDetails);
 
             // Extract operation location header and print status
@@ -130,19 +107,10 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample6_ConversationsAuthoring_TrainAsync
             string projectName = "{projectName}";
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
-
-            #region Snippet:Sample6_ConversationsAuthoring_TrainAsync
-            string projectName = "{projectName}";
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
-
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringTrainingJobDetails trainingJobDetails = new ConversationAuthoringTrainingJobDetails(
                 modelLabel: "{modelLabel}",
                 trainingMode: ConversationAuthoringTrainingMode.Standard
@@ -157,14 +125,9 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
                 }
             };
 
-<<<<<<< HEAD
             Operation<ConversationAuthoringTrainingJobResult> operation = await client.TrainAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
-=======
-            Operation<ConversationAuthoringTrainingJobResult> operation = await projectClient.TrainAsync(
-                waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 details: trainingJobDetails
             );
 
@@ -182,11 +145,7 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
-<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
-=======
-            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample6_ConversationsAuthoring_TrainAsync_WithDataGeneration
             string projectName = "{projectName}";
@@ -217,15 +176,9 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             };
 
             // Start training
-<<<<<<< HEAD
             Operation<ConversationAuthoringTrainingJobResult> operation = await client.TrainAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
-=======
-            ConversationAuthoringProject projectClient = client.GetProject(projectName);
-            Operation<ConversationAuthoringTrainingJobResult> operation = await projectClient.TrainAsync(
-                waitUntil: WaitUntil.Completed,
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 details: trainingJobDetails);
 
             // Extract and print operation location and status

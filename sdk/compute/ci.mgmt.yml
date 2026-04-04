@@ -12,7 +12,4 @@ extends:
       safeName: AzureResourceManagerCompute
     - name: Azure.Provisioning.Compute
       safeName: AzureProvisioningCompute
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.Compute
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

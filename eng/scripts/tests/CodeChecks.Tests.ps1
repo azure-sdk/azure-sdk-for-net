@@ -348,7 +348,6 @@ Describe "Get-DiffCheckResult" -Tag "UnitTest" {
         }
     }
 }
-<<<<<<< HEAD
 
 # ─────────────────────────────────────────────
 # Get-MissingTestDependsOnDependency
@@ -1100,5 +1099,3 @@ Describe "Test-OnlyCiConfigChanged" -Tag "UnitTest" {
         }
     }
 }
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

@@ -12,11 +12,7 @@ using System.Linq;
 
 namespace Azure.AI.Language.Conversations.Authoring
 {
-<<<<<<< HEAD
     internal partial class ChangeTrackingList<T> : IList<T>, IReadOnlyList<T>
-=======
-    internal class ChangeTrackingList<T> : IList<T>, IReadOnlyList<T>
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     {
         private IList<T> _innerList;
 
@@ -24,10 +20,7 @@ namespace Azure.AI.Language.Conversations.Authoring
         {
         }
 
-<<<<<<< HEAD
         /// <param name="innerList"> The inner list. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public ChangeTrackingList(IList<T> innerList)
         {
             if (innerList != null)
@@ -36,10 +29,7 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <param name="innerList"> The inner list. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public ChangeTrackingList(IReadOnlyList<T> innerList)
         {
             if (innerList != null)
@@ -48,7 +38,6 @@ namespace Azure.AI.Language.Conversations.Authoring
             }
         }
 
-<<<<<<< HEAD
         /// <summary> Gets the IsUndefined. </summary>
         public bool IsUndefined => _innerList == null;
 
@@ -59,14 +48,6 @@ namespace Azure.AI.Language.Conversations.Authoring
         public bool IsReadOnly => IsUndefined ? false : EnsureList().IsReadOnly;
 
         /// <summary> Gets or sets the value associated with the specified key. </summary>
-=======
-        public bool IsUndefined => _innerList == null;
-
-        public int Count => IsUndefined ? 0 : EnsureList().Count;
-
-        public bool IsReadOnly => IsUndefined ? false : EnsureList().IsReadOnly;
-
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public T this[int index]
         {
             get
@@ -110,10 +91,7 @@ namespace Azure.AI.Language.Conversations.Authoring
             return GetEnumerator();
         }
 
-<<<<<<< HEAD
         /// <param name="item"> The item to add. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public void Add(T item)
         {
             EnsureList().Add(item);
@@ -124,10 +102,7 @@ namespace Azure.AI.Language.Conversations.Authoring
             EnsureList().Clear();
         }
 
-<<<<<<< HEAD
         /// <param name="item"> The item. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public bool Contains(T item)
         {
             if (IsUndefined)
@@ -137,11 +112,8 @@ namespace Azure.AI.Language.Conversations.Authoring
             return EnsureList().Contains(item);
         }
 
-<<<<<<< HEAD
         /// <param name="array"> The array to copy to. </param>
         /// <param name="arrayIndex"> The array index. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (IsUndefined)
@@ -151,10 +123,7 @@ namespace Azure.AI.Language.Conversations.Authoring
             EnsureList().CopyTo(array, arrayIndex);
         }
 
-<<<<<<< HEAD
         /// <param name="item"> The item. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public bool Remove(T item)
         {
             if (IsUndefined)
@@ -164,10 +133,7 @@ namespace Azure.AI.Language.Conversations.Authoring
             return EnsureList().Remove(item);
         }
 
-<<<<<<< HEAD
         /// <param name="item"> The item. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public int IndexOf(T item)
         {
             if (IsUndefined)
@@ -177,20 +143,14 @@ namespace Azure.AI.Language.Conversations.Authoring
             return EnsureList().IndexOf(item);
         }
 
-<<<<<<< HEAD
         /// <param name="index"> The inner list. </param>
         /// <param name="item"> The item. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public void Insert(int index, T item)
         {
             EnsureList().Insert(index, item);
         }
 
-<<<<<<< HEAD
         /// <param name="index"> The inner list. </param>
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public void RemoveAt(int index)
         {
             if (IsUndefined)

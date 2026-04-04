@@ -13,7 +13,4 @@ extends:
       safeName: AzureResourceManagerEventGrid
     - name: Azure.Provisioning.EventGrid
       safeName: AzureProvisioningEventGrid
-<<<<<<< HEAD
     TestDependsOnDependency: Azure.Provisioning.EventGrid
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

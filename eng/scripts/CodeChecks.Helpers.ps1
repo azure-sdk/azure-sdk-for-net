@@ -1,7 +1,6 @@
 # Helper functions for CodeChecks.ps1
 # Separated so they can be unit-tested without executing the main script.
 
-<<<<<<< HEAD
 # Checks whether only CI pipeline config files (ci*.yml) were changed in the given
 # service directory relative to the merge base. Returns $true if all changed files
 # in sdk/<ServiceDirectory>/ match ci*.yml, meaning codegen/snippets/API export can be skipped.
@@ -54,8 +53,6 @@ function Test-OnlyCiConfigChanged {
     }
 }
 
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 # Parses a single git status --porcelain line and returns the path(s) it contains.
 # For renames ("old -> new"), returns both paths. Returns an empty array for blank/malformed lines.
 function Get-PorcelainPaths([string]$line) {
@@ -99,7 +96,6 @@ function Get-CodeCheckSummary {
     }
 }
 
-<<<<<<< HEAD
 # Validates that packages in the given service directory which are depended on by
 # other services have TestDependsOnDependency set in their CI file.
 # Returns an array of objects describing any missing entries, each with:
@@ -247,8 +243,6 @@ function Add-TestDependsOnDependency {
     [System.IO.File]::WriteAllText($CiFilePath, $content, $utf8NoBom)
 }
 
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 # Determines the action to take when a git diff is detected after code checks.
 # Returns an object with:
 #   Action       - "none" (no diffs), "error" (fail with message), or "report" (informational summary)

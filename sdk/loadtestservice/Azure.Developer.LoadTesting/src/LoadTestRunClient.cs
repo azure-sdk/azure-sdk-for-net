@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-=======
-// Copyright (c) Microsoft Corporation. All rights reserved.
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 // Licensed under the MIT License.
 
 using System;
@@ -231,11 +227,7 @@ namespace Azure.Developer.LoadTesting
                 null,
                 [],
                 [],
-<<<<<<< HEAD
-                context, "LoadTestRunClient.GetTestRuns");
-=======
-                context, "LoadTestRunClient.GetTestRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
 
         /// <summary> Get all test runs with given filters. </summary>
@@ -262,11 +254,7 @@ namespace Azure.Developer.LoadTesting
                 null,
                 [],
                 [],
-<<<<<<< HEAD
-                context, "LoadTestRunClient.GetTestRuns");
-=======
-                context, "LoadTestRunClient.GetTestRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
 
         /// <summary> Get all test runs for the given filters. </summary>
@@ -300,11 +288,7 @@ namespace Azure.Developer.LoadTesting
                 null,
                 [],
                 [],
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestRuns");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary> Get all test runs for the given filters. </summary>
@@ -338,11 +322,7 @@ namespace Azure.Developer.LoadTesting
                 null,
                 [],
                 [],
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestRuns");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary> List test profile runs. </summary>
@@ -371,11 +351,7 @@ namespace Azure.Developer.LoadTesting
                 testProfileRunIds,
                 testProfileIds,
                 statuses,
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestProfileRuns");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestProfileRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary> List test profile runs. </summary>
@@ -404,11 +380,7 @@ namespace Azure.Developer.LoadTesting
                 testProfileRunIds,
                 testProfileIds,
                 statuses,
-<<<<<<< HEAD
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestProfileRuns");
-=======
-                cancellationToken.ToRequestContext(), "LoadTestRunClient.GetTestProfileRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                cancellationToken.ToRequestContext());
         }
 
         /// <summary>
@@ -452,11 +424,7 @@ namespace Azure.Developer.LoadTesting
                 testProfileRunIds,
                 testProfileIds,
                 statuses,
-<<<<<<< HEAD
-                context, "LoadTestRunClient.GetTestProfileRuns");
-=======
-                context, "LoadTestRunClient.GetTestProfileRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
 
         /// <summary>
@@ -500,11 +468,7 @@ namespace Azure.Developer.LoadTesting
                 testProfileRunIds,
                 testProfileIds,
                 statuses,
-<<<<<<< HEAD
-                context, "LoadTestRunClient.GetTestProfileRuns");
-=======
-                context, "LoadTestRunClient.GetTestProfileRuns");
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
+                context);
         }
     }
 }

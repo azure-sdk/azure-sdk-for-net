@@ -10,11 +10,7 @@ using System.Text.Json;
 
 namespace Azure.AI.Language.Conversations.Authoring
 {
-<<<<<<< HEAD
     internal static partial class Optional
-=======
-    internal static class Optional
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     {
         public static bool IsCollectionDefined<T>(IEnumerable<T> collection)
         {
@@ -32,11 +28,7 @@ namespace Azure.AI.Language.Conversations.Authoring
         }
 
         public static bool IsDefined<T>(T? value)
-<<<<<<< HEAD
             where T : struct
-=======
-        where T : struct
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         {
             return value.HasValue;
         }
@@ -46,25 +38,14 @@ namespace Azure.AI.Language.Conversations.Authoring
             return value != null;
         }
 
-<<<<<<< HEAD
         public static bool IsDefined(string value)
         {
             return value != null;
         }
 
-=======
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public static bool IsDefined(JsonElement value)
         {
             return value.ValueKind != JsonValueKind.Undefined;
         }
-<<<<<<< HEAD
-=======
-
-        public static bool IsDefined(string value)
-        {
-            return value != null;
-        }
->>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     }
 }
