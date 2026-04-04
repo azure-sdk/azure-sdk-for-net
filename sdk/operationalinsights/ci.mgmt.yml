@@ -11,4 +11,7 @@ extends:
       safeName: AzureResourceManagerOperationalInsights
     - name: Azure.Provisioning.OperationalInsights
       safeName: AzureProvisioningOperationalInsights
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.Provisioning.OperationalInsights Azure.ResourceManager.OperationalInsights
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

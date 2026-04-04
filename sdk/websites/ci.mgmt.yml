@@ -11,4 +11,7 @@ extends:
       safeName: AzureResourceManagerAppService
     - name: Azure.Provisioning.AppService
       safeName: AzureProvisioningAppService
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.AppService
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

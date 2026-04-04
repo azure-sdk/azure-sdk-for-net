@@ -9,4 +9,7 @@ extends:
     Artifacts:
     - name: Azure.ResourceManager.RecoveryServices
       safeName: AzureResourceManagerRecoveryServices
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.RecoveryServices
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

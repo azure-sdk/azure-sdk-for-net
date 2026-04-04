@@ -138,17 +138,25 @@ namespace Azure.Core.Tests
             // Arrange
             var requestCount = 0;
             var responseCount = 0;
+<<<<<<< HEAD
             var requestsInHandler = new SemaphoreSlim(0);
             var releaseRequests = new ManualResetEventSlim(false);
             using var overallTimeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
 
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             Func<HttpPipelineTransportOptions, HttpClient> clientFactory = _ =>
             {
                 var handler = new MockHttpHandler(req =>
                 {
                     Interlocked.Increment(ref requestCount);
+<<<<<<< HEAD
                     requestsInHandler.Release();
                     releaseRequests.Wait(overallTimeout.Token);
+=======
+                    // Simulate some processing time
+                    Thread.Sleep(10);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                     Interlocked.Increment(ref responseCount);
                     return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
                 });
@@ -157,17 +165,28 @@ namespace Azure.Core.Tests
 
             using var transport = new HttpClientTransport(clientFactory);
 
+<<<<<<< HEAD
             // Act - Start multiple concurrent requests on dedicated threads to avoid thread pool starvation
             var tasks = new List<Task>();
             for (int i = 0; i < 5; i++)
             {
                 tasks.Add(Task.Factory.StartNew(async () =>
+=======
+            // Act - Start multiple concurrent requests and update transport during processing
+            var tasks = new List<Task>();
+
+            // Start several requests
+            for (int i = 0; i < 5; i++)
+            {
+                tasks.Add(Task.Run(async () =>
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 {
                     var request = transport.CreateRequest();
                     request.Uri.Reset(new Uri("https://example.com"));
                     var message = new HttpMessage(request, ResponseClassifier.Shared);
                     await ProcessSyncOrAsync(transport, message);
                     Assert.AreEqual(200, message.Response.Status);
+<<<<<<< HEAD
                 }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default).Unwrap());
             }
 
@@ -194,6 +213,14 @@ namespace Azure.Core.Tests
                 // Always unblock handler threads to prevent test hangs on failure
                 releaseRequests.Set();
             }
+=======
+                }));
+            }
+
+            // Update transport while requests are in flight
+            await Task.Delay(5); // Let some requests start
+            transport.Update(new HttpPipelineTransportOptions());
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             // Wait for all requests to complete
             await Task.WhenAll(tasks);
@@ -253,6 +280,7 @@ namespace Azure.Core.Tests
         {
             // Arrange
             var updateCount = 0;
+<<<<<<< HEAD
             var requestsInHandler = new SemaphoreSlim(0);
             var releaseRequests = new ManualResetEventSlim(false);
             using var overallTimeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
@@ -266,11 +294,18 @@ namespace Azure.Core.Tests
                     releaseRequests.Wait(overallTimeout.Token);
                     return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
                 });
+=======
+            Func<HttpPipelineTransportOptions, HttpClient> clientFactory = _ =>
+            {
+                Interlocked.Increment(ref updateCount);
+                var handler = new MockHttpHandler(req => new HttpResponseMessage(System.Net.HttpStatusCode.OK));
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 return new HttpClient(handler);
             };
 
             using var transport = new HttpClientTransport(clientFactory);
 
+<<<<<<< HEAD
             // Act - Start concurrent requests on dedicated threads to avoid thread pool starvation
             const int requestCount = 10;
             var tasks = new List<Task>();
@@ -317,6 +352,39 @@ namespace Azure.Core.Tests
             await Task.WhenAll(tasks);
 
             // Assert - Should have created initial client + 3 update clients
+=======
+            // Act - Multiple updates and concurrent requests
+            var tasks = new List<Task>();
+
+            // Start continuous requests
+            for (int i = 0; i < 10; i++)
+            {
+                tasks.Add(Task.Run(async () =>
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        var request = transport.CreateRequest();
+                        request.Uri.Reset(new Uri("https://example.com"));
+                        var message = new HttpMessage(request, ResponseClassifier.Shared);
+                        await ProcessSyncOrAsync(transport, message);
+                        Assert.AreEqual(200, message.Response.Status);
+                        await Task.Delay(1); // Small delay between requests
+                    }
+                }));
+            }
+
+            // Perform updates while requests are running
+            for (int i = 0; i < 3; i++)
+            {
+                await Task.Delay(5);
+                transport.Update(new HttpPipelineTransportOptions());
+            }
+
+            // Wait for all requests to complete
+            await Task.WhenAll(tasks);
+
+            // Assert - Should have created multiple clients due to updates
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             Assert.GreaterOrEqual(updateCount, 4, "Should have created multiple clients due to updates");
         }
 

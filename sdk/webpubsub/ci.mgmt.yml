@@ -10,4 +10,7 @@ extends:
       safeName: AzureResourceManagerWebPubSub
     - name: Azure.Provisioning.WebPubSub
       safeName: AzureProvisioningWebPubSub
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.WebPubSub
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

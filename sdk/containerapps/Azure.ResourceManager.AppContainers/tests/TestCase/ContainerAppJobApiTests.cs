@@ -25,7 +25,10 @@ namespace Azure.ResourceManager.AppContainers.Tests
 
         [TestCase]
         [RecordedTest]
+<<<<<<< HEAD
         [Ignore("https://github.com/Azure/azure-sdk-for-net/issues/57787 - Recordings need re-recording for api-version 2025-07-01")]
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         public async Task CreateOrUpdate()
         {
             string envName = Recording.GenerateAssetName("env");

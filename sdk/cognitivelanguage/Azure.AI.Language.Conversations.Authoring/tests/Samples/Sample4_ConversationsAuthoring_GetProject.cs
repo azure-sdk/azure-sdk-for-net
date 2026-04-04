@@ -20,11 +20,21 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample4_ConversationsAuthoring_GetProject
             string projectName = "{projectName}";
             Response<ConversationAuthoringProjectMetadata> response = client.GetProject(projectName);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+
+            #region Snippet:Sample4_ConversationsAuthoring_GetProject
+            string projectName = "{projectName}";
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+            Response<ConversationAuthoringProjectMetadata> response = projectClient.GetProject();
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringProjectMetadata projectMetadata = response.Value;
 
             Console.WriteLine($"Created DateTime: {projectMetadata.CreatedOn}");
@@ -45,11 +55,21 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample4_ConversationsAuthoring_GetProjectAsync
             string projectName = "{projectName}";
             Response<ConversationAuthoringProjectMetadata> response = await client.GetProjectAsync(projectName);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+
+            #region Snippet:Sample4_ConversationsAuthoring_GetProjectAsync
+            string projectName = "{projectName}";
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+            Response<ConversationAuthoringProjectMetadata> response = await projectClient.GetProjectAsync();
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringProjectMetadata projectMetadata = response.Value;
 
             Console.WriteLine($"Created DateTime: {projectMetadata.CreatedOn}");

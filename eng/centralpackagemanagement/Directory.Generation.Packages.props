@@ -1,6 +1,10 @@
 <Project>
   <PropertyGroup>
+<<<<<<< HEAD
     <UnbrandedGeneratorVersion>1.0.0-alpha.20260403.13</UnbrandedGeneratorVersion>
+=======
+    <UnbrandedGeneratorVersion>1.0.0-alpha.20260403.5</UnbrandedGeneratorVersion>
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     <AzureGeneratorVersion>1.0.0-alpha.20260331.4</AzureGeneratorVersion>
     <AzureManagementGeneratorVersion>1.0.0-alpha.20260322.2</AzureManagementGeneratorVersion>
   </PropertyGroup>

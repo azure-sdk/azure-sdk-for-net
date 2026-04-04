@@ -1183,7 +1183,11 @@ namespace Azure.Communication.JobRouter
             DateTimeOffset? scheduledBefore = null, DateTimeOffset? scheduledAfter = null,
             CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetJobsAsyncCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext());
+<<<<<<< HEAD
+            return new JobRouterClientGetJobsAsyncCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext(), "JobRouterClient.GetJobs");
+=======
+            return new JobRouterClientGetJobsAsyncCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext(), "JobRouterClient.GetJobs");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         /// <summary> Retrieves list of jobs based on filter parameters. </summary>
@@ -1198,7 +1202,11 @@ namespace Azure.Communication.JobRouter
             string channelId = null, string classificationPolicyId = null, DateTimeOffset? scheduledBefore = null,
             DateTimeOffset? scheduledAfter = null, CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetJobsCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext());
+<<<<<<< HEAD
+            return new JobRouterClientGetJobsCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext(), "JobRouterClient.GetJobs");
+=======
+            return new JobRouterClientGetJobsCollectionResultOfT(this, null, status?.ToString(), queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, cancellationToken.ToRequestContext(), "JobRouterClient.GetJobs");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         /// <summary>
@@ -1227,7 +1235,11 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual AsyncPageable<BinaryData> GetJobsAsync(string status, string queueId, string channelId, string classificationPolicyId, DateTimeOffset? scheduledBefore, DateTimeOffset? scheduledAfter, RequestContext context)
         {
-            return new JobRouterClientGetJobsAsyncCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context);
+<<<<<<< HEAD
+            return new JobRouterClientGetJobsAsyncCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context, "JobRouterClient.GetJobs");
+=======
+            return new JobRouterClientGetJobsAsyncCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context, "JobRouterClient.GetJobs");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         /// <summary>
@@ -1256,7 +1268,11 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual Pageable<BinaryData> GetJobs(string status, string queueId, string channelId, string classificationPolicyId, DateTimeOffset? scheduledBefore, DateTimeOffset? scheduledAfter, RequestContext context)
         {
-            return new JobRouterClientGetJobsCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context);
+<<<<<<< HEAD
+            return new JobRouterClientGetJobsCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context, "JobRouterClient.GetJobs");
+=======
+            return new JobRouterClientGetJobsCollectionResult(this, null, status, queueId, channelId, classificationPolicyId, scheduledBefore, scheduledAfter, context, "JobRouterClient.GetJobs");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         #endregion Job
@@ -1503,7 +1519,11 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual AsyncPageable<RouterWorker> GetWorkersAsync(RouterWorkerStateSelector? state = null, string channelId = null, string queueId = null, bool? hasCapacity = null, CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetWorkersAsyncCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext());
+<<<<<<< HEAD
+            return new JobRouterClientGetWorkersAsyncCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext(), "JobRouterClient.GetWorkers");
+=======
+            return new JobRouterClientGetWorkersAsyncCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext(), "JobRouterClient.GetWorkers");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         /// <summary> Retrieves existing workers. </summary>
@@ -1514,7 +1534,11 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Pageable<RouterWorker> GetWorkers(RouterWorkerStateSelector? state = null, string channelId = null, string queueId = null, bool? hasCapacity = null, CancellationToken cancellationToken = default)
         {
-            return new JobRouterClientGetWorkersCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext());
+<<<<<<< HEAD
+            return new JobRouterClientGetWorkersCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext(), "JobRouterClient.GetWorkers");
+=======
+            return new JobRouterClientGetWorkersCollectionResultOfT(this, null, state?.ToString(), channelId, queueId, hasCapacity, cancellationToken.ToRequestContext(), "JobRouterClient.GetWorkers");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         /// <summary>
@@ -1541,7 +1565,11 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual AsyncPageable<BinaryData> GetWorkersAsync(string state, string channelId, string queueId, bool? hasCapacity, RequestContext context)
         {
-            return new JobRouterClientGetWorkersAsyncCollectionResult(this, null, state, channelId, queueId, hasCapacity, context);
+<<<<<<< HEAD
+            return new JobRouterClientGetWorkersAsyncCollectionResult(this, null, state, channelId, queueId, hasCapacity, context, "JobRouterClient.GetWorkers");
+=======
+            return new JobRouterClientGetWorkersAsyncCollectionResult(this, null, state, channelId, queueId, hasCapacity, context, "JobRouterClient.GetWorkers");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         /// <summary>
@@ -1568,7 +1596,11 @@ namespace Azure.Communication.JobRouter
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
         public virtual Pageable<BinaryData> GetWorkers(string state, string channelId, string queueId, bool? hasCapacity, RequestContext context)
         {
-            return new JobRouterClientGetWorkersCollectionResult(this, null, state, channelId, queueId, hasCapacity, context);
+<<<<<<< HEAD
+            return new JobRouterClientGetWorkersCollectionResult(this, null, state, channelId, queueId, hasCapacity, context, "JobRouterClient.GetWorkers");
+=======
+            return new JobRouterClientGetWorkersCollectionResult(this, null, state, channelId, queueId, hasCapacity, context, "JobRouterClient.GetWorkers");
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         }
 
         #endregion Worker

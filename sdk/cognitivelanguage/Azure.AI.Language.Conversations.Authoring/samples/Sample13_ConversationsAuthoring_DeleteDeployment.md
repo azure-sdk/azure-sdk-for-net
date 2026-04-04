@@ -10,7 +10,11 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
+<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
+=======
+ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 Or you can also create a `ConversationAnalysisAuthoringClient` using Azure Active Directory (AAD) authentication. Your user or service principal must be assigned the "Cognitive Services Language Reader" role.
@@ -23,7 +27,15 @@ To delete a deployment, call DeleteDeployment on the `ConversationAuthoringDeplo
 ```C# Snippet:Sample13_ConversationsAuthoring_DeleteDeployment
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
+<<<<<<< HEAD
 Operation operation = client.DeleteDeployment(WaitUntil.Completed, projectName, deploymentName);
+=======
+ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
+
+Operation operation = deploymentClient.DeleteDeployment(
+    waitUntil: WaitUntil.Completed
+);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 // Extract operation-location from response headers
 string operationLocation = operation.GetRawResponse().Headers.TryGetValue("operation-location", out string location) ? location : "Not found";
@@ -38,7 +50,15 @@ To delete a deployment, call DeleteDeploymentAsync on the `ConversationAuthoring
 ```C# Snippet:Sample13_ConversationsAuthoring_DeleteDeploymentAsync
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
+<<<<<<< HEAD
 Operation operation = await client.DeleteDeploymentAsync(WaitUntil.Completed, projectName, deploymentName);
+=======
+ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
+
+Operation operation = await deploymentClient.DeleteDeploymentAsync(
+    waitUntil: WaitUntil.Completed
+);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 // Extract operation-location from response headers
 string operationLocation = operation.GetRawResponse().Headers.TryGetValue("operation-location", out string location) ? location : "Not found";

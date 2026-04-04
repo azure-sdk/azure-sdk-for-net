@@ -26,7 +26,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             credential = new(TestEnvironment.ApiKey);
 #endif
             ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             #endregion
         }
 
@@ -39,7 +43,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             endpoint = TestEnvironment.Endpoint;
 #endif
             DefaultAzureCredential credential = new DefaultAzureCredential();
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             #endregion
         }
 
@@ -48,12 +56,20 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:AuthoringClient_BadRequest
             try
             {
                 string invalidProjectName = "InvalidProject";
+<<<<<<< HEAD
+=======
+                ConversationAuthoringProject projectClient = client.GetProject(invalidProjectName);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 ConversationAuthoringCreateProjectDetails projectData = new ConversationAuthoringCreateProjectDetails(
                   projectKind: "Conversation",
                   projectName: invalidProjectName,
@@ -63,7 +79,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
                     Description = "This is a test for invalid configuration."
                 };
                 using RequestContent content = RequestContent.Create(projectData);
+<<<<<<< HEAD
                 Response response = client.CreateProject(invalidProjectName, content);
+=======
+                Response response = projectClient.CreateProject(content);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             }
             catch (RequestFailedException ex)
             {

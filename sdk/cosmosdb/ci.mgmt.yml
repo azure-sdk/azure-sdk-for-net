@@ -11,5 +11,9 @@ extends:
     - name: Azure.ResourceManager.CosmosDB
       safeName: AzureResourceManagerCosmosDB
     - name: Azure.Provisioning.CosmosDB
+<<<<<<< HEAD
       safeName: AzureProvisioningCosmosDB
     TestDependsOnDependency: Azure.Provisioning.CosmosDB
+=======
+      safeName: AzureProvisioningCosmosDB
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

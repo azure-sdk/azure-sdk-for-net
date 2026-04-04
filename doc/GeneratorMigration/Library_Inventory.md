@@ -1,6 +1,10 @@
 # Azure SDK for .NET Libraries Inventory
 
+<<<<<<< HEAD
 > **Auto-generated** by `Library_Inventory` on 2026-04-03 19:07:48 UTC.
+=======
+> **Auto-generated** by `Library_Inventory` on 2026-04-03 09:47:01 UTC.
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 > Run that script to refresh this file.
 
 ## Table of Contents
@@ -16,6 +20,7 @@
 
 ## Summary
 
+<<<<<<< HEAD
 - Total libraries: 398
 - Management Plane (MPG): 232
   - Autorest/Swagger: 102
@@ -25,6 +30,17 @@
   - Autorest/Swagger: 37
   - New Emitter (TypeSpec): 40
   - Old TypeSpec: 3
+=======
+- Total libraries: 397
+- Management Plane (MPG): 231
+  - Autorest/Swagger: 102
+  - New Emitter (TypeSpec): 129
+  - Old TypeSpec: 0
+- Data Plane (DPG): 128
+  - Autorest/Swagger: 37
+  - New Emitter (TypeSpec): 39
+  - Old TypeSpec: 4
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 - Provisioning: 38
   - Reflection-based generator: 34
   - TypeSpec-based generator: 2
@@ -36,7 +52,11 @@
 
 Libraries that provide client APIs for Azure services and have been migrated to the new TypeSpec emitter.
 
+<<<<<<< HEAD
 **Migration Status**: 40 / 43 (93%)
+=======
+**Migration Status**: 39 / 43 (90.7%)
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 | Service | Library | New Emitter | Using SCM |
 | ------- | ------- | ----------- | --------- |
@@ -49,7 +69,11 @@ Libraries that provide client APIs for Azure services and have been migrated to 
 | appconfiguration | Azure.Data.AppConfiguration | ✅ |  |
 | batch | Azure.Compute.Batch | ✅ |  |
 | cognitivelanguage | Azure.AI.Language.Conversations | ✅ |  |
+<<<<<<< HEAD
 | cognitivelanguage | Azure.AI.Language.Conversations.Authoring | ✅ |  |
+=======
+| cognitivelanguage | Azure.AI.Language.Conversations.Authoring |  |  |
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 | cognitivelanguage | Azure.AI.Language.QuestionAnswering.Authoring | ✅ |  |
 | cognitivelanguage | Azure.AI.Language.QuestionAnswering.Inference | ✅ |  |
 | cognitivelanguage | Azure.AI.Language.Text | ✅ |  |
@@ -134,7 +158,11 @@ Libraries that have not yet been migrated to the new TypeSpec emitter. Total: 37
 
 Libraries that provide resource management APIs for Azure services and have been migrated to the new TypeSpec emitter.
 
+<<<<<<< HEAD
 **Migration Status**: 130 / 130 (100%)
+=======
+**Migration Status**: 129 / 129 (100%)
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 | Service | Library | New Emitter |
 | ------- | ------- | ----------- |
@@ -237,7 +265,10 @@ Libraries that provide resource management APIs for Azure services and have been
 | recoveryservices-backup | Azure.ResourceManager.RecoveryServicesBackup | ✅ |
 | recoveryservices-datareplication | Azure.ResourceManager.RecoveryServicesDataReplication | ✅ |
 | redisenterprise | Azure.ResourceManager.RedisEnterprise | ✅ |
+<<<<<<< HEAD
 | relationships | Azure.ResourceManager.Relationships | ✅ |
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 | relay | Azure.ResourceManager.Relay | ✅ |
 | resourceconnector | Azure.ResourceManager.ResourceConnector | ✅ |
 | resources | Azure.ResourceManager.Resources.Bicep | ✅ |

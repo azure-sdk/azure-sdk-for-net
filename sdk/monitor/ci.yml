@@ -31,4 +31,7 @@ extends:
       safeName: AzureMonitorQueryMetrics
     - name: Azure.Monitor.Ingestion
       safeName: AzureMonitorIngestion
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.Monitor.OpenTelemetry.Exporter Azure.Monitor.Query.Logs
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

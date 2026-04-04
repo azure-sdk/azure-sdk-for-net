@@ -3,6 +3,7 @@
 
 using Azure.AI.Language.Conversations.Authoring;
 using Azure.Core;
+<<<<<<< HEAD
 using Microsoft.TypeSpec.Generator.Customizations;
 
 namespace Microsoft.Extensions.Azure
@@ -13,3 +14,14 @@ namespace Microsoft.Extensions.Azure
     {
     }
 }
+=======
+
+namespace Microsoft.Extensions.Azure
+{
+    /// <summary> Extension methods to add <see cref="ConversationAnalysisAuthoringClient"/> to client builder. </summary>
+    [CodeGenModel("AILanguageConversationsAuthoringClientBuilderExtensions")]
+    public static partial class ConversationsAuthoringClientBuilderExtensions
+    {
+    }
+}
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

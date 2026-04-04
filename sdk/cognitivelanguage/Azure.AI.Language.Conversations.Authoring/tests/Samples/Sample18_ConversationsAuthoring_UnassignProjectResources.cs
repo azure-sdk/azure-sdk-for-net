@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright (c) Microsoft Corporation. All rights reserved.
+=======
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 // Licensed under the MIT License.
 
 using System;
@@ -21,25 +25,44 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri sampleEndpoint = TestEnvironment.Endpoint;
             DefaultAzureCredential sampleCredential = new DefaultAzureCredential();
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(sampleEndpoint, sampleCredential);
+=======
+            var sampleClient = new ConversationAnalysisAuthoringClient(sampleEndpoint, sampleCredential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample18_ConversationsAuthoring_UnassignProjectResources
             // Set project name and create client for the project
             string sampleProjectName = "{projectName}";
+<<<<<<< HEAD
             // Define assigned resource ID to be unassigned
             var sampleUnassignIds = new ConversationAuthoringDeleteDeploymentDetails
             {
                 AssignedResourceIds =
+=======
+            ConversationAuthoringProject sampleProjectClient = sampleClient.GetProject(sampleProjectName);
+
+            // Define assigned resource ID to be unassigned
+            var sampleUnassignIds = new ConversationAuthoringProjectResourceIds
+            {
+                AzureResourceIds =
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 {
                     "/subscriptions/{subscription}/resourceGroups/{resourcegroup}/providers/Microsoft.CognitiveServices/accounts/{sampleAccount}"
                 }
             };
 
             // Start the operation
+<<<<<<< HEAD
             Operation sampleOperation = client.UnassignProjectResources(
                 WaitUntil.Started,
                 sampleProjectName,
                 sampleUnassignIds
+=======
+            Operation sampleOperation = sampleProjectClient.UnassignProjectResources(
+                waitUntil: WaitUntil.Started,
+                details: sampleUnassignIds
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             Console.WriteLine($"UnassignProjectResources initiated. Status: {sampleOperation.GetRawResponse().Status}");
@@ -63,25 +86,44 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri sampleEndpoint = TestEnvironment.Endpoint;
             DefaultAzureCredential sampleCredential = new DefaultAzureCredential();
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(sampleEndpoint, sampleCredential);
+=======
+            var sampleClient = new ConversationAnalysisAuthoringClient(sampleEndpoint, sampleCredential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample18_ConversationsAuthoring_UnassignProjectResourcesAsync
             // Set project name and create client for the project
             string sampleProjectName = "{projectName}";
+<<<<<<< HEAD
             // Define assigned resource ID to be unassigned
             var sampleUnassignIds = new ConversationAuthoringDeleteDeploymentDetails
             {
                 AssignedResourceIds =
+=======
+            ConversationAuthoringProject sampleProjectClient = sampleClient.GetProject(sampleProjectName);
+
+            // Define assigned resource ID to be unassigned
+            var sampleUnassignIds = new ConversationAuthoringProjectResourceIds
+            {
+                AzureResourceIds =
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 {
                     "/subscriptions/{subscription}/resourceGroups/{resourcegroup}/providers/Microsoft.CognitiveServices/accounts/{sampleAccount}"
                 }
             };
 
             // Call the operation
+<<<<<<< HEAD
             Operation sampleOperation = await client.UnassignProjectResourcesAsync(
                 WaitUntil.Started,
                 sampleProjectName,
                 sampleUnassignIds
+=======
+            Operation sampleOperation = await sampleProjectClient.UnassignProjectResourcesAsync(
+                waitUntil: WaitUntil.Started,
+                details: sampleUnassignIds
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             Console.WriteLine($"UnassignProjectResourcesAsync initiated. Status: {sampleOperation.GetRawResponse().Status}");

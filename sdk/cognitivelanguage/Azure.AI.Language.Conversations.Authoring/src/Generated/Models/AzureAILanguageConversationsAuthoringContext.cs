@@ -6,12 +6,16 @@
 #nullable disable
 
 using System.ClientModel.Primitives;
+<<<<<<< HEAD
 using Azure;
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 namespace Azure.AI.Language.Conversations.Authoring
 {
     /// <summary>
     /// Context class which will be filled in by the System.ClientModel.SourceGeneration.
+<<<<<<< HEAD
     /// For more information <see href='https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md' />
     /// </summary>
     [ModelReaderWriterBuildable(typeof(AnalyzeConversationAuthoringConfusionMatrixRow))]
@@ -25,15 +29,35 @@ namespace Azure.AI.Language.Conversations.Authoring
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringAssignedDeploymentResource))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringAssignedProjectDeploymentMetadata))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringAssignedProjectDeploymentsMetadata))]
+=======
+    /// For more information see 'https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/System.ClientModel/src/docs/ModelReaderWriterContext.md'
+    /// </summary>
+    [ModelReaderWriterBuildable(typeof(AnalyzeConversationAuthoringConfusionMatrixCell))]
+    [ModelReaderWriterBuildable(typeof(AnalyzeConversationAuthoringConfusionMatrixRow))]
+    [ModelReaderWriterBuildable(typeof(AnalyzeConversationAuthoringDataGenerationConnectionInfo))]
+    [ModelReaderWriterBuildable(typeof(AnalyzeConversationAuthoringDataGenerationSettings))]
+    [ModelReaderWriterBuildable(typeof(AnalyzeConversationAuthoringUtteranceEntitiesEvaluationResult))]
+    [ModelReaderWriterBuildable(typeof(AnalyzeConversationAuthoringUtteranceIntentsEvaluationResult))]
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringAssignedProjectDeploymentMetadata))]
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringAssignedProjectDeploymentsMetadata))]
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringAssignedProjectResource))]
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringAssignProjectResourcesDetails))]
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringCopyProjectDetails))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringCopyProjectState))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringCreateDeploymentDetails))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringCreateProjectDetails))]
+<<<<<<< HEAD
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringDeleteDeploymentDetails))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringDeploymentDeleteFromResourcesState))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringDeploymentResource))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringDeploymentResourcesState))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringDeploymentState))]
+=======
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringDeploymentDeleteFromResourcesState))]
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringDeploymentState))]
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringEntityEvalSummary))]
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringEvalSummary))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringEvaluationDetails))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringEvaluationJobResult))]
@@ -54,6 +78,11 @@ namespace Azure.AI.Language.Conversations.Authoring
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringProjectDeletionState))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringProjectDeployment))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringProjectMetadata))]
+<<<<<<< HEAD
+=======
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringProjectResourceIds))]
+    [ModelReaderWriterBuildable(typeof(ConversationAuthoringProjectResourcesState))]
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringProjectSettings))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringProjectTrainedModel))]
     [ModelReaderWriterBuildable(typeof(ConversationAuthoringResourceMetadata))]
@@ -87,6 +116,7 @@ namespace Azure.AI.Language.Conversations.Authoring
     [ModelReaderWriterBuildable(typeof(OrchestrationExportedIntent))]
     [ModelReaderWriterBuildable(typeof(OrchestrationExportedProjectAsset))]
     [ModelReaderWriterBuildable(typeof(OrchestrationExportedUtterance))]
+<<<<<<< HEAD
     [ModelReaderWriterBuildable(typeof(PagedAnalyzeConversationAuthoringAssignedProjectDeploymentsMetadata))]
     [ModelReaderWriterBuildable(typeof(PagedAnalyzeConversationAuthoringExportedTrainedModel))]
     [ModelReaderWriterBuildable(typeof(PagedAnalyzeConversationAuthoringPrebuiltEntity))]
@@ -98,10 +128,16 @@ namespace Azure.AI.Language.Conversations.Authoring
     [ModelReaderWriterBuildable(typeof(PagedAnalyzeConversationAuthoringTrainingConfigVersion))]
     [ModelReaderWriterBuildable(typeof(PagedAnalyzeConversationAuthoringTrainingJobState))]
     [ModelReaderWriterBuildable(typeof(PagedAnalyzeConversationAuthoringUtteranceEvaluationResult))]
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     [ModelReaderWriterBuildable(typeof(ResponseError))]
     [ModelReaderWriterBuildable(typeof(UnknownConversationAuthoringExportedProjectAsset))]
     [ModelReaderWriterBuildable(typeof(UnknownExportedOrchestrationDetails))]
     [ModelReaderWriterBuildable(typeof(UtteranceEntityEvaluationResult))]
+<<<<<<< HEAD
+=======
+    [ModelReaderWriterBuildable(typeof(UtteranceEvaluationResult))]
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     public partial class AzureAILanguageConversationsAuthoringContext : ModelReaderWriterContext
     {
     }

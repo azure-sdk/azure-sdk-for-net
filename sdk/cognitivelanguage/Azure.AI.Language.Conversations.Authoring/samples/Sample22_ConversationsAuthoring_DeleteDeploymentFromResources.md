@@ -10,7 +10,11 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
+<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
+=======
+ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 Or you can also create a `ConversationAnalysisAuthoringClient` using Azure Active Directory (AAD) authentication. Your user or service principal must be assigned the "Cognitive Services Language Reader" role.
@@ -23,10 +27,21 @@ To delete a deployment from specific Azure resources, first retrieve a deploymen
 ```C# Snippet:Sample22_ConversationsAuthoring_DeleteDeploymentFromResources
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
+<<<<<<< HEAD
 // Define the Azure resource IDs from which the deployment should be deleted
 var deleteBody = new ConversationAuthoringDeleteDeploymentDetails
 {
     AssignedResourceIds =
+=======
+
+// Get the deployment-scoped client
+ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
+
+// Define the Azure resource IDs from which the deployment should be deleted
+var deleteBody = new ConversationAuthoringProjectResourceIds
+{
+    AzureResourceIds =
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     {
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CognitiveServices/accounts/{accountName}"
     }
@@ -34,7 +49,11 @@ var deleteBody = new ConversationAuthoringDeleteDeploymentDetails
 
 // Begin delete operation
 Operation operation =
+<<<<<<< HEAD
     client.DeleteDeploymentFromResources(WaitUntil.Started, projectName, deploymentName, deleteBody);
+=======
+    deploymentClient.DeleteDeploymentFromResources(WaitUntil.Started, deleteBody);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 // Wait for completion
 operation.WaitForCompletionResponse();
@@ -49,10 +68,21 @@ To delete a deployment from resources asynchronously, use `DeleteDeploymentFromR
 ```C# Snippet:Sample22_ConversationsAuthoring_DeleteDeploymentFromResourcesAsync
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
+<<<<<<< HEAD
 // Define the Azure resource IDs from which the deployment should be deleted
 var deleteBody = new ConversationAuthoringDeleteDeploymentDetails
 {
     AssignedResourceIds =
+=======
+
+// Get the deployment-scoped client
+ConversationAuthoringDeployment deploymentClient = client.GetDeployment(projectName, deploymentName);
+
+// Define the Azure resource IDs from which the deployment should be deleted
+var deleteBody = new ConversationAuthoringProjectResourceIds
+{
+    AzureResourceIds =
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     {
         "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CognitiveServices/accounts/{accountName}"
     }
@@ -60,10 +90,15 @@ var deleteBody = new ConversationAuthoringDeleteDeploymentDetails
 
 // Begin the delete operation
 Operation operation =
+<<<<<<< HEAD
     await client.DeleteDeploymentFromResourcesAsync(
         WaitUntil.Started,
         projectName,
         deploymentName,
+=======
+    await deploymentClient.DeleteDeploymentFromResourcesAsync(
+        WaitUntil.Started,
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
         deleteBody);
 
 // Wait for completion

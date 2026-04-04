@@ -38,7 +38,11 @@
           "type": "object",
           "properties": {
             "Audience": {
+<<<<<<< HEAD
               "type": "string"
+=======
+              "type": "object"
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             }
           }
         }

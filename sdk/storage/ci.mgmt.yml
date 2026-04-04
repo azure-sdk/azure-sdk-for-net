@@ -15,4 +15,7 @@ extends:
       safeName: AzureProvisioningStorage
     TestSetupSteps:
     - template: /sdk/storage/tests-install-azurite.yml
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.Provisioning.Storage Azure.ResourceManager.Storage
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

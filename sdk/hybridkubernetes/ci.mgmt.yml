@@ -11,4 +11,7 @@ extends:
       safeName: AzureResourceManagerKubernetes
     - name: Azure.Provisioning.Kubernetes
       safeName: AzureProvisioningKubernetes
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.Kubernetes
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

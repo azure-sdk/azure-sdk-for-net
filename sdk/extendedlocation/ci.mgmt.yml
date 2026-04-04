@@ -9,4 +9,7 @@ extends:
     Artifacts:
     - name: Azure.ResourceManager.ExtendedLocations
       safeName: AzureResourceManagerExtendedLocations
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.ExtendedLocations
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

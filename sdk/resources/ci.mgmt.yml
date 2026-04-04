@@ -17,4 +17,7 @@ extends:
       safeName: AzureResourceManagerResourcesDeploymentStacks
     - name: Azure.ResourceManager.Resources.Policy
       safeName: AzureResourceManagerResourcesPolicy
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.Resources
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

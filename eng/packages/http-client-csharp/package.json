@@ -38,7 +38,11 @@
     "dist/generator/**"
   ],
   "dependencies": {
+<<<<<<< HEAD
     "@typespec/http-client-csharp": "1.0.0-alpha.20260403.13"
+=======
+    "@typespec/http-client-csharp": "1.0.0-alpha.20260403.5"
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
   },
   "devDependencies": {
     "@azure-tools/azure-http-specs": "0.1.0-alpha.38",

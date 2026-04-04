@@ -10,4 +10,7 @@ extends:
     Artifacts:
     - name: Azure.ResourceManager.IotHub
       safeName: AzureResourceManagerIotHub
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.IotHub
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

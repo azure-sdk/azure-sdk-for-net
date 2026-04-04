@@ -14,4 +14,7 @@ extends:
       safeName: AzureResourceManagerContainerRegistryTasks
     - name: Azure.Provisioning.ContainerRegistry
       safeName: AzureProvisioningContainerRegistry
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.Provisioning.ContainerRegistry Azure.ResourceManager.ContainerRegistry
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

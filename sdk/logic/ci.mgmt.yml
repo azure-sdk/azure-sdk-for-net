@@ -9,4 +9,7 @@ extends:
     Artifacts:
     - name: Azure.ResourceManager.Logic
       safeName: AzureResourceManagerLogic
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.Logic
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

@@ -1,7 +1,11 @@
 {
   "main": "dist/src/index.js",
   "dependencies": {
+<<<<<<< HEAD
     "@azure-typespec/http-client-csharp": "1.0.0-alpha.20260403.3"
+=======
+    "@azure-typespec/http-client-csharp": "1.0.0-alpha.20260403.2"
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
   },
   "devDependencies": {
     "@azure-tools/typespec-azure-core": "0.66.0",

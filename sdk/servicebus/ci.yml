@@ -21,4 +21,7 @@ extends:
     Artifacts:
     - name: Azure.Messaging.ServiceBus
       safeName: AzureMessagingServiceBus
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.Messaging.ServiceBus
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

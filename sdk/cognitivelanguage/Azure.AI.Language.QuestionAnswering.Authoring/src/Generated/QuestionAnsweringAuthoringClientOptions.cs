@@ -44,9 +44,16 @@ namespace Azure.AI.Language.QuestionAnswering.Authoring
             {
                 Version = version;
             }
+<<<<<<< HEAD
             if (section["Audience"] is string audience)
             {
                 Audience = new QuestionAnsweringAuthoringAudience(audience);
+=======
+            IConfigurationSection audienceSection = section.GetSection("Audience");
+            if (audienceSection.Exists())
+            {
+                Audience = new QuestionAnsweringAuthoringAudience(audienceSection);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             }
             ConfigureLogging();
         }

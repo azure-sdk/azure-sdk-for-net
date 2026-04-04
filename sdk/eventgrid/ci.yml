@@ -36,6 +36,9 @@ extends:
       # the MSDocs issue is fixed.
       # https://github.com/Azure/azure-sdk-for-net/issues/45032
       skipPublishDocMs: true
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.Messaging.EventGrid
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 

@@ -13,4 +13,7 @@ extends:
       safeName: AzureResourceManagerSql
     - name: Azure.Provisioning.Sql
       safeName: AzureProvisioningSql
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.Sql
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

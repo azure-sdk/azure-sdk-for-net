@@ -22,10 +22,19 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample2_ConversationsAuthoring_Import
             string projectName = "{projectName}";
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+
+            #region Snippet:Sample2_ConversationsAuthoring_Import
+            string projectName = "{projectName}";
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringCreateProjectDetails projectMetadata = new ConversationAuthoringCreateProjectDetails(
                 projectKind: "Conversation",
                 projectName: projectName,
@@ -77,11 +86,18 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
                 Assets = projectAssets
             };
 
+<<<<<<< HEAD
             Operation operation = client.Import(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
                 exportedProject: exportedProject,
                 exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+=======
+            Operation operation = projectClient.Import(
+                waitUntil: WaitUntil.Completed,
+                exportedProject: exportedProject,
+                projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Extract the operation-location header
@@ -98,7 +114,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample2_ConversationsAuthoring_ImportProjectAsRawJson
             string projectName = "{projectName}";
@@ -152,12 +172,22 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
               }
             }
             """;
+<<<<<<< HEAD
             using RequestContent content = RequestContent.Create(rawJson);
             Operation operation = client.Import(
                 waitUntil: WaitUntil.Started,
                 projectName: projectName,
                 content: content,
                 exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation.ToString()
+=======
+
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+            Operation operation = projectClient.Import(
+                waitUntil: WaitUntil.Started,
+                projectJson: rawJson,
+                projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             string operationLocation = operation.GetRawResponse().Headers.TryGetValue("operation-location", out string location) ? location : null;
@@ -172,7 +202,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample2_ConversationsAuthoring_ImportProjectWithMetadataAndResources
             string projectName = "{projectName}";
@@ -244,10 +278,20 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             {
                 Assets = projectAssets
             };
+<<<<<<< HEAD
             // Start import operation
             Operation operation = client.Import(
                 WaitUntil.Started,
                 projectName,
+=======
+
+            // Get project authoring client
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+            // Start import operation
+            Operation operation = projectClient.Import(
+                WaitUntil.Started,
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 exportedProject,
                 ConversationAuthoringExportedProjectFormat.Conversation
             );
@@ -266,10 +310,19 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample2_ConversationsAuthoring_ImportAsync
             string projectName = "{projectName}";
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+
+            #region Snippet:Sample2_ConversationsAuthoring_ImportAsync
+            string projectName = "{projectName}";
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             ConversationAuthoringCreateProjectDetails projectMetadata = new ConversationAuthoringCreateProjectDetails(
                 projectKind: "Conversation",
                 projectName: projectName,
@@ -321,11 +374,18 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
                 Assets = projectAssets
             };
 
+<<<<<<< HEAD
             Operation operation = await client.ImportAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
                 exportedProject: exportedProject,
                 exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+=======
+            Operation operation = await projectClient.ImportAsync(
+                waitUntil: WaitUntil.Completed,
+                exportedProject: exportedProject,
+                projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             // Extract the operation-location header
@@ -342,10 +402,19 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
 
             #region Snippet:Sample2_ConversationsAuthoring_ImportProjectAsRawJsonAsync
             string projectName = "{projectName}";
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+
+            #region Snippet:Sample2_ConversationsAuthoring_ImportProjectAsRawJsonAsync
+            string projectName = "{projectName}";
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             string rawJson = """
             {
               "projectFileVersion": "2025-05-15-preview",
@@ -396,12 +465,19 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             }
             """;
 
+<<<<<<< HEAD
             using RequestContent content = RequestContent.Create(rawJson);
             Operation operation = await client.ImportAsync(
                 waitUntil: WaitUntil.Started,
                 projectName: projectName,
                 content: content,
                 exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation.ToString()
+=======
+            Operation operation = await projectClient.ImportAsync(
+                waitUntil: WaitUntil.Started,
+                projectJson: rawJson,
+                projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
             );
 
             string operationLocation = operation.GetRawResponse().Headers.TryGetValue("operation-location", out string location) ? location : null;
@@ -416,7 +492,11 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new AzureKeyCredential(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample2_ConversationsAuthoring_ImportProjectAsync_WithMetadataAndAssets
             string projectName = "{projectName}";
@@ -487,10 +567,20 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
             {
                 Assets = projectAssets
             };
+<<<<<<< HEAD
             // Start import
             Operation operation = await client.ImportAsync(
                 waitUntil: WaitUntil.Started,
                 projectName,
+=======
+
+            // Get project client
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+            // Start import
+            Operation operation = await projectClient.ImportAsync(
+                waitUntil: WaitUntil.Started,
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 exportedProject,
                 ConversationAuthoringExportedProjectFormat.Conversation
             );

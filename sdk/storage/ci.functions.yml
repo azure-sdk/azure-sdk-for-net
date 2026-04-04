@@ -24,4 +24,7 @@ extends:
       - /sdk/storage/Azure.Storage.Queues/
     TestSetupSteps:
     - template: /sdk/storage/tests-install-azurite.yml
+<<<<<<< HEAD
     TestDependsOnDependency: Microsoft.Azure.WebJobs.Extensions.Storage
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

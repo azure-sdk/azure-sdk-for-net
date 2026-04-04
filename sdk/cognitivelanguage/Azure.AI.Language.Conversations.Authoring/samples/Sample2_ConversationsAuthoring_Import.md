@@ -10,7 +10,11 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
+<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
+=======
+ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 The values of the endpoint and apiKey variables can be retrieved from: Environment variables, configuration settings, or any other secure approach that works for your application.
@@ -24,6 +28,11 @@ To import a project synchronously, call Import on the `ConversationAuthoringProj
 
 ```C# Snippet:Sample2_ConversationsAuthoring_Import
 string projectName = "{projectName}";
+<<<<<<< HEAD
+=======
+ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ConversationAuthoringCreateProjectDetails projectMetadata = new ConversationAuthoringCreateProjectDetails(
     projectKind: "Conversation",
     projectName: projectName,
@@ -75,11 +84,18 @@ ConversationAuthoringExportedProject exportedProject = new ConversationAuthoring
     Assets = projectAssets
 };
 
+<<<<<<< HEAD
 Operation operation = client.Import(
     waitUntil: WaitUntil.Completed,
     projectName: projectName,
     exportedProject: exportedProject,
     exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+=======
+Operation operation = projectClient.Import(
+    waitUntil: WaitUntil.Completed,
+    exportedProject: exportedProject,
+    projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 );
 
 // Extract the operation-location header
@@ -145,12 +161,22 @@ string rawJson = """
   }
 }
 """;
+<<<<<<< HEAD
 using RequestContent content = RequestContent.Create(rawJson);
 Operation operation = client.Import(
     waitUntil: WaitUntil.Started,
     projectName: projectName,
     content: content,
     exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation.ToString()
+=======
+
+ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+Operation operation = projectClient.Import(
+    waitUntil: WaitUntil.Started,
+    projectJson: rawJson,
+    projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 );
 
 string operationLocation = operation.GetRawResponse().Headers.TryGetValue("operation-location", out string location) ? location : null;
@@ -232,10 +258,20 @@ ConversationAuthoringExportedProject exportedProject = new ConversationAuthoring
 {
     Assets = projectAssets
 };
+<<<<<<< HEAD
 // Start import operation
 Operation operation = client.Import(
     WaitUntil.Started,
     projectName,
+=======
+
+// Get project authoring client
+ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+// Start import operation
+Operation operation = projectClient.Import(
+    WaitUntil.Started,
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     exportedProject,
     ConversationAuthoringExportedProjectFormat.Conversation
 );
@@ -253,6 +289,11 @@ To import a project, call ImportAsync on the ConversationAuthoringProject client
 
 ```C# Snippet:Sample2_ConversationsAuthoring_ImportAsync
 string projectName = "{projectName}";
+<<<<<<< HEAD
+=======
+ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ConversationAuthoringCreateProjectDetails projectMetadata = new ConversationAuthoringCreateProjectDetails(
     projectKind: "Conversation",
     projectName: projectName,
@@ -304,11 +345,18 @@ ConversationAuthoringExportedProject exportedProject = new ConversationAuthoring
     Assets = projectAssets
 };
 
+<<<<<<< HEAD
 Operation operation = await client.ImportAsync(
     waitUntil: WaitUntil.Completed,
     projectName: projectName,
     exportedProject: exportedProject,
     exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+=======
+Operation operation = await projectClient.ImportAsync(
+    waitUntil: WaitUntil.Completed,
+    exportedProject: exportedProject,
+    projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 );
 
 // Extract the operation-location header
@@ -325,6 +373,11 @@ To import a project using raw JSON asynchronously, define the JSON string matchi
 
 ```C# Snippet:Sample2_ConversationsAuthoring_ImportProjectAsRawJsonAsync
 string projectName = "{projectName}";
+<<<<<<< HEAD
+=======
+ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 string rawJson = """
 {
   "projectFileVersion": "2025-05-15-preview",
@@ -375,12 +428,19 @@ string rawJson = """
 }
 """;
 
+<<<<<<< HEAD
 using RequestContent content = RequestContent.Create(rawJson);
 Operation operation = await client.ImportAsync(
     waitUntil: WaitUntil.Started,
     projectName: projectName,
     content: content,
     exportedProjectFormat: ConversationAuthoringExportedProjectFormat.Conversation.ToString()
+=======
+Operation operation = await projectClient.ImportAsync(
+    waitUntil: WaitUntil.Started,
+    projectJson: rawJson,
+    projectFormat: ConversationAuthoringExportedProjectFormat.Conversation
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 );
 
 string operationLocation = operation.GetRawResponse().Headers.TryGetValue("operation-location", out string location) ? location : null;
@@ -461,10 +521,20 @@ ConversationAuthoringExportedProject exportedProject = new ConversationAuthoring
 {
     Assets = projectAssets
 };
+<<<<<<< HEAD
 // Start import
 Operation operation = await client.ImportAsync(
     waitUntil: WaitUntil.Started,
     projectName,
+=======
+
+// Get project client
+ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+// Start import
+Operation operation = await projectClient.ImportAsync(
+    waitUntil: WaitUntil.Started,
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     exportedProject,
     ConversationAuthoringExportedProjectFormat.Conversation
 );

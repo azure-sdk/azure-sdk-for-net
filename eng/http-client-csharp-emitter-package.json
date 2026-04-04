@@ -2,7 +2,11 @@
   "main": "dist/src/index.js",
   "dependencies": {
     "client-plugin": "file:../../../../eng/packages/plugins/client",
+<<<<<<< HEAD
     "@typespec/http-client-csharp": "1.0.0-alpha.20260403.13"
+=======
+    "@typespec/http-client-csharp": "1.0.0-alpha.20260403.5"
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
   },
   "devDependencies": {
     "@azure-tools/typespec-client-generator-core": "0.66.3",

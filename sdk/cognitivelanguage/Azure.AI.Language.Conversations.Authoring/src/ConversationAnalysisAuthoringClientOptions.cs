@@ -3,11 +3,16 @@
 
 using Azure.Core;
 
+<<<<<<< HEAD
 using Microsoft.TypeSpec.Generator.Customizations;
 namespace Azure.AI.Language.Conversations.Authoring
 {
     /// <summary> Client options for <see cref="ConversationAnalysisAuthoring"/>. </summary>
     [CodeGenType("ConversationAnalysisAuthoringOptions")]
+=======
+namespace Azure.AI.Language.Conversations.Authoring
+{
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
     public partial class ConversationAnalysisAuthoringClientOptions : ClientOptions
     {
         /// <summary>

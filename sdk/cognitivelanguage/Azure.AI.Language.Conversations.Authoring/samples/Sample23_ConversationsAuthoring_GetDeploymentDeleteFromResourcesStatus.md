@@ -10,7 +10,11 @@ To create a `ConversationAnalysisAuthoringClient`, you will need the service end
 Uri endpoint = new Uri("{endpoint}");
 AzureKeyCredential credential = new AzureKeyCredential("{api-key}");
 ConversationAnalysisAuthoringClientOptions options = new ConversationAnalysisAuthoringClientOptions(ConversationAnalysisAuthoringClientOptions.ServiceVersion.V2025_11_15_Preview);
+<<<<<<< HEAD
 ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential, options);
+=======
+ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential, options);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 ```
 
 Or you can also create a `ConversationAnalysisAuthoringClient` using Azure Active Directory (AAD) authentication. Your user or service principal must be assigned the "Cognitive Services Language Reader" role.
@@ -24,9 +28,20 @@ To check the status of a delete-from-resources operation, retrieve a deployment-
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
 string jobId = "{jobId}";
+<<<<<<< HEAD
 // Retrieve the job status
 Response<ConversationAuthoringDeploymentDeleteFromResourcesState> response =
     client.GetDeploymentDeleteFromResourcesStatus(projectName, deploymentName, jobId);
+=======
+
+// Get the deployment-scoped client
+ConversationAuthoringDeployment deploymentClient =
+    client.GetDeployment(projectName, deploymentName);
+
+// Retrieve the job status
+Response<ConversationAuthoringDeploymentDeleteFromResourcesState> response =
+    deploymentClient.GetDeploymentDeleteFromResourcesStatus(jobId);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 ConversationAuthoringDeploymentDeleteFromResourcesState state = response.Value;
 
@@ -45,9 +60,20 @@ To retrieve job status asynchronously, call `GetDeploymentDeleteFromResourcesSta
 string projectName = "{projectName}";
 string deploymentName = "{deploymentName}";
 string jobId = "{jobId}";
+<<<<<<< HEAD
 // Retrieve the job status asynchronously
 Response<ConversationAuthoringDeploymentDeleteFromResourcesState> response =
     await client.GetDeploymentDeleteFromResourcesStatusAsync(projectName, deploymentName, jobId);
+=======
+
+// Get the deployment-scoped client
+ConversationAuthoringDeployment deploymentClient =
+    client.GetDeployment(projectName, deploymentName);
+
+// Retrieve the job status asynchronously
+Response<ConversationAuthoringDeploymentDeleteFromResourcesState> response =
+    await deploymentClient.GetDeploymentDeleteFromResourcesStatusAsync(jobId);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
 ConversationAuthoringDeploymentDeleteFromResourcesState state = response.Value;
 

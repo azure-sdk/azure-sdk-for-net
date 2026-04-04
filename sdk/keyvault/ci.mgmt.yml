@@ -11,4 +11,7 @@ extends:
       safeName: AzureResourceManagerKeyVault
     - name: Azure.Provisioning.KeyVault
       safeName: AzureProvisioningKeyVault
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.ResourceManager.KeyVault
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

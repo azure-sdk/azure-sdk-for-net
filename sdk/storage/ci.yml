@@ -60,4 +60,7 @@ extends:
       skipSmokeTests: true
     TestSetupSteps:
     - template: /sdk/storage/tests-install-azurite.yml
+<<<<<<< HEAD
     TestDependsOnDependency: Azure.Storage.Blobs Azure.Storage.Files.Shares Azure.Storage.Queues
+=======
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

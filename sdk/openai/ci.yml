@@ -22,5 +22,9 @@ extends:
     ArtifactName: packages
     Artifacts:
     - name: Azure.AI.OpenAI
+<<<<<<< HEAD
       safeName: AzureAIOpenAI
     TestDependsOnDependency: Azure.AI.OpenAI
+=======
+      safeName: AzureAIOpenAI
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)

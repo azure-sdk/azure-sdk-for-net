@@ -20,14 +20,25 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample7_ConversationsAuthoring_CancelTrainingJob
             string projectName = "{projectName}";
             string jobId = "{jobId}";
+<<<<<<< HEAD
             Operation<ConversationAuthoringTrainingJobResult> cancelOperation = client.CancelTrainingJob(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
+=======
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+            Operation<ConversationAuthoringTrainingJobResult> cancelOperation = projectClient.CancelTrainingJob(
+                waitUntil: WaitUntil.Completed,
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 jobId: jobId
             );
 
@@ -45,14 +56,25 @@ namespace Azure.AI.Language.Conversations.Authoring.Tests.Samples
         {
             Uri endpoint = TestEnvironment.Endpoint;
             AzureKeyCredential credential = new(TestEnvironment.ApiKey);
+<<<<<<< HEAD
             ConversationAnalysisAuthoring client = new ConversationAnalysisAuthoring(endpoint, credential);
+=======
+            ConversationAnalysisAuthoringClient client = new ConversationAnalysisAuthoringClient(endpoint, credential);
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
 
             #region Snippet:Sample7_ConversationsAuthoring_CancelTrainingJobAsync
             string projectName = "{projectName}";
             string jobId = "{jobId}";
+<<<<<<< HEAD
             Operation<ConversationAuthoringTrainingJobResult> cancelOperation = await client.CancelTrainingJobAsync(
                 waitUntil: WaitUntil.Completed,
                 projectName: projectName,
+=======
+            ConversationAuthoringProject projectClient = client.GetProject(projectName);
+
+            Operation<ConversationAuthoringTrainingJobResult> cancelOperation = await projectClient.CancelTrainingJobAsync(
+                waitUntil: WaitUntil.Completed,
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
                 jobId: jobId
             );
 

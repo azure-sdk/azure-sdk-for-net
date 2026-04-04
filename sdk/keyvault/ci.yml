@@ -33,5 +33,9 @@ extends:
     - name: Azure.Security.KeyVault.Secrets
       safeName: AzureSecurityKeyVaultSecrets
       triggeringPaths:
+<<<<<<< HEAD
       - Azure.Security.Keyvault.Shared
     TestDependsOnDependency: Azure.Security.KeyVault.Keys Azure.Security.KeyVault.Secrets
+=======
+      - Azure.Security.Keyvault.Shared
+>>>>>>> da5fe643f (fix: pass diagnosticScope to custom collection result constructors)
