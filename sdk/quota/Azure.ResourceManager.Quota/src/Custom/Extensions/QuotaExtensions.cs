@@ -125,10 +125,9 @@ namespace Azure.ResourceManager.Quota
 
         // --- Obsolete TenantResource methods ---
 
-        /// <summary>
-        /// List the operations for the provider. This operation is obsolete; use GetAllAsync instead.
-        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Quota/operations</description></item></list>
-        /// </summary>
+        // Operation path: /providers/Microsoft.Quota/operations
+        // This operation is obsolete; use GetAllAsync instead.
+        /// <summary> Obsolete. Use GetAllAsync instead. </summary>
         [Obsolete("This method is obsolete and will be removed in a future release.", false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static AsyncPageable<QuotaOperationResult> GetQuotaOperationsAsync(this TenantResource tenantResource, CancellationToken cancellationToken = default)
@@ -136,10 +135,9 @@ namespace Azure.ResourceManager.Quota
             throw new NotSupportedException("This method is obsolete. Use GetAllAsync instead.");
         }
 
-        /// <summary>
-        /// List the operations for the provider. This operation is obsolete; use GetAll instead.
-        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Quota/operations</description></item></list>
-        /// </summary>
+        // Operation path: /providers/Microsoft.Quota/operations
+        // This operation is obsolete; use GetAll instead.
+        /// <summary> Obsolete. Use GetAll instead. </summary>
         [Obsolete("This method is obsolete and will be removed in a future release.", false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static Pageable<QuotaOperationResult> GetQuotaOperations(this TenantResource tenantResource, CancellationToken cancellationToken = default)
