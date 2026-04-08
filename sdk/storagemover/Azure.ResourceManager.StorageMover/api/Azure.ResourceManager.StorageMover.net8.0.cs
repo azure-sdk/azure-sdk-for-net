@@ -30,15 +30,15 @@ namespace Azure.ResourceManager.StorageMover
         public Azure.Core.ResourceIdentifier AgentResourceId { get { throw null; } }
         public System.Collections.Generic.IList<Azure.Core.ResourceIdentifier> Connections { get { throw null; } }
         public Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode CopyMode { get { throw null; } set { } }
-        public Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation? DataIntegrityValidation { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation? DataIntegrityValidation { get { throw null; } set { } }
         public string Description { get { throw null; } set { } }
+        public bool? IsPermissionsPreserved { get { throw null; } set { } }
         public Azure.ResourceManager.StorageMover.Models.JobType? JobType { get { throw null; } set { } }
         public string LatestJobRunName { get { throw null; } }
         public Azure.Core.ResourceIdentifier LatestJobRunResourceId { get { throw null; } }
         public Azure.ResourceManager.StorageMover.Models.JobRunStatus? LatestJobRunStatus { get { throw null; } }
-        public bool? PreservePermissions { get { throw null; } set { } }
         public Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.StorageMover.Models.ScheduleInfo Schedule { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo Schedule { get { throw null; } set { } }
         public string SourceName { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier SourceResourceId { get { throw null; } }
         public string SourceSubpath { get { throw null; } set { } }
@@ -129,7 +129,7 @@ namespace Azure.ResourceManager.StorageMover
         public string TargetName { get { throw null; } }
         public System.BinaryData TargetProperties { get { throw null; } }
         public Azure.Core.ResourceIdentifier TargetResourceId { get { throw null; } }
-        public Azure.ResourceManager.StorageMover.Models.TriggerType? TriggerType { get { throw null; } }
+        public Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType? TriggerType { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.StorageMover.Models.JobRunWarning> Warnings { get { throw null; } }
         protected virtual Azure.ResourceManager.Models.ResourceData JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -490,30 +490,29 @@ namespace Azure.ResourceManager.StorageMover.Models
 {
     public static partial class ArmStorageMoverModelFactory
     {
-        public static Azure.ResourceManager.StorageMover.Models.AzureMultiCloudConnectorEndpointProperties AzureMultiCloudConnectorEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.Core.ResourceIdentifier multiCloudConnectorId = null, Azure.Core.ResourceIdentifier awsS3BucketId = null) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.AzureMultiCloudConnectorEndpointProperties AzureMultiCloudConnectorEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.Core.ResourceIdentifier multiCloudConnectorId = null, Azure.Core.ResourceIdentifier awsS3BucketId = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.AzureMultiCloudConnectorEndpointProperties AzureMultiCloudConnectorEndpointProperties(string description, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState, Azure.Core.ResourceIdentifier multiCloudConnectorId, Azure.Core.ResourceIdentifier awsS3BucketId) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.AzureStorageBlobContainerEndpointProperties AzureStorageBlobContainerEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), string storageAccountResourceId = null, string blobContainerName = null) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.AzureStorageBlobContainerEndpointProperties AzureStorageBlobContainerEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), string storageAccountResourceId = null, string blobContainerName = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.AzureStorageBlobContainerEndpointProperties AzureStorageBlobContainerEndpointProperties(string description, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState, string storageAccountResourceId, string blobContainerName) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.AzureStorageNfsFileShareEndpointProperties AzureStorageNfsFileShareEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.Core.ResourceIdentifier storageAccountResourceId = null, string fileShareName = null) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.AzureStorageNfsFileShareEndpointProperties AzureStorageNfsFileShareEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.Core.ResourceIdentifier storageAccountResourceId = null, string fileShareName = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.AzureStorageNfsFileShareEndpointProperties AzureStorageNfsFileShareEndpointProperties(string description, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState, Azure.Core.ResourceIdentifier storageAccountResourceId, string fileShareName) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.AzureStorageSmbFileShareEndpointProperties AzureStorageSmbFileShareEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.Core.ResourceIdentifier storageAccountResourceId = null, string fileShareName = null) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.AzureStorageSmbFileShareEndpointProperties AzureStorageSmbFileShareEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.Core.ResourceIdentifier storageAccountResourceId = null, string fileShareName = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.AzureStorageSmbFileShareEndpointProperties AzureStorageSmbFileShareEndpointProperties(string description, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState, Azure.Core.ResourceIdentifier storageAccountResourceId, string fileShareName) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.EndpointBaseProperties EndpointBaseProperties(string endpointType = null, string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?)) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.EndpointBaseProperties EndpointBaseProperties(string endpointType = null, string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.EndpointBaseProperties EndpointBaseProperties(string endpointType, string description, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState) { throw null; }
         public static Azure.ResourceManager.StorageMover.JobDefinitionData JobDefinitionData(Azure.Core.ResourceIdentifier id, string name, Azure.Core.ResourceType resourceType, Azure.ResourceManager.Models.SystemData systemData, string description, Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode copyMode, string sourceName, Azure.Core.ResourceIdentifier sourceResourceId, string sourceSubpath, string targetName, Azure.Core.ResourceIdentifier targetResourceId, string targetSubpath, string latestJobRunName, Azure.Core.ResourceIdentifier latestJobRunResourceId, Azure.ResourceManager.StorageMover.Models.JobRunStatus? latestJobRunStatus, string agentName, Azure.Core.ResourceIdentifier agentResourceId, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState) { throw null; }
         public static Azure.ResourceManager.StorageMover.JobDefinitionData JobDefinitionData(Azure.Core.ResourceIdentifier id, string name, Azure.Core.ResourceType resourceType, Azure.ResourceManager.Models.SystemData systemData, string description, Azure.ResourceManager.StorageMover.Models.JobType? jobType, Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode copyMode, string sourceName, Azure.Core.ResourceIdentifier sourceResourceId, string sourceSubpath, string targetName, Azure.Core.ResourceIdentifier targetResourceId, string targetSubpath, string latestJobRunName, Azure.Core.ResourceIdentifier latestJobRunResourceId, Azure.ResourceManager.StorageMover.Models.JobRunStatus? latestJobRunStatus, string agentName, Azure.Core.ResourceIdentifier agentResourceId, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageMover.Models.SourceTargetMap> sourceTargetMapValue, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState) { throw null; }
-        public static Azure.ResourceManager.StorageMover.JobDefinitionData JobDefinitionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string description = null, Azure.ResourceManager.StorageMover.Models.JobType? jobType = default(Azure.ResourceManager.StorageMover.Models.JobType?), Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode? copyMode = default(Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode?), string sourceName = null, Azure.Core.ResourceIdentifier sourceResourceId = null, string sourceSubpath = null, string targetName = null, Azure.Core.ResourceIdentifier targetResourceId = null, string targetSubpath = null, string latestJobRunName = null, Azure.Core.ResourceIdentifier latestJobRunResourceId = null, Azure.ResourceManager.StorageMover.Models.JobRunStatus? latestJobRunStatus = default(Azure.ResourceManager.StorageMover.Models.JobRunStatus?), string agentName = null, Azure.Core.ResourceIdentifier agentResourceId = null, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> connections = null, Azure.ResourceManager.StorageMover.Models.ScheduleInfo schedule = null, Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation? dataIntegrityValidation = default(Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation?), bool? preservePermissions = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageMover.Models.SourceTargetMap> sourceTargetMapValue = null) { throw null; }
-        public static Azure.ResourceManager.StorageMover.JobRunData JobRunData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.StorageMover.Models.JobRunStatus? status = default(Azure.ResourceManager.StorageMover.Models.JobRunStatus?), Azure.ResourceManager.StorageMover.Models.JobRunScanStatus? scanStatus = default(Azure.ResourceManager.StorageMover.Models.JobRunScanStatus?), string agentName = null, Azure.Core.ResourceIdentifier agentResourceId = null, System.DateTimeOffset? executionStartOn = default(System.DateTimeOffset?), System.DateTimeOffset? executionEndOn = default(System.DateTimeOffset?), Azure.ResourceManager.StorageMover.Models.TriggerType? triggerType = default(Azure.ResourceManager.StorageMover.Models.TriggerType?), System.DateTimeOffset? scheduledExecutionOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastStatusUpdate = default(System.DateTimeOffset?), long? itemsScanned = default(long?), long? itemsExcluded = default(long?), long? itemsUnsupported = default(long?), long? itemsNoTransferNeeded = default(long?), long? itemsFailed = default(long?), long? itemsTransferred = default(long?), long? bytesScanned = default(long?), long? bytesExcluded = default(long?), long? bytesUnsupported = default(long?), long? bytesNoTransferNeeded = default(long?), long? bytesFailed = default(long?), long? bytesTransferred = default(long?), string sourceName = null, Azure.Core.ResourceIdentifier sourceResourceId = null, System.BinaryData sourceProperties = null, string targetName = null, Azure.Core.ResourceIdentifier targetResourceId = null, System.BinaryData targetProperties = null, System.BinaryData jobDefinitionProperties = null, Azure.ResourceManager.StorageMover.Models.JobRunError error = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageMover.Models.JobRunWarning> warnings = null, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?)) { throw null; }
+        public static Azure.ResourceManager.StorageMover.JobDefinitionData JobDefinitionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string description = null, Azure.ResourceManager.StorageMover.Models.JobType? jobType = default(Azure.ResourceManager.StorageMover.Models.JobType?), Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode? copyMode = default(Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode?), string sourceName = null, Azure.Core.ResourceIdentifier sourceResourceId = null, string sourceSubpath = null, string targetName = null, Azure.Core.ResourceIdentifier targetResourceId = null, string targetSubpath = null, string latestJobRunName = null, Azure.Core.ResourceIdentifier latestJobRunResourceId = null, Azure.ResourceManager.StorageMover.Models.JobRunStatus? latestJobRunStatus = default(Azure.ResourceManager.StorageMover.Models.JobRunStatus?), string agentName = null, Azure.Core.ResourceIdentifier agentResourceId = null, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), System.Collections.Generic.IEnumerable<Azure.Core.ResourceIdentifier> connections = null, Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo schedule = null, Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation? dataIntegrityValidation = default(Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation?), bool? isPermissionsPreserved = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageMover.Models.SourceTargetMap> sourceTargetMapValue = null) { throw null; }
+        public static Azure.ResourceManager.StorageMover.JobRunData JobRunData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.StorageMover.Models.JobRunStatus? status = default(Azure.ResourceManager.StorageMover.Models.JobRunStatus?), Azure.ResourceManager.StorageMover.Models.JobRunScanStatus? scanStatus = default(Azure.ResourceManager.StorageMover.Models.JobRunScanStatus?), string agentName = null, Azure.Core.ResourceIdentifier agentResourceId = null, System.DateTimeOffset? executionStartOn = default(System.DateTimeOffset?), System.DateTimeOffset? executionEndOn = default(System.DateTimeOffset?), Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType? triggerType = default(Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType?), System.DateTimeOffset? scheduledExecutionOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastStatusUpdate = default(System.DateTimeOffset?), long? itemsScanned = default(long?), long? itemsExcluded = default(long?), long? itemsUnsupported = default(long?), long? itemsNoTransferNeeded = default(long?), long? itemsFailed = default(long?), long? itemsTransferred = default(long?), long? bytesScanned = default(long?), long? bytesExcluded = default(long?), long? bytesUnsupported = default(long?), long? bytesNoTransferNeeded = default(long?), long? bytesFailed = default(long?), long? bytesTransferred = default(long?), string sourceName = null, Azure.Core.ResourceIdentifier sourceResourceId = null, System.BinaryData sourceProperties = null, string targetName = null, Azure.Core.ResourceIdentifier targetResourceId = null, System.BinaryData targetProperties = null, System.BinaryData jobDefinitionProperties = null, Azure.ResourceManager.StorageMover.Models.JobRunError error = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageMover.Models.JobRunWarning> warnings = null, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.StorageMover.JobRunData JobRunData(Azure.Core.ResourceIdentifier id, string name, Azure.Core.ResourceType resourceType, Azure.ResourceManager.Models.SystemData systemData, Azure.ResourceManager.StorageMover.Models.JobRunStatus? status, Azure.ResourceManager.StorageMover.Models.JobRunScanStatus? scanStatus, string agentName, Azure.Core.ResourceIdentifier agentResourceId, System.DateTimeOffset? executionStartOn, System.DateTimeOffset? executionEndOn, System.DateTimeOffset? lastStatusUpdate, long? itemsScanned, long? itemsExcluded, long? itemsUnsupported, long? itemsNoTransferNeeded, long? itemsFailed, long? itemsTransferred, long? bytesScanned, long? bytesExcluded, long? bytesUnsupported, long? bytesNoTransferNeeded, long? bytesFailed, long? bytesTransferred, string sourceName, Azure.Core.ResourceIdentifier sourceResourceId, System.BinaryData sourceProperties, string targetName, Azure.Core.ResourceIdentifier targetResourceId, System.BinaryData targetProperties, System.BinaryData jobDefinitionProperties, Azure.ResourceManager.StorageMover.Models.JobRunError error, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.JobRunError JobRunError(string code = null, string message = null, string target = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.JobRunResourceId JobRunResourceId(Azure.Core.ResourceIdentifier jobRunResourceIdValue = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.JobRunWarning JobRunWarning(string code = null, string message = null, string target = null) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.NfsMountEndpointProperties NfsMountEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), string host = null, Azure.ResourceManager.StorageMover.Models.NfsVersion? nfsVersion = default(Azure.ResourceManager.StorageMover.Models.NfsVersion?), string export = null) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.NfsMountEndpointProperties NfsMountEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), string host = null, Azure.ResourceManager.StorageMover.Models.NfsVersion? nfsVersion = default(Azure.ResourceManager.StorageMover.Models.NfsVersion?), string export = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.NfsMountEndpointProperties NfsMountEndpointProperties(string description, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState, string host, Azure.ResourceManager.StorageMover.Models.NfsVersion? nfsVersion, string export) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacEndpointProperties S3WithHmacEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.ResourceManager.StorageMover.Models.AzureKeyVaultS3WithHmacCredentials credentials = null, string sourceUri = null, Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType? sourceType = default(Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType?), string otherSourceTypeDescription = null) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.ScheduleInfo ScheduleInfo(Azure.ResourceManager.StorageMover.Models.Frequency frequency = default(Azure.ResourceManager.StorageMover.Models.Frequency), bool isActive = false, Azure.ResourceManager.StorageMover.Models.ScheduleTime executionTime = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.Collections.Generic.IEnumerable<string> daysOfWeek = null, System.Collections.Generic.IEnumerable<int> daysOfMonth = null, string cronExpression = null, System.DateTimeOffset? endOn = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacEndpointProperties S3WithHmacEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), Azure.ResourceManager.StorageMover.Models.AzureKeyVaultS3WithHmacCredentials credentials = null, string sourceUri = null, Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType? sourceType = default(Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType?), string otherSourceTypeDescription = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.ScheduleWeeklyRecurrence ScheduleWeeklyRecurrence(Azure.ResourceManager.StorageMover.Models.ScheduleTime startTime = null, Azure.ResourceManager.StorageMover.Models.ScheduleTime endTime = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageMover.Models.ScheduleDayOfWeek> days = null) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.SmbMountEndpointProperties SmbMountEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.EndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.EndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), string host = null, string shareName = null, Azure.ResourceManager.StorageMover.Models.AzureKeyVaultSmbCredentials credentials = null) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.SmbMountEndpointProperties SmbMountEndpointProperties(string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? endpointKind = default(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind?), Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?), string host = null, string shareName = null, Azure.ResourceManager.StorageMover.Models.AzureKeyVaultSmbCredentials credentials = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.SmbMountEndpointProperties SmbMountEndpointProperties(string description, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState, string host, string shareName, Azure.ResourceManager.StorageMover.Models.AzureKeyVaultSmbCredentials credentials) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.SourceEndpointProperties SourceEndpointProperties(string name = null, Azure.Core.ResourceIdentifier sourceEndpointResourceId = null, Azure.Core.ResourceIdentifier awsS3BucketId = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.SourceTargetMap SourceTargetMap(Azure.ResourceManager.StorageMover.Models.SourceEndpointProperties sourceEndpointProperties = null, Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties targetEndpointProperties = null) { throw null; }
@@ -528,6 +527,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         public static Azure.ResourceManager.StorageMover.StorageMoverEndpointData StorageMoverEndpointData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.StorageMover.Models.EndpointBaseProperties properties = null, Azure.ResourceManager.Models.ManagedServiceIdentity identity = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.StorageMoverPatch StorageMoverPatch(string description = null, System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.StorageMoverProjectData StorageMoverProjectData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string description = null, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? provisioningState = default(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState?)) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo StorageMoverScheduleInfo(Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency? frequency = default(Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency?), bool? isActive = default(bool?), Azure.ResourceManager.StorageMover.Models.SchedulerTime executionTime = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.Collections.Generic.IEnumerable<string> daysOfWeek = null, System.Collections.Generic.IEnumerable<int> daysOfMonth = null, string cronExpression = null, System.DateTimeOffset? endOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties TargetEndpointProperties(string name = null, Azure.Core.ResourceIdentifier targetEndpointResourceId = null, Azure.Core.ResourceIdentifier azureStorageAccountResourceId = null, string azureStorageBlobContainerName = null) { throw null; }
         public static Azure.ResourceManager.StorageMover.Models.UploadLimitWeeklyRecurrence UploadLimitWeeklyRecurrence(Azure.ResourceManager.StorageMover.Models.ScheduleTime startTime = null, Azure.ResourceManager.StorageMover.Models.ScheduleTime endTime = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageMover.Models.ScheduleDayOfWeek> days = null, int limitInMbps = 0) { throw null; }
     }
@@ -673,29 +673,11 @@ namespace Azure.ResourceManager.StorageMover.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.AzureStorageSmbFileShareEndpointUpdateProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.AzureStorageSmbFileShareEndpointUpdateProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct DataIntegrityValidation : System.IEquatable<Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public DataIntegrityValidation(string value) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation None { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation SaveFileMD5 { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation SaveVerifyFileMD5 { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation other) { throw null; }
-        public override bool Equals(object obj) { throw null; }
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation left, Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation right) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation (string value) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation? (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation left, Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation right) { throw null; }
-        public override string ToString() { throw null; }
-    }
     public abstract partial class EndpointBaseProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.EndpointBaseProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.EndpointBaseProperties>
     {
         protected EndpointBaseProperties() { }
         public string Description { get { throw null; } set { } }
-        public Azure.ResourceManager.StorageMover.Models.EndpointKind? EndpointKind { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? EndpointKind { get { throw null; } set { } }
         public Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState? ProvisioningState { get { throw null; } }
         protected virtual Azure.ResourceManager.StorageMover.Models.EndpointBaseProperties JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -721,50 +703,15 @@ namespace Azure.ResourceManager.StorageMover.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.EndpointBaseUpdateProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.EndpointBaseUpdateProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct EndpointKind : System.IEquatable<Azure.ResourceManager.StorageMover.Models.EndpointKind>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public EndpointKind(string value) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.EndpointKind Source { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.EndpointKind Target { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.StorageMover.Models.EndpointKind other) { throw null; }
-        public override bool Equals(object obj) { throw null; }
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.EndpointKind left, Azure.ResourceManager.StorageMover.Models.EndpointKind right) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.EndpointKind (string value) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.EndpointKind? (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.EndpointKind left, Azure.ResourceManager.StorageMover.Models.EndpointKind right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct Frequency : System.IEquatable<Azure.ResourceManager.StorageMover.Models.Frequency>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public Frequency(string value) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.Frequency Daily { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.Frequency Monthly { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.Frequency Onetime { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.Frequency Weekly { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.StorageMover.Models.Frequency other) { throw null; }
-        public override bool Equals(object obj) { throw null; }
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.Frequency left, Azure.ResourceManager.StorageMover.Models.Frequency right) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.Frequency (string value) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.Frequency? (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.Frequency left, Azure.ResourceManager.StorageMover.Models.Frequency right) { throw null; }
-        public override string ToString() { throw null; }
-    }
     public partial class JobDefinitionPatch : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.JobDefinitionPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.JobDefinitionPatch>
     {
         public JobDefinitionPatch() { }
         public string AgentName { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.Core.ResourceIdentifier> Connections { get { throw null; } }
         public Azure.ResourceManager.StorageMover.Models.StorageMoverCopyMode? CopyMode { get { throw null; } set { } }
-        public Azure.ResourceManager.StorageMover.Models.DataIntegrityValidation? DataIntegrityValidation { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation? DataIntegrityValidation { get { throw null; } set { } }
         public string Description { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo Schedule { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.StorageMover.Models.JobDefinitionPatch JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.StorageMover.Models.JobDefinitionPatch PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -964,11 +911,12 @@ namespace Azure.ResourceManager.StorageMover.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public S3WithHmacSourceType(string value) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType BACKBLAZE { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType CLOUDFLARE { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType GCS { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType IBM { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType MINIO { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType Alibaba { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType DellEmc { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType Gcs { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType Ibm { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType Minio { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType Other { get { throw null; } }
         public bool Equals(Azure.ResourceManager.StorageMover.Models.S3WithHmacSourceType other) { throw null; }
         public override bool Equals(object obj) { throw null; }
         public override int GetHashCode() { throw null; }
@@ -987,27 +935,6 @@ namespace Azure.ResourceManager.StorageMover.Models
         Friday = 4,
         Saturday = 5,
         Sunday = 6,
-    }
-    public partial class ScheduleInfo : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.ScheduleInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleInfo>
-    {
-        public ScheduleInfo(Azure.ResourceManager.StorageMover.Models.Frequency frequency, bool isActive) { }
-        public string CronExpression { get { throw null; } set { } }
-        public System.Collections.Generic.IList<int> DaysOfMonth { get { throw null; } }
-        public System.Collections.Generic.IList<string> DaysOfWeek { get { throw null; } }
-        public System.DateTimeOffset? EndOn { get { throw null; } set { } }
-        public Azure.ResourceManager.StorageMover.Models.ScheduleTime ExecutionTime { get { throw null; } set { } }
-        public Azure.ResourceManager.StorageMover.Models.Frequency Frequency { get { throw null; } set { } }
-        public bool IsActive { get { throw null; } set { } }
-        public System.DateTimeOffset? StartOn { get { throw null; } set { } }
-        protected virtual Azure.ResourceManager.StorageMover.Models.ScheduleInfo JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        protected virtual Azure.ResourceManager.StorageMover.Models.ScheduleInfo PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        Azure.ResourceManager.StorageMover.Models.ScheduleInfo System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.ScheduleInfo>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.ScheduleInfo>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.StorageMover.Models.ScheduleInfo System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleInfo>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleInfo>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleInfo>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ScheduleMinute : System.IEquatable<Azure.ResourceManager.StorageMover.Models.ScheduleMinute>
@@ -1038,6 +965,21 @@ namespace Azure.ResourceManager.StorageMover.Models
         Azure.ResourceManager.StorageMover.Models.ScheduleRecurrence System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleRecurrence>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleRecurrence>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleRecurrence>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class SchedulerTime : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.SchedulerTime>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.SchedulerTime>
+    {
+        public SchedulerTime() { }
+        public int? Hour { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.ScheduleMinute? Minute { get { throw null; } set { } }
+        protected virtual Azure.ResourceManager.StorageMover.Models.SchedulerTime JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        protected virtual Azure.ResourceManager.StorageMover.Models.SchedulerTime PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        Azure.ResourceManager.StorageMover.Models.SchedulerTime System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.SchedulerTime>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.SchedulerTime>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StorageMover.Models.SchedulerTime System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.SchedulerTime>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.SchedulerTime>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.SchedulerTime>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class ScheduleTime : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.ScheduleTime>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.ScheduleTime>
     {
@@ -1250,6 +1192,41 @@ namespace Azure.ResourceManager.StorageMover.Models
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverCredentials>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverCredentials>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct StorageMoverDataIntegrityValidation : System.IEquatable<Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public StorageMoverDataIntegrityValidation(string value) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation None { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation SaveFileMD5 { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation SaveVerifyFileMD5 { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation other) { throw null; }
+        public override bool Equals(object obj) { throw null; }
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation left, Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation (string value) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation? (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation left, Azure.ResourceManager.StorageMover.Models.StorageMoverDataIntegrityValidation right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct StorageMoverEndpointKind : System.IEquatable<Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public StorageMoverEndpointKind(string value) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind Source { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind Target { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind other) { throw null; }
+        public override bool Equals(object obj) { throw null; }
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind left, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind (string value) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind? (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind left, Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointKind right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class StorageMoverEndpointPatch : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointPatch>
     {
         public StorageMoverEndpointPatch() { }
@@ -1266,6 +1243,23 @@ namespace Azure.ResourceManager.StorageMover.Models
         Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointPatch System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointPatch>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointPatch>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverEndpointPatch>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct StorageMoverJobTriggerType : System.IEquatable<Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public StorageMoverJobTriggerType(string value) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType Manual { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType Scheduled { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType other) { throw null; }
+        public override bool Equals(object obj) { throw null; }
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType left, Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType (string value) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType? (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType left, Azure.ResourceManager.StorageMover.Models.StorageMoverJobTriggerType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class StorageMoverPatch : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.StorageMoverPatch>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverPatch>
     {
@@ -1315,6 +1309,47 @@ namespace Azure.ResourceManager.StorageMover.Models
         public static bool operator !=(Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState left, Azure.ResourceManager.StorageMover.Models.StorageMoverProvisioningState right) { throw null; }
         public override string ToString() { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct StorageMoverScheduleFrequency : System.IEquatable<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public StorageMoverScheduleFrequency(string value) { throw null; }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency Daily { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency Monthly { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency None { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency Onetime { get { throw null; } }
+        public static Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency Weekly { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency other) { throw null; }
+        public override bool Equals(object obj) { throw null; }
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency left, Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency (string value) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency? (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency left, Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class StorageMoverScheduleInfo : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo>
+    {
+        public StorageMoverScheduleInfo() { }
+        public string CronExpression { get { throw null; } set { } }
+        public System.Collections.Generic.IList<int> DaysOfMonth { get { throw null; } }
+        public System.Collections.Generic.IList<string> DaysOfWeek { get { throw null; } }
+        public System.DateTimeOffset? EndOn { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.SchedulerTime ExecutionTime { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleFrequency? Frequency { get { throw null; } set { } }
+        public bool? IsActive { get { throw null; } set { } }
+        public System.DateTimeOffset? StartOn { get { throw null; } set { } }
+        protected virtual Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        protected virtual Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.StorageMoverScheduleInfo>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class TargetEndpointProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties>
     {
         internal TargetEndpointProperties() { }
@@ -1331,23 +1366,6 @@ namespace Azure.ResourceManager.StorageMover.Models
         Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.TargetEndpointProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct TriggerType : System.IEquatable<Azure.ResourceManager.StorageMover.Models.TriggerType>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public TriggerType(string value) { throw null; }
-        public static Azure.ResourceManager.StorageMover.Models.TriggerType Manual { get { throw null; } }
-        public static Azure.ResourceManager.StorageMover.Models.TriggerType Scheduled { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.StorageMover.Models.TriggerType other) { throw null; }
-        public override bool Equals(object obj) { throw null; }
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.StorageMover.Models.TriggerType left, Azure.ResourceManager.StorageMover.Models.TriggerType right) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.TriggerType (string value) { throw null; }
-        public static implicit operator Azure.ResourceManager.StorageMover.Models.TriggerType? (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.StorageMover.Models.TriggerType left, Azure.ResourceManager.StorageMover.Models.TriggerType right) { throw null; }
-        public override string ToString() { throw null; }
     }
     public partial class UploadLimitWeeklyRecurrence : Azure.ResourceManager.StorageMover.Models.ScheduleWeeklyRecurrence, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.StorageMover.Models.UploadLimitWeeklyRecurrence>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.StorageMover.Models.UploadLimitWeeklyRecurrence>
     {
