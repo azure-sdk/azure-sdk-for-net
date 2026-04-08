@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -38,6 +39,17 @@ namespace Azure.ResourceManager.Quota
             TryGetApiVersion(QuotaAllocationRequestStatusResource.ResourceType, out string quotaAllocationRequestStatusApiVersion);
             _quotaAllocationRequestStatusesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Quota", QuotaAllocationRequestStatusResource.ResourceType.Namespace, Diagnostics);
             _quotaAllocationRequestStatusesRestClient = new QuotaAllocationRequestStatuses(_quotaAllocationRequestStatusesClientDiagnostics, Pipeline, Endpoint, quotaAllocationRequestStatusApiVersion ?? "2025-09-01");
+            ValidateResourceId(id);
+        }
+
+        /// <param name="id"></param>
+        [Conditional("DEBUG")]
+        internal static void ValidateResourceId(ResourceIdentifier id)
+        {
+            if (id.ResourceType != "Microsoft.Quota/groupQuotas/resourceProviders")
+            {
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, "Microsoft.Quota/groupQuotas/resourceProviders"), nameof(id));
+            }
         }
 
         /// <summary>
