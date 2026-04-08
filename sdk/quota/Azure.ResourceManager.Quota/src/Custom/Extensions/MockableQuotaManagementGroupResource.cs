@@ -11,35 +11,115 @@ namespace Azure.ResourceManager.Quota.Mocking
 {
     public partial class MockableQuotaManagementGroupResource
     {
+        // The newly generated code uses scope-based methods on MockableQuotaArmClient instead of these ManagementGroupResource methods.
+        // Path: /providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocations/{location}
+        // Path: /providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests/{allocationId}
+        // The subscriptionId, groupQuotaName, and resourceProviderName are now encoded in the ResourceIdentifier scope.
+
+        private MockableQuotaArmClient GetMockableQuotaArmClient()
+        {
+            return Client.GetCachedClient(client0 => new MockableQuotaArmClient(client0, ResourceIdentifier.Root));
+        }
+
+        private ResourceIdentifier BuildQuotaScope(string subscriptionId, string groupQuotaName, string resourceProviderName)
+        {
+            return new ResourceIdentifier($"{Id}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}");
+        }
+
+        // --- SubscriptionQuotaAllocationsList (Guid overloads) ---
+
         /// <summary>
         /// Gets all the quota allocated to a subscription for the specified resource provider and location.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocations/{location}</description></item></list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="groupQuotaName"> The GroupQuota name. </param>
-        /// <param name="resourceProviderName"> The resource provider name. </param>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        [Obsolete("This method is obsolete and will be removed in a future release.", false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public virtual async Task<Response<SubscriptionQuotaAllocationsListResource>> GetSubscriptionQuotaAllocationsListAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SubscriptionQuotaAllocationsListResource>> GetSubscriptionQuotaAllocationsListAsync(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            await Task.CompletedTask.ConfigureAwait(false);
-            throw new NotSupportedException("This method is obsolete. Use the ArmClient scope-based extension methods instead.");
+            var scope = BuildQuotaScope(subscriptionId.ToString(), groupQuotaName, resourceProviderName);
+            return await GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsListAsync(scope, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Gets all the quota allocated to a subscription for the specified resource provider and location.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocations/{location}</description></item></list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="groupQuotaName"> The GroupQuota name. </param>
-        /// <param name="resourceProviderName"> The resource provider name. </param>
-        /// <param name="location"> The name of the Azure region. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        [Obsolete("This method is obsolete and will be removed in a future release.", false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual Response<SubscriptionQuotaAllocationsListResource> GetSubscriptionQuotaAllocationsList(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            var scope = BuildQuotaScope(subscriptionId.ToString(), groupQuotaName, resourceProviderName);
+            return GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsList(scope, location, cancellationToken);
+        }
+
+        // --- SubscriptionQuotaAllocationsList (string overloads) ---
+
+        /// <summary>
+        /// Gets all the quota allocated to a subscription for the specified resource provider and location.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocations/{location}</description></item></list>
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual async Task<Response<SubscriptionQuotaAllocationsListResource>> GetSubscriptionQuotaAllocationsListAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            return await GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsListAsync(scope, location, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets all the quota allocated to a subscription for the specified resource provider and location.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocations/{location}</description></item></list>
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<SubscriptionQuotaAllocationsListResource> GetSubscriptionQuotaAllocationsList(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            throw new NotSupportedException("This method is obsolete. Use the ArmClient scope-based extension methods instead.");
+            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            return GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsList(scope, location, cancellationToken);
+        }
+
+        // --- SubscriptionQuotaAllocationsLists collection (no-param) ---
+
+        /// <summary>
+        /// Gets a collection of SubscriptionQuotaAllocationsListResources.
+        /// Cannot be forwarded because subscriptionId, groupQuotaName, and resourceProviderName are required to build the scope.
+        /// Use ArmClient.GetSubscriptionQuotaAllocationsLists(ResourceIdentifier scope) instead.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual SubscriptionQuotaAllocationsListCollection GetSubscriptionQuotaAllocationsLists()
+        {
+            throw new NotSupportedException("Use ArmClient.GetSubscriptionQuotaAllocationsLists(ResourceIdentifier scope) instead.");
+        }
+
+        // --- QuotaAllocationRequestStatus ---
+
+        /// <summary>
+        /// Gets the quota allocation request status for the specified allocation.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests/{allocationId}</description></item></list>
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual async Task<Response<QuotaAllocationRequestStatusResource>> GetQuotaAllocationRequestStatusAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, string allocationId, CancellationToken cancellationToken = default)
+        {
+            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            return await GetMockableQuotaArmClient().GetQuotaAllocationRequestStatusAsync(scope, allocationId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the quota allocation request status for the specified allocation.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests/{allocationId}</description></item></list>
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual Response<QuotaAllocationRequestStatusResource> GetQuotaAllocationRequestStatus(string subscriptionId, string groupQuotaName, string resourceProviderName, string allocationId, CancellationToken cancellationToken = default)
+        {
+            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            return GetMockableQuotaArmClient().GetQuotaAllocationRequestStatus(scope, allocationId, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a collection of QuotaAllocationRequestStatusResources.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Management/managementGroups/{managementGroupId}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/quotaAllocationRequests</description></item></list>
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual QuotaAllocationRequestStatusCollection GetQuotaAllocationRequestStatuses(string subscriptionId, string groupQuotaName, string resourceProviderName)
+        {
+            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            return GetMockableQuotaArmClient().GetQuotaAllocationRequestStatuses(scope);
         }
     }
 }

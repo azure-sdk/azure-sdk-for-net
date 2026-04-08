@@ -11,10 +11,9 @@ namespace Azure.ResourceManager.Quota.Mocking
     public partial class MockableQuotaTenantResource
     {
         /// <summary>
-        /// List the operations for the provider
+        /// List the operations for the provider. This operation is obsolete; use GetAllAsync instead.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Quota/operations</description></item></list>
         /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="QuotaOperationResult"/> that may take multiple service requests to iterate over. </returns>
         [Obsolete("This method is obsolete and will be removed in a future release.", false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual AsyncPageable<QuotaOperationResult> GetQuotaOperationsAsync(CancellationToken cancellationToken = default)
@@ -23,10 +22,9 @@ namespace Azure.ResourceManager.Quota.Mocking
         }
 
         /// <summary>
-        /// List the operations for the provider
+        /// List the operations for the provider. This operation is obsolete; use GetAll instead.
+        /// <list type="bullet"><item><term>Request Path</term><description>/providers/Microsoft.Quota/operations</description></item></list>
         /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="QuotaOperationResult"/> that may take multiple service requests to iterate over. </returns>
         [Obsolete("This method is obsolete and will be removed in a future release.", false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Pageable<QuotaOperationResult> GetQuotaOperations(CancellationToken cancellationToken = default)
