@@ -6,7 +6,9 @@ using Microsoft.TypeSpec.Generator.Input;
 using Microsoft.TypeSpec.Generator.Primitives;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Azure.Generator.Primitives
 {
@@ -199,6 +201,174 @@ namespace Azure.Generator.Primitives
             }
 
             return compileIncludes;
+        }
+
+        /// <summary>
+        /// Writes additional scaffolding files (README.md, CHANGELOG.md, ci.yml, Directory.Build.props)
+        /// to the output directory. Files are only written if they don't already exist, preventing
+        /// overwriting of customized content.
+        /// </summary>
+        protected override async Task WriteAdditionalFiles()
+        {
+            await base.WriteAdditionalFiles();
+
+            string outputDir = AzureClientGenerator.Instance.Configuration.OutputDirectory;
+            string packageName = AzureClientGenerator.Instance.Configuration.PackageName;
+
+            WriteFileIfNotExists(Path.Combine(outputDir, "README.md"), GetReadmeContent(packageName));
+            WriteFileIfNotExists(Path.Combine(outputDir, "CHANGELOG.md"), GetChangelogContent(packageName));
+            WriteFileIfNotExists(Path.Combine(outputDir, "Directory.Build.props"), GetDirectoryBuildPropsContent());
+
+            // ci.yml goes to the service directory (parent of the package directory)
+            string normalizedOutputDir = outputDir.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            string? serviceDirectory = Path.GetDirectoryName(normalizedOutputDir);
+            if (!string.IsNullOrEmpty(serviceDirectory))
+            {
+                string ciFilePath = Path.Combine(serviceDirectory, GetCiFileName());
+                if (!File.Exists(ciFilePath))
+                {
+                    string serviceDirectoryName = Path.GetFileName(serviceDirectory);
+                    WriteFileIfNotExists(ciFilePath, GetCiYamlContent(packageName, serviceDirectoryName));
+                }
+            }
+        }
+
+        private static void WriteFileIfNotExists(string filePath, string content)
+        {
+            if (!File.Exists(filePath))
+            {
+                string? directory = Path.GetDirectoryName(filePath);
+                if (directory != null && !Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                File.WriteAllText(filePath, content);
+            }
+        }
+
+        /// <summary>
+        /// Gets the file name for the CI YAML file.
+        /// </summary>
+        /// <returns>The CI YAML file name. Default is "ci.yml" for data plane packages.</returns>
+        protected virtual string GetCiFileName() => "ci.yml";
+
+        /// <summary>
+        /// Gets the content for the README.md file.
+        /// </summary>
+        /// <param name="packageName">The name of the package.</param>
+        /// <returns>The README.md content.</returns>
+        protected virtual string GetReadmeContent(string packageName)
+        {
+            return $"""
+                # {packageName} client library for .NET
+
+                {packageName} is a client library for developing .NET applications with rich experience.
+
+                ## Getting started
+
+                ### Install the package
+
+                Install the client library for .NET with [NuGet](https://www.nuget.org/):
+
+                ```dotnetcli
+                dotnet add package {packageName} --prerelease
+                ```
+
+                ### Prerequisites
+
+                - You must have a [Microsoft Azure subscription](https://azure.microsoft.com/free/dotnet/).
+
+                ## Key concepts
+
+                ## Examples
+
+                ## Troubleshooting
+
+                ## Next steps
+
+                ## Contributing
+
+                This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit <https://cla.microsoft.com>.
+
+                When you submit a pull request, a CLA-bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (for example, label, comment). Follow the instructions provided by the bot. You'll only need to do this action once across all repositories using our CLA.
+
+                This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any other questions or comments.
+                """;
+        }
+
+        /// <summary>
+        /// Gets the content for the CHANGELOG.md file.
+        /// </summary>
+        /// <param name="packageName">The name of the package.</param>
+        /// <returns>The CHANGELOG.md content.</returns>
+        protected virtual string GetChangelogContent(string packageName)
+        {
+            return $"""
+                # Release History
+
+                ## 1.0.0-beta.1 (Unreleased)
+
+                ### Features Added
+
+                ### Breaking Changes
+
+                ### Bugs Fixed
+
+                ### Other Changes
+                """;
+        }
+
+        /// <summary>
+        /// Gets the content for the ci.yml file.
+        /// </summary>
+        /// <param name="packageName">The name of the package.</param>
+        /// <param name="serviceDirectoryName">The service directory name.</param>
+        /// <returns>The CI YAML content.</returns>
+        protected virtual string GetCiYamlContent(string packageName, string serviceDirectoryName)
+        {
+            string safeName = packageName.Replace(".", "");
+            return $"""
+                # NOTE: Please refer to https://aka.ms/azsdk/engsys/ci-yaml before editing this file.
+
+                trigger:
+                  branches:
+                    include:
+                    - main
+                    - hotfix/*
+                    - release/*
+                  paths:
+                    include:
+                    - sdk/{serviceDirectoryName}/ci.yml
+                    - sdk/{serviceDirectoryName}/{packageName}/
+                    - sdk/{serviceDirectoryName}/service.projects
+
+                extends:
+                  template: /eng/pipelines/templates/stages/archetype-sdk-client.yml
+                  parameters:
+                    SDKType: client
+                    ServiceDirectory: {serviceDirectoryName}
+                    ArtifactName: packages
+                    Artifacts:
+                    - name: {packageName}
+                      safeName: {safeName}
+                """;
+        }
+
+        /// <summary>
+        /// Gets the content for the Directory.Build.props file.
+        /// </summary>
+        /// <returns>The Directory.Build.props content.</returns>
+        protected virtual string GetDirectoryBuildPropsContent()
+        {
+            return """
+                <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+                  <!--
+                    Add any shared properties you want for the projects under this package directory that need to be set before the auto imported Directory.Build.props
+                  -->
+                  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., Directory.Build.props))\Directory.Build.props" />
+                </Project>
+                """;
         }
     }
 }
