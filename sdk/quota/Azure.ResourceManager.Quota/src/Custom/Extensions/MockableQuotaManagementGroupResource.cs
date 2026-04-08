@@ -83,6 +83,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         /// Cannot be forwarded because subscriptionId, groupQuotaName, and resourceProviderName are required to build the scope.
         /// Use ArmClient.GetSubscriptionQuotaAllocationsLists(ResourceIdentifier scope) instead.
         /// </summary>
+        [Obsolete("This method is obsolete and will be removed in a future release. Use ArmClient.GetSubscriptionQuotaAllocationsLists(ResourceIdentifier scope) instead.", false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual SubscriptionQuotaAllocationsListCollection GetSubscriptionQuotaAllocationsLists()
         {
