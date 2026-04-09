@@ -829,7 +829,8 @@ function getExpectedParentResourceType(
     return `${providerNamespace}/${resourceType}`;
   }
 
-  // Complex case: parent path has more segments (e.g., Microsoft.Management/managementGroups/{mgId}/subscriptions/{subId})
+  // Complex case: parent path between providers has more segments
+  // (e.g., Microsoft.Management/managementGroups/{mgId}/subscriptions/{subId})
   // Fall back to computing the parent scope's resource type from the resource ID pattern.
   // Remove the leaf type/name pair, then extract the resource type from the last /providers/ segment.
   const allSegments = resourceIdPattern.split("/").filter((s) => s !== "");
