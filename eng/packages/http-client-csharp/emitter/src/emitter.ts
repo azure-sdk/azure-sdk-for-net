@@ -12,8 +12,7 @@ import { createSdkContext } from "@azure-tools/typespec-client-generator-core";
 import {
   CodeModel,
   CSharpEmitterContext,
-  emitCodeModel,
-  InputClient
+  emitCodeModel
 } from "@typespec/http-client-csharp";
 import { AzureEmitterOptions } from "./options.js";
 import { $lib } from "./lib/lib.js";
@@ -71,56 +70,7 @@ export async function emitAzureCodeModel(
   // Generate metadata.json file
   await generateMetadataFile(context);
 
-  // Wrap updateCodeModel to deduplicate client children produced by TCGC
-  const wrappedUpdateCodeModel = (
-    model: CodeModel,
-    ctx: CSharpEmitterContext
-  ): CodeModel => {
-    deduplicateClientChildren(model);
-    return updateCodeModel ? updateCodeModel(model, ctx) : model;
-  };
-
-  return await emitCodeModel(context, wrappedUpdateCodeModel);
-}
-
-/**
- * Deduplicates client children in the code model.
- *
- * TCGC 0.67.x may produce duplicate sub-client entries (same name) when
- * consolidating SdkOperationGroup into SdkClient. This function removes
- * duplicate children by name, keeping the first occurrence.
- */
-function deduplicateClientChildren(model: CodeModel): void {
-  for (const client of model.clients) {
-    deduplicateChildren(client);
-  }
-}
-
-function deduplicateChildren(client: InputClient): void {
-  if (client.children) {
-    const seen = new Set<string>();
-    client.children = client.children.filter((child) => {
-      if (seen.has(child.name)) {
-        return false;
-      }
-      seen.add(child.name);
-      return true;
-    });
-    for (const child of client.children) {
-      deduplicateChildren(child);
-    }
-  }
-  // Deduplicate methods by crossLanguageDefinitionId
-  if (client.methods && client.methods.length > 0) {
-    const seenMethods = new Set<string>();
-    client.methods = client.methods.filter((method) => {
-      if (seenMethods.has(method.crossLanguageDefinitionId)) {
-        return false;
-      }
-      seenMethods.add(method.crossLanguageDefinitionId);
-      return true;
-    });
-  }
+  return await emitCodeModel(context, updateCodeModel);
 }
 
 /**
