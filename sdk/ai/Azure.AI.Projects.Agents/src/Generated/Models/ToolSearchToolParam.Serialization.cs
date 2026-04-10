@@ -10,56 +10,52 @@ using Azure.AI.Projects.Agents;
 
 namespace OpenAI
 {
-    internal partial class InternalCustomToolParam : ProjectsAgentTool, IJsonModel<InternalCustomToolParam>
+    /// <summary> Tool search tool. </summary>
+    public partial class ToolSearchToolParam : ProjectsAgentTool, IJsonModel<ToolSearchToolParam>
     {
-        /// <summary> Initializes a new instance of <see cref="InternalCustomToolParam"/> for deserialization. </summary>
-        internal InternalCustomToolParam()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override ProjectsAgentTool PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCustomToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ToolSearchToolParam>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeInternalCustomToolParam(document.RootElement, options);
+                        return DeserializeToolSearchToolParam(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(InternalCustomToolParam)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ToolSearchToolParam)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCustomToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ToolSearchToolParam>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureAIProjectsAgentsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(InternalCustomToolParam)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ToolSearchToolParam)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<InternalCustomToolParam>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ToolSearchToolParam>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        InternalCustomToolParam IPersistableModel<InternalCustomToolParam>.Create(BinaryData data, ModelReaderWriterOptions options) => (InternalCustomToolParam)PersistableModelCreateCore(data, options);
+        ToolSearchToolParam IPersistableModel<ToolSearchToolParam>.Create(BinaryData data, ModelReaderWriterOptions options) => (ToolSearchToolParam)PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<InternalCustomToolParam>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ToolSearchToolParam>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<InternalCustomToolParam>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ToolSearchToolParam>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -70,51 +66,49 @@ namespace OpenAI
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCustomToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ToolSearchToolParam>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InternalCustomToolParam)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ToolSearchToolParam)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
-            writer.WritePropertyName("name"u8);
-            writer.WriteStringValue(Name);
+            if (Optional.IsDefined(Execution))
+            {
+                writer.WritePropertyName("execution"u8);
+                writer.WriteStringValue(Execution.Value.ToSerialString());
+            }
             if (Optional.IsDefined(Description))
             {
                 writer.WritePropertyName("description"u8);
                 writer.WriteStringValue(Description);
             }
-            if (Optional.IsDefined(Format))
+            if (Optional.IsDefined(Parameters))
             {
-                writer.WritePropertyName("format"u8);
-                writer.WriteObjectValue(Format, options);
-            }
-            if (Optional.IsDefined(DeferLoading))
-            {
-                writer.WritePropertyName("defer_loading"u8);
-                writer.WriteBooleanValue(DeferLoading.Value);
+                writer.WritePropertyName("parameters"u8);
+                writer.WriteObjectValue(Parameters, options);
             }
         }
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        InternalCustomToolParam IJsonModel<InternalCustomToolParam>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (InternalCustomToolParam)JsonModelCreateCore(ref reader, options);
+        ToolSearchToolParam IJsonModel<ToolSearchToolParam>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (ToolSearchToolParam)JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override ProjectsAgentTool JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCustomToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ToolSearchToolParam>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InternalCustomToolParam)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ToolSearchToolParam)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeInternalCustomToolParam(document.RootElement, options);
+            return DeserializeToolSearchToolParam(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static InternalCustomToolParam DeserializeInternalCustomToolParam(JsonElement element, ModelReaderWriterOptions options)
+        internal static ToolSearchToolParam DeserializeToolSearchToolParam(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -122,10 +116,9 @@ namespace OpenAI
             }
             ToolType @type = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
-            string name = default;
+            ToolSearchExecutionType? execution = default;
             string description = default;
-            CustomToolParamFormat format = default;
-            bool? deferLoading = default;
+            EmptyModelParam parameters = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -133,32 +126,33 @@ namespace OpenAI
                     @type = new ToolType(prop.Value.GetString());
                     continue;
                 }
-                if (prop.NameEquals("name"u8))
+                if (prop.NameEquals("execution"u8))
                 {
-                    name = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    execution = prop.Value.GetString().ToToolSearchExecutionType();
                     continue;
                 }
                 if (prop.NameEquals("description"u8))
                 {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        description = null;
+                        continue;
+                    }
                     description = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("format"u8))
+                if (prop.NameEquals("parameters"u8))
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
+                        parameters = null;
                         continue;
                     }
-                    format = CustomToolParamFormat.DeserializeCustomToolParamFormat(prop.Value, options);
-                    continue;
-                }
-                if (prop.NameEquals("defer_loading"u8))
-                {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    deferLoading = prop.Value.GetBoolean();
+                    parameters = EmptyModelParam.DeserializeEmptyModelParam(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -166,13 +160,7 @@ namespace OpenAI
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new InternalCustomToolParam(
-                @type,
-                additionalBinaryDataProperties,
-                name,
-                description,
-                format,
-                deferLoading);
+            return new ToolSearchToolParam(@type, additionalBinaryDataProperties, execution, description, parameters);
         }
     }
 }
