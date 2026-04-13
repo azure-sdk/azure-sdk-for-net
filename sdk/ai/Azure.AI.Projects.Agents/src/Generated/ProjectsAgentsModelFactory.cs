@@ -113,7 +113,7 @@ namespace Azure.AI.Projects.Agents
 
         /// <summary>
         /// A tool that can be used to generate a response.
-        /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="Agents.BingGroundingTool"/>, <see cref="Agents.MicrosoftFabricPreviewTool"/>, <see cref="Agents.SharepointPreviewTool"/>, <see cref="Agents.AzureAISearchTool"/>, <see cref="Agents.OpenAPITool"/>, <see cref="Agents.BingCustomSearchPreviewTool"/>, <see cref="Agents.BrowserAutomationPreviewTool"/>, <see cref="Agents.AzureFunctionTool"/>, <see cref="Agents.CaptureStructuredOutputsTool"/>, <see cref="Agents.A2APreviewTool"/>, <see cref="Agents.WorkIQPreviewTool"/>, <see cref="Agents.MemorySearchPreviewTool"/>, <see cref="OpenAI.ComputerTool"/>, <see cref="OpenAI.NamespaceToolParam"/>, and <see cref="OpenAI.ToolSearchToolParam"/>.
+        /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="Agents.BingGroundingTool"/>, <see cref="Agents.MicrosoftFabricPreviewTool"/>, <see cref="Agents.SharepointPreviewTool"/>, <see cref="Agents.AzureAISearchTool"/>, <see cref="Agents.OpenAPITool"/>, <see cref="Agents.BingCustomSearchPreviewTool"/>, <see cref="Agents.BrowserAutomationPreviewTool"/>, <see cref="Agents.AzureFunctionTool"/>, <see cref="Agents.CaptureStructuredOutputsTool"/>, <see cref="Agents.A2APreviewTool"/>, <see cref="Agents.WorkIQPreviewTool"/>, and <see cref="Agents.MemorySearchPreviewTool"/>.
         /// </summary>
         /// <param name="type"></param>
         /// <returns> A new <see cref="Agents.ProjectsAgentTool"/> instance for mocking. </returns>
@@ -549,61 +549,6 @@ namespace Azure.AI.Projects.Agents
         public static ProjectWebSearchConfiguration ProjectWebSearchConfiguration(string projectConnectionId = default, string instanceName = default)
         {
             return new ProjectWebSearchConfiguration(projectConnectionId, instanceName, additionalBinaryDataProperties: null);
-        }
-
-        /// <summary> Computer. </summary>
-        /// <returns> A new <see cref="OpenAI.ComputerTool"/> instance for mocking. </returns>
-        public static OpenAI.ComputerTool ComputerTool()
-        {
-            return new OpenAI.ComputerTool(ToolType.Computer, additionalBinaryDataProperties: null);
-        }
-
-        /// <summary> Namespace. </summary>
-        /// <param name="name"> The namespace name used in tool calls (for example, `crm`). </param>
-        /// <param name="description"> A description of the namespace shown to the model. </param>
-        /// <param name="tools"> The function/custom tools available inside this namespace. </param>
-        /// <returns> A new <see cref="OpenAI.NamespaceToolParam"/> instance for mocking. </returns>
-        public static NamespaceToolParam NamespaceToolParam(string name = default, string description = default, IEnumerable<BinaryData> tools = default)
-        {
-            tools ??= new ChangeTrackingList<BinaryData>();
-
-            return new NamespaceToolParam(ToolType.Namespace, additionalBinaryDataProperties: null, name, description, tools.ToList());
-        }
-
-        /// <summary> The FunctionToolParam. </summary>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
-        /// <param name="parameters"></param>
-        /// <param name="strict"></param>
-        /// <param name="deferLoading"> Whether this function should be deferred and discovered via tool search. </param>
-        /// <returns> A new <see cref="OpenAI.FunctionToolParam"/> instance for mocking. </returns>
-        public static FunctionToolParam FunctionToolParam(string name = default, string description = default, EmptyModelParam parameters = default, bool? strict = default, bool? deferLoading = default)
-        {
-            return new FunctionToolParam(
-                name,
-                description,
-                parameters,
-                strict,
-                "function",
-                deferLoading,
-                additionalBinaryDataProperties: null);
-        }
-
-        /// <summary> The EmptyModelParam. </summary>
-        /// <returns> A new <see cref="OpenAI.EmptyModelParam"/> instance for mocking. </returns>
-        public static EmptyModelParam EmptyModelParam()
-        {
-            return new EmptyModelParam(additionalBinaryDataProperties: null);
-        }
-
-        /// <summary> Tool search tool. </summary>
-        /// <param name="execution"> Whether tool search is executed by the server or by the client. </param>
-        /// <param name="description"></param>
-        /// <param name="parameters"></param>
-        /// <returns> A new <see cref="OpenAI.ToolSearchToolParam"/> instance for mocking. </returns>
-        public static ToolSearchToolParam ToolSearchToolParam(ToolSearchExecutionType? execution = default, string description = default, EmptyModelParam parameters = default)
-        {
-            return new ToolSearchToolParam(ToolType.ToolSearch, additionalBinaryDataProperties: null, execution, description, parameters);
         }
 
         /// <summary> A record mapping for a single protocol and its version. </summary>

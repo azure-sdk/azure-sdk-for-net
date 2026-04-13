@@ -6,56 +6,55 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.AI.Projects.Agents;
+using OpenAI;
 
-namespace OpenAI
+namespace Azure.AI.Projects.Agents
 {
-    /// <summary> Computer. </summary>
-    public partial class ComputerTool : ProjectsAgentTool, IJsonModel<ComputerTool>
+    internal partial class InternalComputerTool : ProjectsAgentTool, IJsonModel<InternalComputerTool>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override ProjectsAgentTool PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ComputerTool>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalComputerTool>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeComputerTool(document.RootElement, options);
+                        return DeserializeInternalComputerTool(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ComputerTool)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalComputerTool)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ComputerTool>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalComputerTool>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureAIProjectsAgentsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(ComputerTool)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalComputerTool)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ComputerTool>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<InternalComputerTool>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ComputerTool IPersistableModel<ComputerTool>.Create(BinaryData data, ModelReaderWriterOptions options) => (ComputerTool)PersistableModelCreateCore(data, options);
+        InternalComputerTool IPersistableModel<InternalComputerTool>.Create(BinaryData data, ModelReaderWriterOptions options) => (InternalComputerTool)PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ComputerTool>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<InternalComputerTool>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<ComputerTool>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<InternalComputerTool>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -66,34 +65,34 @@ namespace OpenAI
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ComputerTool>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalComputerTool>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ComputerTool)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalComputerTool)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
         }
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ComputerTool IJsonModel<ComputerTool>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (ComputerTool)JsonModelCreateCore(ref reader, options);
+        InternalComputerTool IJsonModel<InternalComputerTool>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (InternalComputerTool)JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override ProjectsAgentTool JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ComputerTool>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalComputerTool>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ComputerTool)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalComputerTool)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeComputerTool(document.RootElement, options);
+            return DeserializeInternalComputerTool(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static ComputerTool DeserializeComputerTool(JsonElement element, ModelReaderWriterOptions options)
+        internal static InternalComputerTool DeserializeInternalComputerTool(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -113,7 +112,7 @@ namespace OpenAI
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ComputerTool(@type, additionalBinaryDataProperties);
+            return new InternalComputerTool(@type, additionalBinaryDataProperties);
         }
     }
 }

@@ -6,15 +6,14 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure.AI.Projects.Agents;
+using OpenAI;
 
-namespace OpenAI
+namespace Azure.AI.Projects.Agents
 {
-    /// <summary> Namespace. </summary>
-    public partial class NamespaceToolParam : ProjectsAgentTool, IJsonModel<NamespaceToolParam>
+    internal partial class InternalNamespaceToolParam : ProjectsAgentTool, IJsonModel<InternalNamespaceToolParam>
     {
-        /// <summary> Initializes a new instance of <see cref="NamespaceToolParam"/> for deserialization. </summary>
-        internal NamespaceToolParam()
+        /// <summary> Initializes a new instance of <see cref="InternalNamespaceToolParam"/> for deserialization. </summary>
+        internal InternalNamespaceToolParam()
         {
         }
 
@@ -22,45 +21,45 @@ namespace OpenAI
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override ProjectsAgentTool PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalNamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeNamespaceToolParam(document.RootElement, options);
+                        return DeserializeInternalNamespaceToolParam(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(NamespaceToolParam)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalNamespaceToolParam)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalNamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureAIProjectsAgentsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(NamespaceToolParam)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalNamespaceToolParam)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<NamespaceToolParam>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<InternalNamespaceToolParam>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        NamespaceToolParam IPersistableModel<NamespaceToolParam>.Create(BinaryData data, ModelReaderWriterOptions options) => (NamespaceToolParam)PersistableModelCreateCore(data, options);
+        InternalNamespaceToolParam IPersistableModel<InternalNamespaceToolParam>.Create(BinaryData data, ModelReaderWriterOptions options) => (InternalNamespaceToolParam)PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<NamespaceToolParam>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<InternalNamespaceToolParam>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<NamespaceToolParam>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<InternalNamespaceToolParam>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -71,10 +70,10 @@ namespace OpenAI
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalNamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(NamespaceToolParam)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalNamespaceToolParam)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("name"u8);
@@ -104,24 +103,24 @@ namespace OpenAI
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        NamespaceToolParam IJsonModel<NamespaceToolParam>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (NamespaceToolParam)JsonModelCreateCore(ref reader, options);
+        InternalNamespaceToolParam IJsonModel<InternalNamespaceToolParam>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (InternalNamespaceToolParam)JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override ProjectsAgentTool JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalNamespaceToolParam>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(NamespaceToolParam)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalNamespaceToolParam)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeNamespaceToolParam(document.RootElement, options);
+            return DeserializeInternalNamespaceToolParam(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static NamespaceToolParam DeserializeNamespaceToolParam(JsonElement element, ModelReaderWriterOptions options)
+        internal static InternalNamespaceToolParam DeserializeInternalNamespaceToolParam(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -171,7 +170,7 @@ namespace OpenAI
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new NamespaceToolParam(@type, additionalBinaryDataProperties, name, description, tools);
+            return new InternalNamespaceToolParam(@type, additionalBinaryDataProperties, name, description, tools);
         }
     }
 }

@@ -4,25 +4,24 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.AI.Projects.Agents;
+using OpenAI;
 
-namespace OpenAI
+namespace Azure.AI.Projects.Agents
 {
-    /// <summary> Tool search tool. </summary>
-    public partial class ToolSearchToolParam : ProjectsAgentTool
+    internal partial class InternalToolSearchToolParam : ProjectsAgentTool
     {
-        /// <summary> Initializes a new instance of <see cref="ToolSearchToolParam"/>. </summary>
-        public ToolSearchToolParam() : base(ToolType.ToolSearch)
+        /// <summary> Initializes a new instance of <see cref="InternalToolSearchToolParam"/>. </summary>
+        public InternalToolSearchToolParam() : base(ToolType.ToolSearch)
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="ToolSearchToolParam"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="InternalToolSearchToolParam"/>. </summary>
         /// <param name="type"></param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="execution"> Whether tool search is executed by the server or by the client. </param>
         /// <param name="description"></param>
         /// <param name="parameters"></param>
-        internal ToolSearchToolParam(ToolType @type, IDictionary<string, BinaryData> additionalBinaryDataProperties, ToolSearchExecutionType? execution, string description, EmptyModelParam parameters) : base(@type, additionalBinaryDataProperties)
+        internal InternalToolSearchToolParam(ToolType @type, IDictionary<string, BinaryData> additionalBinaryDataProperties, InternalToolSearchExecutionType? execution, string description, InternalEmptyModelParam parameters) : base(@type, additionalBinaryDataProperties)
         {
             Execution = execution;
             Description = description;
@@ -30,12 +29,12 @@ namespace OpenAI
         }
 
         /// <summary> Whether tool search is executed by the server or by the client. </summary>
-        public ToolSearchExecutionType? Execution { get; set; }
+        public InternalToolSearchExecutionType? Execution { get; set; }
 
         /// <summary> Gets or sets the Description. </summary>
         public string Description { get; set; }
 
         /// <summary> Gets or sets the Parameters. </summary>
-        public EmptyModelParam Parameters { get; set; }
+        public InternalEmptyModelParam Parameters { get; set; }
     }
 }

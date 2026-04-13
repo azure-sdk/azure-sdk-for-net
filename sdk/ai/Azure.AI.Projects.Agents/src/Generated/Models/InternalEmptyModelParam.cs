@@ -5,22 +5,21 @@
 using System;
 using System.Collections.Generic;
 
-namespace OpenAI
+namespace Azure.AI.Projects.Agents
 {
-    /// <summary> The EmptyModelParam. </summary>
-    public partial class EmptyModelParam
+    internal partial class InternalEmptyModelParam
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="EmptyModelParam"/>. </summary>
-        public EmptyModelParam()
+        /// <summary> Initializes a new instance of <see cref="InternalEmptyModelParam"/>. </summary>
+        public InternalEmptyModelParam()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="EmptyModelParam"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="InternalEmptyModelParam"/>. </summary>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EmptyModelParam(IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEmptyModelParam(IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }

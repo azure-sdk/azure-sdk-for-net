@@ -4,27 +4,22 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.AI.Projects.Agents;
 
-namespace OpenAI
+namespace Azure.AI.Projects.Agents
 {
-    /// <summary> The FunctionToolParam. </summary>
-    public partial class FunctionToolParam
+    internal partial class InternalFunctionToolParam
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="FunctionToolParam"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="InternalFunctionToolParam"/>. </summary>
         /// <param name="name"></param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
-        public FunctionToolParam(string name)
+        public InternalFunctionToolParam(string name)
         {
-            Argument.AssertNotNull(name, nameof(name));
-
             Name = name;
         }
 
-        /// <summary> Initializes a new instance of <see cref="FunctionToolParam"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="InternalFunctionToolParam"/>. </summary>
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <param name="parameters"></param>
@@ -32,7 +27,7 @@ namespace OpenAI
         /// <param name="type"></param>
         /// <param name="deferLoading"> Whether this function should be deferred and discovered via tool search. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal FunctionToolParam(string name, string description, EmptyModelParam parameters, bool? strict, string @type, bool? deferLoading, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalFunctionToolParam(string name, string description, InternalEmptyModelParam parameters, bool? strict, string @type, bool? deferLoading, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Description = description;
@@ -50,7 +45,7 @@ namespace OpenAI
         public string Description { get; set; }
 
         /// <summary> Gets or sets the Parameters. </summary>
-        public EmptyModelParam Parameters { get; set; }
+        public InternalEmptyModelParam Parameters { get; set; }
 
         /// <summary> Gets or sets the Strict. </summary>
         public bool? Strict { get; set; }

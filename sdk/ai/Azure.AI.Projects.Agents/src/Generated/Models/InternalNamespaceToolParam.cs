@@ -6,36 +6,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using Azure.AI.Projects.Agents;
+using OpenAI;
 
-namespace OpenAI
+namespace Azure.AI.Projects.Agents
 {
-    /// <summary> Namespace. </summary>
-    public partial class NamespaceToolParam : ProjectsAgentTool
+    internal partial class InternalNamespaceToolParam : ProjectsAgentTool
     {
-        /// <summary> Initializes a new instance of <see cref="NamespaceToolParam"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="InternalNamespaceToolParam"/>. </summary>
         /// <param name="name"> The namespace name used in tool calls (for example, `crm`). </param>
         /// <param name="description"> A description of the namespace shown to the model. </param>
         /// <param name="tools"> The function/custom tools available inside this namespace. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/>, <paramref name="description"/> or <paramref name="tools"/> is null. </exception>
-        public NamespaceToolParam(string name, string description, IEnumerable<BinaryData> tools) : base(ToolType.Namespace)
+        public InternalNamespaceToolParam(string name, string description, IEnumerable<BinaryData> tools) : base(ToolType.Namespace)
         {
-            Argument.AssertNotNull(name, nameof(name));
-            Argument.AssertNotNull(description, nameof(description));
-            Argument.AssertNotNull(tools, nameof(tools));
-
             Name = name;
             Description = description;
             Tools = tools.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="NamespaceToolParam"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="InternalNamespaceToolParam"/>. </summary>
         /// <param name="type"></param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="name"> The namespace name used in tool calls (for example, `crm`). </param>
         /// <param name="description"> A description of the namespace shown to the model. </param>
         /// <param name="tools"> The function/custom tools available inside this namespace. </param>
-        internal NamespaceToolParam(ToolType @type, IDictionary<string, BinaryData> additionalBinaryDataProperties, string name, string description, IList<BinaryData> tools) : base(@type, additionalBinaryDataProperties)
+        internal InternalNamespaceToolParam(ToolType @type, IDictionary<string, BinaryData> additionalBinaryDataProperties, string name, string description, IList<BinaryData> tools) : base(@type, additionalBinaryDataProperties)
         {
             Name = name;
             Description = description;
@@ -57,7 +51,7 @@ namespace OpenAI
         /// Supported types:
         /// <list type="bullet">
         /// <item>
-        /// <description> <see cref="FunctionToolParam"/>. </description>
+        /// <description> <see cref="InternalFunctionToolParam"/>. </description>
         /// </item>
         /// <item>
         /// <description> <see cref="InternalCustomToolParam"/>. </description>
