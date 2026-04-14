@@ -3838,5 +3838,27 @@ interface PrivateEndpointConnections {
       0,
       "No private endpoint connection operations should be in non-resource methods"
     );
+
+    // Validate using resolveArmResources API
+    const resolvedSchema = resolveArmResources(program, sdkContext);
+    ok(resolvedSchema);
+
+    // Note: The upstream resolveArmResources API from @azure-tools/typespec-azure-resource-manager
+    // does NOT recognize RoutedOperations resources with dynamic parent types as ARM resources.
+    // The PrivateEndpointConnection operations end up as non-resource methods instead of resources.
+    // This is a known limitation of the ARM library. The legacy buildArmProviderSchema path handles
+    // this correctly because it uses @legacyResourceOperation decorators to detect the resource model.
+    // Once the ARM library is updated to support this pattern, the resolveArmResources path will
+    // also benefit from our expansion logic (expandDynamicParentResourcesInSchema).
+    strictEqual(
+      resolvedSchema.resources.length,
+      2,
+      "resolveArmResources only detects Topic and Domain (upstream limitation)"
+    );
+    strictEqual(
+      resolvedSchema.nonResourceMethods.length,
+      3,
+      "PrivateEndpointConnection operations are non-resource methods in resolveArmResources"
+    );
   });
 });
