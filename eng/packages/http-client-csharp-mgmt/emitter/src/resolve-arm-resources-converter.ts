@@ -27,6 +27,7 @@
 import {
   Program,
   Operation,
+  NoTarget,
   getPattern,
   getMinLength,
   getMaxLength
@@ -50,13 +51,16 @@ import {
   assignNonResourceMethodsToResources,
   calculateResourceTypeFromPath,
   resolveResourceApiVersions,
-  extractRbacRoles
+  extractRbacRoles,
+  expandDynamicParentResourcesInSchema
 } from "./resource-metadata.js";
 import { CSharpEmitterContext } from "@typespec/http-client-csharp";
 import {
   getCrossLanguageDefinitionId,
   getClientType,
-  SdkModelType
+  SdkModelType,
+  SdkHttpOperation,
+  SdkMethod
 } from "@azure-tools/typespec-client-generator-core";
 import {
   isVariableSegment,
@@ -197,6 +201,34 @@ export function resolveArmResources(
     schemaToResolvedResource
   );
 
+  // Expand resources with dynamic parent type segments (e.g., {parentType}/{parentName})
+  // into concrete resource entries per enum value, using the shared utility.
+  const serviceMethodsMap = new Map<
+    string,
+    SdkMethod<SdkHttpOperation>
+  >();
+  for (const client of getAllSdkClients(sdkContext)) {
+    for (const method of client.methods) {
+      if (!serviceMethodsMap.has(method.crossLanguageDefinitionId)) {
+        serviceMethodsMap.set(
+          method.crossLanguageDefinitionId,
+          method as SdkMethod<SdkHttpOperation>
+        );
+      }
+    }
+  }
+  const expandedResources = expandDynamicParentResourcesInSchema(
+    resources,
+    serviceMethodsMap,
+    (message) =>
+      sdkContext.program.reportDiagnostic({
+        code: "general-warning",
+        severity: "warning",
+        message,
+        target: NoTarget
+      })
+  );
+
   // Convert non-resource methods
   const nonResourceMethods: NonResourceMethod[] = [];
 
@@ -204,7 +236,7 @@ export function resolveArmResources(
   // In this case, parent information comes from ResolvedResource objects
   // Build validResourceMap once for efficient lookup
   const validResourceMap = new Map<string, ArmResourceSchema>();
-  for (const r of resources.filter(
+  for (const r of expandedResources.filter(
     (r) => r.metadata.resourceIdPattern !== ""
   )) {
     const resolvedR = schemaToResolvedResource.get(r);
@@ -237,7 +269,7 @@ export function resolveArmResources(
 
   // Use the shared post-processing function
   const filteredResources = postProcessArmResources(
-    resources,
+    expandedResources,
     nonResourceMethods,
     parentLookup,
     methodResponseModelIdMap

@@ -9,8 +9,11 @@ import {
 } from "./utils.js";
 import {
   DecoratedType,
-  getClientOptions
+  getClientOptions,
+  SdkHttpOperation,
+  SdkMethod
 } from "@azure-tools/typespec-client-generator-core";
+import pluralize from "pluralize";
 
 const ResourceGroupScopePrefix =
   "/subscriptions/{subscriptionId}/resourceGroups";
@@ -886,4 +889,185 @@ function getExpectedParentResourceType(
   }
 
   return `${namespace}/${typeSegments.join("/")}`;
+}
+
+/**
+ * Expands resources with dynamic parent type segments in the ArmResourceSchema array.
+ * This is a shared utility used by both the legacy and modern resource detection paths.
+ */
+export function expandDynamicParentResourcesInSchema(
+  resources: ArmResourceSchema[],
+  serviceMethods: Map<string, SdkMethod<SdkHttpOperation>>,
+  diagnosticReporter?: (message: string) => void
+): ArmResourceSchema[] {
+  const resourcesToRemove: Set<ArmResourceSchema> = new Set();
+  const resourcesToAdd: ArmResourceSchema[] = [];
+
+  for (const resource of resources) {
+    const path =
+      resource.metadata.resourceIdPattern ||
+      resource.metadata.methods.find(
+        (m) =>
+          m.kind === ResourceOperationKind.Read ||
+          m.kind === ResourceOperationKind.Create ||
+          m.kind === ResourceOperationKind.Update ||
+          m.kind === ResourceOperationKind.Delete
+      )?.operationPath;
+    if (!path) continue;
+
+    const dynamicSegments = detectDynamicTypeSegmentsShared(path);
+    if (dynamicSegments.length === 0) continue;
+
+    if (dynamicSegments.length > 1) {
+      diagnosticReporter?.(
+        `Resource at path '${path}' has ${dynamicSegments.length} dynamic type segments. Only single dynamic parent type expansion is supported.`
+      );
+      continue;
+    }
+
+    const dynamicSegment = dynamicSegments[0];
+    const enumValues = findEnumValuesForPathParam(
+      resource.metadata.methods,
+      serviceMethods,
+      dynamicSegment.typeParamName
+    );
+
+    if (!enumValues || enumValues.length === 0) {
+      diagnosticReporter?.(
+        `Resource at path '${path}' has dynamic type segment '{${dynamicSegment.typeParamName}}' but no enum values could be found. Resource will not be expanded.`
+      );
+      continue;
+    }
+
+    for (const enumValue of enumValues) {
+      const expandedIdPattern = resource.metadata.resourceIdPattern
+        ? resource.metadata.resourceIdPattern.replace(
+            `{${dynamicSegment.typeParamName}}`,
+            enumValue
+          )
+        : "";
+
+      const expandedMethods: ResourceMethod[] = resource.metadata.methods.map(
+        (m) => ({
+          ...m,
+          operationPath: m.operationPath.replace(
+            `{${dynamicSegment.typeParamName}}`,
+            enumValue
+          )
+        })
+      );
+
+      const expandedResourceType = expandedIdPattern
+        ? calculateResourceTypeFromPath(expandedIdPattern)
+        : "";
+
+      const singular = pluralize.singular(enumValue);
+      const capitalized = singular.charAt(0).toUpperCase() + singular.slice(1);
+      const expandedResourceName = `${capitalized}${resource.metadata.resourceName}`;
+
+      resourcesToAdd.push({
+        resourceModelId: resource.resourceModelId,
+        metadata: {
+          resourceIdPattern: expandedIdPattern,
+          resourceType: expandedResourceType,
+          methods: expandedMethods,
+          resourceScope: resource.metadata.resourceScope,
+          parentResourceId: undefined,
+          parentResourceModelId: undefined,
+          singletonResourceName: resource.metadata.singletonResourceName,
+          resourceName: expandedResourceName,
+          nameConstraints: resource.metadata.nameConstraints,
+          apiVersions: resource.metadata.apiVersions,
+          rbacRoles: resource.metadata.rbacRoles,
+          constantPathParameters: {
+            [dynamicSegment.typeParamName]: enumValue
+          }
+        }
+      });
+    }
+
+    resourcesToRemove.add(resource);
+  }
+
+  if (resourcesToRemove.size === 0) {
+    return resources;
+  }
+
+  return [
+    ...resources.filter((r) => !resourcesToRemove.has(r)),
+    ...resourcesToAdd
+  ];
+}
+
+function detectDynamicTypeSegmentsShared(
+  path: string
+): Array<{ typeParamName: string; nameParamName: string; typeIndex: number }> {
+  const results: Array<{
+    typeParamName: string;
+    nameParamName: string;
+    typeIndex: number;
+  }> = [];
+  const providerIndex = path.lastIndexOf("/providers/");
+  if (providerIndex === -1) return results;
+
+  const afterProviders = path.substring(providerIndex + "/providers".length);
+  const segments = afterProviders.split("/").filter((s) => s.length > 0);
+  for (let i = 1; i < segments.length - 1; i += 2) {
+    if (isVariableSegment(segments[i])) {
+      const typeParamName = segments[i].slice(1, -1);
+      const nameParamName =
+        i + 1 < segments.length ? segments[i + 1].slice(1, -1) : "";
+      results.push({ typeParamName, nameParamName, typeIndex: i });
+    }
+  }
+  return results;
+}
+
+function findEnumValuesForPathParam(
+  methods: ResourceMethod[],
+  serviceMethods: Map<string, SdkMethod<SdkHttpOperation>>,
+  paramName: string
+): string[] | undefined {
+  const priorityKinds = [
+    ResourceOperationKind.Read,
+    ResourceOperationKind.Create,
+    ResourceOperationKind.Update,
+    ResourceOperationKind.Delete
+  ];
+
+  for (const kind of priorityKinds) {
+    const method = methods.find((m) => m.kind === kind);
+    if (!method) continue;
+    const sdkMethod = serviceMethods.get(method.methodId);
+    if (!sdkMethod?.operation) continue;
+    for (const param of sdkMethod.operation.parameters) {
+      if (
+        param.kind === "path" &&
+        param.serializedName === paramName &&
+        param.type.kind === "enum"
+      ) {
+        return param.type.values
+          .map((v) => v.value)
+          .filter((v): v is string => typeof v === "string");
+      }
+    }
+  }
+
+  for (const method of methods) {
+    const sdkMethod = serviceMethods.get(method.methodId);
+    if (!sdkMethod?.operation) continue;
+    for (const param of sdkMethod.operation.parameters) {
+      if (
+        param.kind === "path" &&
+        param.serializedName === paramName &&
+        param.type.kind === "enum"
+      ) {
+        return param.type.values
+          .map((v) => v.value)
+          .filter((v): v is string => typeof v === "string");
+      }
+    }
+  }
+
+  return undefined;
 }
