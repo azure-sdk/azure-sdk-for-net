@@ -89,6 +89,13 @@ export interface ResourceMetadata {
   apiVersions: string[];
   /** The RBAC roles defined for this resource via @@clientOption */
   rbacRoles: RbacRole[];
+  /**
+   * Constant path parameter values for this resource.
+   * When a resource is expanded from a dynamic parent type pattern (e.g., `{parentType}`),
+   * this maps the parameter name to its constant string value for this specific expansion.
+   * The generator uses these to hardcode the constant values instead of exposing them as user parameters.
+   */
+  constantPathParameters?: Record<string, string>;
 }
 
 export function convertResourceMetadataToArguments(
@@ -294,7 +301,8 @@ export function convertArmProviderSchemaToArguments(
       resourceName: r.metadata.resourceName,
       nameConstraints: r.metadata.nameConstraints,
       apiVersions: r.metadata.apiVersions,
-      rbacRoles: r.metadata.rbacRoles
+      rbacRoles: r.metadata.rbacRoles,
+      constantPathParameters: r.metadata.constantPathParameters
     })),
     nonResourceMethods: schema.nonResourceMethods.map((m) => ({
       methodId: m.methodId,

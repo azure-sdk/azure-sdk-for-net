@@ -3623,4 +3623,220 @@ interface Containers {
       normalizeSchemaForComparison(armProviderSchema)
     );
   });
+
+  it("RoutedOperations with dynamic parent type expands into concrete resources", async () => {
+    // This test validates the fix for resources that use Legacy.RoutedOperations with
+    // dynamic parent types (e.g., {parentType}/{parentName}). The emitter should:
+    // 1. Reclassify ActionSync operations based on HTTP verb (GET->Read, PUT->Create, DELETE->Delete)
+    // 2. Expand the dynamic parent type into concrete resource entries per enum value
+    // 3. Each expanded resource shares the same model but has its own path and name
+    const program = await typeSpecCompile(
+      `
+/** Parent topic resource */
+model Topic is TrackedResource<TopicProperties> {
+  ...ResourceNameParameter<Topic>;
+}
+
+/** Topic properties */
+model TopicProperties {
+  /** Topic endpoint */
+  endpoint?: string;
+}
+
+/** Parent domain resource */
+model Domain is TrackedResource<DomainProperties> {
+  ...ResourceNameParameter<Domain>;
+}
+
+/** Domain properties */
+model DomainProperties {
+  /** Domain endpoint */
+  endpoint?: string;
+}
+
+/** Enum for parent type */
+union ParentType {
+  string,
+  /** Topics */
+  topics: "topics",
+  /** Domains */
+  domains: "domains",
+}
+
+/** Private endpoint connection model */
+model PrivateEndpointConnection is ProxyResource<PrivateEndpointConnectionProperties> {
+  ...ResourceNameParameter<PrivateEndpointConnection>;
+}
+
+/** Private endpoint connection properties */
+model PrivateEndpointConnectionProperties {
+  /** Connection status */
+  status?: string;
+}
+
+@armResourceOperations
+interface Topics {
+  get is ArmResourceRead<Topic>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Topic>;
+  delete is ArmResourceDeleteWithoutOkAsync<Topic>;
+  listByResourceGroup is ArmResourceListByParent<Topic>;
+}
+
+@armResourceOperations
+interface Domains {
+  get is ArmResourceRead<Domain>;
+  createOrUpdate is ArmResourceCreateOrReplaceAsync<Domain>;
+  delete is ArmResourceDeleteWithoutOkAsync<Domain>;
+  listByResourceGroup is ArmResourceListByParent<Domain>;
+}
+
+@armResourceOperations
+interface PrivateEndpointConnectionOps
+  extends Azure.ResourceManager.Legacy.RoutedOperations<
+      {
+        ...ApiVersionParameter,
+        ...SubscriptionIdParameter,
+        ...ResourceGroupParameter,
+        @path parentType: ParentType,
+        @path parentName: string,
+      },
+      {
+        @path privateEndpointConnectionName: string,
+      },
+      ResourceRoute = #{
+        route: "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoProviderHub/{parentType}/{parentName}",
+      }
+    > {}
+
+#suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "Testing RoutedOperations pattern"
+@armResourceOperations(#{ allowStaticRoutes: true })
+interface PrivateEndpointConnections {
+  @get
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoProviderHub/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}")
+  get is PrivateEndpointConnectionOps.ActionSync<PrivateEndpointConnection, void, PrivateEndpointConnection>;
+
+  @put
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoProviderHub/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}")
+  update is PrivateEndpointConnectionOps.ActionSync<PrivateEndpointConnection, PrivateEndpointConnection, PrivateEndpointConnection>;
+
+  @delete
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContosoProviderHub/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}")
+  delete is PrivateEndpointConnectionOps.ActionAsync<PrivateEndpointConnection, void, void>;
+}
+`,
+      runner
+    );
+    const context = createEmitterContext(program);
+    const sdkContext = await createCSharpSdkContext(context);
+    const [root] = createModel(sdkContext);
+
+    // Build ARM provider schema using legacy detection
+    const armProviderSchema = buildArmProviderSchema(sdkContext, root);
+    ok(armProviderSchema);
+    ok(armProviderSchema.resources);
+
+    // Should have 4 resources: Topic, Domain, TopicPrivateEndpointConnection, DomainPrivateEndpointConnection
+    strictEqual(
+      armProviderSchema.resources.length,
+      4,
+      `Expected 4 resources, got ${armProviderSchema.resources.length}: ${armProviderSchema.resources.map((r) => r.metadata.resourceName).join(", ")}`
+    );
+
+    // Verify parent resources exist
+    const topicResource = armProviderSchema.resources.find(
+      (r) =>
+        r.metadata.resourceType ===
+        "Microsoft.ContosoProviderHub/topics"
+    );
+    ok(topicResource, "Topic resource should exist");
+
+    const domainResource = armProviderSchema.resources.find(
+      (r) =>
+        r.metadata.resourceType ===
+        "Microsoft.ContosoProviderHub/domains"
+    );
+    ok(domainResource, "Domain resource should exist");
+
+    // Verify expanded private endpoint connection resources exist
+    const topicPec = armProviderSchema.resources.find(
+      (r) =>
+        r.metadata.resourceType ===
+        "Microsoft.ContosoProviderHub/topics/privateEndpointConnections"
+    );
+    ok(
+      topicPec,
+      "TopicPrivateEndpointConnection resource should exist"
+    );
+    strictEqual(
+      topicPec.metadata.resourceName,
+      "TopicPrivateEndpointConnection"
+    );
+
+    const domainPec = armProviderSchema.resources.find(
+      (r) =>
+        r.metadata.resourceType ===
+        "Microsoft.ContosoProviderHub/domains/privateEndpointConnections"
+    );
+    ok(
+      domainPec,
+      "DomainPrivateEndpointConnection resource should exist"
+    );
+    strictEqual(
+      domainPec.metadata.resourceName,
+      "DomainPrivateEndpointConnection"
+    );
+
+    // Verify expanded resources share the same model
+    strictEqual(
+      topicPec.resourceModelId,
+      domainPec.resourceModelId,
+      "Both expanded resources should share the same model"
+    );
+
+    // Verify expanded resources have constantPathParameters
+    ok(topicPec.metadata.constantPathParameters);
+    strictEqual(topicPec.metadata.constantPathParameters["parentType"], "topics");
+
+    ok(domainPec.metadata.constantPathParameters);
+    strictEqual(domainPec.metadata.constantPathParameters["parentType"], "domains");
+
+    // Verify the resource ID patterns are concrete (no dynamic segments in type positions)
+    ok(
+      topicPec.metadata.resourceIdPattern.includes("/topics/"),
+      "Topic PEC resource ID should contain /topics/"
+    );
+    ok(
+      !topicPec.metadata.resourceIdPattern.includes("{parentType}"),
+      "Topic PEC resource ID should NOT contain {parentType}"
+    );
+
+    ok(
+      domainPec.metadata.resourceIdPattern.includes("/domains/"),
+      "Domain PEC resource ID should contain /domains/"
+    );
+    ok(
+      !domainPec.metadata.resourceIdPattern.includes("{parentType}"),
+      "Domain PEC resource ID should NOT contain {parentType}"
+    );
+
+    // Verify each expanded resource has Read, Create, and Delete operations
+    for (const pec of [topicPec, domainPec]) {
+      const hasRead = pec.metadata.methods.some((m) => m.kind === "Read");
+      const hasCreate = pec.metadata.methods.some((m) => m.kind === "Create");
+      const hasDelete = pec.metadata.methods.some((m) => m.kind === "Delete");
+      ok(hasRead, `${pec.metadata.resourceName} should have Read operation`);
+      ok(hasCreate, `${pec.metadata.resourceName} should have Create operation`);
+      ok(hasDelete, `${pec.metadata.resourceName} should have Delete operation`);
+    }
+
+    // Verify there are NO operations left on non-resource methods for private endpoint connections
+    const pecNonResourceMethods = armProviderSchema.nonResourceMethods.filter(
+      (m) => m.operationPath.includes("privateEndpointConnections")
+    );
+    strictEqual(
+      pecNonResourceMethods.length,
+      0,
+      "No private endpoint connection operations should be in non-resource methods"
+    );
+  });
 });
