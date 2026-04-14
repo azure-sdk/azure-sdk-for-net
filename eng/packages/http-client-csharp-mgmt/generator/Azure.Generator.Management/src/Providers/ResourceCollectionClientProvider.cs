@@ -87,7 +87,7 @@ namespace Azure.Generator.Management.Providers
             }
             else
             {
-                return OperationContext.Create(contextualPath);
+                return OperationContext.Create(contextualPath, resourceMetadata.ConstantPathParameters);
             }
         }
 
