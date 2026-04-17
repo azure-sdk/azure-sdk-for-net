@@ -671,13 +671,17 @@ namespace Azure.Generator.Management.Visitors
                     !internalProperty.Body.HasSetter || !innerProperty.Body.HasSetter ? null : PropertyHelpers.BuildSetterForPropertyFlatten(propertyModel, internalProperty, innerProperty)
                 );
 
-                // If the inner property is a value type, we need to ensure that we handle the nullability correctly.
+                // If the inner property is a value type (e.g. enum, primitive) and the inner model is itself
+                // a property on an optional ("properties?:") wrapper, the flattened accessor can observe a null
+                // backing reference. Wrap value types with Nullable<T> to surface that possibility, matching
+                // the behavior of SafeFlatten and the model factory parameter shape built in
+                // PatchModelFactoryParameterTypes / IsOverriddenValueType.
                 var isOverriddenValueType = innerProperty.Type.IsValueType && !innerProperty.Type.IsNullable;
                 var flattenedProperty =
                     new FlattenedPropertyProvider(
                         innerProperty.Description,
                         innerProperty.Modifiers,
-                        innerProperty.Type,
+                        isOverriddenValueType ? innerProperty.Type.WithNullable(true) : innerProperty.Type,
                         flattenPropertyName,
                         flattenPropertyBody,
                         model,

@@ -29,7 +29,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
         /// <param name="prop2"> Gets or sets the Prop2. </param>
         /// <param name="discriminatorProperty"></param>
         /// <exception cref="ArgumentNullException"> <paramref name="propertyLeft"/>, <paramref name="anotherPropertyLeft"/>, <paramref name="innerProp2"/>, <paramref name="middleProp2"/>, <paramref name="prop1"/> or <paramref name="discriminatorProperty"/> is null. </exception>
-        public BarSettingsResourceData(string propertyLeft, string anotherPropertyLeft, string innerProp2, int middleProp1, IDictionary<string, string> middleProp2, IEnumerable<string> prop1, int prop2, LimitJsonObject discriminatorProperty)
+        public BarSettingsResourceData(string propertyLeft, string anotherPropertyLeft, string innerProp2, int? middleProp1, IDictionary<string, string> middleProp2, IEnumerable<string> prop1, int? prop2, LimitJsonObject discriminatorProperty)
         {
             Argument.AssertNotNull(propertyLeft, nameof(propertyLeft));
             Argument.AssertNotNull(anotherPropertyLeft, nameof(anotherPropertyLeft));
@@ -41,7 +41,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             StringArray = new ChangeTrackingList<string>();
             Property = new BarQuotaProperties(propertyLeft);
             AnotherProperty = new BarQuotaProperties(anotherPropertyLeft);
-            FlattenedNestedProperty = new BarNestedQuotaProperties(innerProp2, middleProp1, middleProp2, prop1, prop2);
+            FlattenedNestedProperty = middleProp1 is null && prop2 is null ? default : new BarNestedQuotaProperties(innerProp2, middleProp1.Value, middleProp2, prop1, prop2.Value);
             DiscriminatorProperty = discriminatorProperty;
         }
 
@@ -150,7 +150,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
                 {
                     FlattenedNestedProperty = new BarNestedQuotaProperties();
                 }
-                FlattenedNestedProperty.InnerProp1 = value.Value;
+                FlattenedNestedProperty.InnerProp1 = value;
             }
         }
 
@@ -174,7 +174,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
 
         /// <summary> Gets or sets the MiddleProp1. </summary>
         [WirePath("flattenedNestedProperty.middleProp1")]
-        public int MiddleProp1
+        public int? MiddleProp1
         {
             get
             {
@@ -186,7 +186,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
                 {
                     FlattenedNestedProperty = new BarNestedQuotaProperties();
                 }
-                FlattenedNestedProperty.MiddleProp1 = value;
+                FlattenedNestedProperty.MiddleProp1 = value.Value;
             }
         }
 
@@ -220,7 +220,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
 
         /// <summary> Gets or sets the Prop2. </summary>
         [WirePath("flattenedNestedProperty.prop2")]
-        public int Prop2
+        public int? Prop2
         {
             get
             {
@@ -232,7 +232,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
                 {
                     FlattenedNestedProperty = new BarNestedQuotaProperties();
                 }
-                FlattenedNestedProperty.Prop2 = value;
+                FlattenedNestedProperty.Prop2 = value.Value;
             }
         }
 
