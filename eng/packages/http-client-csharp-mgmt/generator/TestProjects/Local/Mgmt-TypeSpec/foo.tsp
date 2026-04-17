@@ -44,6 +44,16 @@ model FooProperties {
   prop1: string[];
   prop2?: int32[];
 
+  /** Required value-type property. Used to validate that required value types
+      flattened from an optional ``properties?:`` parent surface as Nullable<T>. */
+  requiredInt: int32;
+
+  /** Required fixed (closed) enum. */
+  requiredFixedEnum: FooFixedMode;
+
+  /** Required extensible enum (union). */
+  requiredExtensibleEnum: FooProvisioningState;
+
   nestedProperty: NestedFooModel;
 
   optionalProperty?: SafeFlattenModel;
@@ -113,6 +123,13 @@ union FooProvisioningState {
 
   /** The resource provisioning has been canceled. */
   Canceled: "Canceled",
+}
+
+/** Fixed (closed) mode enum for Foo. */
+enum FooFixedMode {
+  Normal,
+  Strict,
+  Relaxed,
 }
 
 @armResourceOperations

@@ -25,15 +25,27 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
         /// <param name="location"> The geo-location where the resource lives. </param>
         /// <param name="something"> something. </param>
         /// <param name="prop1"> Gets the Prop1. </param>
+        /// <param name="requiredInt">
+        /// Required value-type property. Used to validate that required value types
+        ///       flattened from an optional ``properties?:`` parent surface as Nullable&lt;T&gt;.
+        /// </param>
+        /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
+        /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
         /// <param name="nestedPropertyProperties"> Gets or sets the Properties. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="something"/>, <paramref name="prop1"/> or <paramref name="nestedPropertyProperties"/> is null. </exception>
-        public FooData(AzureLocation location, ManagedServiceIdentity something, IEnumerable<string> prop1, FooProperties nestedPropertyProperties) : base(location)
+        public FooData(AzureLocation location, ManagedServiceIdentity something, IEnumerable<string> prop1, int? requiredInt, FooFixedMode? requiredFixedEnum, FooProvisioningState? requiredExtensibleEnum, FooProperties nestedPropertyProperties) : base(location)
         {
             Argument.AssertNotNull(something, nameof(something));
             Argument.AssertNotNull(prop1, nameof(prop1));
             Argument.AssertNotNull(nestedPropertyProperties, nameof(nestedPropertyProperties));
 
-            Properties = new FooProperties(something, prop1, nestedPropertyProperties);
+            Properties = requiredInt is null && requiredFixedEnum is null && requiredExtensibleEnum is null ? default : new FooProperties(
+                something,
+                prop1,
+                requiredInt.Value,
+                requiredFixedEnum.Value,
+                requiredExtensibleEnum.Value,
+                nestedPropertyProperties);
         }
 
         /// <summary> Initializes a new instance of <see cref="FooData"/>. </summary>
@@ -188,6 +200,63 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
                     Properties = new FooProperties();
                 }
                 return Properties.Prop2;
+            }
+        }
+
+        /// <summary>
+        /// Required value-type property. Used to validate that required value types
+        ///       flattened from an optional ``properties?:`` parent surface as Nullable&lt;T&gt;.
+        /// </summary>
+        [WirePath("properties.requiredInt")]
+        public int? RequiredInt
+        {
+            get
+            {
+                return Properties is null ? default : Properties.RequiredInt;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new FooProperties();
+                }
+                Properties.RequiredInt = value.Value;
+            }
+        }
+
+        /// <summary> Required fixed (closed) enum. </summary>
+        [WirePath("properties.requiredFixedEnum")]
+        public FooFixedMode? RequiredFixedEnum
+        {
+            get
+            {
+                return Properties is null ? default : Properties.RequiredFixedEnum;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new FooProperties();
+                }
+                Properties.RequiredFixedEnum = value.Value;
+            }
+        }
+
+        /// <summary> Required extensible enum (union). </summary>
+        [WirePath("properties.requiredExtensibleEnum")]
+        public FooProvisioningState? RequiredExtensibleEnum
+        {
+            get
+            {
+                return Properties is null ? default : Properties.RequiredExtensibleEnum;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new FooProperties();
+                }
+                Properties.RequiredExtensibleEnum = value.Value;
             }
         }
 
