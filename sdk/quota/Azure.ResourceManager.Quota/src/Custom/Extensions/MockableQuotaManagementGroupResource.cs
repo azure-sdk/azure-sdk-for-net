@@ -21,9 +21,9 @@ namespace Azure.ResourceManager.Quota.Mocking
             return Client.GetCachedClient(client0 => new MockableQuotaArmClient(client0, ResourceIdentifier.Root));
         }
 
-        private ResourceIdentifier BuildQuotaScope(string subscriptionId, string groupQuotaName, string resourceProviderName)
+        private ResourceIdentifier BuildQuotaScope(string subscriptionId)
         {
-            return new ResourceIdentifier($"{Id}/subscriptions/{subscriptionId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}");
+            return new ResourceIdentifier($"{Id}/subscriptions/{subscriptionId}");
         }
 
         // --- SubscriptionQuotaAllocationsList (Guid overloads) ---
@@ -35,8 +35,8 @@ namespace Azure.ResourceManager.Quota.Mocking
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<Response<SubscriptionQuotaAllocationsListResource>> GetSubscriptionQuotaAllocationsListAsync(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            var scope = BuildQuotaScope(subscriptionId.ToString(), groupQuotaName, resourceProviderName);
-            return await GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsListAsync(scope, location, cancellationToken).ConfigureAwait(false);
+            var scope = BuildQuotaScope(subscriptionId.ToString());
+            return await GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsListAsync(scope, groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Azure.ResourceManager.Quota.Mocking
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<SubscriptionQuotaAllocationsListResource> GetSubscriptionQuotaAllocationsList(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            var scope = BuildQuotaScope(subscriptionId.ToString(), groupQuotaName, resourceProviderName);
-            return GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsList(scope, location, cancellationToken);
+            var scope = BuildQuotaScope(subscriptionId.ToString());
+            return GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsList(scope, groupQuotaName, resourceProviderName, location, cancellationToken);
         }
 
         // --- SubscriptionQuotaAllocationsList (string overloads) ---
@@ -60,8 +60,8 @@ namespace Azure.ResourceManager.Quota.Mocking
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<Response<SubscriptionQuotaAllocationsListResource>> GetSubscriptionQuotaAllocationsListAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
-            return await GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsListAsync(scope, location, cancellationToken).ConfigureAwait(false);
+            var scope = BuildQuotaScope(subscriptionId);
+            return await GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsListAsync(scope, groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace Azure.ResourceManager.Quota.Mocking
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<SubscriptionQuotaAllocationsListResource> GetSubscriptionQuotaAllocationsList(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
-            return GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsList(scope, location, cancellationToken);
+            var scope = BuildQuotaScope(subscriptionId);
+            return GetMockableQuotaArmClient().GetSubscriptionQuotaAllocationsList(scope, groupQuotaName, resourceProviderName, location, cancellationToken);
         }
 
         // --- SubscriptionQuotaAllocationsLists collection (no-param) ---
@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<Response<QuotaAllocationRequestStatusResource>> GetQuotaAllocationRequestStatusAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, string allocationId, CancellationToken cancellationToken = default)
         {
-            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            var scope = BuildQuotaScope(subscriptionId);
             return await GetMockableQuotaArmClient().GetQuotaAllocationRequestStatusAsync(scope, allocationId, cancellationToken).ConfigureAwait(false);
         }
 
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<QuotaAllocationRequestStatusResource> GetQuotaAllocationRequestStatus(string subscriptionId, string groupQuotaName, string resourceProviderName, string allocationId, CancellationToken cancellationToken = default)
         {
-            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            var scope = BuildQuotaScope(subscriptionId);
             return GetMockableQuotaArmClient().GetQuotaAllocationRequestStatus(scope, allocationId, cancellationToken);
         }
 
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.Quota.Mocking
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual QuotaAllocationRequestStatusCollection GetQuotaAllocationRequestStatuses(string subscriptionId, string groupQuotaName, string resourceProviderName)
         {
-            var scope = BuildQuotaScope(subscriptionId, groupQuotaName, resourceProviderName);
+            var scope = BuildQuotaScope(subscriptionId);
             return GetMockableQuotaArmClient().GetQuotaAllocationRequestStatuses(scope);
         }
     }

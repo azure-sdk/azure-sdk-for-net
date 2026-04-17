@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<Response<SubscriptionQuotaAllocationsListResource>> GetAsync(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return await GetAsync(location, cancellationToken).ConfigureAwait(false);
+            return await GetAsync(groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<SubscriptionQuotaAllocationsListResource> Get(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return Get(location, cancellationToken);
+            return Get(groupQuotaName, resourceProviderName, location, cancellationToken);
         }
 
         // --- Get (string overloads) ---
@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<Response<SubscriptionQuotaAllocationsListResource>> GetAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return await GetAsync(location, cancellationToken).ConfigureAwait(false);
+            return await GetAsync(groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<SubscriptionQuotaAllocationsListResource> Get(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return Get(location, cancellationToken);
+            return Get(groupQuotaName, resourceProviderName, location, cancellationToken);
         }
 
         // --- Exists (Guid overloads) ---
@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<Response<bool>> ExistsAsync(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return await ExistsAsync(location, cancellationToken).ConfigureAwait(false);
+            return await ExistsAsync(groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<bool> Exists(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return Exists(location, cancellationToken);
+            return Exists(groupQuotaName, resourceProviderName, location, cancellationToken);
         }
 
         // --- Exists (string overloads) ---
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<Response<bool>> ExistsAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return await ExistsAsync(location, cancellationToken).ConfigureAwait(false);
+            return await ExistsAsync(groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Response<bool> Exists(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return Exists(location, cancellationToken);
+            return Exists(groupQuotaName, resourceProviderName, location, cancellationToken);
         }
 
         // --- GetIfExists (Guid overloads) ---
@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<NullableResponse<SubscriptionQuotaAllocationsListResource>> GetIfExistsAsync(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return await GetIfExistsAsync(location, cancellationToken).ConfigureAwait(false);
+            return await GetIfExistsAsync(groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual NullableResponse<SubscriptionQuotaAllocationsListResource> GetIfExists(Guid subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return GetIfExists(location, cancellationToken);
+            return GetIfExists(groupQuotaName, resourceProviderName, location, cancellationToken);
         }
 
         // --- GetIfExists (string overloads) ---
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual async Task<NullableResponse<SubscriptionQuotaAllocationsListResource>> GetIfExistsAsync(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return await GetIfExistsAsync(location, cancellationToken).ConfigureAwait(false);
+            return await GetIfExistsAsync(groupQuotaName, resourceProviderName, location, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.Quota
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual NullableResponse<SubscriptionQuotaAllocationsListResource> GetIfExists(string subscriptionId, string groupQuotaName, string resourceProviderName, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return GetIfExists(location, cancellationToken);
+            return GetIfExists(groupQuotaName, resourceProviderName, location, cancellationToken);
         }
     }
 }
