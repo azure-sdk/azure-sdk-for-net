@@ -1,6 +1,6 @@
 # Release History
 
-## 1.4.0 (2026-04-08)
+## 1.4.0 (2026-04-17)
 
 ### Features Added
 
@@ -14,12 +14,6 @@
   - Added `StorageMoverJobTriggerType` and `ScheduledExecutionOn` properties on job runs.
   - Added `StorageMoverEndpointKind` property on endpoints.
   - Added `Connections` property on job definitions.
-
-## 1.4.0-beta.1 (2025-12-01)
-
-### Features Added
-
-- Upgraded to API version 2025-08-01.
 
 ## 1.3.0 (2025-10-09)
 

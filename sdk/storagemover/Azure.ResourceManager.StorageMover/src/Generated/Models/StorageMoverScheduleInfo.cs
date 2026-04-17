@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="cronExpression"> Optional CRON expression for advanced scheduling. </param>
         /// <param name="endOn"> End time of the schedule (in UTC). </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal StorageMoverScheduleInfo(StorageMoverScheduleFrequency? frequency, bool? isActive, SchedulerTime executionTime, DateTimeOffset? startOn, IList<string> daysOfWeek, IList<int> daysOfMonth, string cronExpression, DateTimeOffset? endOn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal StorageMoverScheduleInfo(StorageMoverScheduleFrequency? frequency, bool? isActive, StorageMoverSchedulerTime executionTime, DateTimeOffset? startOn, IList<string> daysOfWeek, IList<int> daysOfMonth, string cronExpression, DateTimeOffset? endOn, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Frequency = frequency;
             IsActive = isActive;
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         public bool? IsActive { get; set; }
 
         /// <summary> Time of day to execute (hours and minutes). </summary>
-        public SchedulerTime ExecutionTime { get; set; }
+        public StorageMoverSchedulerTime ExecutionTime { get; set; }
 
         /// <summary> Specific one-time execution date and time. </summary>
         public DateTimeOffset? StartOn { get; set; }

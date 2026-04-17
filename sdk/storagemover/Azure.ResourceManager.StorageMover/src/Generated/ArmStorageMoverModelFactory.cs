@@ -422,7 +422,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="cronExpression"> Optional CRON expression for advanced scheduling. </param>
         /// <param name="endOn"> End time of the schedule (in UTC). </param>
         /// <returns> A new <see cref="Models.StorageMoverScheduleInfo"/> instance for mocking. </returns>
-        public static StorageMoverScheduleInfo StorageMoverScheduleInfo(StorageMoverScheduleFrequency? frequency = default, bool? isActive = default, SchedulerTime executionTime = default, DateTimeOffset? startOn = default, IEnumerable<string> daysOfWeek = default, IEnumerable<int> daysOfMonth = default, string cronExpression = default, DateTimeOffset? endOn = default)
+        public static StorageMoverScheduleInfo StorageMoverScheduleInfo(StorageMoverScheduleFrequency? frequency = default, bool? isActive = default, StorageMoverSchedulerTime executionTime = default, DateTimeOffset? startOn = default, IEnumerable<string> daysOfWeek = default, IEnumerable<int> daysOfMonth = default, string cronExpression = default, DateTimeOffset? endOn = default)
         {
             daysOfWeek ??= new ChangeTrackingList<string>();
             daysOfMonth ??= new ChangeTrackingList<int>();

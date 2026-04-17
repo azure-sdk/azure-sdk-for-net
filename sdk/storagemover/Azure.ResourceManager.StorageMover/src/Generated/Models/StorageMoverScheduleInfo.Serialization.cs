@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.StorageMover.Models
             }
             StorageMoverScheduleFrequency? frequency = default;
             bool? isActive = default;
-            SchedulerTime executionTime = default;
+            StorageMoverSchedulerTime executionTime = default;
             DateTimeOffset? startOn = default;
             IList<string> daysOfWeek = default;
             IList<int> daysOfMonth = default;
@@ -206,7 +206,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                     {
                         continue;
                     }
-                    executionTime = SchedulerTime.DeserializeSchedulerTime(prop.Value, options);
+                    executionTime = StorageMoverSchedulerTime.DeserializeStorageMoverSchedulerTime(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("startDate"u8))

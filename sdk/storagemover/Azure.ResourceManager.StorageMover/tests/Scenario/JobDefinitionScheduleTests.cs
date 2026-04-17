@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             jobDefinitionData.DataIntegrityValidation = StorageMoverDataIntegrityValidation.SaveVerifyFileMD5;
 
             StorageMoverScheduleInfo schedule = new StorageMoverScheduleInfo { Frequency = StorageMoverScheduleFrequency.Weekly, IsActive = true };
-            schedule.ExecutionTime = new SchedulerTime { Hour = 2 };
+            schedule.ExecutionTime = new StorageMoverSchedulerTime { Hour = 2 };
             schedule.StartOn = Recording.Now.AddDays(1);
             schedule.EndOn = Recording.Now.AddDays(30);
             schedule.DaysOfWeek.Add("Monday");
@@ -82,8 +82,11 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             jobDefinitionData.Description = "Job definition with daily schedule";
             jobDefinitionData.DataIntegrityValidation = StorageMoverDataIntegrityValidation.None;
             jobDefinitionData.IsPermissionsPreserved = true;
-            jobDefinitionData.Schedule = new StorageMoverScheduleInfo { Frequency = StorageMoverScheduleFrequency.Daily, IsActive = true,
-                ExecutionTime = new SchedulerTime { Hour = 0 },
+            jobDefinitionData.Schedule = new StorageMoverScheduleInfo
+            {
+                Frequency = StorageMoverScheduleFrequency.Daily,
+                IsActive = true,
+                ExecutionTime = new StorageMoverSchedulerTime { Hour = 0 },
                 StartOn = Recording.Now.AddDays(1),
                 EndOn = Recording.Now.AddDays(30),
             };
@@ -113,8 +116,11 @@ namespace Azure.ResourceManager.StorageMover.Tests.Scenario
             // Create job definition with one-time schedule
             JobDefinitionData jobDefinitionData = new JobDefinitionData(StorageMoverCopyMode.Additive, NfsEndpointName, ContainerEndpointName);
             jobDefinitionData.Description = "Job definition with one-time schedule";
-            jobDefinitionData.Schedule = new StorageMoverScheduleInfo { Frequency = StorageMoverScheduleFrequency.Onetime, IsActive = true,
-                ExecutionTime = new SchedulerTime { Hour = 10 },
+            jobDefinitionData.Schedule = new StorageMoverScheduleInfo
+            {
+                Frequency = StorageMoverScheduleFrequency.Onetime,
+                IsActive = true,
+                ExecutionTime = new StorageMoverSchedulerTime { Hour = 10 },
                 StartOn = Recording.Now.AddDays(1),
             };
 
