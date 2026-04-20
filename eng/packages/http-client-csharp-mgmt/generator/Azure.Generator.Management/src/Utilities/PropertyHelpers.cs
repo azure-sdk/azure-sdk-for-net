@@ -138,23 +138,45 @@ namespace Azure.Generator.Management.Utilities
             }
         }
 
-        public static MethodBodyStatement? BuildSetterForPropertyFlatten(ModelProvider innerModel, PropertyProvider internalProperty, PropertyProvider innerProperty)
+        public static MethodBodyStatement? BuildSetterForPropertyFlatten(ModelProvider innerModel, PropertyProvider internalProperty, PropertyProvider innerProperty, bool isPropertyLiftedToNullable)
         {
             if (innerProperty.Type.IsCollection)
             {
                 return null;
             }
 
-            var isOverriddenValueType = innerProperty.Type.IsValueType && !innerProperty.Type.IsNullable;
+            // PropertyFlatten can lift multiple required leaves under a single parent
+            // (e.g. `properties.A`, `properties.B`, `properties.C` all surface on the
+            // model). Setting a single leaf to null must NOT clear the entire parent —
+            // doing so would also wipe sibling leaves. Instead we treat null as a no-op.
+            // The parent-clearing semantics (used by SafeFlatten) are appropriate only
+            // for the 1-to-1 lifted case.
             var setter = new List<MethodBodyStatement>();
             var internalPropertyExpression = This.Property(internalProperty.Name);
 
-            setter.Add(
-                new IfStatement(internalPropertyExpression.Is(Null))
+            if (isPropertyLiftedToNullable)
+            {
+                // Property surface is T?; only assign when value.HasValue. Lazily create the
+                // parent so unrelated leaves can also assign into it.
+                var ifHasValue = new IfStatement(Value.Property(nameof(Nullable<int>.HasValue)))
                 {
+                    new IfStatement(internalPropertyExpression.Is(Null))
+                    {
                         internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate()
-                });
-            setter.Add(internalPropertyExpression.Property(innerProperty.Name).Assign(isOverriddenValueType ? Value.Property(nameof(Nullable<int>.Value)) : Value).Terminate());
+                    },
+                    internalPropertyExpression.Property(innerProperty.Name).Assign(Value.Property(nameof(Nullable<int>.Value))).Terminate()
+                };
+                setter.Add(ifHasValue);
+            }
+            else
+            {
+                setter.Add(
+                    new IfStatement(internalPropertyExpression.Is(Null))
+                    {
+                        internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate()
+                    });
+                setter.Add(internalPropertyExpression.Property(innerProperty.Name).Assign(Value).Terminate());
+            }
             return setter;
         }
 

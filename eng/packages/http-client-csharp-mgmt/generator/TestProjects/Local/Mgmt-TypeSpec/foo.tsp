@@ -13,7 +13,7 @@ using LiftrBase;
 namespace MgmtTypeSpec;
 
 @resource("foos")
-model Foo is TrackedResource<FooProperties, false> {
+model Foo is TrackedResource<FooProperties, true> {
   ...ResourceNameParameter<Foo, SegmentName = "foos">;
 
   ...ExtendedLocationProperty;

@@ -113,7 +113,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                storageSyncServiceLocation is null ? default : new StorageSyncServiceProperties(storageSyncServiceLocation, null),
+                new StorageSyncServiceProperties(storageSyncServiceLocation, null),
                 identity);
         }
 
@@ -145,7 +145,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="extendedLocation"></param>
         /// <param name="identity"> The managed service identities assigned to this resource. </param>
         /// <param name="plan"> Details of the resource plan. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="something"/>, <paramref name="prop1"/> or <paramref name="nestedPropertyProperties"/> is null. </exception>
         /// <returns> A new <see cref="Tests.FooData"/> instance for mocking. </returns>
         public static FooData FooData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, Uri serviceUri = default, ManagedServiceIdentity something = default, bool? boolValue = default, float? floatValue = default, double? doubleValue = default, IEnumerable<string> prop1 = default, IEnumerable<int> prop2 = default, int? requiredInt = default, FooFixedMode? requiredFixedEnum = default, FooProvisioningState? requiredExtensibleEnum = default, ETag? etag = default, WritableSubResource writableSubResourceProp = default, FooProperties nestedPropertyProperties = default, IEnumerable<string> flattenedProperty = default, IEnumerable<string> vmGalleryApplications = default, ResourceIdentifier computeFleetVmCapacityReservationGroupId = default, ExtendedLocation extendedLocation = default, ManagedServiceIdentity identity = default, ArmPlan plan = default)
         {
@@ -159,7 +158,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                serviceUri is null && something is null && boolValue is null && floatValue is null && doubleValue is null && prop1 is null && prop2 is null && requiredInt is null && requiredFixedEnum is null && requiredExtensibleEnum is null && etag is null && writableSubResourceProp is null && nestedPropertyProperties is null && flattenedProperty is null && vmGalleryApplications is null && computeFleetVmCapacityReservationGroupId is null ? default : new FooProperties(
+                serviceUri is null && boolValue is null && floatValue is null && doubleValue is null && requiredInt is null && requiredFixedEnum is null && requiredExtensibleEnum is null && etag is null && writableSubResourceProp is null && computeFleetVmCapacityReservationGroupId is null ? default : new FooProperties(
                     serviceUri,
                     something,
                     boolValue,
@@ -167,9 +166,9 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                     doubleValue,
                     (prop1 ?? new ChangeTrackingList<string>()).ToList(),
                     (prop2 ?? new ChangeTrackingList<int>()).ToList(),
-                    requiredInt.Value,
-                    requiredFixedEnum.Value,
-                    requiredExtensibleEnum.Value,
+                    requiredInt.GetValueOrDefault(),
+                    requiredFixedEnum.GetValueOrDefault(),
+                    requiredExtensibleEnum.GetValueOrDefault(),
                     new NestedFooModel(nestedPropertyProperties, null),
                     new SafeFlattenModel((flattenedProperty ?? new ChangeTrackingList<string>()).ToList(), null),
                     new VmProfile(new ApplicationProfile((vmGalleryApplications ?? new ChangeTrackingList<string>()).ToList(), null), null),
@@ -219,9 +218,9 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 requiredInt,
                 requiredFixedEnum,
                 requiredExtensibleEnum,
-                nestedPropertyProperties is null ? default : new NestedFooModel(nestedPropertyProperties, null),
-                flattenedProperty is null ? default : new SafeFlattenModel((flattenedProperty ?? new ChangeTrackingList<string>()).ToList(), null),
-                vmGalleryApplications is null ? default : new VmProfile(new ApplicationProfile((vmGalleryApplications ?? new ChangeTrackingList<string>()).ToList(), null), null),
+                new NestedFooModel(nestedPropertyProperties, null),
+                new SafeFlattenModel((flattenedProperty ?? new ChangeTrackingList<string>()).ToList(), null),
+                new VmProfile(new ApplicationProfile((vmGalleryApplications ?? new ChangeTrackingList<string>()).ToList(), null), null),
                 etag,
                 writableSubResourceProp,
                 computeFleetVmCapacityReservationGroupId is null ? default : new ComputeFleetVmProfile(new CapacityReservationProfile(new TestSubResource(computeFleetVmCapacityReservationGroupId, null), null), null),
@@ -285,7 +284,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 user,
                 provisioningState,
                 accessControlEnabled,
-                metaDatas is null ? default : new FooSettingsPropertiesMetaData((metaDatas ?? new ChangeTrackingList<string>()).ToList(), null),
+                new FooSettingsPropertiesMetaData((metaDatas ?? new ChangeTrackingList<string>()).ToList(), null),
                 additionalBinaryDataProperties: null);
         }
 
@@ -364,7 +363,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="optionalFlattenPropertyRandomCollectionProp"> Gets the RandomCollectionProp. </param>
         /// <param name="discriminatorProperty"></param>
         /// <returns> A new <see cref="Tests.BarSettingsResourceData"/> instance for mocking. </returns>
-        public static BarSettingsResourceData BarSettingsResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, bool? isEnabled = default, IEnumerable<string> stringArray = default, string propertyLeft = default, string anotherPropertyLeft = default, int? innerProp1 = default, string innerProp2 = default, int? middleProp1 = default, IDictionary<string, string> middleProp2 = default, IEnumerable<string> prop1 = default, int? prop2 = default, IEnumerable<string> optionalFlattenPropertyRandomCollectionProp = default, LimitJsonObject discriminatorProperty = default)
+        public static BarSettingsResourceData BarSettingsResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, bool? isEnabled = default, IEnumerable<string> stringArray = default, string propertyLeft = default, string anotherPropertyLeft = default, int? innerProp1 = default, string innerProp2 = default, int middleProp1 = default, IDictionary<string, string> middleProp2 = default, IEnumerable<string> prop1 = default, int prop2 = default, IEnumerable<string> optionalFlattenPropertyRandomCollectionProp = default, LimitJsonObject discriminatorProperty = default)
         {
             stringArray ??= new ChangeTrackingList<string>();
 
@@ -376,17 +375,17 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 isEnabled is null ? default : new BarSettingsProperties(isEnabled, null),
                 stringArray.ToList(),
-                propertyLeft is null ? default : new BarQuotaProperties(propertyLeft, null),
-                anotherPropertyLeft is null ? default : new BarQuotaProperties(anotherPropertyLeft, null),
-                innerProp1 is null && innerProp2 is null && middleProp1 is null && middleProp2 is null && prop1 is null && prop2 is null ? default : new BarNestedQuotaProperties(
+                new BarQuotaProperties(propertyLeft, null),
+                new BarQuotaProperties(anotherPropertyLeft, null),
+                innerProp1 is null ? default : new BarNestedQuotaProperties(
                     innerProp1,
                     innerProp2,
                     null,
-                    middleProp1.Value,
+                    middleProp1,
                     middleProp2,
                     (prop1 ?? new ChangeTrackingList<string>()).ToList(),
-                    prop2.Value),
-                optionalFlattenPropertyRandomCollectionProp is null ? default : new OptionalFlattenPropertyType((optionalFlattenPropertyRandomCollectionProp ?? new ChangeTrackingList<string>()).ToList(), null),
+                    prop2),
+                new OptionalFlattenPropertyType((optionalFlattenPropertyRandomCollectionProp ?? new ChangeTrackingList<string>()).ToList(), null),
                 discriminatorProperty);
         }
 
@@ -404,7 +403,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                barQuotaLeft is null ? default : new BarQuotaProperties(barQuotaLeft, null));
+                new BarQuotaProperties(barQuotaLeft, null));
         }
 
         /// <summary> An Employee resource. </summary>
@@ -586,7 +585,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                endpointProp is null ? default : new EndpointProperties(endpointProp, null));
+                new EndpointProperties(endpointProp, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -603,7 +602,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                selfHelpId is null ? default : new SelfHelpResourceProperties(selfHelpId, null));
+                new SelfHelpResourceProperties(selfHelpId, null));
         }
 
         /// <summary> The CheckNameAvailabilityResponse. </summary>
@@ -663,7 +662,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                jobName is null ? default : new JobProperties(jobName, null));
+                new JobProperties(jobName, null));
         }
 
         /// <param name="jobName"> Gets or sets the JobName. </param>
@@ -673,7 +672,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new JobResourcePatch(jobName is null ? default : new JobProperties(jobName, null), tags, additionalBinaryDataProperties: null);
+            return new JobResourcePatch(new JobProperties(jobName, null), tags, additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -690,7 +689,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                hciVmInstanceSku is null ? default : new HciVmInstanceProperties(hciVmInstanceSku, null));
+                new HciVmInstanceProperties(hciVmInstanceSku, null));
         }
 
         /// <summary> The new quota limit request status. </summary>
@@ -726,7 +725,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 comment,
                 unit,
                 availableLimit,
-                allocatedToSubscriptionsValue is null ? default : new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<AllocatedToSubscription>()).ToList(), null),
+                new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<AllocatedToSubscription>()).ToList(), null),
                 additionalBinaryDataProperties: null);
         }
 
@@ -745,7 +744,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 comment,
                 unit,
                 availableLimit,
-                allocatedToSubscriptionsValue is null ? default : new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<AllocatedToSubscription>()).ToList(), null),
+                new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<AllocatedToSubscription>()).ToList(), null),
                 additionalBinaryDataProperties: null);
         }
 
@@ -860,7 +859,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <returns> A new <see cref="Models.JooProperties"/> instance for mocking. </returns>
         public static JooProperties JooProperties(string name = default, IEnumerable<long> predictionInputHistoricalData = default)
         {
-            return new JooProperties(name, predictionInputHistoricalData is null ? default : new Prediction(new PredictionInput((predictionInputHistoricalData ?? new ChangeTrackingList<long>()).ToList(), null), null), additionalBinaryDataProperties: null);
+            return new JooProperties(name, new Prediction(new PredictionInput((predictionInputHistoricalData ?? new ChangeTrackingList<long>()).ToList(), null), null), additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -883,7 +882,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                sapVirtualInstanceName is null ? default : new SAPVirtualInstanceProperties(sapVirtualInstanceName, null));
+                new SAPVirtualInstanceProperties(sapVirtualInstanceName, null));
         }
 
         /// <summary> The SAPAvailabilityZoneDetailsRequest. </summary>
@@ -1162,7 +1161,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                highAvailability is null && minimumTlsVersion is null && hostName is null && provisioningState is null && redundancyMode is null && resourceState is null && redisVersion is null && privateEndpointConnections is null && customerManagedKeyEncryption is null && maintenanceWindows is null && publicNetworkAccess is null ? default : new ClusterCreateProperties(
+                highAvailability is null && minimumTlsVersion is null && hostName is null && provisioningState is null && redundancyMode is null && resourceState is null && redisVersion is null && customerManagedKeyEncryption is null && publicNetworkAccess is null ? default : new ClusterCreateProperties(
                     highAvailability,
                     minimumTlsVersion,
                     new ClusterPropertiesEncryption(customerManagedKeyEncryption, null),
@@ -1381,7 +1380,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                disabled is null && innerSelectionType is null && channel is null ? default : new MultiFlattenProperties(channel, new SafeFlattenInner(innerSelectionType, null), disabled, null));
+                disabled is null && channel is null ? default : new MultiFlattenProperties(channel, new SafeFlattenInner(innerSelectionType, null), disabled, null));
         }
 
         /// <summary>
