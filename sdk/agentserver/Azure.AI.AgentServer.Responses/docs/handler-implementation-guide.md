@@ -406,7 +406,9 @@ Output is constructed through a **builder hierarchy** that enforces correct even
 ```
 ResponseEventStream
   └── OutputItemBuilder (message, function call, reasoning, etc.)
-        └── Content builders (text, refusal, summary, etc.)
+        ├── TextContentBuilder    : EmitAdded → EmitDelta* → EmitTextDone → EmitAnnotationAdded* → EmitDone
+        ├── RefusalContentBuilder : EmitAdded → EmitDelta* → EmitRefusalDone → EmitDone
+        └── (other content builders follow the same Added → … → Done pattern)
 ```
 
 Each builder tracks its lifecycle state (`NotStarted` → `Added` → `Done`) and will throw if you emit events out of order. This prevents protocol violations at development time rather than runtime.
@@ -650,6 +652,76 @@ yield return message.EmitDone();
 ```
 
 **Tip**: For streaming, emit small deltas frequently for a responsive feel. For non-streaming mode, the library accumulates everything and delivers the final JSON — so delta granularity doesn't affect the JSON response, only SSE streaming UX.
+
+#### Annotations on text content
+
+After calling `EmitTextDone()`, you can attach annotations before closing the content part with `EmitDone()`. The lifecycle is: `EmitAdded` → `EmitDelta` (0+) → `EmitTextDone` → `EmitAnnotationAdded` (0+) → `EmitDone`.
+
+```csharp
+var message = stream.AddOutputItemMessage();
+yield return message.EmitAdded();
+
+var text = message.AddTextContent();
+yield return text.EmitAdded();
+yield return text.EmitDelta("Here are your files.");
+yield return text.EmitTextDone("Here are your files.");
+
+// Annotations are emitted after text is finalized
+yield return text.EmitAnnotationAdded(new FilePath(fileId: "/reports/summary.pdf", index: 0));
+yield return text.EmitAnnotationAdded(new UrlCitationBody(
+    url: new Uri("https://example.com/docs"), startIndex: 0, endIndex: 19, title: "Docs"));
+
+yield return text.EmitDone();
+yield return message.EmitDone();
+```
+
+Or use the `TextContent(string, IEnumerable<Annotation>)` convenience on `OutputItemMessageBuilder` to handle the full sequence in one call:
+
+```csharp
+var message = stream.AddOutputItemMessage();
+yield return message.EmitAdded();
+
+foreach (var evt in message.TextContent("Here are your files.", new Annotation[]
+{
+    new FilePath(fileId: "/reports/summary.pdf", index: 0),
+    new UrlCitationBody(url: new Uri("https://example.com/docs"), startIndex: 0, endIndex: 19, title: "Docs"),
+}))
+    yield return evt;
+
+yield return message.EmitDone();
+```
+
+#### Refusal content
+
+When the model refuses a request, emit a refusal content part instead of (or alongside) text. The lifecycle is: `EmitAdded` → `EmitDelta` (0+) → `EmitRefusalDone` → `EmitDone`.
+
+```csharp
+var message = stream.AddOutputItemMessage();
+yield return message.EmitAdded();
+
+var refusal = message.AddRefusalContent();
+yield return refusal.EmitAdded();
+yield return refusal.EmitDelta("I cannot ");
+yield return refusal.EmitDelta("help with that.");
+yield return refusal.EmitRefusalDone("I cannot help with that.");
+yield return refusal.EmitDone();
+
+yield return message.EmitDone();
+```
+
+Or use the `RefusalContent(string)` convenience for the common case:
+
+```csharp
+var message = stream.AddOutputItemMessage();
+yield return message.EmitAdded();
+
+foreach (var evt in message.RefusalContent("I cannot help with that."))
+    yield return evt;
+
+yield return message.EmitDone();
+```
+
+Both `RefusalContent` overloads follow the same pattern as `TextContent` — a `string` overload for complete text and an `IAsyncEnumerable<string>` overload for streaming chunks.
 
 ### Function Calls (Tool Use)
 
@@ -1274,7 +1346,7 @@ This happens transparently — no handler code is needed.
 
 ### Library Identity Header
 
-The server automatically adds an `x-platform-server` identity header to all responses via the `ServerUserAgentMiddleware` in the Core package. Each protocol registers its own identity segment (e.g., `azure-ai-agentserver-responses/{version}`) with the `ServerUserAgentRegistry` during route mapping. To append custom identity information, use the core options:
+The server automatically adds an `x-platform-server` identity header to all responses via the `ServerVersionMiddleware` in the Core package. Each protocol registers its own identity segment (e.g., `azure-ai-agentserver-responses/{version}`) with the `ServerVersionRegistry` during route mapping. To append custom identity information, use the core options:
 
 ```csharp
 var builder = AgentHost.CreateBuilder(args);
@@ -1342,76 +1414,19 @@ public async IAsyncEnumerable<ResponseStreamEvent> CreateAsync(
 
 Baggage items are propagated to child activities and downstream telemetry processors automatically.
 
-#### Customizing Tracing with `ResponsesActivitySource`
+#### OpenTelemetry integration
 
-All distributed tracing behaviour — tags, baggage, activity name — is encapsulated in the virtual method `ResponsesActivitySource.StartCreateResponseActivity`. The library registers a default instance via `TryAddSingleton`, so you can replace it entirely by registering your own subclass **before** calling `AddResponsesServer()`.
-
-##### Composition pattern (recommended)
-
-Because `Activity.SetTag` **replaces** existing values for the same key, and `Activity.AddBaggage` prepends (so `GetBaggageItem` returns the most recently added value), you can call `base` first and then selectively override — no need to duplicate the entire method:
-
-```csharp
-class MyActivitySource : ResponsesActivitySource
-{
-    public override Activity? StartCreateResponseActivity(
-        CreateResponse request, string responseId, IHeaderDictionary headers)
-    {
-        // Get all defaults (GenAI tags, baggage, X-Request-Id, etc.)
-        var activity = base.StartCreateResponseActivity(request, responseId, headers);
-        if (activity is null) return null;
-
-        // Override service identity
-        activity.SetTag("gen_ai.provider.name", "my-service");
-        activity.SetTag("service.name", "my-service");
-        activity.SetTag("gen_ai.system", "my-service");
-        activity.AddBaggage("provider.name", "my-service");
-
-        // Add extra tags
-        activity.SetTag("service.namespace", "my.company.agents");
-
-        // Read any header you need
-        if (headers.TryGetValue("X-Tenant-Id", out var tenantId))
-            activity.SetTag("tenant.id", tenantId.ToString());
-
-        return activity;
-    }
-}
-
-// Register before AddResponsesServer so TryAddSingleton skips the default:
-builder.Services.AddSingleton<ResponsesActivitySource, MyActivitySource>();
-builder.Services.AddResponsesServer();
-```
-
-##### Full override
-
-To completely replace the tracing behaviour, override without calling `base`:
-
-```csharp
-class MinimalActivitySource : ResponsesActivitySource
-{
-    public override Activity? StartCreateResponseActivity(
-        CreateResponse request, string responseId, IHeaderDictionary headers)
-    {
-        var activity = Source.StartActivity($"my-op {request.Model}");
-        activity?.SetTag("custom.response.id", responseId);
-        return activity;
-    }
-}
-```
-
-##### OpenTelemetry integration
-
-The default `ActivitySource` name is `ResponsesActivitySource.DefaultName` (`"Azure.AI.AgentServer.Responses"`). Configure your tracing pipeline to listen for it:
+The default `ActivitySource` name is `"Azure.AI.AgentServer.Responses"`. Configure your tracing pipeline to listen for it:
 
 ```csharp
 builder.Services.AddOpenTelemetry()
     .WithTracing(tracing => tracing
-        .AddSource(ResponsesActivitySource.DefaultName)
+        .AddSource("Azure.AI.AgentServer.Responses")
         .AddAspNetCoreInstrumentation()
         .AddOtlpExporter());
 ```
 
-If your subclass uses a different source name (via the `protected` constructor), listen for that name instead.
+> **Note:** `ResponsesActivitySource` is an internal type managed by the framework. Handlers do not need to create tracing activities directly — the library instruments each `POST /responses` call automatically.
 
 ### TTL Eviction
 

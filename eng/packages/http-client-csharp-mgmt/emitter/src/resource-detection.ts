@@ -8,12 +8,12 @@ import {
   InputModelType
 } from "@typespec/http-client-csharp";
 import {
-  calculateResourceTypeFromPath,
   NonResourceMethod,
   ResourceMetadata,
   ResourceMethod,
   ResourceOperationKind,
-  ResourceScope,
+  ResourceScopeKind,
+  ArmScopeInfo,
   ArmProviderSchema,
   ArmResourceSchema,
   convertArmProviderSchemaToArguments,
@@ -21,7 +21,10 @@ import {
   ParentResourceLookupContext,
   assignNonResourceMethodsToResources,
   resolveResourceApiVersions,
-  extractRbacRoles
+  extractRbacRoles,
+  findLongestPrefixMatch,
+  RequestPath,
+  isVariableSegment
 } from "./resource-metadata.js";
 import {
   DecoratorInfo,
@@ -48,7 +51,7 @@ import {
   builtInResourceOperationName,
   parentResourceName,
   readsResourceName,
-  singleton,
+  singleton
 } from "./sdk-context-options.js";
 import {
   DecoratorApplication,
@@ -58,12 +61,8 @@ import {
   getMinLength,
   getMaxLength
 } from "@typespec/compiler";
-import {
-  resolveArmResources,
-  getOperationScopeFromPath
-} from "./resolve-arm-resources-converter.js";
+import { resolveArmResources } from "./resolve-arm-resources-converter.js";
 import { AzureMgmtEmitterOptions } from "./options.js";
-import { findLongestPrefixMatch, isVariableSegment } from "./utils.js";
 import { getAllSdkClients, traverseClient } from "./sdk-client-utils.js";
 
 export async function updateClients(
@@ -180,22 +179,14 @@ export function buildArmProviderSchema(
 
             // Try to match based on resource type segments
             // Extract the resource type part (after "/providers/")
-            const existingResourceType =
-              calculateResourceTypeFromPath(existingPath);
-            let operationResourceType = "";
-            try {
-              operationResourceType =
-                calculateResourceTypeFromPath(operationPath);
-            } catch {
-              // If we can't calculate resource type, try string matching
-            }
-
-            // If resource types match exactly, this is a potential candidate
+            const existingReqPath = new RequestPath(existingPath);
+            const operationReqPath = new RequestPath(operationPath);
+            // Only compare resource types when both paths have a determinable resource type
             if (
-              existingResourceType &&
-              operationResourceType === existingResourceType
+              existingReqPath.resourceType !== undefined &&
+              operationReqPath.resourceType !== undefined &&
+              existingReqPath.resourceType === operationReqPath.resourceType
             ) {
-              // Add to type match candidates
               typeMatchCandidates.push({ existingPath });
             }
           }
@@ -203,9 +194,9 @@ export function buildArmProviderSchema(
 
         // Find the best prefix match using the utility
         const bestPrefixMatch = findLongestPrefixMatch(
-          operationPath,
+          new RequestPath(operationPath),
           existingPathsForModel,
-          (path) => path.substring(0, path.lastIndexOf("/"))
+          (path) => new RequestPath(path).trimLastSegment
         );
 
         // Selection strategy:
@@ -235,15 +226,18 @@ export function buildArmProviderSchema(
           // by looking for the resource model name in the path
           const model = resourceModelMap.get(modelId);
           const resourceTypeName = model?.name?.toLowerCase();
-          const pathLower = operationPath.toLowerCase();
 
           // If the path doesn't include the resource type segment (e.g., "scheduledactions"),
           // it's a provider operation, not a resource action
-          if (resourceTypeName && !pathLower.includes(resourceTypeName)) {
+          const opPath = new RequestPath(operationPath);
+          const hasResourceTypeSegment =
+            resourceTypeName &&
+            opPath.segments.some((s) => s.toLowerCase() === resourceTypeName);
+          if (resourceTypeName && !hasResourceTypeSegment) {
             nonResourceMethods.set(method.crossLanguageDefinitionId, {
               methodId: method.crossLanguageDefinitionId,
-              operationPath: method.operation.path,
-              operationScope: getOperationScopeFromPath(method.operation.path)
+              operationPath: opPath,
+              scope: buildScopeInfoFromPath(opPath)
             });
             return;
           }
@@ -282,12 +276,15 @@ export function buildArmProviderSchema(
         }
 
         entry = {
-          resourceIdPattern: "", // this will be populated later
+          resourceIdPattern: undefined, // this will be populated later
           resourceType: "", // this will be populated later
           singletonResourceName: getSingletonResource(
             model?.decorators?.find((d) => d.name == singleton)
           ),
-          resourceScope: ResourceScope.Tenant, // temporary default to Tenant, will be properly set later after methods are populated
+          scope: {
+            kind: ResourceScopeKind.Tenant,
+            scopeIdPattern: RequestPath.empty
+          }, // temporary default, will be properly set later
           methods: [],
           parentResourceId: undefined, // this will be populated later
           parentResourceModelId: undefined,
@@ -300,26 +297,26 @@ export function buildArmProviderSchema(
         resourcePathToMetadataMap.set(metadataKey, entry);
       }
 
+      const opPath = new RequestPath(method.operation.path);
       entry.methods.push({
         methodId: method.crossLanguageDefinitionId,
         kind,
-        operationPath: method.operation.path,
-        operationScope: getOperationScopeFromPath(method.operation.path)
+        operationPath: opPath,
+        scope: buildScopeInfoFromPath(opPath)
       });
-      if (!entry.resourceType) {
-        entry.resourceType = calculateResourceTypeFromPath(
-          method.operation.path
-        );
+      if (!entry.resourceType && opPath.resourceType) {
+        entry.resourceType = opPath.resourceType;
       }
       if (!entry.resourceIdPattern && isCRUDKind(kind)) {
-        entry.resourceIdPattern = method.operation.path;
+        entry.resourceIdPattern = opPath;
       }
     } else {
       // we treat this method as a non-resource method when it does not have a kind or an associated resource model
+      const operationPath = new RequestPath(method.operation.path);
       nonResourceMethods.set(method.crossLanguageDefinitionId, {
         methodId: method.crossLanguageDefinitionId,
-        operationPath: method.operation.path,
-        operationScope: getOperationScopeFromPath(method.operation.path)
+        operationPath: operationPath,
+        scope: buildScopeInfoFromPath(operationPath)
       });
     }
   };
@@ -377,7 +374,7 @@ export function buildArmProviderSchema(
     const model = resourceModelMap.get(modelId);
 
     // Emit diagnostic for resources without resourceIdPattern
-    if (metadata.resourceIdPattern === "" && model) {
+    if (metadata.resourceIdPattern === undefined && model) {
       sdkContext.program.reportDiagnostic({
         code: "general-warning",
         severity: "warning",
@@ -412,13 +409,18 @@ export function buildArmProviderSchema(
   // This is also specific to legacy resource detection
   const allMapEntries = [...resourcePathToMetadataMap.entries()];
   for (const [metadataKey, metadata] of resourcePathToMetadataMap) {
-    if (!metadata.parentResourceId && metadata.resourceIdPattern) {
+    if (
+      !metadata.parentResourceId &&
+      metadata.resourceIdPattern !== undefined
+    ) {
       // Find the longest matching parent path (most specific parent)
       const bestParent = findLongestPrefixMatch(
         metadata.resourceIdPattern,
         allMapEntries,
         ([key, m]) =>
-          key !== metadataKey ? m.resourceIdPattern || undefined : undefined,
+          key !== metadataKey && m.resourceIdPattern !== undefined
+            ? m.resourceIdPattern
+            : undefined,
         true
       );
       if (bestParent) {
@@ -428,10 +430,14 @@ export function buildArmProviderSchema(
     }
   }
 
-  // Update the model's resourceScope based on resource scope decorator if it exists or based on the Read method's scope.
+  // Update the model's scope based on resource scope decorator if it exists or based on the Read method's scope.
   // This is specific to legacy resource detection
   for (const metadata of resourcePathToMetadataMap.values()) {
-      metadata.resourceScope = getResourceScope(metadata.methods);
+    const scopeKind = getResourceScope(metadata.methods);
+    metadata.scope = {
+      kind: scopeKind,
+      scopeIdPattern: metadata.resourceIdPattern?.scopePath ?? RequestPath.empty
+    };
   }
 
   // Create parent lookup context for legacy resource detection
@@ -463,7 +469,7 @@ export function buildArmProviderSchema(
 
   // Track resources before post-processing to emit diagnostics for filtered resources
   const resourcesBeforeFiltering = new Set(
-    resources.filter((r) => r.metadata.resourceIdPattern !== "")
+    resources.filter((r) => r.metadata.resourceIdPattern !== undefined)
   );
 
   // Use the shared post-processing function
@@ -475,7 +481,9 @@ export function buildArmProviderSchema(
   );
 
   // Emit diagnostics for resources that were filtered out (non-singleton resources without Read operations)
-  const resourcesAfterFiltering = new Set(filteredResources);
+  const resourcesAfterFiltering: Set<ArmResourceSchema> = new Set(
+    filteredResources
+  );
   for (const resource of resourcesBeforeFiltering) {
     if (!resourcesAfterFiltering.has(resource)) {
       const model = resourceModelMap.get(resource.resourceModelId);
@@ -600,18 +608,22 @@ function isCRUDKind(kind: ResourceOperationKind): boolean {
  * or empty array if no dynamic type segments exist.
  */
 function detectDynamicTypeSegments(
-  path: string
+  path: RequestPath
 ): Array<{ typeParamName: string; nameParamName: string; typeIndex: number }> {
   const results: Array<{
     typeParamName: string;
     nameParamName: string;
     typeIndex: number;
   }> = [];
-  const providerIndex = path.lastIndexOf("/providers/");
+  let providerIndex = -1;
+  for (let i = 0; i < path.segments.length; i++) {
+    if (path.segments[i].toLowerCase() === "providers") {
+      providerIndex = i;
+    }
+  }
   if (providerIndex === -1) return results;
 
-  const afterProviders = path.substring(providerIndex + "/providers".length);
-  const segments = afterProviders.split("/").filter((s) => s.length > 0);
+  const segments = path.segments.slice(providerIndex + 1);
   // segments[0] is the provider namespace (e.g., "Microsoft.EventGrid") - skip it
   // Check odd indices (1, 3, 5, ...) which are type-position segments
   for (let i = 1; i < segments.length - 1; i += 2) {
@@ -656,11 +668,16 @@ function findPathParamEnumValues(
  * → ".../{parentType}/{parentName}/..." becomes ".../topics/{parentName}/..."
  */
 function replacePathVariable(
-  path: string,
+  path: RequestPath,
   paramName: string,
   value: string
-): string {
-  return path.replace(`{${paramName}}`, value);
+): RequestPath {
+  const variableSegment = `{${paramName}}`;
+  return RequestPath.fromSegments(
+    path.segments.map((segment) =>
+      segment === variableSegment ? value : segment
+    )
+  );
 }
 
 /**
@@ -811,7 +828,7 @@ function expandDynamicParentResources(
             dynamicSegment.typeParamName,
             enumValue
           )
-        : "";
+        : undefined;
 
       // Expand all method operation paths
       const expandedMethods: ResourceMethod[] = metadata.methods.map((m) => ({
@@ -825,7 +842,7 @@ function expandDynamicParentResources(
 
       // Calculate the expanded resource type
       const expandedResourceType = expandedIdPattern
-        ? calculateResourceTypeFromPath(expandedIdPattern)
+        ? expandedIdPattern.resourceType ?? ""
         : "";
 
       // Derive the resource name
@@ -838,7 +855,7 @@ function expandDynamicParentResources(
         resourceIdPattern: expandedIdPattern,
         resourceType: expandedResourceType,
         methods: expandedMethods,
-        resourceScope: metadata.resourceScope,
+        scope: { ...metadata.scope },
         parentResourceId: undefined, // will be populated by post-processing
         parentResourceModelId: undefined,
         singletonResourceName: metadata.singletonResourceName,
@@ -847,11 +864,12 @@ function expandDynamicParentResources(
         apiVersions: metadata.apiVersions,
         rbacRoles: metadata.rbacRoles,
         constantPathParameters: {
+          ...(metadata.constantPathParameters ?? {}),
           [dynamicSegment.typeParamName]: enumValue
         }
       };
 
-      const expandedKey = `${modelId}|${expandedIdPattern}`;
+      const expandedKey = `${modelId}|${expandedIdPattern?.path ?? ""}`;
       resourcePathToMetadataMap.set(expandedKey, expandedMetadata);
 
       // Register the derived name as an explicit name so post-processing preserves it
@@ -1363,9 +1381,35 @@ function getSingletonResource(
     | undefined;
   return singletonResource ?? "default";
 }
-function getResourceScope(
-  methods?: ResourceMethod[]
-): ResourceScope {
+/**
+ * Builds an ArmScopeInfo from an operation path.
+ * Extracts the scope ID pattern and resource type from the path's scope portion.
+ */
+export function buildScopeInfoFromPath(operationPath: RequestPath): ArmScopeInfo {
+  return buildScopeInfo(operationPath.operationScope, operationPath.scopePath);
+}
+
+/**
+ * Builds an ArmScopeInfo from a scope kind and scope path.
+ * Computes scopeResourceType from the scope path when it's concrete (no variable segments).
+ */
+export function buildScopeInfo(
+  kind: ResourceScopeKind,
+  scopePath: RequestPath
+): ArmScopeInfo {
+  const resourceType = scopePath.resourceType;
+  return {
+    kind,
+    scopeIdPattern: scopePath,
+    // Only include scopeResourceType when it's concrete (no variable segments)
+    scopeResourceType:
+      resourceType !== undefined && !resourceType.includes("{")
+        ? resourceType
+        : undefined
+  };
+}
+
+function getResourceScope(methods?: ResourceMethod[]): ResourceScopeKind {
   // Determine scope from the Read method's operation path, which is the source of truth.
   // Scope decorators (@resourceGroupResource, etc.) can be inherited implicitly from base
   // model types like ProxyResource and may not reflect the actual scope for extension
@@ -1377,12 +1421,12 @@ function getResourceScope(
     // We have logic to filter out resources without get/read operations later in post-processing,
     // so it's possible to have a resource with no Read method. In that case, we skip scope detection since the resource will be filtered out anyway.
     if (getMethod) {
-      return getMethod.operationScope;
+      return getMethod.scope.kind;
     }
   }
 
   // Final fallback to ResourceGroup
-  return ResourceScope.ResourceGroup;
+  return ResourceScopeKind.ResourceGroup;
 }
 
 /**
