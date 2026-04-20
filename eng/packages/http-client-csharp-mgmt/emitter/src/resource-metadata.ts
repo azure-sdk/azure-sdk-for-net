@@ -1092,6 +1092,31 @@ function replacePathVariable(
   );
 }
 
+const preferredExpansionMethodKinds = [
+  ResourceOperationKind.Read,
+  ResourceOperationKind.Create,
+  ResourceOperationKind.Update,
+  ResourceOperationKind.Delete
+];
+
+function getExpansionPath(resource: ArmResourceSchema): RequestPath | undefined {
+  return (
+    resource.metadata.resourceIdPattern ??
+    resource.metadata.methods.find((m) =>
+      preferredExpansionMethodKinds.includes(m.kind)
+    )?.operationPath
+  );
+}
+
+function buildExpandedResourceName(
+  enumValue: string,
+  baseResourceName: string
+): string {
+  const singular = pluralize.singular(enumValue);
+  const capitalized = singular.charAt(0).toUpperCase() + singular.slice(1);
+  return `${capitalized}${baseResourceName}`;
+}
+
 /**
  * Expands resources with dynamic parent type segments in the ArmResourceSchema array.
  * This is a shared utility used by both the legacy and modern resource detection paths.
@@ -1105,18 +1130,10 @@ export function expandDynamicParentResourcesInSchema(
   const resourcesToAdd: ArmResourceSchema[] = [];
 
   for (const resource of resources) {
-    const path =
-      resource.metadata.resourceIdPattern ||
-      resource.metadata.methods.find(
-        (m) =>
-          m.kind === ResourceOperationKind.Read ||
-          m.kind === ResourceOperationKind.Create ||
-          m.kind === ResourceOperationKind.Update ||
-          m.kind === ResourceOperationKind.Delete
-      )?.operationPath;
+    const path = getExpansionPath(resource);
     if (!path) continue;
 
-    const dynamicSegments = detectDynamicTypeSegmentsShared(path);
+    const dynamicSegments = detectDynamicTypeSegments(path);
     if (dynamicSegments.length === 0) continue;
 
     if (dynamicSegments.length > 1) {
@@ -1164,9 +1181,10 @@ export function expandDynamicParentResourcesInSchema(
         ? expandedIdPattern.resourceType ?? ""
         : "";
 
-      const singular = pluralize.singular(enumValue);
-      const capitalized = singular.charAt(0).toUpperCase() + singular.slice(1);
-      const expandedResourceName = `${capitalized}${resource.metadata.resourceName}`;
+      const expandedResourceName = buildExpandedResourceName(
+        enumValue,
+        resource.metadata.resourceName
+      );
 
       resourcesToAdd.push({
         resourceModelId: resource.resourceModelId,
@@ -1203,7 +1221,7 @@ export function expandDynamicParentResourcesInSchema(
   ];
 }
 
-function detectDynamicTypeSegmentsShared(
+function detectDynamicTypeSegments(
   path: RequestPath
 ): Array<{ typeParamName: string; nameParamName: string; typeIndex: number }> {
   const results: Array<{
@@ -1236,18 +1254,9 @@ function findEnumValuesForPathParam(
   serviceMethods: Map<string, SdkMethod<SdkHttpOperation>>,
   paramName: string
 ): string[] | undefined {
-  const priorityKinds = [
-    ResourceOperationKind.Read,
-    ResourceOperationKind.Create,
-    ResourceOperationKind.Update,
-    ResourceOperationKind.Delete
-  ];
-
-  for (const kind of priorityKinds) {
-    const method = methods.find((m) => m.kind === kind);
-    if (!method) continue;
+  const getEnumValues = (method: ResourceMethod): string[] | undefined => {
     const sdkMethod = serviceMethods.get(method.methodId);
-    if (!sdkMethod?.operation) continue;
+    if (!sdkMethod?.operation) return undefined;
     for (const param of sdkMethod.operation.parameters) {
       if (
         param.kind === "path" &&
@@ -1259,21 +1268,22 @@ function findEnumValuesForPathParam(
           .filter((v): v is string => typeof v === "string");
       }
     }
+    return undefined;
+  };
+
+  for (const kind of preferredExpansionMethodKinds) {
+    const method = methods.find((candidate) => candidate.kind === kind);
+    if (!method) continue;
+    const enumValues = getEnumValues(method);
+    if (enumValues && enumValues.length > 0) {
+      return enumValues;
+    }
   }
 
   for (const method of methods) {
-    const sdkMethod = serviceMethods.get(method.methodId);
-    if (!sdkMethod?.operation) continue;
-    for (const param of sdkMethod.operation.parameters) {
-      if (
-        param.kind === "path" &&
-        param.serializedName === paramName &&
-        param.type.kind === "enum"
-      ) {
-        return param.type.values
-          .map((v) => v.value)
-          .filter((v): v is string => typeof v === "string");
-      }
+    const enumValues = getEnumValues(method);
+    if (enumValues && enumValues.length > 0) {
+      return enumValues;
     }
   }
 

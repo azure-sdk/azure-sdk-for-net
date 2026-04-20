@@ -24,7 +24,7 @@ import {
   extractRbacRoles,
   findLongestPrefixMatch,
   RequestPath,
-  isVariableSegment
+  expandDynamicParentResourcesInSchema
 } from "./resource-metadata.js";
 import {
   DecoratorInfo,
@@ -354,20 +354,8 @@ export function buildArmProviderSchema(
     }
   }
 
-  // Expand resources with dynamic parent type segments
-  // Resources using RoutedOperations with dynamic parent types (e.g., {parentType}/{parentName})
-  // need to be expanded into separate resource entries per concrete enum value.
-  expandDynamicParentResources(
-    resourcePathToMetadataMap,
-    serviceMethods,
-    resourcePathToClientName,
-    resourcePathToExplicitName,
-    sdkContext
-  );
-
   // Convert metadata map to ArmResourceSchema[] for post-processing
   const resources: ArmResourceSchema[] = [];
-  const metadataKeyToResource = new Map<string, ArmResourceSchema>();
 
   for (const [metadataKey, metadata] of resourcePathToMetadataMap) {
     const modelId = metadataKey.split("|")[0];
@@ -388,43 +376,53 @@ export function buildArmProviderSchema(
       metadata: metadata
     };
     resources.push(resource);
-    metadataKeyToResource.set(metadataKey, resource);
   }
 
   // Populate parentResourceModelId from decorators BEFORE calling shared post-processing
   // This is specific to legacy resource detection
-  for (const [metadataKey, metadata] of resourcePathToMetadataMap) {
-    const modelId = metadataKey.split("|")[0];
+  for (const resource of resources) {
+    const modelId = resource.resourceModelId;
     const parentResourceModelId = getParentResourceModelId(
       sdkContext,
       models.get(modelId)
     );
     if (parentResourceModelId) {
-      metadata.parentResourceModelId = parentResourceModelId;
+      resource.metadata.parentResourceModelId = parentResourceModelId;
     }
   }
+
+  const expandedResources = expandDynamicParentResourcesInSchema(
+    resources,
+    serviceMethods,
+    (message) =>
+      sdkContext.program.reportDiagnostic({
+        code: "general-warning",
+        severity: "warning",
+        message,
+        target: NoTarget
+      })
+  );
 
   // For multiple-path resources (same model at different paths), detect parent-child relationships through path matching
   // This is needed when both parent and child use the same model (e.g., legacy-operations pattern)
   // This is also specific to legacy resource detection
-  const allMapEntries = [...resourcePathToMetadataMap.entries()];
-  for (const [metadataKey, metadata] of resourcePathToMetadataMap) {
+  for (const resource of expandedResources) {
     if (
-      !metadata.parentResourceId &&
-      metadata.resourceIdPattern !== undefined
+      !resource.metadata.parentResourceId &&
+      resource.metadata.resourceIdPattern !== undefined
     ) {
       // Find the longest matching parent path (most specific parent)
       const bestParent = findLongestPrefixMatch(
-        metadata.resourceIdPattern,
-        allMapEntries,
-        ([key, m]) =>
-          key !== metadataKey && m.resourceIdPattern !== undefined
-            ? m.resourceIdPattern
+        resource.metadata.resourceIdPattern,
+        expandedResources,
+        (candidate) =>
+          candidate !== resource && candidate.metadata.resourceIdPattern !== undefined
+            ? candidate.metadata.resourceIdPattern
             : undefined,
         true
       );
       if (bestParent) {
-        metadata.parentResourceId = bestParent[1].resourceIdPattern;
+        resource.metadata.parentResourceId = bestParent.metadata.resourceIdPattern;
         // Note: we don't set parentResourceModelId here since they share the same model
       }
     }
@@ -432,11 +430,12 @@ export function buildArmProviderSchema(
 
   // Update the model's scope based on resource scope decorator if it exists or based on the Read method's scope.
   // This is specific to legacy resource detection
-  for (const metadata of resourcePathToMetadataMap.values()) {
-    const scopeKind = getResourceScope(metadata.methods);
-    metadata.scope = {
+  for (const resource of expandedResources) {
+    const scopeKind = getResourceScope(resource.metadata.methods);
+    resource.metadata.scope = {
       kind: scopeKind,
-      scopeIdPattern: metadata.resourceIdPattern?.scopePath ?? RequestPath.empty
+      scopeIdPattern:
+        resource.metadata.resourceIdPattern?.scopePath ?? RequestPath.empty
     };
   }
 
@@ -450,7 +449,7 @@ export function buildArmProviderSchema(
       if (!parentModelId) return undefined;
 
       // Find parent resource with matching model ID and a valid resourceIdPattern
-      for (const r of resources) {
+      for (const r of expandedResources) {
         if (
           r.resourceModelId === parentModelId &&
           r.metadata.resourceIdPattern
@@ -469,12 +468,12 @@ export function buildArmProviderSchema(
 
   // Track resources before post-processing to emit diagnostics for filtered resources
   const resourcesBeforeFiltering = new Set(
-    resources.filter((r) => r.metadata.resourceIdPattern !== undefined)
+    expandedResources.filter((r) => r.metadata.resourceIdPattern !== undefined)
   );
 
   // Use the shared post-processing function
   const filteredResources = postProcessArmResources(
-    resources,
+    expandedResources,
     nonResourceMethodsArray,
     parentLookup,
     methodResponseModelIdMap
@@ -513,22 +512,16 @@ export function buildArmProviderSchema(
     if (resourceList.length > 1) {
       // Multiple resource paths for the same model - use explicit names or derive from client names
       for (const resource of resourceList) {
-        // Use the metadataKeyToResource map to efficiently find the metadata key
-        // Look for the metadataKey that corresponds to this resource
-        for (const [metadataKey, mappedResource] of metadataKeyToResource) {
-          if (mappedResource === resource) {
-            // Prioritize explicit resource name from TypeSpec (e.g., LegacyOperations ResourceName parameter)
-            const explicitName = resourcePathToExplicitName.get(metadataKey);
-            if (explicitName) {
-              resource.metadata.resourceName = explicitName;
-            } else {
-              // Try to derive from client name using pluralize.singular
-              const clientName = resourcePathToClientName.get(metadataKey);
-              if (clientName) {
-                resource.metadata.resourceName = pluralize.singular(clientName);
-              }
-            }
-            break;
+        const metadataKey = `${resource.resourceModelId}|${resource.metadata.resourceIdPattern?.path ?? ""}`;
+        // Prioritize explicit resource name from TypeSpec (e.g., LegacyOperations ResourceName parameter)
+        const explicitName = resourcePathToExplicitName.get(metadataKey);
+        if (explicitName) {
+          resource.metadata.resourceName = explicitName;
+        } else {
+          // Try to derive from client name using pluralize.singular
+          const clientName = resourcePathToClientName.get(metadataKey);
+          if (clientName) {
+            resource.metadata.resourceName = pluralize.singular(clientName);
           }
         }
       }
@@ -591,297 +584,6 @@ function isCRUDKind(kind: ResourceOperationKind): boolean {
     ResourceOperationKind.Update,
     ResourceOperationKind.Delete
   ].includes(kind);
-}
-
-/**
- * Detects variable segments at type-position slots in a resource path after /providers/.
- *
- * In ARM paths like `/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{name}`,
- * segments after the provider namespace alternate between type (constant) and name (variable):
- * - Index 0: provider (Microsoft.EventGrid) - always constant
- * - Index 1: first type segment - should be constant (e.g., "topics") but may be dynamic (e.g., "{parentType}")
- * - Index 2: first name segment - always variable
- * - Index 3: second type segment - should be constant
- * - Index 4: second name segment - always variable
- *
- * Returns an array of { typeParamName, nameParamName, typeIndex } for each dynamic type segment found,
- * or empty array if no dynamic type segments exist.
- */
-function detectDynamicTypeSegments(
-  path: RequestPath
-): Array<{ typeParamName: string; nameParamName: string; typeIndex: number }> {
-  const results: Array<{
-    typeParamName: string;
-    nameParamName: string;
-    typeIndex: number;
-  }> = [];
-  let providerIndex = -1;
-  for (let i = 0; i < path.segments.length; i++) {
-    if (path.segments[i].toLowerCase() === "providers") {
-      providerIndex = i;
-    }
-  }
-  if (providerIndex === -1) return results;
-
-  const segments = path.segments.slice(providerIndex + 1);
-  // segments[0] is the provider namespace (e.g., "Microsoft.EventGrid") - skip it
-  // Check odd indices (1, 3, 5, ...) which are type-position segments
-  for (let i = 1; i < segments.length - 1; i += 2) {
-    if (isVariableSegment(segments[i])) {
-      const typeParamName = segments[i].slice(1, -1); // remove { }
-      const nameParamName =
-        i + 1 < segments.length ? segments[i + 1].slice(1, -1) : "";
-      results.push({ typeParamName, nameParamName, typeIndex: i });
-    }
-  }
-  return results;
-}
-
-/**
- * Finds the enum values for a path parameter by name from an SDK method's operation.
- *
- * Returns the enum values as strings if the parameter type is an SdkEnumType,
- * or undefined if the parameter is not found or not an enum type.
- */
-function findPathParamEnumValues(
-  serviceMethod: SdkMethod<SdkHttpOperation>,
-  paramName: string
-): string[] | undefined {
-  const operation = serviceMethod.operation;
-  if (!operation) return undefined;
-
-  for (const param of operation.parameters) {
-    if (param.kind === "path" && param.serializedName === paramName) {
-      if (param.type.kind === "enum") {
-        return param.type.values
-          .map((v) => v.value)
-          .filter((v): v is string => typeof v === "string");
-      }
-    }
-  }
-  return undefined;
-}
-
-/**
- * Replaces a variable segment in a path with a concrete value.
- * e.g., replacePathSegment(".../{parentType}/{parentName}/...", "parentType", "topics")
- * → ".../{parentType}/{parentName}/..." becomes ".../topics/{parentName}/..."
- */
-function replacePathVariable(
-  path: RequestPath,
-  paramName: string,
-  value: string
-): RequestPath {
-  const variableSegment = `{${paramName}}`;
-  return RequestPath.fromSegments(
-    path.segments.map((segment) =>
-      segment === variableSegment ? value : segment
-    )
-  );
-}
-
-/**
- * Derives a resource name from a concrete parent type value and the base model name.
- * e.g., ("topics", "PrivateEndpointConnection") → "TopicPrivateEndpointConnection"
- * Uses pluralize.singular to convert "topics" → "topic", then capitalizes.
- */
-function deriveExpandedResourceName(
-  enumValue: string,
-  baseModelName: string
-): string {
-  const singular = pluralize.singular(enumValue);
-  const capitalized = singular.charAt(0).toUpperCase() + singular.slice(1);
-  return `${capitalized}${baseModelName}`;
-}
-
-/**
- * Expands resources with dynamic parent type segments into concrete resource entries
- * for each enum value of the dynamic parameter.
- *
- * For example, a resource with path:
- *   .../providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{name}
- * where parentType is an enum with values ["topics", "domains", "partnerNamespaces"]
- *
- * Gets expanded into three resource entries:
- *   .../providers/Microsoft.EventGrid/topics/{parentName}/privateEndpointConnections/{name}
- *   .../providers/Microsoft.EventGrid/domains/{parentName}/privateEndpointConnections/{name}
- *   .../providers/Microsoft.EventGrid/partnerNamespaces/{parentName}/privateEndpointConnections/{name}
- *
- * Each expanded resource shares the same model (for shared Data class) but has:
- * - A concrete resource type (e.g., Microsoft.EventGrid/topics/privateEndpointConnections)
- * - A derived resource name (e.g., TopicPrivateEndpointConnection)
- * - A constantPathParameters map (e.g., { parentType: "topics" })
- */
-function expandDynamicParentResources(
-  resourcePathToMetadataMap: Map<string, ResourceMetadata>,
-  serviceMethods: Map<string, SdkMethod<SdkHttpOperation>>,
-  resourcePathToClientName: Map<string, string>,
-  resourcePathToExplicitName: Map<string, string>,
-  sdkContext: CSharpEmitterContext
-): void {
-  // Collect entries to expand (we can't modify the map while iterating)
-  const entriesToExpand: Array<{
-    metadataKey: string;
-    metadata: ResourceMetadata;
-    dynamicSegments: Array<{
-      typeParamName: string;
-      nameParamName: string;
-      typeIndex: number;
-    }>;
-    enumValues: string[];
-  }> = [];
-
-  for (const [metadataKey, metadata] of resourcePathToMetadataMap) {
-    // Use the resourceIdPattern if available, otherwise try to find from CRUD methods
-    const path =
-      metadata.resourceIdPattern ||
-      metadata.methods.find((m) => isCRUDKind(m.kind))?.operationPath;
-    if (!path) continue;
-
-    const dynamicSegments = detectDynamicTypeSegments(path);
-    if (dynamicSegments.length === 0) continue;
-
-    // For now, only handle the case where there's exactly one dynamic type segment
-    // (which covers the EventGrid pattern). Multiple dynamic segments would be more complex.
-    if (dynamicSegments.length > 1) {
-      sdkContext.program.reportDiagnostic({
-        code: "general-warning",
-        severity: "warning",
-        message: `Resource at path '${path}' has ${dynamicSegments.length} dynamic type segments. Only single dynamic parent type expansion is supported.`,
-        target: NoTarget
-      });
-      continue;
-    }
-
-    const dynamicSegment = dynamicSegments[0];
-
-    // Find enum values from CRUD methods (prefer Read, then Create, then any method)
-    let enumValues: string[] | undefined;
-    const methodPriority = [
-      ResourceOperationKind.Read,
-      ResourceOperationKind.Create,
-      ResourceOperationKind.Update,
-      ResourceOperationKind.Delete
-    ];
-
-    for (const kind of methodPriority) {
-      const method = metadata.methods.find((m) => m.kind === kind);
-      if (!method) continue;
-
-      const sdkMethod = serviceMethods.get(method.methodId);
-      if (!sdkMethod) continue;
-
-      enumValues = findPathParamEnumValues(
-        sdkMethod,
-        dynamicSegment.typeParamName
-      );
-      if (enumValues && enumValues.length > 0) break;
-    }
-
-    // If CRUD methods didn't provide enum values, try any method
-    if (!enumValues || enumValues.length === 0) {
-      for (const method of metadata.methods) {
-        const sdkMethod = serviceMethods.get(method.methodId);
-        if (!sdkMethod) continue;
-
-        enumValues = findPathParamEnumValues(
-          sdkMethod,
-          dynamicSegment.typeParamName
-        );
-        if (enumValues && enumValues.length > 0) break;
-      }
-    }
-
-    if (!enumValues || enumValues.length === 0) {
-      sdkContext.program.reportDiagnostic({
-        code: "general-warning",
-        severity: "warning",
-        message: `Resource at path '${path}' has dynamic type segment '{${dynamicSegment.typeParamName}}' but no enum values could be found. Resource will not be expanded.`,
-        target: NoTarget
-      });
-      continue;
-    }
-
-    entriesToExpand.push({
-      metadataKey,
-      metadata,
-      dynamicSegments,
-      enumValues
-    });
-  }
-
-  // Expand each detected entry
-  for (const {
-    metadataKey,
-    metadata,
-    dynamicSegments,
-    enumValues
-  } of entriesToExpand) {
-    const modelId = metadataKey.split("|")[0];
-    const dynamicSegment = dynamicSegments[0];
-
-    for (const enumValue of enumValues) {
-      // Expand the resource ID pattern
-      const expandedIdPattern = metadata.resourceIdPattern
-        ? replacePathVariable(
-            metadata.resourceIdPattern,
-            dynamicSegment.typeParamName,
-            enumValue
-          )
-        : undefined;
-
-      // Expand all method operation paths
-      const expandedMethods: ResourceMethod[] = metadata.methods.map((m) => ({
-        ...m,
-        operationPath: replacePathVariable(
-          m.operationPath,
-          dynamicSegment.typeParamName,
-          enumValue
-        )
-      }));
-
-      // Calculate the expanded resource type
-      const expandedResourceType = expandedIdPattern
-        ? expandedIdPattern.resourceType ?? ""
-        : "";
-
-      // Derive the resource name
-      const expandedResourceName = deriveExpandedResourceName(
-        enumValue,
-        metadata.resourceName
-      );
-
-      const expandedMetadata: ResourceMetadata = {
-        resourceIdPattern: expandedIdPattern,
-        resourceType: expandedResourceType,
-        methods: expandedMethods,
-        scope: { ...metadata.scope },
-        parentResourceId: undefined, // will be populated by post-processing
-        parentResourceModelId: undefined,
-        singletonResourceName: metadata.singletonResourceName,
-        resourceName: expandedResourceName,
-        nameConstraints: metadata.nameConstraints,
-        apiVersions: metadata.apiVersions,
-        rbacRoles: metadata.rbacRoles,
-        constantPathParameters: {
-          ...(metadata.constantPathParameters ?? {}),
-          [dynamicSegment.typeParamName]: enumValue
-        }
-      };
-
-      const expandedKey = `${modelId}|${expandedIdPattern?.path ?? ""}`;
-      resourcePathToMetadataMap.set(expandedKey, expandedMetadata);
-
-      // Register the derived name as an explicit name so post-processing preserves it
-      // instead of overwriting it with the client name-derived name.
-      resourcePathToExplicitName.set(expandedKey, expandedResourceName);
-    }
-
-    // Remove the original dynamic entry
-    resourcePathToMetadataMap.delete(metadataKey);
-    resourcePathToClientName.delete(metadataKey);
-    resourcePathToExplicitName.delete(metadataKey);
-  }
 }
 
 function parseResourceOperation(
