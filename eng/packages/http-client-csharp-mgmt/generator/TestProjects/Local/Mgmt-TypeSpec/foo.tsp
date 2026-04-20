@@ -24,6 +24,11 @@ model Foo is TrackedResource<FooProperties, true> {
   ...ResourcePlanProperty;
 }
 
+// Force the optional `properties?:` field to be flattened so we can validate the
+// "optional wrapper + required inner value-type → public Nullable<T>" code path.
+#suppress "deprecated"
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Foo.properties);
+
 @useSystemTextJsonConverter("csharp")
 model FooProperties {
   /** the service url */
