@@ -799,23 +799,31 @@ function parseResourceOperation(
                   ? (decorator.args[2].jsValue as string)
                   : undefined
             };
-          case "action":
+          case "action": {
+            const modelId = getResourceModelIdCore(
+              sdkContext,
+              decorator.args[0].value as Model,
+              decorator.definition?.name
+            );
             // When RoutedOperations.ActionSync/ActionAsync is used with an HTTP verb override
             // (e.g., @get, @put, @delete instead of the default @post), reclassify the operation
-            // based on the actual HTTP verb. This is needed because RoutedOperations does not
-            // provide Read/Get templates, so services use ActionSync with @get for reads.
+            // based on the actual HTTP verb and response shape. This is needed because
+            // RoutedOperations does not provide Read/Get templates, so services sometimes
+            // use ActionSync with @get for actual reads. If the response does not match the
+            // resource model, we keep it as Action.
             return {
-              kind: reclassifyLegacyAction(serviceMethod, resourceModelIds),
-              modelId: getResourceModelIdCore(
-                sdkContext,
-                decorator.args[0].value as Model,
-                decorator.definition?.name
+              kind: reclassifyLegacyAction(
+                serviceMethod,
+                modelId,
+                resourceModelIds
               ),
+              modelId,
               explicitResourceName:
                 decorator.args.length > 2
                   ? (decorator.args[2].jsValue as string)
                   : undefined
             };
+          }
         }
         return {};
       case builtInResourceOperationName: {
@@ -928,6 +936,15 @@ function getPagingItemModelId(
   return undefined;
 }
 
+function getResponseModelId(
+  method: SdkMethod<SdkHttpOperation> | undefined
+): string | undefined {
+  const responseType = method?.response?.type;
+  return responseType?.kind === "model"
+    ? (responseType as SdkModelType).crossLanguageDefinitionId
+    : undefined;
+}
+
 /**
  * Checks whether a pageable action actually lists resource models.
  * Returns true only if the method is a paging method AND its page item type
@@ -944,21 +961,31 @@ function isPagingActionListingResources(
   return !!itemModelId && resourceModelIds.has(itemModelId);
 }
 
+function isGetActionReadingResource(
+  serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
+  resourceModelId?: string
+): boolean {
+  const responseModelId = getResponseModelId(serviceMethod);
+  return !!resourceModelId && !!responseModelId && responseModelId === resourceModelId;
+}
+
 /**
  * Reclassifies a legacy "action" operation based on the actual HTTP verb.
  *
  * RoutedOperations.ActionSync/ActionAsync use @legacyResourceOperation(Resource, "action")
  * even when the HTTP verb is overridden (e.g., @get instead of the default @post).
- * This function maps the HTTP verb to the correct operation kind:
+ * This function maps the HTTP verb to the correct operation kind when the
+ * response shape proves the operation is really CRUD/list:
  * - GET + pageable + resource-list response → List
- * - GET → Read
+ * - GET + matching resource response → Read
  * - PUT → Create
  * - PATCH → Update
  * - DELETE → Delete
- * - POST or unknown → Action (unchanged)
+ * - POST, mismatched GET, or unknown → Action (unchanged)
  */
 function reclassifyLegacyAction(
   serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
+  resourceModelId?: string,
   resourceModelIds?: Set<string>
 ): ResourceOperationKind {
   const verb = serviceMethod?.operation?.verb;
@@ -968,7 +995,9 @@ function reclassifyLegacyAction(
       if (isPagingActionListingResources(serviceMethod, resourceModelIds)) {
         return ResourceOperationKind.List;
       }
-      return ResourceOperationKind.Read;
+      return isGetActionReadingResource(serviceMethod, resourceModelId)
+        ? ResourceOperationKind.Read
+        : ResourceOperationKind.Action;
     case "put":
       return ResourceOperationKind.Create;
     case "patch":

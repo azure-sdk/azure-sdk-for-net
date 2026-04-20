@@ -2481,6 +2481,70 @@ interface NetworkSecurityPerimeterConfigurations {
     // The legacy path (buildArmProviderSchema) correctly handles this override.
   });
 
+  it("GET legacy action returning non-resource model stays Action", async () => {
+    const program = await typeSpecCompile(
+      `
+/** Widget properties */
+model WidgetProperties {
+  status?: string;
+}
+
+/** Widget resource */
+model Widget is ProxyResource<WidgetProperties> {
+  ...ResourceNameParameter<Widget>;
+}
+
+/** Metadata returned by a GET action that is not the resource itself */
+model WidgetStatusResult {
+  status?: string;
+}
+
+alias WidgetOps = Azure.ResourceManager.Legacy.RoutedOperations<
+  {
+    ...ApiVersionParameter;
+    ...SubscriptionIdParameter;
+    ...Azure.ResourceManager.Legacy.Provider;
+  },
+  {
+    @segment("widgets")
+    @key
+    @TypeSpec.Http.path
+    widgetName: string;
+  }
+>;
+
+@armResourceOperations
+interface Widgets {
+  get is WidgetOps.Read<Widget>;
+
+  @get
+  queryStatus is WidgetOps.ActionSync<Widget, void, WidgetStatusResult>;
+}
+`,
+      runner
+    );
+    const context = createEmitterContext(program);
+    const sdkContext = await createCSharpSdkContext(context);
+    const [root] = createModel(sdkContext);
+
+    const armProviderSchema = buildArmProviderSchema(sdkContext, root);
+    const widgetResource = armProviderSchema.resources.find(
+      (r) => r.metadata.resourceType === "Microsoft.ContosoProviderHub/widgets"
+    );
+
+    ok(widgetResource, "Widget resource should be detected");
+    strictEqual(
+      widgetResource.metadata.methods.filter((m) => m.kind === "Read").length,
+      1,
+      "Widget should have exactly one Read operation"
+    );
+    strictEqual(
+      widgetResource.metadata.methods.filter((m) => m.kind === "Action").length,
+      1,
+      "GET action returning metadata should stay classified as Action"
+    );
+  });
+
   it("CreateOrReplaceAsync with @patch should be classified as Update not Create", async () => {
     const program = await typeSpecCompile(
       `
