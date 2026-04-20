@@ -129,12 +129,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 }
                 writer.WriteEndArray();
             }
-            writer.WritePropertyName("requiredInt"u8);
-            writer.WriteNumberValue(RequiredInt);
-            writer.WritePropertyName("requiredFixedEnum"u8);
-            writer.WriteStringValue(RequiredFixedEnum.ToSerialString());
-            writer.WritePropertyName("requiredExtensibleEnum"u8);
-            writer.WriteStringValue(RequiredExtensibleEnum.ToString());
             writer.WritePropertyName("nestedProperty"u8);
             writer.WriteObjectValue(NestedProperty, options);
             if (Optional.IsDefined(OptionalProperty))
@@ -211,9 +205,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             double? doubleValue = default;
             IList<string> prop1 = default;
             IList<int> prop2 = default;
-            int requiredInt = default;
-            FooFixedMode requiredFixedEnum = default;
-            FooProvisioningState requiredExtensibleEnum = default;
             NestedFooModel nestedProperty = default;
             SafeFlattenModel optionalProperty = default;
             VmProfile vmProfile = default;
@@ -295,21 +286,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                     prop2 = array;
                     continue;
                 }
-                if (prop.NameEquals("requiredInt"u8))
-                {
-                    requiredInt = prop.Value.GetInt32();
-                    continue;
-                }
-                if (prop.NameEquals("requiredFixedEnum"u8))
-                {
-                    requiredFixedEnum = prop.Value.GetString().ToFooFixedMode();
-                    continue;
-                }
-                if (prop.NameEquals("requiredExtensibleEnum"u8))
-                {
-                    requiredExtensibleEnum = new FooProvisioningState(prop.Value.GetString());
-                    continue;
-                }
                 if (prop.NameEquals("nestedProperty"u8))
                 {
                     nestedProperty = NestedFooModel.DeserializeNestedFooModel(prop.Value, options);
@@ -373,9 +349,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 doubleValue,
                 prop1,
                 prop2 ?? new ChangeTrackingList<int>(),
-                requiredInt,
-                requiredFixedEnum,
-                requiredExtensibleEnum,
                 nestedProperty,
                 optionalProperty,
                 vmProfile,

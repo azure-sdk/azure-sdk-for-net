@@ -13,7 +13,7 @@ using LiftrBase;
 namespace MgmtTypeSpec;
 
 @resource("foos")
-model Foo is TrackedResource<FooProperties, true> {
+model Foo is TrackedResource<FooProperties, false> {
   ...ResourceNameParameter<Foo, SegmentName = "foos">;
 
   ...ExtendedLocationProperty;
@@ -23,11 +23,6 @@ model Foo is TrackedResource<FooProperties, true> {
 
   ...ResourcePlanProperty;
 }
-
-// Force the optional `properties?:` field to be flattened so we can validate the
-// "optional wrapper + required inner value-type → public Nullable<T>" code path.
-#suppress "deprecated"
-@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Foo.properties);
 
 @useSystemTextJsonConverter("csharp")
 model FooProperties {
@@ -48,16 +43,6 @@ model FooProperties {
 
   prop1: string[];
   prop2?: int32[];
-
-  /** Required value-type property. Used to validate that required value types
-      flattened from an optional ``properties?:`` parent surface as Nullable<T>. */
-  requiredInt: int32;
-
-  /** Required fixed (closed) enum. */
-  requiredFixedEnum: FooFixedMode;
-
-  /** Required extensible enum (union). */
-  requiredExtensibleEnum: FooProvisioningState;
 
   nestedProperty: NestedFooModel;
 
@@ -128,13 +113,6 @@ union FooProvisioningState {
 
   /** The resource provisioning has been canceled. */
   Canceled: "Canceled",
-}
-
-/** Fixed (closed) mode enum for Foo. */
-enum FooFixedMode {
-  Normal,
-  Strict,
-  Relaxed,
 }
 
 @armResourceOperations

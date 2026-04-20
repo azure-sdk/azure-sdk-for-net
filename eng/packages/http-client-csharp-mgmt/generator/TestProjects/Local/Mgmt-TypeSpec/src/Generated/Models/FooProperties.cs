@@ -25,15 +25,9 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <summary> Initializes a new instance of <see cref="FooProperties"/>. </summary>
         /// <param name="something"> something. </param>
         /// <param name="prop1"></param>
-        /// <param name="requiredInt">
-        /// Required value-type property. Used to validate that required value types
-        ///       flattened from an optional ``properties?:`` parent surface as Nullable&lt;T&gt;.
-        /// </param>
-        /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
-        /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
         /// <param name="nestedPropertyProperties"> Gets or sets the Properties. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="something"/>, <paramref name="prop1"/> or <paramref name="nestedPropertyProperties"/> is null. </exception>
-        public FooProperties(ManagedServiceIdentity something, IEnumerable<string> prop1, int requiredInt, FooFixedMode requiredFixedEnum, FooProvisioningState requiredExtensibleEnum, FooProperties nestedPropertyProperties)
+        public FooProperties(ManagedServiceIdentity something, IEnumerable<string> prop1, FooProperties nestedPropertyProperties)
         {
             Argument.AssertNotNull(something, nameof(something));
             Argument.AssertNotNull(prop1, nameof(prop1));
@@ -42,9 +36,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             Something = something;
             Prop1 = prop1.ToList();
             Prop2 = new ChangeTrackingList<int>();
-            RequiredInt = requiredInt;
-            RequiredFixedEnum = requiredFixedEnum;
-            RequiredExtensibleEnum = requiredExtensibleEnum;
             NestedProperty = new NestedFooModel(nestedPropertyProperties);
         }
 
@@ -56,12 +47,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="doubleValue"> double value. </param>
         /// <param name="prop1"></param>
         /// <param name="prop2"></param>
-        /// <param name="requiredInt">
-        /// Required value-type property. Used to validate that required value types
-        ///       flattened from an optional ``properties?:`` parent surface as Nullable&lt;T&gt;.
-        /// </param>
-        /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
-        /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
         /// <param name="nestedProperty"></param>
         /// <param name="optionalProperty"></param>
         /// <param name="vmProfile"> Test ApplicationProfile flattening scenario. </param>
@@ -69,7 +54,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="writableSubResourceProp"> WritableSubResource property for testing WritableSubResource type replacement. </param>
         /// <param name="computeFleetVmProfile"> Test case for multi-layer safe flatten. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal FooProperties(Uri serviceUri, ManagedServiceIdentity something, bool? boolValue, float? floatValue, double? doubleValue, IList<string> prop1, IList<int> prop2, int requiredInt, FooFixedMode requiredFixedEnum, FooProvisioningState requiredExtensibleEnum, NestedFooModel nestedProperty, SafeFlattenModel optionalProperty, VmProfile vmProfile, ETag? eTag, WritableSubResource writableSubResourceProp, ComputeFleetVmProfile computeFleetVmProfile, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal FooProperties(Uri serviceUri, ManagedServiceIdentity something, bool? boolValue, float? floatValue, double? doubleValue, IList<string> prop1, IList<int> prop2, NestedFooModel nestedProperty, SafeFlattenModel optionalProperty, VmProfile vmProfile, ETag? eTag, WritableSubResource writableSubResourceProp, ComputeFleetVmProfile computeFleetVmProfile, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ServiceUri = serviceUri;
             Something = something;
@@ -78,9 +63,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             DoubleValue = doubleValue;
             Prop1 = prop1;
             Prop2 = prop2;
-            RequiredInt = requiredInt;
-            RequiredFixedEnum = requiredFixedEnum;
-            RequiredExtensibleEnum = requiredExtensibleEnum;
             NestedProperty = nestedProperty;
             OptionalProperty = optionalProperty;
             VmProfile = vmProfile;
@@ -117,21 +99,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <summary> Gets the Prop2. </summary>
         [WirePath("prop2")]
         public IList<int> Prop2 { get; } = new ChangeTrackingList<int>();
-
-        /// <summary>
-        /// Required value-type property. Used to validate that required value types
-        ///       flattened from an optional ``properties?:`` parent surface as Nullable&lt;T&gt;.
-        /// </summary>
-        [WirePath("requiredInt")]
-        public int RequiredInt { get; set; }
-
-        /// <summary> Required fixed (closed) enum. </summary>
-        [WirePath("requiredFixedEnum")]
-        public FooFixedMode RequiredFixedEnum { get; set; }
-
-        /// <summary> Required extensible enum (union). </summary>
-        [WirePath("requiredExtensibleEnum")]
-        public FooProvisioningState RequiredExtensibleEnum { get; set; }
 
         /// <summary> Gets or sets the NestedProperty. </summary>
         [WirePath("nestedProperty")]

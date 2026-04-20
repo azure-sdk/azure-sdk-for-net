@@ -130,12 +130,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="doubleValue"> double value. </param>
         /// <param name="prop1"> Gets the Prop1. </param>
         /// <param name="prop2"> Gets the Prop2. </param>
-        /// <param name="requiredInt">
-        /// Required value-type property. Used to validate that required value types
-        ///       flattened from an optional ``properties?:`` parent surface as Nullable&lt;T&gt;.
-        /// </param>
-        /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
-        /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
         /// <param name="etag"> ETag property for testing etag parameter name generation. </param>
         /// <param name="writableSubResourceProp"> WritableSubResource property for testing WritableSubResource type replacement. </param>
         /// <param name="nestedPropertyProperties"> Gets or sets the Properties. </param>
@@ -145,8 +139,9 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="extendedLocation"></param>
         /// <param name="identity"> The managed service identities assigned to this resource. </param>
         /// <param name="plan"> Details of the resource plan. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="something"/>, <paramref name="prop1"/> or <paramref name="nestedPropertyProperties"/> is null. </exception>
         /// <returns> A new <see cref="Tests.FooData"/> instance for mocking. </returns>
-        public static FooData FooData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, Uri serviceUri = default, ManagedServiceIdentity something = default, bool? boolValue = default, float? floatValue = default, double? doubleValue = default, IEnumerable<string> prop1 = default, IEnumerable<int> prop2 = default, int? requiredInt = default, FooFixedMode? requiredFixedEnum = default, FooProvisioningState? requiredExtensibleEnum = default, ETag? etag = default, WritableSubResource writableSubResourceProp = default, FooProperties nestedPropertyProperties = default, IEnumerable<string> flattenedProperty = default, IEnumerable<string> vmGalleryApplications = default, ResourceIdentifier computeFleetVmCapacityReservationGroupId = default, ExtendedLocation extendedLocation = default, ManagedServiceIdentity identity = default, ArmPlan plan = default)
+        public static FooData FooData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, Uri serviceUri = default, ManagedServiceIdentity something = default, bool? boolValue = default, float? floatValue = default, double? doubleValue = default, IEnumerable<string> prop1 = default, IEnumerable<int> prop2 = default, ETag? etag = default, WritableSubResource writableSubResourceProp = default, FooProperties nestedPropertyProperties = default, IEnumerable<string> flattenedProperty = default, IEnumerable<string> vmGalleryApplications = default, ResourceIdentifier computeFleetVmCapacityReservationGroupId = default, ExtendedLocation extendedLocation = default, ManagedServiceIdentity identity = default, ArmPlan plan = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -158,7 +153,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                serviceUri is null && boolValue is null && floatValue is null && doubleValue is null && requiredInt is null && requiredFixedEnum is null && requiredExtensibleEnum is null && etag is null && writableSubResourceProp is null && computeFleetVmCapacityReservationGroupId is null ? default : new FooProperties(
+                serviceUri is null && boolValue is null && floatValue is null && doubleValue is null && etag is null && writableSubResourceProp is null && computeFleetVmCapacityReservationGroupId is null ? default : new FooProperties(
                     serviceUri,
                     something,
                     boolValue,
@@ -166,9 +161,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                     doubleValue,
                     (prop1 ?? new ChangeTrackingList<string>()).ToList(),
                     (prop2 ?? new ChangeTrackingList<int>()).ToList(),
-                    requiredInt.GetValueOrDefault(),
-                    requiredFixedEnum.GetValueOrDefault(),
-                    requiredExtensibleEnum.GetValueOrDefault(),
                     new NestedFooModel(nestedPropertyProperties, null),
                     new SafeFlattenModel((flattenedProperty ?? new ChangeTrackingList<string>()).ToList(), null),
                     new VmProfile(new ApplicationProfile((vmGalleryApplications ?? new ChangeTrackingList<string>()).ToList(), null), null),
@@ -188,12 +180,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="doubleValue"> double value. </param>
         /// <param name="prop1"></param>
         /// <param name="prop2"></param>
-        /// <param name="requiredInt">
-        /// Required value-type property. Used to validate that required value types
-        ///       flattened from an optional ``properties?:`` parent surface as Nullable&lt;T&gt;.
-        /// </param>
-        /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
-        /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
         /// <param name="nestedPropertyProperties"> Gets or sets the Properties. </param>
         /// <param name="flattenedProperty"> Gets the FlattenedProperty. </param>
         /// <param name="vmGalleryApplications"> Specifies the gallery applications that should be made available. </param>
@@ -202,7 +188,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="computeFleetVmCapacityReservationGroupId"> Gets or sets the Id. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nestedPropertyProperties"/> is null. </exception>
         /// <returns> A new <see cref="Models.FooProperties"/> instance for mocking. </returns>
-        public static FooProperties FooProperties(Uri serviceUri = default, ManagedServiceIdentity something = default, bool? boolValue = default, float? floatValue = default, double? doubleValue = default, IEnumerable<string> prop1 = default, IEnumerable<int> prop2 = default, int requiredInt = default, FooFixedMode requiredFixedEnum = default, FooProvisioningState requiredExtensibleEnum = default, FooProperties nestedPropertyProperties = default, IEnumerable<string> flattenedProperty = default, IEnumerable<string> vmGalleryApplications = default, ETag? etag = default, WritableSubResource writableSubResourceProp = default, ResourceIdentifier computeFleetVmCapacityReservationGroupId = default)
+        public static FooProperties FooProperties(Uri serviceUri = default, ManagedServiceIdentity something = default, bool? boolValue = default, float? floatValue = default, double? doubleValue = default, IEnumerable<string> prop1 = default, IEnumerable<int> prop2 = default, FooProperties nestedPropertyProperties = default, IEnumerable<string> flattenedProperty = default, IEnumerable<string> vmGalleryApplications = default, ETag? etag = default, WritableSubResource writableSubResourceProp = default, ResourceIdentifier computeFleetVmCapacityReservationGroupId = default)
         {
             prop1 ??= new ChangeTrackingList<string>();
             prop2 ??= new ChangeTrackingList<int>();
@@ -215,9 +201,6 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 doubleValue,
                 prop1.ToList(),
                 prop2.ToList(),
-                requiredInt,
-                requiredFixedEnum,
-                requiredExtensibleEnum,
                 new NestedFooModel(nestedPropertyProperties, null),
                 new SafeFlattenModel((flattenedProperty ?? new ChangeTrackingList<string>()).ToList(), null),
                 new VmProfile(new ApplicationProfile((vmGalleryApplications ?? new ChangeTrackingList<string>()).ToList(), null), null),
@@ -469,10 +452,18 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="location"> The geo-location where the resource lives. </param>
-        /// <param name="zooSomething"> something. </param>
+        /// <param name="something"> something. </param>
+        /// <param name="requiredInt">
+        /// Required value-type property. Used to validate that required value types
+        ///       flattened from an optional ``properties?:`` parent (default-optional
+        ///       `properties?`) surface as Nullable&lt;T&gt; on the public property while
+        ///       remaining non-nullable T on the inner model and the model factory body.
+        /// </param>
+        /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
+        /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
         /// <param name="extendedLocation"></param>
         /// <returns> A new <see cref="Tests.ZooData"/> instance for mocking. </returns>
-        public static ZooData ZooData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, string zooSomething = default, ExtendedLocation extendedLocation = default)
+        public static ZooData ZooData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, string something = default, int? requiredInt = default, ZooFixedMode? requiredFixedEnum = default, ZooProvisioningState? requiredExtensibleEnum = default, ExtendedLocation extendedLocation = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -484,18 +475,19 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                zooSomething is null ? default : new ZooProperties(zooSomething, null),
+                something is null && requiredInt is null && requiredFixedEnum is null && requiredExtensibleEnum is null ? default : new ZooProperties(something, requiredInt.GetValueOrDefault(), requiredFixedEnum.GetValueOrDefault(), requiredExtensibleEnum.GetValueOrDefault(), null),
                 extendedLocation);
         }
 
+        /// <summary> The type used for update operations of the Zoo. </summary>
         /// <param name="tags"> Resource tags. </param>
-        /// <param name="zooUpdateSomething"> something. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <returns> A new <see cref="Models.ZooPatch"/> instance for mocking. </returns>
-        public static ZooPatch ZooPatch(IDictionary<string, string> tags = default, string zooUpdateSomething = default)
+        public static ZooPatch ZooPatch(IDictionary<string, string> tags = default, ZooUpdateProperties properties = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new ZooPatch(tags, zooUpdateSomething is null ? default : new ZooUpdateProperties(zooUpdateSomething, null), additionalBinaryDataProperties: null);
+            return new ZooPatch(tags, properties, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Paged collection of ZooAddress items. </summary>

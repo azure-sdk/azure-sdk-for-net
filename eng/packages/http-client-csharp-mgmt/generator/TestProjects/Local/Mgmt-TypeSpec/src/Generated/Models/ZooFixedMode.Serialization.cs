@@ -9,33 +9,33 @@ using System;
 
 namespace Azure.Generator.MgmtTypeSpec.Tests.Models
 {
-    internal static partial class FooFixedModeExtensions
+    internal static partial class ZooFixedModeExtensions
     {
         /// <param name="value"> The value to serialize. </param>
-        public static string ToSerialString(this FooFixedMode value) => value switch
+        public static string ToSerialString(this ZooFixedMode value) => value switch
         {
-            FooFixedMode.Normal => "Normal",
-            FooFixedMode.Strict => "Strict",
-            FooFixedMode.Relaxed => "Relaxed",
-            _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown FooFixedMode value.")
+            ZooFixedMode.Normal => "Normal",
+            ZooFixedMode.Strict => "Strict",
+            ZooFixedMode.Relaxed => "Relaxed",
+            _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown ZooFixedMode value.")
         };
 
         /// <param name="value"> The value to deserialize. </param>
-        public static FooFixedMode ToFooFixedMode(this string value)
+        public static ZooFixedMode ToZooFixedMode(this string value)
         {
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "Normal"))
             {
-                return FooFixedMode.Normal;
+                return ZooFixedMode.Normal;
             }
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "Strict"))
             {
-                return FooFixedMode.Strict;
+                return ZooFixedMode.Strict;
             }
             if (StringComparer.OrdinalIgnoreCase.Equals(value, "Relaxed"))
             {
-                return FooFixedMode.Relaxed;
+                return ZooFixedMode.Relaxed;
             }
-            throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown FooFixedMode value.");
+            throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown ZooFixedMode value.");
         }
     }
 }

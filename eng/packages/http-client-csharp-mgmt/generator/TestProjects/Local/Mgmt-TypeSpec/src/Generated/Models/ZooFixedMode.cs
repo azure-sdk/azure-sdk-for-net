@@ -7,8 +7,8 @@
 
 namespace Azure.Generator.MgmtTypeSpec.Tests.Models
 {
-    /// <summary> Fixed (closed) mode enum for Foo. </summary>
-    public enum FooFixedMode
+    /// <summary> Fixed (closed) mode enum for Zoo. </summary>
+    public enum ZooFixedMode
     {
         /// <summary> Normal. </summary>
         Normal,

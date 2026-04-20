@@ -12,7 +12,7 @@ using Azure.Generator.MgmtTypeSpec.Tests;
 namespace Azure.Generator.MgmtTypeSpec.Tests.Models
 {
     /// <summary> The updatable properties of the Zoo. </summary>
-    internal partial class ZooUpdateProperties
+    public partial class ZooUpdateProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
@@ -24,15 +24,43 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
 
         /// <summary> Initializes a new instance of <see cref="ZooUpdateProperties"/>. </summary>
         /// <param name="something"> something. </param>
+        /// <param name="requiredInt">
+        /// Required value-type property. Used to validate that required value types
+        ///       flattened from an optional ``properties?:`` parent (default-optional
+        ///       `properties?`) surface as Nullable&lt;T&gt; on the public property while
+        ///       remaining non-nullable T on the inner model and the model factory body.
+        /// </param>
+        /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
+        /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ZooUpdateProperties(string something, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ZooUpdateProperties(string something, int? requiredInt, ZooFixedMode? requiredFixedEnum, ZooProvisioningState? requiredExtensibleEnum, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Something = something;
+            RequiredInt = requiredInt;
+            RequiredFixedEnum = requiredFixedEnum;
+            RequiredExtensibleEnum = requiredExtensibleEnum;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> something. </summary>
         [WirePath("something")]
         public string Something { get; set; }
+
+        /// <summary>
+        /// Required value-type property. Used to validate that required value types
+        ///       flattened from an optional ``properties?:`` parent (default-optional
+        ///       `properties?`) surface as Nullable&lt;T&gt; on the public property while
+        ///       remaining non-nullable T on the inner model and the model factory body.
+        /// </summary>
+        [WirePath("requiredInt")]
+        public int? RequiredInt { get; set; }
+
+        /// <summary> Required fixed (closed) enum. </summary>
+        [WirePath("requiredFixedEnum")]
+        public ZooFixedMode? RequiredFixedEnum { get; set; }
+
+        /// <summary> Required extensible enum (union). </summary>
+        [WirePath("requiredExtensibleEnum")]
+        public ZooProvisioningState? RequiredExtensibleEnum { get; set; }
     }
 }
