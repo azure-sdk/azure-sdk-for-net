@@ -2545,6 +2545,96 @@ interface Widgets {
     );
   });
 
+  it("PUT/PATCH/DELETE legacy actions with non-resource types stay Action", async () => {
+    const program = await typeSpecCompile(
+      `
+model WidgetProperties {
+  status?: string;
+}
+
+model Widget is ProxyResource<WidgetProperties> {
+  ...ResourceNameParameter<Widget>;
+}
+
+model WidgetMetadataResult {
+  message?: string;
+}
+
+alias WidgetOps = Azure.ResourceManager.Legacy.RoutedOperations<
+  {
+    ...ApiVersionParameter;
+    ...SubscriptionIdParameter;
+    ...Azure.ResourceManager.Legacy.Provider;
+  },
+  {
+    @segment("widgets")
+    @key
+    @TypeSpec.Http.path
+    widgetName: string;
+  }
+>;
+
+@armResourceOperations
+interface Widgets {
+  get is WidgetOps.Read<Widget>;
+
+  @put
+  createLikeAction is WidgetOps.ActionSync<
+    Widget,
+    WidgetMetadataResult,
+    WidgetMetadataResult
+  >;
+
+  @patch
+  updateLikeAction is WidgetOps.ActionSync<
+    Widget,
+    WidgetMetadataResult,
+    WidgetMetadataResult
+  >;
+
+  @delete
+  deleteLikeAction is WidgetOps.ActionSync<Widget, void, WidgetMetadataResult>;
+}
+`,
+      runner
+    );
+    const context = createEmitterContext(program);
+    const sdkContext = await createCSharpSdkContext(context);
+    const [root] = createModel(sdkContext);
+
+    const armProviderSchema = buildArmProviderSchema(sdkContext, root);
+    const widgetResource = armProviderSchema.resources.find(
+      (r) => r.metadata.resourceType === "Microsoft.ContosoProviderHub/widgets"
+    );
+
+    ok(widgetResource, "Widget resource should be detected");
+    strictEqual(
+      widgetResource.metadata.methods.filter((m) => m.kind === "Read").length,
+      1,
+      "Widget should still have its real Read operation"
+    );
+    strictEqual(
+      widgetResource.metadata.methods.filter((m) => m.kind === "Create").length,
+      0,
+      "Mismatched PUT action should not be reclassified as Create"
+    );
+    strictEqual(
+      widgetResource.metadata.methods.filter((m) => m.kind === "Update").length,
+      0,
+      "Mismatched PATCH action should not be reclassified as Update"
+    );
+    strictEqual(
+      widgetResource.metadata.methods.filter((m) => m.kind === "Delete").length,
+      0,
+      "Mismatched DELETE action should not be reclassified as Delete"
+    );
+    strictEqual(
+      widgetResource.metadata.methods.filter((m) => m.kind === "Action").length,
+      3,
+      "All verb-overridden actions with mismatched types should stay Action"
+    );
+  });
+
   it("CreateOrReplaceAsync with @patch should be classified as Update not Create", async () => {
     const program = await typeSpecCompile(
       `

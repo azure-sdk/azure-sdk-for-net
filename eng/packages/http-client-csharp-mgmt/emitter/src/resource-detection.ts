@@ -945,6 +945,20 @@ function getResponseModelId(
     : undefined;
 }
 
+function hasMatchingNonPathModelParameter(
+  serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
+  resourceModelId?: string
+): boolean {
+  if (!serviceMethod?.operation || !resourceModelId) return false;
+  return serviceMethod.operation.parameters.some((param) => {
+    if (param.kind === "path") return false;
+    return (
+      param.type.kind === "model" &&
+      (param.type as SdkModelType).crossLanguageDefinitionId === resourceModelId
+    );
+  });
+}
+
 /**
  * Checks whether a pageable action actually lists resource models.
  * Returns true only if the method is a paging method AND its page item type
@@ -966,7 +980,35 @@ function isGetActionReadingResource(
   resourceModelId?: string
 ): boolean {
   const responseModelId = getResponseModelId(serviceMethod);
-  return !!resourceModelId && !!responseModelId && responseModelId === resourceModelId;
+  return (
+    !!resourceModelId &&
+    !!responseModelId &&
+    responseModelId === resourceModelId
+  );
+}
+
+function isPutOrPatchActionTargetingResource(
+  serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
+  resourceModelId?: string
+): boolean {
+  const responseModelId = getResponseModelId(serviceMethod);
+  return (
+    hasMatchingNonPathModelParameter(serviceMethod, resourceModelId) ||
+    (!!resourceModelId &&
+      !!responseModelId &&
+      responseModelId === resourceModelId)
+  );
+}
+
+function isDeleteActionTargetingResource(
+  serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
+  resourceModelId?: string
+): boolean {
+  const responseModelId = getResponseModelId(serviceMethod);
+  // Most ARM delete operations return void/LRO envelope rather than the resource model.
+  // Treat those as valid deletes, but avoid reclassifying deletes that return some
+  // unrelated metadata model.
+  return !responseModelId || responseModelId === resourceModelId;
 }
 
 /**
@@ -978,10 +1020,10 @@ function isGetActionReadingResource(
  * response shape proves the operation is really CRUD/list:
  * - GET + pageable + resource-list response → List
  * - GET + matching resource response → Read
- * - PUT → Create
- * - PATCH → Update
- * - DELETE → Delete
- * - POST, mismatched GET, or unknown → Action (unchanged)
+ * - PUT + matching resource payload/response → Create
+ * - PATCH + matching resource payload/response → Update
+ * - DELETE + resource/void response → Delete
+ * - POST, mismatched CRUD verb, or unknown → Action (unchanged)
  */
 function reclassifyLegacyAction(
   serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
@@ -999,11 +1041,17 @@ function reclassifyLegacyAction(
         ? ResourceOperationKind.Read
         : ResourceOperationKind.Action;
     case "put":
-      return ResourceOperationKind.Create;
+      return isPutOrPatchActionTargetingResource(serviceMethod, resourceModelId)
+        ? ResourceOperationKind.Create
+        : ResourceOperationKind.Action;
     case "patch":
-      return ResourceOperationKind.Update;
+      return isPutOrPatchActionTargetingResource(serviceMethod, resourceModelId)
+        ? ResourceOperationKind.Update
+        : ResourceOperationKind.Action;
     case "delete":
-      return ResourceOperationKind.Delete;
+      return isDeleteActionTargetingResource(serviceMethod, resourceModelId)
+        ? ResourceOperationKind.Delete
+        : ResourceOperationKind.Action;
     default:
       return ResourceOperationKind.Action;
   }
