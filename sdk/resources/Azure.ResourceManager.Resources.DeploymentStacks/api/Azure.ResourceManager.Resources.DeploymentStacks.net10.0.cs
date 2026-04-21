@@ -200,7 +200,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     }
     public static partial class ArmResourcesDeploymentStacksModelFactory
     {
-        public static Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtension DeploymentExtension(string name = null, string version = null, string configId = null, System.Collections.Generic.IDictionary<string, System.BinaryData> configAdditionalProperties = null) { throw null; }
         public static Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtensionConfig DeploymentExtensionConfig(System.Collections.Generic.IDictionary<string, System.BinaryData> additionalProperties = null) { throw null; }
         public static Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackAdditionalErrorInfo DeploymentStackAdditionalErrorInfo(string type = null, System.BinaryData info = null) { throw null; }
         public static Azure.ResourceManager.Resources.DeploymentStacks.DeploymentStackData DeploymentStackData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResponseError error = null, System.BinaryData template = null, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStacksTemplateLink templateLink = null, System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentParameterItem> parameters = null, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStacksParametersLink parametersLink = null, System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtensionConfig> extensionConfigs = null, System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExternalInput> externalInputs = null, System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExternalInputDefinition> externalInputDefinitions = null, Azure.ResourceManager.Resources.DeploymentStacks.Models.ActionOnUnmanage actionOnUnmanage = null, string deploymentScope = null, string description = null, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackDenySettings denySettings = null, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackProvisioningState? provisioningState = default(Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackProvisioningState?), string correlationId = null, Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackValidationLevel? validationLevel = default(Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackValidationLevel?), bool? bypassStackOutOfSyncError = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackResourceReference> detachedResources = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackResourceReference> deletedResources = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackResourceReferenceExtended> failedResources = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackManagedResourceReference> resources = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtension> deploymentExtensions = null, string deploymentId = null, System.BinaryData outputs = null, System.TimeSpan? duration = default(System.TimeSpan?), string debugSettingDetailLevel = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), System.Collections.Generic.IDictionary<string, string> tags = null) { throw null; }
@@ -225,11 +224,11 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     }
     public partial class DeploymentExtension : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtension>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtension>
     {
-        internal DeploymentExtension() { }
+        public DeploymentExtension(string name, string version) { }
         public System.Collections.Generic.IDictionary<string, System.BinaryData> ConfigAdditionalProperties { get { throw null; } }
-        public string ConfigId { get { throw null; } }
-        public string Name { get { throw null; } }
-        public string Version { get { throw null; } }
+        public string ConfigId { get { throw null; } set { } }
+        public string Name { get { throw null; } set { } }
+        public string Version { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtension JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentExtension PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -302,7 +301,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
     }
     public partial class DeploymentStackAdditionalErrorInfo : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackAdditionalErrorInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackAdditionalErrorInfo>
     {
-        internal DeploymentStackAdditionalErrorInfo() { }
+        public DeploymentStackAdditionalErrorInfo() { }
         public System.BinaryData Info { get { throw null; } }
         public string Type { get { throw null; } }
         protected virtual Azure.ResourceManager.Resources.DeploymentStacks.Models.DeploymentStackAdditionalErrorInfo JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }

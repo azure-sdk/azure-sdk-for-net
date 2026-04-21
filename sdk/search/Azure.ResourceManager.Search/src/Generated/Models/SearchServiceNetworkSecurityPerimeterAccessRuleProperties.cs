@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Search.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="SearchServiceNetworkSecurityPerimeterAccessRuleProperties"/>. </summary>
-        internal SearchServiceNetworkSecurityPerimeterAccessRuleProperties()
+        public SearchServiceNetworkSecurityPerimeterAccessRuleProperties()
         {
             AddressPrefixes = new ChangeTrackingList<string>();
             Subscriptions = new ChangeTrackingList<WritableSubResource>();
@@ -50,9 +50,9 @@ namespace Azure.ResourceManager.Search.Models
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        /// <summary> Gets the Direction. </summary>
+        /// <summary> Gets or sets the Direction. </summary>
         [WirePath("direction")]
-        public SearchServiceNetworkSecurityPerimeterAccessRuleDirection? Direction { get; }
+        public SearchServiceNetworkSecurityPerimeterAccessRuleDirection? Direction { get; set; }
 
         /// <summary> Address prefixes in the CIDR format for inbound rules. </summary>
         [WirePath("addressPrefixes")]

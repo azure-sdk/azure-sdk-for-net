@@ -1435,7 +1435,7 @@ namespace Azure.ResourceManager.Storage.Models
         public static Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints StorageAccountInternetEndpoints(System.Uri blobUri = null, System.Uri fileUri = null, System.Uri webUri = null, System.Uri dfsUri = null) { throw null; }
         public static Azure.ResourceManager.Storage.Models.StorageAccountIPv6Endpoints StorageAccountIPv6Endpoints(string blob = null, string queue = null, string table = null, string file = null, string web = null, string dfs = null, Azure.ResourceManager.Storage.Models.StorageAccountMicrosoftEndpoints microsoftEndpoints = null, Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints internetEndpoints = null) { throw null; }
         public static Azure.ResourceManager.Storage.Models.StorageAccountKey StorageAccountKey(string keyName = null, string value = null, Azure.ResourceManager.Storage.Models.StorageAccountKeyPermission? permissions = default(Azure.ResourceManager.Storage.Models.StorageAccountKeyPermission?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?)) { throw null; }
-        public static Azure.ResourceManager.Storage.Models.StorageAccountKeyCreationTime StorageAccountKeyCreationTime(System.DateTimeOffset? key1 = default(System.DateTimeOffset?), System.DateTimeOffset? key2 = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.ResourceManager.Storage.Models.StorageAccountKeyCreationTime StorageAccountKeyCreationTime(System.DateTimeOffset? key1, System.DateTimeOffset? key2) { throw null; }
         public static Azure.ResourceManager.Storage.Models.StorageAccountKeyVaultProperties StorageAccountKeyVaultProperties(string keyName = null, string keyVersion = null, System.Uri keyVaultUri = null, string currentVersionedKeyIdentifier = null, System.DateTimeOffset? lastKeyRotationTimestamp = default(System.DateTimeOffset?), System.DateTimeOffset? currentVersionedKeyExpirationTimestamp = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.Storage.Models.StorageAccountListKeysResult StorageAccountListKeysResult(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Storage.Models.StorageAccountKey> keys = null) { throw null; }
         public static Azure.ResourceManager.Storage.StorageAccountLocalUserData StorageAccountLocalUserData(Azure.Core.ResourceIdentifier id, string name, Azure.Core.ResourceType resourceType, Azure.ResourceManager.Models.SystemData systemData, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Storage.Models.StoragePermissionScope> permissionScopes, string homeDirectory, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Storage.Models.StorageSshPublicKey> sshAuthorizedKeys, string sid, bool? hasSharedKey, bool? hasSshKey, bool? hasSshPassword) { throw null; }
@@ -1478,11 +1478,11 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class BlobContainerImmutabilityPolicy : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.BlobContainerImmutabilityPolicy>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.BlobContainerImmutabilityPolicy>
     {
-        internal BlobContainerImmutabilityPolicy() { }
-        public bool? AllowProtectedAppendWrites { get { throw null; } }
-        public bool? AllowProtectedAppendWritesAll { get { throw null; } }
+        public BlobContainerImmutabilityPolicy() { }
+        public bool? AllowProtectedAppendWrites { get { throw null; } set { } }
+        public bool? AllowProtectedAppendWritesAll { get { throw null; } set { } }
         public Azure.ETag? ETag { get { throw null; } }
-        public int? ImmutabilityPeriodSinceCreationInDays { get { throw null; } }
+        public int? ImmutabilityPeriodSinceCreationInDays { get { throw null; } set { } }
         public Azure.ResourceManager.Storage.Models.ImmutabilityPolicyState? State { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Storage.Models.UpdateHistoryEntry> UpdateHistory { get { throw null; } }
         protected virtual Azure.ResourceManager.Storage.Models.BlobContainerImmutabilityPolicy JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1716,7 +1716,7 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class BlobRestoreStatus : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.BlobRestoreStatus>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.BlobRestoreStatus>
     {
-        internal BlobRestoreStatus() { }
+        public BlobRestoreStatus() { }
         public string FailureReason { get { throw null; } }
         public Azure.ResourceManager.Storage.Models.BlobRestoreContent Parameters { get { throw null; } }
         public string RestoreId { get { throw null; } }
@@ -2284,7 +2284,7 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class GeoReplicationStatistics : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.GeoReplicationStatistics>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.GeoReplicationStatistics>
     {
-        internal GeoReplicationStatistics() { }
+        public GeoReplicationStatistics() { }
         public bool? CanFailover { get { throw null; } }
         public bool? CanPlannedFailover { get { throw null; } }
         public System.DateTimeOffset? LastSyncOn { get { throw null; } }
@@ -2604,9 +2604,9 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class LegalHoldProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.LegalHoldProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.LegalHoldProperties>
     {
-        internal LegalHoldProperties() { }
+        public LegalHoldProperties() { }
         public bool? HasLegalHold { get { throw null; } }
-        public Azure.ResourceManager.Storage.Models.ProtectedAppendWritesHistory ProtectedAppendWritesHistory { get { throw null; } }
+        public Azure.ResourceManager.Storage.Models.ProtectedAppendWritesHistory ProtectedAppendWritesHistory { get { throw null; } set { } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Storage.Models.LegalHoldTag> Tags { get { throw null; } }
         protected virtual Azure.ResourceManager.Storage.Models.LegalHoldProperties JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -2620,7 +2620,7 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class LegalHoldTag : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.LegalHoldTag>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.LegalHoldTag>
     {
-        internal LegalHoldTag() { }
+        public LegalHoldTag() { }
         public string ObjectIdentifier { get { throw null; } }
         public string Tag { get { throw null; } }
         public System.Guid? TenantId { get { throw null; } }
@@ -3119,8 +3119,8 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class ProtectedAppendWritesHistory : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.ProtectedAppendWritesHistory>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.ProtectedAppendWritesHistory>
     {
-        internal ProtectedAppendWritesHistory() { }
-        public bool? AllowProtectedAppendWritesAll { get { throw null; } }
+        public ProtectedAppendWritesHistory() { }
+        public bool? AllowProtectedAppendWritesAll { get { throw null; } set { } }
         public System.DateTimeOffset? Timestamp { get { throw null; } }
         protected virtual Azure.ResourceManager.Storage.Models.ProtectedAppendWritesHistory JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -3360,13 +3360,13 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class StorageAccountEndpoints : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.StorageAccountEndpoints>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.StorageAccountEndpoints>
     {
-        internal StorageAccountEndpoints() { }
+        public StorageAccountEndpoints() { }
         public System.Uri BlobUri { get { throw null; } }
         public System.Uri DfsUri { get { throw null; } }
         public System.Uri FileUri { get { throw null; } }
-        public Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints InternetEndpoints { get { throw null; } }
-        public Azure.ResourceManager.Storage.Models.StorageAccountIPv6Endpoints IPv6Endpoints { get { throw null; } }
-        public Azure.ResourceManager.Storage.Models.StorageAccountMicrosoftEndpoints MicrosoftEndpoints { get { throw null; } }
+        public Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints InternetEndpoints { get { throw null; } set { } }
+        public Azure.ResourceManager.Storage.Models.StorageAccountIPv6Endpoints IPv6Endpoints { get { throw null; } set { } }
+        public Azure.ResourceManager.Storage.Models.StorageAccountMicrosoftEndpoints MicrosoftEndpoints { get { throw null; } set { } }
         public System.Uri QueueUri { get { throw null; } }
         public System.Uri TableUri { get { throw null; } }
         public System.Uri WebUri { get { throw null; } }
@@ -3407,7 +3407,7 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class StorageAccountInternetEndpoints : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints>
     {
-        internal StorageAccountInternetEndpoints() { }
+        public StorageAccountInternetEndpoints() { }
         public System.Uri BlobUri { get { throw null; } }
         public System.Uri DfsUri { get { throw null; } }
         public System.Uri FileUri { get { throw null; } }
@@ -3453,12 +3453,12 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class StorageAccountIPv6Endpoints : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.StorageAccountIPv6Endpoints>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.StorageAccountIPv6Endpoints>
     {
-        internal StorageAccountIPv6Endpoints() { }
+        public StorageAccountIPv6Endpoints() { }
         public string Blob { get { throw null; } }
         public string Dfs { get { throw null; } }
         public string File { get { throw null; } }
-        public Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints InternetEndpoints { get { throw null; } }
-        public Azure.ResourceManager.Storage.Models.StorageAccountMicrosoftEndpoints MicrosoftEndpoints { get { throw null; } }
+        public Azure.ResourceManager.Storage.Models.StorageAccountInternetEndpoints InternetEndpoints { get { throw null; } set { } }
+        public Azure.ResourceManager.Storage.Models.StorageAccountMicrosoftEndpoints MicrosoftEndpoints { get { throw null; } set { } }
         public string Queue { get { throw null; } }
         public string Table { get { throw null; } }
         public string Web { get { throw null; } }
@@ -3491,9 +3491,9 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class StorageAccountKeyCreationTime : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.StorageAccountKeyCreationTime>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.StorageAccountKeyCreationTime>
     {
-        internal StorageAccountKeyCreationTime() { }
-        public System.DateTimeOffset? Key1 { get { throw null; } }
-        public System.DateTimeOffset? Key2 { get { throw null; } }
+        public StorageAccountKeyCreationTime() { }
+        public System.DateTimeOffset? Key1 { get { throw null; } set { } }
+        public System.DateTimeOffset? Key2 { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.Storage.Models.StorageAccountKeyCreationTime JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.Storage.Models.StorageAccountKeyCreationTime PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -3561,7 +3561,7 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class StorageAccountMicrosoftEndpoints : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.StorageAccountMicrosoftEndpoints>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.StorageAccountMicrosoftEndpoints>
     {
-        internal StorageAccountMicrosoftEndpoints() { }
+        public StorageAccountMicrosoftEndpoints() { }
         public System.Uri BlobUri { get { throw null; } }
         public System.Uri DfsUri { get { throw null; } }
         public System.Uri FileUri { get { throw null; } }
@@ -4836,9 +4836,9 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class UpdateHistoryEntry : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Storage.Models.UpdateHistoryEntry>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Storage.Models.UpdateHistoryEntry>
     {
-        internal UpdateHistoryEntry() { }
-        public bool? AllowProtectedAppendWrites { get { throw null; } }
-        public bool? AllowProtectedAppendWritesAll { get { throw null; } }
+        public UpdateHistoryEntry() { }
+        public bool? AllowProtectedAppendWrites { get { throw null; } set { } }
+        public bool? AllowProtectedAppendWritesAll { get { throw null; } set { } }
         public int? ImmutabilityPeriodSinceCreationInDays { get { throw null; } }
         public string ObjectIdentifier { get { throw null; } }
         public System.Guid? TenantId { get { throw null; } }

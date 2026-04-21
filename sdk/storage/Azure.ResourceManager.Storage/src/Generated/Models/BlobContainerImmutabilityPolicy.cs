@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Storage.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="BlobContainerImmutabilityPolicy"/>. </summary>
-        internal BlobContainerImmutabilityPolicy()
+        public BlobContainerImmutabilityPolicy()
         {
             UpdateHistory = new ChangeTrackingList<UpdateHistoryEntry>();
         }
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.Storage.Models
 
         /// <summary> The properties of an ImmutabilityPolicy of a blob container. </summary>
         [WirePath("properties")]
-        internal ImmutabilityPolicyProperty Properties { get; }
+        internal ImmutabilityPolicyProperty Properties { get; set; }
 
         /// <summary> ImmutabilityPolicy Etag. </summary>
         [WirePath("etag")]
@@ -56,6 +56,14 @@ namespace Azure.ResourceManager.Storage.Models
             get
             {
                 return Properties is null ? default : Properties.ImmutabilityPeriodSinceCreationInDays;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new ImmutabilityPolicyProperty();
+                }
+                Properties.ImmutabilityPeriodSinceCreationInDays = value.Value;
             }
         }
 
@@ -77,6 +85,14 @@ namespace Azure.ResourceManager.Storage.Models
             {
                 return Properties is null ? default : Properties.AllowProtectedAppendWrites;
             }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new ImmutabilityPolicyProperty();
+                }
+                Properties.AllowProtectedAppendWrites = value.Value;
+            }
         }
 
         /// <summary> This property can only be changed for unlocked time-based retention policies. When enabled, new blocks can be written to both 'Append and Bock Blobs' while maintaining immutability protection and compliance. Only new blocks can be added and any existing blocks cannot be modified or deleted. This property cannot be changed with ExtendImmutabilityPolicy API. The 'allowProtectedAppendWrites' and 'allowProtectedAppendWritesAll' properties are mutually exclusive. </summary>
@@ -86,6 +102,14 @@ namespace Azure.ResourceManager.Storage.Models
             get
             {
                 return Properties is null ? default : Properties.AllowProtectedAppendWritesAll;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new ImmutabilityPolicyProperty();
+                }
+                Properties.AllowProtectedAppendWritesAll = value.Value;
             }
         }
     }

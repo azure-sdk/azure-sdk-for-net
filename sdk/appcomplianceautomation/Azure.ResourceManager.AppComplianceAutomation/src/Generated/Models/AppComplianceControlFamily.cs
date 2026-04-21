@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="AppComplianceControlFamily"/>. </summary>
-        internal AppComplianceControlFamily()
+        public AppComplianceControlFamily()
         {
             Controls = new ChangeTrackingList<AppComplianceControl>();
         }

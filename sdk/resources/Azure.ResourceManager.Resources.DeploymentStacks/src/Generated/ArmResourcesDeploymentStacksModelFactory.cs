@@ -142,16 +142,6 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 additionalBinaryDataProperties: null);
         }
 
-        /// <param name="name"> The extension name. </param>
-        /// <param name="version"> The extension version. </param>
-        /// <param name="configId"> The configuration ID of the extension usage. It uniquely identifies a target the extension deploys to. </param>
-        /// <param name="configAdditionalProperties"> Gets the AdditionalProperties. </param>
-        /// <returns> A new <see cref="Models.DeploymentExtension"/> instance for mocking. </returns>
-        public static DeploymentExtension DeploymentExtension(string name = default, string version = default, string configId = default, IDictionary<string, BinaryData> configAdditionalProperties = default)
-        {
-            return new DeploymentExtension(name, version, configId, configAdditionalProperties is null ? default : new DeploymentExtensionConfig(configAdditionalProperties), additionalBinaryDataProperties: null);
-        }
-
         /// <summary> The resourceId extended model. This is used to document failed resources with a resourceId and a corresponding error. </summary>
         /// <param name="id"> The ARM Resource ID of a resource managed by the deployment stack. </param>
         /// <param name="extension"> The extension the resource was deployed with. </param>

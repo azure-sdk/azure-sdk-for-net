@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="ResponsibilityResourceItem"/>. </summary>
-        internal ResponsibilityResourceItem()
+        public ResponsibilityResourceItem()
         {
             RecommendationIds = new ChangeTrackingList<string>();
         }
