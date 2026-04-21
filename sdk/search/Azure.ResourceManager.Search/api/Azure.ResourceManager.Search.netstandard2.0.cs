@@ -336,6 +336,8 @@ namespace Azure.ResourceManager.Search.Models
         public static Azure.ResourceManager.Search.Models.SearchServiceNameAvailabilityContent SearchServiceNameAvailabilityContent(string name, Azure.ResourceManager.Search.Models.SearchServiceResourceType resourceType) { throw null; }
         public static Azure.ResourceManager.Search.Models.SearchServiceNameAvailabilityResult SearchServiceNameAvailabilityResult(bool? isNameAvailable = default(bool?), Azure.ResourceManager.Search.Models.SearchServiceNameUnavailableReason? reason = default(Azure.ResourceManager.Search.Models.SearchServiceNameUnavailableReason?), string message = null) { throw null; }
         public static Azure.ResourceManager.Search.Models.SearchServiceNetworkRuleSet SearchServiceNetworkRuleSet(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Search.Models.SearchServiceIPRule> ipRules = null, Azure.ResourceManager.Search.Models.SearchBypass? bypass = default(Azure.ResourceManager.Search.Models.SearchBypass?)) { throw null; }
+        public static Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter SearchServiceNetworkSecurityPerimeter(Azure.Core.ResourceIdentifier id = null, System.Guid? perimeterGuid = default(System.Guid?), Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?)) { throw null; }
+        public static Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRule SearchServiceNetworkSecurityPerimeterAccessRule(string name = null, Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleProperties properties = null) { throw null; }
         public static Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleProperties SearchServiceNetworkSecurityPerimeterAccessRuleProperties(Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleDirection? direction = default(Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleDirection?), System.Collections.Generic.IEnumerable<string> addressPrefixes = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.Models.WritableSubResource> subscriptions = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter> networkSecurityPerimeters = null, System.Collections.Generic.IEnumerable<string> fullyQualifiedDomainNames = null, System.Collections.Generic.IEnumerable<string> emailAddresses = null, System.Collections.Generic.IEnumerable<string> phoneNumbers = null) { throw null; }
         public static Azure.ResourceManager.Search.SearchServiceNetworkSecurityPerimeterConfigurationData SearchServiceNetworkSecurityPerimeterConfigurationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterConfigurationProperties properties = null) { throw null; }
         public static Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterConfigurationProperties SearchServiceNetworkSecurityPerimeterConfigurationProperties(Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterConfigurationProvisioningState? provisioningState = default(Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterConfigurationProvisioningState?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssue> provisioningIssues = null, Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter networkSecurityPerimeter = null, Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterResourceAssociation resourceAssociation = null, Azure.ResourceManager.Search.Models.SearchNetworkSecurityProfile profile = null) { throw null; }
@@ -810,10 +812,10 @@ namespace Azure.ResourceManager.Search.Models
     }
     public partial class SearchServiceNetworkSecurityPerimeter : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter>
     {
-        public SearchServiceNetworkSecurityPerimeter() { }
-        public Azure.Core.ResourceIdentifier Id { get { throw null; } set { } }
-        public Azure.Core.AzureLocation? Location { get { throw null; } set { } }
-        public System.Guid? PerimeterGuid { get { throw null; } set { } }
+        internal SearchServiceNetworkSecurityPerimeter() { }
+        public Azure.Core.ResourceIdentifier Id { get { throw null; } }
+        public Azure.Core.AzureLocation? Location { get { throw null; } }
+        public System.Guid? PerimeterGuid { get { throw null; } }
         protected virtual Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -826,9 +828,9 @@ namespace Azure.ResourceManager.Search.Models
     }
     public partial class SearchServiceNetworkSecurityPerimeterAccessRule : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRule>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRule>
     {
-        public SearchServiceNetworkSecurityPerimeterAccessRule() { }
-        public string Name { get { throw null; } set { } }
-        public Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleProperties Properties { get { throw null; } set { } }
+        internal SearchServiceNetworkSecurityPerimeterAccessRule() { }
+        public string Name { get { throw null; } }
+        public Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleProperties Properties { get { throw null; } }
         protected virtual Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRule JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRule PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -858,9 +860,9 @@ namespace Azure.ResourceManager.Search.Models
     }
     public partial class SearchServiceNetworkSecurityPerimeterAccessRuleProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleProperties>
     {
-        public SearchServiceNetworkSecurityPerimeterAccessRuleProperties() { }
+        internal SearchServiceNetworkSecurityPerimeterAccessRuleProperties() { }
         public System.Collections.Generic.IList<string> AddressPrefixes { get { throw null; } }
-        public Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleDirection? Direction { get { throw null; } set { } }
+        public Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterAccessRuleDirection? Direction { get { throw null; } }
         public System.Collections.Generic.IList<string> EmailAddresses { get { throw null; } }
         public System.Collections.Generic.IList<string> FullyQualifiedDomainNames { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeter> NetworkSecurityPerimeters { get { throw null; } }
@@ -918,7 +920,7 @@ namespace Azure.ResourceManager.Search.Models
     }
     public partial class SearchServiceNetworkSecurityPerimeterProvisioningIssue : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssue>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssue>
     {
-        public SearchServiceNetworkSecurityPerimeterProvisioningIssue() { }
+        internal SearchServiceNetworkSecurityPerimeterProvisioningIssue() { }
         public string Name { get { throw null; } }
         public Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssueProperties Properties { get { throw null; } }
         protected virtual Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssue JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -933,7 +935,7 @@ namespace Azure.ResourceManager.Search.Models
     }
     public partial class SearchServiceNetworkSecurityPerimeterProvisioningIssueProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssueProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssueProperties>
     {
-        public SearchServiceNetworkSecurityPerimeterProvisioningIssueProperties() { }
+        internal SearchServiceNetworkSecurityPerimeterProvisioningIssueProperties() { }
         public string Description { get { throw null; } }
         public Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssueType? IssueType { get { throw null; } }
         public Azure.ResourceManager.Search.Models.SearchServiceNetworkSecurityPerimeterProvisioningIssueSeverity? Severity { get { throw null; } }

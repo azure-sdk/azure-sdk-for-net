@@ -343,7 +343,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
 {
     public partial class AppComplianceCategory : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceCategory>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceCategory>
     {
-        public AppComplianceCategory() { }
+        internal AppComplianceCategory() { }
         public string CategoryName { get { throw null; } }
         public Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceCategoryStatus? CategoryStatus { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceControlFamily> ControlFamilies { get { throw null; } }
@@ -378,7 +378,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class AppComplianceControl : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceControl>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceControl>
     {
-        public AppComplianceControl() { }
+        internal AppComplianceControl() { }
         public string ControlDescription { get { throw null; } }
         public System.Uri ControlDescriptionHyperLink { get { throw null; } }
         public string ControlFullName { get { throw null; } }
@@ -398,7 +398,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class AppComplianceControlFamily : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceControlFamily>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceControlFamily>
     {
-        public AppComplianceControlFamily() { }
+        internal AppComplianceControlFamily() { }
         public string ControlFamilyName { get { throw null; } }
         public Azure.ResourceManager.AppComplianceAutomation.Models.ControlFamilyStatus? ControlFamilyStatus { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceControl> Controls { get { throw null; } }
@@ -863,7 +863,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class AppComplianceResult : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceResult>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceResult>
     {
-        public AppComplianceResult() { }
+        internal AppComplianceResult() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceCategory> Categories { get { throw null; } }
         public string ComplianceName { get { throw null; } }
         protected virtual Azure.ResourceManager.AppComplianceAutomation.Models.AppComplianceResult JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -977,9 +977,9 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class CustomerResponsibility : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.CustomerResponsibility>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.CustomerResponsibility>
     {
-        public CustomerResponsibility() { }
+        internal CustomerResponsibility() { }
         public System.Collections.Generic.IReadOnlyList<string> EvidenceFiles { get { throw null; } }
-        public int? FailedResourceCount { get { throw null; } set { } }
+        public int? FailedResourceCount { get { throw null; } }
         public string Guidance { get { throw null; } }
         public string Justification { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppComplianceAutomation.Models.RecommendationDetails> RecommendationList { get { throw null; } }
@@ -991,7 +991,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
         public Azure.ResourceManager.AppComplianceAutomation.Models.ResponsibilityStatus? ResponsibilityStatus { get { throw null; } }
         public string ResponsibilityTitle { get { throw null; } }
         public Azure.ResourceManager.AppComplianceAutomation.Models.ResponsibilityType? ResponsibilityType { get { throw null; } }
-        public int? TotalResourceCount { get { throw null; } set { } }
+        public int? TotalResourceCount { get { throw null; } }
         protected virtual Azure.ResourceManager.AppComplianceAutomation.Models.CustomerResponsibility JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.AppComplianceAutomation.Models.CustomerResponsibility PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1131,7 +1131,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class RecommendationDetails : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.RecommendationDetails>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.RecommendationDetails>
     {
-        public RecommendationDetails() { }
+        internal RecommendationDetails() { }
         public string RecommendationId { get { throw null; } }
         public string RecommendationShortName { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppComplianceAutomation.Models.RecommendationSolution> RecommendationSolutions { get { throw null; } }
@@ -1147,7 +1147,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class RecommendationSolution : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.RecommendationSolution>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.RecommendationSolution>
     {
-        public RecommendationSolution() { }
+        internal RecommendationSolution() { }
         public Azure.ResourceManager.AppComplianceAutomation.Models.IsRecommendSolution? IsRecommendSolution { get { throw null; } }
         public string RecommendationSolutionContent { get { throw null; } }
         public string RecommendationSolutionIndex { get { throw null; } }
@@ -1234,7 +1234,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class ReportOverviewStatus : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.ReportOverviewStatus>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.ReportOverviewStatus>
     {
-        public ReportOverviewStatus() { }
+        internal ReportOverviewStatus() { }
         public int? FailedCount { get { throw null; } }
         public int? ManualCount { get { throw null; } }
         public int? NotApplicableCount { get { throw null; } }
@@ -1390,7 +1390,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
     }
     public partial class ResponsibilityResourceItem : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.AppComplianceAutomation.Models.ResponsibilityResourceItem>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.AppComplianceAutomation.Models.ResponsibilityResourceItem>
     {
-        public ResponsibilityResourceItem() { }
+        internal ResponsibilityResourceItem() { }
         public string AccountId { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> RecommendationIds { get { throw null; } }
         public Azure.Core.ResourceIdentifier ResourceId { get { throw null; } }
