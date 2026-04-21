@@ -112,11 +112,18 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (Encryption is null)
+                if (value != null)
                 {
-                    Encryption = new ClusterPropertiesEncryption();
+                    if (Encryption is null)
+                    {
+                        Encryption = new ClusterPropertiesEncryption();
+                        Encryption.CustomerManagedKeyEncryption = value;
+                    }
                 }
-                Encryption.CustomerManagedKeyEncryption = value;
+                else
+                {
+                    Encryption = null;
+                }
             }
         }
 

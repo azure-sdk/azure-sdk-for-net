@@ -92,6 +92,8 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             writer.WriteStringValue(RequiredFixedEnum.ToSerialString());
             writer.WritePropertyName("requiredExtensibleEnum"u8);
             writer.WriteStringValue(RequiredExtensibleEnum.ToString());
+            writer.WritePropertyName("requiredString"u8);
+            writer.WriteStringValue(RequiredString);
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -138,6 +140,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             int requiredInt = default;
             ZooFixedMode requiredFixedEnum = default;
             ZooProvisioningState requiredExtensibleEnum = default;
+            string requiredString = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -161,12 +164,23 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                     requiredExtensibleEnum = new ZooProvisioningState(prop.Value.GetString());
                     continue;
                 }
+                if (prop.NameEquals("requiredString"u8))
+                {
+                    requiredString = prop.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ZooProperties(something, requiredInt, requiredFixedEnum, requiredExtensibleEnum, additionalBinaryDataProperties);
+            return new ZooProperties(
+                something,
+                requiredInt,
+                requiredFixedEnum,
+                requiredExtensibleEnum,
+                requiredString,
+                additionalBinaryDataProperties);
         }
 
         internal partial class ZooPropertiesConverter : JsonConverter<ZooProperties>

@@ -52,7 +52,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                Properties = new JobProperties(value);
+                Properties = value != null ? new JobProperties(value) : default;
             }
         }
     }

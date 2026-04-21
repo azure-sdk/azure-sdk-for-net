@@ -30,6 +30,11 @@ model ZooProperties {
 
   /** Required extensible enum (union). */
   requiredExtensibleEnum: ZooProvisioningState;
+
+  /** Required reference-type property. Used to validate that required reference
+      types flattened from an optional ``properties?:`` parent surface as nullable
+      on the public property under the unified wrapper-optionality rule. */
+  requiredString: string;
 }
 
 /** Fixed (closed) mode enum for Zoo. */

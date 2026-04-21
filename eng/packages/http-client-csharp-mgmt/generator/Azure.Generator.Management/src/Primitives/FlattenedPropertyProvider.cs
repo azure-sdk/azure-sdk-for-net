@@ -22,20 +22,22 @@ namespace Azure.Generator.Management.Primitives
         public PropertyProvider OriginalProperty { get; }
 
         /// <summary>
-        /// True when this flattened property's type was lifted to <c>Nullable&lt;T&gt;</c>
-        /// because the inner is a non-nullable value type but the wrapping parent
-        /// (e.g. <c>properties?:</c>) may be absent at runtime. The public property
-        /// surface is <c>T?</c>, but the public constructor parameter is kept as the
-        /// original non-nullable <c>T</c> to enforce that required leaves are provided.
+        /// True when this flattened property's type was lifted to nullable because the
+        /// wrapping parent (the internalized property, e.g. <c>properties?:</c>) may be
+        /// absent at runtime. Applies to both value types (<c>Nullable&lt;T&gt;</c>) and
+        /// reference types (nullable annotation). The public property surface is
+        /// nullable, but the public constructor parameter is kept as the original
+        /// inner type to enforce that required leaves are provided. The model factory
+        /// parameter, however, is nullable (callers may omit it when mocking).
         /// </summary>
-        public bool IsLiftedFromValueType { get; }
+        public bool IsLiftedToNullable { get; }
 
-        public FlattenedPropertyProvider(FormattableString? description, MethodSignatureModifiers modifiers, CSharpType type, string name, PropertyBody body, TypeProvider enclosingType, PropertyProvider flattenedFrom, PropertyProvider originalProperty, CSharpType? explicitInterface = null, PropertyWireInformation? wireInfo = null, bool isRef = false, IEnumerable<AttributeStatement>? attributes = null, bool isLiftedFromValueType = false)
+        public FlattenedPropertyProvider(FormattableString? description, MethodSignatureModifiers modifiers, CSharpType type, string name, PropertyBody body, TypeProvider enclosingType, PropertyProvider flattenedFrom, PropertyProvider originalProperty, CSharpType? explicitInterface = null, PropertyWireInformation? wireInfo = null, bool isRef = false, IEnumerable<AttributeStatement>? attributes = null, bool isLiftedToNullable = false)
             : base(description, modifiers, type, name, body, enclosingType, explicitInterface, wireInfo, isRef, attributes)
         {
             FlattenedProperty = flattenedFrom;
             OriginalProperty = originalProperty;
-            IsLiftedFromValueType = isLiftedFromValueType;
+            IsLiftedToNullable = isLiftedToNullable;
         }
     }
 }

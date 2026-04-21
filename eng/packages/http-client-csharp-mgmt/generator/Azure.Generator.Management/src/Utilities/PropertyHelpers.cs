@@ -156,15 +156,24 @@ namespace Azure.Generator.Management.Utilities
 
             if (isPropertyLiftedToNullable)
             {
-                // Property surface is T?; only assign when value.HasValue. Lazily create the
-                // parent so unrelated leaves can also assign into it.
-                var ifHasValue = new IfStatement(Value.Property(nameof(Nullable<int>.HasValue)))
+                // Property surface is nullable; only assign when the incoming value is
+                // present. Lazily create the parent so unrelated leaves can also assign.
+                // For value-type inners use the Nullable<T> API; for reference-type inners
+                // use a simple null check and pass Value through directly.
+                var isInnerValueType = innerProperty.Type.IsValueType;
+                ValueExpression hasValueGuard = isInnerValueType
+                    ? Value.Property(nameof(Nullable<int>.HasValue))
+                    : Value.NotEqual(Null);
+                ValueExpression unwrappedValue = isInnerValueType
+                    ? Value.Property(nameof(Nullable<int>.Value))
+                    : Value;
+                var ifHasValue = new IfStatement(hasValueGuard)
                 {
                     new IfStatement(internalPropertyExpression.Is(Null))
                     {
                         internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate()
                     },
-                    internalPropertyExpression.Property(innerProperty.Name).Assign(Value.Property(nameof(Nullable<int>.Value))).Terminate()
+                    internalPropertyExpression.Property(innerProperty.Name).Assign(unwrappedValue).Terminate()
                 };
                 setter.Add(ifHasValue);
             }
@@ -180,25 +189,34 @@ namespace Azure.Generator.Management.Utilities
             return setter;
         }
 
-        public static MethodBodyStatement? BuildSetterForSafeFlatten(bool includeSetterCheck, ModelProvider innerModel, PropertyProvider internalProperty, PropertyProvider innerProperty)
+        public static MethodBodyStatement? BuildSetterForSafeFlatten(bool includeSetterCheck, ModelProvider innerModel, PropertyProvider internalProperty, PropertyProvider innerProperty, bool isPropertyLiftedToNullable)
         {
             // To not introduce breaking change, for collection types, we keep the setter for collection-type properties during safe flatten.
-            var isOverriddenValueType = IsOverriddenValueType(innerProperty);
             var setter = new List<MethodBodyStatement>();
             var internalPropertyExpression = This.Property(internalProperty.Name);
+            // For a lifted property, the public setter receives a nullable value. Use the
+            // appropriate guard / unwrap depending on whether the inner type is a value type
+            // (Nullable<T> API) or a reference type (simple null check).
+            var isInnerValueType = innerProperty.Type.IsValueType;
+            ValueExpression? hasValueGuard = isPropertyLiftedToNullable
+                ? (isInnerValueType ? Value.Property(nameof(Nullable<int>.HasValue)) : Value.NotEqual(Null))
+                : null;
+            ValueExpression unwrappedValue = isPropertyLiftedToNullable && isInnerValueType
+                ? Value.Property(nameof(Nullable<int>.Value))
+                : Value;
             if (includeSetterCheck)
             {
-                if (isOverriddenValueType)
+                if (isPropertyLiftedToNullable)
                 {
-                    var ifStatement = new IfStatement(Value.Property(nameof(Nullable<int>.HasValue)))
+                    var ifStatement = new IfStatement(hasValueGuard!)
                     {
                         new IfStatement(internalPropertyExpression.Is(Null))
                         {
                             internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate(),
-                            internalPropertyExpression.Property(innerProperty.Name).Assign(Value.Property(nameof(Nullable<int>.Value))).Terminate()
+                            internalPropertyExpression.Property(innerProperty.Name).Assign(unwrappedValue).Terminate()
                         }
                     };
-                    setter.Add(new IfElseStatement(ifStatement, internalProperty.AsVariableExpression.Assign(Null).Terminate()));
+                    setter.Add(new IfElseStatement(ifStatement, internalPropertyExpression.Assign(Null).Terminate()));
                 }
                 else
                 {
@@ -211,9 +229,9 @@ namespace Azure.Generator.Management.Utilities
             }
             else
             {
-                if (isOverriddenValueType)
+                if (isPropertyLiftedToNullable)
                 {
-                    setter.Add(internalPropertyExpression.Assign(new TernaryConditionalExpression(Value.Property(nameof(Nullable<int>.HasValue)), New.Instance(innerModel.Type!, Value.Property(nameof(Nullable<int>.Value))), Default)).Terminate());
+                    setter.Add(internalPropertyExpression.Assign(new TernaryConditionalExpression(hasValueGuard!, New.Instance(innerModel.Type!, unwrappedValue), Default)).Terminate());
                 }
                 else
                 {
@@ -222,9 +240,6 @@ namespace Azure.Generator.Management.Utilities
             }
             return setter;
         }
-
-        public static bool IsOverriddenValueType(PropertyProvider innerProperty)
-            => innerProperty.Type.IsValueType && !innerProperty.Type.IsNullable;
 
         public static string GetCombinedPropertyName(PropertyProvider innerProperty, PropertyProvider immediateParentProperty)
         {

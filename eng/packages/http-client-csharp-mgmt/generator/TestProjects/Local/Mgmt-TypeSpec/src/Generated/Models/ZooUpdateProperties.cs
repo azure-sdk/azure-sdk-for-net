@@ -32,13 +32,19 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// </param>
         /// <param name="requiredFixedEnum"> Required fixed (closed) enum. </param>
         /// <param name="requiredExtensibleEnum"> Required extensible enum (union). </param>
+        /// <param name="requiredString">
+        /// Required reference-type property. Used to validate that required reference
+        ///       types flattened from an optional ``properties?:`` parent surface as nullable
+        ///       on the public property under the unified wrapper-optionality rule.
+        /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ZooUpdateProperties(string something, int? requiredInt, ZooFixedMode? requiredFixedEnum, ZooProvisioningState? requiredExtensibleEnum, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ZooUpdateProperties(string something, int? requiredInt, ZooFixedMode? requiredFixedEnum, ZooProvisioningState? requiredExtensibleEnum, string requiredString, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Something = something;
             RequiredInt = requiredInt;
             RequiredFixedEnum = requiredFixedEnum;
             RequiredExtensibleEnum = requiredExtensibleEnum;
+            RequiredString = requiredString;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -62,5 +68,13 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <summary> Required extensible enum (union). </summary>
         [WirePath("requiredExtensibleEnum")]
         public ZooProvisioningState? RequiredExtensibleEnum { get; set; }
+
+        /// <summary>
+        /// Required reference-type property. Used to validate that required reference
+        ///       types flattened from an optional ``properties?:`` parent surface as nullable
+        ///       on the public property under the unified wrapper-optionality rule.
+        /// </summary>
+        [WirePath("requiredString")]
+        public string RequiredString { get; set; }
     }
 }

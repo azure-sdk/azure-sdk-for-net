@@ -54,11 +54,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new ClusterCreateProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ClusterCreateProperties();
+                    }
+                    Properties.HighAvailability = value.Value;
                 }
-                Properties.HighAvailability = value;
             }
         }
 
@@ -72,11 +75,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new ClusterCreateProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ClusterCreateProperties();
+                    }
+                    Properties.MinimumTlsVersion = value.Value;
                 }
-                Properties.MinimumTlsVersion = value;
             }
         }
 
@@ -154,11 +160,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value != null)
                 {
-                    Properties = new ClusterCreateProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ClusterCreateProperties();
+                    }
+                    Properties.CustomerManagedKeyEncryption = value;
                 }
-                Properties.CustomerManagedKeyEncryption = value;
             }
         }
 
@@ -186,11 +195,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new ClusterCreateProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ClusterCreateProperties();
+                    }
+                    Properties.PublicNetworkAccess = value.Value;
                 }
-                Properties.PublicNetworkAccess = value;
             }
         }
     }

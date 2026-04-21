@@ -45,11 +45,18 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (Properties is null)
+                if (value != null)
                 {
-                    Properties = new BestPracticeUpdateProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new BestPracticeUpdateProperties();
+                        Properties.Description = value;
+                    }
                 }
-                Properties.Description = value;
+                else
+                {
+                    Properties = null;
+                }
             }
         }
     }

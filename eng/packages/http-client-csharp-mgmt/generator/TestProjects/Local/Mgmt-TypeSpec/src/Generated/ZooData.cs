@@ -61,11 +61,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value != null)
                 {
-                    Properties = new ZooProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ZooProperties();
+                    }
+                    Properties.Something = value;
                 }
-                Properties.Something = value;
             }
         }
 
@@ -133,6 +136,31 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
                         Properties = new ZooProperties();
                     }
                     Properties.RequiredExtensibleEnum = value.Value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Required reference-type property. Used to validate that required reference
+        ///       types flattened from an optional ``properties?:`` parent surface as nullable
+        ///       on the public property under the unified wrapper-optionality rule.
+        /// </summary>
+        [WirePath("properties.requiredString")]
+        public string RequiredString
+        {
+            get
+            {
+                return Properties is null ? default : Properties.RequiredString;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    if (Properties is null)
+                    {
+                        Properties = new ZooProperties();
+                    }
+                    Properties.RequiredString = value;
                 }
             }
         }
