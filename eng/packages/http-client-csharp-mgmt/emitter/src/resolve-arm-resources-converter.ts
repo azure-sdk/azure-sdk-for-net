@@ -222,32 +222,25 @@ export function resolveArmResources(
         severity: "warning",
         message,
         target: NoTarget
-      })
+      }),
+    // Mirror schema-to-resolved-resource entries for expanded children so that
+    // the parent lookup below can resolve them without an out-of-band fallback.
+    (expanded, original) => {
+      const resolved = schemaToResolvedResource.get(original);
+      if (resolved) {
+        schemaToResolvedResource.set(expanded, resolved);
+      }
+    }
   );
 
   // Convert non-resource methods
   const nonResourceMethods: NonResourceMethod[] = [];
 
-  // Create parent lookup context for resolveArmResources
-  // In this case, parent information comes from ResolvedResource objects
-  // Build validResourceMap once for efficient lookup
-  const getMethodKey = (resource: ArmResourceSchema): string =>
-    resource.metadata.methods
-      .map((method) => method.methodId)
-      .sort()
-      .join("|");
-  const methodKeyToResolvedResource = new Map<string, ResolvedResource>();
-  for (const [schema, resolvedResource] of schemaToResolvedResource) {
-    const methodKey = getMethodKey(schema);
-    if (methodKey && !methodKeyToResolvedResource.has(methodKey)) {
-      methodKeyToResolvedResource.set(methodKey, resolvedResource);
-    }
-  }
-  const getResolvedResource = (
-    resource: ArmResourceSchema
-  ): ResolvedResource | undefined =>
-    schemaToResolvedResource.get(resource) ??
-    methodKeyToResolvedResource.get(getMethodKey(resource));
+  // Create parent lookup context for resolveArmResources.
+  // Parent information comes from ResolvedResource objects. When the parent
+  // itself was expanded (the rare nested case), multiple ArmResourceSchemas may
+  // share the same resourceInstancePath, so we keep candidates in a list and
+  // disambiguate by matching constant path parameters.
   const hasMatchingConstantPathParameters = (
     resource: ArmResourceSchema,
     candidate: ArmResourceSchema
@@ -267,7 +260,7 @@ export function resolveArmResources(
   for (const r of expandedResources.filter(
     (resource) => resource.metadata.resourceIdPattern !== undefined
   )) {
-    const resolvedR = getResolvedResource(r);
+    const resolvedR = schemaToResolvedResource.get(r);
     if (resolvedR) {
       const candidates = validResourceMap.get(resolvedR.resourceInstancePath);
       if (candidates) {
@@ -282,7 +275,7 @@ export function resolveArmResources(
     getParentResource: (
       resource: ArmResourceSchema
     ): ArmResourceSchema | undefined => {
-      const resolved = getResolvedResource(resource);
+      const resolved = schemaToResolvedResource.get(resource);
       if (!resolved) return undefined;
 
       // Walk up the parent chain to find a valid parent

@@ -321,14 +321,9 @@ internal class OperationContext
     {
         // If there are constant path parameters, substitute them in the operation path
         // so that segment matching works correctly between the contextual and operation paths.
-        RequestPathPattern effectiveOperationPath = operationPath;
-        List<ParameterContextMapping>? constantMappings = null;
-
-        if (ConstantPathParameters is { Count: > 0 })
-        {
-            constantMappings = [];
-            effectiveOperationPath = SubstituteConstantParameters(operationPath, ConstantPathParameters, constantMappings);
-        }
+        var (effectiveOperationPath, constantMappings) = ConstantPathParameters is { Count: > 0 }
+            ? SubstituteConstantParameters(operationPath, ConstantPathParameters)
+            : (operationPath, (IReadOnlyList<ParameterContextMapping>)Array.Empty<ParameterContextMapping>());
 
         // we need to find the sharing part between contextual path and the incoming path
         var sharedSegmentsCount = RequestPathPattern.GetMaximumSharingSegmentsCount(ContextualPath, effectiveOperationPath);
@@ -342,28 +337,20 @@ internal class OperationContext
 
         var mappings = BuildParameterMappingCore(ContextualPathParameters, SecondaryContextualPathParameters, effectiveOperationPath, sharedSegmentsCount, secondarySharedSegmentsCount);
 
-        // Add constant parameter mappings
-        if (constantMappings is { Count: > 0 })
-        {
-            var allMappings = new List<ParameterContextMapping>(mappings);
-            allMappings.AddRange(constantMappings);
-            return new ParameterContextRegistry(allMappings);
-        }
-
-        return new ParameterContextRegistry(mappings);
+        return new ParameterContextRegistry([.. mappings, .. constantMappings]);
     }
 
     /// <summary>
     /// Substitutes constant path parameters in the operation path, replacing variable segments
-    /// with their constant values. Creates contextual mappings for each substituted parameter
-    /// that emit the literal string value.
+    /// with their constant values. Returns the rewritten path along with contextual mappings
+    /// for each substituted parameter that emit the literal string value.
     /// </summary>
-    private static RequestPathPattern SubstituteConstantParameters(
+    private static (RequestPathPattern Path, IReadOnlyList<ParameterContextMapping> Mappings) SubstituteConstantParameters(
         RequestPathPattern operationPath,
-        IReadOnlyDictionary<string, string> constantPathParameters,
-        List<ParameterContextMapping> constantMappings)
+        IReadOnlyDictionary<string, string> constantPathParameters)
     {
         var segments = new List<RequestPathSegment>(operationPath.Count);
+        var mappings = new List<ParameterContextMapping>();
         bool anySubstituted = false;
 
         for (int i = 0; i < operationPath.Count; i++)
@@ -371,15 +358,12 @@ internal class OperationContext
             var segment = operationPath[i];
             if (!segment.IsConstant && constantPathParameters.TryGetValue(segment.VariableName, out var constantValue))
             {
-                // Replace variable segment with constant value
                 segments.Add(new RequestPathSegment(constantValue));
                 anySubstituted = true;
 
-                // Create a contextual mapping that emits the literal string value
-                var capturedValue = constantValue;
-                constantMappings.Add(new ParameterContextMapping(
+                mappings.Add(new ParameterContextMapping(
                     segment.VariableName,
-                    new ContextualParameter(constantValue, segment.VariableName, _ => Snippet.Literal(capturedValue))));
+                    new ContextualParameter(constantValue, segment.VariableName, _ => Snippet.Literal(constantValue))));
             }
             else
             {
@@ -387,7 +371,7 @@ internal class OperationContext
             }
         }
 
-        return anySubstituted ? new RequestPathPattern(segments) : operationPath;
+        return (anySubstituted ? new RequestPathPattern(segments) : operationPath, mappings);
     }
 
     private static IReadOnlyList<ParameterContextMapping> BuildParameterMappingCore(

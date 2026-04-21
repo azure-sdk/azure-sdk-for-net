@@ -975,42 +975,6 @@ function isPagingActionListingResources(
   return !!itemModelId && resourceModelIds.has(itemModelId);
 }
 
-function isGetActionReadingResource(
-  serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
-  resourceModelId?: string
-): boolean {
-  const responseModelId = getResponseModelId(serviceMethod);
-  return (
-    !!resourceModelId &&
-    !!responseModelId &&
-    responseModelId === resourceModelId
-  );
-}
-
-function isPutOrPatchActionTargetingResource(
-  serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
-  resourceModelId?: string
-): boolean {
-  const responseModelId = getResponseModelId(serviceMethod);
-  return (
-    hasMatchingNonPathModelParameter(serviceMethod, resourceModelId) ||
-    (!!resourceModelId &&
-      !!responseModelId &&
-      responseModelId === resourceModelId)
-  );
-}
-
-function isDeleteActionTargetingResource(
-  serviceMethod: SdkMethod<SdkHttpOperation> | undefined,
-  resourceModelId?: string
-): boolean {
-  const responseModelId = getResponseModelId(serviceMethod);
-  // Most ARM delete operations return void/LRO envelope rather than the resource model.
-  // Treat those as valid deletes, but avoid reclassifying deletes that return some
-  // unrelated metadata model.
-  return !responseModelId || responseModelId === resourceModelId;
-}
-
 /**
  * Reclassifies a legacy "action" operation based on the actual HTTP verb.
  *
@@ -1031,25 +995,39 @@ function reclassifyLegacyAction(
   resourceModelIds?: Set<string>
 ): ResourceOperationKind {
   const verb = serviceMethod?.operation?.verb;
+  const responseModelId = getResponseModelId(serviceMethod);
+  const responseMatchesResource =
+    !!resourceModelId &&
+    !!responseModelId &&
+    responseModelId === resourceModelId;
+  // PUT/PATCH typically take the resource model as the request body, so accept
+  // either a matching response or a matching non-path model parameter.
+  const bodyOrResponseMatchesResource =
+    responseMatchesResource ||
+    hasMatchingNonPathModelParameter(serviceMethod, resourceModelId);
+
   switch (verb) {
     case "get":
       // A GET that is pageable and returns resource models is a List operation
       if (isPagingActionListingResources(serviceMethod, resourceModelIds)) {
         return ResourceOperationKind.List;
       }
-      return isGetActionReadingResource(serviceMethod, resourceModelId)
+      return responseMatchesResource
         ? ResourceOperationKind.Read
         : ResourceOperationKind.Action;
     case "put":
-      return isPutOrPatchActionTargetingResource(serviceMethod, resourceModelId)
+      return bodyOrResponseMatchesResource
         ? ResourceOperationKind.Create
         : ResourceOperationKind.Action;
     case "patch":
-      return isPutOrPatchActionTargetingResource(serviceMethod, resourceModelId)
+      return bodyOrResponseMatchesResource
         ? ResourceOperationKind.Update
         : ResourceOperationKind.Action;
     case "delete":
-      return isDeleteActionTargetingResource(serviceMethod, resourceModelId)
+      // Most ARM delete operations return void/LRO envelope rather than the
+      // resource model. Treat those as valid deletes, but avoid reclassifying
+      // deletes that return some unrelated metadata model.
+      return !responseModelId || responseMatchesResource
         ? ResourceOperationKind.Delete
         : ResourceOperationKind.Action;
     default:

@@ -1120,11 +1120,19 @@ function buildExpandedResourceName(
 /**
  * Expands resources with dynamic parent type segments in the ArmResourceSchema array.
  * This is a shared utility used by both the legacy and modern resource detection paths.
+ *
+ * @param onExpand Optional callback invoked for each expanded resource with a reference
+ * to its original (un-expanded) resource. Callers can use it to mirror entries into
+ * auxiliary maps keyed by ArmResourceSchema (e.g., schemaToResolvedResource).
  */
 export function expandDynamicParentResourcesInSchema(
   resources: ArmResourceSchema[],
   serviceMethods: Map<string, SdkMethod<SdkHttpOperation>>,
-  diagnosticReporter?: (message: string) => void
+  diagnosticReporter?: (message: string) => void,
+  onExpand?: (
+    expanded: ArmResourceSchema,
+    original: ArmResourceSchema
+  ) => void
 ): ArmResourceSchema[] {
   const resourcesToRemove: Set<ArmResourceSchema> = new Set();
   const resourcesToAdd: ArmResourceSchema[] = [];
@@ -1186,7 +1194,7 @@ export function expandDynamicParentResourcesInSchema(
         resource.metadata.resourceName
       );
 
-      resourcesToAdd.push({
+      const expanded: ArmResourceSchema = {
         resourceModelId: resource.resourceModelId,
         metadata: {
           resourceIdPattern: expandedIdPattern,
@@ -1205,7 +1213,9 @@ export function expandDynamicParentResourcesInSchema(
             [dynamicSegment.typeParamName]: enumValue
           }
         }
-      });
+      };
+      resourcesToAdd.push(expanded);
+      onExpand?.(expanded, resource);
     }
 
     resourcesToRemove.add(resource);
@@ -1271,16 +1281,16 @@ function findEnumValuesForPathParam(
     return undefined;
   };
 
-  for (const kind of preferredExpansionMethodKinds) {
-    const method = methods.find((candidate) => candidate.kind === kind);
-    if (!method) continue;
-    const enumValues = getEnumValues(method);
-    if (enumValues && enumValues.length > 0) {
-      return enumValues;
-    }
-  }
-
-  for (const method of methods) {
+  // Iterate preferred kinds first, then any remaining methods. This ensures we
+  // pick the enum from CRUD operations (most likely to have the param typed as
+  // an enum) before falling back to other operation kinds.
+  const preferred = preferredExpansionMethodKinds.flatMap((kind) =>
+    methods.filter((m) => m.kind === kind)
+  );
+  const others = methods.filter(
+    (m) => !preferredExpansionMethodKinds.includes(m.kind)
+  );
+  for (const method of [...preferred, ...others]) {
     const enumValues = getEnumValues(method);
     if (enumValues && enumValues.length > 0) {
       return enumValues;
