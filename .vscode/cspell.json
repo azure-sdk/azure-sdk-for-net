@@ -640,13 +640,6 @@
       ]
     },
     {
-      "filename": "**/sdk/discovery/**/*.cs",
-      "words": [
-        "adms",
-        "mobo"
-      ]
-    },
-    {
       "filename": "**/sdk/documentintelligence/**/*.cs",
       "words": [
         "upca",
