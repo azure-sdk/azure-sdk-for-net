@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="CustomerResponsibility"/>. </summary>
-        public CustomerResponsibility()
+        internal CustomerResponsibility()
         {
             ResourceList = new ChangeTrackingList<ResponsibilityResourceItem>();
             RecommendationList = new ChangeTrackingList<RecommendationDetails>();
@@ -82,10 +82,10 @@ namespace Azure.ResourceManager.AppComplianceAutomation.Models
         public ResponsibilityEnvironment? ResponsibilityEnvironment { get; }
 
         /// <summary> The count of all failed resources. </summary>
-        public int? FailedResourceCount { get; set; }
+        public int? FailedResourceCount { get; }
 
         /// <summary> The count of all resources. </summary>
-        public int? TotalResourceCount { get; set; }
+        public int? TotalResourceCount { get; }
 
         /// <summary> List of resource. </summary>
         public IReadOnlyList<ResponsibilityResourceItem> ResourceList { get; }
