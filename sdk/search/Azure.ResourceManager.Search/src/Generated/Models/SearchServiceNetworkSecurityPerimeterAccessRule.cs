@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Search.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="SearchServiceNetworkSecurityPerimeterAccessRule"/>. </summary>
-        public SearchServiceNetworkSecurityPerimeterAccessRule()
+        internal SearchServiceNetworkSecurityPerimeterAccessRule()
         {
         }
 
@@ -35,10 +35,10 @@ namespace Azure.ResourceManager.Search.Models
 
         /// <summary> Name of the access rule. </summary>
         [WirePath("name")]
-        public string Name { get; set; }
+        public string Name { get; }
 
-        /// <summary> Gets or sets the Properties. </summary>
+        /// <summary> Gets the Properties. </summary>
         [WirePath("properties")]
-        public SearchServiceNetworkSecurityPerimeterAccessRuleProperties Properties { get; set; }
+        public SearchServiceNetworkSecurityPerimeterAccessRuleProperties Properties { get; }
     }
 }

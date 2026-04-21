@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Search.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="SearchServiceNetworkSecurityPerimeter"/>. </summary>
-        public SearchServiceNetworkSecurityPerimeter()
+        internal SearchServiceNetworkSecurityPerimeter()
         {
         }
 
@@ -38,14 +38,14 @@ namespace Azure.ResourceManager.Search.Models
 
         /// <summary> Fully qualified Azure resource ID of the NSP resource. </summary>
         [WirePath("id")]
-        public ResourceIdentifier Id { get; set; }
+        public ResourceIdentifier Id { get; }
 
         /// <summary> Universal unique ID (UUID) of the network security perimeter. </summary>
         [WirePath("perimeterGuid")]
-        public Guid? PerimeterGuid { get; set; }
+        public Guid? PerimeterGuid { get; }
 
         /// <summary> Location of the network security perimeter. </summary>
         [WirePath("location")]
-        public AzureLocation? Location { get; set; }
+        public AzureLocation? Location { get; }
     }
 }

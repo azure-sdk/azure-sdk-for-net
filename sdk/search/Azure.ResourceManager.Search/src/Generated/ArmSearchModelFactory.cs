@@ -202,6 +202,15 @@ namespace Azure.ResourceManager.Search.Models
                 additionalBinaryDataProperties: null);
         }
 
+        /// <summary> Access rule in a network security perimeter configuration profile. </summary>
+        /// <param name="name"> Name of the access rule. </param>
+        /// <param name="properties"></param>
+        /// <returns> A new <see cref="Models.SearchServiceNetworkSecurityPerimeterAccessRule"/> instance for mocking. </returns>
+        public static SearchServiceNetworkSecurityPerimeterAccessRule SearchServiceNetworkSecurityPerimeterAccessRule(string name = default, SearchServiceNetworkSecurityPerimeterAccessRuleProperties properties = default)
+        {
+            return new SearchServiceNetworkSecurityPerimeterAccessRule(name, properties, additionalBinaryDataProperties: null);
+        }
+
         /// <summary> Properties of Access Rule. </summary>
         /// <param name="direction"></param>
         /// <param name="addressPrefixes"> Address prefixes in the CIDR format for inbound rules. </param>
@@ -229,6 +238,16 @@ namespace Azure.ResourceManager.Search.Models
                 emailAddresses.ToList(),
                 phoneNumbers.ToList(),
                 additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Information about a network security perimeter (NSP). </summary>
+        /// <param name="id"> Fully qualified Azure resource ID of the NSP resource. </param>
+        /// <param name="perimeterGuid"> Universal unique ID (UUID) of the network security perimeter. </param>
+        /// <param name="location"> Location of the network security perimeter. </param>
+        /// <returns> A new <see cref="Models.SearchServiceNetworkSecurityPerimeter"/> instance for mocking. </returns>
+        public static SearchServiceNetworkSecurityPerimeter SearchServiceNetworkSecurityPerimeter(ResourceIdentifier id = default, Guid? perimeterGuid = default, AzureLocation? location = default)
+        {
+            return new SearchServiceNetworkSecurityPerimeter(id, perimeterGuid, location, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Network security perimeter configuration profile. </summary>

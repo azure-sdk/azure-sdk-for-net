@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.ResourceManager.Resources.DeploymentStacks;
 
 namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
 {
@@ -20,12 +19,8 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         /// <summary> Initializes a new instance of <see cref="DeploymentExtension"/>. </summary>
         /// <param name="name"> The extension name. </param>
         /// <param name="version"> The extension version. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="version"/> is null. </exception>
-        public DeploymentExtension(string name, string version)
+        internal DeploymentExtension(string name, string version)
         {
-            Argument.AssertNotNull(name, nameof(name));
-            Argument.AssertNotNull(version, nameof(version));
-
             Name = name;
             Version = version;
         }
@@ -46,27 +41,23 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         }
 
         /// <summary> The extension name. </summary>
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary> The extension version. </summary>
-        public string Version { get; set; }
+        public string Version { get; }
 
         /// <summary> The configuration ID of the extension usage. It uniquely identifies a target the extension deploys to. </summary>
-        public string ConfigId { get; set; }
+        public string ConfigId { get; }
 
         /// <summary> The configuration used for deployment. The keys of this object should align with the extension config schema. </summary>
-        internal DeploymentExtensionConfig Config { get; set; }
+        internal DeploymentExtensionConfig Config { get; }
 
         /// <summary> Gets the AdditionalProperties. </summary>
         public IDictionary<string, BinaryData> ConfigAdditionalProperties
         {
             get
             {
-                if (Config is null)
-                {
-                    Config = new DeploymentExtensionConfig();
-                }
-                return Config.AdditionalProperties;
+                return Config is null ? default : Config.AdditionalProperties;
             }
         }
     }

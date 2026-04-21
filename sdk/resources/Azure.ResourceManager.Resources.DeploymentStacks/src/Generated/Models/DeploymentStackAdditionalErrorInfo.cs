@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DeploymentStackAdditionalErrorInfo"/>. </summary>
-        public DeploymentStackAdditionalErrorInfo()
+        internal DeploymentStackAdditionalErrorInfo()
         {
         }
 

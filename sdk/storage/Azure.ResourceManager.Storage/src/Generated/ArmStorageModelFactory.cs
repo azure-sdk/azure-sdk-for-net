@@ -378,6 +378,15 @@ namespace Azure.ResourceManager.Storage.Models
                 additionalBinaryDataProperties: null);
         }
 
+        /// <summary> Storage account keys creation time. </summary>
+        /// <param name="key1"></param>
+        /// <param name="key2"></param>
+        /// <returns> A new <see cref="Models.StorageAccountKeyCreationTime"/> instance for mocking. </returns>
+        public static StorageAccountKeyCreationTime StorageAccountKeyCreationTime(DateTimeOffset? key1 = default, DateTimeOffset? key2 = default)
+        {
+            return new StorageAccountKeyCreationTime(key1, key2, additionalBinaryDataProperties: null);
+        }
+
         /// <summary> A service that allows server-side encryption to be used. </summary>
         /// <param name="isEnabled"> A boolean indicating whether or not the service encrypts the data as it is stored. Encryption at rest is enabled by default today and cannot be disabled. </param>
         /// <param name="lastEnabledOn"> Gets a rough estimate of the date/time when the encryption was last enabled by the user. Data is encrypted at rest by default today and cannot be disabled. </param>
@@ -1620,16 +1629,6 @@ namespace Azure.ResourceManager.Storage.Models
                 extendedLocation,
                 zones.ToList(),
                 default);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.StorageAccountKeyCreationTime"/>. </summary>
-        /// <param name="key1"></param>
-        /// <param name="key2"></param>
-        /// <returns> A new <see cref="Models.StorageAccountKeyCreationTime"/> instance for mocking. </returns>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static StorageAccountKeyCreationTime StorageAccountKeyCreationTime(DateTimeOffset? key1, DateTimeOffset? key2)
-        {
-            return new StorageAccountKeyCreationTime(key1, key2, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Storage.StoragePrivateEndpointConnectionData"/>. </summary>
