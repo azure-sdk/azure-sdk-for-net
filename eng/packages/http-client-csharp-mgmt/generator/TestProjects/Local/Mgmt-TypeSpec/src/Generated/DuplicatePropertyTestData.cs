@@ -60,14 +60,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (value != null)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new PropertyOverrideCreateProperties();
-                    }
-                    Properties.BaseOnlyProperty = value;
+                    Properties = new PropertyOverrideCreateProperties();
                 }
+                Properties.BaseOnlyProperty = value;
             }
         }
 
@@ -84,14 +81,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (value != null)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new PropertyOverrideCreateProperties();
-                    }
-                    Properties.OverridableProperty = value;
+                    Properties = new PropertyOverrideCreateProperties();
                 }
+                Properties.OverridableProperty = value;
             }
         }
     }

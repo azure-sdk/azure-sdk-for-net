@@ -61,14 +61,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new CycleTestConnectionProperties();
-                    }
-                    Properties.Description = value;
+                    Properties = new CycleTestConnectionProperties();
                 }
+                Properties.Description = value;
             }
         }
     }

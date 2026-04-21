@@ -176,18 +176,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (ComputeFleetVmProfile is null)
                 {
-                    if (ComputeFleetVmProfile is null)
-                    {
-                        ComputeFleetVmProfile = new ComputeFleetVmProfile();
-                        ComputeFleetVmProfile.CapacityReservationGroupId = value;
-                    }
+                    ComputeFleetVmProfile = new ComputeFleetVmProfile();
                 }
-                else
-                {
-                    ComputeFleetVmProfile = null;
-                }
+                ComputeFleetVmProfile.CapacityReservationGroupId = value;
             }
         }
     }

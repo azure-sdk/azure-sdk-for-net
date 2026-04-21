@@ -51,7 +51,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                Properties = value != null ? new EndpointProperties(value) : default;
+                Properties = new EndpointProperties(value);
             }
         }
     }

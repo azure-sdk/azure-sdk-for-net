@@ -54,7 +54,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                Properties = value != null ? new SAPVirtualInstanceProperties(value) : default;
+                Properties = new SAPVirtualInstanceProperties(value);
             }
         }
     }

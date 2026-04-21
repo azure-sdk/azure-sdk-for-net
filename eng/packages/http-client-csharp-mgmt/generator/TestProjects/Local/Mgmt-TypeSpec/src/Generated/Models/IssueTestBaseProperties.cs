@@ -66,14 +66,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (NestedConfig is null)
                 {
-                    if (NestedConfig is null)
-                    {
-                        NestedConfig = new IssueTestNestedConfig();
-                    }
-                    NestedConfig.InnerValue = value;
+                    NestedConfig = new IssueTestNestedConfig();
                 }
+                NestedConfig.InnerValue = value;
             }
         }
 
@@ -87,14 +84,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value.HasValue)
+                if (NestedConfig is null)
                 {
-                    if (NestedConfig is null)
-                    {
-                        NestedConfig = new IssueTestNestedConfig();
-                    }
-                    NestedConfig.InnerFlag = value.Value;
+                    NestedConfig = new IssueTestNestedConfig();
                 }
+                NestedConfig.InnerFlag = value.GetValueOrDefault();
             }
         }
     }

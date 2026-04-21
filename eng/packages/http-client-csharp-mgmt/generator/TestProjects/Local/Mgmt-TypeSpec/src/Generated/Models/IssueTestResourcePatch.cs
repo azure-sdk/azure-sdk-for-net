@@ -55,14 +55,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new IssueTestUpdateProperties();
-                    }
-                    Properties.DisplayName = value;
+                    Properties = new IssueTestUpdateProperties();
                 }
+                Properties.DisplayName = value;
             }
         }
 
@@ -86,14 +83,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new IssueTestUpdateProperties();
-                    }
-                    Properties.InnerValue = value;
+                    Properties = new IssueTestUpdateProperties();
                 }
+                Properties.InnerValue = value;
             }
         }
 
@@ -107,14 +101,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value.HasValue)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new IssueTestUpdateProperties();
-                    }
-                    Properties.InnerFlag = value.Value;
+                    Properties = new IssueTestUpdateProperties();
                 }
+                Properties.InnerFlag = value.GetValueOrDefault();
             }
         }
 
@@ -128,14 +119,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new IssueTestUpdateProperties();
-                    }
-                    Properties.UpdateOnlyValue = value;
+                    Properties = new IssueTestUpdateProperties();
                 }
+                Properties.UpdateOnlyValue = value;
             }
         }
     }

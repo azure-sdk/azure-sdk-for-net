@@ -51,7 +51,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                Properties = value != null ? new BarQuotaProperties(value) : default;
+                Properties = new BarQuotaProperties(value);
             }
         }
     }

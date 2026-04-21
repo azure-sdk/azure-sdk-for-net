@@ -46,18 +46,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (CapacityReservation is null)
                 {
-                    if (CapacityReservation is null)
-                    {
-                        CapacityReservation = new CapacityReservationProfile();
-                        CapacityReservation.CapacityReservationGroupId = value;
-                    }
+                    CapacityReservation = new CapacityReservationProfile();
                 }
-                else
-                {
-                    CapacityReservation = null;
-                }
+                CapacityReservation.CapacityReservationGroupId = value;
             }
         }
     }

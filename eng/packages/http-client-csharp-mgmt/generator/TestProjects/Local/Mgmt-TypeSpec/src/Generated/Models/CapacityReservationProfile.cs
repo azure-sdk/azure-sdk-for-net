@@ -46,18 +46,11 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
             }
             set
             {
-                if (value != null)
+                if (CapacityReservationGroup is null)
                 {
-                    if (CapacityReservationGroup is null)
-                    {
-                        CapacityReservationGroup = new TestSubResource();
-                        CapacityReservationGroup.Id = value;
-                    }
+                    CapacityReservationGroup = new TestSubResource();
                 }
-                else
-                {
-                    CapacityReservationGroup = null;
-                }
+                CapacityReservationGroup.Id = value;
             }
         }
     }
