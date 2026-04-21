@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.Discovery
     [ModelReaderWriterBuildable(typeof(DiscoveryPrivateEndpointConnection))]
     [ModelReaderWriterBuildable(typeof(DiscoveryPrivateLinkResourceProperties))]
     [ModelReaderWriterBuildable(typeof(DiscoveryPrivateLinkServiceConnectionState))]
-    [ModelReaderWriterBuildable(typeof(Identity))]
+    [ModelReaderWriterBuildable(typeof(Models.Identity))]
     [ModelReaderWriterBuildable(typeof(Models.KeyVaultProperties))]
     [ModelReaderWriterBuildable(typeof(MoboBrokerResource))]
     [ModelReaderWriterBuildable(typeof(NodePoolData))]
