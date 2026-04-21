@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != BookshelfResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, BookshelfResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, BookshelfResource.ResourceType), nameof(id));
             }
         }
 
@@ -177,7 +177,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<BookshelfPrivateLinkResourceData, BookshelfPrivateLinkResource>(new BookshelfPrivateLinkResourcesGetByBookshelfAsyncCollectionResultOfT(_bookshelfPrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new BookshelfPrivateLinkResource(Client, data));
+            return new AsyncPageableWrapper<BookshelfPrivateLinkResourceData, BookshelfPrivateLinkResource>(new BookshelfPrivateLinkResourcesGetByBookshelfAsyncCollectionResultOfT(
+                _bookshelfPrivateLinkResourcesRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "BookshelfPrivateLinkResourceCollection.GetAll"), data => new BookshelfPrivateLinkResource(Client, data));
         }
 
         /// <summary>
@@ -205,7 +211,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<BookshelfPrivateLinkResourceData, BookshelfPrivateLinkResource>(new BookshelfPrivateLinkResourcesGetByBookshelfCollectionResultOfT(_bookshelfPrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new BookshelfPrivateLinkResource(Client, data));
+            return new PageableWrapper<BookshelfPrivateLinkResourceData, BookshelfPrivateLinkResource>(new BookshelfPrivateLinkResourcesGetByBookshelfCollectionResultOfT(
+                _bookshelfPrivateLinkResourcesRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "BookshelfPrivateLinkResourceCollection.GetAll"), data => new BookshelfPrivateLinkResource(Client, data));
         }
 
         /// <summary>

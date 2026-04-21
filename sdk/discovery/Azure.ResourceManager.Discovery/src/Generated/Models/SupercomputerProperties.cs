@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.Discovery.Models
         {
             get
             {
-                return ManagedOnBehalfOfConfiguration.MoboBrokerResources;
+                return ManagedOnBehalfOfConfiguration is null ? default : ManagedOnBehalfOfConfiguration.MoboBrokerResources;
             }
         }
     }

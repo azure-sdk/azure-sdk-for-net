@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != BookshelfResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, BookshelfResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, BookshelfResource.ResourceType), nameof(id));
             }
         }
 
@@ -293,7 +293,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<BookshelfPrivateEndpointConnectionData, BookshelfPrivateEndpointConnectionResource>(new BookshelfPrivateEndpointConnectionsGetByBookshelfAsyncCollectionResultOfT(_bookshelfPrivateEndpointConnectionsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new BookshelfPrivateEndpointConnectionResource(Client, data));
+            return new AsyncPageableWrapper<BookshelfPrivateEndpointConnectionData, BookshelfPrivateEndpointConnectionResource>(new BookshelfPrivateEndpointConnectionsGetByBookshelfAsyncCollectionResultOfT(
+                _bookshelfPrivateEndpointConnectionsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "BookshelfPrivateEndpointConnectionCollection.GetAll"), data => new BookshelfPrivateEndpointConnectionResource(Client, data));
         }
 
         /// <summary>
@@ -321,7 +327,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<BookshelfPrivateEndpointConnectionData, BookshelfPrivateEndpointConnectionResource>(new BookshelfPrivateEndpointConnectionsGetByBookshelfCollectionResultOfT(_bookshelfPrivateEndpointConnectionsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new BookshelfPrivateEndpointConnectionResource(Client, data));
+            return new PageableWrapper<BookshelfPrivateEndpointConnectionData, BookshelfPrivateEndpointConnectionResource>(new BookshelfPrivateEndpointConnectionsGetByBookshelfCollectionResultOfT(
+                _bookshelfPrivateEndpointConnectionsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "BookshelfPrivateEndpointConnectionCollection.GetAll"), data => new BookshelfPrivateEndpointConnectionResource(Client, data));
         }
 
         /// <summary>

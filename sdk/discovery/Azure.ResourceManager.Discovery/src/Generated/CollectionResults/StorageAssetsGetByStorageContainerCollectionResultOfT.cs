@@ -21,6 +21,7 @@ namespace Azure.ResourceManager.Discovery
         private readonly string _resourceGroupName;
         private readonly string _storageContainerName;
         private readonly RequestContext _context;
+        private readonly string _diagnosticScope;
 
         /// <summary> Initializes a new instance of StorageAssetsGetByStorageContainerCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The StorageAssets client used to send requests. </param>
@@ -28,13 +29,15 @@ namespace Azure.ResourceManager.Discovery
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="storageContainerName"> The name of the StorageContainer. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public StorageAssetsGetByStorageContainerCollectionResultOfT(StorageAssets client, Guid subscriptionId, string resourceGroupName, string storageContainerName, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="diagnosticScope"> The diagnostic scope name. </param>
+        public StorageAssetsGetByStorageContainerCollectionResultOfT(StorageAssets client, Guid subscriptionId, string resourceGroupName, string storageContainerName, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
             _resourceGroupName = resourceGroupName;
             _storageContainerName = storageContainerName;
             _context = context;
+            _diagnosticScope = diagnosticScope;
         }
 
         /// <summary> Gets the pages of StorageAssetsGetByStorageContainerCollectionResultOfT as an enumerable collection. </summary>
@@ -67,7 +70,7 @@ namespace Azure.ResourceManager.Discovery
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetByStorageContainerRequest(nextLink, _subscriptionId, _resourceGroupName, _storageContainerName, _context) : _client.CreateGetByStorageContainerRequest(_subscriptionId, _resourceGroupName, _storageContainerName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("StorageAssetCollection.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try
             {

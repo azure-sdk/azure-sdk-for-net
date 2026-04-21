@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != WorkspaceResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, WorkspaceResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, WorkspaceResource.ResourceType), nameof(id));
             }
         }
 
@@ -293,7 +293,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<ChatModelDeploymentData, ChatModelDeploymentResource>(new ChatModelDeploymentsGetByWorkspaceAsyncCollectionResultOfT(_chatModelDeploymentsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new ChatModelDeploymentResource(Client, data));
+            return new AsyncPageableWrapper<ChatModelDeploymentData, ChatModelDeploymentResource>(new ChatModelDeploymentsGetByWorkspaceAsyncCollectionResultOfT(
+                _chatModelDeploymentsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "ChatModelDeploymentCollection.GetAll"), data => new ChatModelDeploymentResource(Client, data));
         }
 
         /// <summary>
@@ -321,7 +327,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<ChatModelDeploymentData, ChatModelDeploymentResource>(new ChatModelDeploymentsGetByWorkspaceCollectionResultOfT(_chatModelDeploymentsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new ChatModelDeploymentResource(Client, data));
+            return new PageableWrapper<ChatModelDeploymentData, ChatModelDeploymentResource>(new ChatModelDeploymentsGetByWorkspaceCollectionResultOfT(
+                _chatModelDeploymentsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "ChatModelDeploymentCollection.GetAll"), data => new ChatModelDeploymentResource(Client, data));
         }
 
         /// <summary>

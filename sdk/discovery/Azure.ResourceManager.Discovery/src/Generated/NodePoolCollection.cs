@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != SupercomputerResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, SupercomputerResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, SupercomputerResource.ResourceType), nameof(id));
             }
         }
 
@@ -293,7 +293,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<NodePoolData, NodePoolResource>(new NodePoolsGetBySupercomputerAsyncCollectionResultOfT(_nodePoolsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new NodePoolResource(Client, data));
+            return new AsyncPageableWrapper<NodePoolData, NodePoolResource>(new NodePoolsGetBySupercomputerAsyncCollectionResultOfT(
+                _nodePoolsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "NodePoolCollection.GetAll"), data => new NodePoolResource(Client, data));
         }
 
         /// <summary>
@@ -321,7 +327,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<NodePoolData, NodePoolResource>(new NodePoolsGetBySupercomputerCollectionResultOfT(_nodePoolsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new NodePoolResource(Client, data));
+            return new PageableWrapper<NodePoolData, NodePoolResource>(new NodePoolsGetBySupercomputerCollectionResultOfT(
+                _nodePoolsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "NodePoolCollection.GetAll"), data => new NodePoolResource(Client, data));
         }
 
         /// <summary>

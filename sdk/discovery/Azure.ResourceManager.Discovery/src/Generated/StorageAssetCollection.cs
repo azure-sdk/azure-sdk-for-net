@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != StorageContainerResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, StorageContainerResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, StorageContainerResource.ResourceType), nameof(id));
             }
         }
 
@@ -293,7 +293,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<StorageAssetData, StorageAssetResource>(new StorageAssetsGetByStorageContainerAsyncCollectionResultOfT(_storageAssetsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new StorageAssetResource(Client, data));
+            return new AsyncPageableWrapper<StorageAssetData, StorageAssetResource>(new StorageAssetsGetByStorageContainerAsyncCollectionResultOfT(
+                _storageAssetsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "StorageAssetCollection.GetAll"), data => new StorageAssetResource(Client, data));
         }
 
         /// <summary>
@@ -321,7 +327,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<StorageAssetData, StorageAssetResource>(new StorageAssetsGetByStorageContainerCollectionResultOfT(_storageAssetsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new StorageAssetResource(Client, data));
+            return new PageableWrapper<StorageAssetData, StorageAssetResource>(new StorageAssetsGetByStorageContainerCollectionResultOfT(
+                _storageAssetsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "StorageAssetCollection.GetAll"), data => new StorageAssetResource(Client, data));
         }
 
         /// <summary>

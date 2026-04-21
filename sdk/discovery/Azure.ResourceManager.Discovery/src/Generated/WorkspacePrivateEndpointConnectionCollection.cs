@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != WorkspaceResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, WorkspaceResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, WorkspaceResource.ResourceType), nameof(id));
             }
         }
 
@@ -293,7 +293,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<WorkspacePrivateEndpointConnectionData, WorkspacePrivateEndpointConnectionResource>(new WorkspacePrivateEndpointConnectionsGetByWorkspaceAsyncCollectionResultOfT(_workspacePrivateEndpointConnectionsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new WorkspacePrivateEndpointConnectionResource(Client, data));
+            return new AsyncPageableWrapper<WorkspacePrivateEndpointConnectionData, WorkspacePrivateEndpointConnectionResource>(new WorkspacePrivateEndpointConnectionsGetByWorkspaceAsyncCollectionResultOfT(
+                _workspacePrivateEndpointConnectionsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "WorkspacePrivateEndpointConnectionCollection.GetAll"), data => new WorkspacePrivateEndpointConnectionResource(Client, data));
         }
 
         /// <summary>
@@ -321,7 +327,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<WorkspacePrivateEndpointConnectionData, WorkspacePrivateEndpointConnectionResource>(new WorkspacePrivateEndpointConnectionsGetByWorkspaceCollectionResultOfT(_workspacePrivateEndpointConnectionsRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new WorkspacePrivateEndpointConnectionResource(Client, data));
+            return new PageableWrapper<WorkspacePrivateEndpointConnectionData, WorkspacePrivateEndpointConnectionResource>(new WorkspacePrivateEndpointConnectionsGetByWorkspaceCollectionResultOfT(
+                _workspacePrivateEndpointConnectionsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "WorkspacePrivateEndpointConnectionCollection.GetAll"), data => new WorkspacePrivateEndpointConnectionResource(Client, data));
         }
 
         /// <summary>

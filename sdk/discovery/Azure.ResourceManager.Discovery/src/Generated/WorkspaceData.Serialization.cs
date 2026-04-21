@@ -72,9 +72,7 @@ namespace Azure.ResourceManager.Discovery
             {
                 return null;
             }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(workspaceData, ModelSerializationExtensions.WireOptions);
-            return content;
+            return RequestContent.Create(workspaceData, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="WorkspaceData"/> from. </param>

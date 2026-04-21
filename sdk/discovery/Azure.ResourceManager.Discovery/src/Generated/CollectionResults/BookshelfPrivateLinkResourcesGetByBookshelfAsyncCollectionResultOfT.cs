@@ -22,6 +22,7 @@ namespace Azure.ResourceManager.Discovery
         private readonly string _resourceGroupName;
         private readonly string _bookshelfName;
         private readonly RequestContext _context;
+        private readonly string _diagnosticScope;
 
         /// <summary> Initializes a new instance of BookshelfPrivateLinkResourcesGetByBookshelfAsyncCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The BookshelfPrivateLinkResources client used to send requests. </param>
@@ -29,13 +30,15 @@ namespace Azure.ResourceManager.Discovery
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="bookshelfName"> The name of the Bookshelf. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public BookshelfPrivateLinkResourcesGetByBookshelfAsyncCollectionResultOfT(BookshelfPrivateLinkResources client, Guid subscriptionId, string resourceGroupName, string bookshelfName, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="diagnosticScope"> The diagnostic scope name. </param>
+        public BookshelfPrivateLinkResourcesGetByBookshelfAsyncCollectionResultOfT(BookshelfPrivateLinkResources client, Guid subscriptionId, string resourceGroupName, string bookshelfName, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
             _resourceGroupName = resourceGroupName;
             _bookshelfName = bookshelfName;
             _context = context;
+            _diagnosticScope = diagnosticScope;
         }
 
         /// <summary> Gets the pages of BookshelfPrivateLinkResourcesGetByBookshelfAsyncCollectionResultOfT as an enumerable collection. </summary>
@@ -68,7 +71,7 @@ namespace Azure.ResourceManager.Discovery
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetByBookshelfRequest(nextLink, _subscriptionId, _resourceGroupName, _bookshelfName, _context) : _client.CreateGetByBookshelfRequest(_subscriptionId, _resourceGroupName, _bookshelfName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("BookshelfPrivateLinkResourceCollection.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try
             {

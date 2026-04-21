@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetBySubscriptionAsyncCollectionResultOfT(BookshelvesRestClient, Guid.Parse(Id.SubscriptionId), context), data => new BookshelfResource(Client, data));
+            return new AsyncPageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetBySubscriptionAsyncCollectionResultOfT(BookshelvesRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetBookshelves"), data => new BookshelfResource(Client, data));
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetBySubscriptionCollectionResultOfT(BookshelvesRestClient, Guid.Parse(Id.SubscriptionId), context), data => new BookshelfResource(Client, data));
+            return new PageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetBySubscriptionCollectionResultOfT(BookshelvesRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetBookshelves"), data => new BookshelfResource(Client, data));
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<ToolData, ToolResource>(new ToolsGetBySubscriptionAsyncCollectionResultOfT(ToolsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ToolResource(Client, data));
+            return new AsyncPageableWrapper<ToolData, ToolResource>(new ToolsGetBySubscriptionAsyncCollectionResultOfT(ToolsRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetTools"), data => new ToolResource(Client, data));
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<ToolData, ToolResource>(new ToolsGetBySubscriptionCollectionResultOfT(ToolsRestClient, Guid.Parse(Id.SubscriptionId), context), data => new ToolResource(Client, data));
+            return new PageableWrapper<ToolData, ToolResource>(new ToolsGetBySubscriptionCollectionResultOfT(ToolsRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetTools"), data => new ToolResource(Client, data));
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<WorkspaceData, WorkspaceResource>(new WorkspacesGetBySubscriptionAsyncCollectionResultOfT(WorkspacesRestClient, Guid.Parse(Id.SubscriptionId), context), data => new WorkspaceResource(Client, data));
+            return new AsyncPageableWrapper<WorkspaceData, WorkspaceResource>(new WorkspacesGetBySubscriptionAsyncCollectionResultOfT(WorkspacesRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetWorkspaces"), data => new WorkspaceResource(Client, data));
         }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<WorkspaceData, WorkspaceResource>(new WorkspacesGetBySubscriptionCollectionResultOfT(WorkspacesRestClient, Guid.Parse(Id.SubscriptionId), context), data => new WorkspaceResource(Client, data));
+            return new PageableWrapper<WorkspaceData, WorkspaceResource>(new WorkspacesGetBySubscriptionCollectionResultOfT(WorkspacesRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetWorkspaces"), data => new WorkspaceResource(Client, data));
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<SupercomputerData, SupercomputerResource>(new SupercomputersGetBySubscriptionAsyncCollectionResultOfT(SupercomputersRestClient, Guid.Parse(Id.SubscriptionId), context), data => new SupercomputerResource(Client, data));
+            return new AsyncPageableWrapper<SupercomputerData, SupercomputerResource>(new SupercomputersGetBySubscriptionAsyncCollectionResultOfT(SupercomputersRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetSupercomputers"), data => new SupercomputerResource(Client, data));
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<SupercomputerData, SupercomputerResource>(new SupercomputersGetBySubscriptionCollectionResultOfT(SupercomputersRestClient, Guid.Parse(Id.SubscriptionId), context), data => new SupercomputerResource(Client, data));
+            return new PageableWrapper<SupercomputerData, SupercomputerResource>(new SupercomputersGetBySubscriptionCollectionResultOfT(SupercomputersRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetSupercomputers"), data => new SupercomputerResource(Client, data));
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<StorageContainerData, StorageContainerResource>(new StorageContainersGetBySubscriptionAsyncCollectionResultOfT(StorageContainersRestClient, Guid.Parse(Id.SubscriptionId), context), data => new StorageContainerResource(Client, data));
+            return new AsyncPageableWrapper<StorageContainerData, StorageContainerResource>(new StorageContainersGetBySubscriptionAsyncCollectionResultOfT(StorageContainersRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetStorageContainers"), data => new StorageContainerResource(Client, data));
         }
 
         /// <summary>
@@ -339,7 +339,7 @@ namespace Azure.ResourceManager.Discovery.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<StorageContainerData, StorageContainerResource>(new StorageContainersGetBySubscriptionCollectionResultOfT(StorageContainersRestClient, Guid.Parse(Id.SubscriptionId), context), data => new StorageContainerResource(Client, data));
+            return new PageableWrapper<StorageContainerData, StorageContainerResource>(new StorageContainersGetBySubscriptionCollectionResultOfT(StorageContainersRestClient, Guid.Parse(Id.SubscriptionId), context, "MockableDiscoverySubscriptionResource.GetStorageContainers"), data => new StorageContainerResource(Client, data));
         }
     }
 }

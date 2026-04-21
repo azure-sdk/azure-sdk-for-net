@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != WorkspaceResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, WorkspaceResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, WorkspaceResource.ResourceType), nameof(id));
             }
         }
 
@@ -177,7 +177,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<WorkspacePrivateLinkResourceData, WorkspacePrivateLinkResource>(new WorkspacePrivateLinkResourcesGetByWorkspaceAsyncCollectionResultOfT(_workspacePrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new WorkspacePrivateLinkResource(Client, data));
+            return new AsyncPageableWrapper<WorkspacePrivateLinkResourceData, WorkspacePrivateLinkResource>(new WorkspacePrivateLinkResourcesGetByWorkspaceAsyncCollectionResultOfT(
+                _workspacePrivateLinkResourcesRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "WorkspacePrivateLinkResourceCollection.GetAll"), data => new WorkspacePrivateLinkResource(Client, data));
         }
 
         /// <summary>
@@ -205,7 +211,13 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<WorkspacePrivateLinkResourceData, WorkspacePrivateLinkResource>(new WorkspacePrivateLinkResourcesGetByWorkspaceCollectionResultOfT(_workspacePrivateLinkResourcesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, context), data => new WorkspacePrivateLinkResource(Client, data));
+            return new PageableWrapper<WorkspacePrivateLinkResourceData, WorkspacePrivateLinkResource>(new WorkspacePrivateLinkResourcesGetByWorkspaceCollectionResultOfT(
+                _workspacePrivateLinkResourcesRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Name,
+                context,
+                "WorkspacePrivateLinkResourceCollection.GetAll"), data => new WorkspacePrivateLinkResource(Client, data));
         }
 
         /// <summary>

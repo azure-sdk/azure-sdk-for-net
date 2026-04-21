@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Discovery
         {
             if (id.ResourceType != ResourceGroupResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
             }
         }
 
@@ -294,7 +294,7 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetByResourceGroupAsyncCollectionResultOfT(_bookshelvesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, context), data => new BookshelfResource(Client, data));
+            return new AsyncPageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetByResourceGroupAsyncCollectionResultOfT(_bookshelvesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, context, "BookshelfCollection.GetAll"), data => new BookshelfResource(Client, data));
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager.Discovery
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetByResourceGroupCollectionResultOfT(_bookshelvesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, context), data => new BookshelfResource(Client, data));
+            return new PageableWrapper<BookshelfData, BookshelfResource>(new BookshelvesGetByResourceGroupCollectionResultOfT(_bookshelvesRestClient, Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, context, "BookshelfCollection.GetAll"), data => new BookshelfResource(Client, data));
         }
 
         /// <summary>
