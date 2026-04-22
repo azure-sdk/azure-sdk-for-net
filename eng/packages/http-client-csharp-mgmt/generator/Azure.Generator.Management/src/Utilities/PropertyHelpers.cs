@@ -146,14 +146,15 @@ namespace Azure.Generator.Management.Utilities
             }
 
             // Preserve the original "lazy create parent + assign value" semantics. For a
-            // lifted value-type the public setter receives Nullable<T>; we unwrap with
-            // .GetValueOrDefault() so the assignment compiles. For reference-type lifts
-            // (and non-lifted) the value is passed through directly. Setting a leaf to
-            // null does NOT clear sibling leaves on the same parent.
+            // lifted non-nullable value-type the public setter receives Nullable<T>; we unwrap
+            // with .GetValueOrDefault() so the assignment compiles against the inner type.
+            // For already-nullable inners and reference types, the public type matches the
+            // inner type, so the value is passed through directly. Setting a leaf to null
+            // does NOT clear sibling leaves on the same parent.
             var setter = new List<MethodBodyStatement>();
             var internalPropertyExpression = This.Property(internalProperty.Name);
-            var isInnerValueType = innerProperty.Type.IsValueType;
-            ValueExpression assignedValue = isPropertyLiftedToNullable && isInnerValueType
+            var needsUnwrap = isPropertyLiftedToNullable && innerProperty.Type.IsValueType && !innerProperty.Type.IsNullable;
+            ValueExpression assignedValue = needsUnwrap
                 ? Value.Invoke(nameof(Nullable<int>.GetValueOrDefault))
                 : Value;
 
@@ -170,12 +171,13 @@ namespace Azure.Generator.Management.Utilities
             // To not introduce breaking change, for collection types, we keep the setter for collection-type properties during safe flatten.
             var setter = new List<MethodBodyStatement>();
             var internalPropertyExpression = This.Property(internalProperty.Name);
-            // For a lifted property of a value-type inner, the public setter receives Nullable<T>.
+            // For a lifted non-nullable value-type inner, the public setter receives Nullable<T>.
             // We unwrap with .GetValueOrDefault() so the original "lazy create parent + assign value"
-            // behavior is preserved with minimal change. Reference-type lifts need no adaptation:
-            // the inner property already accepts null under #nullable disable.
-            var isInnerValueType = innerProperty.Type.IsValueType;
-            ValueExpression assignedValue = isPropertyLiftedToNullable && isInnerValueType
+            // behavior is preserved with minimal change. For already-nullable inners (e.g. T?) and
+            // reference types, the public type matches the inner type, so we pass the value through.
+            var isInnerNonNullableValueType = innerProperty.Type.IsValueType && !innerProperty.Type.IsNullable;
+            var needsUnwrap = isPropertyLiftedToNullable && isInnerNonNullableValueType;
+            ValueExpression assignedValue = needsUnwrap
                 ? Value.Invoke(nameof(Nullable<int>.GetValueOrDefault))
                 : Value;
             if (includeSetterCheck)
@@ -188,7 +190,7 @@ namespace Azure.Generator.Management.Utilities
             }
             else
             {
-                if (isPropertyLiftedToNullable && isInnerValueType)
+                if (needsUnwrap)
                 {
                     // Inner model has no parameterless ctor (single required arg = the lifted leaf).
                     // When the lifted Nullable<T> value is null we have no T to construct with, so
