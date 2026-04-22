@@ -317,9 +317,11 @@ namespace Azure.Generator.Management.Visitors
                         // When the flattened property was lifted (wrapper is optional), the model factory
                         // parameter is nullable so callers can omit it when mocking — regardless of
                         // whether the inner is a value type or a reference type.
+                        // Always start from InputType so collections become IEnumerable<T> in the
+                        // factory signature (preserves the long-standing factory-collection convention).
                         var liftedToNullable = (flattenedProperty as Primitives.FlattenedPropertyProvider)?.IsLiftedToNullable == true;
                         var newParamType = liftedToNullable
-                            ? propertyParameter.Type.WithNullable(true)
+                            ? propertyParameter.Type.InputType.WithNullable(true)
                             : propertyParameter.Type.InputType;
                         var updatedParameter = new ParameterProvider(propertyParameter.Name, propertyParameter.Description, newParamType, propertyParameter.DefaultValue,
                             propertyParameter.IsRef, propertyParameter.IsOut, propertyParameter.IsIn, propertyParameter.IsParams, propertyParameter.Attributes, propertyParameter.Property,
@@ -402,6 +404,21 @@ namespace Azure.Generator.Management.Visitors
 
         private static ValueExpression? BuildConditionExpression(List<FlattenPropertyInfo> flattenedProperties, IReadOnlyDictionary<ParameterProvider, ParameterProvider>? parameterMap = null, bool publicConstructor = false)
         {
+            // Whether the wrapper that owns these flattened leaves is optional. When the wrapper
+            // is required, we must always construct it (returning null here makes
+            // UpdateModelFactoryMethod emit unconditional construction). When the wrapper is
+            // optional, every leaf is lifted to nullable in the model-factory signature, so we
+            // gate construction on "all leaves are null".
+            // For the public constructor path we still want the legacy behaviour of skipping
+            // non-nullable params (a required leaf in a public ctor cannot be null), so this
+            // wrapper-required short-circuit only applies to the model-factory path.
+            var wrapperIsOptional = flattenedProperties.Any(p =>
+                (p.FlattenedProperty as Primitives.FlattenedPropertyProvider)?.IsLiftedToNullable == true);
+            if (!publicConstructor && !wrapperIsOptional)
+            {
+                return null;
+            }
+
             ScopedApi<bool>? result = null;
             foreach (var (flattenProperty, _) in flattenedProperties)
             {
@@ -411,8 +428,7 @@ namespace Azure.Generator.Management.Visitors
                     : propertyParameter;
 
                 // A non-nullable parameter (e.g. a required value type kept as `T` in the
-                // public constructor or a non-lifted required value type in the model factory)
-                // can never be null, so it must not appear in the
+                // public constructor) can never be null, so it must not appear in the
                 // "all params null → default the parent" guard.
                 if (!effectiveParameter.Type.IsNullable)
                 {

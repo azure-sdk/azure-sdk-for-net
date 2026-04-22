@@ -153,7 +153,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                serviceUri is null && boolValue is null && floatValue is null && doubleValue is null && etag is null && writableSubResourceProp is null && flattenedProperty is null && vmGalleryApplications is null && computeFleetVmCapacityReservationGroupId is null ? default : new FooProperties(
+                new FooProperties(
                     serviceUri,
                     something,
                     boolValue,
@@ -188,7 +188,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="computeFleetVmCapacityReservationGroupId"> Gets or sets the Id. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nestedPropertyProperties"/> is null. </exception>
         /// <returns> A new <see cref="Models.FooProperties"/> instance for mocking. </returns>
-        public static FooProperties FooProperties(Uri serviceUri = default, ManagedServiceIdentity something = default, bool? boolValue = default, float? floatValue = default, double? doubleValue = default, IEnumerable<string> prop1 = default, IEnumerable<int> prop2 = default, FooProperties nestedPropertyProperties = default, IEnumerable<string> flattenedProperty = default, IList<string> vmGalleryApplications = default, ETag? etag = default, WritableSubResource writableSubResourceProp = default, ResourceIdentifier computeFleetVmCapacityReservationGroupId = default)
+        public static FooProperties FooProperties(Uri serviceUri = default, ManagedServiceIdentity something = default, bool? boolValue = default, float? floatValue = default, double? doubleValue = default, IEnumerable<string> prop1 = default, IEnumerable<int> prop2 = default, FooProperties nestedPropertyProperties = default, IEnumerable<string> flattenedProperty = default, IEnumerable<string> vmGalleryApplications = default, ETag? etag = default, WritableSubResource writableSubResourceProp = default, ResourceIdentifier computeFleetVmCapacityReservationGroupId = default)
         {
             prop1 ??= new ChangeTrackingList<string>();
             prop2 ??= new ChangeTrackingList<int>();
@@ -323,7 +323,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="optionalFlattenPropertyRandomCollectionProp"> Gets the RandomCollectionProp. </param>
         /// <param name="discriminatorProperty"></param>
         /// <returns> A new <see cref="Tests.BarSettingsResourceData"/> instance for mocking. </returns>
-        public static BarSettingsResourceData BarSettingsResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, bool? isEnabled = default, IEnumerable<string> stringArray = default, string propertyLeft = default, string anotherPropertyLeft = default, int? innerProp1 = default, string innerProp2 = default, int middleProp1 = default, IDictionary<string, string> middleProp2 = default, IEnumerable<string> prop1 = default, int prop2 = default, IList<string> optionalFlattenPropertyRandomCollectionProp = default, LimitJsonObject discriminatorProperty = default)
+        public static BarSettingsResourceData BarSettingsResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, bool? isEnabled = default, IEnumerable<string> stringArray = default, string propertyLeft = default, string anotherPropertyLeft = default, int? innerProp1 = default, string innerProp2 = default, int middleProp1 = default, IDictionary<string, string> middleProp2 = default, IEnumerable<string> prop1 = default, int prop2 = default, IEnumerable<string> optionalFlattenPropertyRandomCollectionProp = default, LimitJsonObject discriminatorProperty = default)
         {
             stringArray ??= new ChangeTrackingList<string>();
 
@@ -337,7 +337,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 stringArray.ToList(),
                 new BarQuotaProperties(propertyLeft, null),
                 new BarQuotaProperties(anotherPropertyLeft, null),
-                innerProp1 is null ? default : new BarNestedQuotaProperties(
+                new BarNestedQuotaProperties(
                     innerProp1,
                     innerProp2,
                     null,
@@ -697,7 +697,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="availableLimit"> The available Group Quota Limit at the MG level. This Group quota can be allocated to subscription(s). </param>
         /// <param name="allocatedToSubscriptionsValue"> List of Group Quota Limit allocated to subscriptions. </param>
         /// <returns> A new <see cref="Models.GroupQuotaLimitProperties"/> instance for mocking. </returns>
-        public static GroupQuotaLimitProperties GroupQuotaLimitProperties(string resourceName = default, long? limit = default, string comment = default, string unit = default, long? availableLimit = default, IList<AllocatedToSubscription> allocatedToSubscriptionsValue = default)
+        public static GroupQuotaLimitProperties GroupQuotaLimitProperties(string resourceName = default, long? limit = default, string comment = default, string unit = default, long? availableLimit = default, IEnumerable<AllocatedToSubscription> allocatedToSubscriptionsValue = default)
         {
             return new GroupQuotaLimitProperties(
                 resourceName,
@@ -716,7 +716,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="availableLimit"> The available Group Quota Limit at the MG level. This Group quota can be allocated to subscription(s). </param>
         /// <param name="allocatedToSubscriptionsValue"> List of Group Quota Limit allocated to subscriptions. </param>
         /// <returns> A new <see cref="Models.GroupQuotaDetails"/> instance for mocking. </returns>
-        public static GroupQuotaDetails GroupQuotaDetails(string resourceName = default, long? limit = default, string comment = default, string unit = default, long? availableLimit = default, IList<AllocatedToSubscription> allocatedToSubscriptionsValue = default)
+        public static GroupQuotaDetails GroupQuotaDetails(string resourceName = default, long? limit = default, string comment = default, string unit = default, long? availableLimit = default, IEnumerable<AllocatedToSubscription> allocatedToSubscriptionsValue = default)
         {
             return new GroupQuotaDetails(
                 resourceName,
@@ -837,7 +837,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
         /// <param name="name"></param>
         /// <param name="predictionInputHistoricalData"> Gets the HistoricalData. </param>
         /// <returns> A new <see cref="Models.JooProperties"/> instance for mocking. </returns>
-        public static JooProperties JooProperties(string name = default, IReadOnlyList<long> predictionInputHistoricalData = default)
+        public static JooProperties JooProperties(string name = default, IEnumerable<long> predictionInputHistoricalData = default)
         {
             return new JooProperties(name, predictionInputHistoricalData is null ? default : new Prediction(new PredictionInput((predictionInputHistoricalData ?? new ChangeTrackingList<long>()).ToList(), null), null), additionalBinaryDataProperties: null);
         }
@@ -1399,7 +1399,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                testCertificateThumbprint is null ? default : new TestCertificateProperties(testCertificateThumbprint, null));
+                new TestCertificateProperties(testCertificateThumbprint, null));
         }
 
         /// <summary> Shared configuration - used at both RG and Subscription scope. </summary>
@@ -1602,7 +1602,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 "TypeA",
-                typeAPolyDeviceDescription is null ? default : new TypeAPolyDeviceProperties(typeAPolyDeviceDescription, null));
+                new TypeAPolyDeviceProperties(typeAPolyDeviceDescription, null));
         }
 
         /// <summary> Paged collection of GrandparentFlattenLeaf items. </summary>
