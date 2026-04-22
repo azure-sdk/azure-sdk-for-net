@@ -146,24 +146,34 @@ namespace Azure.Generator.Management.Utilities
             }
 
             // Preserve the original "lazy create parent + assign value" semantics. For a
-            // lifted non-nullable value-type the public setter receives Nullable<T>; we unwrap
-            // with .GetValueOrDefault() so the assignment compiles against the inner type.
-            // For already-nullable inners and reference types, the public type matches the
-            // inner type, so the value is passed through directly. Setting a leaf to null
-            // does NOT clear sibling leaves on the same parent.
-            var setter = new List<MethodBodyStatement>();
+            // lifted non-nullable value-type inner the public setter receives Nullable<T>.
+            // When the caller passes null we have no T to assign and no original value to
+            // preserve, so we simply no-op; assigning default(T) would silently erase the
+            // inner leaf to 0/None. For already-nullable inners and reference types, the
+            // public type matches the inner type and we pass the value through directly.
+            // Setting a leaf to null does NOT clear sibling leaves on the same parent.
             var internalPropertyExpression = This.Property(internalProperty.Name);
             var needsUnwrap = isPropertyLiftedToNullable && innerProperty.Type.IsValueType && !innerProperty.Type.IsNullable;
-            ValueExpression assignedValue = needsUnwrap
-                ? Value.Invoke(nameof(Nullable<int>.GetValueOrDefault))
-                : Value;
-
-            setter.Add(new IfStatement(internalPropertyExpression.Is(Null))
+            var lazyCreateAndAssign = new List<MethodBodyStatement>
             {
-                internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate()
-            });
-            setter.Add(internalPropertyExpression.Property(innerProperty.Name).Assign(assignedValue).Terminate());
-            return setter;
+                new IfStatement(internalPropertyExpression.Is(Null))
+                {
+                    internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate()
+                },
+                internalPropertyExpression.Property(innerProperty.Name).Assign(needsUnwrap ? Value.Property(nameof(Nullable<int>.Value)) : Value).Terminate()
+            };
+
+            if (needsUnwrap)
+            {
+                // Guard the entire body so a null assignment is a no-op rather than an
+                // accidental "set inner leaf to default(T)".
+                return new IfStatement(Value.Property(nameof(Nullable<int>.HasValue)))
+                {
+                    lazyCreateAndAssign
+                };
+            }
+
+            return lazyCreateAndAssign;
         }
 
         public static MethodBodyStatement? BuildSetterForSafeFlatten(bool includeSetterCheck, ModelProvider innerModel, PropertyProvider internalProperty, PropertyProvider innerProperty, bool isPropertyLiftedToNullable)
@@ -172,29 +182,43 @@ namespace Azure.Generator.Management.Utilities
             var setter = new List<MethodBodyStatement>();
             var internalPropertyExpression = This.Property(internalProperty.Name);
             // For a lifted non-nullable value-type inner, the public setter receives Nullable<T>.
-            // We unwrap with .GetValueOrDefault() so the original "lazy create parent + assign value"
-            // behavior is preserved with minimal change. For already-nullable inners (e.g. T?) and
-            // reference types, the public type matches the inner type, so we pass the value through.
+            // When the caller passes null we have no T to assign and no original value to
+            // preserve, so we simply no-op. For already-nullable inners (e.g. T?) and
+            // reference types, the public type matches the inner type and we pass the value through.
             var isInnerNonNullableValueType = innerProperty.Type.IsValueType && !innerProperty.Type.IsNullable;
             var needsUnwrap = isPropertyLiftedToNullable && isInnerNonNullableValueType;
-            ValueExpression assignedValue = needsUnwrap
-                ? Value.Invoke(nameof(Nullable<int>.GetValueOrDefault))
-                : Value;
             if (includeSetterCheck)
             {
-                setter.Add(new IfStatement(internalPropertyExpression.Is(Null))
+                var lazyCreateAndAssign = new List<MethodBodyStatement>
                 {
-                    internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate()
-                });
-                setter.Add(internalPropertyExpression.Property(innerProperty.Name).Assign(assignedValue).Terminate());
+                    new IfStatement(internalPropertyExpression.Is(Null))
+                    {
+                        internalPropertyExpression.Assign(New.Instance(innerModel.Type!)).Terminate()
+                    },
+                    internalPropertyExpression.Property(innerProperty.Name).Assign(needsUnwrap ? Value.Property(nameof(Nullable<int>.Value)) : Value).Terminate()
+                };
+
+                if (needsUnwrap)
+                {
+                    // Guard the body so a null assignment is a no-op rather than erasing the inner leaf to default(T).
+                    setter.Add(new IfStatement(Value.Property(nameof(Nullable<int>.HasValue)))
+                    {
+                        lazyCreateAndAssign
+                    });
+                }
+                else
+                {
+                    setter.AddRange(lazyCreateAndAssign);
+                }
             }
             else
             {
                 if (needsUnwrap)
                 {
-                    // Inner model has no parameterless ctor (single required arg = the lifted leaf).
-                    // When the lifted Nullable<T> value is null we have no T to construct with, so
-                    // we fall back to default(parent) for that one unavoidable case.
+                    // Inner model has no parameterless ctor — the single required ctor arg IS the
+                    // lifted leaf, so the parent's only meaningful state is that one value. In this
+                    // safe-flatten case, assigning null is interpreted as "erase the parent": we
+                    // wrap a non-null value in a new parent, and set the parent to null otherwise.
                     var hasValueGuard = Value.Property(nameof(Nullable<int>.HasValue));
                     var unwrappedValue = Value.Property(nameof(Nullable<int>.Value));
                     setter.Add(internalPropertyExpression.Assign(new TernaryConditionalExpression(hasValueGuard, New.Instance(innerModel.Type!, unwrappedValue), Default)).Terminate());

@@ -84,11 +84,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new ZooProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ZooProperties();
+                    }
+                    Properties.RequiredInt = value.Value;
                 }
-                Properties.RequiredInt = value.GetValueOrDefault();
             }
         }
 
@@ -102,11 +105,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new ZooProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ZooProperties();
+                    }
+                    Properties.RequiredFixedEnum = value.Value;
                 }
-                Properties.RequiredFixedEnum = value.GetValueOrDefault();
             }
         }
 
@@ -120,11 +126,14 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new ZooProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new ZooProperties();
+                    }
+                    Properties.RequiredExtensibleEnum = value.Value;
                 }
-                Properties.RequiredExtensibleEnum = value.GetValueOrDefault();
             }
         }
 
