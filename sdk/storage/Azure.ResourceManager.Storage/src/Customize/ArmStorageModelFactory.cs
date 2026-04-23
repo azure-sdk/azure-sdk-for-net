@@ -375,5 +375,14 @@ namespace Azure.ResourceManager.Storage.Models
         {
             return StorageAccountCreateOrUpdateContent(sku: sku, kind: kind, location: location, extendedLocation: extendedLocation, zones: zones, zonePlacementPolicy: zonePlacementPolicy, tags: tags, identity: identity, allowedCopyScope: allowedCopyScope, publicNetworkAccess: publicNetworkAccess, sasPolicy: sasPolicy, customDomain: customDomain, encryption: encryption, networkRuleSet: networkRuleSet, accessTier: accessTier, azureFilesIdentityBasedAuthentication: azureFilesIdentityBasedAuthentication, enableHttpsTrafficOnly: enableHttpsTrafficOnly, isSftpEnabled: isSftpEnabled, isLocalUserEnabled: isLocalUserEnabled, isExtendedGroupEnabled: isExtendedGroupEnabled, isHnsEnabled: isHnsEnabled, largeFileSharesState: largeFileSharesState, routingPreference: routingPreference, allowBlobPublicAccess: allowBlobPublicAccess, minimumTlsVersion: minimumTlsVersion, allowSharedKeyAccess: allowSharedKeyAccess, isNfsV3Enabled: isNfsV3Enabled, allowCrossTenantReplication: allowCrossTenantReplication, isDefaultToOAuthAuthentication: isDefaultToOAuthAuthentication, immutableStorageWithVersioning: immutableStorageWithVersioning, dnsEndpointType: dnsEndpointType, keyExpirationPeriodInDays: keyExpirationPeriodInDays, isIPv6EndpointToBePublished: isIPv6EndpointToBePublished, isBlobEnabled: default);
         }
+
+        // Backward-compat: pre-overhaul targetSkuName was StorageSkuName? (nullable).
+        // The mgmt generator's flatten/lift-to-nullable overhaul now exposes it as non-nullable StorageSkuName.
+        /// <summary> Initializes a new instance of <see cref="Storage.StorageAccountMigrationData"/>. </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static StorageAccountMigrationData StorageAccountMigrationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, StorageSkuName? targetSkuName, StorageAccountMigrationStatus? migrationStatus, string migrationFailedReason, string migrationFailedDetailedReason, string name0)
+        {
+            return StorageAccountMigrationData(id, name, resourceType, systemData, targetSkuName.GetValueOrDefault(), migrationStatus, migrationFailedReason, migrationFailedDetailedReason, name0);
+        }
     }
 }

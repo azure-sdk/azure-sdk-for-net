@@ -12,9 +12,7 @@ namespace Azure.ResourceManager.ArtifactSigning
         /// <summary>
         /// Profile type of the certificate.
         /// </summary>
-        /// <remarks>
-        /// Backward-compatibility shim. Use <see cref="CertificateProfileType"/> instead.
-        /// </remarks>
+        // Backward-compatibility shim. Use CertificateProfileType instead.
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("This property is obsolete and will be removed in a future release. Use CertificateProfileType instead.")]
         public CertificateProfileType ProfileType

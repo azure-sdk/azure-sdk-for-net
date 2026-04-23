@@ -3,6 +3,8 @@
 
 #nullable disable
 
+using System;
+using System.ComponentModel;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.ServiceFabricManagedClusters.Models;
@@ -25,6 +27,24 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         {
             Properties = new ManagedClusterProperties();
             Sku = sku;
+        }
+
+        /// <summary>
+        /// [Obsolete] Backward-compatibility shim. Use <see cref="SkuKind"/> instead.
+        /// The underlying property is now non-nullable; setting <c>null</c> is a no-op (existing value preserved).
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("This property has been renamed to SkuKind.")]
+        public ServiceFabricManagedClustersSkuName? SkuName
+        {
+            get => SkuKind;
+            set
+            {
+                if (value.HasValue)
+                {
+                    SkuKind = value.Value;
+                }
+            }
         }
     }
 }

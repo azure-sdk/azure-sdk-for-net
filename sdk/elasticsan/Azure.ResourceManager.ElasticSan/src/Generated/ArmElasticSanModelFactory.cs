@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// <param name="publicNetworkAccess"> Allow or disallow public network access to ElasticSan. Value is optional but if passed in, must be 'Enabled' or 'Disabled'. </param>
         /// <param name="scaleUpProperties"> Scale up settings on Elastic San Appliance. </param>
         /// <returns> A new <see cref="ElasticSan.ElasticSanData"/> instance for mocking. </returns>
-        public static ElasticSanData ElasticSanData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, ElasticSanSku sku = default, IEnumerable<string> availabilityZones = default, ElasticSanProvisioningState? provisioningState = default, long? baseSizeTiB = default, long? extendedCapacitySizeTiB = default, long? totalVolumeSizeGiB = default, long? volumeGroupCount = default, long? totalIops = default, long? totalMbps = default, long? totalSizeTiB = default, IEnumerable<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = default, ElasticSanPublicNetworkAccess? publicNetworkAccess = default, ElasticSanScaleUpProperties scaleUpProperties = default)
+        public static ElasticSanData ElasticSanData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, ElasticSanSku sku = default, IEnumerable<string> availabilityZones = default, ElasticSanProvisioningState? provisioningState = default, long baseSizeTiB = default, long extendedCapacitySizeTiB = default, long? totalVolumeSizeGiB = default, long? volumeGroupCount = default, long? totalIops = default, long? totalMbps = default, long? totalSizeTiB = default, IEnumerable<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = default, ElasticSanPublicNetworkAccess? publicNetworkAccess = default, ElasticSanScaleUpProperties scaleUpProperties = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -52,12 +52,12 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                sku is null && availabilityZones is null && provisioningState is null && baseSizeTiB is null && extendedCapacitySizeTiB is null && totalVolumeSizeGiB is null && volumeGroupCount is null && totalIops is null && totalMbps is null && totalSizeTiB is null && privateEndpointConnections is null && publicNetworkAccess is null && scaleUpProperties is null ? default : new ElasticSanProperties(
+                new ElasticSanProperties(
                     sku,
                     (availabilityZones ?? new ChangeTrackingList<string>()).ToList(),
                     provisioningState,
-                    baseSizeTiB.Value,
-                    extendedCapacitySizeTiB.Value,
+                    baseSizeTiB,
+                    extendedCapacitySizeTiB,
                     totalVolumeSizeGiB,
                     volumeGroupCount,
                     totalIops,

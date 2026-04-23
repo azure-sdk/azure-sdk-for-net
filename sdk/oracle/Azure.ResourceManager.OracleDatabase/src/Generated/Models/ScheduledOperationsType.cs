@@ -37,18 +37,5 @@ namespace Azure.ResourceManager.OracleDatabase.Models
 
         /// <summary> auto stop time. value must be of ISO-8601 format HH:mm. </summary>
         public DateTimeOffset? AutoStopOn { get; set; }
-
-        /// <summary> Name of the day of the week. </summary>
-        public OracleDatabaseDayOfWeekName? DayOfWeekName
-        {
-            get
-            {
-                return DayOfWeek is null ? default : DayOfWeek.Name;
-            }
-            set
-            {
-                DayOfWeek = value.HasValue ? new OracleDatabaseDayOfWeek(value.Value) : default;
-            }
-        }
     }
 }

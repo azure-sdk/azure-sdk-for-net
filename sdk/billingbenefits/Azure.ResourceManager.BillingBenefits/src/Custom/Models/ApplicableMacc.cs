@@ -11,9 +11,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <summary>
         /// Represents type of the object being operated on. Possible values are primary or contributor.
         /// </summary>
-        /// <remarks>
-        /// Backward-compatibility shim. Use <see cref="BenefitEntityType"/> instead.
-        /// </remarks>
+        // Backward-compatibility shim. Use BenefitEntityType instead.
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("This property is obsolete and will be removed in a future release. Use BenefitEntityType instead.")]
         public MaccEntityType EntityType => BenefitEntityType.GetValueOrDefault();
