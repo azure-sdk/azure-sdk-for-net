@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         public DateTimeOffset? AutoStopOn { get; set; }
 
         /// <summary> Name of the day of the week. </summary>
-        public OracleDatabaseDayOfWeekName? DayOfWeekName
+        public OracleDatabaseDayOfWeekName DayOfWeekName
         {
             get
             {
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             }
             set
             {
-                DayOfWeek = value.HasValue ? new OracleDatabaseDayOfWeek(value.Value) : default;
+                DayOfWeek = new OracleDatabaseDayOfWeek(value);
             }
         }
     }

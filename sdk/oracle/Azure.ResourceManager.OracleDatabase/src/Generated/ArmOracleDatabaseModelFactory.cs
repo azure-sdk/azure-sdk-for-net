@@ -2375,7 +2375,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="subnetOcid"> Cluster subnet ocid. </param>
         /// <param name="shapeAttribute"> The type of Exascale storage used for Exadata VM cluster. </param>
         /// <returns> A new <see cref="Models.ExadbVmClusterProperties"/> instance for mocking. </returns>
-        public static ExadbVmClusterProperties ExadbVmClusterProperties(string ocid = default, string clusterName = default, string backupSubnetCidr = default, Uri nsgUri = default, OracleDatabaseProvisioningState? provisioningState = default, ExadbVmClusterLifecycleState? lifecycleState = default, ResourceIdentifier vnetId = default, ResourceIdentifier subnetId = default, DiagnosticCollectionConfig dataCollectionOptions = default, string displayName = default, string domain = default, int enabledEcpuCount = default, ResourceIdentifier exascaleDBStorageVaultId = default, string gridImageOcid = default, GridImageType? gridImageType = default, string giVersion = default, string hostname = default, OracleLicenseModel? licenseModel = default, int? memorySizeInGbs = default, int nodeCount = default, IEnumerable<CloudVmClusterNsgCidr> nsgCidrs = default, string zoneOcid = default, string privateZoneOcid = default, int? scanListenerPortTcp = default, int? scanListenerPortTcpSsl = default, int? listenerPort = default, string shape = default, IEnumerable<string> sshPublicKeys = default, string systemVersion = default, string timeZone = default, int totalEcpuCount = default, int? vmFileSystemStorageTotalSizeInGbs = default, string lifecycleDetails = default, string scanDnsName = default, IEnumerable<string> scanIPIds = default, string scanDnsRecordId = default, int? snapshotFileSystemStorageTotalSizeInGbs = default, int? totalSizeInGbs = default, IEnumerable<string> vipIds = default, Uri ociUri = default, ExadataIormConfig iormConfigCache = default, string backupSubnetOcid = default, string subnetOcid = default, ExascaleStorageShapeAttribute? shapeAttribute = default)
+        public static ExadbVmClusterProperties ExadbVmClusterProperties(string ocid = default, string clusterName = default, string backupSubnetCidr = default, Uri nsgUri = default, OracleDatabaseProvisioningState? provisioningState = default, ExadbVmClusterLifecycleState? lifecycleState = default, ResourceIdentifier vnetId = default, ResourceIdentifier subnetId = default, DiagnosticCollectionConfig dataCollectionOptions = default, string displayName = default, string domain = default, int enabledEcpuCount = default, ResourceIdentifier exascaleDBStorageVaultId = default, string gridImageOcid = default, GridImageType? gridImageType = default, string giVersion = default, string hostname = default, OracleLicenseModel? licenseModel = default, int? memorySizeInGbs = default, int nodeCount = default, IEnumerable<CloudVmClusterNsgCidr> nsgCidrs = default, string zoneOcid = default, string privateZoneOcid = default, int? scanListenerPortTcp = default, int? scanListenerPortTcpSsl = default, int? listenerPort = default, string shape = default, IEnumerable<string> sshPublicKeys = default, string systemVersion = default, string timeZone = default, int totalEcpuCount = default, int vmFileSystemStorageTotalSizeInGbs = default, string lifecycleDetails = default, string scanDnsName = default, IEnumerable<string> scanIPIds = default, string scanDnsRecordId = default, int? snapshotFileSystemStorageTotalSizeInGbs = default, int? totalSizeInGbs = default, IEnumerable<string> vipIds = default, Uri ociUri = default, ExadataIormConfig iormConfigCache = default, string backupSubnetOcid = default, string subnetOcid = default, ExascaleStorageShapeAttribute? shapeAttribute = default)
         {
             nsgCidrs ??= new ChangeTrackingList<CloudVmClusterNsgCidr>();
             sshPublicKeys ??= new ChangeTrackingList<string>();
@@ -2414,13 +2414,13 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 systemVersion,
                 timeZone,
                 totalEcpuCount,
-                vmFileSystemStorageTotalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(vmFileSystemStorageTotalSizeInGbs.Value, null),
+                new ExadbVmClusterStorageDetails(vmFileSystemStorageTotalSizeInGbs, null),
                 lifecycleDetails,
                 scanDnsName,
                 scanIPIds.ToList(),
                 scanDnsRecordId,
-                snapshotFileSystemStorageTotalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(snapshotFileSystemStorageTotalSizeInGbs.Value, null),
-                totalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(totalSizeInGbs.Value, null),
+                snapshotFileSystemStorageTotalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(snapshotFileSystemStorageTotalSizeInGbs.GetValueOrDefault(), null),
+                totalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(totalSizeInGbs.GetValueOrDefault(), null),
                 vipIds.ToList(),
                 ociUri,
                 iormConfigCache,
@@ -2562,7 +2562,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         /// <param name="exadataInfrastructureId"> Cloud Exadata infrastructure ID. </param>
         /// <param name="attachedShapeAttributes"> The shapeAttribute of the Exadata VM cluster(s) associated with the Exadata Database Storage Vault. </param>
         /// <returns> A new <see cref="Models.ExascaleDBStorageVaultProperties"/> instance for mocking. </returns>
-        public static ExascaleDBStorageVaultProperties ExascaleDBStorageVaultProperties(int? additionalFlashCacheInPercent = default, string description = default, string displayName = default, int? highCapacityDatabaseStorageInputTotalSizeInGbs = default, ExascaleDBStorageDetails highCapacityDatabaseStorage = default, string timeZone = default, OracleDatabaseProvisioningState? provisioningState = default, ExascaleDBStorageVaultLifecycleState? lifecycleState = default, string lifecycleDetails = default, int? vmClusterCount = default, string ocid = default, Uri ociUri = default, ResourceIdentifier exadataInfrastructureId = default, IEnumerable<ExascaleStorageShapeAttribute> attachedShapeAttributes = default)
+        public static ExascaleDBStorageVaultProperties ExascaleDBStorageVaultProperties(int? additionalFlashCacheInPercent = default, string description = default, string displayName = default, int highCapacityDatabaseStorageInputTotalSizeInGbs = default, ExascaleDBStorageDetails highCapacityDatabaseStorage = default, string timeZone = default, OracleDatabaseProvisioningState? provisioningState = default, ExascaleDBStorageVaultLifecycleState? lifecycleState = default, string lifecycleDetails = default, int? vmClusterCount = default, string ocid = default, Uri ociUri = default, ResourceIdentifier exadataInfrastructureId = default, IEnumerable<ExascaleStorageShapeAttribute> attachedShapeAttributes = default)
         {
             attachedShapeAttributes ??= new ChangeTrackingList<ExascaleStorageShapeAttribute>();
 
@@ -2570,7 +2570,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 additionalFlashCacheInPercent,
                 description,
                 displayName,
-                highCapacityDatabaseStorageInputTotalSizeInGbs is null ? default : new ExascaleDBStorageInputDetails(highCapacityDatabaseStorageInputTotalSizeInGbs.Value, null),
+                new ExascaleDBStorageInputDetails(highCapacityDatabaseStorageInputTotalSizeInGbs, null),
                 highCapacityDatabaseStorage,
                 timeZone,
                 provisioningState,

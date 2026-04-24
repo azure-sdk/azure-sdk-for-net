@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         public IReadOnlyList<ExascaleStorageShapeAttribute> AttachedShapeAttributes { get; }
 
         /// <summary> Total Capacity. </summary>
-        public int? HighCapacityDatabaseStorageInputTotalSizeInGbs
+        public int HighCapacityDatabaseStorageInputTotalSizeInGbs
         {
             get
             {
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             }
             set
             {
-                HighCapacityDatabaseStorageInput = value.HasValue ? new ExascaleDBStorageInputDetails(value.Value) : default;
+                HighCapacityDatabaseStorageInput = new ExascaleDBStorageInputDetails(value);
             }
         }
     }
