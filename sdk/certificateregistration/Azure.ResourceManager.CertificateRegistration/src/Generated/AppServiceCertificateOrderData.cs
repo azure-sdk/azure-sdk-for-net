@@ -122,11 +122,11 @@ namespace Azure.ResourceManager.CertificateRegistration
         }
 
         /// <summary> Certificate product type. </summary>
-        public CertificateProductType? ProductType
+        public CertificateProductType? CertificateProductType
         {
             get
             {
-                return Properties is null ? default : Properties.ProductType;
+                return Properties is null ? default : Properties.CertificateProductType;
             }
             set
             {
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.CertificateRegistration
                     {
                         Properties = new AppServiceCertificateOrderProperties();
                     }
-                    Properties.ProductType = value.Value;
+                    Properties.CertificateProductType = value.Value;
                 }
             }
         }

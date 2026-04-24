@@ -113,11 +113,11 @@ namespace Azure.ResourceManager.CertificateRegistration.Models
         }
 
         /// <summary> Certificate product type. </summary>
-        public CertificateProductType? ProductType
+        public CertificateProductType? CertificateProductType
         {
             get
             {
-                return Properties is null ? default : Properties.ProductType;
+                return Properties is null ? default : Properties.CertificateProductType;
             }
         }
 

@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
                 throw new FormatException($"The model {nameof(MongoClusterEntraIdentityProviderProperties)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("principalType"u8);
-            writer.WriteStringValue(PrincipalType.ToString());
+            writer.WriteStringValue(PrincipalKind.ToString());
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -123,13 +123,13 @@ namespace Azure.ResourceManager.MongoCluster.Models
             {
                 return null;
             }
-            MongoClusterEntraPrincipalType principalType = default;
+            MongoClusterEntraPrincipalType principalKind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("principalType"u8))
                 {
-                    principalType = new MongoClusterEntraPrincipalType(prop.Value.GetString());
+                    principalKind = new MongoClusterEntraPrincipalType(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new MongoClusterEntraIdentityProviderProperties(principalType, additionalBinaryDataProperties);
+            return new MongoClusterEntraIdentityProviderProperties(principalKind, additionalBinaryDataProperties);
         }
     }
 }

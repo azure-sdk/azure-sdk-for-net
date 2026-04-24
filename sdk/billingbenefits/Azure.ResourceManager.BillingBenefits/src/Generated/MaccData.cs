@@ -100,11 +100,11 @@ namespace Azure.ResourceManager.BillingBenefits
         }
 
         /// <summary> Represents type of the object being operated on. Possible values are primary or contributor. </summary>
-        public MaccEntityType? EntityType
+        public MaccEntityType? BenefitEntityType
         {
             get
             {
-                return Properties is null ? default : Properties.EntityType;
+                return Properties is null ? default : Properties.BenefitEntityType;
             }
             set
             {
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.BillingBenefits
                     {
                         Properties = new MaccModelProperties();
                     }
-                    Properties.EntityType = value.Value;
+                    Properties.BenefitEntityType = value.Value;
                 }
             }
         }

@@ -126,6 +126,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 skipManagedNsgAssignment: skipManagedNsgAssignment,
                 maxUnusedVersionsToKeep: maxUnusedVersionsToKeep,
                 etag: etag,
-                skuKind: skuName.GetValueOrDefault());
+                skuName: skuName);
     }
 }

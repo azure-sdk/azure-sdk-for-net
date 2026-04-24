@@ -41,11 +41,11 @@ namespace Azure.ResourceManager.ArtifactSigning
         internal CertificateProfileProperties Properties { get; set; }
 
         /// <summary> Profile type of the certificate. </summary>
-        public CertificateProfileType? ProfileType
+        public CertificateProfileType? CertificateProfileType
         {
             get
             {
-                return Properties is null ? default : Properties.ProfileType;
+                return Properties is null ? default : Properties.CertificateProfileType;
             }
             set
             {
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.ArtifactSigning
                     {
                         Properties = new CertificateProfileProperties();
                     }
-                    Properties.ProfileType = value.Value;
+                    Properties.CertificateProfileType = value.Value;
                 }
             }
         }

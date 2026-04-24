@@ -9,14 +9,14 @@ namespace Azure.ResourceManager.LambdaTestHyperExecute.Models
     public partial class LambdaTestHyperExecuteOfferPartnerProperties
     {
         /// <summary>
-        /// [Obsolete] Backward-compatibility shim. Use <see cref="LicensesCount"/> instead.
+        /// [Obsolete] Backward-compatibility shim. Use <see cref="SubscribedLicensesCount"/> instead.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property has been renamed to LicensesCount.")]
+        [Obsolete("This property has been renamed to SubscribedLicensesCount.")]
         public int LicensesSubscribed
         {
-            get => LicensesCount;
-            set => LicensesCount = value;
+            get => SubscribedLicensesCount;
+            set => SubscribedLicensesCount = value;
         }
     }
 }

@@ -714,11 +714,11 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
         }
 
         /// <summary> Sku Name. </summary>
-        public ServiceFabricManagedClustersSkuName SkuName
+        public ServiceFabricManagedClustersSkuName SkuKind
         {
             get
             {
-                return Sku is null ? default : Sku.Name;
+                return Sku is null ? default : Sku.SkuKind;
             }
             set
             {
