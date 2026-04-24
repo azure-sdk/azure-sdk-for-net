@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>$(RequiredTargetFrameworks)</TargetFrameworks>
     <IncludeAutorestDependency>true</IncludeAutorestDependency>
+    <RootNamespace>Azure.Storage.Files.DataLake</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyTitle>Microsoft Azure.Storage.Files.DataLake.Internal client library</AssemblyTitle>
