@@ -245,7 +245,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         public ExascaleStorageShapeAttribute? ShapeAttribute { get; set; }
 
         /// <summary> Total Capacity. </summary>
-        public int? VmFileSystemStorageTotalSizeInGbs
+        public int VmFileSystemStorageTotalSizeInGbs
         {
             get
             {
@@ -253,7 +253,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             }
             set
             {
-                VmFileSystemStorage = value.HasValue ? new ExadbVmClusterStorageDetails(value.Value) : default;
+                VmFileSystemStorage = new ExadbVmClusterStorageDetails(value);
             }
         }
 
