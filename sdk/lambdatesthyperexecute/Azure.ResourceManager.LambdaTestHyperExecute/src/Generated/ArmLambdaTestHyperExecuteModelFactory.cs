@@ -51,13 +51,13 @@ namespace Azure.ResourceManager.LambdaTestHyperExecute.Models
         /// <param name="partnerLicensesSubscribed"> The number of licenses subscribed. </param>
         /// <param name="singleSignOnProperties"> Single sign-on properties. </param>
         /// <returns> A new <see cref="Models.LambdaTestHyperExecuteOrganizationProperties"/> instance for mocking. </returns>
-        public static LambdaTestHyperExecuteOrganizationProperties LambdaTestHyperExecuteOrganizationProperties(LambdaTestHyperExecuteMarketplaceDetails marketplace = default, LambdaTestHyperExecuteUserDetails user = default, LambdaTestHyperExecuteOfferProvisioningState? provisioningState = default, int? partnerLicensesSubscribed = default, LambdaTestHyperExecuteSingleSignOnPropertiesV2 singleSignOnProperties = default)
+        public static LambdaTestHyperExecuteOrganizationProperties LambdaTestHyperExecuteOrganizationProperties(LambdaTestHyperExecuteMarketplaceDetails marketplace = default, LambdaTestHyperExecuteUserDetails user = default, LambdaTestHyperExecuteOfferProvisioningState? provisioningState = default, int partnerLicensesSubscribed = default, LambdaTestHyperExecuteSingleSignOnPropertiesV2 singleSignOnProperties = default)
         {
             return new LambdaTestHyperExecuteOrganizationProperties(
                 marketplace,
                 user,
                 provisioningState,
-                partnerLicensesSubscribed is null ? default : new LambdaTestHyperExecuteOfferPartnerProperties(partnerLicensesSubscribed.Value, null),
+                new LambdaTestHyperExecuteOfferPartnerProperties(partnerLicensesSubscribed, null),
                 singleSignOnProperties,
                 additionalBinaryDataProperties: null);
         }
