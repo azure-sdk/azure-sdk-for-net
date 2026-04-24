@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanModelProperties();
                 }
-                Properties.Term = value;
+                Properties.Term = value.Value;
             }
         }
 
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanModelProperties();
                 }
-                Properties.BillingPlan = value;
+                Properties.BillingPlan = value.Value;
             }
         }
 
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanModelProperties();
                 }
-                Properties.AppliedScopeType = value;
+                Properties.AppliedScopeType = value.Value;
             }
         }
 
@@ -259,7 +259,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanModelProperties();
                 }
-                Properties.BenefitStartOn = value;
+                Properties.BenefitStartOn = value.Value;
             }
         }
 
@@ -285,7 +285,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanModelProperties();
                 }
-                Properties.IsRenewed = value;
+                Properties.IsRenewed = value.Value;
             }
         }
 

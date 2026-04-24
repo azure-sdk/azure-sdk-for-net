@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ApplicationGroupProperties();
                 }
-                Properties.ShowInFeed = value;
+                Properties.ShowInFeed = value.Value;
             }
         }
 

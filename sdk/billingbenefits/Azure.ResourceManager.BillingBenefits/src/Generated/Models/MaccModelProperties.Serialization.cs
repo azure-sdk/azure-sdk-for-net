@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 writer.WriteStringValue(Status.Value.ToString());
             }
             writer.WritePropertyName("entityType"u8);
-            writer.WriteStringValue(BenefitEntityType.ToString());
+            writer.WriteStringValue(EntityType.ToString());
             if (Optional.IsDefined(DisplayName))
             {
                 writer.WritePropertyName("displayName"u8);
@@ -216,7 +216,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             }
             string provisioningState = default;
             MaccStatus? status = default;
-            MaccEntityType benefitEntityType = default;
+            MaccEntityType entityType = default;
             string displayName = default;
             string productCode = default;
             ResourceIdentifier billingAccountResourceId = default;
@@ -251,7 +251,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 }
                 if (prop.NameEquals("entityType"u8))
                 {
-                    benefitEntityType = new MaccEntityType(prop.Value.GetString());
+                    entityType = new MaccEntityType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("displayName"u8))
@@ -390,7 +390,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             return new MaccModelProperties(
                 provisioningState,
                 status,
-                benefitEntityType,
+                entityType,
                 displayName,
                 productCode,
                 billingAccountResourceId,

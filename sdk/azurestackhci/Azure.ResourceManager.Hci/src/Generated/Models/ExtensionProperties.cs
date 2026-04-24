@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.Hci.Models
                 {
                     ExtensionParameters = new ExtensionParameters();
                 }
-                ExtensionParameters.ShouldAutoUpgradeMinorVersion = value;
+                ExtensionParameters.ShouldAutoUpgradeMinorVersion = value.Value;
             }
         }
 
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.Hci.Models
                 {
                     ExtensionParameters = new ExtensionParameters();
                 }
-                ExtensionParameters.EnableAutomaticUpgrade = value;
+                ExtensionParameters.EnableAutomaticUpgrade = value.Value;
             }
         }
     }

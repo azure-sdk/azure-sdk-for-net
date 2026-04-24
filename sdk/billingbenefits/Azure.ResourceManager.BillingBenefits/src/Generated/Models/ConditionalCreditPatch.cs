@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new ConditionalCreditPatchRequestProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new ConditionalCreditPatchRequestProperties();
                 }
-                Properties.AllowContributors = value;
+                Properties.AllowContributors = value.Value;
             }
         }
 

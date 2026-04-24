@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new ObjectReplicationPolicyProperties();
                 }
-                Properties.IsMetricsEnabled = value;
+                Properties.IsMetricsEnabled = value.Value;
             }
         }
 
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new ObjectReplicationPolicyProperties();
                 }
-                Properties.IsPriorityReplicationEnabled = value;
+                Properties.IsPriorityReplicationEnabled = value.Value;
             }
         }
     }

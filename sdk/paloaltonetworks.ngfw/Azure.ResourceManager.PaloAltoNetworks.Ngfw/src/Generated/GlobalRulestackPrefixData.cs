@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new PrefixObject();
                 }
-                Properties.ETag = value;
+                Properties.ETag = value.Value;
             }
         }
 

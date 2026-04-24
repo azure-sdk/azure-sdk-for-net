@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                 {
                     Properties = new SqlVirtualMachineGroupProperties();
                 }
-                Properties.SqlImageSku = value;
+                Properties.SqlImageSku = value.Value;
             }
         }
 

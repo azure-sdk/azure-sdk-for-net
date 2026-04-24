@@ -31,5 +31,8 @@ namespace Azure.ResourceManager.MongoCluster.Models
             PrincipalType = principalType;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
+
+        /// <summary> The principal type of the user. </summary>
+        public MongoClusterEntraPrincipalType PrincipalType { get; set; }
     }
 }

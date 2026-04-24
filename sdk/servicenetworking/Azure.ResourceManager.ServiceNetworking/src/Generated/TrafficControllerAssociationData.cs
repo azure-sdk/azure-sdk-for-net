@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.ServiceNetworking
                 {
                     Properties = new AssociationProperties();
                 }
-                Properties.AssociationType = value;
+                Properties.AssociationType = value.Value;
             }
         }
     }

@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Avs
                 {
                     Properties = new WorkloadNetworkPublicIPProperties();
                 }
-                Properties.NumberOfPublicIPs = value;
+                Properties.NumberOfPublicIPs = value.Value;
             }
         }
 

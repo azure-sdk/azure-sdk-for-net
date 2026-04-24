@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.PowerBIDedicated
                 {
                     Properties = new AutoScaleVCoreProperties();
                 }
-                Properties.CapacityLimit = value;
+                Properties.CapacityLimit = value.Value;
             }
         }
 

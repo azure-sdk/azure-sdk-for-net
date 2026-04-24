@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.Communication.Models
                 {
                     Properties = new UpdateDomainProperties();
                 }
-                Properties.UserEngagementTracking = value;
+                Properties.UserEngagementTracking = value.Value;
             }
         }
     }

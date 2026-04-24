@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Storage.Models
                 {
                     Properties = new ImmutabilityPolicyProperty();
                 }
-                Properties.ImmutabilityPeriodSinceCreationInDays = value;
+                Properties.ImmutabilityPeriodSinceCreationInDays = value.Value;
             }
         }
 
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.Storage.Models
                 {
                     Properties = new ImmutabilityPolicyProperty();
                 }
-                Properties.AllowProtectedAppendWrites = value;
+                Properties.AllowProtectedAppendWrites = value.Value;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.Storage.Models
                 {
                     Properties = new ImmutabilityPolicyProperty();
                 }
-                Properties.AllowProtectedAppendWritesAll = value;
+                Properties.AllowProtectedAppendWritesAll = value.Value;
             }
         }
     }

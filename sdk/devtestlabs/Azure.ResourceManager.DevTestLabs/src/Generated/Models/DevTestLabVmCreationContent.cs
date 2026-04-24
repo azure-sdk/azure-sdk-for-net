@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 {
                     Properties = new LabVirtualMachineCreationParameterProperties();
                 }
-                Properties.CreatedOn = value;
+                Properties.CreatedOn = value.Value;
             }
         }
 
@@ -217,7 +217,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 {
                     Properties = new LabVirtualMachineCreationParameterProperties();
                 }
-                Properties.IsAuthenticationWithSshKey = value;
+                Properties.IsAuthenticationWithSshKey = value.Value;
             }
         }
 
@@ -268,7 +268,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 {
                     Properties = new LabVirtualMachineCreationParameterProperties();
                 }
-                Properties.DisallowPublicIPAddress = value;
+                Properties.DisallowPublicIPAddress = value.Value;
             }
         }
 
@@ -349,7 +349,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 {
                     Properties = new LabVirtualMachineCreationParameterProperties();
                 }
-                Properties.ExpireOn = value;
+                Properties.ExpireOn = value.Value;
             }
         }
 
@@ -366,7 +366,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 {
                     Properties = new LabVirtualMachineCreationParameterProperties();
                 }
-                Properties.AllowClaim = value;
+                Properties.AllowClaim = value.Value;
             }
         }
 
@@ -443,7 +443,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 {
                     Properties = new LabVirtualMachineCreationParameterProperties();
                 }
-                Properties.BulkCreationParametersInstanceCount = value;
+                Properties.BulkCreationParametersInstanceCount = value.Value;
             }
         }
     }

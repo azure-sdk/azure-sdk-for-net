@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new ExportRunProperties();
                 }
-                Properties.ExecutionType = value;
+                Properties.ExecutionType = value.Value;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new ExportRunProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new ExportRunProperties();
                 }
-                Properties.SubmittedOn = value;
+                Properties.SubmittedOn = value.Value;
             }
         }
 
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new ExportRunProperties();
                 }
-                Properties.ProcessingStartOn = value;
+                Properties.ProcessingStartOn = value.Value;
             }
         }
 
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new ExportRunProperties();
                 }
-                Properties.ProcessingEndOn = value;
+                Properties.ProcessingEndOn = value.Value;
             }
         }
 
@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new ExportRunProperties();
                 }
-                Properties.StartOn = value;
+                Properties.StartOn = value.Value;
             }
         }
 
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new ExportRunProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 

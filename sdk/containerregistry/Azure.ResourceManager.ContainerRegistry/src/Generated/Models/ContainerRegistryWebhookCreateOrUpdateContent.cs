@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new WebhookPropertiesCreateParameters();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 

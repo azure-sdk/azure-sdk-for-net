@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 {
                     Properties = new VolumeUpdateProperties();
                 }
-                Properties.SizeGiB = value;
+                Properties.SizeGiB = value.Value;
             }
         }
 

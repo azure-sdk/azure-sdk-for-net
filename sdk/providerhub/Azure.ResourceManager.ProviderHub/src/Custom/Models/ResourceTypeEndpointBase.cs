@@ -77,10 +77,5 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 additionalBinaryDataProperties: null)
         {
         }
-
-        // Backward-compat: the mgmt generator's flatten/lift-to-nullable overhaul changed this getter
-        // from FeaturesPolicy? to FeaturesPolicy. Restore the nullable return type for ApiCompat.
-        /// <summary> The required feature policy. </summary>
-        public FeaturesPolicy? RequiredFeaturesPolicy => FeaturesRule?.RequiredFeaturesPolicy;
     }
 }

@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new RegisteredServerUpdateProperties();
                 }
-                Properties.UseIdentity = value;
+                Properties.UseIdentity = value.Value;
             }
         }
 
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new RegisteredServerUpdateProperties();
                 }
-                Properties.ApplicationId = value;
+                Properties.ApplicationId = value.Value;
             }
         }
     }

@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new RulestackProperties();
                 }
-                Properties.PanETag = value;
+                Properties.PanETag = value.Value;
             }
         }
 
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new RulestackProperties();
                 }
-                Properties.PanLocation = value;
+                Properties.PanLocation = value.Value;
             }
         }
 
@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new RulestackProperties();
                 }
-                Properties.Scope = value;
+                Properties.Scope = value.Value;
             }
         }
 
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new RulestackProperties();
                 }
-                Properties.DefaultMode = value;
+                Properties.DefaultMode = value.Value;
             }
         }
 

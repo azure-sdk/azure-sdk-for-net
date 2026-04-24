@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Sphere.Models
                 {
                     Properties = new DeviceGroupUpdateProperties();
                 }
-                Properties.OSFeedType = value;
+                Properties.OSFeedType = value.Value;
             }
         }
 
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.Sphere.Models
                 {
                     Properties = new DeviceGroupUpdateProperties();
                 }
-                Properties.UpdatePolicy = value;
+                Properties.UpdatePolicy = value.Value;
             }
         }
 
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.Sphere.Models
                 {
                     Properties = new DeviceGroupUpdateProperties();
                 }
-                Properties.AllowCrashDumpsCollection = value;
+                Properties.AllowCrashDumpsCollection = value.Value;
             }
         }
 
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.Sphere.Models
                 {
                     Properties = new DeviceGroupUpdateProperties();
                 }
-                Properties.RegionalDataBoundary = value;
+                Properties.RegionalDataBoundary = value.Value;
             }
         }
     }

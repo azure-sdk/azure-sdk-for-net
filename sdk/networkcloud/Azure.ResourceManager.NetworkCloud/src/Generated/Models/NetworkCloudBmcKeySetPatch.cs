@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.NetworkCloud.Models
                 {
                     Properties = new BmcKeySetPatchProperties();
                 }
-                Properties.ExpireOn = value;
+                Properties.ExpireOn = value.Value;
             }
         }
 

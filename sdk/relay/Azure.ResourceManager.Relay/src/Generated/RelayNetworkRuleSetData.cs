@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new NetworkRuleSetProperties();
                 }
-                Properties.TrustedServiceAccessEnabled = value;
+                Properties.TrustedServiceAccessEnabled = value.Value;
             }
         }
 
@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new NetworkRuleSetProperties();
                 }
-                Properties.DefaultAction = value;
+                Properties.DefaultAction = value.Value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new NetworkRuleSetProperties();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
 

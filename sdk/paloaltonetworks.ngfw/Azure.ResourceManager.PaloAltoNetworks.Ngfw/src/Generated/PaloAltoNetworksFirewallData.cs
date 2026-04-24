@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new FirewallDeploymentProperties();
                 }
-                Properties.PanETag = value;
+                Properties.PanETag = value.Value;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new FirewallDeploymentProperties();
                 }
-                Properties.IsPanoramaManaged = value;
+                Properties.IsPanoramaManaged = value.Value;
             }
         }
 
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new FirewallDeploymentProperties();
                 }
-                Properties.IsStrataCloudManaged = value;
+                Properties.IsStrataCloudManaged = value.Value;
             }
         }
 

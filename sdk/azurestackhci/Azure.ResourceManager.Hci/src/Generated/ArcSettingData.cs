@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ArcSettingProperties();
                 }
-                Properties.ArcApplicationClientId = value;
+                Properties.ArcApplicationClientId = value.Value;
             }
         }
 
@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ArcSettingProperties();
                 }
-                Properties.ArcApplicationTenantId = value;
+                Properties.ArcApplicationTenantId = value.Value;
             }
         }
 
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ArcSettingProperties();
                 }
-                Properties.ArcServicePrincipalObjectId = value;
+                Properties.ArcServicePrincipalObjectId = value.Value;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ArcSettingProperties();
                 }
-                Properties.ArcApplicationObjectId = value;
+                Properties.ArcApplicationObjectId = value.Value;
             }
         }
 

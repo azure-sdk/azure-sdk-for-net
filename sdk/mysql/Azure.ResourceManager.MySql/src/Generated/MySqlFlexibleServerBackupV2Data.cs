@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerBackupPropertiesV2();
                 }
-                Properties.BackupType = value;
+                Properties.BackupType = value.Value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerBackupPropertiesV2();
                 }
-                Properties.CompletedOn = value;
+                Properties.CompletedOn = value.Value;
             }
         }
 

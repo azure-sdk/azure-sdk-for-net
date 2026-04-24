@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new StorageSyncServiceProperties();
                 }
-                Properties.IncomingTrafficPolicy = value;
+                Properties.IncomingTrafficPolicy = value.Value;
             }
         }
 

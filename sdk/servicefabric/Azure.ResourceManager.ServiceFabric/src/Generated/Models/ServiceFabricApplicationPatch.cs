@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ApplicationResourceUpdateProperties();
                 }
-                Properties.MinimumNodes = value;
+                Properties.MinimumNodes = value.Value;
             }
         }
 
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ApplicationResourceUpdateProperties();
                 }
-                Properties.MaximumNodes = value;
+                Properties.MaximumNodes = value.Value;
             }
         }
 
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ApplicationResourceUpdateProperties();
                 }
-                Properties.RemoveApplicationCapacity = value;
+                Properties.RemoveApplicationCapacity = value.Value;
             }
         }
 

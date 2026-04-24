@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.DomainRegistration
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.IsDomainPrivacyEnabled = value;
+                Properties.IsDomainPrivacyEnabled = value.Value;
             }
         }
 
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.DomainRegistration
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.IsAutoRenew = value;
+                Properties.IsAutoRenew = value.Value;
             }
         }
 
@@ -273,7 +273,7 @@ namespace Azure.ResourceManager.DomainRegistration
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.DnsType = value;
+                Properties.DnsType = value.Value;
             }
         }
 
@@ -307,7 +307,7 @@ namespace Azure.ResourceManager.DomainRegistration
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.TargetDnsType = value;
+                Properties.TargetDnsType = value.Value;
             }
         }
 

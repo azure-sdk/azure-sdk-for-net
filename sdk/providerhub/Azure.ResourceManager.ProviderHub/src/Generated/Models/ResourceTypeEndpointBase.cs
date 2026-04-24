@@ -82,5 +82,14 @@ namespace Azure.ResourceManager.ProviderHub.Models
 
         /// <summary> The zones. </summary>
         public IList<string> Zones { get; }
+
+        /// <summary> The required feature policy. </summary>
+        public FeaturesPolicy? RequiredFeaturesPolicy
+        {
+            get
+            {
+                return FeaturesRule.RequiredFeaturesPolicy;
+            }
+        }
     }
 }

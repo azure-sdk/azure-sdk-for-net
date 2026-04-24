@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.Storage.Models
                     createdOn,
                     customDomain,
                     sasPolicy,
-                    new KeyPolicy(keyExpirationPeriodInDays.GetValueOrDefault(), null),
+                    new KeyPolicy(keyExpirationPeriodInDays.Value, null),
                     keyCreationTime,
                     secondaryEndpoints,
                     encryption,
@@ -549,7 +549,7 @@ namespace Azure.ResourceManager.Storage.Models
                     customDomain,
                     encryption,
                     sasPolicy,
-                    new KeyPolicy(keyExpirationPeriodInDays.GetValueOrDefault(), null),
+                    new KeyPolicy(keyExpirationPeriodInDays.Value, null),
                     accessTier,
                     azureFilesIdentityBasedAuthentication,
                     enableHttpsTrafficOnly,
@@ -700,7 +700,7 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="migrationFailedDetailedReason"> Reason for migration failure. </param>
         /// <param name="name0"> The name of the Storage Account Migration. It should always be 'default'. </param>
         /// <returns> A new <see cref="Storage.StorageAccountMigrationData"/> instance for mocking. </returns>
-        public static StorageAccountMigrationData StorageAccountMigrationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, StorageSkuName targetSkuName = default, StorageAccountMigrationStatus? migrationStatus = default, string migrationFailedReason = default, string migrationFailedDetailedReason = default, string name0 = default)
+        public static StorageAccountMigrationData StorageAccountMigrationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, StorageSkuName? targetSkuName = default, StorageAccountMigrationStatus? migrationStatus = default, string migrationFailedReason = default, string migrationFailedDetailedReason = default, string name0 = default)
         {
             return new StorageAccountMigrationData(
                 id,
@@ -708,7 +708,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new StorageAccountMigrationProperties(targetSkuName, migrationStatus, migrationFailedReason, migrationFailedDetailedReason, null),
+                targetSkuName is null && migrationStatus is null && migrationFailedReason is null && migrationFailedDetailedReason is null ? default : new StorageAccountMigrationProperties(targetSkuName.Value, migrationStatus, migrationFailedReason, migrationFailedDetailedReason, null),
                 name);
         }
 

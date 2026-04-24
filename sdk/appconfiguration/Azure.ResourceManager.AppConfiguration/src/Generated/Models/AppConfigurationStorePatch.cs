@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 {
                     Properties = new ConfigurationStorePropertiesUpdateParameters();
                 }
-                Properties.DisableLocalAuth = value;
+                Properties.DisableLocalAuth = value.Value;
             }
         }
 
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 {
                     Properties = new ConfigurationStorePropertiesUpdateParameters();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
 
@@ -106,7 +106,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 {
                     Properties = new ConfigurationStorePropertiesUpdateParameters();
                 }
-                Properties.EnablePurgeProtection = value;
+                Properties.EnablePurgeProtection = value.Value;
             }
         }
 
@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 {
                     Properties = new ConfigurationStorePropertiesUpdateParameters();
                 }
-                Properties.DefaultKeyValueRevisionRetentionPeriodInSeconds = value;
+                Properties.DefaultKeyValueRevisionRetentionPeriodInSeconds = value.Value;
             }
         }
 

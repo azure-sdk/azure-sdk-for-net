@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new TrunkedNetworkProperties();
                 }
-                Properties.HybridAksPluginType = value;
+                Properties.HybridAksPluginType = value.Value;
             }
         }
 

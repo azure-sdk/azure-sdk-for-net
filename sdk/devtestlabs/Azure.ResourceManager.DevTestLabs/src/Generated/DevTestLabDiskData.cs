@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new DiskProperties();
                 }
-                Properties.DiskType = value;
+                Properties.DiskType = value.Value;
             }
         }
 
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new DiskProperties();
                 }
-                Properties.DiskSizeGiB = value;
+                Properties.DiskSizeGiB = value.Value;
             }
         }
 

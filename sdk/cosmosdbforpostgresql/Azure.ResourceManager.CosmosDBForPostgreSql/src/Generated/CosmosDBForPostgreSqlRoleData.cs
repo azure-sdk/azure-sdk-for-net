@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql
                 {
                     Properties = new RoleProperties();
                 }
-                Properties.RoleType = value;
+                Properties.RoleType = value.Value;
             }
         }
 
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql
         }
 
         /// <summary> Gets or sets the PrincipalType. </summary>
-        public PrincipalType? PrincipalType
+        public PrincipalType PrincipalType
         {
             get
             {

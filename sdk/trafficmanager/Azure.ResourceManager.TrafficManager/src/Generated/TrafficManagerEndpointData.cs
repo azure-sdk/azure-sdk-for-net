@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.EndpointStatus = value;
+                Properties.EndpointStatus = value.Value;
             }
         }
 
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.Weight = value;
+                Properties.Weight = value.Value;
             }
         }
 
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.Priority = value;
+                Properties.Priority = value.Value;
             }
         }
 
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.EndpointMonitorStatus = value;
+                Properties.EndpointMonitorStatus = value.Value;
             }
         }
 
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.MinChildEndpoints = value;
+                Properties.MinChildEndpoints = value.Value;
             }
         }
 
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.MinChildEndpointsIPv4 = value;
+                Properties.MinChildEndpointsIPv4 = value.Value;
             }
         }
 
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.MinChildEndpointsIPv6 = value;
+                Properties.MinChildEndpointsIPv6 = value.Value;
             }
         }
 
@@ -256,7 +256,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new EndpointProperties();
                 }
-                Properties.AlwaysServe = value;
+                Properties.AlwaysServe = value.Value;
             }
         }
     }

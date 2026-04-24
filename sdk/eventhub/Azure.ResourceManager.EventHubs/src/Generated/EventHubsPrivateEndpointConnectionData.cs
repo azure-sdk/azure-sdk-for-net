@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new PrivateEndpointConnectionProperties();
                 }
-                Properties.ProvisioningState = value;
+                Properties.ProvisioningState = value.Value;
             }
         }
 

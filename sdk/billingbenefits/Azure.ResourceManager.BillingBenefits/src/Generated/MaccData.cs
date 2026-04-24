@@ -95,27 +95,24 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new MaccModelProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
         /// <summary> Represents type of the object being operated on. Possible values are primary or contributor. </summary>
-        public MaccEntityType? BenefitEntityType
+        public MaccEntityType EntityType
         {
             get
             {
-                return Properties is null ? default : Properties.BenefitEntityType;
+                return Properties is null ? default : Properties.EntityType;
             }
             set
             {
-                if (value.HasValue)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new MaccModelProperties();
-                    }
-                    Properties.BenefitEntityType = value.Value;
+                    Properties = new MaccModelProperties();
                 }
+                Properties.EntityType = value;
             }
         }
 
@@ -200,7 +197,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new MaccModelProperties();
                 }
-                Properties.StartOn = value;
+                Properties.StartOn = value.Value;
             }
         }
 
@@ -217,7 +214,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new MaccModelProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 
@@ -251,7 +248,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new MaccModelProperties();
                 }
-                Properties.AutomaticShortfall = value;
+                Properties.AutomaticShortfall = value.Value;
             }
         }
 
@@ -332,7 +329,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new MaccModelProperties();
                 }
-                Properties.IsAllowContributors = value;
+                Properties.IsAllowContributors = value.Value;
             }
         }
 

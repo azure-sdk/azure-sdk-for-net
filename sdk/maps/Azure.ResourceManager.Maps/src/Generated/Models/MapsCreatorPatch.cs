@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.Maps.Models
                 {
                     Properties = new MapsCreatorProperties();
                 }
-                Properties.TotalStorageUnitSizeInBytes = value;
+                Properties.TotalStorageUnitSizeInBytes = value.Value;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Maps.Models
                 {
                     Properties = new MapsCreatorProperties();
                 }
-                Properties.ConsumedStorageUnitSizeInBytes = value;
+                Properties.ConsumedStorageUnitSizeInBytes = value.Value;
             }
         }
     }

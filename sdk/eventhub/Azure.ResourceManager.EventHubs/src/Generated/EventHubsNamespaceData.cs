@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new EHNamespaceProperties();
                 }
-                Properties.MinimumTlsVersion = value;
+                Properties.MinimumTlsVersion = value.Value;
             }
         }
 
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new EHNamespaceProperties();
                 }
-                Properties.IsAutoInflateEnabled = value;
+                Properties.IsAutoInflateEnabled = value.Value;
             }
         }
 
@@ -184,7 +184,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new EHNamespaceProperties();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
 
@@ -202,7 +202,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new EHNamespaceProperties();
                 }
-                Properties.MaximumThroughputUnits = value;
+                Properties.MaximumThroughputUnits = value.Value;
             }
         }
 
@@ -220,7 +220,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new EHNamespaceProperties();
                 }
-                Properties.KafkaEnabled = value;
+                Properties.KafkaEnabled = value.Value;
             }
         }
 
@@ -238,7 +238,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new EHNamespaceProperties();
                 }
-                Properties.ZoneRedundant = value;
+                Properties.ZoneRedundant = value.Value;
             }
         }
 
@@ -288,7 +288,7 @@ namespace Azure.ResourceManager.EventHubs
                 {
                     Properties = new EHNamespaceProperties();
                 }
-                Properties.DisableLocalAuth = value;
+                Properties.DisableLocalAuth = value.Value;
             }
         }
 

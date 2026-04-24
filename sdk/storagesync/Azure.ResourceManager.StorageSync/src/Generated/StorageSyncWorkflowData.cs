@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new WorkflowProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new WorkflowProperties();
                 }
-                Properties.Operation = value;
+                Properties.Operation = value.Value;
             }
         }
 
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new WorkflowProperties();
                 }
-                Properties.LastOperationId = value;
+                Properties.LastOperationId = value.Value;
             }
         }
 

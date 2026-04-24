@@ -31,14 +31,5 @@ namespace Azure.ResourceManager.ElasticSan.Models
         {
             return ElasticSanVolumeGroupData(id, name, resourceType, systemData, identity, provisioningState, protocolType, encryption, encryptionProperties, virtualNetworkRules, privateEndpointConnections, enforceDataIntegrityCheckForIscsi: default);
         }
-
-        // Backward-compat: pre-overhaul signature had baseSizeTiB and extendedCapacitySizeTiB as long? (nullable).
-        // The mgmt generator's flatten/lift-to-nullable overhaul now exposes these as non-nullable long.
-        /// <summary> Initializes a new instance of <see cref="ElasticSan.ElasticSanData"/>. </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static ElasticSanData ElasticSanData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ElasticSanSku sku, IEnumerable<string> availabilityZones, ElasticSanProvisioningState? provisioningState, long? baseSizeTiB, long? extendedCapacitySizeTiB, long? totalVolumeSizeGiB, long? volumeGroupCount, long? totalIops, long? totalMbps, long? totalSizeTiB, IEnumerable<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections, ElasticSanPublicNetworkAccess? publicNetworkAccess, ElasticSanScaleUpProperties scaleUpProperties)
-        {
-            return ElasticSanData(id, name, resourceType, systemData, tags, location, sku, availabilityZones, provisioningState, baseSizeTiB.GetValueOrDefault(), extendedCapacitySizeTiB.GetValueOrDefault(), totalVolumeSizeGiB, volumeGroupCount, totalIops, totalMbps, totalSizeTiB, privateEndpointConnections, publicNetworkAccess, scaleUpProperties);
-        }
     }
 }

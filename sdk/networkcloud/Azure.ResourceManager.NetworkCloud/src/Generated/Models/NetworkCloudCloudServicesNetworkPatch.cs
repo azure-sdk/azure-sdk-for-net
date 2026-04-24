@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.NetworkCloud.Models
                 {
                     Properties = new CloudServicesNetworkPatchProperties();
                 }
-                Properties.EnableDefaultEgressEndpoints = value;
+                Properties.EnableDefaultEgressEndpoints = value.Value;
             }
         }
 

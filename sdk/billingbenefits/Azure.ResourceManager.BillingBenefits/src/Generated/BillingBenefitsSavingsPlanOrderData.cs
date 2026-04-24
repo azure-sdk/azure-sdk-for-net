@@ -129,7 +129,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanOrderModelProperties();
                 }
-                Properties.Term = value;
+                Properties.Term = value.Value;
             }
         }
 
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanOrderModelProperties();
                 }
-                Properties.BillingPlan = value;
+                Properties.BillingPlan = value.Value;
             }
         }
 
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanOrderModelProperties();
                 }
-                Properties.BenefitStartOn = value;
+                Properties.BenefitStartOn = value.Value;
             }
         }
 

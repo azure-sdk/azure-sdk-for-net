@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.EdgeOrder
                 {
                     Properties = new EdgeOrderItemAddressProperties();
                 }
-                Properties.AddressClassification = value;
+                Properties.AddressClassification = value.Value;
             }
         }
 

@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.ContainerService
                 {
                     Properties = new ManagedClusterLoadBalancerProperties();
                 }
-                Properties.IsServicePlacementAllowed = value;
+                Properties.IsServicePlacementAllowed = value.Value;
             }
         }
 

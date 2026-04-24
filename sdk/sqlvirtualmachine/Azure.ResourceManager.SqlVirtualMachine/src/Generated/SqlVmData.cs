@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                 {
                     Properties = new SqlVirtualMachineProperties();
                 }
-                Properties.SqlServerLicenseType = value;
+                Properties.SqlServerLicenseType = value.Value;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                 {
                     Properties = new SqlVirtualMachineProperties();
                 }
-                Properties.SqlManagement = value;
+                Properties.SqlManagement = value.Value;
             }
         }
 
@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                 {
                     Properties = new SqlVirtualMachineProperties();
                 }
-                Properties.LeastPrivilegeMode = value;
+                Properties.LeastPrivilegeMode = value.Value;
             }
         }
 
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                 {
                     Properties = new SqlVirtualMachineProperties();
                 }
-                Properties.SqlImageSku = value;
+                Properties.SqlImageSku = value.Value;
             }
         }
 
@@ -340,7 +340,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
                 {
                     Properties = new SqlVirtualMachineProperties();
                 }
-                Properties.EnableAutomaticUpgrade = value;
+                Properties.EnableAutomaticUpgrade = value.Value;
             }
         }
 

@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.HealthBot.Models
             return new HealthBotPatch(
                 properties,
                 tags,
-                skuName is null ? default : new HealthBotSku(skuName.GetValueOrDefault(), null),
+                skuName is null ? default : new HealthBotSku(skuName.Value, null),
                 identity,
                 location,
                 additionalBinaryDataProperties: null);

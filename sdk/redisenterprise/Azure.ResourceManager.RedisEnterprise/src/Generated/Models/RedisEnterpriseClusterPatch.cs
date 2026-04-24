@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new ClusterUpdateProperties();
                 }
-                Properties.HighAvailability = value;
+                Properties.HighAvailability = value.Value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new ClusterUpdateProperties();
                 }
-                Properties.MinimumTlsVersion = value;
+                Properties.MinimumTlsVersion = value.Value;
             }
         }
 
@@ -201,7 +201,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new ClusterUpdateProperties();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
     }

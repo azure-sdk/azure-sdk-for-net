@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ClusterProperties();
                 }
-                Properties.AadClientId = value;
+                Properties.AadClientId = value.Value;
             }
         }
 
@@ -156,7 +156,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ClusterProperties();
                 }
-                Properties.AadTenantId = value;
+                Properties.AadTenantId = value.Value;
             }
         }
 
@@ -174,7 +174,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ClusterProperties();
                 }
-                Properties.AadApplicationObjectId = value;
+                Properties.AadApplicationObjectId = value.Value;
             }
         }
 
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new ClusterProperties();
                 }
-                Properties.AadServicePrincipalObjectId = value;
+                Properties.AadServicePrincipalObjectId = value.Value;
             }
         }
 

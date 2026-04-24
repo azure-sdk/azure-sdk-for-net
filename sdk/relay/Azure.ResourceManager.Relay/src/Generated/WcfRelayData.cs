@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new WcfRelayProperties();
                 }
-                Properties.RelayType = value;
+                Properties.RelayType = value.Value;
             }
         }
 
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new WcfRelayProperties();
                 }
-                Properties.IsClientAuthorizationRequired = value;
+                Properties.IsClientAuthorizationRequired = value.Value;
             }
         }
 
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new WcfRelayProperties();
                 }
-                Properties.IsTransportSecurityRequired = value;
+                Properties.IsTransportSecurityRequired = value.Value;
             }
         }
 

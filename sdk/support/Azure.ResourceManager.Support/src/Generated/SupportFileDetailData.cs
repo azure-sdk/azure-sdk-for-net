@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.Support
                 {
                     Properties = new FileDetailsProperties();
                 }
-                Properties.ChunkSize = value;
+                Properties.ChunkSize = value.Value;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Support
                 {
                     Properties = new FileDetailsProperties();
                 }
-                Properties.FileSize = value;
+                Properties.FileSize = value.Value;
             }
         }
 
@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.Support
                 {
                     Properties = new FileDetailsProperties();
                 }
-                Properties.NumberOfChunks = value;
+                Properties.NumberOfChunks = value.Value;
             }
         }
     }

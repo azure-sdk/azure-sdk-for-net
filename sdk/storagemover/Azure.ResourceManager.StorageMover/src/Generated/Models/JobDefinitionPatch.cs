@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                 {
                     Properties = new JobDefinitionUpdateProperties();
                 }
-                Properties.CopyMode = value;
+                Properties.CopyMode = value.Value;
             }
         }
 
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                 {
                     Properties = new JobDefinitionUpdateProperties();
                 }
-                Properties.DataIntegrityValidation = value;
+                Properties.DataIntegrityValidation = value.Value;
             }
         }
 

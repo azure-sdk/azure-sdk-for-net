@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.Avs
                 {
                     Properties = new WorkloadNetworkDnsServiceProperties();
                 }
-                Properties.LogLevel = value;
+                Properties.LogLevel = value.Value;
             }
         }
 
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.Avs
                 {
                     Properties = new WorkloadNetworkDnsServiceProperties();
                 }
-                Properties.Revision = value;
+                Properties.Revision = value.Value;
             }
         }
     }

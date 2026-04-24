@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new AdvancedThreatProtectionProperties();
                 }
-                Properties.State = value;
+                Properties.State = value.Value;
             }
         }
 

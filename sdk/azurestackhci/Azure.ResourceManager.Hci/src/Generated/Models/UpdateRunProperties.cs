@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.Hci.Models
                 {
                     Progress = new HciUpdateStep();
                 }
-                Progress.StartOn = value;
+                Progress.StartOn = value.Value;
             }
         }
 
@@ -168,7 +168,7 @@ namespace Azure.ResourceManager.Hci.Models
                 {
                     Progress = new HciUpdateStep();
                 }
-                Progress.EndOn = value;
+                Progress.EndOn = value.Value;
             }
         }
 
@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.Hci.Models
                 {
                     Progress = new HciUpdateStep();
                 }
-                Progress.LastUpdatedOn = value;
+                Progress.LastUpdatedOn = value.Value;
             }
         }
 

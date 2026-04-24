@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Properties = new IncludedQuantityUtilizationSummaryProperties();
                 }
-                Properties.BenefitType = value;
+                Properties.BenefitType = value.Value;
             }
         }
 

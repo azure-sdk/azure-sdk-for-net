@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         }
 
         /// <summary> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </summary>
-        public ResourceType? ResourceType
+        public ResourceType ResourceType
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         }
 
         /// <summary> The geo-location where the resource lives. </summary>
-        public AzureLocation? Location
+        public AzureLocation Location
         {
             get
             {
@@ -91,14 +91,11 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             }
             set
             {
-                if (value.HasValue)
+                if (Properties is null)
                 {
-                    if (Properties is null)
-                    {
-                        Properties = new CreditData();
-                    }
-                    Properties.Location = value.Value;
+                    Properties = new CreditData();
                 }
+                Properties.Location = value;
             }
         }
 
@@ -209,7 +206,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new CreditData();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
@@ -277,7 +274,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new CreditData();
                 }
-                Properties.StartOn = value;
+                Properties.StartOn = value.Value;
             }
         }
 
@@ -294,7 +291,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new CreditData();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 

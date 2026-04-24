@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.ContainerService
                 {
                     Properties = new ManagedClusterSnapshotProperties();
                 }
-                Properties.SnapshotType = value;
+                Properties.SnapshotType = value.Value;
             }
         }
 

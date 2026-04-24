@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 {
                     Properties = new ScheduleUpdatePropertiesReplacement();
                 }
-                Properties.ScheduledType = value;
+                Properties.ScheduledType = value.Value;
             }
         }
 
@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 {
                     Properties = new ScheduleUpdatePropertiesReplacement();
                 }
-                Properties.Frequency = value;
+                Properties.Frequency = value.Value;
             }
         }
 
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 {
                     Properties = new ScheduleUpdatePropertiesReplacement();
                 }
-                Properties.State = value;
+                Properties.State = value.Value;
             }
         }
     }

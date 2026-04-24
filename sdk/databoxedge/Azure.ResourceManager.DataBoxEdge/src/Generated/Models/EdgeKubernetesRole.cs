@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new KubernetesRoleProperties();
                 }
-                Properties.HostPlatform = value;
+                Properties.HostPlatform = value.Value;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new KubernetesRoleProperties();
                 }
-                Properties.RoleStatus = value;
+                Properties.RoleStatus = value.Value;
             }
         }
     }

@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.Attestation
                 {
                     Properties = new StatusResult();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.Attestation
                 {
                     Properties = new StatusResult();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.Attestation
                 {
                     Properties = new StatusResult();
                 }
-                Properties.TpmAttestationAuthentication = value;
+                Properties.TpmAttestationAuthentication = value.Value;
             }
         }
     }

@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Tasks.Models
                 {
                     Properties = new AgentPoolPropertiesUpdateParameters();
                 }
-                Properties.Count = value;
+                Properties.Count = value.Value;
             }
         }
     }

@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new L3NetworkProperties();
                 }
-                Properties.HybridAksIpamEnabled = value;
+                Properties.HybridAksIpamEnabled = value.Value;
             }
         }
 
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new L3NetworkProperties();
                 }
-                Properties.HybridAksPluginType = value;
+                Properties.HybridAksPluginType = value.Value;
             }
         }
 
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new L3NetworkProperties();
                 }
-                Properties.IPAllocationType = value;
+                Properties.IPAllocationType = value.Value;
             }
         }
 

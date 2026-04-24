@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.PersonalDesktopAssignmentType = value;
+                Properties.PersonalDesktopAssignmentType = value.Value;
             }
         }
 
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.MaxSessionLimit = value;
+                Properties.MaxSessionLimit = value.Value;
             }
         }
 
@@ -236,7 +236,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.Ring = value;
+                Properties.Ring = value.Value;
             }
         }
 
@@ -254,7 +254,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.IsValidationEnvironment = value;
+                Properties.IsValidationEnvironment = value.Value;
             }
         }
 
@@ -390,7 +390,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.SsoSecretType = value;
+                Properties.SsoSecretType = value.Value;
             }
         }
 
@@ -426,7 +426,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.StartVmOnConnect = value;
+                Properties.StartVmOnConnect = value.Value;
             }
         }
 
@@ -454,7 +454,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
 
@@ -504,7 +504,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.ManagedPrivateUdp = value;
+                Properties.ManagedPrivateUdp = value.Value;
             }
         }
 
@@ -522,7 +522,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.DirectUdp = value;
+                Properties.DirectUdp = value.Value;
             }
         }
 
@@ -540,7 +540,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.PublicUdp = value;
+                Properties.PublicUdp = value.Value;
             }
         }
 
@@ -558,7 +558,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.RelayUdp = value;
+                Properties.RelayUdp = value.Value;
             }
         }
 
@@ -576,7 +576,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.ManagementType = value;
+                Properties.ManagementType = value.Value;
             }
         }
 
@@ -594,7 +594,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.DeploymentScope = value;
+                Properties.DeploymentScope = value.Value;
             }
         }
 
@@ -630,7 +630,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new HostPoolProperties();
                 }
-                Properties.AllowRdpShortPathWithPrivateLink = value;
+                Properties.AllowRdpShortPathWithPrivateLink = value.Value;
             }
         }
     }

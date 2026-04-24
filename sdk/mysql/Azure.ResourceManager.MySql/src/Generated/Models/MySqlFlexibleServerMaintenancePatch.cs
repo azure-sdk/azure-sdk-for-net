@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 {
                     Properties = new MaintenancePropertiesForUpdate();
                 }
-                Properties.MaintenanceStartOn = value;
+                Properties.MaintenanceStartOn = value.Value;
             }
         }
     }

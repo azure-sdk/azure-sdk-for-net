@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Avs
                 {
                     Properties = new WorkloadNetworkPortMirroringProperties();
                 }
-                Properties.Direction = value;
+                Properties.Direction = value.Value;
             }
         }
 
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.Avs
                 {
                     Properties = new WorkloadNetworkPortMirroringProperties();
                 }
-                Properties.Revision = value;
+                Properties.Revision = value.Value;
             }
         }
     }

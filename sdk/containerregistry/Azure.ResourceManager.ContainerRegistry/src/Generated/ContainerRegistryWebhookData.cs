@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     Properties = new WebhookProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 

@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new DatabaseUpdateProperties();
                 }
-                Properties.ClientProtocol = value;
+                Properties.ClientProtocol = value.Value;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new DatabaseUpdateProperties();
                 }
-                Properties.Port = value;
+                Properties.Port = value.Value;
             }
         }
 
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new DatabaseUpdateProperties();
                 }
-                Properties.ClusteringPolicy = value;
+                Properties.ClusteringPolicy = value.Value;
             }
         }
 
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new DatabaseUpdateProperties();
                 }
-                Properties.EvictionPolicy = value;
+                Properties.EvictionPolicy = value.Value;
             }
         }
 
@@ -201,7 +201,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new DatabaseUpdateProperties();
                 }
-                Properties.DeferUpgrade = value;
+                Properties.DeferUpgrade = value.Value;
             }
         }
 
@@ -219,7 +219,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 {
                     Properties = new DatabaseUpdateProperties();
                 }
-                Properties.AccessKeysAuthentication = value;
+                Properties.AccessKeysAuthentication = value.Value;
             }
         }
     }

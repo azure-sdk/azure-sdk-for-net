@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabVirtualMachineProperties();
                 }
-                Properties.CreatedOn = value;
+                Properties.CreatedOn = value.Value;
             }
         }
 
@@ -246,7 +246,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabVirtualMachineProperties();
                 }
-                Properties.IsAuthenticationWithSshKey = value;
+                Properties.IsAuthenticationWithSshKey = value.Value;
             }
         }
 
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabVirtualMachineProperties();
                 }
-                Properties.DisallowPublicIPAddress = value;
+                Properties.DisallowPublicIPAddress = value.Value;
             }
         }
 
@@ -414,7 +414,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabVirtualMachineProperties();
                 }
-                Properties.ExpireOn = value;
+                Properties.ExpireOn = value.Value;
             }
         }
 
@@ -431,7 +431,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabVirtualMachineProperties();
                 }
-                Properties.AllowClaim = value;
+                Properties.AllowClaim = value.Value;
             }
         }
 

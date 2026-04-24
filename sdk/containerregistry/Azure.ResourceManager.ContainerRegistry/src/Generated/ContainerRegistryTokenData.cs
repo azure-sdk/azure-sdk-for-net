@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     Properties = new TokenProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
     }

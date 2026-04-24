@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.IsAdminUserEnabled = value;
+                Properties.IsAdminUserEnabled = value.Value;
             }
         }
 
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.IsDataEndpointEnabled = value;
+                Properties.IsDataEndpointEnabled = value.Value;
             }
         }
 
@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.RegionalEndpoints = value;
+                Properties.RegionalEndpoints = value.Value;
             }
         }
 
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.EndpointProtocol = value;
+                Properties.EndpointProtocol = value.Value;
             }
         }
 
@@ -195,7 +195,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
 
@@ -213,7 +213,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.NetworkRuleBypassOptions = value;
+                Properties.NetworkRuleBypassOptions = value.Value;
             }
         }
 
@@ -231,7 +231,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.IsNetworkRuleBypassAllowedForTasks = value;
+                Properties.IsNetworkRuleBypassAllowedForTasks = value.Value;
             }
         }
 
@@ -249,7 +249,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.IsAnonymousPullEnabled = value;
+                Properties.IsAnonymousPullEnabled = value.Value;
             }
         }
 
@@ -267,7 +267,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.MetadataSearch = value;
+                Properties.MetadataSearch = value.Value;
             }
         }
 
@@ -285,7 +285,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new RegistryPropertiesUpdateParameters();
                 }
-                Properties.RoleAssignmentMode = value;
+                Properties.RoleAssignmentMode = value.Value;
             }
         }
     }

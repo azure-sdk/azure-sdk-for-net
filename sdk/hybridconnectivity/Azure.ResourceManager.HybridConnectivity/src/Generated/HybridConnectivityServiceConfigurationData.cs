@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.HybridConnectivity
                 {
                     Properties = new ServiceConfigurationProperties();
                 }
-                Properties.Port = value;
+                Properties.Port = value.Value;
             }
         }
 

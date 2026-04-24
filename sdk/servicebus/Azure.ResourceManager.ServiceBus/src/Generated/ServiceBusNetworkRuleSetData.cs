@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new NetworkRuleSetProperties();
                 }
-                Properties.IsTrustedServiceAccessEnabled = value;
+                Properties.IsTrustedServiceAccessEnabled = value.Value;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new NetworkRuleSetProperties();
                 }
-                Properties.DefaultAction = value;
+                Properties.DefaultAction = value.Value;
             }
         }
 
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new NetworkRuleSetProperties();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
     }

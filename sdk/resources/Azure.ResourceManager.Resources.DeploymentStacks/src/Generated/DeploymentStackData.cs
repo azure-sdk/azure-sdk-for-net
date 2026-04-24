@@ -263,7 +263,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
                 {
                     Properties = new DeploymentStackProperties();
                 }
-                Properties.ValidationLevel = value;
+                Properties.ValidationLevel = value.Value;
             }
         }
 
@@ -280,7 +280,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks
                 {
                     Properties = new DeploymentStackProperties();
                 }
-                Properties.BypassStackOutOfSyncError = value;
+                Properties.BypassStackOutOfSyncError = value.Value;
             }
         }
 

@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.IsEventStoreServiceEnabled = value;
+                Properties.IsEventStoreServiceEnabled = value.Value;
             }
         }
 
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.ReliabilityLevel = value;
+                Properties.ReliabilityLevel = value.Value;
             }
         }
 
@@ -240,7 +240,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.UpgradeMode = value;
+                Properties.UpgradeMode = value.Value;
             }
         }
 
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.SfZonalUpgradeMode = value;
+                Properties.SfZonalUpgradeMode = value.Value;
             }
         }
 
@@ -274,7 +274,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.VmssZonalUpgradeMode = value;
+                Properties.VmssZonalUpgradeMode = value.Value;
             }
         }
 
@@ -291,7 +291,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.IsInfrastructureServiceManagerEnabled = value;
+                Properties.IsInfrastructureServiceManagerEnabled = value.Value;
             }
         }
 
@@ -308,7 +308,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.UpgradeWave = value;
+                Properties.UpgradeWave = value.Value;
             }
         }
 
@@ -325,7 +325,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.UpgradePauseStartOn = value;
+                Properties.UpgradePauseStartOn = value.Value;
             }
         }
 
@@ -342,7 +342,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.UpgradePauseEndOn = value;
+                Properties.UpgradePauseEndOn = value.Value;
             }
         }
 
@@ -359,7 +359,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.IsWaveUpgradePaused = value;
+                Properties.IsWaveUpgradePaused = value.Value;
             }
         }
 
@@ -389,7 +389,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.IsHttpGatewayExclusiveAuthModeEnabled = value;
+                Properties.IsHttpGatewayExclusiveAuthModeEnabled = value.Value;
             }
         }
 
@@ -406,7 +406,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 {
                     Properties = new ClusterPropertiesUpdateParameters();
                 }
-                Properties.MaxUnusedVersionsToKeep = value;
+                Properties.MaxUnusedVersionsToKeep = value.Value;
             }
         }
     }

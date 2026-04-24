@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 {
                     Properties = new ServiceConfigurationPropertiesPatch();
                 }
-                Properties.Port = value;
+                Properties.Port = value.Value;
             }
         }
     }

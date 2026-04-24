@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.DataDiskSizeInGB = value;
+                Properties.DataDiskSizeInGB = value.Value;
             }
         }
 
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.DataDiskType = value;
+                Properties.DataDiskType = value.Value;
             }
         }
 
@@ -286,7 +286,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsStateless = value;
+                Properties.IsStateless = value.Value;
             }
         }
 
@@ -303,7 +303,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.HasMultiplePlacementGroups = value;
+                Properties.HasMultiplePlacementGroups = value.Value;
             }
         }
 
@@ -359,7 +359,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsEncryptionAtHostEnabled = value;
+                Properties.IsEncryptionAtHostEnabled = value.Value;
             }
         }
 
@@ -385,7 +385,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsAcceleratedNetworkingEnabled = value;
+                Properties.IsAcceleratedNetworkingEnabled = value.Value;
             }
         }
 
@@ -402,7 +402,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.UseDefaultPublicLoadBalancer = value;
+                Properties.UseDefaultPublicLoadBalancer = value.Value;
             }
         }
 
@@ -419,7 +419,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.UseTempDataDisk = value;
+                Properties.UseTempDataDisk = value.Value;
             }
         }
 
@@ -436,7 +436,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsOverProvisioningEnabled = value;
+                Properties.IsOverProvisioningEnabled = value.Value;
             }
         }
 
@@ -466,7 +466,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsSpotVm = value;
+                Properties.IsSpotVm = value.Value;
             }
         }
 
@@ -500,7 +500,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.UseEphemeralOSDisk = value;
+                Properties.UseEphemeralOSDisk = value.Value;
             }
         }
 
@@ -534,7 +534,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.EvictionPolicy = value;
+                Properties.EvictionPolicy = value.Value;
             }
         }
 
@@ -598,7 +598,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.SecurityType = value;
+                Properties.SecurityType = value.Value;
             }
         }
 
@@ -615,7 +615,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.SecurityEncryptionType = value;
+                Properties.SecurityEncryptionType = value.Value;
             }
         }
 
@@ -632,7 +632,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsSecureBootEnabled = value;
+                Properties.IsSecureBootEnabled = value.Value;
             }
         }
 
@@ -649,7 +649,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsNodePublicIPEnabled = value;
+                Properties.IsNodePublicIPEnabled = value.Value;
             }
         }
 
@@ -666,7 +666,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsNodePublicIPv6Enabled = value;
+                Properties.IsNodePublicIPv6Enabled = value.Value;
             }
         }
 
@@ -824,7 +824,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsZoneBalanceEnabled = value;
+                Properties.IsZoneBalanceEnabled = value.Value;
             }
         }
 
@@ -841,7 +841,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.IsOutboundOnly = value;
+                Properties.IsOutboundOnly = value.Value;
             }
         }
 
@@ -858,7 +858,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 {
                     Properties = new ServiceFabricManagedNodeTypeProperties();
                 }
-                Properties.EnableResilientEphemeralOsDisk = value;
+                Properties.EnableResilientEphemeralOsDisk = value.Value;
             }
         }
     }

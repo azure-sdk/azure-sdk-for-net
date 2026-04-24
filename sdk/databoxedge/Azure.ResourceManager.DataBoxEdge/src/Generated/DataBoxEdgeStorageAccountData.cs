@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.DataBoxEdge
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.StorageAccountStatus = value;
+                Properties.StorageAccountStatus = value.Value;
             }
         }
 

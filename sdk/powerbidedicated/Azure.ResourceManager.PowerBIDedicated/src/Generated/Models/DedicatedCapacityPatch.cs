@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.PowerBIDedicated.Models
                 {
                     Properties = new DedicatedCapacityMutableProperties();
                 }
-                Properties.Mode = value;
+                Properties.Mode = value.Value;
             }
         }
 

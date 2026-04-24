@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.Dell.Storage.Models
                 provisioningState,
                 delegatedSubnetId,
                 delegatedSubnetCidr,
-                new DellFileSystemUserDetails(userEmail, null),
+                userEmail is null ? default : new DellFileSystemUserDetails(userEmail, null),
                 fileSystemId,
                 smartConnectFqdn,
                 oneFsUri,

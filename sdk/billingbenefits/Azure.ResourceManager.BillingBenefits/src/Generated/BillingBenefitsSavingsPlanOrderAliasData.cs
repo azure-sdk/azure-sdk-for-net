@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanOrderAliasProperties();
                 }
-                Properties.Term = value;
+                Properties.Term = value.Value;
             }
         }
 
@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanOrderAliasProperties();
                 }
-                Properties.BillingPlan = value;
+                Properties.BillingPlan = value.Value;
             }
         }
 
@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanOrderAliasProperties();
                 }
-                Properties.AppliedScopeType = value;
+                Properties.AppliedScopeType = value.Value;
             }
         }
 
@@ -201,7 +201,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     Properties = new SavingsPlanOrderAliasProperties();
                 }
-                Properties.IsRenewed = value;
+                Properties.IsRenewed = value.Value;
             }
         }
 

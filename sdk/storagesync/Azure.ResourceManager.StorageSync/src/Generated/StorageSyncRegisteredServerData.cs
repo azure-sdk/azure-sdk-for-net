@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.ServerManagementErrorCode = value;
+                Properties.ServerManagementErrorCode = value.Value;
             }
         }
 
@@ -190,7 +190,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.ClusterId = value;
+                Properties.ClusterId = value.Value;
             }
         }
 
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.ServerId = value;
+                Properties.ServerId = value.Value;
             }
         }
 
@@ -241,7 +241,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.StorageSyncServiceUid = value;
+                Properties.StorageSyncServiceUid = value.Value;
             }
         }
 
@@ -309,7 +309,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.ResourceLocation = value;
+                Properties.ResourceLocation = value.Value;
             }
         }
 
@@ -326,7 +326,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.ServiceLocation = value;
+                Properties.ServiceLocation = value.Value;
             }
         }
 
@@ -420,7 +420,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.ApplicationId = value;
+                Properties.ApplicationId = value.Value;
             }
         }
 
@@ -446,7 +446,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new RegisteredServerProperties();
                 }
-                Properties.LatestApplicationId = value;
+                Properties.LatestApplicationId = value.Value;
             }
         }
 

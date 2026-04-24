@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.CostManagement
     {
         public BudgetData() { }
         public float? Amount { get { throw null; } set { } }
-        public Azure.ResourceManager.CostManagement.Models.CategoryType? Category { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.CategoryType Category { get { throw null; } set { } }
         public Azure.ResourceManager.CostManagement.Models.CurrentSpend CurrentSpend { get { throw null; } }
         public Azure.ETag? ETag { get { throw null; } set { } }
         public Azure.ResourceManager.CostManagement.Models.BudgetFilter Filter { get { throw null; } set { } }
         public Azure.ResourceManager.CostManagement.Models.ForecastSpend ForecastSpend { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.CostManagement.Models.BudgetNotification> Notifications { get { throw null; } }
-        public Azure.ResourceManager.CostManagement.Models.TimeGrainType? TimeGrain { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.TimeGrainType TimeGrain { get { throw null; } set { } }
         public Azure.ResourceManager.CostManagement.Models.BudgetTimePeriod TimePeriod { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.Models.ResourceData JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }

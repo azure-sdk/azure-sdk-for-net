@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 {
                     Properties = new AssociationUpdateProperties();
                 }
-                Properties.AssociationType = value;
+                Properties.AssociationType = value.Value;
             }
         }
 

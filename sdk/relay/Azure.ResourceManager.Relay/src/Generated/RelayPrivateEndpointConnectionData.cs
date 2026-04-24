@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new PrivateEndpointConnectionProperties();
                 }
-                Properties.ProvisioningState = value;
+                Properties.ProvisioningState = value.Value;
             }
         }
 

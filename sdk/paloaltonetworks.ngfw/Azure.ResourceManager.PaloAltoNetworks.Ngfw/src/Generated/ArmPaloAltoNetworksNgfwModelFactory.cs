@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new RulestackProperties(
+                panETag is null && panLocation is null && scope is null && associatedSubscriptions is null && description is null && defaultMode is null && minAppIdVersion is null && provisioningState is null && securityServices is null ? default : new RulestackProperties(
                     panETag,
                     panLocation,
                     scope,
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new FqdnObject(
+                description is null && fqdnList is null && etag is null && auditComment is null && provisioningState is null ? default : new FqdnObject(
                     description,
                     (fqdnList ?? new ChangeTrackingList<string>()).ToList(),
                     etag,
@@ -225,7 +225,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new RuleEntry(
+                etag is null && ruleName is null && priority is null && description is null && ruleState is null && source is null && negateSource is null && destination is null && negateDestination is null && applications is null && category is null && protocol is null && protocolPortList is null && inboundInspectionCertificate is null && auditComment is null && actionType is null && enableLogging is null && decryptionRuleType is null && tags is null && provisioningState is null ? default : new RuleEntry(
                     etag,
                     ruleName,
                     priority,
@@ -399,7 +399,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new PrefixObject(
+                description is null && prefixList is null && etag is null && auditComment is null && provisioningState is null ? default : new PrefixObject(
                     description,
                     (prefixList ?? new ChangeTrackingList<string>()).ToList(),
                     etag,
@@ -442,7 +442,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new RuleEntry(
+                etag is null && ruleName is null && priority is null && description is null && ruleState is null && source is null && negateSource is null && destination is null && negateDestination is null && applications is null && category is null && protocol is null && protocolPortList is null && inboundInspectionCertificate is null && auditComment is null && actionType is null && enableLogging is null && decryptionRuleType is null && tags is null && provisioningState is null ? default : new RuleEntry(
                     etag,
                     ruleName,
                     priority,
@@ -498,7 +498,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                new FirewallDeploymentProperties(
+                panETag is null && networkProfile is null && isPanoramaManaged is null && isStrataCloudManaged is null && panoramaConfig is null && associatedRulestack is null && dnsSettings is null && frontEndSettings is null && provisioningState is null && planData is null && marketplaceDetails is null && cloudManagerName is null ? default : new FirewallDeploymentProperties(
                     panETag,
                     networkProfile,
                     isPanoramaManaged,
@@ -714,7 +714,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                new RulestackProperties(
+                panETag is null && panLocation is null && scope is null && associatedSubscriptions is null && description is null && defaultMode is null && minAppIdVersion is null && provisioningState is null && securityServices is null ? default : new RulestackProperties(
                     panETag,
                     panLocation,
                     scope,
@@ -783,7 +783,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new MetricsObject(applicationInsightsResourceId, applicationInsightsConnectionString, panETag, provisioningState, null));
+                applicationInsightsResourceId is null && applicationInsightsConnectionString is null && panETag is null && provisioningState is null ? default : new MetricsObject(applicationInsightsResourceId, applicationInsightsConnectionString, panETag, provisioningState, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -806,7 +806,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new FirewallStatusProperty(
+                isPanoramaManaged is null && healthStatus is null && healthReason is null && panoramaStatus is null && provisioningState is null && isStrataCloudManaged is null && strataCloudManagerInfo is null ? default : new FirewallStatusProperty(
                     isPanoramaManaged,
                     healthStatus,
                     healthReason,
@@ -854,7 +854,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new FqdnObject(
+                description is null && fqdnList is null && etag is null && auditComment is null && provisioningState is null ? default : new FqdnObject(
                     description,
                     (fqdnList ?? new ChangeTrackingList<string>()).ToList(),
                     etag,
@@ -897,7 +897,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new RuleEntry(
+                etag is null && ruleName is null && priority is null && description is null && ruleState is null && source is null && negateSource is null && destination is null && negateDestination is null && applications is null && category is null && protocol is null && protocolPortList is null && inboundInspectionCertificate is null && auditComment is null && actionType is null && enableLogging is null && decryptionRuleType is null && tags is null && provisioningState is null ? default : new RuleEntry(
                     etag,
                     ruleName,
                     priority,
@@ -940,7 +940,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new PrefixObject(
+                description is null && prefixList is null && etag is null && auditComment is null && provisioningState is null ? default : new PrefixObject(
                     description,
                     (prefixList ?? new ChangeTrackingList<string>()).ToList(),
                     etag,

@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new HeatMapProperties();
                 }
-                Properties.StartOn = value;
+                Properties.StartOn = value.Value;
             }
         }
 
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new HeatMapProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 

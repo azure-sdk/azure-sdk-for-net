@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.NetworkCloud.Models
                 {
                     Properties = new BareMetalMachineKeySetPatchProperties();
                 }
-                Properties.ExpireOn = value;
+                Properties.ExpireOn = value.Value;
             }
         }
 

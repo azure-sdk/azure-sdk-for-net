@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.DevCenter
                 {
                     Properties = new ProjectEnvironmentTypeProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 

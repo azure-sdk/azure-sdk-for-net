@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.Communication.Models
                     dataLocation,
                     fromSenderDomain,
                     mailFromSenderDomain,
-                    domainManagement.GetValueOrDefault(),
+                    domainManagement.Value,
                     verificationStates,
                     verificationRecords,
                     userEngagementTracking,
@@ -263,7 +263,7 @@ namespace Azure.ResourceManager.Communication.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                username is null && entraApplicationId is null && tenantId is null ? default : new SmtpUsernameProperties(username, entraApplicationId, tenantId.GetValueOrDefault(), null));
+                username is null && entraApplicationId is null && tenantId is null ? default : new SmtpUsernameProperties(username, entraApplicationId, tenantId.Value, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

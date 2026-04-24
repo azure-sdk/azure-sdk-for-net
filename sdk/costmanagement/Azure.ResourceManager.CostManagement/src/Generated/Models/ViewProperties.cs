@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Query = new ReportConfigDefinition();
                 }
-                Query.TypePropertiesQueryType = value;
+                Query.TypePropertiesQueryType = value.Value;
             }
         }
 
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Query = new ReportConfigDefinition();
                 }
-                Query.Timeframe = value;
+                Query.Timeframe = value.Value;
             }
         }
 
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 {
                     Query = new ReportConfigDefinition();
                 }
-                Query.IncludeMonetaryCommitment = value;
+                Query.IncludeMonetaryCommitment = value.Value;
             }
         }
     }

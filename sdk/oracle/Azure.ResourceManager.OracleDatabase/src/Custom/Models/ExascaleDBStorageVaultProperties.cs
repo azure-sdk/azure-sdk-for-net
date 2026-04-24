@@ -18,17 +18,8 @@ namespace Azure.ResourceManager.OracleDatabase.Models
             Argument.AssertNotNull(highCapacityDatabaseStorageInput, nameof(highCapacityDatabaseStorageInput));
 
             DisplayName = displayName;
-            HighCapacityStorageInput = highCapacityDatabaseStorageInput;
+            HighCapacityDatabaseStorageInput = highCapacityDatabaseStorageInput;
             AttachedShapeAttributes = new ChangeTrackingList<ExascaleStorageShapeAttribute>();
-        }
-
-        /// <summary> Total storage in Gbs. </summary>
-        [System.Obsolete("This property is obsolete and will be removed in a future release. Please use 'HighCapacityStorageInputTotalSizeInGbs' instead.")]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public int? HighCapacityDatabaseStorageInputTotalSizeInGbs
-        {
-            get => HighCapacityStorageInputTotalSizeInGbs;
-            set { if (value.HasValue) HighCapacityStorageInputTotalSizeInGbs = value.Value; }
         }
     }
 }

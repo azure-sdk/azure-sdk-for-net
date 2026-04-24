@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new SupportPackageRequestProperties();
                 }
-                Properties.MinimumTimeStamp = value;
+                Properties.MinimumTimeStamp = value.Value;
             }
         }
 
@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new SupportPackageRequestProperties();
                 }
-                Properties.MaximumTimeStamp = value;
+                Properties.MaximumTimeStamp = value.Value;
             }
         }
 

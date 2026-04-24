@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.EnableHttpsTrafficOnly = value;
+                Properties.EnableHttpsTrafficOnly = value.Value;
             }
         }
 
@@ -272,7 +272,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.IsSftpEnabled = value;
+                Properties.IsSftpEnabled = value.Value;
             }
         }
 
@@ -290,7 +290,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.IsLocalUserEnabled = value;
+                Properties.IsLocalUserEnabled = value.Value;
             }
         }
 
@@ -308,7 +308,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.IsHnsEnabled = value;
+                Properties.IsHnsEnabled = value.Value;
             }
         }
 
@@ -336,7 +336,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.LargeFileSharesState = value;
+                Properties.LargeFileSharesState = value.Value;
             }
         }
 
@@ -396,7 +396,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.AllowBlobPublicAccess = value;
+                Properties.AllowBlobPublicAccess = value.Value;
             }
         }
 
@@ -414,7 +414,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.MinimumTlsVersion = value;
+                Properties.MinimumTlsVersion = value.Value;
             }
         }
 
@@ -432,7 +432,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.AllowSharedKeyAccess = value;
+                Properties.AllowSharedKeyAccess = value.Value;
             }
         }
 
@@ -450,7 +450,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.AllowCrossTenantReplication = value;
+                Properties.AllowCrossTenantReplication = value.Value;
             }
         }
 
@@ -468,7 +468,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.PublicNetworkAccess = value;
+                Properties.PublicNetworkAccess = value.Value;
             }
         }
 
@@ -504,7 +504,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.AllowedCopyScope = value;
+                Properties.AllowedCopyScope = value.Value;
             }
         }
 
@@ -540,7 +540,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.DnsEndpointType = value;
+                Properties.DnsEndpointType = value.Value;
             }
         }
 
@@ -578,7 +578,7 @@ namespace Azure.ResourceManager.Storage
                 {
                     Properties = new StorageAccountProperties();
                 }
-                Properties.IsBlobEnabled = value;
+                Properties.IsBlobEnabled = value.Value;
             }
         }
 

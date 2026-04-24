@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new CreditPatchProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 

@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.ArtifactSigning
                 {
                     Properties = new CodeSigningAccountProperties();
                 }
-                Properties.SkuName = value;
+                Properties.SkuName = value.Value;
             }
         }
     }

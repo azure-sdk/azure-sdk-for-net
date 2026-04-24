@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.CertificateRegistration.Models
                 {
                     Properties = new RenewCertificateOrderRequestProperties();
                 }
-                Properties.KeySize = value;
+                Properties.KeySize = value.Value;
             }
         }
 
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.CertificateRegistration.Models
                 {
                     Properties = new RenewCertificateOrderRequestProperties();
                 }
-                Properties.IsPrivateKeyExternal = value;
+                Properties.IsPrivateKeyExternal = value.Value;
             }
         }
     }

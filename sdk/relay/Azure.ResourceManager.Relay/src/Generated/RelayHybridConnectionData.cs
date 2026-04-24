@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.Relay
                 {
                     Properties = new HybridConnectionProperties();
                 }
-                Properties.IsClientAuthorizationRequired = value;
+                Properties.IsClientAuthorizationRequired = value.Value;
             }
         }
 

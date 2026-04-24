@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 {
                     Properties = new ApplicationGroupPatchProperties();
                 }
-                Properties.ShowInFeed = value;
+                Properties.ShowInFeed = value.Value;
             }
         }
     }

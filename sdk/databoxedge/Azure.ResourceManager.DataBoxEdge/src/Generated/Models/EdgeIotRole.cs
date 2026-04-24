@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new IoTRoleProperties();
                 }
-                Properties.HostPlatform = value;
+                Properties.HostPlatform = value.Value;
             }
         }
 
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new IoTRoleProperties();
                 }
-                Properties.RoleStatus = value;
+                Properties.RoleStatus = value.Value;
             }
         }
     }

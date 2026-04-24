@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new UpdateRunProperties();
                 }
-                Properties.TimeStarted = value;
+                Properties.TimeStarted = value.Value;
             }
         }
 
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new UpdateRunProperties();
                 }
-                Properties.LastCompletedOn = value;
+                Properties.LastCompletedOn = value.Value;
             }
         }
 
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new UpdateRunProperties();
                 }
-                Properties.State = value;
+                Properties.State = value.Value;
             }
         }
 
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new UpdateRunProperties();
                 }
-                Properties.StartOn = value;
+                Properties.StartOn = value.Value;
             }
         }
 
@@ -221,7 +221,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new UpdateRunProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 
@@ -239,7 +239,7 @@ namespace Azure.ResourceManager.Hci
                 {
                     Properties = new UpdateRunProperties();
                 }
-                Properties.LastUpdatedOn = value;
+                Properties.LastUpdatedOn = value.Value;
             }
         }
 

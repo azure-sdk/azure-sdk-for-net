@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new ArtifactSourceProperties();
                 }
-                Properties.SourceType = value;
+                Properties.SourceType = value.Value;
             }
         }
 
@@ -176,7 +176,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new ArtifactSourceProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 

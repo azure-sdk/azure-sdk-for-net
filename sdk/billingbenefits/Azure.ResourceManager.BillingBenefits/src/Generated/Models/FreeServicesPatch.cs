@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new FreeServicesPatchRequestProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
     }

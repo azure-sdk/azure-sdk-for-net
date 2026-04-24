@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 {
                     Properties = new DevBoxDefinitionUpdateProperties();
                 }
-                Properties.HibernateSupport = value;
+                Properties.HibernateSupport = value.Value;
             }
         }
     }

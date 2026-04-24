@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 {
                     Properties = new LogFileProperties();
                 }
-                Properties.SizeInKB = value;
+                Properties.SizeInKB = value.Value;
             }
         }
 
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 {
                     Properties = new LogFileProperties();
                 }
-                Properties.CreatedOn = value;
+                Properties.CreatedOn = value.Value;
             }
         }
 
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 {
                     Properties = new LogFileProperties();
                 }
-                Properties.LastModifiedOn = value;
+                Properties.LastModifiedOn = value.Value;
             }
         }
 

@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new ServerEndpointProperties();
                 }
-                Properties.CloudTiering = value;
+                Properties.CloudTiering = value.Value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new ServerEndpointProperties();
                 }
-                Properties.VolumeFreeSpacePercent = value;
+                Properties.VolumeFreeSpacePercent = value.Value;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new ServerEndpointProperties();
                 }
-                Properties.TierFilesOlderThanDays = value;
+                Properties.TierFilesOlderThanDays = value.Value;
             }
         }
 
@@ -191,7 +191,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new ServerEndpointProperties();
                 }
-                Properties.OfflineDataTransfer = value;
+                Properties.OfflineDataTransfer = value.Value;
             }
         }
 
@@ -261,7 +261,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new ServerEndpointProperties();
                 }
-                Properties.InitialDownloadPolicy = value;
+                Properties.InitialDownloadPolicy = value.Value;
             }
         }
 
@@ -278,7 +278,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new ServerEndpointProperties();
                 }
-                Properties.LocalCacheMode = value;
+                Properties.LocalCacheMode = value.Value;
             }
         }
 
@@ -295,7 +295,7 @@ namespace Azure.ResourceManager.StorageSync
                 {
                     Properties = new ServerEndpointProperties();
                 }
-                Properties.InitialUploadPolicy = value;
+                Properties.InitialUploadPolicy = value.Value;
             }
         }
 

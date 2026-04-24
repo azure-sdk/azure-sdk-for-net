@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Tasks.Models
                 {
                     Properties = new TaskPropertiesUpdateParameters();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Tasks.Models
                 {
                     Properties = new TaskPropertiesUpdateParameters();
                 }
-                Properties.TimeoutInSeconds = value;
+                Properties.TimeoutInSeconds = value.Value;
             }
         }
 
@@ -194,7 +194,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Tasks.Models
                 {
                     Properties = new TaskPropertiesUpdateParameters();
                 }
-                Properties.AgentCpu = value;
+                Properties.AgentCpu = value.Value;
             }
         }
     }

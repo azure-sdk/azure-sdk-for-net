@@ -85,7 +85,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 {
                     Properties = new DevCenterUpdateProperties();
                 }
-                Properties.CatalogItemSyncEnableStatus = value;
+                Properties.CatalogItemSyncEnableStatus = value.Value;
             }
         }
 
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 {
                     Properties = new DevCenterUpdateProperties();
                 }
-                Properties.MicrosoftHostedNetworkEnableStatus = value;
+                Properties.MicrosoftHostedNetworkEnableStatus = value.Value;
             }
         }
 
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 {
                     Properties = new DevCenterUpdateProperties();
                 }
-                Properties.DevBoxProvisioningInstallAzureMonitorAgentEnableStatus = value;
+                Properties.DevBoxProvisioningInstallAzureMonitorAgentEnableStatus = value.Value;
             }
         }
     }

@@ -108,7 +108,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new VirtualMachineProperties();
                 }
-                Properties.BootMethod = value;
+                Properties.BootMethod = value.Value;
             }
         }
 
@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new VirtualMachineProperties();
                 }
-                Properties.IsolateEmulatorThread = value;
+                Properties.IsolateEmulatorThread = value.Value;
             }
         }
 
@@ -317,7 +317,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new VirtualMachineProperties();
                 }
-                Properties.VirtioInterface = value;
+                Properties.VirtioInterface = value.Value;
             }
         }
 
@@ -334,7 +334,7 @@ namespace Azure.ResourceManager.NetworkCloud
                 {
                     Properties = new VirtualMachineProperties();
                 }
-                Properties.VmDeviceModel = value;
+                Properties.VmDeviceModel = value.Value;
             }
         }
 

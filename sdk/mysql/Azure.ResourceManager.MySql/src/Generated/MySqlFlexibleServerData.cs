@@ -100,7 +100,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerProperties();
                 }
-                Properties.Version = value;
+                Properties.Version = value.Value;
             }
         }
 
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerProperties();
                 }
-                Properties.CreateMode = value;
+                Properties.CreateMode = value.Value;
             }
         }
 
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerProperties();
                 }
-                Properties.RestorePointInOn = value;
+                Properties.RestorePointInOn = value.Value;
             }
         }
 
@@ -194,7 +194,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerProperties();
                 }
-                Properties.ReplicationRole = value;
+                Properties.ReplicationRole = value.Value;
             }
         }
 
@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerProperties();
                 }
-                Properties.DatabasePort = value;
+                Properties.DatabasePort = value.Value;
             }
         }
 
@@ -387,7 +387,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerProperties();
                 }
-                Properties.MaintenancePatchStrategy = value;
+                Properties.MaintenancePatchStrategy = value.Value;
             }
         }
     }

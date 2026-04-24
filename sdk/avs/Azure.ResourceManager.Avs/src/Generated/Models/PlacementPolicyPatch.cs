@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Avs.Models
                 {
                     Properties = new PlacementPolicyUpdateProperties();
                 }
-                Properties.State = value;
+                Properties.State = value.Value;
             }
         }
 
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.Avs.Models
                 {
                     Properties = new PlacementPolicyUpdateProperties();
                 }
-                Properties.AffinityStrength = value;
+                Properties.AffinityStrength = value.Value;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.Avs.Models
                 {
                     Properties = new PlacementPolicyUpdateProperties();
                 }
-                Properties.AzureHybridBenefitType = value;
+                Properties.AzureHybridBenefitType = value.Value;
             }
         }
     }

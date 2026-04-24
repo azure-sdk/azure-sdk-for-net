@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabCostProperties();
                 }
-                Properties.StartOn = value;
+                Properties.StartOn = value.Value;
             }
         }
 
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabCostProperties();
                 }
-                Properties.EndOn = value;
+                Properties.EndOn = value.Value;
             }
         }
 
@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 {
                     Properties = new LabCostProperties();
                 }
-                Properties.CreatedOn = value;
+                Properties.CreatedOn = value.Value;
             }
         }
 

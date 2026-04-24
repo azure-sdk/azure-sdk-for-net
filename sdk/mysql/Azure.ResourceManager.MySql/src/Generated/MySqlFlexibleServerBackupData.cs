@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers
                 {
                     Properties = new ServerBackupProperties();
                 }
-                Properties.CompletedOn = value;
+                Properties.CompletedOn = value.Value;
             }
         }
 

@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.KubernetesConfiguration.Extensions.Models
                 {
                     Properties = new KubernetesClusterExtensionPatchProperties();
                 }
-                Properties.IsAutoUpgradeMinorVersionEnabled = value;
+                Properties.IsAutoUpgradeMinorVersionEnabled = value.Value;
             }
         }
 
@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.KubernetesConfiguration.Extensions.Models
                 {
                     Properties = new KubernetesClusterExtensionPatchProperties();
                 }
-                Properties.AutoUpgradeMode = value;
+                Properties.AutoUpgradeMode = value.Value;
             }
         }
 

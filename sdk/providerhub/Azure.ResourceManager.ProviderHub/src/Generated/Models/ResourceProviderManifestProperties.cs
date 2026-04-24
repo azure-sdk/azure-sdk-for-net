@@ -264,7 +264,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 {
                     ResourceGroupLockOptionDuringMove = new ResourceProviderManifestResourceGroupLockOptionDuringMove();
                 }
-                ResourceGroupLockOptionDuringMove.ResourceGroupLockOptionDuringMoveBlockActionVerb = value;
+                ResourceGroupLockOptionDuringMove.ResourceGroupLockOptionDuringMoveBlockActionVerb = value.Value;
             }
         }
 
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 {
                     ResponseOptions = new ResourceProviderManifestResponseOptions();
                 }
-                ResponseOptions.ServiceClientOptionsType = value;
+                ResponseOptions.ServiceClientOptionsType = value.Value;
             }
         }
     }

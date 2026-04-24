@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ResourceConnector
                 {
                     Properties = new ApplianceProperties();
                 }
-                Properties.Distro = value;
+                Properties.Distro = value.Value;
             }
         }
 
@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.ResourceConnector
                 {
                     Properties = new ApplianceProperties();
                 }
-                Properties.InfrastructureConfigProvider = value;
+                Properties.InfrastructureConfigProvider = value.Value;
             }
         }
     }

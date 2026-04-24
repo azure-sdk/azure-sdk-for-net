@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 {
                     Properties = new VmssExtensionProperties();
                 }
-                Properties.AutoUpgradeMinorVersion = value;
+                Properties.AutoUpgradeMinorVersion = value.Value;
             }
         }
 
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 {
                     Properties = new VmssExtensionProperties();
                 }
-                Properties.IsAutomaticUpgradeEnabled = value;
+                Properties.IsAutomaticUpgradeEnabled = value.Value;
             }
         }
 

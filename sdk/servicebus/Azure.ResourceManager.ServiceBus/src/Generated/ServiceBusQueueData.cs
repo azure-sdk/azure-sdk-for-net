@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.LockDuration = value;
+                Properties.LockDuration = value.Value;
             }
         }
 
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.MaxSizeInMegabytes = value;
+                Properties.MaxSizeInMegabytes = value.Value;
             }
         }
 
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.MaxMessageSizeInKilobytes = value;
+                Properties.MaxMessageSizeInKilobytes = value.Value;
             }
         }
 
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.RequiresDuplicateDetection = value;
+                Properties.RequiresDuplicateDetection = value.Value;
             }
         }
 
@@ -193,7 +193,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.RequiresSession = value;
+                Properties.RequiresSession = value.Value;
             }
         }
 
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.DefaultMessageTimeToLive = value;
+                Properties.DefaultMessageTimeToLive = value.Value;
             }
         }
 
@@ -229,7 +229,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.DeadLetteringOnMessageExpiration = value;
+                Properties.DeadLetteringOnMessageExpiration = value.Value;
             }
         }
 
@@ -247,7 +247,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.DuplicateDetectionHistoryTimeWindow = value;
+                Properties.DuplicateDetectionHistoryTimeWindow = value.Value;
             }
         }
 
@@ -265,7 +265,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.MaxDeliveryCount = value;
+                Properties.MaxDeliveryCount = value.Value;
             }
         }
 
@@ -283,7 +283,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
@@ -301,7 +301,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.EnableBatchedOperations = value;
+                Properties.EnableBatchedOperations = value.Value;
             }
         }
 
@@ -319,7 +319,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.AutoDeleteOnIdle = value;
+                Properties.AutoDeleteOnIdle = value.Value;
             }
         }
 
@@ -337,7 +337,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.EnablePartitioning = value;
+                Properties.EnablePartitioning = value.Value;
             }
         }
 
@@ -355,7 +355,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBQueueProperties();
                 }
-                Properties.EnableExpress = value;
+                Properties.EnableExpress = value.Value;
             }
         }
 

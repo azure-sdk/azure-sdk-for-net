@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.Resources.Policy
                 {
                     Properties = new PolicyDefinitionVersionProperties();
                 }
-                Properties.PolicyType = value;
+                Properties.PolicyType = value.Value;
             }
         }
 

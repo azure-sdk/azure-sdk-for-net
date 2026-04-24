@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.StorageMover.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new AgentProperties(
+                description is null && agentVersion is null && arcResourceId is null && arcVmUuid is null && agentStatus is null && lastStatusUpdate is null && localIPAddress is null && memoryInMB is null && numberOfCores is null && uptimeInSeconds is null && timeZone is null && errorDetails is null && provisioningState is null && uploadLimitScheduleWeeklyRecurrences is null ? default : new AgentProperties(
                     description,
                     agentVersion,
                     arcResourceId,
@@ -351,7 +351,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <param name="isPermissionsPreserved"> Boolean to preserve permissions or not. </param>
         /// <param name="sourceTargetMapValue"> Gets the Value. </param>
         /// <returns> A new <see cref="StorageMover.JobDefinitionData"/> instance for mocking. </returns>
-        public static JobDefinitionData JobDefinitionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string description = default, JobType? jobType = default, StorageMoverCopyMode copyMode = default, string sourceName = default, ResourceIdentifier sourceResourceId = default, string sourceSubpath = default, string targetName = default, ResourceIdentifier targetResourceId = default, string targetSubpath = default, string latestJobRunName = default, ResourceIdentifier latestJobRunResourceId = default, JobRunStatus? latestJobRunStatus = default, string agentName = default, ResourceIdentifier agentResourceId = default, StorageMoverProvisioningState? provisioningState = default, IEnumerable<ResourceIdentifier> connections = default, StorageMoverScheduleInfo schedule = default, StorageMoverDataIntegrityValidation? dataIntegrityValidation = default, bool? isPermissionsPreserved = default, IEnumerable<SourceTargetMap> sourceTargetMapValue = default)
+        public static JobDefinitionData JobDefinitionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string description = default, JobType? jobType = default, StorageMoverCopyMode? copyMode = default, string sourceName = default, ResourceIdentifier sourceResourceId = default, string sourceSubpath = default, string targetName = default, ResourceIdentifier targetResourceId = default, string targetSubpath = default, string latestJobRunName = default, ResourceIdentifier latestJobRunResourceId = default, JobRunStatus? latestJobRunStatus = default, string agentName = default, ResourceIdentifier agentResourceId = default, StorageMoverProvisioningState? provisioningState = default, IEnumerable<ResourceIdentifier> connections = default, StorageMoverScheduleInfo schedule = default, StorageMoverDataIntegrityValidation? dataIntegrityValidation = default, bool? isPermissionsPreserved = default, IEnumerable<SourceTargetMap> sourceTargetMapValue = default)
         {
             return new JobDefinitionData(
                 id,
@@ -359,10 +359,10 @@ namespace Azure.ResourceManager.StorageMover.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                new JobDefinitionProperties(
+                description is null && jobType is null && copyMode is null && sourceName is null && sourceResourceId is null && sourceSubpath is null && targetName is null && targetResourceId is null && targetSubpath is null && latestJobRunName is null && latestJobRunResourceId is null && latestJobRunStatus is null && agentName is null && agentResourceId is null && provisioningState is null && connections is null && schedule is null && dataIntegrityValidation is null && isPermissionsPreserved is null && sourceTargetMapValue is null ? default : new JobDefinitionProperties(
                     description,
                     jobType,
-                    copyMode,
+                    copyMode.Value,
                     sourceName,
                     sourceResourceId,
                     sourceSubpath,
@@ -388,7 +388,7 @@ namespace Azure.ResourceManager.StorageMover.Models
         /// <returns> A new <see cref="Models.SourceTargetMap"/> instance for mocking. </returns>
         public static SourceTargetMap SourceTargetMap(SourceEndpointProperties sourceEndpointProperties = default, TargetEndpointProperties targetEndpointProperties = default)
         {
-            return new SourceTargetMap(new SourceEndpoint(sourceEndpointProperties, null), new TargetEndpoint(targetEndpointProperties, null), additionalBinaryDataProperties: null);
+            return new SourceTargetMap(sourceEndpointProperties is null ? default : new SourceEndpoint(sourceEndpointProperties, null), targetEndpointProperties is null ? default : new TargetEndpoint(targetEndpointProperties, null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> The properties of the cloud source endpoint to migrate. </summary>

@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.LoadTesting.Models
                 {
                     Properties = new CheckQuotaAvailabilityResponseProperties();
                 }
-                Properties.IsAvailable = value;
+                Properties.IsAvailable = value.Value;
             }
         }
 

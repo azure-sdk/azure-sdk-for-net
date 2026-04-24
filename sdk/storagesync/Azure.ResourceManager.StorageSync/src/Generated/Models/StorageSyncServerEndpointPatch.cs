@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new ServerEndpointUpdateProperties();
                 }
-                Properties.CloudTiering = value;
+                Properties.CloudTiering = value.Value;
             }
         }
 
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new ServerEndpointUpdateProperties();
                 }
-                Properties.VolumeFreeSpacePercent = value;
+                Properties.VolumeFreeSpacePercent = value.Value;
             }
         }
 
@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new ServerEndpointUpdateProperties();
                 }
-                Properties.TierFilesOlderThanDays = value;
+                Properties.TierFilesOlderThanDays = value.Value;
             }
         }
 
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new ServerEndpointUpdateProperties();
                 }
-                Properties.OfflineDataTransfer = value;
+                Properties.OfflineDataTransfer = value.Value;
             }
         }
 
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new ServerEndpointUpdateProperties();
                 }
-                Properties.LocalCacheMode = value;
+                Properties.LocalCacheMode = value.Value;
             }
         }
     }

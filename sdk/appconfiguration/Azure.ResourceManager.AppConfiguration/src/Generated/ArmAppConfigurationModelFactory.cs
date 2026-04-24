@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                     new AzureFrontDoorProperties(azureFrontDoorResourceId, null),
                     null),
                 identity,
-                new AppConfigurationSku(skuName, null));
+                skuName is null ? default : new AppConfigurationSku(skuName, null));
         }
 
         /// <summary> The state of a private link service connection. </summary>

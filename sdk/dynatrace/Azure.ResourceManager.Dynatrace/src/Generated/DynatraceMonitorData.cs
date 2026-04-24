@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.Dynatrace
                 {
                     Properties = new DynatraceMonitorProperties();
                 }
-                Properties.MonitoringStatus = value;
+                Properties.MonitoringStatus = value.Value;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.Dynatrace
                 {
                     Properties = new DynatraceMonitorProperties();
                 }
-                Properties.MarketplaceSubscriptionStatus = value;
+                Properties.MarketplaceSubscriptionStatus = value.Value;
             }
         }
 
@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.Dynatrace
                 {
                     Properties = new DynatraceMonitorProperties();
                 }
-                Properties.MarketplaceSaasAutoRenew = value;
+                Properties.MarketplaceSaasAutoRenew = value.Value;
             }
         }
 

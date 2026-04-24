@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.DefaultMessageTimeToLive = value;
+                Properties.DefaultMessageTimeToLive = value.Value;
             }
         }
 
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.MaxSizeInMegabytes = value;
+                Properties.MaxSizeInMegabytes = value.Value;
             }
         }
 
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.MaxMessageSizeInKilobytes = value;
+                Properties.MaxMessageSizeInKilobytes = value.Value;
             }
         }
 
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.RequiresDuplicateDetection = value;
+                Properties.RequiresDuplicateDetection = value.Value;
             }
         }
 
@@ -193,7 +193,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.DuplicateDetectionHistoryTimeWindow = value;
+                Properties.DuplicateDetectionHistoryTimeWindow = value.Value;
             }
         }
 
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.EnableBatchedOperations = value;
+                Properties.EnableBatchedOperations = value.Value;
             }
         }
 
@@ -229,7 +229,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 
@@ -247,7 +247,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.SupportOrdering = value;
+                Properties.SupportOrdering = value.Value;
             }
         }
 
@@ -265,7 +265,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.AutoDeleteOnIdle = value;
+                Properties.AutoDeleteOnIdle = value.Value;
             }
         }
 
@@ -283,7 +283,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.EnablePartitioning = value;
+                Properties.EnablePartitioning = value.Value;
             }
         }
 
@@ -301,7 +301,7 @@ namespace Azure.ResourceManager.ServiceBus
                 {
                     Properties = new SBTopicProperties();
                 }
-                Properties.EnableExpress = value;
+                Properties.EnableExpress = value.Value;
             }
         }
 

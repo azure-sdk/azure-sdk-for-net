@@ -202,7 +202,7 @@ namespace Azure.ResourceManager.Batch
                 {
                     Properties = new PoolProperties();
                 }
-                Properties.InterNodeCommunication = value;
+                Properties.InterNodeCommunication = value.Value;
             }
         }
 
@@ -236,7 +236,7 @@ namespace Azure.ResourceManager.Batch
                 {
                     Properties = new PoolProperties();
                 }
-                Properties.TaskSlotsPerNode = value;
+                Properties.TaskSlotsPerNode = value.Value;
             }
         }
 

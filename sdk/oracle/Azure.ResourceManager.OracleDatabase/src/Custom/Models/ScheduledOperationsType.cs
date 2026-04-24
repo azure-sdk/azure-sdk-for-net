@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 using System;
-using System.ComponentModel;
 
 namespace Azure.ResourceManager.OracleDatabase.Models
 {
@@ -15,16 +14,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
         {
             Argument.AssertNotNull(dayOfWeek, nameof(dayOfWeek));
 
-            ScheduledDay = dayOfWeek;
-        }
-
-        /// <summary> Day of week name. </summary>
-        [System.Obsolete("This property is obsolete and will be removed in a future release. Please use 'ScheduledDayName' instead.")]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public OracleDatabaseDayOfWeekName? DayOfWeekName
-        {
-            get => ScheduledDayName;
-            set { if (value.HasValue) ScheduledDayName = value.Value; }
+            DayOfWeek = dayOfWeek;
         }
     }
 }

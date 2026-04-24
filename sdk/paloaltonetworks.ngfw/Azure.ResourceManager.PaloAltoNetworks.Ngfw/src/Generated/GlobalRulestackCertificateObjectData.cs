@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.PaloAltoNetworks.Ngfw
                 {
                     Properties = new CertificateObject();
                 }
-                Properties.ETag = value;
+                Properties.ETag = value.Value;
             }
         }
 

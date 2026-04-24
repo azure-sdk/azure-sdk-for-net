@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.Confluent.Models
                 {
                     Properties = new ConfluentAgreementProperties();
                 }
-                Properties.RetrieveOn = value;
+                Properties.RetrieveOn = value.Value;
             }
         }
 
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.Confluent.Models
                 {
                     Properties = new ConfluentAgreementProperties();
                 }
-                Properties.IsAccepted = value;
+                Properties.IsAccepted = value.Value;
             }
         }
     }

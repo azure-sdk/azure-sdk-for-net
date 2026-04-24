@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampUpAutoStartHosts = value;
+                Properties.RampUpAutoStartHosts = value.Value;
             }
         }
 
@@ -100,7 +100,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampUpStartVmOnConnect = value;
+                Properties.RampUpStartVmOnConnect = value.Value;
             }
         }
 
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampUpActionOnDisconnect = value;
+                Properties.RampUpActionOnDisconnect = value.Value;
             }
         }
 
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampUpMinutesToWaitOnDisconnect = value;
+                Properties.RampUpMinutesToWaitOnDisconnect = value.Value;
             }
         }
 
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampUpActionOnLogoff = value;
+                Properties.RampUpActionOnLogoff = value.Value;
             }
         }
 
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampUpMinutesToWaitOnLogoff = value;
+                Properties.RampUpMinutesToWaitOnLogoff = value.Value;
             }
         }
 
@@ -208,7 +208,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.PeakStartVmOnConnect = value;
+                Properties.PeakStartVmOnConnect = value.Value;
             }
         }
 
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.PeakActionOnDisconnect = value;
+                Properties.PeakActionOnDisconnect = value.Value;
             }
         }
 
@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.PeakMinutesToWaitOnDisconnect = value;
+                Properties.PeakMinutesToWaitOnDisconnect = value.Value;
             }
         }
 
@@ -262,7 +262,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.PeakActionOnLogoff = value;
+                Properties.PeakActionOnLogoff = value.Value;
             }
         }
 
@@ -280,7 +280,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.PeakMinutesToWaitOnLogoff = value;
+                Properties.PeakMinutesToWaitOnLogoff = value.Value;
             }
         }
 
@@ -316,7 +316,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampDownStartVmOnConnect = value;
+                Properties.RampDownStartVmOnConnect = value.Value;
             }
         }
 
@@ -334,7 +334,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampDownActionOnDisconnect = value;
+                Properties.RampDownActionOnDisconnect = value.Value;
             }
         }
 
@@ -352,7 +352,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampDownMinutesToWaitOnDisconnect = value;
+                Properties.RampDownMinutesToWaitOnDisconnect = value.Value;
             }
         }
 
@@ -370,7 +370,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampDownActionOnLogoff = value;
+                Properties.RampDownActionOnLogoff = value.Value;
             }
         }
 
@@ -388,7 +388,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.RampDownMinutesToWaitOnLogoff = value;
+                Properties.RampDownMinutesToWaitOnLogoff = value.Value;
             }
         }
 
@@ -424,7 +424,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.OffPeakStartVmOnConnect = value;
+                Properties.OffPeakStartVmOnConnect = value.Value;
             }
         }
 
@@ -442,7 +442,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.OffPeakActionOnDisconnect = value;
+                Properties.OffPeakActionOnDisconnect = value.Value;
             }
         }
 
@@ -460,7 +460,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.OffPeakMinutesToWaitOnDisconnect = value;
+                Properties.OffPeakMinutesToWaitOnDisconnect = value.Value;
             }
         }
 
@@ -478,7 +478,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.OffPeakActionOnLogoff = value;
+                Properties.OffPeakActionOnLogoff = value.Value;
             }
         }
 
@@ -496,7 +496,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPersonalScheduleProperties();
                 }
-                Properties.OffPeakMinutesToWaitOnLogoff = value;
+                Properties.OffPeakMinutesToWaitOnLogoff = value.Value;
             }
         }
     }

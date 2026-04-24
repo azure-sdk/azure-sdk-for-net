@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.ReplicaCount = value;
+                Properties.ReplicaCount = value.Value;
             }
         }
 
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.PartitionCount = value;
+                Properties.PartitionCount = value.Value;
             }
         }
 
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.HostingMode = value;
+                Properties.HostingMode = value.Value;
             }
         }
 
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.ComputeType = value;
+                Properties.ComputeType = value.Value;
             }
         }
 
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.PublicInternetAccess = value;
+                Properties.PublicInternetAccess = value.Value;
             }
         }
 
@@ -259,7 +259,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.IsLocalAuthDisabled = value;
+                Properties.IsLocalAuthDisabled = value.Value;
             }
         }
 
@@ -295,7 +295,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.SemanticSearch = value;
+                Properties.SemanticSearch = value.Value;
             }
         }
 
@@ -313,7 +313,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.KnowledgeRetrieval = value;
+                Properties.KnowledgeRetrieval = value.Value;
             }
         }
 
@@ -369,7 +369,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Properties = new SearchServiceProperties();
                 }
-                Properties.IsUpgradeAvailable = value;
+                Properties.IsUpgradeAvailable = value.Value;
             }
         }
 
@@ -397,7 +397,7 @@ namespace Azure.ResourceManager.Search
                 {
                     Sku = new SearchSku();
                 }
-                Sku.SearchSkuName = value;
+                Sku.SearchSkuName = value.Value;
             }
         }
     }

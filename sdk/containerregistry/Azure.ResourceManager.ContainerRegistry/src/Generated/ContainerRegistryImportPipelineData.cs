@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.ContainerRegistry
                 {
                     Properties = new ImportPipelineProperties();
                 }
-                Properties.SourceTriggerStatus = value;
+                Properties.SourceTriggerStatus = value.Value;
             }
         }
     }

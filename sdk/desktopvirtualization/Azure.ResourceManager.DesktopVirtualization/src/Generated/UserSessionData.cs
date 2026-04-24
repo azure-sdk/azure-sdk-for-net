@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new UserSessionProperties();
                 }
-                Properties.ApplicationType = value;
+                Properties.ApplicationType = value.Value;
             }
         }
 
@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new UserSessionProperties();
                 }
-                Properties.SessionState = value;
+                Properties.SessionState = value.Value;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new UserSessionProperties();
                 }
-                Properties.CreateOn = value;
+                Properties.CreateOn = value.Value;
             }
         }
     }

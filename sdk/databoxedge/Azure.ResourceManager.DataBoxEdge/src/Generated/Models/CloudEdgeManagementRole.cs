@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new CloudEdgeManagementRoleProperties();
                 }
-                Properties.RoleStatus = value;
+                Properties.RoleStatus = value.Value;
             }
         }
 

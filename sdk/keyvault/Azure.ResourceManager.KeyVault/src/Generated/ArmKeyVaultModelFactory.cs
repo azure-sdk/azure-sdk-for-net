@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.KeyVault.Models
                 additionalBinaryDataProperties: null,
                 name,
                 location,
-                new KeyVaultAccessPolicyProperties((accessPolicies ?? new ChangeTrackingList<KeyVaultAccessPolicy>()).ToList(), null));
+                accessPolicies is null ? default : new KeyVaultAccessPolicyProperties((accessPolicies ?? new ChangeTrackingList<KeyVaultAccessPolicy>()).ToList(), null));
         }
 
         /// <summary> Properties of the vault access policy. </summary>

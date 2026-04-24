@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.CostManagement
                 {
                     Properties = new ExportProperties();
                 }
-                Properties.Format = value;
+                Properties.Format = value.Value;
             }
         }
 
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.CostManagement
                 {
                     Properties = new ExportProperties();
                 }
-                Properties.PartitionData = value;
+                Properties.PartitionData = value.Value;
             }
         }
 
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.CostManagement
                 {
                     Properties = new ExportProperties();
                 }
-                Properties.DataOverwriteBehavior = value;
+                Properties.DataOverwriteBehavior = value.Value;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.CostManagement
                 {
                     Properties = new ExportProperties();
                 }
-                Properties.CompressionMode = value;
+                Properties.CompressionMode = value.Value;
             }
         }
 

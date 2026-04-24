@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new ProfileProperties();
                 }
-                Properties.ProfileStatus = value;
+                Properties.ProfileStatus = value.Value;
             }
         }
 
@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new ProfileProperties();
                 }
-                Properties.TrafficRoutingMethod = value;
+                Properties.TrafficRoutingMethod = value.Value;
             }
         }
 
@@ -130,7 +130,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new ProfileProperties();
                 }
-                Properties.TrafficViewEnrollmentStatus = value;
+                Properties.TrafficViewEnrollmentStatus = value.Value;
             }
         }
 
@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.TrafficManager
                 {
                     Properties = new ProfileProperties();
                 }
-                Properties.MaxReturn = value;
+                Properties.MaxReturn = value.Value;
             }
         }
     }

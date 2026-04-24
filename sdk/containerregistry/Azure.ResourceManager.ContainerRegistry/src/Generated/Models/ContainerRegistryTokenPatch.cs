@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Models
                 {
                     Properties = new TokenUpdateProperties();
                 }
-                Properties.Status = value;
+                Properties.Status = value.Value;
             }
         }
 

@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new RegisteredServerCreateParametersProperties();
                 }
-                Properties.ClusterId = value;
+                Properties.ClusterId = value.Value;
             }
         }
 
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new RegisteredServerCreateParametersProperties();
                 }
-                Properties.ServerId = value;
+                Properties.ServerId = value.Value;
             }
         }
 
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new RegisteredServerCreateParametersProperties();
                 }
-                Properties.ApplicationId = value;
+                Properties.ApplicationId = value.Value;
             }
         }
 
@@ -222,7 +222,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 {
                     Properties = new RegisteredServerCreateParametersProperties();
                 }
-                Properties.UseIdentity = value;
+                Properties.UseIdentity = value.Value;
             }
         }
     }

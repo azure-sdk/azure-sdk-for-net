@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.ScalingMethod = value;
+                Properties.ScalingMethod = value.Value;
             }
         }
 
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampUpLoadBalancingAlgorithm = value;
+                Properties.RampUpLoadBalancingAlgorithm = value.Value;
             }
         }
 
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampUpMinimumHostsPct = value;
+                Properties.RampUpMinimumHostsPct = value.Value;
             }
         }
 
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampUpCapacityThresholdPct = value;
+                Properties.RampUpCapacityThresholdPct = value.Value;
             }
         }
 
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.PeakLoadBalancingAlgorithm = value;
+                Properties.PeakLoadBalancingAlgorithm = value.Value;
             }
         }
 
@@ -236,7 +236,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampDownLoadBalancingAlgorithm = value;
+                Properties.RampDownLoadBalancingAlgorithm = value.Value;
             }
         }
 
@@ -254,7 +254,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampDownMinimumHostsPct = value;
+                Properties.RampDownMinimumHostsPct = value.Value;
             }
         }
 
@@ -272,7 +272,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampDownCapacityThresholdPct = value;
+                Properties.RampDownCapacityThresholdPct = value.Value;
             }
         }
 
@@ -290,7 +290,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampDownForceLogoffUsers = value;
+                Properties.RampDownForceLogoffUsers = value.Value;
             }
         }
 
@@ -308,7 +308,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampDownStopHostsWhen = value;
+                Properties.RampDownStopHostsWhen = value.Value;
             }
         }
 
@@ -326,7 +326,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.RampDownWaitTimeMinutes = value;
+                Properties.RampDownWaitTimeMinutes = value.Value;
             }
         }
 
@@ -380,7 +380,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                 {
                     Properties = new ScalingPlanPooledScheduleProperties();
                 }
-                Properties.OffPeakLoadBalancingAlgorithm = value;
+                Properties.OffPeakLoadBalancingAlgorithm = value.Value;
             }
         }
     }

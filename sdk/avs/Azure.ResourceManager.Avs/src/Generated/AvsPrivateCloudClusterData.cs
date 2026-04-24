@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Avs
                 {
                     Properties = new ClusterProperties();
                 }
-                Properties.ClusterSize = value;
+                Properties.ClusterSize = value.Value;
             }
         }
 

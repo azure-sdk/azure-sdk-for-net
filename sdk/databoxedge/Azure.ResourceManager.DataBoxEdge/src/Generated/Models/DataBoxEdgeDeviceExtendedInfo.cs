@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 {
                     Properties = new DataBoxEdgeDeviceExtendedInfoProperties();
                 }
-                Properties.KeyVaultSyncStatus = value;
+                Properties.KeyVaultSyncStatus = value.Value;
             }
         }
 
