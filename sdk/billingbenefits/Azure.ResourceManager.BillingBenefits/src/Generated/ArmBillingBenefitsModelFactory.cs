@@ -441,7 +441,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                     renewDestination,
                     new RenewProperties(renewPurchaseProperties, null),
                     null),
-                skuName is null ? default : new ResourceSku(skuName, null));
+                new ResourceSku(skuName, null));
         }
 
         /// <summary> The BillingBenefitsExtendedStatusInfo. </summary>
@@ -509,7 +509,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && milestones is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
                     provisioningState,
                     status,
-                    entityType.Value,
+                    entityType.GetValueOrDefault(),
                     displayName,
                     productCode,
                     billingAccountResourceId,
@@ -879,7 +879,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && milestones is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
                     provisioningState,
                     status,
-                    entityType.Value,
+                    entityType.GetValueOrDefault(),
                     displayName,
                     productCode,
                     billingAccountResourceId,
@@ -971,7 +971,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                     commitment,
                     isRenewed,
                     null),
-                skuName is null ? default : new ResourceSku(skuName, null),
+                new ResourceSku(skuName, null),
                 kind);
         }
 
@@ -1017,7 +1017,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                     (savingsPlans ?? new ChangeTrackingList<string>()).ToList(),
                     extendedStatusInfo,
                     null),
-                skuName is null ? default : new ResourceSku(skuName, null));
+                new ResourceSku(skuName, null));
         }
 
         /// <summary> Information describing the type of billing plan for this savings plan. </summary>
@@ -1140,7 +1140,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                     reviewOn,
                     new ReservationOrderAliasResponsePropertiesReservedResourceProperties(reservedResourceInstanceFlexibility, null),
                     null),
-                skuName is null ? default : new ResourceSku(skuName, null),
+                new ResourceSku(skuName, null),
                 location);
         }
 
@@ -1170,7 +1170,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                skuName is null ? default : new ResourceSku(skuName, null),
+                new ResourceSku(skuName, null),
                 location,
                 displayName is null && billingScopeId is null && term is null && billingPlan is null && appliedScopeType is null && appliedScopeProperties is null && quantity is null && isRenewed is null && reservedResourceType is null && reviewOn is null && reservedResourceInstanceFlexibility is null ? default : new ReservationOrderAliasRequestProperties(
                     displayName,
@@ -1245,7 +1245,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 name,
                 @type,
                 systemData,
-                skuName is null ? default : new ResourceSku(skuName, null),
+                new ResourceSku(skuName, null),
                 kind);
         }
 
@@ -1305,7 +1305,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && milestones is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
                     provisioningState,
                     status,
-                    entityType.Value,
+                    entityType.GetValueOrDefault(),
                     displayName,
                     productCode,
                     billingAccountResourceId,
