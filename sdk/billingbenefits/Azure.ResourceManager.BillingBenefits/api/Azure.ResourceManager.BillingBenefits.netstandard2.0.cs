@@ -460,14 +460,14 @@ namespace Azure.ResourceManager.BillingBenefits
         internal ContributorData() { }
         public Azure.ResourceManager.BillingBenefits.Models.EnablementMode? AutomaticShortfall { get { throw null; } }
         public Azure.ResourceManager.BillingBenefits.Models.AutomaticShortfallSuppressReason AutomaticShortfallSuppressReason { get { throw null; } }
-        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? BenefitEntityType { get { throw null; } }
         public Azure.Core.ResourceIdentifier BillingAccountResourceId { get { throw null; } }
         public Azure.ResourceManager.BillingBenefits.Models.BillingBenefitsCommitment Commitment { get { throw null; } }
         public string DisplayName { get { throw null; } }
         public System.DateTimeOffset? EndOn { get { throw null; } }
-        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use BenefitEntityType instead.")]
+        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use MaccEntityType instead.")]
         public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType EntityType { get { throw null; } }
         public bool? IsAllowContributors { get { throw null; } }
+        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? MaccEntityType { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.BillingBenefits.Models.MaccMilestone> Milestones { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrimaryBillingAccountResourceId { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrimaryResourceId { get { throw null; } }
@@ -804,17 +804,17 @@ namespace Azure.ResourceManager.BillingBenefits
         public MaccData(Azure.Core.AzureLocation location) { }
         public Azure.ResourceManager.BillingBenefits.Models.EnablementMode? AutomaticShortfall { get { throw null; } set { } }
         public Azure.ResourceManager.BillingBenefits.Models.AutomaticShortfallSuppressReason AutomaticShortfallSuppressReason { get { throw null; } set { } }
-        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? BenefitEntityType { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier BillingAccountResourceId { get { throw null; } set { } }
         public Azure.ResourceManager.BillingBenefits.Models.BillingBenefitsCommitment Commitment { get { throw null; } set { } }
         public string DisplayName { get { throw null; } set { } }
         public System.DateTimeOffset? EndOn { get { throw null; } set { } }
-        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use BenefitEntityType instead.")]
+        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use MaccEntityType instead.")]
         public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType EntityType { get { throw null; } set { } }
         public string ETag { get { throw null; } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public bool? IsAllowContributors { get { throw null; } set { } }
         public string Kind { get { throw null; } set { } }
+        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? MaccEntityType { get { throw null; } set { } }
         public string ManagedBy { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.BillingBenefits.Models.MaccMilestone> Milestones { get { throw null; } }
         public Azure.ResourceManager.BillingBenefits.Models.BillingBenefitsPlan Plan { get { throw null; } set { } }
@@ -963,14 +963,14 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         internal ApplicableMacc() { }
         public Azure.ResourceManager.BillingBenefits.Models.EnablementMode? AutomaticShortfall { get { throw null; } }
         public Azure.ResourceManager.BillingBenefits.Models.AutomaticShortfallSuppressReason AutomaticShortfallSuppressReason { get { throw null; } }
-        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? BenefitEntityType { get { throw null; } }
         public Azure.Core.ResourceIdentifier BillingAccountResourceId { get { throw null; } }
         public Azure.ResourceManager.BillingBenefits.Models.BillingBenefitsCommitment Commitment { get { throw null; } }
         public string DisplayName { get { throw null; } }
         public System.DateTimeOffset? EndOn { get { throw null; } }
-        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use BenefitEntityType instead.")]
+        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use MaccEntityType instead.")]
         public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType EntityType { get { throw null; } }
         public bool? IsAllowContributors { get { throw null; } }
+        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? MaccEntityType { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.BillingBenefits.Models.MaccMilestone> Milestones { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrimaryBillingAccountResourceId { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrimaryResourceId { get { throw null; } }
@@ -2465,14 +2465,14 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         public MaccValidateModel() { }
         public Azure.ResourceManager.BillingBenefits.Models.EnablementMode? AutomaticShortfall { get { throw null; } set { } }
         public Azure.ResourceManager.BillingBenefits.Models.AutomaticShortfallSuppressReason AutomaticShortfallSuppressReason { get { throw null; } set { } }
-        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? BenefitEntityType { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier BillingAccountResourceId { get { throw null; } set { } }
         public Azure.ResourceManager.BillingBenefits.Models.BillingBenefitsCommitment Commitment { get { throw null; } set { } }
         public string DisplayName { get { throw null; } set { } }
         public System.DateTimeOffset? EndOn { get { throw null; } set { } }
-        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use BenefitEntityType instead.")]
+        [System.ObsoleteAttribute("This property is obsolete and will be removed in a future release. Use MaccEntityType instead.")]
         public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType EntityType { get { throw null; } set { } }
         public bool? IsAllowContributors { get { throw null; } set { } }
+        public Azure.ResourceManager.BillingBenefits.Models.MaccEntityType? MaccEntityType { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.BillingBenefits.Models.MaccMilestone> Milestones { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrimaryBillingAccountResourceId { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier PrimaryResourceId { get { throw null; } set { } }

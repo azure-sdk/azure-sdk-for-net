@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System;
+using System.ComponentModel;
 using Azure.ResourceManager.CostManagement.Models;
-using Microsoft.TypeSpec.Generator.Customizations;
 
 namespace Azure.ResourceManager.CostManagement
 {
@@ -10,37 +11,26 @@ namespace Azure.ResourceManager.CostManagement
     {
         /// <summary>
         /// The category of the budget.
-        /// <list type="bullet"><item><description>'Cost' defines a Budget.</description></item><item><description>'ReservationUtilization' defines a Reservation Utilization Alert Rule.</description></item></list>
         /// </summary>
-        [CodeGenMember("Category")]
+        // Backward-compatibility shim. Use BudgetCategory instead.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("This property is obsolete and will be removed in a future release. Use BudgetCategory instead.")]
         public CategoryType Category
         {
-            get => Properties is null ? default : Properties.Category;
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new BudgetProperties();
-                }
-                Properties.Category = value;
-            }
+            get => BudgetCategory.GetValueOrDefault();
+            set => BudgetCategory = value;
         }
 
         /// <summary>
         /// The time covered by a budget. Tracking of the amount will be reset based on the time grain.
         /// </summary>
-        [CodeGenMember("TimeGrain")]
+        // Backward-compatibility shim. Use BudgetTimeGrain instead.
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Obsolete("This property is obsolete and will be removed in a future release. Use BudgetTimeGrain instead.")]
         public TimeGrainType TimeGrain
         {
-            get => Properties is null ? default : Properties.TimeGrain;
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new BudgetProperties();
-                }
-                Properties.TimeGrain = value;
-            }
+            get => BudgetTimeGrain.GetValueOrDefault();
+            set => BudgetTimeGrain = value;
         }
     }
 }

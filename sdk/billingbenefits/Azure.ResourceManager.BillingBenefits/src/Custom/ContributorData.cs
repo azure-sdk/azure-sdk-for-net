@@ -12,9 +12,9 @@ namespace Azure.ResourceManager.BillingBenefits
         /// <summary>
         /// Represents type of the object being operated on. Possible values are primary or contributor.
         /// </summary>
-        // Backward-compatibility shim. Use BenefitEntityType instead.
+        // Backward-compatibility shim. Use MaccEntityType instead.
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is obsolete and will be removed in a future release. Use BenefitEntityType instead.")]
-        public MaccEntityType EntityType => BenefitEntityType.GetValueOrDefault();
+        [Obsolete("This property is obsolete and will be removed in a future release. Use MaccEntityType instead.")]
+        public MaccEntityType EntityType => MaccEntityType.GetValueOrDefault();
     }
 }
