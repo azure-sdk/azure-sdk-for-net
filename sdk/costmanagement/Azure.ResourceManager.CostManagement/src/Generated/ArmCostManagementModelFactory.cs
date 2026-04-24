@@ -121,9 +121,9 @@ namespace Azure.ResourceManager.CostManagement.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 category is null && amount is null && timeGrain is null && timePeriod is null && filter is null && currentSpend is null && notifications is null && forecastSpend is null ? default : new BudgetProperties(
-                    category.Value,
+                    category.GetValueOrDefault(),
                     amount,
-                    timeGrain.Value,
+                    timeGrain.GetValueOrDefault(),
                     timePeriod,
                     filter,
                     currentSpend,
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager.CostManagement.Models
         {
             return new ExportProperties(
                 format,
-                deliveryInfoDestination is null ? default : new ExportDeliveryInfo(deliveryInfoDestination, null),
+                new ExportDeliveryInfo(deliveryInfoDestination, null),
                 definition,
                 runHistoryValue is null ? default : new ExportExecutionListResult((runHistoryValue ?? new ChangeTrackingList<ExportRun>()).ToList(), null),
                 partitionData,
@@ -350,7 +350,7 @@ namespace Azure.ResourceManager.CostManagement.Models
         {
             return new CommonExportProperties(
                 format,
-                deliveryInfoDestination is null ? default : new ExportDeliveryInfo(deliveryInfoDestination, null),
+                new ExportDeliveryInfo(deliveryInfoDestination, null),
                 definition,
                 runHistoryValue is null ? default : new ExportExecutionListResult((runHistoryValue ?? new ChangeTrackingList<ExportRun>()).ToList(), null),
                 partitionData,
@@ -773,7 +773,7 @@ namespace Azure.ResourceManager.CostManagement.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 SettingsKind.Taginheritance,
-                preferContainerTags is null ? default : new TagInheritanceProperties(preferContainerTags.Value, null));
+                preferContainerTags is null ? default : new TagInheritanceProperties(preferContainerTags.GetValueOrDefault(), null));
         }
 
         /// <param name="id"> The id of the long running operation. </param>

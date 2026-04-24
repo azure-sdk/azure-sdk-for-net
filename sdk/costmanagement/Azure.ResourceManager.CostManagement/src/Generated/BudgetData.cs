@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.CostManagement
         /// The category of the budget.
         /// <list type="bullet"><item><description>'Cost' defines a Budget.</description></item><item><description>'ReservationUtilization' defines a Reservation Utilization Alert Rule.</description></item></list>
         /// </summary>
-        public CategoryType Category
+        public CategoryType? Category
         {
             get
             {
@@ -58,11 +58,14 @@ namespace Azure.ResourceManager.CostManagement
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new BudgetProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new BudgetProperties();
+                    }
+                    Properties.Category = value.Value;
                 }
-                Properties.Category = value;
             }
         }
 
@@ -83,7 +86,7 @@ namespace Azure.ResourceManager.CostManagement
                 {
                     Properties = new BudgetProperties();
                 }
-                Properties.Amount = value.Value;
+                Properties.Amount = value;
             }
         }
 
@@ -97,7 +100,7 @@ namespace Azure.ResourceManager.CostManagement
         /// <list type="bullet"><item><description>Last7Days</description></item><item><description>Last30Days</description></item></list>
         /// Required for CategoryType(s): Cost, ReservationUtilization.
         /// </summary>
-        public TimeGrainType TimeGrain
+        public TimeGrainType? TimeGrain
         {
             get
             {
@@ -105,11 +108,14 @@ namespace Azure.ResourceManager.CostManagement
             }
             set
             {
-                if (Properties is null)
+                if (value.HasValue)
                 {
-                    Properties = new BudgetProperties();
+                    if (Properties is null)
+                    {
+                        Properties = new BudgetProperties();
+                    }
+                    Properties.TimeGrain = value.Value;
                 }
-                Properties.TimeGrain = value;
             }
         }
 
