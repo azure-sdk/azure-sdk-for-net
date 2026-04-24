@@ -24,18 +24,5 @@ namespace Azure.ResourceManager.MongoCluster.Models
 
         /// <summary> The Entra identity properties for the user. </summary>
         internal MongoClusterEntraIdentityProviderProperties Properties { get; set; }
-
-        /// <summary> The principal type of the user. </summary>
-        public MongoClusterEntraPrincipalType MongoClusterEntraIdentityProviderPrincipalKind
-        {
-            get
-            {
-                return Properties is null ? default : Properties.PrincipalKind;
-            }
-            set
-            {
-                Properties = new MongoClusterEntraIdentityProviderProperties(value);
-            }
-        }
     }
 }

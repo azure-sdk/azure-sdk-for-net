@@ -446,9 +446,9 @@ namespace Azure.ResourceManager.MongoCluster.Models
     public partial class MongoClusterEntraIdentityProvider : Azure.ResourceManager.MongoCluster.Models.MongoClusterIdentityProvider, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraIdentityProvider>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraIdentityProvider>
     {
         public MongoClusterEntraIdentityProvider(Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraIdentityProviderProperties properties) { }
-        public Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraPrincipalType MongoClusterEntraIdentityProviderPrincipalKind { get { throw null; } set { } }
-        [System.ObsoleteAttribute("This property has been renamed to MongoClusterEntraIdentityProviderPrincipalKind.")]
+        [System.ObsoleteAttribute("This property has been renamed to PrincipalType.")]
         public Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraPrincipalType? MongoClusterEntraIdentityProviderPrincipalType { get { throw null; } set { } }
+        public Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraPrincipalType? PrincipalType { get { throw null; } set { } }
         protected override Azure.ResourceManager.MongoCluster.Models.MongoClusterIdentityProvider JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected override Azure.ResourceManager.MongoCluster.Models.MongoClusterIdentityProvider PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -461,9 +461,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
     }
     public partial class MongoClusterEntraIdentityProviderProperties : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraIdentityProviderProperties>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraIdentityProviderProperties>
     {
-        public MongoClusterEntraIdentityProviderProperties(Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraPrincipalType principalKind) { }
-        public Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraPrincipalType PrincipalKind { get { throw null; } set { } }
-        [System.ObsoleteAttribute("This property has been renamed to PrincipalKind.")]
+        public MongoClusterEntraIdentityProviderProperties(Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraPrincipalType principalType) { }
         public Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraPrincipalType PrincipalType { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.MongoCluster.Models.MongoClusterEntraIdentityProviderProperties JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }

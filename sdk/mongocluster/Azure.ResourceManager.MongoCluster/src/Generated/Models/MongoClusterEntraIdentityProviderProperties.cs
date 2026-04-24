@@ -17,22 +17,22 @@ namespace Azure.ResourceManager.MongoCluster.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="MongoClusterEntraIdentityProviderProperties"/>. </summary>
-        /// <param name="principalKind"> The principal type of the user. </param>
-        public MongoClusterEntraIdentityProviderProperties(MongoClusterEntraPrincipalType principalKind)
+        /// <param name="principalType"> The principal type of the user. </param>
+        public MongoClusterEntraIdentityProviderProperties(MongoClusterEntraPrincipalType principalType)
         {
-            PrincipalKind = principalKind;
+            PrincipalType = principalType;
         }
 
         /// <summary> Initializes a new instance of <see cref="MongoClusterEntraIdentityProviderProperties"/>. </summary>
-        /// <param name="principalKind"> The principal type of the user. </param>
+        /// <param name="principalType"> The principal type of the user. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal MongoClusterEntraIdentityProviderProperties(MongoClusterEntraPrincipalType principalKind, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal MongoClusterEntraIdentityProviderProperties(MongoClusterEntraPrincipalType principalType, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            PrincipalKind = principalKind;
+            PrincipalType = principalType;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The principal type of the user. </summary>
-        public MongoClusterEntraPrincipalType PrincipalKind { get; set; }
+        public MongoClusterEntraPrincipalType PrincipalType { get; set; }
     }
 }
