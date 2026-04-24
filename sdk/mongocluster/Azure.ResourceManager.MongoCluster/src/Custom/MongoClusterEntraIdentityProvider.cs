@@ -18,31 +18,28 @@ namespace Azure.ResourceManager.MongoCluster.Models
         //   2) re-introduce the original long name as an [Obsolete] backward-compatibility shim that delegates here.
         /// <summary> The principal type of the user. </summary>
         [CodeGenMember("MongoClusterEntraIdentityProviderPrincipalType")]
-        public MongoClusterEntraPrincipalType? PrincipalType
+        public MongoClusterEntraPrincipalType PrincipalType
         {
-            get => Properties?.PrincipalType;
-            set
-            {
-                if (value.HasValue)
-                {
-                    Properties = new MongoClusterEntraIdentityProviderProperties(value.Value);
-                }
-                else
-                {
-                    Properties = null;
-                }
-            }
+            get => Properties is null ? default : Properties.PrincipalType;
+            set => Properties = new MongoClusterEntraIdentityProviderProperties(value);
         }
 
         /// <summary>
         /// [Obsolete] Backward-compatibility shim. Use <see cref="PrincipalType"/> instead.
+        /// The underlying property is now non-nullable; setting <c>null</c> is a no-op (existing value preserved).
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("This property has been renamed to PrincipalType.")]
         public MongoClusterEntraPrincipalType? MongoClusterEntraIdentityProviderPrincipalType
         {
             get => PrincipalType;
-            set => PrincipalType = value;
+            set
+            {
+                if (value.HasValue)
+                {
+                    PrincipalType = value.Value;
+                }
+            }
         }
     }
 }
