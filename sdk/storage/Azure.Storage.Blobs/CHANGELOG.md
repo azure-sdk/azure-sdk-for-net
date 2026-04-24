@@ -1,16 +1,6 @@
 # Release History
 
-## 12.28.0-beta.1 (Unreleased)
-
-### Features Added
-
-### Breaking Changes
-
-### Bugs Fixed
-
-### Other Changes
-
-## 12.27.0 (2026-01-08)
+## 12.27.0 (2026-04-24)
 
 ### Features Added
 - Includes all features from 12.27.0-beta.1
