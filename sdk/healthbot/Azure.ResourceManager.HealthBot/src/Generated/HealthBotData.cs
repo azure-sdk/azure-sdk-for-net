@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.HealthBot
         public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> The name of the Azure Health Bot SKU. </summary>
-        public HealthBotSkuName? SkuName
+        public HealthBotSkuName SkuName
         {
             get
             {
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.HealthBot
             }
             set
             {
-                Sku = value.HasValue ? new HealthBotSku(value.Value) : default;
+                Sku = new HealthBotSku(value);
             }
         }
     }

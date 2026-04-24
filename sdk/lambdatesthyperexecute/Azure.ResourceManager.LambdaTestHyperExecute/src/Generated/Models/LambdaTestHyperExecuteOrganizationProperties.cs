@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.LambdaTestHyperExecute.Models
         public LambdaTestHyperExecuteSingleSignOnPropertiesV2 SingleSignOnProperties { get; set; }
 
         /// <summary> The number of licenses subscribed. </summary>
-        public int? PartnerLicensesSubscribed
+        public int PartnerLicensesSubscribed
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.LambdaTestHyperExecute.Models
             }
             set
             {
-                PartnerProperties = value.HasValue ? new LambdaTestHyperExecuteOfferPartnerProperties(value.Value) : default;
+                PartnerProperties = new LambdaTestHyperExecuteOfferPartnerProperties(value);
             }
         }
     }
