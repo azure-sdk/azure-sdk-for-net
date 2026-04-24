@@ -47,29 +47,6 @@ namespace Azure.ResourceManager.CostManagement
         public ETag? ETag { get; set; }
 
         /// <summary>
-        /// The category of the budget.
-        /// <list type="bullet"><item><description>'Cost' defines a Budget.</description></item><item><description>'ReservationUtilization' defines a Reservation Utilization Alert Rule.</description></item></list>
-        /// </summary>
-        public CategoryType? Category
-        {
-            get
-            {
-                return Properties is null ? default : Properties.Category;
-            }
-            set
-            {
-                if (value.HasValue)
-                {
-                    if (Properties is null)
-                    {
-                        Properties = new BudgetProperties();
-                    }
-                    Properties.Category = value.Value;
-                }
-            }
-        }
-
-        /// <summary>
         /// The total amount of cost to track with the budget.
         /// Supported for CategoryType(s): Cost.
         /// Required for CategoryType(s): Cost.
@@ -87,35 +64,6 @@ namespace Azure.ResourceManager.CostManagement
                     Properties = new BudgetProperties();
                 }
                 Properties.Amount = value;
-            }
-        }
-
-        /// <summary>
-        /// The time covered by a budget. Tracking of the amount will be reset based on the time grain.
-        /// Supported for CategoryType(s): Cost, ReservationUtilization.
-        /// Supported timeGrainTypes for <b>CategoryType: Cost</b>
-        /// <list type="bullet"><item><description>Monthly</description></item><item><description>Quarterly</description></item><item><description>Annually</description></item><item><description>BillingMonth*</description></item><item><description>BillingQuarter*</description></item><item><description>BillingAnnual*</description></item></list>
-        /// *only supported for Web Direct customers.
-        /// Supported timeGrainTypes for <b>CategoryType: ReservationUtilization</b>
-        /// <list type="bullet"><item><description>Last7Days</description></item><item><description>Last30Days</description></item></list>
-        /// Required for CategoryType(s): Cost, ReservationUtilization.
-        /// </summary>
-        public TimeGrainType? TimeGrain
-        {
-            get
-            {
-                return Properties is null ? default : Properties.TimeGrain;
-            }
-            set
-            {
-                if (value.HasValue)
-                {
-                    if (Properties is null)
-                    {
-                        Properties = new BudgetProperties();
-                    }
-                    Properties.TimeGrain = value.Value;
-                }
             }
         }
 
