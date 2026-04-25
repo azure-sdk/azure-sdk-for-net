@@ -17,22 +17,22 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="ServiceFabricManagedClustersSku"/>. </summary>
-        /// <param name="skuKind"> Sku Name. </param>
-        public ServiceFabricManagedClustersSku(ServiceFabricManagedClustersSkuName skuKind)
+        /// <param name="name"> Sku Name. </param>
+        public ServiceFabricManagedClustersSku(ServiceFabricManagedClustersSkuName name)
         {
-            SkuKind = skuKind;
+            Name = name;
         }
 
         /// <summary> Initializes a new instance of <see cref="ServiceFabricManagedClustersSku"/>. </summary>
-        /// <param name="skuKind"> Sku Name. </param>
+        /// <param name="name"> Sku Name. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceFabricManagedClustersSku(ServiceFabricManagedClustersSkuName skuKind, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ServiceFabricManagedClustersSku(ServiceFabricManagedClustersSkuName name, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            SkuKind = skuKind;
+            Name = name;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Sku Name. </summary>
-        public ServiceFabricManagedClustersSkuName SkuKind { get; set; }
+        public ServiceFabricManagedClustersSkuName Name { get; set; }
     }
 }

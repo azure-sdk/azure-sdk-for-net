@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 throw new FormatException($"The model {nameof(ServiceFabricManagedClustersSku)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("name"u8);
-            writer.WriteStringValue(SkuKind.ToString());
+            writer.WriteStringValue(Name.ToString());
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -123,13 +123,13 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
             {
                 return null;
             }
-            ServiceFabricManagedClustersSkuName skuKind = default;
+            ServiceFabricManagedClustersSkuName name = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("name"u8))
                 {
-                    skuKind = new ServiceFabricManagedClustersSkuName(prop.Value.GetString());
+                    name = new ServiceFabricManagedClustersSkuName(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ServiceFabricManagedClustersSku(skuKind, additionalBinaryDataProperties);
+            return new ServiceFabricManagedClustersSku(name, additionalBinaryDataProperties);
         }
     }
 }

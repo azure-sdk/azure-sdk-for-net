@@ -16,8 +16,8 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
     {
         /// <summary>
         /// [Obsolete] Backward-compatibility shim matching the previous GA factory signature where
-        /// <c>skuName</c> was the LAST positional parameter and was <see cref="Nullable{SkuName}"/>.
-        /// Forwards to the new factory using the renamed, non-nullable <c>skuKind</c> parameter
+        /// <c>skuName</c> was the LAST positional parameter and was <see cref="Nullable{ServiceFabricManagedClustersSkuName}"/>.
+        /// Forwards to the new factory using the renamed, non-nullable <c>skuName</c> parameter
         /// (<c>null</c> becomes the default enum value).
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -126,6 +126,6 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Models
                 skipManagedNsgAssignment: skipManagedNsgAssignment,
                 maxUnusedVersionsToKeep: maxUnusedVersionsToKeep,
                 etag: etag,
-                skuName: skuName);
+                skuName: skuName ?? default);
     }
 }

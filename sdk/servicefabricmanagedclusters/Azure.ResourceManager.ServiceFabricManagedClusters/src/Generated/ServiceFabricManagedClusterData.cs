@@ -712,18 +712,5 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
                 Properties.MaxUnusedVersionsToKeep = value;
             }
         }
-
-        /// <summary> Sku Name. </summary>
-        public ServiceFabricManagedClustersSkuName SkuKind
-        {
-            get
-            {
-                return Sku is null ? default : Sku.SkuKind;
-            }
-            set
-            {
-                Sku = new ServiceFabricManagedClustersSku(value);
-            }
-        }
     }
 }

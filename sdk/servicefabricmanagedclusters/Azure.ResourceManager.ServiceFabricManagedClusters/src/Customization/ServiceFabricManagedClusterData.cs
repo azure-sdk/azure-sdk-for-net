@@ -29,22 +29,29 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             Sku = sku;
         }
 
+        // Customization rationale:
+        //   The previous GA exposed `SkuName` (Nullable<ServiceFabricManagedClustersSkuName>) as a flattened
+        //   property on this resource data class. The current emitter no longer flattens `Sku` (it remains
+        //   an internal property), so we expose a public, non-nullable `ManagedClustersSkuName` flattened
+        //   accessor as the new clean surface, and keep the legacy nullable `SkuName` as an [Obsolete]
+        //   backward-compatibility shim.
+
+        /// <summary> Sku Name. </summary>
+        public ServiceFabricManagedClustersSkuName ManagedClustersSkuName
+        {
+            get => Sku is null ? default : Sku.Name;
+            set => Sku = new ServiceFabricManagedClustersSku(value);
+        }
+
         /// <summary>
-        /// [Obsolete] Backward-compatibility shim. Use <see cref="SkuKind"/> instead.
-        /// The underlying property is now non-nullable; setting <c>null</c> is a no-op (existing value preserved).
+        /// [Obsolete] Backward-compatibility shim. Use <see cref="ManagedClustersSkuName"/> instead.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property has been renamed to SkuKind.")]
+        [Obsolete("This property has been renamed to ManagedClustersSkuName.")]
         public ServiceFabricManagedClustersSkuName? SkuName
         {
-            get => SkuKind;
-            set
-            {
-                if (value.HasValue)
-                {
-                    SkuKind = value.Value;
-                }
-            }
+            get => Sku is null ? default(ServiceFabricManagedClustersSkuName?) : Sku.Name;
+            set => Sku = value.HasValue ? new ServiceFabricManagedClustersSku(value.Value) : default;
         }
     }
 }
