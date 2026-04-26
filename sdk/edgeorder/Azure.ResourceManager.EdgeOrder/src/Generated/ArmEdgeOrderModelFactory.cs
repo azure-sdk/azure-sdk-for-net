@@ -996,8 +996,8 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <param name="name"> Represents Billing type name. </param>
         /// <param name="meterDetails">
         /// Represents MeterDetails
-        ///             Please note  is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        ///             The available derived classes include  and .
+        ///                         Please note  is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        ///                         The available derived classes include  and .
         /// </param>
         /// <param name="meteringType"> Represents Metering type (eg one-time or recurrent). </param>
         /// <param name="frequency"> Frequency of recurrence. </param>
