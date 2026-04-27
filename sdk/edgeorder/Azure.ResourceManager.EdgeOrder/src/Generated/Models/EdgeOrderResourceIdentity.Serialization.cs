@@ -167,16 +167,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
                 if (prop.NameEquals("userAssignedIdentities"u8))
                 {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    Dictionary<string, UserAssignedIdentity> dictionary = new Dictionary<string, UserAssignedIdentity>();
-                    foreach (var prop0 in prop.Value.EnumerateObject())
-                    {
-                        dictionary.Add(prop0.Name, UserAssignedIdentity.DeserializeUserAssignedIdentity(prop0.Value, options));
-                    }
-                    userAssignedIdentities = dictionary;
+                    DeserializeUserAssignedIdentities(prop, ref userAssignedIdentities);
                     continue;
                 }
                 if (options.Format != "W")
