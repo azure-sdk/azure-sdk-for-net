@@ -18,13 +18,11 @@ import {
   ArmResourceSchema,
   convertArmProviderSchemaToArguments,
   postProcessArmResources,
-  ParentResourceLookupContext,
   assignNonResourceMethodsToResources,
   resolveResourceApiVersions,
   extractRbacRoles,
   findLongestPrefixMatch,
   RequestPath,
-  expandDynamicParentResourcesInSchema,
   extractNameConstraintOverrides
 } from "./resource-metadata.js";
 import {
@@ -392,100 +390,98 @@ export function buildArmProviderSchema(
     }
   }
 
-  const expandedResources = expandDynamicParentResourcesInSchema(
-    resources,
-    serviceMethods,
-    (message) =>
-      sdkContext.program.reportDiagnostic({
-        code: "general-warning",
-        severity: "warning",
-        message,
-        target: NoTarget
-      })
-  );
-
-  // For multiple-path resources (same model at different paths), detect parent-child relationships through path matching
-  // This is needed when both parent and child use the same model (e.g., legacy-operations pattern)
-  // This is also specific to legacy resource detection
-  for (const resource of expandedResources) {
-    if (
-      !resource.metadata.parentResourceId &&
-      resource.metadata.resourceIdPattern !== undefined
-    ) {
-      // Find the longest matching parent path (most specific parent)
-      const bestParent = findLongestPrefixMatch(
-        resource.metadata.resourceIdPattern,
-        expandedResources,
-        (candidate) =>
-          candidate !== resource && candidate.metadata.resourceIdPattern !== undefined
-            ? candidate.metadata.resourceIdPattern
-            : undefined,
-        true
-      );
-      if (bestParent) {
-        resource.metadata.parentResourceId = bestParent.metadata.resourceIdPattern;
-        // Note: we don't set parentResourceModelId here since they share the same model
-      }
-    }
-  }
-
-  // Update the model's scope based on resource scope decorator if it exists or based on the Read method's scope.
-  // This is specific to legacy resource detection
-  for (const resource of expandedResources) {
-    const scopeKind = getResourceScope(resource.metadata.methods);
-    resource.metadata.scope = {
-      kind: scopeKind,
-      scopeIdPattern:
-        resource.metadata.resourceIdPattern?.scopePath ?? RequestPath.empty
-    };
-  }
-
-  // Create parent lookup context for legacy resource detection
-  // In this case, parent information comes from decorators and path matching (already populated above)
-  const parentLookup: ParentResourceLookupContext = {
-    getParentResource: (
-      resource: ArmResourceSchema
-    ): ArmResourceSchema | undefined => {
-      const parentModelId = resource.metadata.parentResourceModelId;
-      if (!parentModelId) return undefined;
-
-      // Find parent resource with matching model ID and a valid resourceIdPattern
-      for (const r of expandedResources) {
-        if (
-          r.resourceModelId === parentModelId &&
-          r.metadata.resourceIdPattern
-        ) {
-          return r;
-        }
-      }
-      return undefined;
-    }
-  };
-
   // Convert non-resource methods map to array
   const nonResourceMethodsArray: NonResourceMethod[] = Array.from(
     nonResourceMethods.values()
   );
 
-  // Track resources before post-processing to emit diagnostics for filtered resources
-  const resourcesBeforeFiltering = new Set(
-    expandedResources.filter((r) => r.metadata.resourceIdPattern !== undefined)
-  );
-
-  // Use the shared post-processing function
-  const filteredResources = postProcessArmResources(
-    expandedResources,
+  // Use the shared post-processing function. Expansion + path-based parent
+  // matching + scope assignment all happen as part of the post-process pipeline:
+  // expansion runs first inside postProcessArmResources, then the builder below
+  // runs the legacy-only mutations on the post-expansion list and produces the
+  // parent-lookup context.
+  const { filteredResources, expandedResources } = postProcessArmResources(
+    resources,
     nonResourceMethodsArray,
-    parentLookup,
-    methodResponseModelIdMap
+    (expanded) => {
+      // For multiple-path resources (same model at different paths), detect
+      // parent-child relationships through path matching. This is needed when
+      // both parent and child use the same model (e.g., legacy-operations).
+      for (const resource of expanded) {
+        if (
+          !resource.metadata.parentResourceId &&
+          resource.metadata.resourceIdPattern !== undefined
+        ) {
+          const bestParent = findLongestPrefixMatch(
+            resource.metadata.resourceIdPattern,
+            expanded,
+            (candidate) =>
+              candidate !== resource &&
+              candidate.metadata.resourceIdPattern !== undefined
+                ? candidate.metadata.resourceIdPattern
+                : undefined,
+            true
+          );
+          if (bestParent) {
+            resource.metadata.parentResourceId = bestParent.metadata.resourceIdPattern;
+            // Note: we don't set parentResourceModelId here since they share the same model
+          }
+        }
+      }
+
+      // Update the model's scope based on the resource scope decorator if it
+      // exists or based on the Read method's scope.
+      for (const resource of expanded) {
+        const scopeKind = getResourceScope(resource.metadata.methods);
+        resource.metadata.scope = {
+          kind: scopeKind,
+          scopeIdPattern:
+            resource.metadata.resourceIdPattern?.scopePath ?? RequestPath.empty
+        };
+      }
+
+      // Parent information comes from decorators and path matching populated above.
+      return {
+        getParentResource: (
+          resource: ArmResourceSchema
+        ): ArmResourceSchema | undefined => {
+          const parentModelId = resource.metadata.parentResourceModelId;
+          if (!parentModelId) return undefined;
+
+          for (const r of expanded) {
+            if (
+              r.resourceModelId === parentModelId &&
+              r.metadata.resourceIdPattern
+            ) {
+              return r;
+            }
+          }
+          return undefined;
+        }
+      };
+    },
+    {
+      serviceMethods,
+      diagnosticReporter: (message) =>
+        sdkContext.program.reportDiagnostic({
+          code: "general-warning",
+          severity: "warning",
+          message,
+          target: NoTarget
+        }),
+      methodResponseModelIdMap
+    }
   );
 
   // Emit diagnostics for resources that were filtered out (non-singleton resources without Read operations)
   const resourcesAfterFiltering: Set<ArmResourceSchema> = new Set(
     filteredResources
   );
-  for (const resource of resourcesBeforeFiltering) {
-    if (!resourcesAfterFiltering.has(resource)) {
+  for (const resource of expandedResources) {
+    if (
+      resource.metadata.resourceIdPattern !== undefined &&
+      !resourcesAfterFiltering.has(resource)
+    ) {
       const model = resourceModelMap.get(resource.resourceModelId);
       if (model) {
         sdkContext.program.reportDiagnostic({

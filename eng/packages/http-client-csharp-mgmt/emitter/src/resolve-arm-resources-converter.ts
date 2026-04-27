@@ -49,11 +49,9 @@ import {
   ResourceOperationKind,
   ResourceScopeKind,
   postProcessArmResources,
-  ParentResourceLookupContext,
   assignNonResourceMethodsToResources,
   resolveResourceApiVersions,
   extractRbacRoles,
-  expandDynamicParentResourcesInSchema,
   extractNameConstraintOverrides
 } from "./resource-metadata.js";
 import { CSharpEmitterContext } from "@typespec/http-client-csharp";
@@ -201,8 +199,9 @@ export function resolveArmResources(
     schemaToResolvedResource
   );
 
-  // Expand resources with dynamic parent type segments (e.g., {parentType}/{parentName})
-  // into concrete resource entries per enum value, using the shared utility.
+  // Build a method-id -> SdkMethod map so postProcessArmResources can expand
+  // resources with dynamic parent type segments (e.g., {parentType}/{parentName})
+  // into concrete resource entries per enum value.
   const serviceMethodsMap = new Map<
     string,
     SdkMethod<SdkHttpOperation>
@@ -217,94 +216,96 @@ export function resolveArmResources(
       }
     }
   }
-  const expandedResources = expandDynamicParentResourcesInSchema(
-    resources,
-    serviceMethodsMap,
-    (message) =>
-      sdkContext.program.reportDiagnostic({
-        code: "general-warning",
-        severity: "warning",
-        message,
-        target: NoTarget
-      }),
-    // Mirror schema-to-resolved-resource entries for expanded children so that
-    // the parent lookup below can resolve them without an out-of-band fallback.
-    (expanded, original) => {
-      const resolved = schemaToResolvedResource.get(original);
-      if (resolved) {
-        schemaToResolvedResource.set(expanded, resolved);
-      }
-    }
-  );
 
   // Convert non-resource methods
   const nonResourceMethods: NonResourceMethod[] = [];
 
-  // Create parent lookup context for resolveArmResources.
-  // Parent information comes from ResolvedResource objects. When the parent
-  // itself was expanded (the rare nested case), multiple ArmResourceSchemas may
-  // share the same resourceInstancePath, so we keep candidates in a list and
-  // disambiguate by matching constant path parameters.
-  const hasMatchingConstantPathParameters = (
-    resource: ArmResourceSchema,
-    candidate: ArmResourceSchema
-  ): boolean => {
-    const candidateConstants = candidate.metadata.constantPathParameters;
-    if (!candidateConstants || Object.keys(candidateConstants).length === 0) {
-      return true;
-    }
-
-    const resourceConstants = resource.metadata.constantPathParameters ?? {};
-    return Object.entries(candidateConstants).every(
-      ([name, value]) => resourceConstants[name] === value
-    );
-  };
-
-  const validResourceMap = new Map<string, ArmResourceSchema[]>();
-  for (const r of expandedResources.filter(
-    (resource) => resource.metadata.resourceIdPattern !== undefined
-  )) {
-    const resolvedR = schemaToResolvedResource.get(r);
-    if (resolvedR) {
-      const candidates = validResourceMap.get(resolvedR.resourceInstancePath);
-      if (candidates) {
-        candidates.push(r);
-      } else {
-        validResourceMap.set(resolvedR.resourceInstancePath, [r]);
-      }
-    }
-  }
-
-  const parentLookup: ParentResourceLookupContext = {
-    getParentResource: (
-      resource: ArmResourceSchema
-    ): ArmResourceSchema | undefined => {
-      const resolved = schemaToResolvedResource.get(resource);
-      if (!resolved) return undefined;
-
-      // Walk up the parent chain to find a valid parent
-      let parent = resolved.parent;
-      while (parent) {
-        const parentResources = validResourceMap.get(parent.resourceInstancePath);
-        if (parentResources && parentResources.length > 0) {
-          return (
-            parentResources.find((candidate) =>
-              hasMatchingConstantPathParameters(resource, candidate)
-            ) ?? parentResources[0]
-          );
-        }
-        parent = parent.parent;
-      }
-      return undefined;
-    }
-  };
-
-  // Use the shared post-processing function
-  const filteredResources = postProcessArmResources(
-    expandedResources,
+  // Use the shared post-processing function. Dynamic-parent expansion happens
+  // first inside postProcessArmResources, then the builder below mirrors
+  // schema-to-resolved-resource entries for the expanded children and produces
+  // the parent-lookup context based on resolveArmResources' parent chain.
+  const { filteredResources } = postProcessArmResources(
+    resources,
     nonResourceMethods,
-    parentLookup,
-    methodResponseModelIdMap
+    (expanded, expandedToOriginal) => {
+      // Mirror schema-to-resolved-resource entries for expanded children so the
+      // parent lookup below can resolve them without an out-of-band fallback.
+      for (const [expandedSchema, originalSchema] of expandedToOriginal) {
+        const resolved = schemaToResolvedResource.get(originalSchema);
+        if (resolved) {
+          schemaToResolvedResource.set(expandedSchema, resolved);
+        }
+      }
+
+      // Parent information comes from ResolvedResource objects. When the parent
+      // itself was expanded (the rare nested case), multiple ArmResourceSchemas
+      // may share the same resourceInstancePath, so we keep candidates in a list
+      // and disambiguate by matching constant path parameters.
+      const hasMatchingConstantPathParameters = (
+        resource: ArmResourceSchema,
+        candidate: ArmResourceSchema
+      ): boolean => {
+        const candidateConstants = candidate.metadata.constantPathParameters;
+        if (!candidateConstants || Object.keys(candidateConstants).length === 0) {
+          return true;
+        }
+
+        const resourceConstants = resource.metadata.constantPathParameters ?? {};
+        return Object.entries(candidateConstants).every(
+          ([name, value]) => resourceConstants[name] === value
+        );
+      };
+
+      const validResourceMap = new Map<string, ArmResourceSchema[]>();
+      for (const r of expanded.filter(
+        (resource) => resource.metadata.resourceIdPattern !== undefined
+      )) {
+        const resolvedR = schemaToResolvedResource.get(r);
+        if (resolvedR) {
+          const candidates = validResourceMap.get(resolvedR.resourceInstancePath);
+          if (candidates) {
+            candidates.push(r);
+          } else {
+            validResourceMap.set(resolvedR.resourceInstancePath, [r]);
+          }
+        }
+      }
+
+      return {
+        getParentResource: (
+          resource: ArmResourceSchema
+        ): ArmResourceSchema | undefined => {
+          const resolved = schemaToResolvedResource.get(resource);
+          if (!resolved) return undefined;
+
+          // Walk up the parent chain to find a valid parent
+          let parent = resolved.parent;
+          while (parent) {
+            const parentResources = validResourceMap.get(parent.resourceInstancePath);
+            if (parentResources && parentResources.length > 0) {
+              return (
+                parentResources.find((candidate) =>
+                  hasMatchingConstantPathParameters(resource, candidate)
+                ) ?? parentResources[0]
+              );
+            }
+            parent = parent.parent;
+          }
+          return undefined;
+        }
+      };
+    },
+    {
+      serviceMethods: serviceMethodsMap,
+      diagnosticReporter: (message) =>
+        sdkContext.program.reportDiagnostic({
+          code: "general-warning",
+          severity: "warning",
+          message,
+          target: NoTarget
+        }),
+      methodResponseModelIdMap
+    }
   );
 
   // Add provider operations as non-resource methods
