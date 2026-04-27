@@ -24,7 +24,8 @@ import {
   extractRbacRoles,
   findLongestPrefixMatch,
   RequestPath,
-  expandDynamicParentResourcesInSchema
+  expandDynamicParentResourcesInSchema,
+  extractNameConstraintOverrides
 } from "./resource-metadata.js";
 import {
   DecoratorInfo,
@@ -549,6 +550,22 @@ export function buildArmProviderSchema(
         ? getMaxLength(sdkContext.program, nameProperty)
         : undefined
     };
+
+    // Override name constraints from @@clientOption decorator if present
+    const nameConstraintOverrides = extractNameConstraintOverrides(sdkModel);
+    if (nameConstraintOverrides) {
+      resource.metadata.nameConstraints = {
+        pattern:
+          nameConstraintOverrides.pattern ??
+          resource.metadata.nameConstraints.pattern,
+        minLength:
+          nameConstraintOverrides.minLength ??
+          resource.metadata.nameConstraints.minLength,
+        maxLength:
+          nameConstraintOverrides.maxLength ??
+          resource.metadata.nameConstraints.maxLength
+      };
+    }
 
     // Extract RBAC roles from @@clientOption decorator
     resource.metadata.rbacRoles = extractRbacRoles(sdkModel);
@@ -1142,7 +1159,9 @@ function getSingletonResource(
  * Builds an ArmScopeInfo from an operation path.
  * Extracts the scope ID pattern and resource type from the path's scope portion.
  */
-export function buildScopeInfoFromPath(operationPath: RequestPath): ArmScopeInfo {
+export function buildScopeInfoFromPath(
+  operationPath: RequestPath
+): ArmScopeInfo {
   return buildScopeInfo(operationPath.operationScope, operationPath.scopePath);
 }
 
