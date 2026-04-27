@@ -83,7 +83,7 @@ namespace Azure.Generator.Management.Providers
                         targetCrossLanguageDefinitionId: getAll.InputMethod.CrossLanguageDefinitionId
                     );
                 }
-                return OperationContext.Create(contextualPath, secondaryContextualPath, enclosingType.FindField);
+                return OperationContext.Create(contextualPath, secondaryContextualPath, enclosingType.FindField, resourceMetadata.ConstantPathParameters);
             }
             else
             {

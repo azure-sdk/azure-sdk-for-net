@@ -39,9 +39,9 @@ internal class OperationContext
         return new OperationContext(contextualPath, null, null, constantPathParameters);
     }
 
-    public static OperationContext Create(RequestPathPattern contextualPath, RequestPathPattern secondaryContextualPath, Func<string, FieldProvider> fieldSelector)
+    public static OperationContext Create(RequestPathPattern contextualPath, RequestPathPattern secondaryContextualPath, Func<string, FieldProvider> fieldSelector, IReadOnlyDictionary<string, string>? constantPathParameters = null)
     {
-        return new OperationContext(contextualPath, secondaryContextualPath, fieldSelector, null);
+        return new OperationContext(contextualPath, secondaryContextualPath, fieldSelector, constantPathParameters);
     }
 
     public RequestPathPattern ContextualPath { get; }
