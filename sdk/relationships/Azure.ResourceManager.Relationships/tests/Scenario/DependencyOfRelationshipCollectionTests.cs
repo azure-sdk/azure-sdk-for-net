@@ -17,7 +17,6 @@ namespace Azure.ResourceManager.Relationships.Tests.Scenario
     /// A DependencyOf relationship declares that one Service Group depends on another Service Group.
     /// The relationship is created on the source Service Group, pointing to the target Service Group.
     /// </summary>
-    [Ignore("Recordings broken by ServiceGroups TypeSpec migration (#58689). Tracking: https://github.com/Azure/azure-sdk-for-net/issues/58724")]
     public class DependencyOfRelationshipCollectionTests : RelationshipsManagementTestBase
     {
         private DependencyOfRelationshipResource _relationship;
@@ -279,6 +278,7 @@ namespace Azure.ResourceManager.Relationships.Tests.Scenario
 
             var ex = Assert.ThrowsAsync<RequestFailedException>(async () =>
                 await collection.CreateOrUpdateAsync(WaitUntil.Completed, relationshipName, data));
+            //await collection.CreateOrUpdateAsync(WaitUntil.Completed, relationshipName, data);
             Assert.AreEqual(400, ex.Status);
         }
     }
