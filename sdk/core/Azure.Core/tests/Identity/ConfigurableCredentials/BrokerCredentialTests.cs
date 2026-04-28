@@ -4,18 +4,17 @@
 using System;
 using Azure.Core;
 using Azure.Core.TestFramework;
-using Azure.Core.Tests.Identity.ConfigurableCredentials;
 using Microsoft.Extensions.Configuration;
 
-namespace Azure.Identity.Broker.Tests.ConfigurableCredentials
+using Azure.Identity;
+namespace Azure.Core.Tests.Identity.ConfigurableCredentials.Broker
 {
     /// <summary>
-    /// Tests for BrokerCredential accessed through ConfigurableCredential when the
-    /// Azure.Identity.Broker package is available.
+    /// Tests for BrokerCredential accessed through ConfigurableCredential.
     /// Inherits from Tests.BrokerCredentialTests to get all Broker-specific test cases.
     /// Overrides factory methods to create credentials via IConfiguration.
     /// </summary>
-    internal class BrokerCredentialTests : Tests.BrokerCredentialTests
+    internal class BrokerCredentialTests : Azure.Core.Tests.Identity.BrokerCredentialTests
     {
         private readonly ConfigurableCredentialTestHelper<BrokerCredential> _helper;
 
