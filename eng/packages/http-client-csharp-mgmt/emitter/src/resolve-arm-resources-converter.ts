@@ -49,6 +49,7 @@ import {
   ResourceMethod,
   ResourceOperationKind,
   ResourceScopeKind,
+  expandArmResources,
   postProcessArmResources,
   assignNonResourceMethodsToResources,
   resolveResourceApiVersions,
@@ -185,24 +186,38 @@ export function resolveArmResources(
   // Convert non-resource methods
   const nonResourceMethods: NonResourceMethod[] = [];
 
-  // Use the shared post-processing function. Dynamic-parent expansion happens
-  // first inside postProcessArmResources, then the parent-lookup builder
-  // mirrors schema-to-resolved-resource entries for the expanded children and
-  // produces the parent-lookup context based on resolveArmResources' parent
-  // chain. The methodResponseModelIdMap is derived from methodMap on demand.
-  const { filteredResources } = postProcessArmResources(
-    resources,
+  const reportWarning = (message: string) =>
+    sdkContext.program.reportDiagnostic({
+      code: "general-warning",
+      severity: "warning",
+      message,
+      target: NoTarget
+    });
+
+  // Step 1: expand resources with dynamic parent type segments (e.g.
+  // `{parentType}/{parentName}` where `{parentType}` is an enum) into one
+  // concrete resource per enum value.
+  const { expandedResources, expandedToOriginal } = expandArmResources(resources, {
+    serviceMethods: methodMap,
+    diagnosticReporter: reportWarning
+  });
+
+  // Step 2: build the parent-lookup context. This path computes parents from
+  // the ResolvedResource.parent chain returned by the ARM library and also
+  // mirrors schema-to-resolved-resource entries for the freshly expanded
+  // schemas so the lookup can resolve them.
+  const parentLookup = buildResolveArmResourcesParentLookup(
+    expandedResources,
+    expandedToOriginal,
+    schemaToResolvedResource
+  );
+
+  // Step 3: shared post-processing.
+  const filteredResources = postProcessArmResources(
+    expandedResources,
     nonResourceMethods,
-    buildResolveArmResourcesParentLookup(schemaToResolvedResource),
+    parentLookup,
     {
-      serviceMethods: methodMap,
-      diagnosticReporter: (message) =>
-        sdkContext.program.reportDiagnostic({
-          code: "general-warning",
-          severity: "warning",
-          message,
-          target: NoTarget
-        }),
       methodResponseModelIdMap: deriveMethodResponseModelIdMap(methodMap)
     }
   );
@@ -752,71 +767,68 @@ function hasMatchingConstantPathParameters(
 }
 
 /**
- * Builds the parent-lookup callback passed to {@link postProcessArmResources}.
+ * Builds the parent-lookup context for the resolveArmResources detection path.
  *
- * Note: this lookup is intentionally configurable per detection path. The legacy
+ * Note: this lookup is intentionally specific to this detection path. The legacy
  * detection path in {@link buildArmProviderSchema} computes parents from path-prefix
- * matching plus the `parentResourceModelId` decorator, while this resolveArmResources
- * path uses the {@link ResolvedResource}.parent chain. The two mechanisms are not
- * unifiable without losing information, hence the callback shape.
+ * matching plus the `parentResourceModelId` decorator, while this path uses the
+ * {@link ResolvedResource}.parent chain. The two mechanisms are not unifiable
+ * without losing information, hence the per-path lookup.
  *
  * Side effect: mirrors entries in `schemaToResolvedResource` so that newly
  * expanded child schemas resolve to the same {@link ResolvedResource} as their
  * pre-expansion source.
  */
 function buildResolveArmResourcesParentLookup(
-  schemaToResolvedResource: Map<ArmResourceSchema, ResolvedResource>
-): (
   expanded: ArmResourceSchema[],
-  expandedToOriginal: ReadonlyMap<ArmResourceSchema, ArmResourceSchema>
-) => ParentResourceLookupContext {
-  return (expanded, expandedToOriginal) => {
-    for (const [expandedSchema, originalSchema] of expandedToOriginal) {
-      const resolved = schemaToResolvedResource.get(originalSchema);
-      if (resolved) {
-        schemaToResolvedResource.set(expandedSchema, resolved);
+  expandedToOriginal: ReadonlyMap<ArmResourceSchema, ArmResourceSchema>,
+  schemaToResolvedResource: Map<ArmResourceSchema, ResolvedResource>
+): ParentResourceLookupContext {
+  for (const [expandedSchema, originalSchema] of expandedToOriginal) {
+    const resolved = schemaToResolvedResource.get(originalSchema);
+    if (resolved) {
+      schemaToResolvedResource.set(expandedSchema, resolved);
+    }
+  }
+
+  // When the parent itself was expanded (rare nested case), multiple
+  // ArmResourceSchemas may share the same resourceInstancePath, so candidates
+  // are grouped and disambiguated by matching constant path parameters.
+  const validResourceMap = new Map<string, ArmResourceSchema[]>();
+  for (const r of expanded.filter(
+    (resource) => resource.metadata.resourceIdPattern !== undefined
+  )) {
+    const resolvedR = schemaToResolvedResource.get(r);
+    if (resolvedR) {
+      const candidates = validResourceMap.get(resolvedR.resourceInstancePath);
+      if (candidates) {
+        candidates.push(r);
+      } else {
+        validResourceMap.set(resolvedR.resourceInstancePath, [r]);
       }
     }
+  }
 
-    // When the parent itself was expanded (rare nested case), multiple
-    // ArmResourceSchemas may share the same resourceInstancePath, so candidates
-    // are grouped and disambiguated by matching constant path parameters.
-    const validResourceMap = new Map<string, ArmResourceSchema[]>();
-    for (const r of expanded.filter(
-      (resource) => resource.metadata.resourceIdPattern !== undefined
-    )) {
-      const resolvedR = schemaToResolvedResource.get(r);
-      if (resolvedR) {
-        const candidates = validResourceMap.get(resolvedR.resourceInstancePath);
-        if (candidates) {
-          candidates.push(r);
-        } else {
-          validResourceMap.set(resolvedR.resourceInstancePath, [r]);
+  return {
+    getParentResource: (
+      resource: ArmResourceSchema
+    ): ArmResourceSchema | undefined => {
+      const resolved = schemaToResolvedResource.get(resource);
+      if (!resolved) return undefined;
+
+      let parent = resolved.parent;
+      while (parent) {
+        const parentResources = validResourceMap.get(parent.resourceInstancePath);
+        if (parentResources && parentResources.length > 0) {
+          return (
+            parentResources.find((candidate) =>
+              hasMatchingConstantPathParameters(resource, candidate)
+            ) ?? parentResources[0]
+          );
         }
+        parent = parent.parent;
       }
+      return undefined;
     }
-
-    return {
-      getParentResource: (
-        resource: ArmResourceSchema
-      ): ArmResourceSchema | undefined => {
-        const resolved = schemaToResolvedResource.get(resource);
-        if (!resolved) return undefined;
-
-        let parent = resolved.parent;
-        while (parent) {
-          const parentResources = validResourceMap.get(parent.resourceInstancePath);
-          if (parentResources && parentResources.length > 0) {
-            return (
-              parentResources.find((candidate) =>
-                hasMatchingConstantPathParameters(resource, candidate)
-              ) ?? parentResources[0]
-            );
-          }
-          parent = parent.parent;
-        }
-        return undefined;
-      }
-    };
   };
 }

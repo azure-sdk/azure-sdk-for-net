@@ -641,83 +641,75 @@ export interface ParentResourceLookupContext {
 }
 
 /**
- * Post-processes ARM resources to expand dynamic-parent-typed resources, populate parent IDs,
- * merge incomplete resources, populate resource scopes, sort methods, and filter invalid resources.
+ * Expands resources whose parent has a dynamic type segment (e.g.
+ * `{parentType}/{parentName}` where `{parentType}` is an enum) into one
+ * concrete resource per enum value. Both detection paths run this step before
+ * post-processing so they can compute parent-lookup contexts against the
+ * post-expansion resource list.
  *
- * This is a shared post-processing step used by both resolveArmResources
- * and buildArmProviderSchema to ensure consistent behavior. Dynamic-parent-type
- * expansion (e.g. resources whose parent is `{parentType}/{parentName}` where
- * `{parentType}` is an enum) is performed as the first step, so callers do not
- * need to expand resources themselves.
- *
- * @param resources - Initial list of resources to process
- * @param nonResourceMethods - Array to collect non-resource methods
- * @param parentLookupBuilder - Factory invoked after expansion to build the parent
- *   lookup context. The factory receives the post-expansion resource list along
- *   with a map from each expanded resource back to its original (pre-expansion)
- *   schema, so callers can do their own per-list bookkeeping (e.g. mirroring
- *   into auxiliary maps, or running path-based parent matching).
- * @param options - Optional settings.
- * @param options.serviceMethods - Map of method id to SDK method, required to
- *   resolve enum values for dynamic parent type segments.
- * @param options.diagnosticReporter - Reporter for warnings emitted during
- *   expansion (e.g. when dynamic segments cannot be resolved).
- * @param options.methodResponseModelIdMap - Optional map used by cross-resource
- *   list action relocation.
- * @returns The list of valid resources after expansion + post-processing, plus
- *   the full expanded resource list and the expanded→original map for callers
- *   that need them (e.g. for emitting diagnostics about filtered resources).
+ * @returns The post-expansion list and a map from each expanded resource back
+ *   to its original (pre-expansion) schema.
  */
-export interface PostProcessArmResourcesOptions {
-  serviceMethods?: Map<string, SdkMethod<SdkHttpOperation>>;
-  diagnosticReporter?: (message: string) => void;
-  methodResponseModelIdMap?: Map<string, string>;
+export function expandArmResources(
+  resources: ArmResourceSchema[],
+  options?: ExpandArmResourcesOptions
+): ExpandArmResourcesResult {
+  if (!options?.serviceMethods) {
+    return { expandedResources: resources, expandedToOriginal: new Map() };
+  }
+  const expandedToOriginal = new Map<ArmResourceSchema, ArmResourceSchema>();
+  const expandedResources = expandDynamicParentResourcesInSchema(
+    resources,
+    options.serviceMethods,
+    options.diagnosticReporter,
+    (expanded, original) => {
+      expandedToOriginal.set(expanded, original);
+    }
+  );
+  return { expandedResources, expandedToOriginal };
 }
 
-export interface PostProcessArmResourcesResult {
-  filteredResources: ValidArmResourceSchema[];
+export interface ExpandArmResourcesOptions {
+  serviceMethods?: Map<string, SdkMethod<SdkHttpOperation>>;
+  diagnosticReporter?: (message: string) => void;
+}
+
+export interface ExpandArmResourcesResult {
   expandedResources: ArmResourceSchema[];
   expandedToOriginal: ReadonlyMap<ArmResourceSchema, ArmResourceSchema>;
+}
+
+/**
+ * Post-processes ARM resources: populates parent IDs, merges incomplete
+ * resources, populates resource scopes, sorts methods, and filters invalid
+ * resources. Callers must run {@link expandArmResources} first and then build
+ * the {@link ParentResourceLookupContext} themselves so this function takes a
+ * fully-constructed parent lookup (no callback indirection).
+ *
+ * @param resources - Post-expansion resource list (output of {@link expandArmResources}).
+ * @param nonResourceMethods - Array to collect non-resource methods.
+ * @param parentLookup - Caller-built parent lookup context.
+ * @param options - Optional settings.
+ * @param options.methodResponseModelIdMap - Optional map used by cross-resource
+ *   list action relocation.
+ * @returns The list of valid resources after post-processing.
+ */
+export interface PostProcessArmResourcesOptions {
+  methodResponseModelIdMap?: Map<string, string>;
 }
 
 export function postProcessArmResources(
   resources: ArmResourceSchema[],
   nonResourceMethods: NonResourceMethod[],
-  parentLookupBuilder: (
-    expandedResources: ArmResourceSchema[],
-    expandedToOriginal: ReadonlyMap<ArmResourceSchema, ArmResourceSchema>
-  ) => ParentResourceLookupContext,
+  parentLookup: ParentResourceLookupContext,
   options?: PostProcessArmResourcesOptions
-): PostProcessArmResourcesResult {
-  // Step 0: Expand resources with dynamic parent type segments (e.g.,
-  // `{parentType}/{parentName}` where `{parentType}` is an enum) into one
-  // concrete resource per enum value before any further processing. Both
-  // detection paths (legacy and resolveArmResources-based) rely on this
-  // expansion, so it lives here rather than at each call site.
-  const expandedToOriginal = new Map<ArmResourceSchema, ArmResourceSchema>();
-  const expandedResources = options?.serviceMethods
-    ? expandDynamicParentResourcesInSchema(
-        resources,
-        options.serviceMethods,
-        options.diagnosticReporter,
-        (expanded, original) => {
-          expandedToOriginal.set(expanded, original);
-        }
-      )
-    : resources;
-
-  // Build the parent lookup context now that callers can see the post-expansion
-  // resource list (and any expansion mapping they need for their own bookkeeping).
-  const parentLookup = parentLookupBuilder(expandedResources, expandedToOriginal);
-
-  const filteredResources = postProcessExpandedArmResources(
-    expandedResources,
+): ValidArmResourceSchema[] {
+  return postProcessExpandedArmResources(
+    resources,
     nonResourceMethods,
     parentLookup,
     options?.methodResponseModelIdMap
   );
-
-  return { filteredResources, expandedResources, expandedToOriginal };
 }
 
 function postProcessExpandedArmResources(

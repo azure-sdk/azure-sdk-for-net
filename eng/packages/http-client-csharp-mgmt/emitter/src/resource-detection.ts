@@ -17,7 +17,9 @@ import {
   ArmProviderSchema,
   ArmResourceSchema,
   convertArmProviderSchemaToArguments,
+  expandArmResources,
   postProcessArmResources,
+  ParentResourceLookupContext,
   assignNonResourceMethodsToResources,
   resolveResourceApiVersions,
   extractRbacRoles,
@@ -395,82 +397,36 @@ export function buildArmProviderSchema(
     nonResourceMethods.values()
   );
 
-  // Use the shared post-processing function. Expansion + path-based parent
-  // matching + scope assignment all happen as part of the post-process pipeline:
-  // expansion runs first inside postProcessArmResources, then the builder below
-  // runs the legacy-only mutations on the post-expansion list and produces the
-  // parent-lookup context.
-  const { filteredResources, expandedResources } = postProcessArmResources(
-    resources,
+  // Step 1: expand resources with dynamic parent type segments before any
+  // path-based parent inference runs, so the inference sees concrete paths.
+  const reportWarning = (message: string) =>
+    sdkContext.program.reportDiagnostic({
+      code: "general-warning",
+      severity: "warning",
+      message,
+      target: NoTarget
+    });
+  const { expandedResources } = expandArmResources(resources, {
+    serviceMethods,
+    diagnosticReporter: reportWarning
+  });
+
+  // Step 2: legacy-only mutations on the post-expansion list — path-based
+  // parent matching for resources that share a model and resource scope
+  // assignment based on either the scope decorator or the Read method.
+  inferLegacyParentsFromPaths(expandedResources);
+  assignLegacyResourceScopes(expandedResources);
+
+  // Step 3: build the parent-lookup context. The legacy path resolves parents
+  // via the @parentResourceModelId decorator that was populated above.
+  const parentLookup = buildLegacyParentLookup(expandedResources);
+
+  // Step 4: shared post-processing.
+  const filteredResources = postProcessArmResources(
+    expandedResources,
     nonResourceMethodsArray,
-    (expanded) => {
-      // For multiple-path resources (same model at different paths), detect
-      // parent-child relationships through path matching. This is needed when
-      // both parent and child use the same model (e.g., legacy-operations).
-      for (const resource of expanded) {
-        if (
-          !resource.metadata.parentResourceId &&
-          resource.metadata.resourceIdPattern !== undefined
-        ) {
-          const bestParent = findLongestPrefixMatch(
-            resource.metadata.resourceIdPattern,
-            expanded,
-            (candidate) =>
-              candidate !== resource &&
-              candidate.metadata.resourceIdPattern !== undefined
-                ? candidate.metadata.resourceIdPattern
-                : undefined,
-            true
-          );
-          if (bestParent) {
-            resource.metadata.parentResourceId = bestParent.metadata.resourceIdPattern;
-            // Note: we don't set parentResourceModelId here since they share the same model
-          }
-        }
-      }
-
-      // Update the model's scope based on the resource scope decorator if it
-      // exists or based on the Read method's scope.
-      for (const resource of expanded) {
-        const scopeKind = getResourceScope(resource.metadata.methods);
-        resource.metadata.scope = {
-          kind: scopeKind,
-          scopeIdPattern:
-            resource.metadata.resourceIdPattern?.scopePath ?? RequestPath.empty
-        };
-      }
-
-      // Parent information comes from decorators and path matching populated above.
-      return {
-        getParentResource: (
-          resource: ArmResourceSchema
-        ): ArmResourceSchema | undefined => {
-          const parentModelId = resource.metadata.parentResourceModelId;
-          if (!parentModelId) return undefined;
-
-          for (const r of expanded) {
-            if (
-              r.resourceModelId === parentModelId &&
-              r.metadata.resourceIdPattern
-            ) {
-              return r;
-            }
-          }
-          return undefined;
-        }
-      };
-    },
-    {
-      serviceMethods,
-      diagnosticReporter: (message) =>
-        sdkContext.program.reportDiagnostic({
-          code: "general-warning",
-          severity: "warning",
-          message,
-          target: NoTarget
-        }),
-      methodResponseModelIdMap
-    }
+    parentLookup,
+    { methodResponseModelIdMap }
   );
 
   // Emit diagnostics for resources that were filtered out (non-singleton resources without Read operations)
@@ -1220,4 +1176,78 @@ function applyArmProviderSchemaDecorator(
     name: armProviderSchema,
     arguments: convertArmProviderSchemaToArguments(schema)
   });
+}
+
+/**
+ * For multiple-path resources (same model at different paths), detects parent-
+ * child relationships through path matching. This is needed when both parent
+ * and child use the same model (e.g., legacy-operations). Mutates each resource
+ * in place to set `parentResourceId`. Does not set `parentResourceModelId`
+ * since the parent and child share the same model.
+ */
+function inferLegacyParentsFromPaths(expanded: ArmResourceSchema[]): void {
+  for (const resource of expanded) {
+    if (
+      resource.metadata.parentResourceId ||
+      resource.metadata.resourceIdPattern === undefined
+    ) {
+      continue;
+    }
+    const bestParent = findLongestPrefixMatch(
+      resource.metadata.resourceIdPattern,
+      expanded,
+      (candidate) =>
+        candidate !== resource &&
+        candidate.metadata.resourceIdPattern !== undefined
+          ? candidate.metadata.resourceIdPattern
+          : undefined,
+      true
+    );
+    if (bestParent) {
+      resource.metadata.parentResourceId = bestParent.metadata.resourceIdPattern;
+    }
+  }
+}
+
+/**
+ * Updates each resource's scope based on the resource scope decorator if it
+ * exists, or based on the Read method's scope otherwise.
+ */
+function assignLegacyResourceScopes(expanded: ArmResourceSchema[]): void {
+  for (const resource of expanded) {
+    const scopeKind = getResourceScope(resource.metadata.methods);
+    resource.metadata.scope = {
+      kind: scopeKind,
+      scopeIdPattern:
+        resource.metadata.resourceIdPattern?.scopePath ?? RequestPath.empty
+    };
+  }
+}
+
+/**
+ * Builds the parent-lookup context for the legacy detection path. Parent
+ * information comes from the @parentResourceModelId decorator (or, for shared-
+ * model resources, from path matching populated by inferLegacyParentsFromPaths).
+ */
+function buildLegacyParentLookup(
+  expanded: ArmResourceSchema[]
+): ParentResourceLookupContext {
+  return {
+    getParentResource: (
+      resource: ArmResourceSchema
+    ): ArmResourceSchema | undefined => {
+      const parentModelId = resource.metadata.parentResourceModelId;
+      if (!parentModelId) return undefined;
+
+      for (const r of expanded) {
+        if (
+          r.resourceModelId === parentModelId &&
+          r.metadata.resourceIdPattern
+        ) {
+          return r;
+        }
+      }
+      return undefined;
+    }
+  };
 }
