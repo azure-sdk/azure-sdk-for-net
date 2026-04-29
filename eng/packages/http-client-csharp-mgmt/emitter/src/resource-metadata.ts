@@ -1201,13 +1201,16 @@ function getExpansionPath(resource: ArmResourceSchema): RequestPath | undefined 
   );
 }
 
+function capitalizeFirst(s: string): string {
+  return s.length === 0 ? s : s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 function buildExpandedResourceName(
   enumValue: string,
   baseResourceName: string
 ): string {
   const singular = pluralize.singular(enumValue);
-  const capitalized = singular.charAt(0).toUpperCase() + singular.slice(1);
-  return `${capitalized}${baseResourceName}`;
+  return `${capitalizeFirst(singular)}${baseResourceName}`;
 }
 
 /**
