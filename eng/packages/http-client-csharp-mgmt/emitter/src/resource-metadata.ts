@@ -484,15 +484,17 @@ export enum ResourceOperationKind {
 }
 
 /**
- * Resolves the API versions for a resource from its methods.
- * Uses the Create method's versions if available, otherwise falls back to the Read method's versions.
- * @param methods - The resource's methods
- * @param methodApiVersionsMap - A map from methodId to its API versions
+ * Resolves the API versions for a resource based on its methods.
+ * The Create method is preferred for determining api versions if available.
+ * Otherwise, the Read method is used. If neither exists, an empty array is returned.
+ *
+ * @param methods - The methods of the resource
+ * @param methodMap - A map from methodId to its SdkMethod (used to look up apiVersions)
  * @returns The API versions for the resource
  */
 export function resolveResourceApiVersions(
   methods: ResourceMethod[],
-  methodApiVersionsMap: Map<string, string[]>
+  methodMap: ReadonlyMap<string, SdkMethod<SdkHttpOperation>>
 ): string[] {
   const createMethod = methods.find(
     (m) => m.kind === ResourceOperationKind.Create
@@ -500,7 +502,7 @@ export function resolveResourceApiVersions(
   const readMethod = methods.find((m) => m.kind === ResourceOperationKind.Read);
   const primaryMethod = createMethod ?? readMethod;
   return primaryMethod
-    ? methodApiVersionsMap.get(primaryMethod.methodId) ?? []
+    ? methodMap.get(primaryMethod.methodId)?.apiVersions ?? []
     : [];
 }
 

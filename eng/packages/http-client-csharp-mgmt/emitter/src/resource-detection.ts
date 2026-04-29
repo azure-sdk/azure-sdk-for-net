@@ -482,10 +482,6 @@ export function buildArmProviderSchema(
     // If there's only one resource for this model, keep using the model name (already set)
   }
 
-  // Extract name constraints (@pattern, @minLength, @maxLength) from the resource model's "name" property
-  const methodApiVersionsMap = new Map<string, string[]>(
-    Array.from(serviceMethods.entries()).map(([id, m]) => [id, m.apiVersions])
-  );
   for (const resource of filteredResources) {
     const sdkModel = models.get(resource.resourceModelId);
     const typespecModel = sdkModel?.__raw as Model | undefined;
@@ -536,7 +532,7 @@ export function buildArmProviderSchema(
   for (const resource of filteredResources) {
     resource.metadata.apiVersions = resolveResourceApiVersions(
       resource.metadata.methods,
-      methodApiVersionsMap
+      serviceMethods
     );
   }
 

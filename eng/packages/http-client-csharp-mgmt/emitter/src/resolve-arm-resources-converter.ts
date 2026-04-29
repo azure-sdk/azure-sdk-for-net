@@ -291,11 +291,10 @@ export function resolveArmResources(
 
   // Compute per-resource API versions after all post-processing is complete,
   // so that merged/moved methods are reflected in the final version set.
-  const methodApiVersionsMap = deriveMethodApiVersionsMap(methodMap);
   for (const resource of filteredResources) {
     resource.metadata.apiVersions = resolveResourceApiVersions(
       resource.metadata.methods,
-      methodApiVersionsMap
+      methodMap
     );
   }
 
@@ -710,22 +709,6 @@ function pagingResponseItemModelId(
   if (responseType?.kind !== "array") return undefined;
   if (responseType.valueType.kind !== "model") return undefined;
   return (responseType.valueType as SdkModelType).crossLanguageDefinitionId;
-}
-
-/**
- * Derives a methodId -> apiVersions map from the unified method map. This is
- * used at the call site of {@link resolveResourceApiVersions} to keep that
- * helper's signature unchanged while still consolidating the canonical
- * lookup table to a single map.
- */
-function deriveMethodApiVersionsMap(
-  methodMap: ReadonlyMap<string, SdkMethod<SdkHttpOperation>>
-): Map<string, string[]> {
-  const result = new Map<string, string[]>();
-  for (const [id, method] of methodMap) {
-    result.set(id, method.apiVersions);
-  }
-  return result;
 }
 
 /**
