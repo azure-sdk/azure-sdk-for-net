@@ -1120,6 +1120,37 @@ namespace Azure.Generator.Mgmt.Tests
         }
 
         [Test]
+        public void ValidateParameterMapping_DivergentContextualPath_DoesNotSubstituteAcrossDivergence()
+        {
+            // Regression test for the SubscriptionRaiPolicy scenario from cognitiveservices: the
+            // contextual path (the parent's resource id) diverges from the operation path early
+            // — operation has /providers/Microsoft.X/raiPolicy/{raiPolicyName} while contextual
+            // has /resourceGroups/{rg}/providers/Microsoft.X/accounts/{accountName}. After the
+            // divergence at index 2 (providers vs resourceGroups), no later segment from the
+            // contextual path may be substituted into the operation path. In particular,
+            // {raiPolicyName} must NOT be replaced with the literal "Microsoft.X" that happens
+            // to sit at the same index in the contextual path.
+            var contextualPath = new RequestPathPattern(
+                "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Example/accounts/{accountName}");
+            var operationContext = OperationContext.Create(contextualPath);
+
+            var operationPath = new RequestPathPattern(
+                "/subscriptions/{subscriptionId}/providers/Microsoft.Example/raiPolicy/{raiPolicyName}");
+
+            var registry = operationContext.BuildParameterMapping(operationPath);
+
+            // subscriptionId is in the still-aligned prefix.
+            Assert.That(registry.TryGetValue("subscriptionId", out var subscriptionMapping), Is.True);
+            Assert.That(subscriptionMapping!.ContextualParameter, Is.Not.Null);
+
+            // raiPolicyName must remain a pass-through caller parameter — alignment broke at
+            // the providers-vs-resourceGroups divergence so no substitution should happen.
+            Assert.That(registry.TryGetValue("raiPolicyName", out var raiPolicyMapping), Is.True);
+            Assert.That(raiPolicyMapping!.ContextualParameter, Is.Null,
+                "raiPolicyName must not be substituted with a contextual constant after path divergence");
+        }
+
+        [Test]
         public void ValidateParameterMapping_SecondaryPath_WithContextualPathConstant_SubstitutedAndContextual()
         {
             // Validates that when an expanded dynamic-parent resource also has a List operation

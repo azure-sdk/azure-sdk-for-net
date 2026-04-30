@@ -338,31 +338,69 @@ internal class OperationContext
     /// the operation segment is replaced with that constant value and a literal contextual
     /// mapping is emitted for the original variable name.
     /// </summary>
+    /// <remarks>
+    /// Substitution only runs while the operation path stays "aligned" with the contextual
+    /// path — that is, while every preceding segment either matches exactly (constant ==
+    /// constant), is a variable on both sides, or has just been substituted from a contextual
+    /// constant. Once a divergence is observed (e.g. operation has <c>providers</c> where the
+    /// contextual path has <c>resourceGroups</c>), no further substitution happens. Without
+    /// this guard, an unrelated constant later in the contextual path could leak into an
+    /// operation variable that happens to share its index — for example, replacing
+    /// <c>{raiPolicyName}</c> with <c>"Microsoft.CognitiveServices"</c> when the contextual
+    /// path is the wrong parent.
+    /// </remarks>
     private static (RequestPathPattern Path, IReadOnlyList<ParameterContextMapping> Mappings) SubstituteConstantsFromContextualPath(
         RequestPathPattern operationPath,
         RequestPathPattern contextualPath)
     {
-        var sharedPrefix = Math.Min(operationPath.Count, contextualPath.Count);
         var segments = new List<RequestPathSegment>(operationPath.Count);
         var mappings = new List<ParameterContextMapping>();
         bool anySubstituted = false;
+        bool aligned = true;
 
         for (int i = 0; i < operationPath.Count; i++)
         {
             var segment = operationPath[i];
-            if (i < sharedPrefix && !segment.IsConstant && contextualPath[i].IsConstant)
+            if (!aligned || i >= contextualPath.Count)
             {
-                var constantValue = contextualPath[i].Value;
+                segments.Add(segment);
+                aligned = false;
+                continue;
+            }
+
+            var contextualSegment = contextualPath[i];
+            if (segment.IsConstant && contextualSegment.IsConstant)
+            {
+                // Aligned only if the constants match.
+                segments.Add(segment);
+                if (!string.Equals(segment.Value, contextualSegment.Value, StringComparison.OrdinalIgnoreCase))
+                {
+                    aligned = false;
+                }
+            }
+            else if (!segment.IsConstant && contextualSegment.IsConstant)
+            {
+                // Substitute the operation variable with the contextual constant; alignment
+                // is preserved because the resulting path matches the contextual path here.
+                var constantValue = contextualSegment.Value;
                 segments.Add(new RequestPathSegment(constantValue));
                 anySubstituted = true;
-
                 mappings.Add(new ParameterContextMapping(
                     segment.VariableName,
                     new ContextualParameter(constantValue, segment.VariableName, _ => Snippet.Literal(constantValue))));
             }
+            else if (!segment.IsConstant && !contextualSegment.IsConstant)
+            {
+                // Both variables — alignment preserved, nothing to substitute.
+                segments.Add(segment);
+            }
             else
             {
+                // Operation has a constant where the contextual path has a variable. Treat
+                // this as a divergence so we don't substitute later operation variables
+                // against unrelated contextual constants.
                 segments.Add(segment);
+                aligned = false;
             }
         }
 
