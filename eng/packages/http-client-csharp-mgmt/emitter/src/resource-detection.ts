@@ -1229,21 +1229,31 @@ function buildLegacyParentLookup(
   expanded: ArmResourceSchema[]
 ): ParentResourceLookupContext {
   return {
-    getParentResource: (
-      resource: ArmResourceSchema
-    ): ArmResourceSchema | undefined => {
-      const parentModelId = resource.metadata.parentResourceModelId;
-      if (!parentModelId) return undefined;
-
-      for (const r of expanded) {
-        if (
-          r.resourceModelId === parentModelId &&
-          r.metadata.resourceIdPattern
-        ) {
-          return r;
-        }
-      }
-      return undefined;
-    }
+    getParentResource: (resource: ArmResourceSchema) =>
+      findLegacyParentResource(resource, expanded)
   };
+}
+
+/**
+ * Finds the parent ArmResourceSchema for `resource` by scanning `expanded` for
+ * the entry whose `resourceModelId` matches the resource's
+ * `parentResourceModelId` decorator value (and that has a resolved
+ * `resourceIdPattern`).
+ */
+function findLegacyParentResource(
+  resource: ArmResourceSchema,
+  expanded: readonly ArmResourceSchema[]
+): ArmResourceSchema | undefined {
+  const parentModelId = resource.metadata.parentResourceModelId;
+  if (!parentModelId) return undefined;
+
+  for (const r of expanded) {
+    if (
+      r.resourceModelId === parentModelId &&
+      r.metadata.resourceIdPattern
+    ) {
+      return r;
+    }
+  }
+  return undefined;
 }
