@@ -634,6 +634,32 @@ export interface ParentResourceLookupContext {
 }
 
 /**
+ * Picks among multiple candidate parents that share a primary lookup key (model
+ * id in the legacy path, or resourceInstancePath in the resolveArmResources
+ * path) but differ in their substituted `resourceIdPattern` — for example,
+ * resources expanded from a `{parentType}` dynamic segment.
+ *
+ * The resource's own `resourceIdPattern` is built by appending child segments
+ * onto the parent's substituted pattern, so the correct candidate is the one
+ * whose `resourceIdPattern.path` is a prefix of the resource's
+ * `resourceIdPattern.path`.
+ */
+export function isResourceIdPatternPrefixMatch(
+  resource: ArmResourceSchema,
+  candidate: ArmResourceSchema
+): boolean {
+  const candidatePath = candidate.metadata.resourceIdPattern?.path;
+  const resourcePath = resource.metadata.resourceIdPattern?.path;
+  if (!candidatePath || !resourcePath) return true;
+  // Prefix must be followed by a path separator to avoid matching a partial
+  // segment (e.g., "/topics" vs "/topicspaces").
+  return (
+    resourcePath === candidatePath ||
+    resourcePath.startsWith(candidatePath + "/")
+  );
+}
+
+/**
  * Expands resources whose parent has a dynamic type segment (e.g.
  * `{parentType}/{parentName}` where `{parentType}` is an enum) into one
  * concrete resource per enum value. Both detection paths run this step before

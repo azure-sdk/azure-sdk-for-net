@@ -54,7 +54,8 @@ import {
   assignNonResourceMethodsToResources,
   resolveResourceApiVersions,
   extractRbacRoles,
-  extractNameConstraintOverrides
+  extractNameConstraintOverrides,
+  isResourceIdPatternPrefixMatch
 } from "./resource-metadata.js";
 import { CSharpEmitterContext } from "@typespec/http-client-csharp";
 import {
@@ -727,33 +728,6 @@ function deriveMethodResponseModelIdMap(
     }
   }
   return result;
-}
-
-/**
- * Style: regular function declaration (instead of an arrow stored in a const)
- * is the convention used elsewhere in this file. Used by the parent-lookup
- * builder to pick among multiple candidate parents that share the same
- * resourceInstancePath but differ in their substituted `resourceIdPattern`
- * (e.g., resources expanded from a `{parentType}` dynamic segment).
- *
- * The resource's own `resourceIdPattern` is built by appending child segments
- * onto the parent's substituted pattern, so the correct candidate is the one
- * whose `resourceIdPattern.path` is a prefix of the resource's
- * `resourceIdPattern.path`.
- */
-function isResourceIdPatternPrefixMatch(
-  resource: ArmResourceSchema,
-  candidate: ArmResourceSchema
-): boolean {
-  const candidatePath = candidate.metadata.resourceIdPattern?.path;
-  const resourcePath = resource.metadata.resourceIdPattern?.path;
-  if (!candidatePath || !resourcePath) return true;
-  // Prefix must be followed by a path separator to avoid matching a partial
-  // segment (e.g., "/topics" vs "/topicspaces").
-  return (
-    resourcePath === candidatePath ||
-    resourcePath.startsWith(candidatePath + "/")
-  );
 }
 
 /**

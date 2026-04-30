@@ -25,7 +25,8 @@ import {
   extractRbacRoles,
   findLongestPrefixMatch,
   RequestPath,
-  extractNameConstraintOverrides
+  extractNameConstraintOverrides,
+  isResourceIdPatternPrefixMatch
 } from "./resource-metadata.js";
 import {
   DecoratorInfo,
@@ -1236,9 +1237,15 @@ function buildLegacyParentLookup(
 
 /**
  * Finds the parent ArmResourceSchema for `resource` by scanning `expanded` for
- * the entry whose `resourceModelId` matches the resource's
- * `parentResourceModelId` decorator value (and that has a resolved
+ * entries whose `resourceModelId` matches the resource's
+ * `parentResourceModelId` decorator value (and that have a resolved
  * `resourceIdPattern`).
+ *
+ * When multiple candidates share the same `resourceModelId` (the parent itself
+ * was expanded from a `{parentType}` dynamic segment), the candidate whose
+ * substituted `resourceIdPattern` is a prefix of the resource's
+ * `resourceIdPattern` is chosen — same disambiguator used by the
+ * resolveArmResources lookup.
  */
 function findLegacyParentResource(
   resource: ArmResourceSchema,
@@ -1247,13 +1254,19 @@ function findLegacyParentResource(
   const parentModelId = resource.metadata.parentResourceModelId;
   if (!parentModelId) return undefined;
 
+  const candidates: ArmResourceSchema[] = [];
   for (const r of expanded) {
     if (
       r.resourceModelId === parentModelId &&
       r.metadata.resourceIdPattern
     ) {
-      return r;
+      candidates.push(r);
     }
   }
-  return undefined;
+  if (candidates.length === 0) return undefined;
+  return (
+    candidates.find((candidate) =>
+      isResourceIdPatternPrefixMatch(resource, candidate)
+    ) ?? candidates[0]
+  );
 }
