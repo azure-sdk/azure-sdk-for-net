@@ -34,14 +34,14 @@ namespace Azure.Generator.Management.Models;
 /// </summary>
 internal class OperationContext
 {
-    public static OperationContext Create(RequestPathPattern contextualPath, IReadOnlyDictionary<string, string>? constantPathParameters = null)
+    public static OperationContext Create(RequestPathPattern contextualPath)
     {
-        return new OperationContext(contextualPath, null, null, constantPathParameters);
+        return new OperationContext(contextualPath, null, null);
     }
 
-    public static OperationContext Create(RequestPathPattern contextualPath, RequestPathPattern secondaryContextualPath, Func<string, FieldProvider> fieldSelector, IReadOnlyDictionary<string, string>? constantPathParameters = null)
+    public static OperationContext Create(RequestPathPattern contextualPath, RequestPathPattern secondaryContextualPath, Func<string, FieldProvider> fieldSelector)
     {
-        return new OperationContext(contextualPath, secondaryContextualPath, fieldSelector, constantPathParameters);
+        return new OperationContext(contextualPath, secondaryContextualPath, fieldSelector);
     }
 
     public RequestPathPattern ContextualPath { get; }
@@ -53,13 +53,6 @@ internal class OperationContext
     public IReadOnlyList<ContextualParameter> SecondaryContextualPathParameters { get; }
 
     /// <summary>
-    /// Constant path parameter values for this resource.
-    /// When a resource is expanded from a dynamic parent type pattern (e.g., {parentType}),
-    /// this maps parameter names to their constant string values.
-    /// </summary>
-    public IReadOnlyDictionary<string, string>? ConstantPathParameters { get; }
-
-    /// <summary>
     /// Initializes a new instance of the OperationContext class with the specified primary and secondary request
     /// path patterns.
     /// </summary>
@@ -67,12 +60,10 @@ internal class OperationContext
     /// <param name="secondaryContextualPath">An optional secondary request path pattern that provides additional context for the operation. Can be null
     /// if no secondary context is required.</param>
     /// <param name="fieldSelector">The function to get the corresponding field for secondary contextual parameters.</param>
-    /// <param name="constantPathParameters">Optional constant path parameter values for resources expanded from dynamic parent types.</param>
-    private OperationContext(RequestPathPattern contextualPath, RequestPathPattern? secondaryContextualPath, Func<string, FieldProvider>? fieldSelector, IReadOnlyDictionary<string, string>? constantPathParameters)
+    private OperationContext(RequestPathPattern contextualPath, RequestPathPattern? secondaryContextualPath, Func<string, FieldProvider>? fieldSelector)
     {
         ContextualPath = contextualPath;
         SecondaryContextualPath = secondaryContextualPath;
-        ConstantPathParameters = constantPathParameters;
         ContextualPathParameters = BuildContextualParameters(contextualPath);
         SecondaryContextualPathParameters = secondaryContextualPath != null && fieldSelector != null ?
             BuildSecondaryContextualParameters(contextualPath, secondaryContextualPath, fieldSelector) :
@@ -309,21 +300,22 @@ internal class OperationContext
     /// prefix between the operation path and the contextual (and secondary contextual) paths.
     /// </summary>
     /// <remarks>
-    /// When <see cref="ConstantPathParameters"/> is set (for resources expanded from dynamic parent types),
-    /// the operation path is first transformed to substitute constant parameter variables with their literal values.
-    /// This allows the segment matching to work correctly even when the operation path uses variable segments
-    /// (e.g., {parentType}) where the contextual path has constants (e.g., "topics").
-    /// The constant parameters are added as contextual mappings that emit literal string values.
+    /// For resources expanded from dynamic parent types, the operation path may use a variable
+    /// segment (e.g., {parentType}) at a position where the resource's <see cref="ContextualPath"/>
+    /// has been substituted to a constant (e.g., "topics"). To make segment matching work in that
+    /// scenario, the operation path is first rewritten by walking it against the contextual path:
+    /// any operation variable whose corresponding contextual segment is a constant is replaced
+    /// with that constant value, and a literal mapping is emitted for the original variable name.
+    /// This mirrors the behavior of autorest.csharp's RequestPath.ApplyHint.
     /// </remarks>
     /// <param name="operationPath">The operation's request path.</param>
     /// <returns>A parameter mapping that maps operation parameter names to contextual parameters.</returns>
     public ParameterContextRegistry BuildParameterMapping(RequestPathPattern operationPath)
     {
-        // If there are constant path parameters, substitute them in the operation path
-        // so that segment matching works correctly between the contextual and operation paths.
-        var (effectiveOperationPath, constantMappings) = ConstantPathParameters is { Count: > 0 }
-            ? SubstituteConstantParameters(operationPath, ConstantPathParameters)
-            : (operationPath, (IReadOnlyList<ParameterContextMapping>)Array.Empty<ParameterContextMapping>());
+        // Rewrite operation path variables that the contextual path has already pinned to a
+        // constant value. This allows the segment matching below to align operation segments
+        // with contextual segments even after dynamic-parent-type expansion.
+        var (effectiveOperationPath, constantMappings) = SubstituteConstantsFromContextualPath(operationPath, ContextualPath);
 
         // we need to find the sharing part between contextual path and the incoming path
         var sharedSegmentsCount = RequestPathPattern.GetMaximumSharingSegmentsCount(ContextualPath, effectiveOperationPath);
@@ -341,14 +333,16 @@ internal class OperationContext
     }
 
     /// <summary>
-    /// Substitutes constant path parameters in the operation path, replacing variable segments
-    /// with their constant values. Returns the rewritten path along with contextual mappings
-    /// for each substituted parameter that emit the literal string value.
+    /// Walks the operation path against the contextual path. Whenever the operation path has
+    /// a variable segment at the same index where the contextual path has a constant segment,
+    /// the operation segment is replaced with that constant value and a literal contextual
+    /// mapping is emitted for the original variable name.
     /// </summary>
-    private static (RequestPathPattern Path, IReadOnlyList<ParameterContextMapping> Mappings) SubstituteConstantParameters(
+    private static (RequestPathPattern Path, IReadOnlyList<ParameterContextMapping> Mappings) SubstituteConstantsFromContextualPath(
         RequestPathPattern operationPath,
-        IReadOnlyDictionary<string, string> constantPathParameters)
+        RequestPathPattern contextualPath)
     {
+        var sharedPrefix = Math.Min(operationPath.Count, contextualPath.Count);
         var segments = new List<RequestPathSegment>(operationPath.Count);
         var mappings = new List<ParameterContextMapping>();
         bool anySubstituted = false;
@@ -356,8 +350,9 @@ internal class OperationContext
         for (int i = 0; i < operationPath.Count; i++)
         {
             var segment = operationPath[i];
-            if (!segment.IsConstant && constantPathParameters.TryGetValue(segment.VariableName, out var constantValue))
+            if (i < sharedPrefix && !segment.IsConstant && contextualPath[i].IsConstant)
             {
+                var constantValue = contextualPath[i].Value;
                 segments.Add(new RequestPathSegment(constantValue));
                 anySubstituted = true;
 

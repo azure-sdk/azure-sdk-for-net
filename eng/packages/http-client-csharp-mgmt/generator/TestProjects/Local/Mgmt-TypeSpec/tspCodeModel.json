@@ -27161,10 +27161,7 @@
                   "2024-04-01",
                   "2024-05-01"
                 ],
-                "rbacRoles": [],
-                "constantPathParameters": {
-                  "parentType": "eventGridTopics"
-                }
+                "rbacRoles": []
               },
               {
                 "resourceModelId": "MgmtTypeSpec.EventGridPrivateEndpointConnection",
@@ -27223,10 +27220,7 @@
                   "2024-04-01",
                   "2024-05-01"
                 ],
-                "rbacRoles": [],
-                "constantPathParameters": {
-                  "parentType": "eventGridDomains"
-                }
+                "rbacRoles": []
               }
             ],
             "nonResourceMethods": [

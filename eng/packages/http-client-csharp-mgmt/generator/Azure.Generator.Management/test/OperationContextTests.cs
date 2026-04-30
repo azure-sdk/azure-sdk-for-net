@@ -1023,11 +1023,12 @@ namespace Azure.Generator.Mgmt.Tests
         }
 
         [Test]
-        public void ValidateParameterMapping_ConstantPathParameters_SubstitutedAndContextual()
+        public void ValidateParameterMapping_ContextualPathConstant_SubstitutedAndContextual()
         {
-            // This test validates that when ConstantPathParameters is provided (for resources expanded
-            // from dynamic parent types), the constant parameters are correctly substituted in the
-            // operation path and treated as contextual parameters.
+            // This test validates that when the resource's ContextualPath has a constant segment
+            // at a position where the operation path has a variable (e.g. {parentType}), the
+            // operation variable is substituted with the contextual constant and treated as a
+            // contextual parameter that emits the literal value.
             //
             // Scenario: A resource at path .../topics/{parentName}/privateEndpointConnections/{name}
             // has an operation path with {parentType}/{parentName}/... where {parentType} should be
@@ -1035,8 +1036,7 @@ namespace Azure.Generator.Mgmt.Tests
 
             var contextualPath = new RequestPathPattern(
                 "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}");
-            var constantPathParameters = new Dictionary<string, string> { { "parentType", "topics" } };
-            var operationContext = OperationContext.Create(contextualPath, constantPathParameters);
+            var operationContext = OperationContext.Create(contextualPath);
 
             // Operation path uses {parentType} (dynamic) instead of "topics" (constant)
             var operationPath = new RequestPathPattern(
@@ -1067,17 +1067,13 @@ namespace Azure.Generator.Mgmt.Tests
         }
 
         [Test]
-        public void ValidateParameterMapping_ConstantPathParameters_MultipleConstants()
+        public void ValidateParameterMapping_ContextualPathConstant_MultipleConstants()
         {
-            // Test with multiple constant path parameters
+            // Test with multiple constant segments in the contextual path that line up with
+            // variable segments in the operation path.
             var contextualPath = new RequestPathPattern(
                 "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Example/topics/{parentName}/children/{childName}");
-            var constantPathParameters = new Dictionary<string, string>
-            {
-                { "parentType", "topics" },
-                { "childType", "children" }
-            };
-            var operationContext = OperationContext.Create(contextualPath, constantPathParameters);
+            var operationContext = OperationContext.Create(contextualPath);
 
             var operationPath = new RequestPathPattern(
                 "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Example/{parentType}/{parentName}/{childType}/{childName}");
@@ -1101,12 +1097,13 @@ namespace Azure.Generator.Mgmt.Tests
         }
 
         [Test]
-        public void ValidateParameterMapping_NullConstantPathParameters_BehavesNormally()
+        public void ValidateParameterMapping_NoSubstitutionNeeded_BehavesNormally()
         {
-            // Verify that when ConstantPathParameters is null, BuildParameterMapping works the same as before
+            // Verify that when the contextual path has no constants aligned with operation
+            // variables, BuildParameterMapping behaves as the basic position-based matching.
             var contextualPath = new RequestPathPattern(
                 "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Example/examples/{exampleName}");
-            var operationContext = OperationContext.Create(contextualPath, constantPathParameters: null);
+            var operationContext = OperationContext.Create(contextualPath);
 
             var operationPath = new RequestPathPattern(
                 "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Example/examples/{name}/children/{childName}");
@@ -1123,36 +1120,13 @@ namespace Azure.Generator.Mgmt.Tests
         }
 
         [Test]
-        public void ValidateParameterMapping_EmptyConstantPathParameters_BehavesNormally()
-        {
-            // Verify that when ConstantPathParameters is empty, BuildParameterMapping works the same as before
-            var contextualPath = new RequestPathPattern(
-                "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Example/examples/{exampleName}");
-            var operationContext = OperationContext.Create(contextualPath, new Dictionary<string, string>());
-
-            var operationPath = new RequestPathPattern(
-                "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Example/examples/{name}/children/{childName}");
-
-            var registry = operationContext.BuildParameterMapping(operationPath);
-
-            // "name" should match contextual (position-based matching)
-            Assert.That(registry.TryGetValue("name", out var nameMapping), Is.True);
-            Assert.That(nameMapping!.ContextualParameter, Is.Not.Null);
-
-            // "childName" should be pass-through
-            Assert.That(registry.TryGetValue("childName", out var childMapping), Is.True);
-            Assert.That(childMapping!.ContextualParameter, Is.Null);
-        }
-
-        [Test]
-        public void ValidateParameterMapping_SecondaryPath_WithConstantPathParameters_SubstitutedAndContextual()
+        public void ValidateParameterMapping_SecondaryPath_WithContextualPathConstant_SubstitutedAndContextual()
         {
             // Validates that when an expanded dynamic-parent resource also has a List operation
             // (which causes the collection to be created via the secondary-path overload of
-            // OperationContext.Create), ConstantPathParameters are still threaded through and
-            // applied to the operation path matching, so the dynamic {parentType} parameter is
-            // substituted with its constant value rather than appearing in the generated
-            // method signature.
+            // OperationContext.Create), the contextual constant ("topics") substitution still
+            // applies to the operation path so the dynamic {parentType} parameter is replaced
+            // with its constant value rather than appearing in the generated method signature.
 
             var primaryPath = new RequestPathPattern(
                 "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{parentName}");
@@ -1170,8 +1144,7 @@ namespace Azure.Generator.Mgmt.Tests
                 return field;
             };
 
-            var constantPathParameters = new Dictionary<string, string> { { "parentType", "topics" } };
-            var operationContext = OperationContext.Create(primaryPath, secondaryPath, fieldSelector, constantPathParameters);
+            var operationContext = OperationContext.Create(primaryPath, secondaryPath, fieldSelector);
 
             // Operation path uses the dynamic {parentType} segment instead of the literal "topics".
             var operationPath = new RequestPathPattern(

@@ -733,19 +733,26 @@ function deriveMethodResponseModelIdMap(
  * Style: regular function declaration (instead of an arrow stored in a const)
  * is the convention used elsewhere in this file. Used by the parent-lookup
  * builder to pick among multiple candidate parents that share the same
- * resourceInstancePath but differ in constant path parameter values.
+ * resourceInstancePath but differ in their substituted `resourceIdPattern`
+ * (e.g., resources expanded from a `{parentType}` dynamic segment).
+ *
+ * The resource's own `resourceIdPattern` is built by appending child segments
+ * onto the parent's substituted pattern, so the correct candidate is the one
+ * whose `resourceIdPattern.path` is a prefix of the resource's
+ * `resourceIdPattern.path`.
  */
-function hasMatchingConstantPathParameters(
+function isResourceIdPatternPrefixMatch(
   resource: ArmResourceSchema,
   candidate: ArmResourceSchema
 ): boolean {
-  const candidateConstants = candidate.metadata.constantPathParameters;
-  if (!candidateConstants || Object.keys(candidateConstants).length === 0) {
-    return true;
-  }
-  const resourceConstants = resource.metadata.constantPathParameters ?? {};
-  return Object.entries(candidateConstants).every(
-    ([name, value]) => resourceConstants[name] === value
+  const candidatePath = candidate.metadata.resourceIdPattern?.path;
+  const resourcePath = resource.metadata.resourceIdPattern?.path;
+  if (!candidatePath || !resourcePath) return true;
+  // Prefix must be followed by a path separator to avoid matching a partial
+  // segment (e.g., "/topics" vs "/topicspaces").
+  return (
+    resourcePath === candidatePath ||
+    resourcePath.startsWith(candidatePath + "/")
   );
 }
 
@@ -776,7 +783,8 @@ function buildResolveArmResourcesParentLookup(
 
   // When the parent itself was expanded (rare nested case), multiple
   // ArmResourceSchemas may share the same resourceInstancePath, so candidates
-  // are grouped and disambiguated by matching constant path parameters.
+  // are grouped and disambiguated by checking which candidate's substituted
+  // resourceIdPattern is a prefix of the resource's resourceIdPattern.
   const validResourceMap = new Map<string, ArmResourceSchema[]>();
   for (const r of expanded.filter(
     (resource) => resource.metadata.resourceIdPattern !== undefined
@@ -805,7 +813,7 @@ function buildResolveArmResourcesParentLookup(
         if (parentResources && parentResources.length > 0) {
           return (
             parentResources.find((candidate) =>
-              hasMatchingConstantPathParameters(resource, candidate)
+              isResourceIdPatternPrefixMatch(resource, candidate)
             ) ?? parentResources[0]
           );
         }

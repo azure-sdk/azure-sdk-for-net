@@ -4142,13 +4142,6 @@ interface PrivateEndpointConnections {
       "Both expanded resources should share the same model"
     );
 
-    // Verify expanded resources have constantPathParameters
-    ok(topicPec.metadata.constantPathParameters);
-    strictEqual(topicPec.metadata.constantPathParameters["parentType"], "topics");
-
-    ok(domainPec.metadata.constantPathParameters);
-    strictEqual(domainPec.metadata.constantPathParameters["parentType"], "domains");
-
     // Verify the resource ID patterns are concrete (no dynamic segments in type positions)
     ok(
       topicPec.metadata.resourceIdPattern.path.includes("/topics/"),
