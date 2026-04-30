@@ -801,25 +801,37 @@ function buildResolveArmResourcesParentLookup(
   }
 
   return {
-    getParentResource: (
-      resource: ArmResourceSchema
-    ): ArmResourceSchema | undefined => {
-      const resolved = schemaToResolvedResource.get(resource);
-      if (!resolved) return undefined;
-
-      let parent = resolved.parent;
-      while (parent) {
-        const parentResources = validResourceMap.get(parent.resourceInstancePath);
-        if (parentResources && parentResources.length > 0) {
-          return (
-            parentResources.find((candidate) =>
-              isResourceIdPatternPrefixMatch(resource, candidate)
-            ) ?? parentResources[0]
-          );
-        }
-        parent = parent.parent;
-      }
-      return undefined;
-    }
+    getParentResource: (resource: ArmResourceSchema) =>
+      findParentResource(resource, schemaToResolvedResource, validResourceMap)
   };
+}
+
+/**
+ * Walks the {@link ResolvedResource} parent chain from `resource` upward and
+ * returns the first ArmResourceSchema candidate that matches a parent in the
+ * lookup map. When multiple candidates share the same resourceInstancePath
+ * (nested dynamic-parent expansion), the candidate whose substituted
+ * resourceIdPattern is a prefix of the resource's resourceIdPattern is chosen.
+ */
+function findParentResource(
+  resource: ArmResourceSchema,
+  schemaToResolvedResource: ReadonlyMap<ArmResourceSchema, ResolvedResource>,
+  validResourceMap: ReadonlyMap<string, ArmResourceSchema[]>
+): ArmResourceSchema | undefined {
+  const resolved = schemaToResolvedResource.get(resource);
+  if (!resolved) return undefined;
+
+  let parent = resolved.parent;
+  while (parent) {
+    const parentResources = validResourceMap.get(parent.resourceInstancePath);
+    if (parentResources && parentResources.length > 0) {
+      return (
+        parentResources.find((candidate) =>
+          isResourceIdPatternPrefixMatch(resource, candidate)
+        ) ?? parentResources[0]
+      );
+    }
+    parent = parent.parent;
+  }
+  return undefined;
 }
